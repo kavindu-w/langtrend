@@ -1,0 +1,17 @@
+---
+const { manifest } = Astro.props;
+const cards = [
+  { label: 'Papers scanned', value: manifest.counts.papers },
+  { label: 'Flagged papers', value: manifest.counts.flagged_papers },
+  { label: 'Unique languages', value: manifest.counts.unique_languages },
+  { label: 'Window', value: `${manifest.window_days} days` },
+];
+---
+<section class="stat-grid">
+  {cards.map((card) => (
+    <article class="stat-card">
+      <span>{card.label}</span>
+      <strong>{card.value}</strong>
+    </article>
+  ))}
+</section>

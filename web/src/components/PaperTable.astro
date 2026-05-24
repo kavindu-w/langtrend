@@ -1,0 +1,81 @@
+---
+import { colorForLanguage, compactAuthors } from '../lib/data.js';
+
+const { flaggedPapers } = Astro.props;
+const normalizeLanguage = (entry) => (typeof entry === 'string' ? entry : entry?.language ?? '');
+const languages = [...new Set(flaggedPapers.flatMap((item) => item.languages.map(normalizeLanguage)).filter(Boolean))].sort();
+---
+<section class="panel paper-panel">
+  <div class="panel-head">
+    <div>
+      <h2>Flagged papers</h2>
+      <p>Filter by language tiles or search by title and author.</p>
+    </div>
+    <input id="paper-search" class="search-input" type="search" placeholder="Search papers" />
+  </div>
+
+  <div class="chip-row" id="language-filters">
+    <button class="chip active" type="button" data-lang="all">All</button>
+    {languages.map((language) => (
+      <button class="chip" type="button" data-lang={language}>{language}</button>
+    ))}
+  </div>
+
+  <div class="paper-list" id="paper-list">
+    {flaggedPapers.map((item) => {
+      const paper = item.paper;
+      const chipLanguages = item.languages.map(normalizeLanguage).filter(Boolean);
+      const searchText = `${paper.title} ${paper.authors.join(' ')}`.toLowerCase();
+      return (
+        <article class="paper-row" data-search={searchText} data-languages={chipLanguages.join('|')}>
+          <div class="paper-main">
+            <div class="paper-title-row">
+              <h3>{paper.title}</h3>
+              <a class="pdf-link" href={paper.pdf_url} target="_blank" rel="noreferrer">PDF</a>
+            </div>
+            <p class="paper-authors">{compactAuthors(paper.authors)}</p>
+            <p class="paper-abstract">{paper.abstract}</p>
+          </div>
+          <div class="paper-tags">
+            {item.languages.map((entry) => {
+              const language = normalizeLanguage(entry);
+              return (
+                <span class="lang-chip" style={`background:${colorForLanguage(language)}`}>{language}</span>
+              );
+            })}
+          </div>
+        </article>
+      );
+    })}
+  </div>
+</section>
+
+<script>
+  const searchInput = document.getElementById('paper-search');
+  const chips = Array.from(document.querySelectorAll('#language-filters .chip'));
+  const rows = Array.from(document.querySelectorAll('#paper-list .paper-row'));
+  let activeLanguage = 'all';
+
+  function applyFilters() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+    rows.forEach((row) => {
+      const rowSearch = row.dataset.search || '';
+      const rowLanguages = (row.dataset.languages || '').split('|').filter(Boolean);
+      const matchesLanguage = activeLanguage === 'all' || rowLanguages.includes(activeLanguage);
+      const matchesSearch = !searchTerm || rowSearch.includes(searchTerm);
+      row.style.display = matchesLanguage && matchesSearch ? 'grid' : 'none';
+    });
+  }
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      chips.forEach((item) => item.classList.remove('active'));
+      chip.classList.add('active');
+      activeLanguage = chip.dataset.lang || 'all';
+      applyFilters();
+    });
+  });
+
+  searchInput.addEventListener('input', applyFilters);
+  applyFilters();
+</script>

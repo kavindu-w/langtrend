@@ -1,0 +1,86 @@
+---
+const { languageCounts, weekSeries, topLanguages } = Astro.props;
+
+const totalPapers = weekSeries.reduce((sum, item) => sum + item.papers, 0) || 1;
+const totalFlagged = weekSeries.reduce((sum, item) => sum + item.flagged, 0) || 1;
+const flaggedRatio = Math.round((totalFlagged / totalPapers) * 100);
+const maxCount = Math.max(1, ...languageCounts.map((item) => item.count));
+const totalLanguages = languageCounts.reduce((sum, item) => sum + item.count, 0) || 1;
+---
+<section class="dashboard-grid">
+  <article class="panel chart-panel">
+    <div class="panel-head">
+      <h2>Language inclusion trend</h2>
+      <p>Flagged language mentions across the current window.</p>
+    </div>
+    <div class="bar-chart">
+      {languageCounts.slice(0, 10).map((item) => (
+        <div class="bar-row">
+          <span>{item.language}</span>
+          <div class="bar-track">
+            <div class="bar-fill" style={`width:${Math.max(8, (item.count / maxCount) * 100)}%`}></div>
+          </div>
+          <strong>{item.count}</strong>
+        </div>
+      ))}
+    </div>
+  </article>
+
+  <article class="panel chart-panel">
+    <div class="panel-head">
+      <h2>Flagged ratio</h2>
+      <p>Share of papers that mention tracked languages.</p>
+    </div>
+    <div class="donut-wrap">
+      <div class="donut" style={`--donut:${flaggedRatio}`}></div>
+      <div class="donut-copy">
+        <strong>{flaggedRatio}%</strong>
+        <span>flagged</span>
+      </div>
+    </div>
+    <div class="mini-metrics">
+      <div><span>Papers</span><strong>{totalPapers}</strong></div>
+      <div><span>Flagged</span><strong>{totalFlagged}</strong></div>
+    </div>
+  </article>
+
+  <article class="panel chart-panel wide-panel">
+    <div class="panel-head">
+      <h2>Weekly trend</h2>
+      <p>Scan output by date; useful for daily or weekly digests.</p>
+    </div>
+    <div class="line-placeholder">
+      {weekSeries.length > 0 ? (
+        <div class="trend-bars">
+          {weekSeries.map((item) => (
+            <div class="trend-col">
+              <div class="trend-stack">
+                <span class="trend-paper" style={`height:${Math.max(12, (item.papers / totalPapers) * 220)}px`}></span>
+                <span class="trend-flagged" style={`height:${Math.max(8, (item.flagged / totalPapers) * 220)}px`}></span>
+              </div>
+              <small>{item.date.slice(5)}</small>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="placeholder-text">Trend data will appear after the first scheduled snapshot.</p>
+      )}
+    </div>
+  </article>
+
+  <article class="panel chart-panel">
+    <div class="panel-head">
+      <h2>Top languages</h2>
+      <p>Most frequent mentions in the current snapshot.</p>
+    </div>
+    <ul class="top-lang-list">
+      {topLanguages.map((item) => (
+        <li>
+          <span class="lang-swatch" style={`background:${item.color}`}></span>
+          <span>{item.language}</span>
+          <strong>{item.count}</strong>
+        </li>
+      ))}
+    </ul>
+  </article>
+</section>
