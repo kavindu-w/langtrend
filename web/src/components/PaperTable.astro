@@ -44,7 +44,12 @@ const languages = [...new Set(flaggedPapers.flatMap((item: FlaggedPaper) => item
             <div class="paper-main">
               <div class="paper-title-row">
                 <h3>{paper.title}</h3>
-                <a class="pdf-link" href={paper.pdf_url} target="_blank" rel="noreferrer">PDF</a>
+                <a class="pdf-link" href={paper.pdf_url} target="_blank" rel="noreferrer">
+                  <svg class="pdf-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7zm0 1.5V8h4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                  </svg>
+                  <span>PDF</span>
+                </a>
               </div>
               <p class="paper-authors" title={authorDisplay.title}>{authorDisplay.display}</p>
             </div>
