@@ -1,5 +1,5 @@
 ---
-import { colorForLanguage, compactAuthors } from '../lib/data.js';
+import { colorForLanguage, formatAuthors } from '../lib/data.js';
 
 type LanguageEntry = string | { language?: string | null };
 type PaperRecord = {
@@ -35,27 +35,32 @@ const languages = [...new Set(flaggedPapers.flatMap((item: FlaggedPaper) => item
   <div class="paper-list" id="paper-list">
     {flaggedPapers.map((item: FlaggedPaper) => {
       const paper = item.paper;
+      const authorDisplay = formatAuthors(paper.authors);
       const chipLanguages = item.languages.map(normalizeLanguage).filter(Boolean);
       const searchText = `${paper.title} ${paper.authors.join(' ')}`.toLowerCase();
       return (
-        <article class="paper-row" data-search={searchText} data-languages={chipLanguages.join('|')}>
-          <div class="paper-main">
-            <div class="paper-title-row">
-              <h3>{paper.title}</h3>
-              <a class="pdf-link" href={paper.pdf_url} target="_blank" rel="noreferrer">PDF</a>
+        <details class="paper-row" data-search={searchText} data-languages={chipLanguages.join('|')}>
+          <summary class="paper-summary">
+            <div class="paper-main">
+              <div class="paper-title-row">
+                <h3>{paper.title}</h3>
+                <a class="pdf-link" href={paper.pdf_url} target="_blank" rel="noreferrer">PDF</a>
+              </div>
+              <p class="paper-authors" title={authorDisplay.title}>{authorDisplay.display}</p>
             </div>
-            <p class="paper-authors">{compactAuthors(paper.authors)}</p>
+            <div class="paper-tags">
+              {item.languages.map((entry: LanguageEntry) => {
+                const language = normalizeLanguage(entry);
+                return (
+                  <span class="lang-chip" style={`background:${colorForLanguage(language)}`}>{language}</span>
+                );
+              })}
+            </div>
+          </summary>
+          <div class="paper-body">
             <p class="paper-abstract">{paper.abstract}</p>
           </div>
-          <div class="paper-tags">
-            {item.languages.map((entry: LanguageEntry) => {
-              const language = normalizeLanguage(entry);
-              return (
-                <span class="lang-chip" style={`background:${colorForLanguage(language)}`}>{language}</span>
-              );
-            })}
-          </div>
-        </article>
+        </details>
       );
     })}
   </div>

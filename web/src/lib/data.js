@@ -95,8 +95,19 @@ export function colorForLanguage(language) {
   return palette[hash % palette.length];
 }
 
-export function compactAuthors(authors) {
-  if (!authors || authors.length === 0) return 'Unknown authors';
-  if (authors.length <= 3) return authors.join(', ');
-  return `${authors.slice(0, 3).join(', ')} et al.`;
+export function formatAuthors(authors, maxLength = 72) {
+  const fullList = Array.isArray(authors) && authors.length > 0 ? authors.join(', ') : 'Unknown authors';
+
+  if (fullList === 'Unknown authors' || fullList.length <= maxLength) {
+    return {
+      display: fullList,
+      title: fullList,
+    };
+  }
+
+  const shortList = authors.slice(0, 3).join(', ');
+  return {
+    display: `${shortList} et al.`,
+    title: fullList,
+  };
 }
