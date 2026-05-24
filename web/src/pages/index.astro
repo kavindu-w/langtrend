@@ -22,8 +22,19 @@ type WeekPoint = {
         Weekly arXiv mining, language detection, and research trend summaries for NLP and CL.
       </p>
       <div class="hero-actions">
-        <a class="primary-btn" href="#flagged-papers">Browse papers</a>
-        <a class="secondary-btn" href="/about">About the pipeline</a>
+        <a class="primary-btn" href="#statistics">
+          <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M5 19h14v2H3V3h2v16Zm3-3V8h3v8H8Zm5 0V5h3v11h-3Zm5 0v-6h3v6h-3Z" fill="currentColor" />
+          </svg>
+          <span>Browse Statistics</span>
+        </a>
+        <a class="secondary-btn" href="/about">
+          <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M11 10h2v7h-2zm0-4h2v2h-2z" fill="currentColor" />
+            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" fill="currentColor" />
+          </svg>
+          <span>About The Pipeline</span>
+        </a>
       </div>
     </div>
 
@@ -44,10 +55,28 @@ type WeekPoint = {
     </aside>
   </section>
 
-  <StatCards manifest={data.manifest} />
-  <TrendCharts languageCounts={data.languageCounts} weekSeries={data.weekSeries} topLanguages={data.topLanguages} />
-
-  <section id="flagged-papers">
+  <details id="flagged-papers" class="paper-collapse panel" open>
+    <summary class="paper-collapse-summary">
+      <div>
+        <h2>Flagged papers</h2>
+        <p>Click to expand or collapse the current snapshot list.</p>
+      </div>
+      <span class="paper-collapse-hint">Collapse</span>
+    </summary>
     <PaperTable flaggedPapers={data.flaggedPapers} />
-  </section>
+  </details>
+
+  <details id="statistics" class="stats-collapse panel" open>
+    <summary class="paper-collapse-summary">
+      <div>
+        <h2>Statistics</h2>
+        <p>Dashboard summary for the current snapshot.</p>
+      </div>
+      <span class="paper-collapse-hint">Collapse</span>
+    </summary>
+    <div class="dashboard-section">
+      <StatCards manifest={data.manifest} />
+      <TrendCharts languageCounts={data.languageCounts} weekSeries={data.weekSeries} topLanguages={data.topLanguages} />
+    </div>
+  </details>
 </BaseLayout>
