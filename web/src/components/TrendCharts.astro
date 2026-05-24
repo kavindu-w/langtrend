@@ -1,93 +1,174 @@
 ---
+import { arc, pie, scaleBand, scaleLinear } from 'd3';
+import { LANGUAGE_CLASS_COLORS, languageBorderClass } from '../lib/language-colors.js';
+
 type LanguageCount = { language: string; count: number };
 type WeekPoint = { date: string; papers: number; flagged: number };
 type TopLanguage = { language: string; count: number; color: string };
+type WeekDonutSegment = { label: string; value: number; color: string };
 
 const { languageCounts, weekSeries, topLanguages } = Astro.props as {
   languageCounts: LanguageCount[];
   weekSeries: WeekPoint[];
   topLanguages: TopLanguage[];
+  languageData: { lang_classes?: Record<string, unknown[]> };
+  manifest: {
+    papers?: unknown[];
+    flagged_papers?: unknown[];
+  };
 };
 
-const totalPapers = weekSeries.reduce((sum: number, item: WeekPoint) => sum + item.papers, 0) || 1;
-const totalFlagged = weekSeries.reduce((sum: number, item: WeekPoint) => sum + item.flagged, 0) || 1;
-const flaggedRatio = Math.round((totalFlagged / totalPapers) * 100);
-const maxCount = Math.max(1, ...languageCounts.map((item: LanguageCount) => item.count));
----
-<section class="dashboard-grid">
-  <article class="panel chart-panel">
-    <div class="panel-head">
-      <h2>Language inclusion trend</h2>
-      <p>Flagged language mentions across the current window.</p>
-    </div>
-    <div class="bar-chart">
-      {languageCounts.slice(0, 10).map((item: LanguageCount) => (
-        <div class="bar-row">
-          <span>{item.language}</span>
-          <div class="bar-track">
-            <div class="bar-fill" style={`width:${Math.max(8, (item.count / maxCount) * 100)}%`}></div>
-          </div>
-          <strong>{item.count}</strong>
-        </div>
-      ))}
-    </div>
-  </article>
+const scannedCount = (Astro.props.manifest.flagged_papers || []).length;
+const totalCount = (Astro.props.manifest.papers || []).length;
+const nonScannedCount = Math.max(totalCount - scannedCount, 0);
+const donutTotal = Math.max(totalCount, 1);
+const sortedLanguageCounts = [...languageCounts].sort((left: LanguageCount, right: LanguageCount) => {
+  const countDelta = right.count - left.count;
+  if (countDelta !== 0) {
+    return countDelta;
+  }
+  return left.language.localeCompare(right.language);
+});
+const langClasses = Astro.props.languageData?.lang_classes || {};
+const topTenLanguages = [...topLanguages]
+  .sort((left: TopLanguage, right: TopLanguage) => {
+    const countDelta = right.count - left.count;
+    if (countDelta !== 0) {
+      return countDelta;
+    }
+    return left.language.localeCompare(right.language);
+  })
+  .slice(0, 10);
 
-  <article class="panel chart-panel">
+function formatWeekRange(series: WeekPoint[]) {
+  if (series.length === 0) {
+    return 'the current window';
+  }
+
+  const start = new Date(`${series[0].date}T00:00:00`);
+  const end = new Date(`${series[series.length - 1].date}T00:00:00`);
+  const startLabel = start.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+  const endLabel = end.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+  return `The Week of ${startLabel}–${endLabel}`;
+}
+
+const weekLabel = formatWeekRange(weekSeries);
+
+const donutSegments: WeekDonutSegment[] = [
+  { label: 'Flagged', value: scannedCount, color: LANGUAGE_CLASS_COLORS[4] },
+  { label: 'Not flagged', value: nonScannedCount, color: 'rgba(32, 22, 19, 0.18)' },
+];
+const donutPie = pie<WeekDonutSegment>().sort(null).value((segment: WeekDonutSegment) => segment.value);
+const donutArc = arc().innerRadius(68).outerRadius(96);
+const donutOuterArc = arc().innerRadius(100).outerRadius(170);
+const donutSlices: import('d3').PieArcDatum<WeekDonutSegment>[] = donutPie(donutSegments);
+
+const barChartWidth = Math.max(560, sortedLanguageCounts.length * 54);
+const barChartHeight = 320;
+const barMargins = { top: 18, right: 18, bottom: 78, left: 34 };
+const barInnerWidth = barChartWidth - barMargins.left - barMargins.right;
+const barInnerHeight = barChartHeight - barMargins.top - barMargins.bottom;
+const maxLanguageCount = Math.max(1, ...sortedLanguageCounts.map((item: LanguageCount) => item.count));
+const xScale = scaleBand()
+  .domain(sortedLanguageCounts.map((item: LanguageCount) => item.language))
+  .range([0, barInnerWidth])
+  .padding(0.24);
+const yScale = scaleLinear().domain([0, maxLanguageCount]).nice().range([barInnerHeight, 0]);
+
+function classColor(language: string) {
+  const index = languageBorderClass(language, langClasses);
+  return LANGUAGE_CLASS_COLORS[index] || LANGUAGE_CLASS_COLORS[0];
+}
+---
+<section class="stats-stack">
+  <article class="panel chart-panel wide-panel">
     <div class="panel-head">
-      <h2>Flagged ratio</h2>
-      <p>Share of papers that mention tracked languages.</p>
-    </div>
-    <div class="donut-wrap">
-      <div class="donut" style={`--donut:${flaggedRatio}`}></div>
-      <div class="donut-copy">
-        <strong>{flaggedRatio}%</strong>
-        <span>flagged</span>
+      <div>
+        <h2 id="weekly-stat-title">For {weekLabel}</h2>
+        <p>Scanned vs non-scanned papers, plus the language counts for this week.</p>
       </div>
     </div>
-    <div class="mini-metrics">
-      <div><span>Papers</span><strong>{totalPapers}</strong></div>
-      <div><span>Flagged</span><strong>{totalFlagged}</strong></div>
+    <div class="weekly-overview">
+      <div class="donut-wrap">
+        <svg class="donut-svg" viewBox="0 0 520 240" role="img" aria-label={`Weekly paper total ${donutTotal}, with ${scannedCount} flagged and ${nonScannedCount} not flagged`} overflow="visible">
+          <defs>
+            <marker id="week-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+            </marker>
+          </defs>
+          <g transform="translate(260 120)">
+              {donutSlices.map((slice) => {
+                const mid = ((slice.startAngle || 0) + (slice.endAngle || 0)) / 2;
+                const innerCent = donutArc.centroid(slice as never) as [number, number];
+                const outerCent = donutOuterArc.centroid(slice as never) as [number, number];
+                const labelX = outerCent[0] + (mid < Math.PI ? 28 : -28);
+                const labelY = outerCent[1];
+                const anchor = mid < Math.PI ? 'start' : 'end';
+                return (
+                  <g key={slice.data.label}>
+                    <path d={donutArc(slice as never) || undefined} fill={slice.data.color} stroke="var(--panel)" stroke-width="3"></path>
+                    <polyline points={`${innerCent[0]},${innerCent[1]} ${outerCent[0]},${outerCent[1]} ${labelX},${labelY}`} fill="none" stroke="var(--text)" stroke-width="1.4" stroke-linecap="round"></polyline>
+                    <text x={labelX} y={labelY} dy="4" text-anchor={anchor} class="donut-slice-label">{slice.data.label} <tspan font-weight="700" dx="6">({slice.data.value})</tspan></text>
+                  </g>
+                );
+              })}
+            <circle r="64" fill="var(--panel)"></circle>
+            <text text-anchor="middle" dominant-baseline="middle" class="donut-total">{totalCount}</text>
+            <text text-anchor="middle" dominant-baseline="middle" dy="20" class="donut-total-label">papers analysed</text>
+          </g>
+        </svg>
+      </div>
+      <div class="bar-chart-shell">
+        <div class="bar-chart-scroll">
+          <svg class="language-bar-chart" width="100%" height={barChartHeight} viewBox={`0 0 ${barChartWidth} ${barChartHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Language counts vertical bar chart">
+            <g transform={`translate(${barMargins.left} ${barMargins.top})`}>
+              {yScale.ticks(4).map((tick: number) => (
+                <g transform={`translate(0 ${yScale(tick)})`}>
+                  <line x1="0" x2={barInnerWidth} y1="0" y2="0" stroke="rgba(32, 22, 19, 0.08)"></line>
+                  <text x="-10" y="4" text-anchor="end" class="bar-axis-label">{tick}</text>
+                </g>
+              ))}
+              {sortedLanguageCounts.map((item: LanguageCount) => {
+                const x = xScale(item.language) || 0;
+                const barWidth = xScale.bandwidth();
+                const barHeight = barInnerHeight - yScale(item.count);
+                const fill = classColor(item.language);
+                return (
+                  <g transform={`translate(${x} 0)`}>
+                    <rect x="0" y={yScale(item.count)} width={barWidth} height={Math.max(0, barHeight)} fill={fill} stroke={fill} stroke-width="2"></rect>
+                    <text x={barWidth / 2} y={yScale(item.count) - 8} text-anchor="middle" class="bar-value">{item.count}</text>
+                    <text x={barWidth / 2} y={barInnerHeight + 18} text-anchor="middle" class="bar-label">
+                      <tspan x={barWidth / 2} dy="0">{item.language}</tspan>
+                    </text>
+                  </g>
+                );
+              })}
+            </g>
+          </svg>
+        </div>
+      </div>
     </div>
   </article>
 
   <article class="panel chart-panel wide-panel">
     <div class="panel-head">
-      <h2>Weekly trend</h2>
-      <p>Scan output by date; useful for daily or weekly digests.</p>
+      <div>
+        <h2>Overall trend</h2>
+        <p>Side-by-side placeholder view of the top 10 languages.</p>
+      </div>
     </div>
-    <div class="line-placeholder">
-      {weekSeries.length > 0 ? (
-        <div class="trend-bars">
-          {weekSeries.map((item: WeekPoint) => (
-            <div class="trend-col">
-              <div class="trend-stack">
-                <span class="trend-paper" style={`height:${Math.max(12, (item.papers / totalPapers) * 220)}px`}></span>
-                <span class="trend-flagged" style={`height:${Math.max(8, (item.flagged / totalPapers) * 220)}px`}></span>
-              </div>
-              <small>{item.date.slice(5)}</small>
-            </div>
-          ))}
-        </div>
+    <div class="top-language-grid">
+      {topTenLanguages.length > 0 ? (
+        topTenLanguages.map((item: TopLanguage) => (
+          <article class="top-language-card">
+            <span class="lang-swatch" style={`background:${item.color}`}></span>
+            <strong>{item.language}</strong>
+            <span>{item.count}</span>
+          </article>
+        ))
       ) : (
-        <p class="placeholder-text">Trend data will appear after the first scheduled snapshot.</p>
+        <p class="placeholder-text">Top language placeholders will appear here once the weekly snapshot is populated.</p>
       )}
     </div>
-  </article>
-
-  <article class="panel chart-panel">
-    <div class="panel-head">
-      <h2>Top languages</h2>
-      <p>Most frequent mentions in the current snapshot.</p>
-    </div>
-    <ul class="top-lang-list">
-      {topLanguages.map((item: TopLanguage) => (
-        <li>
-          <span class="lang-swatch" style={`background:${item.color}`}></span>
-          <span>{item.language}</span>
-          <strong>{item.count}</strong>
-        </li>
-      ))}
-    </ul>
   </article>
 </section>

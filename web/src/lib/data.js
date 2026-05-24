@@ -26,6 +26,45 @@ function readJsonl(filePath) {
   }
 }
 
+function normalizeLanguageEntry(entry) {
+  if (typeof entry === 'string') {
+    return entry;
+  }
+
+  if (Array.isArray(entry)) {
+    return entry[0] || '';
+  }
+
+  if (entry && typeof entry === 'object') {
+    return entry.language || entry.name || '';
+  }
+
+  return '';
+}
+
+function countLanguages(flaggedPapers) {
+  const counts = new Map();
+  for (const item of flaggedPapers) {
+    for (const entry of item.languages || []) {
+      const language = normalizeLanguageEntry(entry);
+      if (!language) {
+        continue;
+      }
+      counts.set(language, (counts.get(language) || 0) + 1);
+    }
+  }
+
+  return [...counts.entries()]
+    .map(([language, count]) => ({ language, count }))
+    .sort((left, right) => {
+      const countDelta = right.count - left.count;
+      if (countDelta !== 0) {
+        return countDelta;
+      }
+      return left.language.localeCompare(right.language);
+    });
+}
+
 function fallbackManifest(windowDays = 7) {
   const papers = readJsonl(path.join(dataRoot, 'raw', `arxiv_papers_last_${windowDays}_days.jsonl`));
   const flagged = readJsonl(
@@ -61,7 +100,7 @@ export function loadSiteData(windowDays = 7) {
     languages: item.languages || [],
   }));
 
-  const languageCounts = manifest.language_counts || [];
+  const languageCounts = countLanguages(flaggedPapers);
   const topLanguages = languageCounts.slice(0, 12).map((item, index) => ({
     ...item,
     color: colorForIndex(index),

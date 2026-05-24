@@ -1,5 +1,14 @@
 const BORDER_CLASS_COUNT = 6;
 
+export const LANGUAGE_CLASS_COLORS = [
+  '#cfe8f3',
+  '#a2d4ec',
+  '#73bfe2',
+  '#46abdb',
+  '#1696d2',
+  '#12719e',
+];
+
 export const LANGUAGE_FILL_PALETTE = [
   '#f7fbfd',
   '#fdf7f2',

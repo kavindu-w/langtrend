@@ -40,10 +40,22 @@ function startOfWeek(d) {
 }
 
 function fmtShort(d) { return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }); }
+function fmtShortDayMonth(d) { return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short' }); }
 function fmtTitle(start) {
   const end = new Date(start);
   end.setDate(end.getDate() + 6);
-  return `The Week of ${fmtShort(start)}–${fmtShort(end)}`;
+  return `The Week of ${fmtShortDayMonth(start)}–${fmtShortDayMonth(end)}`;
+}
+
+function updateWeekTitle(start) {
+  const text = fmtTitle(start);
+  if (title) {
+    title.textContent = text;
+  }
+  const statsTitle = document.getElementById('weekly-stat-title');
+  if (statsTitle) {
+    statsTitle.textContent = `For ${text}`;
+  }
 }
 
 let bgEventId = 'selected-week-bg';
@@ -58,7 +70,7 @@ const calendar = new Calendar(root, {
       showToast('Data is only available from May 18, 2026.');
       return;
     }
-    title.textContent = fmtTitle(start);
+    updateWeekTitle(start);
     // highlight week
     setSelectedWeek(start);
     // placeholder navigation toast
@@ -93,7 +105,7 @@ function setSelectedWeek(start) {
     backgroundColor: 'rgba(15,108,93,0.12)',
     classNames: ['selected-week-bg']
   });
-  title.textContent = fmtTitle(start);
+  updateWeekTitle(start);
   updateUrlForWeek(start);
 }
 
