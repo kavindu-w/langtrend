@@ -1,0 +1,28 @@
+---
+import '../styles/global.css';
+
+const { title = 'LangTrend', description = 'LangTrend dashboard for language inclusion in NLP papers' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="/">LangTrend</a>
+        <nav class="navlinks">
+          <a href="/papers">Papers</a>
+          <a href="/about">About</a>
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

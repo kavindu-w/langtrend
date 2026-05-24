@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadSiteData } from '../lib/data.js';
+
+const data = loadSiteData(7);
+const classes = data.languageData.lang_classes || {};
+---
+<BaseLayout title="About LangTrend" description="Pipeline, limits, and references for LangTrend">
+  <section class="page-intro">
+    <h1>About</h1>
+    <p>Pipeline notes, language classes, references, and planned digest integrations.</p>
+  </section>
+
+  <section class="panel about-grid">
+    <article>
+      <h2>Pipeline diagram</h2>
+      <div class="diagram-placeholder">Placeholder for pipeline diagram</div>
+    </article>
+    <article>
+      <h2>References</h2>
+      <ol class="ref-list">
+        <li>Shoulders of Giants: A Look at the Degree and Utility of Openness in NLP Research (2024)</li>
+        <li>Some Languages are More Equal than Others: Probing Deeper into the Linguistic Disparity in the NLP World (2022)</li>
+      </ol>
+    </article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Language classes</h2>
+      <p>Current six-class availability grouping from the existing codebase.</p>
+    </div>
+    <table class="class-table">
+      <thead>
+        <tr><th>Class</th><th>Languages</th></tr>
+      </thead>
+      <tbody>
+        {Object.entries(classes).map(([classId, languages]) => (
+          <tr>
+            <td>Class {classId}</td>
+            <td>{languages.length}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel about-grid">
+    <article>
+      <h2>Limitations</h2>
+      <ul class="info-list">
+        <li>Language detection is heuristic and title/abstract-driven.</li>
+        <li>HTML extraction only works when arXiv exposes the HTML page.</li>
+        <li>The first release targets weekly snapshots, not real-time ingestion.</li>
+      </ul>
+    </article>
+    <article>
+      <h2>Digest subscription</h2>
+      <p>Choose how you want the weekly digest delivered.</p>
+      <div class="subscribe-box">
+        <div class="subscription-actions">
+          <a class="subscribe-btn email-btn" href="mailto:langtrend@example.com?subject=LangTrend%20digest%20subscription">Email updates</a>
+          <a class="subscribe-btn slack-btn" href="https://slack.com" target="_blank" rel="noreferrer">Slack updates</a>
+        </div>
+        <small class="subscribe-note">Replace these links with your real email provider and Slack webhook flow.</small>
+      </div>
+    </article>
+  </section>
+</BaseLayout>
