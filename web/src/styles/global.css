@@ -90,7 +90,10 @@ a { color: inherit; text-decoration: none; }
 .navicon { width: 1em; height: 1em; flex: 0 0 auto; }
 
 .hero {
-  display: grid; grid-template-columns: 1.7fr 1fr; gap: 20px; margin-bottom: 22px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-bottom: 22px;
 }
 
 .hero-copy, .calendar-card, .panel, .stat-card {
@@ -123,6 +126,131 @@ a { color: inherit; text-decoration: none; }
 }
 .calendar-list { display: grid; gap: 12px; margin-top: 10px; }
 .calendar-item { padding: 14px; border-radius: 18px; background: rgba(15, 108, 93, 0.06); display: grid; gap: 4px; }
+
+/* Week navigator styles */
+.week-controls { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.week-nav-btn { border: 1px solid var(--line); background: var(--panel); padding: 8px 10px; border-radius: 8px; cursor: pointer; font-weight: 700; }
+.week-display { display: grid; gap: 10px; width: 100%; }
+.month-header { display: flex; justify-content: center; align-items: center; gap: 12px; font-weight: 700; }
+.calendar-grid { display: grid; gap: 0px; margin-top: 6px; }
+.calendar-week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.day-cell { background: rgba(255,255,255,0.95); border: 1px solid var(--line); border-radius: 2px; padding: 2px 4px; cursor: pointer; display: grid; place-items: center; }
+.day-cell.muted { opacity: 0.46; }
+.calendar-week.selected { box-shadow: inset 0 0 0 2px rgba(15,108,93,0.08); background: rgba(15,108,93,0.03); border-radius: 4px; }
+.day-num { font-weight: 700; font-size: 0.2rem; }
+.week-actions { display: flex; justify-content: center; }
+.placeholder-text.small { margin-top: 8px; font-size: 0.9rem; }
+
+/* Constrain FullCalendar width so it doesn't take the entire card */
+.fc-controls {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+.fc-controls > .fc-root { grid-column: 1 / -1; }
+.fc-root { width: min(560px, 100%); max-width: 560px; margin: 0 auto; display: block; min-height: 260px; }
+.calendar-card.week-calendar-panel { display: flex; flex-direction: column; align-items: center; }
+
+@media (max-width: 640px) {
+  .fc-root { width: 100%; }
+}
+
+/* Styling for FullCalendar background event representing selected week */
+.selected-week-bg {
+  background-color: rgba(15,108,93,0.22) !important;
+  border: 4px solid #000 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 6px 18px rgba(15,108,93,0.10), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+.fc .selected-week-bg { padding: 6px 0 !important; }
+
+/* Toast for lightweight messages */
+.lt-toast {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  bottom: 18px;
+  background: rgba(32,22,19,0.95);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 240ms ease, transform 240ms ease;
+  z-index: 60;
+}
+.lt-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 640px) {
+  .day-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Compact FullCalendar day frames */
+.fc .fc-daygrid-day-frame {
+  min-height: 60px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 4px;
+}
+
+/* Force calendar internals to expand so grid is visible even if some styles missing */
+.fc-root, .fc-root .fc, .fc-root .fc-view, .fc-root .fc-daygrid, .fc-root .fc-daygrid-body {
+  width: 100% !important;
+  min-height: 260px !important;
+}
+
+/* Place the prev/next buttons beside the title inside the panel head */
+.calendar-card.week-calendar-panel { position: relative; }
+.calendar-card.week-calendar-panel .panel-head { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 10px; position: static; padding-top: 8px; }
+/* Position nav buttons at the calendar card corners (top-left / top-right) */
+.calendar-card.week-calendar-panel #fc-prev {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  transform: none;
+  z-index: 30;
+}
+.calendar-card.week-calendar-panel #fc-next {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  transform: none;
+  z-index: 30;
+}
+
+/* Slightly smaller nav buttons to sit beside the title */
+.week-nav-btn { padding: 4px 6px; font-size: 0.9rem; position: relative; }
+
+/* Tooltip for week nav buttons */
+.week-nav-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%) translateY(6px);
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: var(--text);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+.week-nav-btn:hover::after,
+.week-nav-btn:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.fc .fc-daygrid-day-top { display: block; text-align: center; }
+.fc .fc-daygrid-day-number { font-size: 1rem; font-weight: 700; }
+
+.fc .fc-col-header-cell-cushion { font-weight: 700; }
 
 .paper-collapse, .stats-collapse { margin-bottom: 18px; }
 .paper-collapse-summary {

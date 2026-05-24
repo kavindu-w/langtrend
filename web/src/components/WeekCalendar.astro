@@ -1,0 +1,22 @@
+---
+import clientScript from '../scripts/week-calendar-client.js?url';
+---
+
+<div class="calendar-card week-calendar-panel">
+  <div class="panel-head compact-head">
+    <h2 id="week-title">The Week of May 18–24, 2026</h2>
+  </div>
+
+  <!-- FullCalendar styles (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.20/main.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.20/main.min.css">
+
+  <div class="fc-controls">
+    <button id="fc-prev" class="week-nav-btn" aria-label="Previous week">&lt;&lt;</button>
+    <div id="fc-root" class="fc-root"></div>
+    <button id="fc-next" class="week-nav-btn" aria-label="Next week">&gt;&gt;</button>
+  </div>
+
+  <p class="placeholder-text small">Click a week to view its data (Note: Data available from May 18, 2026).</p>
+  <script type="module" src={clientScript}></script>
+</div>

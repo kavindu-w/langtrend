@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import StatCards from '../components/StatCards.astro';
 import TrendCharts from '../components/TrendCharts.astro';
 import PaperTable from '../components/PaperTable.astro';
+import WeekCalendar from '../components/WeekCalendar.astro';
 import { loadSiteData } from '../lib/data.js';
 
 const data = loadSiteData(7);
@@ -38,21 +39,7 @@ type WeekPoint = {
       </div>
     </div>
 
-    <aside class="calendar-card">
-      <div class="panel-head compact-head">
-        <h2>Week view</h2>
-        <p>Latest rolling snapshot.</p>
-      </div>
-      <div class="calendar-list">
-        {data.weekSeries.length > 0 ? data.weekSeries.map((item: WeekPoint) => (
-          <div class="calendar-item">
-            <strong>{item.date}</strong>
-            <span>{item.papers} papers</span>
-            <span>{item.flagged} flagged</span>
-          </div>
-        )) : <p class="placeholder-text">Calendar will populate after the first snapshot.</p>}
-      </div>
-    </aside>
+    <WeekCalendar />
   </section>
 
   <details id="flagged-papers" class="paper-collapse panel" open>
