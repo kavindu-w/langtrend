@@ -1,7 +1,10 @@
 ---
 import '../styles/global.css';
 
-const { title = 'LangTrend', description = 'LangTrend dashboard for language inclusion in NLP papers' } = Astro.props;
+const { title = 'LangTrend', description = 'LangTrend dashboard for language inclusion in NLP papers' } = Astro.props as {
+  title?: string;
+  description?: string;
+};
 ---
 <!doctype html>
 <html lang="en">
