@@ -1,9 +1,21 @@
 ---
 import { colorForLanguage, compactAuthors } from '../lib/data.js';
 
-const { flaggedPapers } = Astro.props;
-const normalizeLanguage = (entry) => (typeof entry === 'string' ? entry : entry?.language ?? '');
-const languages = [...new Set(flaggedPapers.flatMap((item) => item.languages.map(normalizeLanguage)).filter(Boolean))].sort();
+type LanguageEntry = string | { language?: string | null };
+type PaperRecord = {
+  title: string;
+  authors: string[];
+  abstract: string;
+  pdf_url: string;
+};
+type FlaggedPaper = {
+  paper: PaperRecord;
+  languages: LanguageEntry[];
+};
+
+const { flaggedPapers } = Astro.props as { flaggedPapers: FlaggedPaper[] };
+const normalizeLanguage = (entry: LanguageEntry): string => (typeof entry === 'string' ? entry : entry?.language ?? '');
+const languages = [...new Set(flaggedPapers.flatMap((item: FlaggedPaper) => item.languages.map(normalizeLanguage)).filter(Boolean))].sort();
 ---
 <section class="panel paper-panel">
   <div class="panel-head">
@@ -22,7 +34,7 @@ const languages = [...new Set(flaggedPapers.flatMap((item) => item.languages.map
   </div>
 
   <div class="paper-list" id="paper-list">
-    {flaggedPapers.map((item) => {
+    {flaggedPapers.map((item: FlaggedPaper) => {
       const paper = item.paper;
       const chipLanguages = item.languages.map(normalizeLanguage).filter(Boolean);
       const searchText = `${paper.title} ${paper.authors.join(' ')}`.toLowerCase();
@@ -37,7 +49,7 @@ const languages = [...new Set(flaggedPapers.flatMap((item) => item.languages.map
             <p class="paper-abstract">{paper.abstract}</p>
           </div>
           <div class="paper-tags">
-            {item.languages.map((entry) => {
+            {item.languages.map((entry: LanguageEntry) => {
               const language = normalizeLanguage(entry);
               return (
                 <span class="lang-chip" style={`background:${colorForLanguage(language)}`}>{language}</span>
@@ -51,13 +63,17 @@ const languages = [...new Set(flaggedPapers.flatMap((item) => item.languages.map
 </section>
 
 <script>
-  const searchInput = document.getElementById('paper-search');
-  const chips = Array.from(document.querySelectorAll('#language-filters .chip'));
-  const rows = Array.from(document.querySelectorAll('#paper-list .paper-row'));
+  const searchInput = document.getElementById('paper-search') as HTMLInputElement | null;
+  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .chip'));
+  const rows = Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row'));
   let activeLanguage = 'all';
 
+  if (!searchInput) {
+    throw new Error('Missing paper search input');
+  }
+
   function applyFilters() {
-    const searchTerm = searchInput.value.trim().toLowerCase();
+    const searchTerm = searchInput!.value.trim().toLowerCase();
     rows.forEach((row) => {
       const rowSearch = row.dataset.search || '';
       const rowLanguages = (row.dataset.languages || '').split('|').filter(Boolean);

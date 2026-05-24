@@ -7,6 +7,20 @@ import { loadSiteData, colorForLanguage } from '../lib/data.js';
 
 const data = loadSiteData(7);
 const recentPapers = data.flaggedPapers.slice(0, 5);
+
+type RecentPaper = {
+  paper: {
+    title: string;
+    authors: string[];
+  };
+  languages: Array<string | { language?: string | null }>;
+};
+
+type WeekPoint = {
+  date: string;
+  papers: number;
+  flagged: number;
+};
 ---
 <BaseLayout title="LangTrend" description="Automated dashboard for language inclusion in NLP research">
   <section class="hero">
@@ -28,7 +42,7 @@ const recentPapers = data.flaggedPapers.slice(0, 5);
         <p>Latest rolling snapshot.</p>
       </div>
       <div class="calendar-list">
-        {data.weekSeries.length > 0 ? data.weekSeries.map((item) => (
+        {data.weekSeries.length > 0 ? data.weekSeries.map((item: WeekPoint) => (
           <div class="calendar-item">
             <strong>{item.date}</strong>
             <span>{item.papers} papers</span>
@@ -48,14 +62,14 @@ const recentPapers = data.flaggedPapers.slice(0, 5);
       <p>Current snapshot sample with language tiles.</p>
     </div>
     <div class="featured-list">
-      {recentPapers.length > 0 ? recentPapers.map((item) => (
+      {recentPapers.length > 0 ? recentPapers.map((item: RecentPaper) => (
         <article class="featured-paper">
           <div>
             <h3>{item.paper.title}</h3>
             <p>{item.paper.authors.join(', ')}</p>
           </div>
           <div class="featured-tags">
-            {item.languages.map((entry) => {
+            {item.languages.map((entry: string | { language?: string | null }) => {
               const language = typeof entry === 'string' ? entry : entry?.language ?? '';
               return language ? <span class="lang-chip" style={`background:${colorForLanguage(language)}`}>{language}</span> : null;
             })}

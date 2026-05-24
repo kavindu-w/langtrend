@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadSiteData } from '../lib/data.js';
 
 const data = loadSiteData(7);
-const classes = data.languageData.lang_classes || {};
+const classes = (data.languageData.lang_classes || {}) as Record<string, unknown[]>;
 ---
 <BaseLayout title="About LangTrend" description="Pipeline, limits, and references for LangTrend">
   <section class="page-intro">
@@ -35,7 +35,7 @@ const classes = data.languageData.lang_classes || {};
         <tr><th>Class</th><th>Languages</th></tr>
       </thead>
       <tbody>
-        {Object.entries(classes).map(([classId, languages]) => (
+        {Object.entries(classes).map(([classId, languages]: [string, unknown[]]) => (
           <tr>
             <td>Class {classId}</td>
             <td>{languages.length}</td>

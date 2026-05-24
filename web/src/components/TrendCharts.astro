@@ -1,11 +1,18 @@
 ---
-const { languageCounts, weekSeries, topLanguages } = Astro.props;
+type LanguageCount = { language: string; count: number };
+type WeekPoint = { date: string; papers: number; flagged: number };
+type TopLanguage = { language: string; count: number; color: string };
 
-const totalPapers = weekSeries.reduce((sum, item) => sum + item.papers, 0) || 1;
-const totalFlagged = weekSeries.reduce((sum, item) => sum + item.flagged, 0) || 1;
+const { languageCounts, weekSeries, topLanguages } = Astro.props as {
+  languageCounts: LanguageCount[];
+  weekSeries: WeekPoint[];
+  topLanguages: TopLanguage[];
+};
+
+const totalPapers = weekSeries.reduce((sum: number, item: WeekPoint) => sum + item.papers, 0) || 1;
+const totalFlagged = weekSeries.reduce((sum: number, item: WeekPoint) => sum + item.flagged, 0) || 1;
 const flaggedRatio = Math.round((totalFlagged / totalPapers) * 100);
-const maxCount = Math.max(1, ...languageCounts.map((item) => item.count));
-const totalLanguages = languageCounts.reduce((sum, item) => sum + item.count, 0) || 1;
+const maxCount = Math.max(1, ...languageCounts.map((item: LanguageCount) => item.count));
 ---
 <section class="dashboard-grid">
   <article class="panel chart-panel">
@@ -14,7 +21,7 @@ const totalLanguages = languageCounts.reduce((sum, item) => sum + item.count, 0)
       <p>Flagged language mentions across the current window.</p>
     </div>
     <div class="bar-chart">
-      {languageCounts.slice(0, 10).map((item) => (
+      {languageCounts.slice(0, 10).map((item: LanguageCount) => (
         <div class="bar-row">
           <span>{item.language}</span>
           <div class="bar-track">
@@ -52,7 +59,7 @@ const totalLanguages = languageCounts.reduce((sum, item) => sum + item.count, 0)
     <div class="line-placeholder">
       {weekSeries.length > 0 ? (
         <div class="trend-bars">
-          {weekSeries.map((item) => (
+          {weekSeries.map((item: WeekPoint) => (
             <div class="trend-col">
               <div class="trend-stack">
                 <span class="trend-paper" style={`height:${Math.max(12, (item.papers / totalPapers) * 220)}px`}></span>
@@ -74,7 +81,7 @@ const totalLanguages = languageCounts.reduce((sum, item) => sum + item.count, 0)
       <p>Most frequent mentions in the current snapshot.</p>
     </div>
     <ul class="top-lang-list">
-      {topLanguages.map((item) => (
+      {topLanguages.map((item: TopLanguage) => (
         <li>
           <span class="lang-swatch" style={`background:${item.color}`}></span>
           <span>{item.language}</span>
