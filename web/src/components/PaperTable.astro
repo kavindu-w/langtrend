@@ -1,7 +1,8 @@
 ---
-import { colorForLanguage, formatAuthors } from '../lib/data.js';
+import { formatAuthors } from '../lib/data.js';
+import { languageBorderClass, languageFillColor } from '../lib/language-colors.js';
 
-type LanguageEntry = string | { language?: string | null };
+type LanguageEntry = string | [string, number] | { language?: string | null; class?: number; name?: string };
 type PaperRecord = {
   title: string;
   authors: string[];
@@ -14,8 +15,50 @@ type FlaggedPaper = {
 };
 
 const { flaggedPapers } = Astro.props as { flaggedPapers: FlaggedPaper[] };
-const normalizeLanguage = (entry: LanguageEntry): string => (typeof entry === 'string' ? entry : entry?.language ?? '');
-const languages = [...new Set(flaggedPapers.flatMap((item: FlaggedPaper) => item.languages.map(normalizeLanguage)).filter(Boolean))].sort();
+const { languageData } = Astro.props as { flaggedPapers: FlaggedPaper[]; languageData?: { lang_classes?: Record<string, unknown[]> } };
+const normalizeLanguage = (entry: LanguageEntry): string => {
+  if (typeof entry === 'string') {
+    return entry;
+  }
+
+  if (Array.isArray(entry)) {
+    return entry[0] ?? '';
+  }
+
+  return entry?.language ?? entry?.name ?? '';
+};
+const classFromEntry = (entry: LanguageEntry): number | null => {
+  if (Array.isArray(entry) && typeof entry[1] === 'number') {
+    return entry[1];
+  }
+
+  if (!Array.isArray(entry) && typeof entry === 'object' && entry && typeof entry.class === 'number') {
+    return entry.class;
+  }
+
+  return null;
+};
+const langClasses = languageData?.lang_classes || {};
+const languageCounts = new Map<string, number>();
+
+for (const item of flaggedPapers) {
+  for (const entry of item.languages) {
+    const language = normalizeLanguage(entry);
+    if (!language) {
+      continue;
+    }
+    languageCounts.set(language, (languageCounts.get(language) || 0) + 1);
+  }
+}
+const languages = [...languageCounts.entries()]
+  .sort((left, right) => {
+    const countDelta = right[1] - left[1];
+    if (countDelta !== 0) {
+      return countDelta;
+    }
+    return left[0].localeCompare(right[0]);
+  })
+  .map(([language]) => language);
 ---
 <section class="panel paper-panel">
   <div class="panel-head">
@@ -28,7 +71,14 @@ const languages = [...new Set(flaggedPapers.flatMap((item: FlaggedPaper) => item
   <div class="chip-row" id="language-filters">
     <button class="chip active" type="button" data-lang="all">All</button>
     {languages.map((language) => (
-      <button class="chip" type="button" data-lang={language}>{language}</button>
+      <button
+        class={`chip lang-filter-chip class-${languageBorderClass(language, langClasses)}`}
+        type="button"
+        data-lang={language}
+        style={`background:${languageFillColor(language)}`}
+      >
+        {language} <span class="chip-count">({languageCounts.get(language) || 0})</span>
+      </button>
     ))}
   </div>
 
@@ -36,10 +86,21 @@ const languages = [...new Set(flaggedPapers.flatMap((item: FlaggedPaper) => item
     {flaggedPapers.map((item: FlaggedPaper) => {
       const paper = item.paper;
       const authorDisplay = formatAuthors(paper.authors);
-      const chipLanguages = item.languages.map(normalizeLanguage).filter(Boolean);
+      const chipLanguages = [...item.languages]
+        .filter(Boolean)
+        .sort((left: LanguageEntry, right: LanguageEntry) => {
+          const leftClass = classFromEntry(left) ?? languageBorderClass(normalizeLanguage(left), langClasses);
+          const rightClass = classFromEntry(right) ?? languageBorderClass(normalizeLanguage(right), langClasses);
+          const classDelta = rightClass - leftClass;
+          if (classDelta !== 0) {
+            return classDelta;
+          }
+          return normalizeLanguage(left).localeCompare(normalizeLanguage(right));
+        });
+      const chipLanguageNames = chipLanguages.map(normalizeLanguage).filter(Boolean);
       const searchText = `${paper.title} ${paper.authors.join(' ')}`.toLowerCase();
       return (
-        <details class="paper-row" data-search={searchText} data-languages={chipLanguages.join('|')}>
+        <details class="paper-row" data-search={searchText} data-languages={chipLanguageNames.join('|')}>
           <summary class="paper-summary">
             <div class="paper-main">
               <div class="paper-title-row">
@@ -52,14 +113,15 @@ const languages = [...new Set(flaggedPapers.flatMap((item: FlaggedPaper) => item
                 </a>
               </div>
               <p class="paper-authors" title={authorDisplay.title}>{authorDisplay.display}</p>
-            </div>
-            <div class="paper-tags">
-              {item.languages.map((entry: LanguageEntry) => {
-                const language = normalizeLanguage(entry);
-                return (
-                  <span class="lang-chip" style={`background:${colorForLanguage(language)}`}>{language}</span>
-                );
-              })}
+              <div class="paper-tags">
+                {chipLanguages.map((entry: LanguageEntry) => {
+                  const language = normalizeLanguage(entry);
+                  const borderClass = classFromEntry(entry) ?? languageBorderClass(language, langClasses);
+                  return (
+                    <span class={`lang-chip class-${borderClass}`} style={`background:${languageFillColor(language)}`}>{language}</span>
+                  );
+                })}
+              </div>
             </div>
           </summary>
           <div class="paper-body">

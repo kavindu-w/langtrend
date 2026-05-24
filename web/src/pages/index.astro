@@ -46,11 +46,11 @@ type WeekPoint = {
     <summary class="paper-collapse-summary">
       <div>
         <h2>Flagged papers</h2>
-        <p>Click to expand or collapse the current snapshot list.</p>
+        <p>Click to expand or collapse to view the abstracts.</p>
       </div>
       <span class="paper-collapse-hint">Collapse</span>
     </summary>
-    <PaperTable flaggedPapers={data.flaggedPapers} />
+    <PaperTable flaggedPapers={data.flaggedPapers} languageData={data.languageData} />
   </details>
 
   <details id="statistics" class="stats-collapse panel" open>
