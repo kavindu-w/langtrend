@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import StatCards from '../components/StatCards.astro';
 import TrendCharts from '../components/TrendCharts.astro';
 import PaperTable from '../components/PaperTable.astro';
 import WeekCalendar from '../components/WeekCalendar.astro';
@@ -57,13 +56,18 @@ type WeekPoint = {
     <summary class="paper-collapse-summary">
       <div>
         <h2>Statistics</h2>
-        <p>Dashboard summary for the current snapshot.</p>
+        <p>Weekly scan summary and overall language trend.</p>
       </div>
       <span class="paper-collapse-hint">Collapse</span>
     </summary>
     <div class="dashboard-section">
-      <StatCards manifest={data.manifest} />
-      <TrendCharts languageCounts={data.languageCounts} weekSeries={data.weekSeries} topLanguages={data.topLanguages} />
+      <TrendCharts
+        manifest={data.manifest}
+        languageData={data.languageData}
+        languageCounts={data.languageCounts}
+        weekSeries={data.weekSeries}
+        topLanguages={data.topLanguages}
+      />
     </div>
   </details>
 </BaseLayout>
