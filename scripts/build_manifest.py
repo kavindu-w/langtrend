@@ -3,14 +3,14 @@
 Build the LangTrend manifest from existing data caches.
 
 Reads:
-  - data/raw/extracted_papers_metadata/*.jsonl  — paper metadata + abstracts
-  - data/processed/html_cache/*.json            — HTML section detections (no text exported)
-  - data/processed/pdf_cache/*.json             — PDF body detections (no text exported)
-  - data/processed/language_data.json           — language class definitions
+  - data/raw/extracted_papers_metadata/*.jsonl              — paper metadata + abstracts
+  - data/processed/weeks/YYYYMMDD_to_YYYYMMDD/html_cache/  — HTML section detections
+  - data/processed/weeks/YYYYMMDD_to_YYYYMMDD/pdf_cache/   — PDF body detections
+  - data/processed/language_data.json                       — language class definitions
 
 Writes:
-  - data/processed/langtrend_manifest_last_7_days.json       (always, for the web frontend)
-  - data/processed/langtrend_manifest_YYYYMMDD_to_YYYYMMDD.json  (dated archive per run)
+  - data/processed/weeks/YYYYMMDD_to_YYYYMMDD/langtrend_manifest.json  (week archive)
+  - data/processed/langtrend_manifest_last_7_days.json                  (latest pointer)
 
 Privacy: only paper metadata, abstracts (public on arXiv), and language detection results
 are written to the manifest. All raw HTML/PDF text content stays in the local caches.
@@ -18,7 +18,7 @@ are written to the manifest. All raw HTML/PDF text content stays in the local ca
 Usage:
     python scripts/build_manifest.py
     python scripts/build_manifest.py --input data/raw/extracted_papers_metadata/arxiv_papers_20260518_to_20260525.jsonl
-    python scripts/build_manifest.py --input <file.jsonl> --output-dir data/processed --window-days 7
+    python scripts/build_manifest.py --input <file.jsonl> --window-days 7
 """
 
 from __future__ import annotations
@@ -36,7 +36,7 @@ from langtrend.text_cleaning import clean_paper_text_for_language_screening, det
 
 _PROJECT_ROOT = Path(__file__).parent.parent
 _DEFAULT_LANG_DATA = _PROJECT_ROOT / "data/processed/language_data.json"
-_DEFAULT_OUTPUT_DIR = _PROJECT_ROOT / "data/processed"
+_DEFAULT_PROCESSED_DIR = _PROJECT_ROOT / "data/processed"
 _METADATA_DIR = _PROJECT_ROOT / "data/raw/extracted_papers_metadata"
 
 # Regex to parse week dates from filenames like arxiv_papers_20260518_to_20260525.jsonl
@@ -236,6 +236,14 @@ def assemble_flagged_papers(
     return flagged
 
 
+def _week_dir(input_path: Path, processed_dir: Path | None = None) -> Path:
+    """Derive the week subdirectory from the input filename's date slug."""
+    root = processed_dir or _DEFAULT_PROCESSED_DIR
+    m = _WEEK_RE.search(input_path.stem)
+    slug = f"{m.group(1)}_to_{m.group(2)}" if m else input_path.stem
+    return root / "weeks" / slug
+
+
 def build_and_save(
     input_path: Path,
     output_dir: Path,
@@ -278,20 +286,19 @@ def build_and_save(
         week_end=week_end,
     )
 
-    # Always write the "latest" file that the frontend reads
-    latest_path = output_dir / f"langtrend_manifest_last_{window_days}_days.json"
+    # Week-specific manifest lives inside the week folder
+    output_dir.mkdir(parents=True, exist_ok=True)
+    week_manifest_path = output_dir / "langtrend_manifest.json"
+    save_json(manifest, week_manifest_path)
+    print(f"Saved: {week_manifest_path}")
+
+    # "Latest" pointer lives at the top of processed/ regardless of output_dir depth
+    processed_root = output_dir.parent.parent if output_dir.parent.name == "weeks" else output_dir
+    latest_path = processed_root / f"langtrend_manifest_last_{window_days}_days.json"
     save_json(manifest, latest_path)
     print(f"Saved: {latest_path}")
 
-    # Also save a dated archive if we have week dates
-    if week_start and week_end:
-        start_compact = week_start.replace("-", "")
-        end_compact = week_end.replace("-", "")
-        archive_path = output_dir / f"langtrend_manifest_{start_compact}_to_{end_compact}.json"
-        save_json(manifest, archive_path)
-        print(f"Saved: {archive_path}")
-
-    return latest_path
+    return week_manifest_path
 
 
 def main() -> None:
@@ -308,8 +315,8 @@ def main() -> None:
         help=f"language_data.json (default: {_DEFAULT_LANG_DATA})",
     )
     parser.add_argument(
-        "--output-dir", type=Path, default=_DEFAULT_OUTPUT_DIR,
-        help=f"Output directory (default: {_DEFAULT_OUTPUT_DIR})",
+        "--output-dir", type=Path, default=None,
+        help="Week output directory (default: auto-derived from input filename as data/processed/weeks/YYYYMMDD_to_YYYYMMDD/)",
     )
     parser.add_argument("--window-days", type=int, default=7)
     parser.add_argument("--query", type=str, default="cs.CL")
@@ -324,7 +331,8 @@ def main() -> None:
               "Run scripts/extract_language_data.py first.", file=sys.stderr)
         sys.exit(1)
 
-    build_and_save(input_path, args.output_dir, args.language_data, args.window_days, args.query)
+    output_dir = args.output_dir or _week_dir(input_path)
+    build_and_save(input_path, output_dir, args.language_data, args.window_days, args.query)
 
 
 if __name__ == "__main__":

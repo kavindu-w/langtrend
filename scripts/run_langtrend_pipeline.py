@@ -21,6 +21,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import re
 import subprocess
 import sys
 import time
@@ -30,10 +31,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.path.insert(0, str(Path(__file__).parent))
 
-from build_manifest import build_and_save
+from build_manifest import build_and_save, _week_dir
 
 _PROJECT_ROOT = Path(__file__).parent.parent
 _SCRIPTS_DIR = Path(__file__).parent
+_WEEK_SLUG_RE = re.compile(r"(\d{8}_to_\d{8})")
 
 
 def _last_monday_midnight() -> datetime:
@@ -92,8 +94,8 @@ def main() -> None:
 
     data_root: Path = args.data_root
     metadata_dir = data_root / "raw" / "extracted_papers_metadata"
-    output_dir = data_root / "processed"
-    lang_data = output_dir / "language_data.json"
+    processed_dir = data_root / "processed"
+    lang_data = processed_dir / "language_data.json"
 
     if not lang_data.exists():
         print(f"Error: language_data.json not found at {lang_data}\n"
@@ -140,10 +142,14 @@ def main() -> None:
 
     print(f"  Input: {input_path}")
 
+    # Derive the per-week output directory
+    week_dir = _week_dir(input_path, processed_dir)
+    print(f"  Week dir: {week_dir}")
+
     # -------------------------------------------------------------------------
     # Step 2: Process papers (HTML + PDF language detection)
     # -------------------------------------------------------------------------
-    detected_path = output_dir / f"{input_path.stem}_detected.jsonl"
+    detected_path = week_dir / f"{input_path.stem}_detected.jsonl"
 
     if args.skip_process:
         print(f"\nStep 2 [SKIPPED] process")
@@ -154,7 +160,7 @@ def main() -> None:
             sys.executable,
             str(_SCRIPTS_DIR / "process_papers.py"),
             "--input", str(input_path),
-            "--output-dir", str(output_dir),
+            "--output-dir", str(week_dir),
             "--workers", str(args.workers),
         ])
 
@@ -167,7 +173,7 @@ def main() -> None:
     t0 = time.perf_counter()
     build_and_save(
         input_path=input_path,
-        output_dir=output_dir,
+        output_dir=week_dir,
         lang_data_path=lang_data,
         window_days=args.window_days,
         query=args.query,

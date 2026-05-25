@@ -46,7 +46,6 @@ process:
 
 manifest:
 	$(PYTHON) scripts/build_manifest.py \
-		--output-dir $(DATA_ROOT)/processed \
 		--window-days $(WINDOW_DAYS)
 
 # --- Full pipeline ----------------------------------------------------------
