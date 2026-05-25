@@ -86,6 +86,12 @@ def main() -> None:
     parser.add_argument("--max-results", type=int, default=1000)
     parser.add_argument("--query", type=str, default="cat:cs.CL")
     parser.add_argument("--workers", type=int, default=4, help="Parallel workers for process step")
+    parser.add_argument(
+        "--end-date",
+        type=str,
+        default=None,
+        help="End date for the fetch window as YYYY-MM-DD (default: last Monday midnight)",
+    )
     parser.add_argument("--skip-fetch", action="store_true",
                         help="Skip fetch step even if no JSONL exists (will fail if no file found)")
     parser.add_argument("--skip-process", action="store_true",
@@ -102,7 +108,10 @@ def main() -> None:
               "Run scripts/extract_language_data.py first.", file=sys.stderr)
         sys.exit(1)
 
-    end_date = _last_monday_midnight()
+    if args.end_date:
+        end_date = datetime.strptime(args.end_date, "%Y-%m-%d")
+    else:
+        end_date = _last_monday_midnight()
     wall_start = time.perf_counter()
     print(f"=== LangTrend pipeline  |  window: {args.window_days}d ending {end_date.strftime('%Y-%m-%d')} ===")
 
