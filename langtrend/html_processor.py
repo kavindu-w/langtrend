@@ -169,7 +169,7 @@ def recheck_languages_from_html(
     """Fetch arXiv HTML, extract sections, run language detection per section.
 
     Returns dict mapping section title -> list of detected language strings.
-    Saves a detailed JSON file to out_dir (or data/processed/html_sections/ by default).
+    Saves a detailed JSON file to out_dir (or data/processed/html_cache/ by default).
     Returns empty dict if HTML is unavailable.
     """
     if remove_headings is None:
@@ -180,7 +180,7 @@ def recheck_languages_from_html(
         return {}
 
     if out_dir is None:
-        out_dir = Path("data/processed/html_sections")
+        out_dir = Path("data/processed/html_cache")
     out_dir.mkdir(parents=True, exist_ok=True)
 
     safe_name = str(paper_id).split("/")[-1] or paper_record.get("title", "paper").replace(" ", "_")[:60]
