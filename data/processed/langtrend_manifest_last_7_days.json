@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-05-25T12:18:16.245527+00:00",
+  "generated_at": "2026-05-25T13:29:28.363243+00:00",
   "window_days": 7,
   "week_start": "2026-05-18",
   "week_end": "2026-05-25",
-  "query": "cat:cs.CL",
+  "query": "cs.CL",
   "counts": {
     "papers": 359,
-    "flagged_papers": 248,
-    "unique_languages": 214
+    "flagged_papers": 241,
+    "unique_languages": 210
   },
   "language_counts": [
     {
@@ -37,10 +37,6 @@
     {
       "language": "German",
       "count": 17
-    },
-    {
-      "language": "Ata",
-      "count": 16
     },
     {
       "language": "Polish",
@@ -80,10 +76,6 @@
     },
     {
       "language": "Aja",
-      "count": 7
-    },
-    {
-      "language": "Sake",
       "count": 7
     },
     {
@@ -128,10 +120,6 @@
     },
     {
       "language": "Czech",
-      "count": 5
-    },
-    {
-      "language": "Agi",
       "count": 5
     },
     {
@@ -236,10 +224,6 @@
     },
     {
       "language": "Fore",
-      "count": 3
-    },
-    {
-      "language": "Carrier",
       "count": 3
     },
     {
@@ -567,11 +551,11 @@
       "count": 1
     },
     {
-      "language": "Bribri",
+      "language": "Guaraní",
       "count": 1
     },
     {
-      "language": "Guaraní",
+      "language": "Bribri",
       "count": 1
     },
     {
@@ -870,7 +854,7 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 278
+      "count": 247
     },
     {
       "class_id": 1,
@@ -897,22 +881,22 @@
     {
       "date": "2026-05-18",
       "papers": 93,
-      "flagged": 62
+      "flagged": 59
     },
     {
       "date": "2026-05-19",
       "papers": 91,
-      "flagged": 56
+      "flagged": 54
     },
     {
       "date": "2026-05-20",
       "papers": 94,
-      "flagged": 68
+      "flagged": 67
     },
     {
       "date": "2026-05-21",
       "papers": 81,
-      "flagged": 62
+      "flagged": 61
     }
   ],
   "papers": [
@@ -8102,7 +8086,7 @@
           ]
         },
         {
-          "language": "Arabic",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -8110,7 +8094,7 @@
           ]
         },
         {
-          "language": "English",
+          "language": "Arabic",
           "class": 5,
           "sources": [
             "abstract",
@@ -8606,13 +8590,6 @@
       },
       "languages": [
         {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Chinese",
           "class": 5,
           "sources": [
@@ -8625,7 +8602,6 @@
         "html"
       ],
       "sections_with_detections": [
-        "2. Model Safety versus Agent Safety",
         "8. Policy Implications",
         "8.3. Agentic AI from the Chinese regulatory perspective",
         "8.4. AI Agents in the global race for AI Safety"
@@ -9016,6 +8992,8 @@
         {
           "language": "Aja",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: a_j (IRT parameter) rendered as 'aja' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -9209,6 +9187,8 @@
         {
           "language": "Tumi",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Bangla pronoun 'tumi' (informal 'you') — common in Bangla NLP papers",
           "sources": [
             "html"
           ]
@@ -9276,43 +9256,6 @@
         "Appendix BMore Details on LLM-as-Judge",
         "B.1Prompt Template",
         "B.2Rationale for Selecting GPT-4.1 as LLM Judge"
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2605.22476v1",
-        "title": "Structured-Sparse Attention for Entity Tracking with Subquadratic Sequence Complexity",
-        "abstract": "Entity tracking requires maintaining and updating latent states for entities and attributes over long sequences. Recent task-specific attention operators can compress deep Transformer stacks into a few layers by performing multi-hop state propagation within a single layer, but their dense evaluation remains expensive. We show that in this setting, learned attention is strongly structured: most mass concentrates in local block-diagonal neighborhoods with a light cross-block residue. Exploiting this, we derive a blockwise evaluation of a resolvent-style operator that keeps within-block interactions exact and routes cross-block interactions through a reduced system. The resulting evaluation is subquadratic in sequence length $O(n^{4/3}d)$ (and $O(n^{7/3})$ when $d\\approx n$). On controlled tracking benchmarks, our method matches the dense operator's accuracy while reducing wall-clock time by $12-29\\%$ under a standardized measurement protocol, and is up to $2.4 \\times$ faster than a compact dense Transformer at comparable exact-match accuracy. We further provide ablations over block size and model capacity, and identify a limitation: performance collapses when the number of simultaneously evolving properties exceeds the number of attention heads.",
-        "authors": [
-          "Hangyue Zhao",
-          "Paul Caillon",
-          "Erwan Fagnou",
-          "Alexandre Allauzen"
-        ],
-        "published": "2026-05-21T13:35:48+00:00",
-        "updated": "2026-05-21T13:35:48+00:00",
-        "categories": [
-          "cs.LG",
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2605.22476v1"
-      },
-      "languages": [
-        {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract",
-        "html"
-      ],
-      "sections_with_detections": [
-        "3Experiments",
-        "3.5Attention sparsity as a memory lever"
       ]
     },
     {
@@ -9539,14 +9482,6 @@
       },
       "languages": [
         {
-          "language": "Vietnamese",
-          "class": 4,
-          "sources": [
-            "abstract",
-            "html"
-          ]
-        },
-        {
           "language": "Russian",
           "class": 4,
           "sources": [
@@ -9555,7 +9490,7 @@
           ]
         },
         {
-          "language": "Turkish",
+          "language": "Vietnamese",
           "class": 4,
           "sources": [
             "abstract",
@@ -9571,7 +9506,23 @@
           ]
         },
         {
+          "language": "Turkish",
+          "class": 4,
+          "sources": [
+            "abstract",
+            "html"
+          ]
+        },
+        {
           "language": "Chinese",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "html"
+          ]
+        },
+        {
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -9588,14 +9539,6 @@
         },
         {
           "language": "Spanish",
-          "class": 5,
-          "sources": [
-            "abstract",
-            "html"
-          ]
-        },
-        {
-          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -9944,21 +9887,7 @@
           ]
         },
         {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
           "language": "Ono",
-          "class": 0,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Sake",
           "class": 0,
           "sources": [
             "pdf"
@@ -10412,13 +10341,6 @@
       },
       "languages": [
         {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Greek",
           "class": 3,
           "sources": [
@@ -10445,10 +10367,6 @@
         "html"
       ],
       "sections_with_detections": [
-        "3Method",
-        "3.1Preliminaries",
-        "Heterogeneous Registries inMaestro.",
-        "Appendix BAlgorithmic Details",
         "Appendix CDetailed Hierarchical Skill Taxonomy",
         "C.2Extended Skill Configuration (S6–S9)",
         "S7: OCR Problem Solver",
@@ -10566,15 +10484,10 @@
       },
       "languages": [
         {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Utu",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: U_t rendered as 'UtU' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -10623,14 +10536,11 @@
       ],
       "sections_with_detections": [
         "2  Formalizing Self-Regulated Simulative Reasoning",
-        "2.1  Agent-Environment Model and Simulative Reasoning",
         "2.2  From Unregulated Deliberation to Self-Regulation",
         "3  Instantiating Self-Regulated Simulative Reasoning",
-        "3.1  Environment and Tools",
         "3.3  Reinforcement-Learning-Based Refinement",
         "A.3  Simulative Planning Without Self-Regulation",
         "LLM as World Model.",
-        "Appendix BEnvironment and Tool Details",
         "Appendix ETraining Dataset Composition and Hyperparameters",
         "E.1  Dataset and Data Construction",
         "Appendix JComparison of Self-Regulated Simulative Reasoning Across Models",
@@ -10919,7 +10829,7 @@
       },
       "languages": [
         {
-          "language": "Japanese",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -10927,7 +10837,7 @@
           ]
         },
         {
-          "language": "English",
+          "language": "Japanese",
           "class": 5,
           "sources": [
             "abstract",
@@ -11110,6 +11020,8 @@
         {
           "language": "Mand",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Abbreviation for Mandarin (Mand↔Min = Mandarin↔Minority) in translation papers",
           "sources": [
             "html"
           ]
@@ -11117,6 +11029,8 @@
         {
           "language": "Bo",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Chinese given name 'Bo' appearing in author/contributor lists",
           "sources": [
             "html"
           ]
@@ -11546,13 +11460,6 @@
       },
       "languages": [
         {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Awa",
           "class": 0,
           "sources": [
@@ -11566,17 +11473,8 @@
       ],
       "sections_with_detections": [
         "2Methodology",
-        "2.3Token-weighted DPO",
-        "2.4Mathematical Derivation",
-        "2.4.1Deriving the Near Optimum of the Token-weighted Objective",
-        "2.4.3Properties",
-        "Reward function is token-weighted.",
-        "Token-weighted KL penalty enables locally-adaptive trust region.",
         "2.6Post-Processing",
-        "Normalization.",
-        "Appendix BTheoretical Analysis and Error Bounds",
-        "B.1Objective Formulation and Perturbation Setup",
-        "Appendix CGradient Analysis"
+        "Normalization."
       ]
     },
     {
@@ -11604,6 +11502,8 @@
         {
           "language": "Cora",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "CORA = citation network benchmark dataset — common in GNN/graph papers",
           "sources": [
             "html"
           ]
@@ -11611,6 +11511,8 @@
         {
           "language": "Gofa",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "GOFA = GNN method acronym; also a real Omotic language of Ethiopia",
           "sources": [
             "html"
           ]
@@ -11665,13 +11567,6 @@
       },
       "languages": [
         {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Ik",
           "class": 0,
           "needs_review": true,
@@ -11713,6 +11608,8 @@
         {
           "language": "Dla",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "DLA = Document Layout Analysis — common NLP/vision acronym",
           "sources": [
             "html"
           ]
@@ -11749,6 +11646,8 @@
         {
           "language": "Ega",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "EGA = Energy Gate Attention — method acronym in attention papers",
           "sources": [
             "abstract",
             "html"
@@ -11937,6 +11836,8 @@
         {
           "language": "Mae",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
           ]
@@ -12140,13 +12041,6 @@
           ]
         },
         {
-          "language": "Sake",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "English",
           "class": 5,
           "sources": [
@@ -12200,6 +12094,8 @@
         {
           "language": "Aja",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: a_j (IRT parameter) rendered as 'aja' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -12254,13 +12150,6 @@
           "sources": [
             "html"
           ]
-        },
-        {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
         }
       ],
       "sources_checked": [
@@ -12270,8 +12159,6 @@
       "sections_with_detections": [
         "2Background",
         "2.1RL for LLMs",
-        "4Discrete GRPO Sends Approximate BPTT Signals",
-        "4.1What is missing vs. exact BPTT",
         "Appendix AProofs",
         "A.5Local GRPO/PPO value-gradient form"
       ]
@@ -12297,6 +12184,8 @@
         {
           "language": "Mae",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
           ]
@@ -12405,6 +12294,8 @@
         {
           "language": "Sapo",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "SAPO = optimization algorithm acronym",
           "sources": [
             "html"
           ]
@@ -12447,6 +12338,8 @@
         {
           "language": "Cora",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "CORA = citation network benchmark dataset — common in GNN/graph papers",
           "sources": [
             "html"
           ]
@@ -12454,6 +12347,8 @@
         {
           "language": "Mbe",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "MBE = Model-Based Engineering acronym",
           "sources": [
             "html"
           ]
@@ -12566,7 +12461,7 @@
           ]
         },
         {
-          "language": "German",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -12574,7 +12469,7 @@
           ]
         },
         {
-          "language": "English",
+          "language": "German",
           "class": 5,
           "sources": [
             "abstract",
@@ -12661,6 +12556,8 @@
         {
           "language": "Aja",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: a_j (IRT parameter) rendered as 'aja' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -12885,13 +12782,6 @@
       },
       "languages": [
         {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "English",
           "class": 5,
           "sources": [
@@ -12911,10 +12801,6 @@
         "html"
       ],
       "sections_with_detections": [
-        "Appendix BCoTrace",
-        "B.1Implementation",
-        "B.1.1Operational Definitions",
-        "Action-Level Influence.",
         "Appendix GShareChat Data Sampling",
         "G.1ShareChat dataset samples"
       ]
@@ -12943,13 +12829,6 @@
           "sources": [
             "html"
           ]
-        },
-        {
-          "language": "Sake",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
         }
       ],
       "sources_checked": [
@@ -12961,8 +12840,7 @@
         "3.2Dataset Construction",
         "Data Selection",
         "Limitations",
-        "Model Scale and Methodological Scope.",
-        "Appendix BQuestion Generation Prompts"
+        "Model Scale and Methodological Scope."
       ]
     },
     {
@@ -12997,13 +12875,6 @@
             "abstract",
             "html"
           ]
-        },
-        {
-          "language": "Agi",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
         }
       ],
       "sources_checked": [
@@ -13023,8 +12894,6 @@
         "Large-scale lexical diversity.",
         "6Discussion",
         "6.1Why Spike-Gated Dual-Path Works",
-        "Reproducibility Statement",
-        "Data Availability",
         "Appendix APer-Domain Ablation Results"
       ]
     },
@@ -13216,6 +13085,8 @@
         {
           "language": "Sapo",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "SAPO = optimization algorithm acronym",
           "sources": [
             "html"
           ]
@@ -13311,14 +13182,6 @@
           ]
         },
         {
-          "language": "German",
-          "class": 5,
-          "sources": [
-            "abstract",
-            "html"
-          ]
-        },
-        {
           "language": "French",
           "class": 5,
           "sources": [
@@ -13328,6 +13191,14 @@
         },
         {
           "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "html"
+          ]
+        },
+        {
+          "language": "German",
           "class": 5,
           "sources": [
             "abstract",
@@ -13469,13 +13340,6 @@
         {
           "language": "Spanish",
           "class": 5,
-          "sources": [
-            "html"
-          ]
-        },
-        {
-          "language": "Sake",
-          "class": 0,
           "sources": [
             "html"
           ]
@@ -14532,14 +14396,6 @@
           ]
         },
         {
-          "language": "Spanish",
-          "class": 5,
-          "sources": [
-            "abstract",
-            "html"
-          ]
-        },
-        {
           "language": "French",
           "class": 5,
           "sources": [
@@ -14549,6 +14405,14 @@
         },
         {
           "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "html"
+          ]
+        },
+        {
+          "language": "Spanish",
           "class": 5,
           "sources": [
             "abstract",
@@ -14586,6 +14450,8 @@
         {
           "language": "Uri",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "URI = Uniform Resource Identifier; also a Swiss place name",
           "sources": [
             "html"
           ]
@@ -14644,6 +14510,8 @@
         {
           "language": "Sentinel",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Microsoft Sentinel / AI planning system name — also a real Andamanese language",
           "sources": [
             "html"
           ]
@@ -14956,14 +14824,6 @@
       },
       "languages": [
         {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "abstract",
-            "pdf"
-          ]
-        },
-        {
           "language": "Chinese",
           "class": 5,
           "sources": [
@@ -14973,6 +14833,14 @@
         },
         {
           "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "Arabic",
           "class": 5,
           "sources": [
             "abstract",
@@ -15083,13 +14951,6 @@
       },
       "languages": [
         {
-          "language": "Sake",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "English",
           "class": 5,
           "sources": [
@@ -15102,7 +14963,6 @@
         "html"
       ],
       "sections_with_detections": [
-        "Appendix BAdditional results",
         "Appendix GSimulated user survey implementation details",
         "G.2Questions"
       ]
@@ -15170,6 +15030,8 @@
         {
           "language": "Mae",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
           ]
@@ -15177,6 +15039,8 @@
         {
           "language": "Lipo",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Lipophilicity = chemistry benchmark dataset name",
           "sources": [
             "html"
           ]
@@ -15219,7 +15083,7 @@
       },
       "languages": [
         {
-          "language": "Malayalam",
+          "language": "Kannada",
           "class": 2,
           "sources": [
             "abstract",
@@ -15227,7 +15091,7 @@
           ]
         },
         {
-          "language": "Kannada",
+          "language": "Malayalam",
           "class": 2,
           "sources": [
             "abstract",
@@ -15462,13 +15326,6 @@
           ]
         },
         {
-          "language": "Carrier",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Latin",
           "class": 3,
           "sources": [
@@ -15488,52 +15345,6 @@
         "S3: Specialized niche field catch — n = 27",
         "S4: Internal consistency across sections — n = 15",
         "Pattern A, Example 2: SAR safety reporting at 11.7T MRI (Paper 6, Gemini reviewer)."
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2605.20643v1",
-        "title": "AVSD: Adaptive-View Self-Distillation by Balancing Consensus and Teacher-Specific Privileged Signals",
-        "abstract": "Self-distillation enables language models to learn on-policy from their own trajectories by using the same model as both student and teacher, with the teacher being conditioned on privileged information unavailable to the student. Such information can come in different types or views, such as solutions, demonstrations, feedback, or final answers. This setup provides dense token-level feedback without relying on a separate external model, but creates a fundamental asymmetry: the teacher may rely on view-specific information that the student cannot access at inference time. Moreover, the best type of privileged information is often task-dependent, making it difficult to choose a single teacher view. In this work, we address both these challenges jointly by introducing AVSD (Adaptive-View Self-Distillation), a novel method of self-distillation with multiple privileged-information views, which reconstructs token-level supervision by separating stable cross-view consensus from view-specific residual signals. AVSD identifies the consensus signal shared across views, which provides a reliable update direction, and then selectively adds the view-specific residual signal to adjust the update magnitude when it both aligns with the consensus direction and remains proportionate to the consensus signal. Experiments on math competition benchmarks (AIME24, AIME25, and HMMT25) show that AVSD consistently outperforms both single-view self-distillation baselines and GRPO, achieving average Avg@8 gains of 3.1% and 2.2% over the strongest baselines on Qwen3-8B and Qwen3-4B, respectively. Moreover, on code-generation benchmarks (Codeforces, LiveCodeBench v6) using Qwen3-8B, AVSD outperforms the single-view self-distillation baseline by 2.4% on average.",
-        "authors": [
-          "Duy Nguyen",
-          "Hanqi Xiao",
-          "Archiki Prasad",
-          "Zaid Khan",
-          "Anirban Das",
-          "Austin Zhang",
-          "Sambit Sahu",
-          "Hyunji Lee",
-          "Elias Stengel-Eskin",
-          "Mohit Bansal"
-        ],
-        "published": "2026-05-20T03:06:36+00:00",
-        "updated": "2026-05-20T03:06:36+00:00",
-        "categories": [
-          "cs.LG",
-          "cs.AI",
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2605.20643v1"
-      },
-      "languages": [
-        {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract",
-        "html"
-      ],
-      "sections_with_detections": [
-        "2AVSD:Adaptive-ViewSelf-Distillation",
-        "2.2Consensus and Residual Signal",
-        "Arithmetic Marginal Target.",
-        "Cross-View Residual."
       ]
     },
     {
@@ -15559,7 +15370,7 @@
       },
       "languages": [
         {
-          "language": "Bribri",
+          "language": "Guaraní",
           "class": 0,
           "sources": [
             "abstract",
@@ -15567,7 +15378,7 @@
           ]
         },
         {
-          "language": "Guaraní",
+          "language": "Bribri",
           "class": 0,
           "sources": [
             "abstract",
@@ -15996,42 +15807,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2605.20477v1",
-        "title": "Training Language Agents to Learn from Experience",
-        "abstract": "Language agents can adapt from experience in interactive environments, but current reflection-based methods can only self-correct within a single task instance. Whether such experience can be distilled into reusable lessons that improve performance on future unseen tasks remains unclear. We address this problem by introducing the In-context Training (ICT) task, a framework for evaluating cross-task self-improvement in language agents. In ICT, a reflector model observes trajectories collected by an actor model and generates system prompts intended to improve the actor's performance on future unseen tasks. We then propose an RL-based training pipeline for learning such reflections directly from experience, without human-provided examples. Across ALFWorld and MiniHack, our trained reflectors outperform an untrained baseline on most held-out task families, showing that the ability to learn from experience can itself be learned. In some cases, we observe generalisation beyond the benchmark on which the reflector was trained, to substantially different environments. Finally, we introduce MetaGym, a generic Python library for constructing meta-environments, enabling future research on self-improving language agents.",
-        "authors": [
-          "Yuval Shalev",
-          "Zifeng Ding",
-          "Mateja Jamnik"
-        ],
-        "published": "2026-05-19T20:41:12+00:00",
-        "updated": "2026-05-19T20:41:12+00:00",
-        "categories": [
-          "cs.LG",
-          "cs.AI",
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2605.20477v1"
-      },
-      "languages": [
-        {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract",
-        "html"
-      ],
-      "sections_with_detections": [
-        "3The In-context Training Task"
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2605.20435v1",
         "title": "Hiding in Plain Sight: Finding MAHA on Reddit",
         "abstract": "Make America Healthy Again (MAHA) is a national health movement that encompasses a striking mix of beliefs, from broadly accepted concerns about good diet and exercise to controversial takes on organic and genetically modified food, childhood vaccination, science, and institutions. Various influencers and promoters of the MAHA movement on social media are scattered throughout the online space. Investigating the structure, discourse, and contagion of MAHA beliefs requires large-scale fine-grained digital footprints. Constructing structured data covering different MAHA themes from vast unstructured social media data is challenging. We introduce a Reddit dataset that spans six years (2020-2025), comprising 19.4M posts from 4M users. Containing the natural and thematic context of 12 MAHA-aligned beliefs, this dataset offers researchers from various domains the opportunity to study the dynamics of the MAHA movement, its structural and functional components, and the linguistic and behavioral patterns of its proponents.",
@@ -16189,6 +15964,8 @@
         {
           "language": "Mae",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
           ]
@@ -16250,6 +16027,8 @@
         {
           "language": "Mae",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
           ]
@@ -16551,15 +16330,10 @@
       },
       "languages": [
         {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Tat",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -16647,15 +16421,10 @@
       },
       "languages": [
         {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Utu",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: U_t rendered as 'UtU' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -16666,9 +16435,6 @@
         "html"
       ],
       "sections_with_detections": [
-        "3Method",
-        "3.1Belief-Structured Interaction in POMDPs",
-        "3.2Belief Consistency Supervision",
         "Appendix FTheoretical Analysis",
         "F.1Problem Diagnosis and REBEL Design",
         "F.2Variance Reduction Analysis"
@@ -17089,6 +16855,8 @@
         {
           "language": "Ami",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "AMI = meeting corpus dataset; also a real Formosan language of Taiwan",
           "sources": [
             "html"
           ]
@@ -17131,6 +16899,8 @@
         {
           "language": "Sentinel",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Microsoft Sentinel / AI planning system name — also a real Andamanese language",
           "sources": [
             "abstract",
             "html"
@@ -17307,6 +17077,8 @@
         {
           "language": "Cora",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "CORA = citation network benchmark dataset — common in GNN/graph papers",
           "sources": [
             "html"
           ]
@@ -17587,6 +17359,8 @@
         {
           "language": "Aja",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: a_j (IRT parameter) rendered as 'aja' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -17652,14 +17426,6 @@
       },
       "languages": [
         {
-          "language": "Agi",
-          "class": 0,
-          "sources": [
-            "abstract",
-            "html"
-          ]
-        },
-        {
           "language": "Polish",
           "class": 4,
           "sources": [
@@ -17672,26 +17438,8 @@
         "html"
       ],
       "sections_with_detections": [
-        "abstract",
-        "1.Introduction",
-        "3.Theoptimize_anythingAPI",
-        "3.2.Three Optimization Modes",
-        "Generalization.",
-        "5.Experiments",
-        "5.3.ARC-AGI Agent Architecture (Generalization)",
-        "5.8.Ablation: Multi-Task vs. Single-Task Search",
-        "Scaling with number of tasks.",
-        "5.10.Proposer Sensitivity and Optimization Cost",
-        "7.Discussion",
-        "The role of SI across domains.",
-        "Artifacts optimized byoptimize_anything.",
-        "8.Limitations",
-        "Appendix GProposer Sensitivity and Optimization Cost",
         "Appendix JDiscovered solutions",
-        "J.2.ARC-AGI Agent Architecture",
-        "J.6.Circle Packing Algorithm",
-        "Appendix KDemonstration",
-        "Scenario 1: Evolving ARC-AGI agents."
+        "J.6.Circle Packing Algorithm"
       ]
     },
     {
@@ -17968,6 +17716,8 @@
         {
           "language": "Bo",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Chinese given name 'Bo' appearing in author/contributor lists",
           "sources": [
             "html"
           ]
@@ -18007,49 +17757,6 @@
         "Appendix AThe models used in experiments",
         "Appendix CCalibration Data for Data-Aware Methods",
         "Appendix GEfficiency Comparison of Merging Methods"
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2605.19516v1",
-        "title": "Base Models Look Human To AI Detectors",
-        "abstract": "As AI-generated text enters the real-world at scale, institutions increasingly use commercial AI-text detectors, especially in education and academic-integrity workflows. We report a surprising empirical finding about such systems: when evaluated by GPTZero and Pangram, generated text from base models is often judged overwhelmingly human, whereas text generated by their instruction-tuned counterparts is not. Building on this observation, we propose Humanization by Iterative Paraphrasing (HIP), a detector-agnostic pipeline that minimally fine-tunes a base model into a paraphraser and applies it iteratively. Compared with the baselines we test, HIP yields a stronger trade-off between semantic preservation and detector evasion on commercial detectors. Across Llama-3 and Qwen-3 families, spanning model sizes from 0.6B to 70B, HIP consistently improves detector human-likeness. Our findings suggest that current detectors are tracking artifacts of instruction tuning and local context more than any invariant notion of machine-generated text. This, in turn, calls for detector designs that model these factors more explicitly.",
-        "authors": [
-          "Yixuan Even Xu",
-          "Ziqian Zhong",
-          "Aditi Raghunathan",
-          "Fei Fang",
-          "J. Zico Kolter"
-        ],
-        "published": "2026-05-19T08:13:12+00:00",
-        "updated": "2026-05-19T08:13:12+00:00",
-        "categories": [
-          "cs.CL",
-          "cs.AI",
-          "cs.LG"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2605.19516v1"
-      },
-      "languages": [
-        {
-          "language": "Sake",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract",
-        "html"
-      ],
-      "sections_with_detections": [
-        "Appendix BQualitative Examples",
-        "B.1HIP on Llama3-8B",
-        "B.2Simple Paraphrase",
-        "B.3DIPPER",
-        "B.4SilverSpeak",
-        "B.5StealthRL"
       ]
     },
     {
@@ -18271,6 +17978,8 @@
         {
           "language": "Dla",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "DLA = Document Layout Analysis — common NLP/vision acronym",
           "sources": [
             "abstract",
             "html"
@@ -18402,13 +18111,6 @@
       },
       "languages": [
         {
-          "language": "Carrier",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Amo",
           "class": 0,
           "sources": [
@@ -18430,13 +18132,6 @@
           ]
         },
         {
-          "language": "Agi",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Mo",
           "class": 0,
           "needs_review": true,
@@ -18451,13 +18146,9 @@
         "html"
       ],
       "sections_with_detections": [
-        "1Introduction",
-        "3Architecture",
-        "3.3Task",
         "4Benchmarks",
         "4.3Computation",
         "4.7Long-text Processing",
-        "4.8Others",
         "5Future Works",
         "Author Contributions"
       ]
@@ -18534,6 +18225,8 @@
         {
           "language": "Sentinel",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Microsoft Sentinel / AI planning system name — also a real Andamanese language",
           "sources": [
             "html"
           ]
@@ -18740,6 +18433,8 @@
         {
           "language": "Leco",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "LECO = uncertainty estimation method acronym; also a real language of Bolivia",
           "sources": [
             "html"
           ]
@@ -18782,6 +18477,8 @@
         {
           "language": "Utu",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: U_t rendered as 'UtU' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -18921,6 +18618,8 @@
         {
           "language": "Aja",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: a_j (IRT parameter) rendered as 'aja' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -19007,6 +18706,8 @@
         {
           "language": "Toto",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "TOTO = benchmark/dataset name in NLP evaluation papers",
           "sources": [
             "html"
           ]
@@ -19014,6 +18715,8 @@
         {
           "language": "Mae",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
           ]
@@ -19034,47 +18737,6 @@
         "C.3Time-MMD Multimodal Forecasting",
         "D.1Time Series Foundation Models",
         "Patch-based tokenization."
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2605.19092v1",
-        "title": "Counterfactual Likelihood Tests for Indirect Influence in Private Reasoning Channels",
-        "abstract": "Reasoning systems increasingly separate intermediate computation into private and public channels, creating evaluation cases that look similar in transcripts: independent co-derivation, direct access to private content, and indirect influence through public communication. This paper presents a counterfactual likelihood test for measuring influence between private reasoning channels. The method replaces an upstream private block with a length-matched donor block, holds the public token sequence and downstream target fixed, and measures the downstream target's negative-log-likelihood shift. On a 7B role-channel reasoning model used for validation, textual probes are unreliable: raw n-gram overlap overstates leakage, corrected overlap remains noisy, and canary reproduction reports no discrimination. Counterfactual likelihood separates unmasked and masked conditions, while length matching controls a RoPE positional confound. In the hardened masked validation, reverse B-to-A influence is near zero, while A-to-B influence persists through public-speech hidden states. A multi-checkpoint validation across three checkpoints, five seeds, and 13,734 valid directional contrasts replicates this asymmetry. A graph-separation control that blocks private-to-public carrier edges produces bit-identical natural and counterfactual scores across all 13,734 control evaluations, identifying the tested public-channel pathway as the complete carrier of the measured counterfactual signal under the implemented role-visibility mask. The results show that private-channel evaluation should report direct and indirect influence separately, and that counterfactual likelihood probes provide a practical default for measuring these boundaries.",
-        "authors": [
-          "Alexander Boesgaard Lorup"
-        ],
-        "published": "2026-05-18T20:27:43+00:00",
-        "updated": "2026-05-18T20:27:43+00:00",
-        "categories": [
-          "cs.LG",
-          "cs.AI",
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2605.19092v1"
-      },
-      "languages": [
-        {
-          "language": "Carrier",
-          "class": 0,
-          "sources": [
-            "abstract",
-            "html"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract",
-        "html"
-      ],
-      "sections_with_detections": [
-        "abstract",
-        "6  Strengthened Multi-Checkpoint Validation",
-        "6.3  Graph-Cut Control for Private-to-Public Carrier Edges",
-        "Purpose.",
-        "6.4  Interpretation Across Checkpoints",
-        "9  Limitations",
-        "10  Conclusion"
       ]
     },
     {
@@ -19106,6 +18768,8 @@
         {
           "language": "Seri",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "SERI-DST = dialogue state tracking system acronym; also a real language isolate of Mexico",
           "sources": [
             "html"
           ]
@@ -19113,6 +18777,8 @@
         {
           "language": "Utu",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: U_t rendered as 'UtU' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -19167,6 +18833,13 @@
       },
       "languages": [
         {
+          "language": "egyptian arabic",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
           "language": "Persian",
           "class": 4,
           "sources": [
@@ -19175,18 +18848,10 @@
           ]
         },
         {
-          "language": "egyptian arabic",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Arabic",
+          "language": "English",
           "class": 5,
           "sources": [
-            "abstract",
-            "pdf"
+            "abstract"
           ]
         },
         {
@@ -19197,10 +18862,11 @@
           ]
         },
         {
-          "language": "English",
+          "language": "Arabic",
           "class": 5,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
           ]
         }
       ],
@@ -19556,16 +19222,10 @@
       },
       "languages": [
         {
-          "language": "Agi",
-          "class": 0,
-          "sources": [
-            "abstract",
-            "html"
-          ]
-        },
-        {
           "language": "Aja",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: a_j (IRT parameter) rendered as 'aja' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -19603,6 +19263,8 @@
         {
           "language": "Uri",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "URI = Uniform Resource Identifier; also a Swiss place name",
           "sources": [
             "html"
           ]
@@ -19613,11 +19275,8 @@
         "html"
       ],
       "sections_with_detections": [
-        "abstract",
-        "1Introduction",
         "6Benchmark Characteristics",
         "7Limitations",
-        "9The Benchmarking Gap",
         "10Dataset Details",
         "10.2Detailed Taxonomy",
         "11Example Problems",
@@ -19810,6 +19469,8 @@
         {
           "language": "Utu",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: U_t rendered as 'UtU' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -19817,6 +19478,8 @@
         {
           "language": "Aja",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: a_j (IRT parameter) rendered as 'aja' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -19901,15 +19564,10 @@
       },
       "languages": [
         {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Utu",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: U_t rendered as 'UtU' in arXiv HTML",
           "sources": [
             "html"
           ]
@@ -19920,8 +19578,6 @@
         "html"
       ],
       "sections_with_detections": [
-        "2Background",
-        "A unified definition.",
         "3Method",
         "3.2Task-Level Persuading",
         "3.2.3Persuader Agent",
@@ -19957,6 +19613,8 @@
         {
           "language": "Ami",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "AMI = meeting corpus dataset; also a real Formosan language of Taiwan",
           "sources": [
             "html"
           ]
@@ -20326,6 +19984,8 @@
         {
           "language": "Mae",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
           ]
@@ -20988,13 +20648,6 @@
       },
       "languages": [
         {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
           "language": "Ong",
           "class": 0,
           "sources": [
@@ -21009,9 +20662,7 @@
       "sections_with_detections": [
         "3SIREM",
         "3.3Speech-informed reconstruction model",
-        "Audio-driven branch.",
-        "MRI-driven branch.",
-        "3.5Training objective"
+        "MRI-driven branch."
       ]
     },
     {
@@ -21219,6 +20870,8 @@
         {
           "language": "Lave",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "LAVE = visual evaluation metric in VQA papers; also a Mon-Khmer language",
           "sources": [
             "html"
           ]
@@ -21613,44 +21266,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2605.17937v1",
-        "title": "BacktestBench: Benchmarking Large Language Models for Automated Quantitative Strategy Backtesting",
-        "abstract": "Quantitative backtesting is essential for evaluating trading strategies but remains hampered by high technical barriers and limited scalability. While Large Language Models (LLMs) offer a transformative path to automate this complex, interdisciplinary workflow through advanced code generation, tool usage, and agentic planning, the practical realization is significantly challenged by the current lack of a large-scale benchmark dedicated to automated quantitative backtesting, which hinders progress in this field. To bridge this critical gap, we introduce BacktestBench, the first large-scale benchmark for automated quantitative backtesting. Built from over 6 million real market records, it comprises 18,246 meticulously annotated question-answering pairs across four task categories: metrics calculation, ticker selection, strategy selection, and parameter confirmation. We also propose AutoBacktest, a robust multi-agent baseline that translates natural language strategies into reproducible backtests by coordinating a Summarizer for semantic factor extraction, a Retriever for validated SQL generation, and a Coder for Python backtesting implementation. Our evaluation on 23 mainstream LLMs, complemented by targeted ablations, identifies key factors that influence end-to-end performance and highlights the importance of grounded verification and standardized indicator representations.",
-        "authors": [
-          "Zhensheng Wang",
-          "Wenmian Yang",
-          "Qingtai Wu",
-          "Lequan Ma",
-          "Yiquan Zhang",
-          "Weijia Jia"
-        ],
-        "published": "2026-05-18T06:52:08+00:00",
-        "updated": "2026-05-18T06:52:08+00:00",
-        "categories": [
-          "cs.CL",
-          "cs.AI"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2605.17937v1"
-      },
-      "languages": [
-        {
-          "language": "Agi",
-          "class": 0,
-          "sources": [
-            "pdf"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract",
-        "pdf"
-      ],
-      "sections_with_detections": [
-        "pdf_full_text"
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2605.20247v1",
         "title": "CP-MoE: Consistency-Preserving Mixture-of-Experts for Continual Learning",
         "abstract": "Catastrophic forgetting remains a major obstacle to continual learning in large language models (LLMs) and vision--language models (VLMs). Although Mixture-of-Experts (MoE) architectures offer an efficient path to scaling, existing LoRA-based MoE continual learning methods still face a fundamental trade-off: they either isolate experts too aggressively, limiting knowledge transfer across tasks, or allow task-specific updates to overwrite important existing parameters, leading to severe forgetting. To address this, we propose CP-MoE, a continual learning framework built around a transient expert that captures early task-specific updates and guides their integration into stable experts. CP-MoE introduces a consistency-preserving routing bias, which uses the transient expert to estimate representation similarity with stable experts and steer routing towards more compatible expert selection, and a transient expert-guided regularisation mechanism, which selectively protects important historical parameters during merging. Together, these components reduce parameter interference and forgetting while preserving cross-task knowledge transfer. We validate CP-MoE on both unimodal and multimodal continual learning benchmarks with LLM-based and VLM-based MoE models. On SuperNI benchmark, spanning diverse sequential language tasks, CP-MoE achieves state-of-the-art performance and stronger zero-shot transfer to unseen tasks. On VQA v2 dataset, it scales effectively to multimodal visual reasoning, consistently reduces forgetting, and outperforms strong MoE baselines.",
@@ -21781,46 +21396,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2605.17873v1",
-        "title": "HINT-SD: Targeted Hindsight Self-Distillation for Long-Horizon Agents",
-        "abstract": "Training long-horizon LLM agents with reinforcement learning is challenging because sparse outcome rewards reveal whether a task succeeds, but not which intermediate actions caused the outcome or how they should be corrected. Recent methods alleviate this issue by generating rewards or textual hints from turn-level action-output signals, or by using feedback-conditioned self-distillation. However, generating feedback at every turn is inefficient when many intermediate turns are already successful or neutral, and applying feedback at a fixed or misaligned turn often fails to supervise the actions that contributed to the failure. To bridge this gap, we propose HINT-SD, a targeted self-distillation framework that uses full-trajectory hindsight to select failure-relevant actions and applies feedback-conditioned distillation only on targeted action spans. Experiments on BFCL v3 and AppWorld show that our method improves over the dense per-turn feedback baseline by up to 18.80 percent while achieving 2.26$\\times$ lower time per training step, suggesting that selecting where to distill is a key factor for both effective and efficient long-horizon agent training.",
-        "authors": [
-          "Woongyeng Yeo",
-          "Yumin Choi",
-          "Taekyung Ki",
-          "Sung Ju Hwang"
-        ],
-        "published": "2026-05-18T05:34:03+00:00",
-        "updated": "2026-05-18T05:34:03+00:00",
-        "categories": [
-          "cs.LG",
-          "cs.AI",
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2605.17873v1"
-      },
-      "languages": [
-        {
-          "language": "Ata",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract",
-        "html"
-      ],
-      "sections_with_detections": [
-        "Appendix AAdditional Experimental Details",
-        "A.1Additional Details on Baselines",
-        "SFT.",
-        "GRPO."
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2605.17860v1",
         "title": "PAREDA: A Multi-Accent Speech Dataset of Natural Language Processing Research Discussions",
         "abstract": "While modern Automatic Speech Recognition (ASR) systems achieve high accuracy on benchmark corpora, their performance often degrades when there is real-world variability. This work focuses on variability arising due to accented, spontaneous, and domain-specific speech. In particular, we introduce PAper REading DAtaset (PAREDA), a first-of-its-kind multi-accent speech dataset consisting of discussions on academic Natural Language Processing (NLP) papers between speakers with Australian, Indian-English, and Chinese English accents. Each session elicits a spontaneous monologue (a summary of a paper's abstract) and a non-monologue (a question-and-answer session between participants), resulting in a corpus rich with technical jargon and conversational phenomena. We evaluate the performance of SOTA ASR models on PAREDA, analysing the impact of accent mixing and increased speech rate. Our results show that, in the zero-shot setting, models perform worse, confirming the dataset's challenging nature. However, fine-tuning on PAREDA significantly reduces the Word Error Rate (WER), demonstrating that our dataset captures linguistic characteristics often missing from existing corpora. PAREDA serves as a valuable new resource for building and evaluating more robust and inclusive ASR systems for specialised, real-world applications.",
@@ -21857,6 +21432,8 @@
         {
           "language": "Ami",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "AMI = meeting corpus dataset; also a real Formosan language of Taiwan",
           "sources": [
             "html"
           ]
@@ -22143,19 +21720,14 @@
         {
           "language": "Ari",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "ARI = Adjusted Rand Index metric; also a real Omotic language",
           "sources": [
             "html"
           ]
         },
         {
           "language": "Hehe",
-          "class": 0,
-          "sources": [
-            "html"
-          ]
-        },
-        {
-          "language": "Sake",
           "class": 0,
           "sources": [
             "html"
@@ -22175,8 +21747,7 @@
         "Appendix DPrompts",
         "D.3Segment Intrusion Evaluation: Single Intruder",
         "D.4Segment Intrusion Evaluation: Double Intruders",
-        "Appendix FFull Results on Topic Modeling Task",
-        "Appendix GExamples of Segment Intrusion Evaluation"
+        "Appendix FFull Results on Topic Modeling Task"
       ]
     },
     {
@@ -22341,6 +21912,8 @@
         {
           "language": "Tat",
           "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
           "sources": [
             "html"
           ]
