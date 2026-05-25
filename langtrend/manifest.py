@@ -27,6 +27,8 @@ def build_snapshot_manifest(
     flagged_papers: list[dict[str, Any]],
     window_days: int,
     category_query: str,
+    week_start: str | None = None,
+    week_end: str | None = None,
 ) -> dict[str, Any]:
     language_counts: Counter[str] = Counter()
     class_counts: Counter[int] = Counter()
@@ -45,7 +47,7 @@ def build_snapshot_manifest(
             daily_flagged[published] += 1
         for detected in flagged.get("languages", []):
             language = detected.get("language")
-            class_id = detected.get("class_id")
+            class_id = detected.get("class")  # key is "class", not "class_id"
             if language:
                 language_counts[language] += 1
             if class_id is not None:
@@ -54,6 +56,8 @@ def build_snapshot_manifest(
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "window_days": window_days,
+        "week_start": week_start,
+        "week_end": week_end,
         "query": category_query,
         "counts": {
             "papers": len(papers),
