@@ -1,10 +1,10 @@
 """LangTrend pipeline utilities."""
 
-from .arxiv_pipeline import fetch_recent_arxiv_papers, save_jsonl
-from .html_sections import extract_sections_from_html, recheck_languages_from_html
-from .language_detection import (
-    flag_papers,
-    load_language_data,
-    scan_languages_in_text,
-)
+from .html_processor import extract_sections_from_html, recheck_languages_from_html
 from .manifest import build_snapshot_manifest, save_json
+from .pdf_processor import PDFProcessor
+from .text_cleaning import (
+    clean_paper_text_for_language_screening,
+    detect_languages_in_text,
+    replace_non_letters_with_spaces,
+)
