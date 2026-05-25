@@ -54,12 +54,13 @@ def load_papers(jsonl_path: Path) -> list[dict]:
     return papers
 
 
-def load_language_data(path: Path) -> tuple[dict[int, set[str]], set[str]]:
+def load_language_data(path: Path) -> tuple[dict[int, set[str]], set[str], dict[str, str]]:
     with path.open("r", encoding="utf-8") as fp:
         data = json.load(fp)
     lang_classes = {int(k): set(v) for k, v in data["lang_classes"].items()}
     languages_to_ignore = set(data["languages_to_ignore"])
-    return lang_classes, languages_to_ignore
+    possible_false_positive_languages: dict[str, str] = data.get("possible_false_positive_languages", {})
+    return lang_classes, languages_to_ignore, possible_false_positive_languages
 
 
 def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
@@ -82,23 +83,37 @@ def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
         return None
 
 
-def _build_detections(raw_languages: list[str], lang_classes: dict[int, set[str]]) -> list[dict]:
-    """Attach class IDs to a list of detected language strings."""
+def _build_detections(
+    raw_languages: list[str],
+    lang_classes: dict[int, set[str]],
+    possible_false_positive_languages: dict[str, str] | None = None,
+) -> list[dict]:
+    """Attach class IDs (and review flags) to a list of detected language strings."""
     result = []
     for language in raw_languages:
         for class_id, langs in lang_classes.items():
             if language in langs:
-                result.append({"language": language, "class": class_id})
+                entry: dict = {"language": language, "class": class_id}
+                if possible_false_positive_languages and language in possible_false_positive_languages:
+                    entry["needs_review"] = True
+                    entry["flag_reason"] = possible_false_positive_languages[language]
+                result.append(entry)
                 break
     return result
 
 
-def _detect_in_text(text: str, lang_classes: dict, languages_to_ignore: set, paper_id: str) -> list[dict]:
+def _detect_in_text(
+    text: str,
+    lang_classes: dict,
+    languages_to_ignore: set,
+    paper_id: str,
+    possible_false_positive_languages: dict[str, str] | None = None,
+) -> list[dict]:
     cleaned_blocks, _ = clean_paper_text_for_language_screening(text)
     if not cleaned_blocks:
         return []
     raw = detect_languages_in_text(cleaned_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
-    return _build_detections(raw, lang_classes)
+    return _build_detections(raw, lang_classes, possible_false_positive_languages)
 
 
 # ---------------------------------------------------------------------------
@@ -109,6 +124,7 @@ def _process_single_paper(
     paper: dict,
     lang_classes: dict[int, set[str]],
     languages_to_ignore: set[str],
+    possible_false_positive_languages: dict[str, str],
     pdf_dir: Path,
     html_cache_dir: Path,
     pdf_text_dir: Path,
@@ -126,7 +142,7 @@ def _process_single_paper(
     # 1. Abstract (always scanned)
     abstract = paper.get("abstract", "")
     if abstract:
-        detections = _detect_in_text(abstract, lang_classes, languages_to_ignore, paper_id)
+        detections = _detect_in_text(abstract, lang_classes, languages_to_ignore, paper_id, possible_false_positive_languages)
         record["sources_checked"].append("abstract")
         if detections:
             record["sections"]["abstract"] = {"source": "abstract", "detected_languages": detections}
@@ -145,7 +161,7 @@ def _process_single_paper(
             for section_title, languages in html_cache.items():
                 if not languages:
                     continue
-                detections = _build_detections(languages, lang_classes)
+                detections = _build_detections(languages, lang_classes, possible_false_positive_languages)
                 if detections:
                     record["sections"][section_title] = {
                         "source": "html",
@@ -168,7 +184,7 @@ def _process_single_paper(
                     raw_text, _ = processor.extract_text(pdf_path)
                     if raw_text:
                         cleaned_text = processor.clean_text(raw_text)
-                        detections = _detect_in_text(cleaned_text, lang_classes, languages_to_ignore, paper_id)
+                        detections = _detect_in_text(cleaned_text, lang_classes, languages_to_ignore, paper_id, possible_false_positive_languages)
                         if detections:
                             record["sections"]["pdf_full_text"] = {
                                 "source": "pdf",
@@ -208,6 +224,7 @@ def process_papers(
     papers: list[dict],
     lang_classes: dict[int, set[str]],
     languages_to_ignore: set[str],
+    possible_false_positive_languages: dict[str, str],
     output_jsonl: Path,
     warnings_file: Path,
     pdf_dir: Path,
@@ -237,6 +254,7 @@ def process_papers(
                 paper,
                 lang_classes,
                 languages_to_ignore,
+                possible_false_positive_languages,
                 pdf_dir,
                 html_cache_dir,
                 pdf_text_dir,
@@ -332,8 +350,9 @@ def main() -> None:
         )
         sys.exit(1)
 
-    lang_classes, languages_to_ignore = load_language_data(args.language_data)
+    lang_classes, languages_to_ignore, possible_false_positive_languages = load_language_data(args.language_data)
     print(f"Loaded {sum(len(v) for v in lang_classes.values())} language entries across {len(lang_classes)} classes")
+    print(f"Suspicious languages for review: {len(possible_false_positive_languages)}")
 
     papers = load_papers(args.input)
     print(f"Loaded {len(papers)} papers from {args.input}")
@@ -344,6 +363,7 @@ def main() -> None:
         papers=papers,
         lang_classes=lang_classes,
         languages_to_ignore=languages_to_ignore,
+        possible_false_positive_languages=possible_false_positive_languages,
         output_jsonl=args.output_dir / f"{stem}_detected.jsonl",
         warnings_file=args.output_dir / f"{stem}_warnings.json",
         pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",

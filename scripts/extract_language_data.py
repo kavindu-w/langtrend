@@ -15,6 +15,22 @@ from pathlib import Path
 _DEFAULT_SUBMODULE = Path(__file__).parent.parent / "Some-Languages-are-More-Equal-than-Others"
 _DEFAULT_OUTPUT = Path(__file__).parent.parent / "data/processed/language_data.json"
 
+# Languages that are real but frequently produce false positives in CS/NLP papers.
+# Detections for these will be kept but flagged with needs_review=True and a reason
+# so they can be surfaced for manual inspection on the website.
+_POSSIBLE_FALSE_POSITIVE_LANGUAGES: dict[str, str] = {
+    "Jina":  "Possible embedding model name",
+    "Deg":   "Likely matches 'degree' or similar technical terms",
+    "Pole":  "Often matches mathematical 'poles' in geometry/embeddings papers",
+    "Yale":  "Possible false positive – Yale University",
+    "Aka":   "'aka' = also known as – common abbreviation",
+    "Wa":    "Possible false positive – could match 'WA' (Weighted Average)",
+    "Fur":   "Possible false positive – Likely matches 'fur' as in hair",
+    "Pin":   "Possible false positive – matches many common words",
+    "Crow":  "Often matches bird keyword lists in corpus studies",
+    "Epie":  "Likely matches part of a technical word or acronym",
+}
+
 # taken from https://github.com/dilithjay/Shoulders-of-Giants/blob/main/categorize_filtered_papers.ipynb
 _LANGUAGES_TO_IGNORE = set(
     "Apache,Laura,Fang,Mono,Ma,Maria,Sam,Bench,Zhuang,Male,Nara,So,Hu,Kim,Label,The,To,Yong,"
@@ -54,8 +70,9 @@ def extract_language_data(submodule_path: Path, output_path: Path) -> None:
     print(f"Languages to ignore: {len(_LANGUAGES_TO_IGNORE)}")
 
     output_data = {
-        "lang_classes": {str(k): list(v) for k, v in lang_classes.items()},
+        "lang_classes": {str(k): sorted(v) for k, v in lang_classes.items()},
         "languages_to_ignore": sorted(_LANGUAGES_TO_IGNORE),
+        "possible_false_positive_languages": _POSSIBLE_FALSE_POSITIVE_LANGUAGES,
     }
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
