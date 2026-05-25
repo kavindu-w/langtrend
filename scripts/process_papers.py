@@ -110,7 +110,7 @@ def _process_single_paper(
     lang_classes: dict[int, set[str]],
     languages_to_ignore: set[str],
     pdf_dir: Path,
-    html_sections_dir: Path,
+    html_cache_dir: Path,
     pdf_text_dir: Path,
 ) -> dict:
     paper_id = paper.get("id", "unknown")
@@ -131,17 +131,17 @@ def _process_single_paper(
             record["sections"]["abstract"] = {"source": "abstract", "detected_languages": detections}
 
     # 2. HTML extraction
-    html_sections: dict | None = None
+    html_cache: dict | None = None
     try:
-        html_sections = recheck_languages_from_html(
+        html_cache = recheck_languages_from_html(
             paper,
             lang_classes,
             languages_to_ignore,
-            out_dir=html_sections_dir,
+            out_dir=html_cache_dir,
         )
-        if html_sections is not None:
+        if html_cache is not None:
             record["sources_checked"].append("html")
-            for section_title, languages in html_sections.items():
+            for section_title, languages in html_cache.items():
                 if not languages:
                     continue
                 detections = _build_detections(languages, lang_classes)
@@ -151,11 +151,11 @@ def _process_single_paper(
                         "detected_languages": detections,
                     }
     except Exception as exc:
-        html_sections = None
+        html_cache = None
         record["warnings"].append({"step": "html", "error": str(exc)})
 
     # 3. PDF fallback — only when HTML returned nothing (unavailable or empty)
-    html_unavailable = html_sections is None or len(html_sections) == 0
+    html_unavailable = html_cache is None or len(html_cache) == 0
     if html_unavailable:
         pdf_url = paper.get("pdf_url")
         if pdf_url:
@@ -199,11 +199,11 @@ def process_papers(
     output_jsonl: Path,
     warnings_file: Path,
     pdf_dir: Path,
-    html_sections_dir: Path,
+    html_cache_dir: Path,
     pdf_text_dir: Path,
     max_workers: int = 4,
 ) -> dict:
-    for d in [pdf_dir, html_sections_dir, pdf_text_dir]:
+    for d in [pdf_dir, html_cache_dir, pdf_text_dir]:
         d.mkdir(parents=True, exist_ok=True)
     output_jsonl.parent.mkdir(parents=True, exist_ok=True)
 
@@ -225,7 +225,7 @@ def process_papers(
                 lang_classes,
                 languages_to_ignore,
                 pdf_dir,
-                html_sections_dir,
+                html_cache_dir,
                 pdf_text_dir,
             ): paper
             for paper in papers
@@ -333,7 +333,7 @@ def main() -> None:
         output_jsonl=args.output_dir / f"{stem}_detected.jsonl",
         warnings_file=args.output_dir / f"{stem}_warnings.json",
         pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
-        html_sections_dir=args.output_dir / "html_sections",
+        html_cache_dir=args.output_dir / "html_cache",
         pdf_text_dir=args.output_dir / "pdf_text",
         max_workers=args.workers,
     )
