@@ -98,13 +98,17 @@ class PDFProcessor:
     
     def clean_text(self, text: str) -> str:
         """Basic text cleaning."""
+        # Join hyphenated line breaks (PDF line-break artifact: "dura-\ntion" → "duration").
+        # Only lowercase-to-lowercase to avoid merging intentional breaks like "State-\nCapital".
+        text = re.sub(r'([a-z])-\n([a-z])', r'\1\2', text)
+
         # Remove excessive whitespace
         text = re.sub(r'\n{3,}', '\n\n', text)
         text = re.sub(r' {2,}', ' ', text)
-        
+
         # Remove form feed characters
         text = text.replace('\x0c', '')
-        
+
         return text.strip()
     
     def generate_markdown(self, pdf_path: Path, metadata: Dict, text: str) -> str:
