@@ -53,6 +53,13 @@ _POSSIBLE_FALSE_POSITIVE_LANGUAGES: dict[str, str] = {
     "Ata":      "Math subscript artifact: a_t^a rendered as 'ata' in arXiv HTML",
     "Tat":      "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
     "Utu":      "Math subscript artifact: U_t rendered as 'UtU' in arXiv HTML",
+    # Multi-column PDF layout / space-loss artifacts
+    "Andh":     "PDF space-loss artifact: 'and h' (math variable) merged as 'andh' in multi-column PDFs",
+    "Fwe":      "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers",
+    "Maa":      "PDF artifact: 'maa.org' URL domain or 'maa' token from multi-column text merge",
+    "Mpi":      "MPI = Max Planck Institute or Message Passing Interface — common acronym in NLP/ML papers",
+    "Nai":      "PDF split artifact: 'nAI' suffix from 'OpenAI' split at column boundary",
+    "Ona":      "PDF space-loss artifact: 'on a' merged as 'ona' in multi-column layout",
     # Short/generic words that match many common terms
     "Batu":     "Possible false positive",
     "Crow":     "Often matches bird keyword lists in corpus studies",
