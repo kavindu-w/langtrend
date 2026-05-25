@@ -1,8 +1,9 @@
 ---
 import clientScript from '../scripts/week-calendar-client.js?url';
+const { activeWeek } = Astro.props as { activeWeek?: string };
 ---
 
-<div class="calendar-card week-calendar-panel">
+<div class="calendar-card week-calendar-panel" data-active-week={activeWeek ?? ''}>
   <div class="panel-head compact-head">
     <h2 id="week-title">The Week of 18 May–24 May</h2>
   </div>

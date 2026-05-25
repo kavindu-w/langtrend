@@ -2,7 +2,7 @@
 import { formatAuthors } from '../lib/data.js';
 import { languageBorderClass, languageFillColor } from '../lib/language-colors.js';
 
-type LanguageEntry = string | [string, number] | { language?: string | null; class?: number; name?: string };
+type LanguageEntry = string | [string, number] | { language?: string | null; class?: number; name?: string; needs_review?: boolean; flag_reason?: string };
 type PaperRecord = {
   title: string;
   authors: string[];
@@ -117,8 +117,14 @@ const languages = [...languageCounts.entries()]
                 {chipLanguages.map((entry: LanguageEntry) => {
                   const language = normalizeLanguage(entry);
                   const borderClass = classFromEntry(entry) ?? languageBorderClass(language, langClasses);
+                  const needsReview = !Array.isArray(entry) && typeof entry === 'object' && !!entry?.needs_review;
+                  const flagReason = !Array.isArray(entry) && typeof entry === 'object' ? (entry?.flag_reason ?? '') : '';
                   return (
-                    <span class={`lang-chip class-${borderClass}`} style={`background:${languageFillColor(language)}`}>{language}</span>
+                    <span
+                      class={`lang-chip class-${borderClass}${needsReview ? ' needs-review' : ''}`}
+                      style={`background:${languageFillColor(language)}`}
+                      title={needsReview ? `Manual review recommended: ${flagReason}` : undefined}
+                    >{language}{needsReview ? <span class="review-star" aria-label="manual review recommended">★</span> : null}</span>
                   );
                 })}
               </div>

@@ -70,11 +70,8 @@ const calendar = new Calendar(root, {
       showToast('Data is only available from May 18, 2026.');
       return;
     }
-    updateWeekTitle(start);
-    // highlight week
     setSelectedWeek(start);
-    // placeholder navigation toast
-    showToast(`Would navigate to data for ${fmtTitle(start)}.`);
+    window.location.href = `?week=${isoDate(start)}`;
   },
 });
 
@@ -109,20 +106,18 @@ function setSelectedWeek(start) {
   updateUrlForWeek(start);
 }
 
-// init selected week from URL if present
+// init selected week: prefer server-resolved activeWeek attr, then URL param, then earliest
 function initSelectedWeek() {
+  const serverWeek = document.querySelector('.week-calendar-panel')?.dataset.activeWeek;
   const q = new URLSearchParams(window.location.search);
-  const w = q.get('week');
+  const urlWeek = q.get('week');
+  const raw = serverWeek || urlWeek;
   let start;
-  if (w) {
-    const parsed = new Date(w + 'T00:00:00Z');
+  if (raw) {
+    const parsed = new Date(raw + 'T00:00:00Z');
     if (!isNaN(parsed)) start = startOfWeek(parsed);
   }
-  if (!start) start = startOfWeek(earliestAvailable);
-  if (start < earliestAvailable) {
-    start = startOfWeek(earliestAvailable);
-  }
-  // move calendar to the week and highlight
+  if (!start || start < earliestAvailable) start = startOfWeek(earliestAvailable);
   calendar.gotoDate(start);
   setSelectedWeek(start);
 }
@@ -136,8 +131,7 @@ prev.addEventListener('click', () => {
     showToast('Data is only available from May 18, 2026.');
     return;
   }
-  calendar.gotoDate(prevStart);
-  setSelectedWeek(prevStart);
+  window.location.href = `?week=${isoDate(prevStart)}`;
 });
 
 next.addEventListener('click', () => {
@@ -145,8 +139,7 @@ next.addEventListener('click', () => {
   const start = startOfWeek(current);
   const nextStart = new Date(start);
   nextStart.setDate(start.getDate() + 7);
-  calendar.gotoDate(nextStart);
-  setSelectedWeek(nextStart);
+  window.location.href = `?week=${isoDate(nextStart)}`;
 });
 
 // wire view button behavior already handled via dateClick/setSelectedWeek
