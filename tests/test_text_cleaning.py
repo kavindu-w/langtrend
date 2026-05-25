@@ -100,14 +100,14 @@ class TestCleanPaperText:
         _, steps = clean_paper_text_for_language_screening(
             "Generative Adversarial Network (GAN) models."
         )
-        assert steps["acronym_catch"] == ["Generative Adversarial Network (GAN)"]
+        assert "GAN" in steps["acronym_catch"]
 
     def test_acronym_catch_multiple_consecutive_connectors(self):
         blocks, steps = clean_paper_text_for_language_screening(
             "Depression Anxiety of and Stress Scale (DASS)"
         )
         assert "acronym_catch" in steps
-        assert any("Depression Anxiety of and Stress Scale (DASS)" in m for m in steps["acronym_catch"])
+        assert "DASS" in steps["acronym_catch"]
         assert all("(DASS)" not in b and "DASS" not in b for b in blocks)
 
     def test_acronym_catch_two_definitions_same_sentence(self):

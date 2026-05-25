@@ -74,8 +74,10 @@ _COL_SLICE_RE = re.compile(r"\bcol(?:[@$\\])?\s*\[[^\]]+\]", re.IGNORECASE)
 _COL_MATH_MARKER_RE = re.compile(r"\bcol[@$\\]+", re.IGNORECASE)
 _MULTI_SPACE_RE = re.compile(r"\s+")
 _ACRONYM_DEFINITION_RE = re.compile(
-    r"(?:[A-Z][a-z]+\s+(?:(?:and|or|of|the|a|for|in|with|to)\s+)*){2,}\([A-Z]{2,8}\)"
+    r"(?:[A-Za-z][a-z]*\s+(?:(?:and|or|of|the|a|for|in|with|to)\s+)*){2,}\([A-Z]{2,8}\)"
 )
+# Helper to extract the acronym string from a definition match
+_ACRO_PARENS_RE = re.compile(r"\(([A-Z]{2,8})\)")
 
 # PDF body trimming — start marker
 # We use \b rather than $ because pdfplumber often merges the heading and the first
@@ -256,6 +258,16 @@ def clean_paper_text_for_language_screening(text: str) -> tuple[list[str], dict]
     cleaned_blocks: list[str] = []
     step_matches: dict = {}
 
+    # Pass 1: collect all acronyms defined anywhere in the text (case-insensitive expansion).
+    # This handles cross-paragraph uses: "Document Layout Analysis (DLA)" in paragraph 1
+    # → bare "DLA" in paragraph 3 is also stripped.
+    all_defined_acronyms: set[str] = {
+        m2.group(1)
+        for m in _ACRONYM_DEFINITION_RE.finditer(normalized)
+        for m2 in [_ACRO_PARENS_RE.search(m.group(0))]
+        if m2
+    }
+
     for block in re.split(r"\n{2,}|\r\n{2,}", normalized):
         block = block.strip()
         if not block:
@@ -346,13 +358,16 @@ def clean_paper_text_for_language_screening(text: str) -> tuple[list[str], dict]
             step_matches["math_func_notation"] = matches
         block = _MATH_FUNC_NOTATION_RE.sub(" ", block)
 
-        matches = _ACRONYM_DEFINITION_RE.findall(block)
-        if matches:
-            step_matches["acronym_catch"] = matches
+        # Remove acronym introductions (e.g. "Mean Absolute Error (MAE)" → "Mean Absolute Error")
+        # then strip all standalone uses of any acronym defined anywhere in the text.
+        if all_defined_acronyms:
+            step_matches["acronym_catch"] = list(all_defined_acronyms)
         block = _ACRONYM_DEFINITION_RE.sub(
             lambda m: re.sub(r"\s*\([A-Z]{2,8}\)", " ", m.group(0)),
             block,
         )
+        for _acro in all_defined_acronyms:
+            block = re.sub(r"(?<!\w)" + re.escape(_acro) + r"(?!\w)", " ", block)
 
         out_chars: list[str] = []
         replaced: list[str] = []
