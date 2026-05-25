@@ -14,7 +14,7 @@ source field indicating where each detection came from ("abstract", "html", "pdf
 Usage:
     python scripts/process_papers.py --input data/raw/extracted_papers_metadata/arxiv_papers_...jsonl
     python scripts/process_papers.py --input <file.jsonl> --workers 8
-    python scripts/process_papers.py --input <file.jsonl> --output-dir data/processed
+    python scripts/process_papers.py --input <file.jsonl> --output-dir data/processed/weeks/20260518_to_20260525
 """
 
 import argparse
@@ -35,7 +35,7 @@ from langtrend.html_processor import recheck_languages_from_html
 from langtrend.pdf_processor import PDFProcessor
 
 _DEFAULT_LANG_DATA = Path(__file__).parent.parent / "data/processed/language_data.json"
-_DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "data/processed"
+_DEFAULT_PROCESSED_DIR = Path(__file__).parent.parent / "data/processed"
 
 
 # ---------------------------------------------------------------------------
@@ -317,8 +317,8 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=_DEFAULT_OUTPUT_DIR,
-        help=f"Directory for output files (default: {_DEFAULT_OUTPUT_DIR})",
+        default=None,
+        help="Week output directory (default: auto-derived from input filename as data/processed/weeks/YYYYMMDD_to_YYYYMMDD/)",
     )
     parser.add_argument("--workers", type=int, default=4, help="Parallel worker threads (default: 4)")
     args = parser.parse_args()
@@ -335,6 +335,14 @@ def main() -> None:
         )
         sys.exit(1)
 
+    # Derive week output dir from input filename if not given
+    import re as _re
+    if args.output_dir is not None:
+        output_dir = args.output_dir
+    else:
+        m = _re.search(r'(\d{8}_to_\d{8})', args.input.stem)
+        output_dir = _DEFAULT_PROCESSED_DIR / "weeks" / m.group(1) if m else _DEFAULT_PROCESSED_DIR
+
     lang_classes, languages_to_ignore, possible_false_positive_languages = load_language_data(args.language_data)
     print(f"Loaded {sum(len(v) for v in lang_classes.values())} language entries across {len(lang_classes)} classes")
     print(f"Suspicious languages for review: {len(possible_false_positive_languages)}")
@@ -349,11 +357,11 @@ def main() -> None:
         lang_classes=lang_classes,
         languages_to_ignore=languages_to_ignore,
         possible_false_positive_languages=possible_false_positive_languages,
-        output_jsonl=args.output_dir / f"{stem}_detected.jsonl",
-        warnings_file=args.output_dir / f"{stem}_warnings.json",
+        output_jsonl=output_dir / f"{stem}_detected.jsonl",
+        warnings_file=output_dir / f"{stem}_warnings.json",
         pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
-        html_cache_dir=args.output_dir / "html_cache",
-        pdf_cache_dir=args.output_dir / "pdf_cache",
+        html_cache_dir=output_dir / "html_cache",
+        pdf_cache_dir=output_dir / "pdf_cache",
         max_workers=args.workers,
     )
 

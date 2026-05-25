@@ -92,7 +92,8 @@ function datedManifestPath(weekStart) {
   const end = new Date(start);
   end.setUTCDate(end.getUTCDate() + 7);
   const compact = (d) => d.toISOString().slice(0, 10).replace(/-/g, '');
-  return path.join(dataRoot, 'processed', `langtrend_manifest_${compact(start)}_to_${compact(end)}.json`);
+  const slug = `${compact(start)}_to_${compact(end)}`;
+  return path.join(dataRoot, 'processed', 'weeks', slug, 'langtrend_manifest.json');
 }
 
 export function loadSiteData(weekStart = undefined, windowDays = 7) {

@@ -19,7 +19,7 @@
 - [ ] calendar: add links to weekly selection
 - [ ] overall trend update with two weeks
 - [ ] warning for false positives, disclaimer for false positives
-
+- [ ] total papers analysed, total papers flagged, languages deteceted, etc.
 # future work
 - [ ] iso codes?
 - [ ] AA?
