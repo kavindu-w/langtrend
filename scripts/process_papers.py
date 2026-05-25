@@ -64,11 +64,12 @@ def load_language_data(path: Path) -> tuple[dict[int, set[str]], set[str], dict[
 
 
 def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
-    """Download a PDF if not already cached. Returns path or None on failure."""
-    filename = paper_id.split("/")[-1]
-    if not filename.lower().endswith(".pdf"):
-        filename = f"{filename}.pdf"
-    pdf_path = pdf_dir / filename
+    """Download a PDF into a per-paper subdirectory. Returns path or None on failure."""
+    safe_id = paper_id.split("/")[-1]
+    paper_pdf_dir = pdf_dir / safe_id
+    paper_pdf_dir.mkdir(parents=True, exist_ok=True)
+    filename = safe_id if safe_id.lower().endswith(".pdf") else f"{safe_id}.pdf"
+    pdf_path = paper_pdf_dir / filename
     if pdf_path.exists():
         return pdf_path
     try:
@@ -127,7 +128,6 @@ def _process_single_paper(
     possible_false_positive_languages: dict[str, str],
     pdf_dir: Path,
     html_cache_dir: Path,
-    pdf_text_dir: Path,
     pdf_cache_dir: Path,
 ) -> dict:
     paper_id = paper.get("id", "unknown")
@@ -180,7 +180,7 @@ def _process_single_paper(
             if pdf_path:
                 record["sources_checked"].append("pdf")
                 try:
-                    processor = PDFProcessor(input_dir=str(pdf_dir), output_dir=str(pdf_text_dir))
+                    processor = PDFProcessor(input_dir=str(pdf_path.parent), output_dir=str(pdf_path.parent))
                     raw_text, _ = processor.extract_text(pdf_path)
                     if raw_text:
                         cleaned_text = processor.clean_text(raw_text)
@@ -229,11 +229,10 @@ def process_papers(
     warnings_file: Path,
     pdf_dir: Path,
     html_cache_dir: Path,
-    pdf_text_dir: Path,
     pdf_cache_dir: Path,
     max_workers: int = 4,
 ) -> dict:
-    for d in [pdf_dir, html_cache_dir, pdf_text_dir, pdf_cache_dir]:
+    for d in [pdf_dir, html_cache_dir, pdf_cache_dir]:
         d.mkdir(parents=True, exist_ok=True)
     output_jsonl.parent.mkdir(parents=True, exist_ok=True)
 
@@ -257,7 +256,6 @@ def process_papers(
                 possible_false_positive_languages,
                 pdf_dir,
                 html_cache_dir,
-                pdf_text_dir,
                 pdf_cache_dir,
             ): paper
             for paper in papers
@@ -368,7 +366,6 @@ def main() -> None:
         warnings_file=args.output_dir / f"{stem}_warnings.json",
         pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
         html_cache_dir=args.output_dir / "html_cache",
-        pdf_text_dir=args.output_dir / "pdf_text",
         pdf_cache_dir=args.output_dir / "pdf_cache",
         max_workers=args.workers,
     )
