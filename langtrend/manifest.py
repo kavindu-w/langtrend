@@ -7,6 +7,31 @@ from pathlib import Path
 from typing import Any
 
 
+def build_detections(
+    raw_languages: list[str],
+    lang_classes: dict[int, set[str]],
+    possible_false_positives: dict[str, str] | None = None,
+    languages_to_ignore: set[str] | None = None,
+) -> list[dict[str, Any]]:
+    """Attach class IDs and optional review flags to detected language strings."""
+    ignore = languages_to_ignore or set()
+    ignore_lower = {v.lower() for v in ignore}
+    pfp = possible_false_positives or {}
+    result = []
+    for language in raw_languages:
+        if language in ignore or language.lower() in ignore_lower:
+            continue
+        for class_id, langs in lang_classes.items():
+            if language in langs:
+                entry: dict[str, Any] = {"language": language, "class": class_id}
+                if language in pfp:
+                    entry["needs_review"] = True
+                    entry["flag_reason"] = pfp[language]
+                result.append(entry)
+                break
+    return result
+
+
 def save_json(data: dict[str, Any], output_path: str | Path) -> Path:
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)

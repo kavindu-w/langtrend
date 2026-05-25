@@ -29,6 +29,7 @@ from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from langtrend.manifest import build_detections
 from langtrend.text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text, trim_pdf_text_to_body
 from langtrend.html_processor import recheck_languages_from_html
 from langtrend.pdf_processor import PDFProcessor
@@ -84,25 +85,6 @@ def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
         return None
 
 
-def _build_detections(
-    raw_languages: list[str],
-    lang_classes: dict[int, set[str]],
-    possible_false_positive_languages: dict[str, str] | None = None,
-) -> list[dict]:
-    """Attach class IDs (and review flags) to a list of detected language strings."""
-    result = []
-    for language in raw_languages:
-        for class_id, langs in lang_classes.items():
-            if language in langs:
-                entry: dict = {"language": language, "class": class_id}
-                if possible_false_positive_languages and language in possible_false_positive_languages:
-                    entry["needs_review"] = True
-                    entry["flag_reason"] = possible_false_positive_languages[language]
-                result.append(entry)
-                break
-    return result
-
-
 def _detect_in_text(
     text: str,
     lang_classes: dict,
@@ -114,7 +96,7 @@ def _detect_in_text(
     if not cleaned_blocks:
         return []
     raw = detect_languages_in_text(cleaned_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
-    return _build_detections(raw, lang_classes, possible_false_positive_languages)
+    return build_detections(raw, lang_classes, possible_false_positive_languages)
 
 
 # ---------------------------------------------------------------------------
@@ -161,7 +143,7 @@ def _process_single_paper(
             for section_title, languages in html_cache.items():
                 if not languages:
                     continue
-                detections = _build_detections(languages, lang_classes, possible_false_positive_languages)
+                detections = build_detections(languages, lang_classes, possible_false_positive_languages)
                 if detections:
                     record["sections"][section_title] = {
                         "source": "html",
@@ -187,7 +169,7 @@ def _process_single_paper(
                         body_text = trim_pdf_text_to_body(cleaned_text)
                         screened_blocks, _ = clean_paper_text_for_language_screening(body_text)
                         raw_langs = detect_languages_in_text(screened_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
-                        detections = _build_detections(raw_langs, lang_classes, possible_false_positive_languages)
+                        detections = build_detections(raw_langs, lang_classes, possible_false_positive_languages)
                         if detections:
                             record["sections"]["pdf_full_text"] = {
                                 "source": "pdf",
