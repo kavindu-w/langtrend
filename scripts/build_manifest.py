@@ -31,7 +31,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from langtrend.manifest import build_snapshot_manifest, save_json
+from langtrend.manifest import build_detections, build_snapshot_manifest, save_json
 from langtrend.text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text
 
 _PROJECT_ROOT = Path(__file__).parent.parent
@@ -76,29 +76,6 @@ def _load_language_data(path: Path) -> tuple[dict[int, set[str]], set[str], dict
     return lang_classes, languages_to_ignore, possible_false_positives
 
 
-def _build_detections(
-    raw_languages: list[str],
-    lang_classes: dict[int, set[str]],
-    possible_false_positives: dict[str, str],
-    languages_to_ignore: set[str] | None = None,
-) -> list[dict]:
-    ignore = languages_to_ignore or set()
-    ignore_lower = {v.lower() for v in ignore}
-    result = []
-    for language in raw_languages:
-        if language in ignore or language.lower() in ignore_lower:
-            continue
-        for class_id, langs in lang_classes.items():
-            if language in langs:
-                entry: dict = {"language": language, "class": class_id}
-                if language in possible_false_positives:
-                    entry["needs_review"] = True
-                    entry["flag_reason"] = possible_false_positives[language]
-                result.append(entry)
-                break
-    return result
-
-
 def _scan_abstract(
     paper: dict,
     lang_classes: dict[int, set[str]],
@@ -113,7 +90,7 @@ def _scan_abstract(
     if not blocks:
         return []
     raw = detect_languages_in_text(blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
-    return _build_detections(raw, lang_classes, possible_false_positives, languages_to_ignore)
+    return build_detections(raw, lang_classes, possible_false_positives, languages_to_ignore)
 
 
 def _load_html_detections(
@@ -138,7 +115,7 @@ def _load_html_detections(
     for section_name, section_data in data.items():
         detected_strings: list[str] = section_data.get("detected", [])
         if detected_strings:
-            dets = _build_detections(
+            dets = build_detections(
                 detected_strings, lang_classes, possible_false_positives, languages_to_ignore
             )
             if dets:
