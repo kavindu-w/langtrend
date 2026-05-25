@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import threading
 from pathlib import Path
 from typing import Any
 
@@ -9,6 +10,18 @@ import requests
 from bs4 import BeautifulSoup
 
 from .text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text
+
+# One Session per thread — reuses TCP connections within each worker
+_thread_local = threading.local()
+
+# Cap concurrent arXiv HTML requests regardless of worker count
+_ARXIV_SEMAPHORE = threading.Semaphore(6)
+
+
+def _get_session() -> requests.Session:
+    if not hasattr(_thread_local, "session"):
+        _thread_local.session = requests.Session()
+    return _thread_local.session
 
 _REMOVE_HEADINGS_DEFAULT = [
     "Abstract",
@@ -30,7 +43,8 @@ def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str |
         return None, None
     html_url = abs_url.replace("/abs/", "/html/")
     try:
-        response = requests.get(html_url, timeout=timeout)
+        with _ARXIV_SEMAPHORE:
+            response = _get_session().get(html_url, timeout=timeout)
         response.raise_for_status()
         return response.text, html_url
     except Exception:
@@ -165,6 +179,22 @@ def recheck_languages_from_html(
     if not paper_id:
         return {}
 
+    if out_dir is None:
+        out_dir = Path("data/processed/html_sections")
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    safe_name = str(paper_id).split("/")[-1] or paper_record.get("title", "paper").replace(" ", "_")[:60]
+    json_path = out_dir / f"{safe_name}.json"
+
+    # Return cached result if already processed
+    if json_path.exists():
+        try:
+            with json_path.open("r", encoding="utf-8") as fh:
+                cached = json.load(fh)
+            return {title: data.get("detected", []) for title, data in cached.items()}
+        except Exception:
+            pass  # fall through to re-fetch if cache is corrupt
+
     html, _html_url = fetch_arxiv_html(str(paper_id))
     if not html:
         return {}
@@ -189,14 +219,6 @@ def recheck_languages_from_html(
         )
         if detected:
             detections_per_section[title] = detected
-
-    # Save per-paper JSON
-    if out_dir is None:
-        out_dir = Path("data/processed/html_sections")
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    safe_name = str(paper_id).split("/")[-1] or paper_record.get("title", "paper").replace(" ", "_")[:60]
-    json_path = out_dir / f"{safe_name}.json"
 
     payload = {
         title: {
