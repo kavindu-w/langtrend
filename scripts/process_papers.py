@@ -112,6 +112,7 @@ def _process_single_paper(
     pdf_dir: Path,
     html_cache_dir: Path,
     pdf_text_dir: Path,
+    pdf_cache_dir: Path,
 ) -> dict:
     paper_id = paper.get("id", "unknown")
     record: dict = {
@@ -164,15 +165,26 @@ def _process_single_paper(
                 record["sources_checked"].append("pdf")
                 try:
                     processor = PDFProcessor(input_dir=str(pdf_dir), output_dir=str(pdf_text_dir))
-                    full_text, _ = processor.extract_text(pdf_path)
-                    if full_text:
-                        full_text = processor.clean_text(full_text)
-                        detections = _detect_in_text(full_text, lang_classes, languages_to_ignore, paper_id)
+                    raw_text, _ = processor.extract_text(pdf_path)
+                    if raw_text:
+                        cleaned_text = processor.clean_text(raw_text)
+                        detections = _detect_in_text(cleaned_text, lang_classes, languages_to_ignore, paper_id)
                         if detections:
                             record["sections"]["pdf_full_text"] = {
                                 "source": "pdf",
                                 "detected_languages": detections,
                             }
+                        # Save to pdf_cache
+                        safe_id = str(paper_id).split("/")[-1]
+                        pdf_cache_path = pdf_cache_dir / f"{safe_id}.json"
+                        pdf_cache_dir.mkdir(parents=True, exist_ok=True)
+                        with pdf_cache_path.open("w", encoding="utf-8") as fh:
+                            json.dump({
+                                "paper_id": paper_id,
+                                "text": raw_text,
+                                "cleaned_text": cleaned_text,
+                                "detected_languages": detections,
+                            }, fh, ensure_ascii=False, indent=2)
                 except Exception as exc:
                     record["warnings"].append({"step": "pdf_processing", "error": str(exc)})
             else:
@@ -201,9 +213,10 @@ def process_papers(
     pdf_dir: Path,
     html_cache_dir: Path,
     pdf_text_dir: Path,
+    pdf_cache_dir: Path,
     max_workers: int = 4,
 ) -> dict:
-    for d in [pdf_dir, html_cache_dir, pdf_text_dir]:
+    for d in [pdf_dir, html_cache_dir, pdf_text_dir, pdf_cache_dir]:
         d.mkdir(parents=True, exist_ok=True)
     output_jsonl.parent.mkdir(parents=True, exist_ok=True)
 
@@ -227,6 +240,7 @@ def process_papers(
                 pdf_dir,
                 html_cache_dir,
                 pdf_text_dir,
+                pdf_cache_dir,
             ): paper
             for paper in papers
         }
@@ -335,6 +349,7 @@ def main() -> None:
         pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
         html_cache_dir=args.output_dir / "html_cache",
         pdf_text_dir=args.output_dir / "pdf_text",
+        pdf_cache_dir=args.output_dir / "pdf_cache",
         max_workers=args.workers,
     )
 
