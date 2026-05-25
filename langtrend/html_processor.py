@@ -110,6 +110,16 @@ def clean_html_soup(html: str, remove_headings: list[str] | None = None) -> Beau
             except Exception:
                 pass
 
+    # arXiv HTML wraps math in <math><semantics>...<annotation encoding="application/x-tex">
+    # The annotation contains the LaTeX source, which get_text() picks up and concatenates
+    # with the MathML display text, producing artifacts like "UtU_{t}" from U_t.
+    # Remove annotations before text extraction to keep only the display rendering.
+    for tag in soup.find_all("annotation"):
+        try:
+            tag.decompose()
+        except Exception:
+            pass
+
     return soup
 
 
