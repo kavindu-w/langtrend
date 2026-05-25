@@ -1,13 +1,14 @@
 name: LangTrend Snapshot
 
 on:
+  # Every Monday at 03:15 UTC — after the previous week closes at midnight
+  schedule:
+    - cron: '15 3 * * 1'
+  # Also trigger on manual dispatch and on pushes to main for code changes
   workflow_dispatch:
-  # schedule:
-    # - cron: '15 3 * * 1'
   push:
     branches:
       - main
-      # - development
     paths:
       - 'langtrend/**'
       - 'scripts/**'
@@ -19,9 +20,16 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+# Only allow one concurrent deployment; cancel in-flight runs on the same branch
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  build:
+  pipeline:
     runs-on: ubuntu-latest
 
     steps:
@@ -41,9 +49,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Generate LangTrend snapshot
+      # Step 1 + 2 + 3: fetch → process → manifest
+      # Skip logic is handled inside the script: if the JSONL / detected JSONL
+      # already exists for this week's window it won't re-fetch or re-process.
+      - name: Run LangTrend pipeline
         run: |
-          python scripts/run_langtrend_pipeline.py --data-root data --window-days 7 --max-results 100
+          python scripts/run_langtrend_pipeline.py \
+            --data-root data \
+            --window-days 7 \
+            --max-results 1000 \
+            --workers 4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -60,19 +75,28 @@ jobs:
         working-directory: web
         run: npm run build
 
-      - name: Upload site artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: langtrend-site
           path: web/dist
-          retention-days: 14
 
-      - name: Upload snapshot artifact
+      - name: Upload snapshot artifact (for debugging)
         uses: actions/upload-artifact@v4
         with:
-          name: langtrend-snapshot
+          name: langtrend-snapshot-${{ github.run_id }}
           path: |
             data/processed/langtrend_manifest_last_7_days.json
-            data/processed/papers_with_tracked_langs_last_7_days.jsonl
-            data/raw/arxiv_papers_last_7_days.jsonl
-          retention-days: 14
+            data/processed/langtrend_manifest_*_to_*.json
+          retention-days: 30
+
+  deploy:
+    needs: pipeline
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
