@@ -5,7 +5,9 @@ import PaperTable from '../components/PaperTable.astro';
 import WeekCalendar from '../components/WeekCalendar.astro';
 import { loadSiteData } from '../lib/data.js';
 
-const data = loadSiteData(7);
+// ?week=YYYY-MM-DD loads a dated manifest; omitting it loads the latest (last_7_days)
+const weekParam = Astro.url.searchParams.get('week');
+const data = loadSiteData(weekParam ?? undefined);  // string | undefined → loadSiteData
 
 type WeekPoint = {
   date: string;
@@ -38,7 +40,7 @@ type WeekPoint = {
       </div>
     </div>
 
-    <WeekCalendar />
+    <WeekCalendar activeWeek={data.manifest.week_start ?? weekParam ?? undefined} />
   </section>
 
   <details id="flagged-papers" class="paper-collapse panel" open>

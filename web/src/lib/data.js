@@ -87,8 +87,18 @@ function fallbackManifest(windowDays = 7) {
   };
 }
 
-export function loadSiteData(windowDays = 7) {
-  const manifestPath = path.join(dataRoot, 'processed', `langtrend_manifest_last_${windowDays}_days.json`);
+function datedManifestPath(weekStart) {
+  const start = new Date(weekStart + 'T00:00:00Z');
+  const end = new Date(start);
+  end.setUTCDate(end.getUTCDate() + 7);
+  const compact = (d) => d.toISOString().slice(0, 10).replace(/-/g, '');
+  return path.join(dataRoot, 'processed', `langtrend_manifest_${compact(start)}_to_${compact(end)}.json`);
+}
+
+export function loadSiteData(weekStart = undefined, windowDays = 7) {
+  const manifestPath = weekStart
+    ? datedManifestPath(weekStart)
+    : path.join(dataRoot, 'processed', `langtrend_manifest_last_${windowDays}_days.json`);
   const manifest = readJson(manifestPath, fallbackManifest(windowDays));
   const languageData = readJson(path.join(dataRoot, 'processed', 'language_data.json'), {
     lang_classes: {},
