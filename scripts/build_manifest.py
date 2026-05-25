@@ -80,9 +80,14 @@ def _build_detections(
     raw_languages: list[str],
     lang_classes: dict[int, set[str]],
     possible_false_positives: dict[str, str],
+    languages_to_ignore: set[str] | None = None,
 ) -> list[dict]:
+    ignore = languages_to_ignore or set()
+    ignore_lower = {v.lower() for v in ignore}
     result = []
     for language in raw_languages:
+        if language in ignore or language.lower() in ignore_lower:
+            continue
         for class_id, langs in lang_classes.items():
             if language in langs:
                 entry: dict = {"language": language, "class": class_id}
@@ -108,7 +113,7 @@ def _scan_abstract(
     if not blocks:
         return []
     raw = detect_languages_in_text(blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
-    return _build_detections(raw, lang_classes, possible_false_positives)
+    return _build_detections(raw, lang_classes, possible_false_positives, languages_to_ignore)
 
 
 def _load_html_detections(
@@ -116,6 +121,7 @@ def _load_html_detections(
     html_cache_dir: Path,
     lang_classes: dict[int, set[str]],
     possible_false_positives: dict[str, str],
+    languages_to_ignore: set[str] | None = None,
 ) -> tuple[list[dict], list[str]] | tuple[None, list]:
     """Return (flat detections list, sections that had hits) or (None, []) if not cached."""
     path = html_cache_dir / f"{safe_id}.json"
@@ -132,14 +138,20 @@ def _load_html_detections(
     for section_name, section_data in data.items():
         detected_strings: list[str] = section_data.get("detected", [])
         if detected_strings:
-            dets = _build_detections(detected_strings, lang_classes, possible_false_positives)
+            dets = _build_detections(
+                detected_strings, lang_classes, possible_false_positives, languages_to_ignore
+            )
             if dets:
                 all_dets.extend(dets)
                 sections_hit.append(section_name)
     return all_dets, sections_hit
 
 
-def _load_pdf_detections(safe_id: str, pdf_cache_dir: Path) -> list[dict] | None:
+def _load_pdf_detections(
+    safe_id: str,
+    pdf_cache_dir: Path,
+    languages_to_ignore: set[str] | None = None,
+) -> list[dict] | None:
     """Return detection objects from pdf_cache, or None if not cached.
     Strips any text-content fields before returning."""
     path = pdf_cache_dir / f"{safe_id}.json"
@@ -150,8 +162,12 @@ def _load_pdf_detections(safe_id: str, pdf_cache_dir: Path) -> list[dict] | None
             data = json.load(fh)
     except Exception:
         return None
-    # Return only the detection objects — never the raw/cleaned text fields
-    return data.get("detected_languages", [])
+    dets = data.get("detected_languages", [])
+    if languages_to_ignore:
+        ignore_lower = {v.lower() for v in languages_to_ignore}
+        dets = [d for d in dets if d.get("language", "") not in languages_to_ignore
+                and d.get("language", "").lower() not in ignore_lower]
+    return dets
 
 
 def _merge_detections(groups: list[tuple[list[dict], str]]) -> list[dict]:
@@ -210,7 +226,7 @@ def assemble_flagged_papers(
 
         # 2. HTML cache
         html_dets, html_sections = _load_html_detections(
-            safe_id, html_cache_dir, lang_classes, possible_false_positives
+            safe_id, html_cache_dir, lang_classes, possible_false_positives, languages_to_ignore
         )
         if html_dets is not None:
             sources_checked.append("html")
@@ -220,7 +236,7 @@ def assemble_flagged_papers(
                 sections_with_detections.extend(html_sections)
 
         # 3. PDF cache
-        pdf_dets = _load_pdf_detections(safe_id, pdf_cache_dir)
+        pdf_dets = _load_pdf_detections(safe_id, pdf_cache_dir, languages_to_ignore)
         if pdf_dets is not None:
             sources_checked.append("pdf")
             pdf_cached += 1
