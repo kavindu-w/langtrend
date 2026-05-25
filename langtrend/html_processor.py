@@ -26,12 +26,15 @@ def _get_session() -> requests.Session:
 _REMOVE_HEADINGS_DEFAULT = [
     "Abstract",
     "References",
+    "Bibliography",
     "Related work",
     "Related Work",
     "Related Works",
     "Literature Review",
     "Acknowledgements",
+    "Acknowledgement",
     "Acknowledgments",
+    "Acknowledgment",
     "Funding",
     "Ethics",
     "Ethics Statement",
@@ -119,7 +122,7 @@ def extract_sections_from_soup(soup: BeautifulSoup) -> dict[str, str]:
 
         paragraphs: list[str] = []
         for element in section.find_all(["p", "div"]):
-            text = element.get_text(separator=" ", strip=True)
+            text = re.sub(r"\s+", " ", element.get_text(separator="", strip=False)).strip()
             if not text:
                 continue
             if re.match(r"^[A-Z][\w\s\-:,]{0,100}$", text) and len(text.split()) < 6 and text.endswith(":"):
@@ -141,7 +144,7 @@ def extract_sections_from_soup(soup: BeautifulSoup) -> dict[str, str]:
                 current_title = node.get_text(strip=True)
                 current_texts = []
             else:
-                txt = node.get_text(separator=" ", strip=True)
+                txt = re.sub(r"\s+", " ", node.get_text(separator="", strip=False)).strip()
                 if txt:
                     current_texts.append(txt)
         if current_texts:
