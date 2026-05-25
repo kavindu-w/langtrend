@@ -23,6 +23,7 @@ from __future__ import annotations
 import argparse
 import subprocess
 import sys
+import time
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -51,14 +52,26 @@ def _expected_raw_path(end_date: datetime, window_days: int, metadata_dir: Path)
     return metadata_dir / filename
 
 
-def _run(label: str, cmd: list[str]) -> None:
+def _fmt_duration(seconds: float) -> str:
+    if seconds < 60:
+        return f"{seconds:.1f}s"
+    m, s = divmod(int(seconds), 60)
+    return f"{m}m {s:02d}s"
+
+
+def _run(label: str, cmd: list[str]) -> float:
+    """Run a subprocess, streaming its output. Returns elapsed wall-clock seconds."""
     print(f"\n{'='*60}")
     print(f"  {label}")
     print(f"{'='*60}")
+    t0 = time.perf_counter()
     result = subprocess.run(cmd, check=False)
+    elapsed = time.perf_counter() - t0
     if result.returncode != 0:
         print(f"\nError: {label} exited with code {result.returncode}", file=sys.stderr)
         sys.exit(result.returncode)
+    print(f"  ✓ done in {_fmt_duration(elapsed)}")
+    return elapsed
 
 
 def main() -> None:
@@ -88,7 +101,10 @@ def main() -> None:
         sys.exit(1)
 
     end_date = _last_monday_midnight()
+    wall_start = time.perf_counter()
     print(f"=== LangTrend pipeline  |  window: {args.window_days}d ending {end_date.strftime('%Y-%m-%d')} ===")
+
+    timings: dict[str, float] = {}
 
     # -------------------------------------------------------------------------
     # Step 1: Fetch
@@ -100,7 +116,7 @@ def main() -> None:
     elif expected_input.exists():
         print(f"\nStep 1 [SKIP] fetch — {expected_input.name} already exists")
     else:
-        _run("Step 1: fetch papers from arXiv", [
+        timings["fetch"] = _run("Step 1: fetch papers from arXiv", [
             sys.executable,
             str(_SCRIPTS_DIR / "fetch_arxiv_metadata.py"),
             "--end-date", end_date.strftime("%Y-%m-%d"),
@@ -134,7 +150,7 @@ def main() -> None:
     elif detected_path.exists():
         print(f"\nStep 2 [SKIP] process — {detected_path.name} already exists")
     else:
-        _run("Step 2: process papers (HTML/PDF detection)", [
+        timings["process"] = _run("Step 2: process papers (HTML/PDF detection)", [
             sys.executable,
             str(_SCRIPTS_DIR / "process_papers.py"),
             "--input", str(input_path),
@@ -148,7 +164,7 @@ def main() -> None:
     print(f"\n{'='*60}")
     print(f"  Step 3: build manifest")
     print(f"{'='*60}")
-
+    t0 = time.perf_counter()
     build_and_save(
         input_path=input_path,
         output_dir=output_dir,
@@ -156,8 +172,22 @@ def main() -> None:
         window_days=args.window_days,
         query=args.query,
     )
+    timings["manifest"] = time.perf_counter() - t0
+    print(f"  ✓ done in {_fmt_duration(timings['manifest'])}")
 
-    print("\nPipeline complete. Run `make web-build` to regenerate the site.")
+    # -------------------------------------------------------------------------
+    # Summary
+    # -------------------------------------------------------------------------
+    total = time.perf_counter() - wall_start
+    print(f"\n{'='*60}")
+    print(f"  Pipeline complete  ({_fmt_duration(total)} total)")
+    print(f"{'='*60}")
+    for step, elapsed in timings.items():
+        print(f"  {step:<10} {_fmt_duration(elapsed):>8}")
+    skipped = [s for s in ("fetch", "process") if s not in timings]
+    if skipped:
+        print(f"  {'skipped':<10} {', '.join(skipped)}")
+    print(f"\nRun `make web-build` to regenerate the site.")
 
 
 if __name__ == "__main__":
