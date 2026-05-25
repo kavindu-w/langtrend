@@ -210,4 +210,6 @@ class TestPDFFallbackChain:
         assert cached["paper_id"] == paper_id
         assert isinstance(cached["text"], str) and len(cached["text"]) > 0
         assert isinstance(cached["cleaned_text"], str)
+        assert isinstance(cached["body_text"], str)
+        assert isinstance(cached["screened_text"], str)
         assert isinstance(cached["detected_languages"], list)

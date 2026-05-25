@@ -10,6 +10,7 @@ from langtrend.text_cleaning import (
     clean_paper_text_for_language_screening,
     detect_languages_in_text,
     should_ignore_acronym_language_match,
+    trim_pdf_text_to_body,
     _looks_like_capitalized_acronym_context,
     _initials_match_acronym,
 )
@@ -314,3 +315,115 @@ class TestDetectLanguagesInText:
     def test_empty_text_returns_empty(self, lang_classes, languages_to_ignore):
         detected = detect_languages_in_text([], lang_classes, languages_to_ignore)
         assert detected == []
+
+
+# ---------------------------------------------------------------------------
+# trim_pdf_text_to_body
+# ---------------------------------------------------------------------------
+
+class TestTrimPdfTextToBody:
+    _FULL = (
+        "Title of the Paper\n\nAuthor One, Author Two\n\n"
+        "Abstract\nThis paper presents a study of Arabic NLP.\n\n"
+        "{intro_heading}\n"
+        "We evaluate on Swahili and Hindi corpora.\n\n"
+        "2. Methods\nWe use a transformer model.\n\n"
+        "{end_heading}\n"
+        "[1] Smith 2022. Journal of NLP."
+    )
+
+    def _make(self, intro="1. Introduction", end="References"):
+        return self._FULL.format(intro_heading=intro, end_heading=end)
+
+    def test_skips_before_introduction(self):
+        text = self._make()
+        result = trim_pdf_text_to_body(text)
+        assert "Abstract" not in result
+        assert "Author One" not in result
+
+    def test_includes_introduction_and_body(self):
+        text = self._make()
+        result = trim_pdf_text_to_body(text)
+        assert "Introduction" in result
+        assert "Swahili" in result
+        assert "Methods" in result
+
+    def test_stops_before_references(self):
+        text = self._make()
+        result = trim_pdf_text_to_body(text)
+        assert "Smith 2022" not in result
+        assert "References" not in result
+
+    def test_all_caps_introduction(self):
+        text = self._make(intro="INTRODUCTION")
+        result = trim_pdf_text_to_body(text)
+        assert "Abstract" not in result
+        assert "Swahili" in result
+
+    def test_introduction_merged_with_text(self):
+        # pdfplumber sometimes merges heading + first sentence on one line
+        text = (
+            "Abstract\nThis is the abstract.\n\n"
+            "1. Introduction We begin by evaluating on Hindi data.\n\n"
+            "References\n[1] Jones 2020."
+        )
+        result = trim_pdf_text_to_body(text)
+        assert "Abstract" not in result
+        assert "Hindi" in result
+        assert "Jones 2020" not in result
+
+    def test_stops_at_bibliography(self):
+        text = self._make(end="Bibliography")
+        result = trim_pdf_text_to_body(text)
+        assert "Smith 2022" not in result
+
+    def test_stops_at_acknowledgements(self):
+        text = self._make(end="Acknowledgements")
+        result = trim_pdf_text_to_body(text)
+        assert "Smith 2022" not in result
+
+    def test_stops_at_related_work(self):
+        text = self._make(end="Related Work")
+        result = trim_pdf_text_to_body(text)
+        assert "Smith 2022" not in result
+
+    def test_stops_at_related_works(self):
+        text = self._make(end="Related Works")
+        result = trim_pdf_text_to_body(text)
+        assert "Smith 2022" not in result
+
+    def test_stops_at_funding(self):
+        text = self._make(end="Funding")
+        result = trim_pdf_text_to_body(text)
+        assert "Smith 2022" not in result
+
+    def test_stops_at_ethics_statement(self):
+        # "Ethics Statement" must match before plain "Ethics"
+        text = self._make(end="Ethics Statement")
+        result = trim_pdf_text_to_body(text)
+        assert "Smith 2022" not in result
+
+    def test_appendix_is_kept(self):
+        # Appendix sections are kept (consistent with the HTML processor)
+        text = (
+            "1. Introduction\nWe study Swahili.\n\n"
+            "Appendix\nAdditional tables in Hindi.\n\n"
+            "References\n[1] Jones 2020."
+        )
+        result = trim_pdf_text_to_body(text)
+        assert "Hindi" in result       # appendix content kept
+        assert "Jones 2020" not in result  # references still cut
+
+    def test_no_introduction_returns_original(self):
+        text = "Some text without section markers.\nSwahili data used."
+        result = trim_pdf_text_to_body(text)
+        assert result == text
+
+    def test_no_references_includes_to_end(self):
+        text = "1. Introduction\nWe study Arabic.\n\nConclusion\nThis works."
+        result = trim_pdf_text_to_body(text)
+        assert "Arabic" in result
+        assert "Conclusion" in result
+
+    def test_empty_string_returns_empty(self):
+        assert trim_pdf_text_to_body("") == ""

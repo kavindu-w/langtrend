@@ -29,7 +29,7 @@ from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from langtrend.text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text
+from langtrend.text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text, trim_pdf_text_to_body
 from langtrend.html_processor import recheck_languages_from_html
 from langtrend.pdf_processor import PDFProcessor
 
@@ -184,7 +184,10 @@ def _process_single_paper(
                     raw_text, _ = processor.extract_text(pdf_path)
                     if raw_text:
                         cleaned_text = processor.clean_text(raw_text)
-                        detections = _detect_in_text(cleaned_text, lang_classes, languages_to_ignore, paper_id, possible_false_positive_languages)
+                        body_text = trim_pdf_text_to_body(cleaned_text)
+                        screened_blocks, _ = clean_paper_text_for_language_screening(body_text)
+                        raw_langs = detect_languages_in_text(screened_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
+                        detections = _build_detections(raw_langs, lang_classes, possible_false_positive_languages)
                         if detections:
                             record["sections"]["pdf_full_text"] = {
                                 "source": "pdf",
@@ -199,6 +202,8 @@ def _process_single_paper(
                                 "paper_id": paper_id,
                                 "text": raw_text,
                                 "cleaned_text": cleaned_text,
+                                "body_text": body_text,
+                                "screened_text": "\n\n".join(screened_blocks),
                                 "detected_languages": detections,
                             }, fh, ensure_ascii=False, indent=2)
                 except Exception as exc:

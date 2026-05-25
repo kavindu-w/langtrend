@@ -77,6 +77,46 @@ _ACRONYM_DEFINITION_RE = re.compile(
     r"(?:[A-Z][a-z]+\s+(?:(?:and|or|of|the|a|for|in|with|to)\s+)*){2,}\([A-Z]{2,8}\)"
 )
 
+# PDF body trimming — start marker
+# We use \b rather than $ because pdfplumber often merges the heading and the first
+# sentence onto the same line (e.g. "1. Introduction We study...").
+_PDF_INTRO_RE = re.compile(
+    r"(?m)^[ \t]*(?:\d+\.?\s+)?introduction\b",
+    re.IGNORECASE,
+)
+
+# Default end-matter headings for PDF trimming.
+# Mirrors html_processor._REMOVE_HEADINGS_DEFAULT (minus Abstract, which is before
+# Introduction and naturally excluded; Appendix is kept so post-body appendices are
+# still scanned — consistent with the HTML processor not removing them either).
+PDF_END_HEADINGS_DEFAULT: list[str] = [
+    "References",
+    "Bibliography",
+    "Related Works",
+    "Related Work",
+    "Related work",
+    "Literature Review",
+    "Acknowledgements",
+    "Acknowledgement",
+    "Acknowledgments",
+    "Acknowledgment",
+    "Funding",
+    "Ethics Statement",
+    "Ethics",
+]
+
+
+def _build_pdf_end_re(headings: list[str]) -> re.Pattern:
+    # Sort longest first so "Ethics Statement" matches before "Ethics", etc.
+    alts = "|".join(re.escape(h) for h in sorted(headings, key=len, reverse=True))
+    return re.compile(
+        rf"(?m)^[ \t]*(?:\d+\.?\s+)?(?:{alts})\b",
+        re.IGNORECASE,
+    )
+
+
+_PDF_END_RE = _build_pdf_end_re(PDF_END_HEADINGS_DEFAULT)
+
 
 def _language_regex(language_name: str) -> str:
     parts = []
@@ -361,3 +401,37 @@ def detect_languages_in_text(
                         language_occurrences.append(lang)
 
     return language_occurrences
+
+
+def trim_pdf_text_to_body(
+    text: str,
+    end_headings: list[str] | None = None,
+) -> str:
+    """Trim PDF-extracted text to the body of the paper.
+
+    Skips everything before the Introduction (title, authors, abstract — the
+    abstract is already scanned from the arXiv API metadata) and stops before
+    References / Bibliography / Related Work / Acknowledgements / Funding / Ethics
+    (matching the same set of headings removed by the HTML processor).
+    Appendix sections are kept, consistent with the HTML processor.
+
+    Pass ``end_headings`` to override the default heading list.
+    Returns the original text unchanged if neither marker is found.
+    """
+    if not text:
+        return text
+
+    end_re = _build_pdf_end_re(end_headings) if end_headings is not None else _PDF_END_RE
+
+    start = 0
+    intro_match = _PDF_INTRO_RE.search(text)
+    if intro_match:
+        start = intro_match.start()
+
+    end = len(text)
+    end_match = end_re.search(text, start)
+    if end_match:
+        end = end_match.start()
+
+    trimmed = text[start:end].strip()
+    return trimmed if trimmed else text
