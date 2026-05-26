@@ -41,10 +41,10 @@ const availableWeeks = getAvailableWeeks();
   <details id="flagged-papers" class="paper-collapse panel" open>
     <summary class="paper-collapse-summary">
       <div>
-        <h2>Flagged papers</h2>
-        <p>Click to expand or collapse to view the abstracts.</p>
+        <h2>Papers Mentioning Languages</h2>
+        <p>Papers with detected language mentions. Click a row to expand its abstract.</p>
       </div>
-      <span class="paper-collapse-hint">Collapse</span>
+      <span class="paper-collapse-hint">Collapse section</span>
     </summary>
     <PaperTable flaggedPapers={data.flaggedPapers} languageData={data.languageData} />
   </details>
@@ -55,7 +55,7 @@ const availableWeeks = getAvailableWeeks();
         <h2>Statistics</h2>
         <p>Weekly scan summary and overall language trend.</p>
       </div>
-      <span class="paper-collapse-hint">Collapse</span>
+      <span class="paper-collapse-hint">Collapse section</span>
     </summary>
     <div class="dashboard-section">
       <TrendCharts
