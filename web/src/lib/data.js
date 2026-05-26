@@ -145,6 +145,16 @@ export function loadSiteData(weekStart = undefined, windowDays = 7) {
   };
 }
 
+export function getAvailableWeeks() {
+  const weeksDir = path.join(dataRoot, 'processed', 'weeks');
+  try {
+    return fs.readdirSync(weeksDir)
+      .filter(name => /^\d{8}_to_\d{8}$/.test(name))
+      .map(name => `${name.slice(0,4)}-${name.slice(4,6)}-${name.slice(6,8)}`)
+      .sort();
+  } catch { return []; }
+}
+
 export function colorForIndex(index) {
   const palette = ['#d7263d', '#f46036', '#2e294e', '#1b998b', '#8e7dbe', '#f4d35e', '#33658a', '#c97b84'];
   return palette[index % palette.length];
