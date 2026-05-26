@@ -12,6 +12,7 @@ type PaperRecord = {
 type FlaggedPaper = {
   paper: PaperRecord;
   languages: LanguageEntry[];
+  sourcesChecked: string[];
 };
 
 const { flaggedPapers } = Astro.props as { flaggedPapers: FlaggedPaper[] };
@@ -98,6 +99,14 @@ const languages = [...languageCounts.entries()]
           return normalizeLanguage(left).localeCompare(normalizeLanguage(right));
         });
       const chipLanguageNames = chipLanguages.map(normalizeLanguage).filter(Boolean);
+      const sources = item.sourcesChecked || [];
+      const hasHtml = sources.includes('html');
+      const hasPdf = sources.includes('pdf');
+      const coverageBadge = !hasHtml
+        ? (hasPdf
+            ? { label: 'PDF only', title: 'HTML version could not be extracted — analysis done with PDF' }
+            : { label: 'Abstract only', title: 'HTML & PDF versions could not be extracted — analysis done with abstract only' })
+        : null;
       const searchText = `${paper.title} ${paper.authors.join(' ')}`.toLowerCase();
       return (
         <details class="paper-row" data-search={searchText} data-languages={chipLanguageNames.join('|')}>
@@ -127,6 +136,11 @@ const languages = [...languageCounts.entries()]
                     >{language}{needsReview ? <span class="review-star" aria-label="manual review recommended">★</span> : null}</span>
                   );
                 })}
+                {coverageBadge && (
+                  <span class={`coverage-badge${hasPdf ? ' pdf-only' : ' abstract-only'}`} title={coverageBadge.title}>
+                    {coverageBadge.label}
+                  </span>
+                )}
               </div>
             </div>
           </summary>

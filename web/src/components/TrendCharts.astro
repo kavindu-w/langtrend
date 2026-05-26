@@ -6,11 +6,13 @@ type LanguageCount = { language: string; count: number };
 type WeekPoint = { date: string; papers: number; flagged: number };
 type TopLanguage = { language: string; count: number; color: string };
 type WeekDonutSegment = { label: string; value: number; color: string };
+type CoverageStats = { htmlScanned: number; pdfOnly: number; abstractOnly: number };
 
-const { languageCounts, weekSeries, topLanguages } = Astro.props as {
+const { languageCounts, weekSeries, topLanguages, coverageStats } = Astro.props as {
   languageCounts: LanguageCount[];
   weekSeries: WeekPoint[];
   topLanguages: TopLanguage[];
+  coverageStats: CoverageStats;
   languageData: { lang_classes?: Record<string, unknown[]> };
   manifest: {
     papers?: unknown[];
@@ -89,6 +91,14 @@ function classColor(language: string) {
       </div>
     </div>
     <div class="weekly-overview">
+      <div class="coverage-stats">
+        <h3 class="coverage-title">Source coverage</h3>
+        <ul class="coverage-list">
+          <li><span class="coverage-dot html"></span><span>HTML scanned</span><strong>{coverageStats?.htmlScanned ?? 0}</strong></li>
+          <li><span class="coverage-dot pdf"></span><span>PDF only</span><strong>{coverageStats?.pdfOnly ?? 0}</strong></li>
+          <li><span class="coverage-dot abstract"></span><span>Abstract only</span><strong>{coverageStats?.abstractOnly ?? 0}</strong></li>
+        </ul>
+      </div>
       <div class="donut-wrap">
         <svg class="donut-svg" viewBox="0 0 520 240" role="img" aria-label={`Weekly paper total ${donutTotal}, with ${scannedCount} flagged and ${nonScannedCount} not flagged`} overflow="visible">
           <defs>

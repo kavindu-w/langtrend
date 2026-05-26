@@ -7,13 +7,7 @@ import { loadSiteData } from '../lib/data.js';
 
 // ?week=YYYY-MM-DD loads a dated manifest; omitting it loads the latest (last_7_days)
 const weekParam = Astro.url.searchParams.get('week');
-const data = loadSiteData(weekParam ?? undefined);  // string | undefined → loadSiteData
-
-type WeekPoint = {
-  date: string;
-  papers: number;
-  flagged: number;
-};
+const data = weekParam ? loadSiteData(weekParam) : loadSiteData();
 ---
 <BaseLayout title="LangTrend" description="Automated dashboard for language inclusion in NLP research">
   <section class="hero">
@@ -69,6 +63,7 @@ type WeekPoint = {
         languageCounts={data.languageCounts}
         weekSeries={data.weekSeries}
         topLanguages={data.topLanguages}
+        coverageStats={data.coverageStats}
       />
     </div>
   </details>
