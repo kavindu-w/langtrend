@@ -10,6 +10,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 body {
   margin: 0;
@@ -406,7 +407,7 @@ a { color: inherit; text-decoration: none; }
 .featured-paper, .paper-row { border: 1px solid var(--line); border-radius: 18px; padding: 16px; background: rgba(255, 255, 255, 0.7); }
 .featured-paper { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
 .featured-tags, .paper-tags, .chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
-.chip-row { margin-bottom: 14px; }
+.chip-area { margin-bottom: 14px; }
 
 .lang-chip {
   border: 4px solid transparent;
@@ -453,16 +454,92 @@ a { color: inherit; text-decoration: none; }
 .chip.active { background: var(--text); color: #fff; }
 
 .paper-panel { margin-top: 18px; }
-.paper-panel .panel-head { align-items: center; }
-.paper-panel .panel-head > div { flex: 0 0 auto; }
+/* Controls bar: both searches side by side + sort + count */
+.paper-controls-bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.paper-controls-right {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+/* Icon-inside input wrappers */
+.search-wrapper {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+.paper-search-wrapper { flex: 3 1 180px; }
+.lang-search-wrapper  { flex: 1 1 120px; }
+.sort-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.input-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--muted);
+  pointer-events: none;
+  flex-shrink: 0;
+}
 .search-input {
-  flex: 1 1 320px;
+  flex: 1;
   min-width: 0;
   border-radius: 999px;
   border: 1px solid var(--line);
-  padding: 10px 14px;
+  padding: 9px 12px 9px 32px;
   font: inherit;
+  font-size: 0.9rem;
 }
+.lang-search-input {
+  font-size: 0.85rem;
+}
+.sort-select {
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  padding: 8px 12px 8px 30px;
+  font: inherit;
+  font-size: 0.9rem;
+  background: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.result-count {
+  font-size: 0.82rem;
+  color: var(--muted);
+  white-space: nowrap;
+  min-width: 5ch;
+}
+/* Chip area */
+.chip-row-wrapper {
+  /* no overflow clip needed — overflow chips are hidden via display:none by JS */
+}
+/* Expand button is a flex item inside .chip-row; slightly square to distinguish from chips */
+.chip-expand-btn {
+  display: flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: none;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.chip-expand-btn:hover { background: rgba(15,108,93,0.07); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .paper-list { display: grid; gap: 14px; }
 .paper-row { border: 1px solid var(--line); border-radius: 18px; padding: 0; background: rgba(255, 255, 255, 0.7); overflow: hidden; }
 .paper-summary {
