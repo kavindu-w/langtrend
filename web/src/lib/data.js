@@ -26,6 +26,10 @@ function readJsonl(filePath) {
   }
 }
 
+function normalizePaperId(paperId) {
+  return typeof paperId === 'string' ? paperId.replace(/^https:\/\//, 'http://') : '';
+}
+
 function normalizeLanguageEntry(entry) {
   if (typeof entry === 'string') {
     return entry;
@@ -96,12 +100,40 @@ function datedManifestPath(weekStart) {
   return path.join(dataRoot, 'processed', 'weeks', slug, 'langtrend_manifest.json');
 }
 
+function datedDetectedPath(weekStart) {
+  const start = new Date(weekStart + 'T00:00:00Z');
+  const end = new Date(start);
+  end.setUTCDate(end.getUTCDate() + 7);
+  const compact = (d) => d.toISOString().slice(0, 10).replace(/-/g, '');
+  const slug = `${compact(start)}_to_${compact(end)}`;
+  return path.join(dataRoot, 'processed', 'weeks', slug, `arxiv_papers_${slug}_detected.jsonl`);
+}
+
+function normalizeSections(sectionMap) {
+  if (!sectionMap || typeof sectionMap !== 'object') {
+    return [];
+  }
+
+  return Object.entries(sectionMap).map(([name, value]) => ({
+    name,
+    source: typeof value?.source === 'string' ? value.source : '',
+    detected_languages: Array.isArray(value?.detected_languages) ? value.detected_languages : [],
+  }));
+}
+
 /** @param {string | undefined} weekStart @param {number} windowDays */
 export function loadSiteData(weekStart = undefined, windowDays = 7) {
   const manifestPath = weekStart
     ? datedManifestPath(weekStart)
     : path.join(dataRoot, 'processed', `langtrend_manifest_last_${windowDays}_days.json`);
   const manifest = readJson(manifestPath, fallbackManifest(windowDays));
+  const detectedRecords = weekStart ? readJsonl(datedDetectedPath(weekStart)) : [];
+  const detectedByPaperId = new Map(
+    detectedRecords.map((record) => [
+      normalizePaperId(record?.paper?.id || record?.paper_id || ''),
+      record?.sections || {},
+    ]),
+  );
   const languageData = readJson(path.join(dataRoot, 'processed', 'language_data.json'), {
     lang_classes: {},
     languages_to_ignore: [],
@@ -111,6 +143,7 @@ export function loadSiteData(weekStart = undefined, windowDays = 7) {
     paper: item.paper,
     languages: item.languages || [],
     sourcesChecked: item.sources_checked || [],
+    sections: normalizeSections(detectedByPaperId.get(normalizePaperId(item.paper?.id || ''))),
   }));
 
   const coverageStats = flaggedPapers.reduce(
