@@ -20,7 +20,7 @@ Usage:
 import argparse
 import json
 import sys
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 from datetime import datetime
 from pathlib import Path
 
@@ -64,24 +64,61 @@ def load_language_data(path: Path) -> tuple[dict[int, set[str]], set[str], dict[
     return lang_classes, languages_to_ignore, possible_false_positive_languages
 
 
+_PDF_MAX_BYTES = 30 * 1024 * 1024  # skip PDFs larger than 30 MB
+
+_PDF_DOWNLOAD_TIMEOUT = 180  # wall-clock cap for entire PDF download
+_PDF_LOG_EVERY = 256 * 1024
+
 def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
     """Download a PDF into a per-paper subdirectory. Returns path or None on failure."""
+    import time as _time
     safe_id = paper_id.split("/")[-1]
     paper_pdf_dir = pdf_dir / safe_id
     paper_pdf_dir.mkdir(parents=True, exist_ok=True)
     filename = safe_id if safe_id.lower().endswith(".pdf") else f"{safe_id}.pdf"
     pdf_path = paper_pdf_dir / filename
     if pdf_path.exists():
+        tqdm.write(f"    [{paper_id}] PDF already on disk ({pdf_path.stat().st_size // 1024}KB)")
         return pdf_path
+    tqdm.write(f"    [{paper_id}] PDF GET {pdf_url}")
+    t0 = _time.monotonic()
     try:
-        resp = requests.get(pdf_url, stream=True, timeout=60)
+        resp = requests.get(pdf_url, stream=True, timeout=(10, 30))
         resp.raise_for_status()
+        tqdm.write(f"    [{paper_id}] PDF response {resp.status_code}, streaming…")
+        downloaded = 0
+        last_logged = 0
         with pdf_path.open("wb") as fh:
-            for chunk in resp.iter_content(chunk_size=8192):
-                if chunk:
-                    fh.write(chunk)
+            try:
+                for chunk in resp.iter_content(chunk_size=65536):
+                    if chunk:
+                        downloaded += len(chunk)
+                        fh.write(chunk)
+                        if downloaded - last_logged >= _PDF_LOG_EVERY:
+                            elapsed = _time.monotonic() - t0
+                            tqdm.write(f"    [{paper_id}] PDF downloading… {downloaded // 1024}KB in {elapsed:.1f}s")
+                            last_logged = downloaded
+                        if downloaded > _PDF_MAX_BYTES:
+                            tqdm.write(f"    [{paper_id}] PDF too large (>{_PDF_MAX_BYTES // (1024*1024)}MB) — skipping")
+                            return None
+                    if _time.monotonic() - t0 > _PDF_DOWNLOAD_TIMEOUT:
+                        elapsed = _time.monotonic() - t0
+                        tqdm.write(f"    [{paper_id}] PDF download wall-clock timeout after {elapsed:.1f}s at {downloaded // 1024}KB")
+                        return None
+            except Exception as chunk_err:
+                elapsed = _time.monotonic() - t0
+                tqdm.write(f"    [{paper_id}] PDF chunk error after {elapsed:.1f}s at {downloaded // 1024}KB: {type(chunk_err).__name__}: {chunk_err}")
+                if pdf_path.exists():
+                    pdf_path.unlink(missing_ok=True)
+                return None
+        elapsed = _time.monotonic() - t0
+        tqdm.write(f"    [{paper_id}] PDF downloaded {downloaded // 1024}KB in {elapsed:.1f}s → {pdf_path}")
         return pdf_path
-    except Exception:
+    except Exception as e:
+        elapsed = _time.monotonic() - t0
+        tqdm.write(f"    [{paper_id}] PDF fetch failed after {elapsed:.1f}s: {type(e).__name__}: {e}")
+        if pdf_path.exists():
+            pdf_path.unlink(missing_ok=True)
         return None
 
 
@@ -92,7 +129,7 @@ def _detect_in_text(
     paper_id: str,
     possible_false_positive_languages: dict[str, str] | None = None,
 ) -> list[dict]:
-    cleaned_blocks, _ = clean_paper_text_for_language_screening(text)
+    cleaned_blocks, _ = clean_paper_text_for_language_screening(text, _label=paper_id)
     if not cleaned_blocks:
         return []
     raw = detect_languages_in_text(cleaned_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
@@ -112,7 +149,11 @@ def _process_single_paper(
     html_cache_dir: Path,
     pdf_cache_dir: Path,
 ) -> dict:
+    import time as _time
+    t_paper = _time.monotonic()
+
     paper_id = paper.get("id", "unknown")
+    tqdm.write(f"  [{paper_id}] START")
     record: dict = {
         "paper_id": paper_id,
         "paper": paper,
@@ -131,43 +172,66 @@ def _process_single_paper(
 
     # 2. HTML extraction
     html_cache: dict | None = None
+    is_html_complete = False
+    t_html = _time.monotonic()
     try:
-        html_cache = recheck_languages_from_html(
+        html_cache, is_html_complete = recheck_languages_from_html(
             paper,
             lang_classes,
             languages_to_ignore,
             out_dir=html_cache_dir,
         )
         if html_cache is not None:
-            record["sources_checked"].append("html")
-            for section_title, languages in html_cache.items():
-                if not languages:
-                    continue
-                detections = build_detections(languages, lang_classes, possible_false_positive_languages)
-                if detections:
-                    record["sections"][section_title] = {
-                        "source": "html",
-                        "detected_languages": detections,
-                    }
+            tqdm.write(f"  [{paper_id}] HTML ok ({len(html_cache)} sections, complete={is_html_complete}) in {_time.monotonic()-t_html:.1f}s")
+            if is_html_complete:
+                record["sources_checked"].append("html")
+                for section_title, languages in html_cache.items():
+                    if not languages:
+                        continue
+                    detections = build_detections(languages, lang_classes, possible_false_positive_languages)
+                    if detections:
+                        record["sections"][section_title] = {
+                            "source": "html",
+                            "detected_languages": detections,
+                        }
+        else:
+            tqdm.write(f"  [{paper_id}] HTML unavailable in {_time.monotonic()-t_html:.1f}s")
     except Exception as exc:
         html_cache = None
+        is_html_complete = False
+        tqdm.write(f"  [{paper_id}] HTML error after {_time.monotonic()-t_html:.1f}s: {type(exc).__name__}: {exc}")
         record["warnings"].append({"step": "html", "error": str(exc)})
 
-    # 3. PDF fallback — only when HTML returned nothing (unavailable or empty)
-    html_unavailable = html_cache is None or len(html_cache) == 0
+    # Preserve partial HTML detections for use as a last resort if PDF also fails
+    partial_html_cache = html_cache if (not is_html_complete and html_cache) else None
+
+    # 3. PDF fallback — when HTML unavailable, empty, or incomplete (stalled download)
+    html_unavailable = html_cache is None or not is_html_complete or len(html_cache) == 0
     if html_unavailable:
+        safe_id = str(paper_id).split("/")[-1]
+        pdf_cache_path = pdf_cache_dir / f"{safe_id}.json"
+        if pdf_cache_path.exists():
+            tqdm.write(f"  [{paper_id}] PDF cache hit")
+            record["sources_checked"].append("pdf")
+            tqdm.write(f"  [{paper_id}] DONE in {_time.monotonic()-t_paper:.1f}s")
+            return record
+
         pdf_url = paper.get("pdf_url")
         if pdf_url:
+            t_pdf = _time.monotonic()
             pdf_path = _download_pdf(pdf_url, pdf_dir, paper_id)
+            tqdm.write(f"  [{paper_id}] PDF download {'ok' if pdf_path else 'failed'} in {_time.monotonic()-t_pdf:.1f}s")
             if pdf_path:
                 record["sources_checked"].append("pdf")
                 try:
+                    t_extract = _time.monotonic()
                     processor = PDFProcessor(input_dir=str(pdf_path.parent), output_dir=str(pdf_path.parent))
                     raw_text, _ = processor.extract_text(pdf_path)
+                    tqdm.write(f"  [{paper_id}] PDF text extracted ({len(raw_text)} chars) in {_time.monotonic()-t_extract:.1f}s")
                     if raw_text:
                         cleaned_text = processor.clean_text(raw_text)
                         body_text = trim_pdf_text_to_body(cleaned_text)
-                        screened_blocks, _ = clean_paper_text_for_language_screening(body_text)
+                        screened_blocks, _ = clean_paper_text_for_language_screening(body_text, _label=paper_id)
                         raw_langs = detect_languages_in_text(screened_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
                         detections = build_detections(raw_langs, lang_classes, possible_false_positive_languages)
                         if detections:
@@ -175,9 +239,6 @@ def _process_single_paper(
                                 "source": "pdf",
                                 "detected_languages": detections,
                             }
-                        # Save to pdf_cache
-                        safe_id = str(paper_id).split("/")[-1]
-                        pdf_cache_path = pdf_cache_dir / f"{safe_id}.json"
                         pdf_cache_dir.mkdir(parents=True, exist_ok=True)
                         with pdf_cache_path.open("w", encoding="utf-8") as fh:
                             json.dump({
@@ -189,17 +250,32 @@ def _process_single_paper(
                                 "detected_languages": detections,
                             }, fh, ensure_ascii=False, indent=2)
                 except Exception as exc:
+                    tqdm.write(f"  [{paper_id}] PDF processing error: {type(exc).__name__}: {exc}")
                     record["warnings"].append({"step": "pdf_processing", "error": str(exc)})
             else:
-                record["warnings"].append({
-                    "step": "pdf_download",
-                    "error": f"Failed to download PDF from {pdf_url}",
-                })
+                record["warnings"].append({"step": "pdf_download", "error": f"Failed to download PDF from {pdf_url}"})
                 record["sources_checked"].append("pdf_unavailable")
         else:
             record["warnings"].append({"step": "pdf", "error": "No PDF URL available"})
             record["sources_checked"].append("pdf_unavailable")
 
+        # Last resort: partial HTML (stalled download) when PDF is also unavailable
+        pdf_succeeded = "pdf" in record["sources_checked"]
+        if not pdf_succeeded and partial_html_cache:
+            tqdm.write(f"  [{paper_id}] using partial HTML as last resort")
+            record["sources_checked"].append("html_partial")
+            record["warnings"].append({
+                "step": "html_partial",
+                "error": "HTML download stalled mid-transfer — only partial content analyzed",
+            })
+            for section_title, languages in partial_html_cache.items():
+                if not languages:
+                    continue
+                detections = build_detections(languages, lang_classes, possible_false_positive_languages)
+                if detections:
+                    record["sections"][section_title] = {"source": "html_partial", "detected_languages": detections}
+
+    tqdm.write(f"  [{paper_id}] DONE in {_time.monotonic()-t_paper:.1f}s")
     return record
 
 
@@ -233,7 +309,11 @@ def process_papers(
         "sources": {"abstract": 0, "html": 0, "pdf": 0, "pdf_unavailable": 0},
     }
 
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+    import time as _time
+    _PER_PAPER_TIMEOUT = 600  # seconds before a stuck paper is skipped (HTML 120s + PDF 180s + processing headroom)
+
+    executor = ThreadPoolExecutor(max_workers=max_workers)
+    try:
         futures = {
             executor.submit(
                 _process_single_paper,
@@ -248,31 +328,59 @@ def process_papers(
             for paper in papers
         }
 
-        with tqdm(as_completed(futures), total=len(futures), desc="Processing papers") as pbar:
-            for future in pbar:
-                try:
-                    record = future.result()
-                    for source in record.get("sources_checked", []):
-                        if source in stats["sources"]:
-                            stats["sources"][source] += 1
+        pending = set(futures.keys())
+        tqdm.write(f"[loop] submitted {len(futures)} futures with max_workers={max_workers}")
+        with tqdm(total=len(futures), desc="Processing papers") as pbar:
+            while pending:
+                tqdm.write(f"[loop] waiting on {len(pending)} pending futures…")
+                t_wait = _time.monotonic()
+                done, pending = wait(pending, timeout=_PER_PAPER_TIMEOUT, return_when=FIRST_COMPLETED)
+                elapsed_wait = _time.monotonic() - t_wait
+                tqdm.write(f"[loop] wait returned: {len(done)} done, {len(pending)} still pending (waited {elapsed_wait:.1f}s)")
 
-                    if record.get("warnings"):
-                        all_warnings.extend(record["warnings"])
+                if not done:
+                    # No future completed within timeout — all pending workers are stuck
+                    tqdm.write(f"[loop] TIMEOUT — no paper completed in {_PER_PAPER_TIMEOUT}s, stuck papers:")
+                    for f in list(pending):
+                        stuck_paper = futures[f]
+                        pid = stuck_paper.get("id", "unknown")
+                        tqdm.write(f"  TIMEOUT: [{pid}] no response after {_PER_PAPER_TIMEOUT}s — skipping")
+                        all_warnings.append({
+                            "paper_id": pid,
+                            "error": f"worker timeout after {_PER_PAPER_TIMEOUT}s",
+                            "timestamp": datetime.now().isoformat(),
+                        })
+                        stats["failed_papers"] += 1
+                        pbar.update(1)
+                    pending.clear()
+                    break
 
-                    if record.get("sections"):
-                        results.append(record)
-                        stats["papers_with_detections"] += 1
-                        for sec in record["sections"].values():
-                            stats["total_detections"] += len(sec.get("detected_languages", []))
-
-                except Exception as exc:
-                    paper = futures[future]
-                    all_warnings.append({
-                        "paper_id": paper.get("id", "unknown"),
-                        "error": str(exc),
-                        "timestamp": datetime.now().isoformat(),
-                    })
-                    stats["failed_papers"] += 1
+                for future in done:
+                    try:
+                        record = future.result()
+                        for source in record.get("sources_checked", []):
+                            if source in stats["sources"]:
+                                stats["sources"][source] += 1
+                        if record.get("warnings"):
+                            all_warnings.extend(record["warnings"])
+                        if record.get("sections"):
+                            results.append(record)
+                            stats["papers_with_detections"] += 1
+                            for sec in record["sections"].values():
+                                stats["total_detections"] += len(sec.get("detected_languages", []))
+                    except Exception as exc:
+                        paper = futures[future]
+                        tqdm.write(f"  ERROR: [{paper.get('id', 'unknown')}] {type(exc).__name__}: {exc}")
+                        all_warnings.append({
+                            "paper_id": paper.get("id", "unknown"),
+                            "error": str(exc),
+                            "timestamp": datetime.now().isoformat(),
+                        })
+                        stats["failed_papers"] += 1
+                    pbar.update(1)
+    finally:
+        # Don't block on stuck threads — daemon threads will be reaped when the process exits
+        executor.shutdown(wait=False)
 
     with output_jsonl.open("w", encoding="utf-8") as fp:
         for record in results:

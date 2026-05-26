@@ -16,6 +16,8 @@ _thread_local = threading.local()
 
 # Cap concurrent arXiv HTML requests regardless of worker count
 _ARXIV_SEMAPHORE = threading.Semaphore(6)
+_HTML_MAX_BYTES = 10 * 1024 * 1024  # 10 MB — enough for any paper's HTML
+_HTML_DOWNLOAD_TIMEOUT = 120  # wall-clock cap; arXiv keepalives defeat per-chunk read timeouts
 
 
 def _get_session() -> requests.Session:
@@ -41,17 +43,59 @@ _REMOVE_HEADINGS_DEFAULT = [
 ]
 
 
-def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str | None]:
+def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str | None, bool]:
+    """Fetch arXiv HTML for a paper.
+
+    Returns (html_text, html_url, is_complete).
+    is_complete=False means the download stalled mid-transfer (partial content) or failed entirely.
+    """
+    import time as _time
     if not abs_url:
-        return None, None
+        return None, None, False
     html_url = abs_url.replace("/abs/", "/html/")
+    t0 = _time.monotonic()
     try:
+        print(f"    [{abs_url}] waiting for semaphore…", flush=True)
         with _ARXIV_SEMAPHORE:
-            response = _get_session().get(html_url, timeout=timeout)
-        response.raise_for_status()
-        return response.text, html_url
-    except Exception:
-        return None, html_url
+            t0 = _time.monotonic()
+            print(f"    [{abs_url}] GET started…", flush=True)
+            # connect=5s, read=15s per chunk — short enough to detect arXiv CDN throttling
+            # (arXiv bursts ~768KB then stalls; 15s per-chunk timeout cuts the stall quickly)
+            response = _get_session().get(html_url, timeout=(5, 15), stream=True)
+            response.raise_for_status()
+            chunks = []
+            total = 0
+            is_complete = True
+            _LOG_EVERY = 256 * 1024
+            last_logged = 0
+            try:
+                for chunk in response.iter_content(chunk_size=65536):
+                    chunks.append(chunk)
+                    total += len(chunk)
+                    if total - last_logged >= _LOG_EVERY:
+                        elapsed = _time.monotonic() - t0
+                        print(f"    [{abs_url}] downloading… {total // 1024}KB in {elapsed:.1f}s", flush=True)
+                        last_logged = total
+                    if total >= _HTML_MAX_BYTES:
+                        print(f"    [{abs_url}] HTML truncated at {_HTML_MAX_BYTES // 1024}KB", flush=True)
+                        break
+                    elapsed = _time.monotonic() - t0
+                    if elapsed > _HTML_DOWNLOAD_TIMEOUT:
+                        is_complete = False
+                        print(f"    [{abs_url}] HTML wall-clock timeout after {elapsed:.1f}s at {total // 1024}KB — aborting", flush=True)
+                        break
+            except Exception as chunk_err:
+                elapsed = _time.monotonic() - t0
+                is_complete = False
+                print(f"    [{abs_url}] download stalled at {total // 1024}KB after {elapsed:.1f}s ({type(chunk_err).__name__})", flush=True)
+            html_text = b''.join(chunks).decode('utf-8', errors='replace') if chunks else None
+            elapsed = _time.monotonic() - t0
+            print(f"    [{abs_url}] response {response.status_code} in {elapsed:.1f}s ({total} bytes, complete={is_complete})", flush=True)
+        return html_text, html_url, is_complete
+    except Exception as e:
+        elapsed = _time.monotonic() - t0
+        print(f"    [{abs_url}] HTML fetch failed after {elapsed:.1f}s: {type(e).__name__}: {e}", flush=True)
+        return None, html_url, False
 
 
 def _remove_section_by_heading(soup: BeautifulSoup, heading_texts: list[str]) -> None:
@@ -89,8 +133,16 @@ def _remove_section_by_heading(soup: BeautifulSoup, heading_texts: list[str]) ->
                     break
 
 
-def clean_html_soup(html: str, remove_headings: list[str] | None = None) -> BeautifulSoup:
-    soup = BeautifulSoup(html, "html.parser")
+def clean_html_soup(html: str, remove_headings: list[str] | None = None, _label: str = "") -> BeautifulSoup:
+    import time as _time
+    _t = _time.monotonic()
+    def _tick(step: str) -> None:
+        print(f"    [{_label}] {step} in {_time.monotonic()-_t:.1f}s", flush=True)
+
+    size_kb = len(html) // 1024
+    print(f"    [{_label}] parsing {size_kb}KB…", flush=True)
+    soup = BeautifulSoup(html, "lxml")
+    _tick(f"parsed {size_kb}KB")
 
     for selector in [("blockquote", "abstract"), ("div", "abstract"), ("div", "abstract-full")]:
         tag = soup.find(selector[0], class_=selector[1])
@@ -99,9 +151,11 @@ def clean_html_soup(html: str, remove_headings: list[str] | None = None) -> Beau
                 tag.decompose()
             except Exception:
                 pass
+    _tick("removed abstracts")
 
     if remove_headings:
         _remove_section_by_heading(soup, remove_headings)
+    _tick("removed headings")
 
     for tag_name in ["script", "style", "nav", "footer", "header", "aside"]:
         for tag in soup.find_all(tag_name):
@@ -109,16 +163,19 @@ def clean_html_soup(html: str, remove_headings: list[str] | None = None) -> Beau
                 tag.decompose()
             except Exception:
                 pass
+    _tick("removed boilerplate tags")
 
     # arXiv HTML wraps math in <math><semantics>...<annotation encoding="application/x-tex">
     # The annotation contains the LaTeX source, which get_text() picks up and concatenates
     # with the MathML display text, producing artifacts like "UtU_{t}" from U_t.
     # Remove annotations before text extraction to keep only the display rendering.
+    n_annotations = len(soup.find_all("annotation"))
     for tag in soup.find_all("annotation"):
         try:
             tag.decompose()
         except Exception:
             pass
+    _tick(f"removed {n_annotations} math annotations")
 
     return soup
 
@@ -178,19 +235,21 @@ def recheck_languages_from_html(
     languages_to_ignore: set[str],
     out_dir: Path | None = None,
     remove_headings: list[str] | None = None,
-) -> dict[str, list[str]]:
+) -> tuple[dict[str, list[str]], bool]:
     """Fetch arXiv HTML, extract sections, run language detection per section.
 
-    Returns dict mapping section title -> list of detected language strings.
-    Saves a detailed JSON file to out_dir (or data/processed/weeks/{slug}/html_cache/ by default).
-    Returns empty dict if HTML is unavailable.
+    Returns (detections, is_html_complete) where:
+    - detections maps section title -> list of detected language strings
+    - is_html_complete=False means the HTML was a stalled/partial download
+
+    Saves a detailed JSON file to out_dir. Returns ({}, False) if HTML unavailable.
     """
     if remove_headings is None:
         remove_headings = _REMOVE_HEADINGS_DEFAULT
 
     paper_id = paper_record.get("id") or paper_record.get("pdf_url") or paper_record.get("url")
     if not paper_id:
-        return {}
+        return {}, False
 
     if out_dir is None:
         out_dir = Path("data/processed/weeks/latest/html_cache")
@@ -204,20 +263,30 @@ def recheck_languages_from_html(
         try:
             with json_path.open("r", encoding="utf-8") as fh:
                 cached = json.load(fh)
-            return {title: data.get("detected", []) for title, data in cached.items()}
+            is_complete = cached.get("_complete", True)  # older caches pre-date this field → assume complete
+            sections_data = {k: v for k, v in cached.items() if not k.startswith("_")}
+            return {title: data.get("detected", []) for title, data in sections_data.items()}, is_complete
         except Exception:
             pass  # fall through to re-fetch if cache is corrupt
 
-    html, _html_url = fetch_arxiv_html(str(paper_id))
-    if not html:
-        return {}
+    import time as _time
 
-    soup = clean_html_soup(html, remove_headings)
+    html, _html_url, is_complete = fetch_arxiv_html(str(paper_id))
+    if not html:
+        return {}, False
+
+    t1 = _time.monotonic()
+    soup = clean_html_soup(html, remove_headings, _label=str(paper_id))
+    print(f"  [{paper_id}] clean_html_soup done in {_time.monotonic()-t1:.1f}s", flush=True)
+
+    t2 = _time.monotonic()
     sections = extract_sections_from_soup(soup)
+    print(f"  [{paper_id}] extract_sections done in {_time.monotonic()-t2:.1f}s ({len(sections)} sections)", flush=True)
 
     detections_per_section: dict[str, list[str]] = {title: [] for title in sections}
     cleaned_texts_per_section: dict[str, str] = {}
 
+    t3 = _time.monotonic()
     for title, text in sections.items():
         if re.search("|".join(re.escape(h) for h in remove_headings), title, re.IGNORECASE):
             continue
@@ -232,19 +301,21 @@ def recheck_languages_from_html(
         )
         if detected:
             detections_per_section[title] = detected
+    print(f"  [{paper_id}] language detection done in {_time.monotonic()-t3:.1f}s", flush=True)
 
-    payload = {
+    payload: dict[str, Any] = {"_complete": is_complete}
+    payload.update({
         title: {
             "text": text,
             "cleaned_text": cleaned_texts_per_section.get(title, ""),
             "detected": detections_per_section.get(title, []),
         }
         for title, text in sections.items()
-    }
+    })
     try:
         with json_path.open("w", encoding="utf-8") as fh:
             json.dump(payload, fh, ensure_ascii=False, indent=2)
     except Exception:
         pass
 
-    return detections_per_section
+    return detections_per_section, is_complete
