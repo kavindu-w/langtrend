@@ -73,8 +73,12 @@ _COL_ASSIGNMENT_RE = re.compile(r"\bcol(?:[@$\\])?\s*=\s*[^\n]+", re.IGNORECASE)
 _COL_SLICE_RE = re.compile(r"\bcol(?:[@$\\])?\s*\[[^\]]+\]", re.IGNORECASE)
 _COL_MATH_MARKER_RE = re.compile(r"\bcol[@$\\]+", re.IGNORECASE)
 _MULTI_SPACE_RE = re.compile(r"\s+")
+# "a", "the", etc. are ambiguous: they match BOTH the main word slot AND the inner small-word slot,
+# causing exponential backtracking when followed by a non-acronym "(" (e.g. typical NLP abstracts).
+# Fix: require the main word to NOT be a small word via a negative lookahead.
 _ACRONYM_DEFINITION_RE = re.compile(
-    r"(?:[A-Za-z][a-z]*\s+(?:(?:and|or|of|the|a|for|in|with|to)\s+)*){2,}\([A-Z]{2,8}\)"
+    r"(?:(?!(?:and|or|of|the|a|for|in|with|to)\b)[A-Za-z][a-z]*\s+"
+    r"(?:(?:and|or|of|the|a|for|in|with|to)\s+)*){2,}\([A-Z]{2,8}\)"
 )
 # Helper to extract the acronym string from a definition match
 _ACRO_PARENS_RE = re.compile(r"\(([A-Z]{2,8})\)")
@@ -249,8 +253,15 @@ def should_ignore_acronym_language_match(
     return ignored
 
 
-def clean_paper_text_for_language_screening(text: str) -> tuple[list[str], dict]:
+def clean_paper_text_for_language_screening(text: str, _label: str = "") -> tuple[list[str], dict]:
     """Return (cleaned_blocks, step_matches) for language screening."""
+    import time as _time
+
+    def _warn_slow(step: str, t_start: float, threshold: float = 0.05) -> None:
+        elapsed = _time.monotonic() - t_start
+        if elapsed > threshold:
+            print(f"    [{_label}] SLOW '{step}': {elapsed:.2f}s for {len(text)} chars", flush=True)
+
     if not text:
         return [], {}
 
@@ -261,12 +272,14 @@ def clean_paper_text_for_language_screening(text: str) -> tuple[list[str], dict]
     # Pass 1: collect all acronyms defined anywhere in the text (case-insensitive expansion).
     # This handles cross-paragraph uses: "Document Layout Analysis (DLA)" in paragraph 1
     # → bare "DLA" in paragraph 3 is also stripped.
+    _t = _time.monotonic()
     all_defined_acronyms: set[str] = {
         m2.group(1)
         for m in _ACRONYM_DEFINITION_RE.finditer(normalized)
         for m2 in [_ACRO_PARENS_RE.search(m.group(0))]
         if m2
     }
+    _warn_slow("acronym_scan", _t)
 
     for block in re.split(r"\n{2,}|\r\n{2,}", normalized):
         block = block.strip()
@@ -274,6 +287,7 @@ def clean_paper_text_for_language_screening(text: str) -> tuple[list[str], dict]
             continue
 
         step_matches = {}
+        _tb = _time.monotonic()
 
         # Code/pseudocode cleanup
         matches = _DEF_FUNCTION_BLOCK_RE.findall(block)
@@ -285,7 +299,9 @@ def clean_paper_text_for_language_screening(text: str) -> tuple[list[str], dict]
             ),
             block,
         )
+        _warn_slow("def_func_block", _tb)
 
+        _tb = _time.monotonic()
         matches = _COL_ASSIGNMENT_RE.findall(block)
         if matches:
             step_matches["col_assignment"] = matches
@@ -307,15 +323,19 @@ def clean_paper_text_for_language_screening(text: str) -> tuple[list[str], dict]
             step_matches["color_blocks"] = matches
         block = _COLOR_BLOCK_RE.sub(" ", block)
 
+        _tb = _time.monotonic()
         matches = _INLINE_MATH_RE.findall(block)
         if matches:
             step_matches["inline_math"] = matches
         block = _INLINE_MATH_RE.sub(" ", block)
+        _warn_slow("inline_math", _tb)
 
+        _tb = _time.monotonic()
         matches = _MATH_COMMAND_RE.findall(block)
         if matches:
             step_matches["math_commands"] = matches[:10]
         block = _MATH_COMMAND_RE.sub(" ", block)
+        _warn_slow("math_command", _tb)
 
         matches = _SUBSCRIPT_SUPERSCRIPT_RE.findall(block)
         if matches:
@@ -323,20 +343,26 @@ def clean_paper_text_for_language_screening(text: str) -> tuple[list[str], dict]
         block = _SUBSCRIPT_SUPERSCRIPT_RE.sub(" ", block)
 
         # Citation cleanup
+        _tb = _time.monotonic()
         matches = _CITATION_AUTHOR_YEAR_RE.findall(block)
         if matches:
             step_matches["citation_author_year"] = matches
         block = _CITATION_AUTHOR_YEAR_RE.sub(" ", block)
+        _warn_slow("citation_author_year", _tb)
 
+        _tb = _time.monotonic()
         matches = _CITATION_PAREN_RE.findall(block)
         if matches:
             step_matches["citation_parens"] = matches
         block = _CITATION_PAREN_RE.sub(" ", block)
+        _warn_slow("citation_paren", _tb)
 
+        _tb = _time.monotonic()
         matches = _CITATION_BRACKET_RE.findall(block)
         if matches:
             step_matches["citation_brackets"] = matches
         block = _CITATION_BRACKET_RE.sub(" ", block)
+        _warn_slow("citation_bracket", _tb)
 
         matches = _ALNUM_TOKEN_RE.findall(block)
         if matches:
@@ -362,10 +388,12 @@ def clean_paper_text_for_language_screening(text: str) -> tuple[list[str], dict]
         # then strip all standalone uses of any acronym defined anywhere in the text.
         if all_defined_acronyms:
             step_matches["acronym_catch"] = list(all_defined_acronyms)
+        _tb = _time.monotonic()
         block = _ACRONYM_DEFINITION_RE.sub(
             lambda m: re.sub(r"\s*\([A-Z]{2,8}\)", " ", m.group(0)),
             block,
         )
+        _warn_slow("acronym_sub", _tb)
         for _acro in all_defined_acronyms:
             block = re.sub(r"(?<!\w)" + re.escape(_acro) + r"(?!\w)", " ", block)
 

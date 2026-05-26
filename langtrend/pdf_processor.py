@@ -78,10 +78,13 @@ class PDFProcessor:
         """Extract text from PDF using pdfplumber."""
         full_text = []
         page_texts = {}
-        
+
         try:
             with pdfplumber.open(pdf_path) as pdf:
+                total = len(pdf.pages)
+                print(f"    pdfplumber: {total} pages in {pdf_path.name}")
                 for page_num, page in enumerate(pdf.pages, 1):
+                    print(f"    extracting page {page_num}/{total}…", flush=True)
                     try:
                         text = page.extract_text()
                         if text:
@@ -90,10 +93,10 @@ class PDFProcessor:
                     except Exception as e:
                         print(f"  Warning: Error extracting page {page_num}: {e}")
                         continue
-        
+
         except Exception as e:
             raise Exception(f"Failed to open PDF: {e}")
-        
+
         return '\n\n'.join(full_text), page_texts
     
     def clean_text(self, text: str) -> str:
