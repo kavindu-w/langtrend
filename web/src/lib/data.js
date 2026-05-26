@@ -96,6 +96,7 @@ function datedManifestPath(weekStart) {
   return path.join(dataRoot, 'processed', 'weeks', slug, 'langtrend_manifest.json');
 }
 
+/** @param {string | undefined} weekStart @param {number} windowDays */
 export function loadSiteData(weekStart = undefined, windowDays = 7) {
   const manifestPath = weekStart
     ? datedManifestPath(weekStart)
@@ -109,7 +110,19 @@ export function loadSiteData(weekStart = undefined, windowDays = 7) {
   const flaggedPapers = (manifest.flagged_papers || []).map((item) => ({
     paper: item.paper,
     languages: item.languages || [],
+    sourcesChecked: item.sources_checked || [],
   }));
+
+  const coverageStats = flaggedPapers.reduce(
+    (acc, item) => {
+      const s = item.sourcesChecked;
+      if (s.includes('html')) acc.htmlScanned++;
+      else if (s.includes('pdf')) acc.pdfOnly++;
+      else acc.abstractOnly++;
+      return acc;
+    },
+    { htmlScanned: 0, pdfOnly: 0, abstractOnly: 0 },
+  );
 
   const languageCounts = countLanguages(flaggedPapers);
   const topLanguages = languageCounts.slice(0, 12).map((item, index) => ({
@@ -124,6 +137,7 @@ export function loadSiteData(weekStart = undefined, windowDays = 7) {
     manifest,
     languageData,
     flaggedPapers,
+    coverageStats,
     languageCounts,
     topLanguages,
     weekSeries,
