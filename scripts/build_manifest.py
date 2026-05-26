@@ -113,6 +113,8 @@ def _load_html_detections(
     all_dets: list[dict] = []
     sections_hit: list[str] = []
     for section_name, section_data in data.items():
+        if section_name.startswith("_"):
+            continue
         detected_strings: list[str] = section_data.get("detected", [])
         if detected_strings:
             dets = build_detections(
