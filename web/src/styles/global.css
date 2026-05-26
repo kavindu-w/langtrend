@@ -146,15 +146,25 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 8px;
-  align-items: center;
+  align-items: start;
   width: 100%;
 }
-.fc-controls > .fc-root { grid-column: 1 / -1; }
-.fc-root { width: min(560px, 100%); max-width: 560px; margin: 0 auto; display: block; min-height: 260px; }
+.fc-controls > .fc-week-wrapper { grid-column: 1 / -1; }
+/* Wrapper owns centering + left gutter so fc-root's margin: 0 auto stays intact.
+   overflow:hidden prevents week-number badges from bleeding below the calendar. */
+.fc-week-wrapper {
+  width: min(calc(560px + 2.6em), 100%);
+  margin: 0 auto;
+  padding-left: 2.6em;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.fc-root { position: relative; width: 100%; max-width: 560px; margin: 0 auto; display: block; min-height: 260px; }
 .calendar-card.week-calendar-panel { display: flex; flex-direction: column; align-items: center; }
 
 @media (max-width: 640px) {
-  .fc-root { width: 100%; }
+  .fc-week-wrapper { padding-left: 1.8em; width: 100%; }
+  .fc-wknum { left: -1.6em; font-size: 0.65rem; }
 }
 
 /* Styling for FullCalendar background event representing selected week */
@@ -202,27 +212,28 @@ a { color: inherit; text-decoration: none; }
   min-height: 260px !important;
 }
 
-/* Place the prev/next buttons beside the title inside the panel head */
 .calendar-card.week-calendar-panel { position: relative; }
-.calendar-card.week-calendar-panel .panel-head { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 10px; position: static; padding-top: 8px; }
-/* Position nav buttons at the calendar card corners (top-left / top-right) */
-.calendar-card.week-calendar-panel #fc-prev {
-  position: absolute;
-  left: 12px;
-  top: 12px;
-  transform: none;
-  z-index: 30;
-}
-.calendar-card.week-calendar-panel #fc-next {
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  transform: none;
-  z-index: 30;
+/* Buttons sit left and right of the title; flex centering keeps the group centered
+   even as the title length changes (same-month vs cross-month formats). */
+.calendar-card.week-calendar-panel .panel-head {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-top: 8px;
+  white-space: nowrap;
 }
 
-/* Slightly smaller nav buttons to sit beside the title */
-.week-nav-btn { padding: 4px 6px; font-size: 0.9rem; position: relative; }
+.week-nav-btn {
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 
 /* Tooltip for week nav buttons */
 .week-nav-btn::after {
@@ -251,6 +262,30 @@ a { color: inherit; text-decoration: none; }
 .fc .fc-daygrid-day-number { font-size: 1rem; font-weight: 700; }
 
 .fc .fc-col-header-cell-cushion { font-weight: 700; }
+
+/* Week number overlays — rendered outside the FullCalendar grid via JS (getBoundingClientRect).
+   .fc-root is the positioning context (position:relative).
+   .fc-week-wrapper's padding-left:2.6em creates the visible gutter where the badges land. */
+.fc-wknum {
+  position: absolute;
+  left: -2.4em;
+  transform: translateY(-50%);
+  width: 2em;
+  text-align: right;
+  font-size: 0.72rem;
+  color: var(--text-muted, #8a8a8a);
+  font-weight: 600;
+  pointer-events: none;
+  line-height: 1;
+  z-index: 5;
+}
+
+/* Unavailable weeks (before earliest / after latest available data) */
+.fc .fc-daygrid-day.unavailable-week { background-color: rgba(0,0,0,0.055); }
+.fc .fc-daygrid-day.unavailable-week .fc-daygrid-day-number { color: #bbb; font-weight: 500; }
+
+/* Pointer cursor on all calendar week rows */
+.fc .fc-daygrid-body tr { cursor: pointer; }
 
 .paper-collapse, .stats-collapse { margin-bottom: 18px; }
 .paper-collapse-summary {

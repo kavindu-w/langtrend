@@ -3,8 +3,7 @@
 - [x] add tests
 - [x] false positive
 - [x] backup options (abstract to html to pdf)
-- [ ] run pipeline for this week
-- [ ] run pipeline for last week
+- [x] run pipeline for the last 3 weeks
 
 # frontend
 - [x] modify layout

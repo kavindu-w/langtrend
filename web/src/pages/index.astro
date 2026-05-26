@@ -3,11 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import TrendCharts from '../components/TrendCharts.astro';
 import PaperTable from '../components/PaperTable.astro';
 import WeekCalendar from '../components/WeekCalendar.astro';
-import { loadSiteData } from '../lib/data.js';
+import { loadSiteData, getAvailableWeeks } from '../lib/data.js';
 
 // ?week=YYYY-MM-DD loads a dated manifest; omitting it loads the latest (last_7_days)
 const weekParam = Astro.url.searchParams.get('week');
 const data = weekParam ? loadSiteData(weekParam) : loadSiteData();
+const availableWeeks = getAvailableWeeks();
 ---
 <BaseLayout title="LangTrend" description="Automated dashboard for language inclusion in NLP research">
   <section class="hero">
@@ -34,7 +35,7 @@ const data = weekParam ? loadSiteData(weekParam) : loadSiteData();
       </div>
     </div>
 
-    <WeekCalendar activeWeek={data.manifest.week_start ?? weekParam ?? undefined} />
+    <WeekCalendar activeWeek={data.manifest.week_start ?? weekParam ?? undefined} availableWeeks={availableWeeks} />
   </section>
 
   <details id="flagged-papers" class="paper-collapse panel" open>
