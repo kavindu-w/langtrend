@@ -146,6 +146,7 @@ export function loadSiteData(weekStart = undefined, windowDays = 7) {
     languages: item.languages || [],
     sourcesChecked: item.sources_checked || [],
     sections: normalizeSections(detectedByPaperId.get(normalizePaperId(item.paper?.id || ''))),
+    warnings: item.warnings || [],
   }));
 
   const coverageStats = flaggedPapers.reduce(

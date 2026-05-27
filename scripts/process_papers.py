@@ -30,7 +30,7 @@ from tqdm import tqdm
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from langtrend.manifest import build_detections
-from langtrend.text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text, trim_pdf_text_to_body
+from langtrend.text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text, trim_pdf_text_to_body, extract_paper_acronyms, find_language_acronym_conflicts
 from langtrend.html_processor import recheck_languages_from_html
 from langtrend.pdf_processor import PDFProcessor
 
@@ -186,7 +186,7 @@ def _process_single_paper(
     is_html_complete = False
     t_html = _time.monotonic()
     try:
-        html_cache, is_html_complete = recheck_languages_from_html(
+        html_cache, is_html_complete, acronym_conflicts = recheck_languages_from_html(
             paper,
             lang_classes,
             languages_to_ignore,
@@ -194,6 +194,19 @@ def _process_single_paper(
         )
         if html_cache is not None:
             tqdm.write(f"  [{paper_id}] HTML ok ({len(html_cache)} sections, complete={is_html_complete}) in {_time.monotonic()-t_html:.1f}s")
+            if acronym_conflicts:
+                for conflict in acronym_conflicts:
+                    record["warnings"].append({
+                        "step": "acronym_language_conflict",
+                        "acronym": conflict["acronym"],
+                        "language": conflict["language"],
+                        "language_class": conflict["class"],
+                        "message": (
+                            f"Paper defines '{conflict['acronym']}' as an acronym. "
+                            f"The language '{conflict['language']}' (class {conflict['class']}) "
+                            f"shares this name — mentions may have been suppressed. Manual review recommended."
+                        ),
+                    })
             if is_html_complete:
                 record["sources_checked"].append("html")
                 for section_title, languages in html_cache.items():
@@ -360,6 +373,27 @@ def _reprocess_single_paper(
             is_html_complete = html_cached.get("_complete", True)
 
             updated_cache: dict = {"_complete": is_html_complete}
+            # Build paper-level acronym set from all sections so cross-section uses
+            # (e.g. "GAN" defined in Introduction, used in Method) are suppressed.
+            paper_acronyms = extract_paper_acronyms("\n\n".join(
+                sd.get("text", "") for sd in html_cached.values()
+                if isinstance(sd, dict) and not str(sd).startswith("_")
+            ))
+            acronym_conflicts = find_language_acronym_conflicts(paper_acronyms, lang_classes, languages_to_ignore)
+            if acronym_conflicts:
+                updated_cache["_acronym_conflicts"] = acronym_conflicts
+                for conflict in acronym_conflicts:
+                    record["warnings"].append({
+                        "step": "acronym_language_conflict",
+                        "acronym": conflict["acronym"],
+                        "language": conflict["language"],
+                        "language_class": conflict["class"],
+                        "message": (
+                            f"Paper defines '{conflict['acronym']}' as an acronym. "
+                            f"The language '{conflict['language']}' (class {conflict['class']}) "
+                            f"shares this name — mentions may have been suppressed. Manual review recommended."
+                        ),
+                    })
             for section_title, section_data in html_cached.items():
                 if section_title.startswith("_"):
                     continue
@@ -367,7 +401,7 @@ def _reprocess_single_paper(
                 if not text:
                     updated_cache[section_title] = section_data
                     continue
-                cleaned_blocks, _ = clean_paper_text_for_language_screening(text, _label=paper_id)
+                cleaned_blocks, _ = clean_paper_text_for_language_screening(text, _label=paper_id, paper_acronyms=paper_acronyms)
                 cleaned_text = "\n\n".join(cleaned_blocks)
                 detected: list[str] = []
                 if cleaned_blocks:
