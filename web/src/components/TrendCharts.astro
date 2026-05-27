@@ -238,7 +238,7 @@ const weeklyCoverageFlowLinks = (() => {
 
 const weeklyDailySeries = fillWeekSeries(weekSeries, manifest.week_start, manifest.week_end);
 const weeklyDailyWidth = 760;
-const weeklyDailyHeight = 240;
+const weeklyDailyHeight = 420;
 const weeklyDailyMargins = { top: 24, right: 18, bottom: 52, left: 42 };
 const weeklyDailyInnerWidth = weeklyDailyWidth - weeklyDailyMargins.left - weeklyDailyMargins.right;
 const weeklyDailyInnerHeight = weeklyDailyHeight - weeklyDailyMargins.top - weeklyDailyMargins.bottom;
@@ -582,14 +582,22 @@ function roundedBottomRect(x: number, y: number, w: number, h: number, r: number
   return `M ${x},${y} H ${x + w} V ${y + h - cr} Q ${x + w},${y + h} ${x + w - cr},${y + h} H ${x + cr} Q ${x},${y + h} ${x},${y + h - cr} V ${y} Z`;
 }
 
-// Fill a week series to include all 7 days in the window
+// Fill Mon–Sun for the week containing weekStart.
+// Uses UTC throughout to avoid local-timezone drift in toISOString().
 function fillWeekSeries(series: WeekPoint[], weekStart: string | undefined, _weekEnd: string | undefined): WeekPoint[] {
   if (!weekStart) return series;
   const map = new Map(series.map((p) => [p.date, p]));
-  const start = new Date(`${weekStart}T00:00:00`);
+  const [y, mo, d] = weekStart.split('-').map(Number);
+  const raw = new Date(Date.UTC(y, mo - 1, d));
+  const dow = raw.getUTCDay(); // 0=Sun, 1=Mon, …, 6=Sat
+  // Shift to Monday: if Sunday move +1 day forward, otherwise go back to nearest Monday
+  const mondayMs = dow === 0
+    ? raw.getTime() + 86400000
+    : raw.getTime() - (dow - 1) * 86400000;
   const filled: WeekPoint[] = [];
   for (let i = 0; i < 7; i++) {
-    const key = new Date(start.getTime() + i * 86400000).toISOString().slice(0, 10);
+    const t = new Date(mondayMs + i * 86400000);
+    const key = `${t.getUTCFullYear()}-${String(t.getUTCMonth() + 1).padStart(2, '0')}-${String(t.getUTCDate()).padStart(2, '0')}`;
     filled.push(map.get(key) ?? { date: key, papers: 0, flagged: 0 });
   }
   return filled;
@@ -714,11 +722,17 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
             <p>Papers submitted each day of the week, split by whether they contained a language mention.</p>
           </div>
         </div>
+        <div class="chart-legend-inline" style="justify-content:center">
+          <span><span class="coverage-dot abstract"></span>Other papers</span>
+          <span><span class="coverage-dot html"></span>Papers with language mentions</span>
+        </div>
         {weeklyDailySeries.length > 0 ? (
           <div class="chart-scroll">
-            <svg class="chart-svg" width="100%" height={weeklyDailyHeight} viewBox={`0 0 ${weeklyDailyWidth} ${weeklyDailyHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Daily submission activity stacked bar chart">
+            <svg class="chart-svg" style="height:auto" width="100%" viewBox={`0 0 ${weeklyDailyWidth} ${weeklyDailyHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Daily submission activity stacked bar chart">
               <g transform={`translate(${weeklyDailyMargins.left} ${weeklyDailyMargins.top})`}>
-                {weeklyDailyY.ticks(4).map((tick) => (
+                {/* baseline */}
+                <line x1="0" x2={weeklyDailyInnerWidth} y1={weeklyDailyInnerHeight} y2={weeklyDailyInnerHeight} class="chart-grid-line"></line>
+                {weeklyDailyY.ticks(5).map((tick) => (
                   <g transform={`translate(0 ${weeklyDailyY(tick)})`}>
                     <line x1="0" x2={weeklyDailyInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
                     <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
@@ -727,6 +741,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                 {weeklyDailySeries.map((point) => {
                   const total = Math.max(point.papers || 0, 0);
                   const flagged = Math.max(Math.min(point.flagged || 0, total), 0);
+                  const other = total - flagged;
                   const x = weeklyDailyScale(point.date) || 0;
                   const barWidth = weeklyDailyScale.bandwidth();
                   const totalHeight = total > 0 ? (total / weeklyDailyMax) * weeklyDailyInnerHeight : 0;
@@ -737,11 +752,11 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                     <g transform={`translate(${x} 0)`}>
                       {nonFlaggedHeight > 0 && <path d={roundedTopRect(0, y, barWidth, nonFlaggedHeight, 5)} fill="rgba(32, 22, 19, 0.18)"></path>}
                       {flaggedHeight > 0 && <path d={roundedBottomRect(0, y + nonFlaggedHeight, barWidth, flaggedHeight, 5)} fill="#0f6c5d"></path>}
-                      {total > 0 && nonFlaggedHeight > 14 && (
-                        <text x={barWidth / 2} y={y + nonFlaggedHeight / 2 + 4} text-anchor="middle" class="chart-value">{total}</text>
+                      {nonFlaggedHeight > 14 && (
+                        <text x={barWidth / 2} y={y + nonFlaggedHeight / 2 + 4} text-anchor="middle" class="chart-value">{other}</text>
                       )}
-                      {total > 0 && nonFlaggedHeight <= 14 && (
-                        <text x={barWidth / 2} y={Math.max(y - 4, 6)} text-anchor="middle" class="chart-value">{total}</text>
+                      {total > 0 && nonFlaggedHeight <= 14 && other > 0 && (
+                        <text x={barWidth / 2} y={Math.max(y - 4, 6)} text-anchor="middle" class="chart-value">{other}</text>
                       )}
                       {flaggedHeight > 14 && (
                         <text x={barWidth / 2} y={y + nonFlaggedHeight + flaggedHeight / 2 + 4} text-anchor="middle" class="chart-value" style="fill:#fff">{flagged}</text>
@@ -757,10 +772,6 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         ) : (
           <p class="placeholder-text">Daily submission series will appear once a weekly snapshot is available.</p>
         )}
-        <div class="chart-legend-inline">
-          <span><span class="coverage-dot abstract"></span>Other papers</span>
-          <span><span class="coverage-dot html"></span>Papers with language mentions</span>
-        </div>
       </article>
 
       <article class="chart-subpanel">
