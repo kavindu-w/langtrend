@@ -1009,59 +1009,50 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
       </div>
     </div>
 
-    <article class="chart-subpanel chart-subpanel-wide overall-summary-panel">
-      <div class="chart-subpanel-head">
-        <div>
-          <h3>Coverage across all weeks</h3>
-          <p>Total papers analyzed so far versus papers with language mentions, plus overall language breadth.</p>
-        </div>
-        <span class="chart-caption">Aggregate coverage + breadth</span>
-      </div>
-      <div class="coverage-summary-grid overall-summary-grid">
-        <div class="coverage-summary-card">
-          <div class="chart-subpanel-head">
+    <div class="overall-summary-grid" style="margin-bottom:14px">
+      <div class="coverage-summary-card">
+        <div class="chart-subpanel-head">
             <div>
               <h3>Overall coverage</h3>
-              <p>Cumulative papers scanned vs. papers with language mentions across all weeks.</p>
+              <p>Papers scanned all time vs. papers with at least one language mention.</p>
             </div>
           </div>
-          <svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of total papers analyzed versus papers with language mentions across all weeks">
+      <svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of total papers analyzed versus papers with language mentions across all weeks">
+        <g>
+          {overallCoveragePie.map((slice) => (
             <g>
-              {overallCoveragePie.map((slice) => (
-                <g>
-                  <path d={slice.path} fill={slice.color} stroke="white" stroke-width="1.5"></path>
-                  <path d={slice.calloutPath} fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path>
-                  <text x={slice.labelX + (slice.side === 'right' ? 8 : -8)} y={slice.labelY + 4} text-anchor={slice.side === 'right' ? 'start' : 'end'} class="chart-axis-label">
-                    {coverageSliceLines(slice.label, slice.value).map((line, index) => (
-                      <tspan x={slice.labelX + (slice.side === 'right' ? 8 : -8)} dy={index === 0 ? 0 : 14}>{line}</tspan>
-                    ))}
-                  </text>
-                </g>
-              ))}
-              <circle cx="228" cy="110" r="36" fill="var(--panel)" stroke="var(--line)"></circle>
-              <text x="228" y="102" text-anchor="middle" class="chart-value">
-                <tspan x="228" dy="0">{trendOverallPapers}</tspan>
-                <tspan x="228" dy="14" class="chart-axis-label">papers</tspan>
+              <path d={slice.path} fill={slice.color} stroke="white" stroke-width="1.5"></path>
+              <path d={slice.calloutPath} fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path>
+              <text x={slice.labelX + (slice.side === 'right' ? 8 : -8)} y={slice.labelY + 4} text-anchor={slice.side === 'right' ? 'start' : 'end'} class="chart-axis-label">
+                {coverageSliceLines(slice.label, slice.value).map((line, index) => (
+                  <tspan x={slice.labelX + (slice.side === 'right' ? 8 : -8)} dy={index === 0 ? 0 : 14}>{line}</tspan>
+                ))}
               </text>
             </g>
-          </svg>
-        </div>
-        <div class="overall-summary-stats">
-          <article class="stat-card-mini">
-            <strong>{trendOverallPapers}</strong>
-            <span>Total papers analyzed</span>
-          </article>
-          <article class="stat-card-mini">
-            <strong>{trendOverallFlagged}</strong>
-            <span>Papers with language mentions</span>
-          </article>
-          <article class="stat-card-mini">
-            <strong>{overallCoverageUniqueText}</strong>
-            <span>Unique languages across weeks</span>
-          </article>
-        </div>
+          ))}
+          <circle cx="228" cy="110" r="36" fill="var(--panel)" stroke="var(--line)"></circle>
+          <text x="228" y="102" text-anchor="middle" class="chart-value">
+            <tspan x="228" dy="0">{trendOverallPapers}</tspan>
+            <tspan x="228" dy="14" class="chart-axis-label">papers</tspan>
+          </text>
+        </g>
+      </svg>
       </div>
-    </article>
+      <div class="overall-summary-stats">
+        <article class="stat-card-mini">
+          <strong>{trendOverallPapers}</strong>
+          <span>Total papers analyzed</span>
+        </article>
+        <article class="stat-card-mini">
+          <strong>{trendOverallFlagged}</strong>
+          <span>Papers with language mentions</span>
+        </article>
+        <article class="stat-card-mini">
+          <strong>{overallCoverageUniqueText}</strong>
+          <span>Unique languages across weeks</span>
+        </article>
+      </div>
+    </div>
 
     <div class="overall-trend-grid">
       <article class="chart-subpanel">
