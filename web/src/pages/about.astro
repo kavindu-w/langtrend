@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadSiteData } from '../lib/data.js';
 
-const data = loadSiteData(7);
+const data = loadSiteData(undefined, 7);
 const classes = (data.languageData.lang_classes || {}) as Record<string, unknown[]>;
 ---
 <BaseLayout title="About LangTrend" description="Pipeline, limits, and references for LangTrend">
