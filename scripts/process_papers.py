@@ -68,6 +68,8 @@ _PDF_MAX_BYTES = 30 * 1024 * 1024  # skip PDFs larger than 30 MB
 
 _PDF_DOWNLOAD_TIMEOUT = 180  # wall-clock cap for entire PDF download
 _PDF_LOG_EVERY = 256 * 1024
+_PDF_DOWNLOAD_RETRIES = 4
+_PDF_RETRY_BACKOFF = 15  # seconds; doubles each attempt
 
 def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
     """Download a PDF into a per-paper subdirectory. Returns path or None on failure."""
@@ -80,46 +82,54 @@ def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
     if pdf_path.exists():
         tqdm.write(f"    [{paper_id}] PDF already on disk ({pdf_path.stat().st_size // 1024}KB)")
         return pdf_path
-    tqdm.write(f"    [{paper_id}] PDF GET {pdf_url}")
-    t0 = _time.monotonic()
-    try:
-        resp = requests.get(pdf_url, stream=True, timeout=(10, 30))
-        resp.raise_for_status()
-        tqdm.write(f"    [{paper_id}] PDF response {resp.status_code}, streaming…")
-        downloaded = 0
-        last_logged = 0
-        with pdf_path.open("wb") as fh:
-            try:
-                for chunk in resp.iter_content(chunk_size=65536):
-                    if chunk:
-                        downloaded += len(chunk)
-                        fh.write(chunk)
-                        if downloaded - last_logged >= _PDF_LOG_EVERY:
+
+    for attempt in range(1, _PDF_DOWNLOAD_RETRIES + 1):
+        tqdm.write(f"    [{paper_id}] PDF GET {pdf_url} (attempt {attempt}/{_PDF_DOWNLOAD_RETRIES})")
+        t0 = _time.monotonic()
+        try:
+            resp = requests.get(pdf_url, stream=True, timeout=(10, 30))
+            resp.raise_for_status()
+            tqdm.write(f"    [{paper_id}] PDF response {resp.status_code}, streaming…")
+            downloaded = 0
+            last_logged = 0
+            with pdf_path.open("wb") as fh:
+                try:
+                    for chunk in resp.iter_content(chunk_size=65536):
+                        if chunk:
+                            downloaded += len(chunk)
+                            fh.write(chunk)
+                            if downloaded - last_logged >= _PDF_LOG_EVERY:
+                                elapsed = _time.monotonic() - t0
+                                tqdm.write(f"    [{paper_id}] PDF downloading… {downloaded // 1024}KB in {elapsed:.1f}s")
+                                last_logged = downloaded
+                            if downloaded > _PDF_MAX_BYTES:
+                                tqdm.write(f"    [{paper_id}] PDF too large (>{_PDF_MAX_BYTES // (1024*1024)}MB) — skipping")
+                                return None
+                        if _time.monotonic() - t0 > _PDF_DOWNLOAD_TIMEOUT:
                             elapsed = _time.monotonic() - t0
-                            tqdm.write(f"    [{paper_id}] PDF downloading… {downloaded // 1024}KB in {elapsed:.1f}s")
-                            last_logged = downloaded
-                        if downloaded > _PDF_MAX_BYTES:
-                            tqdm.write(f"    [{paper_id}] PDF too large (>{_PDF_MAX_BYTES // (1024*1024)}MB) — skipping")
-                            return None
-                    if _time.monotonic() - t0 > _PDF_DOWNLOAD_TIMEOUT:
+                            tqdm.write(f"    [{paper_id}] PDF download wall-clock timeout after {elapsed:.1f}s at {downloaded // 1024}KB")
+                            pdf_path.unlink(missing_ok=True)
+                            break
+                    else:
                         elapsed = _time.monotonic() - t0
-                        tqdm.write(f"    [{paper_id}] PDF download wall-clock timeout after {elapsed:.1f}s at {downloaded // 1024}KB")
-                        return None
-            except Exception as chunk_err:
-                elapsed = _time.monotonic() - t0
-                tqdm.write(f"    [{paper_id}] PDF chunk error after {elapsed:.1f}s at {downloaded // 1024}KB: {type(chunk_err).__name__}: {chunk_err}")
-                if pdf_path.exists():
+                        tqdm.write(f"    [{paper_id}] PDF downloaded {downloaded // 1024}KB in {elapsed:.1f}s → {pdf_path}")
+                        return pdf_path
+                except Exception as chunk_err:
+                    elapsed = _time.monotonic() - t0
+                    tqdm.write(f"    [{paper_id}] PDF chunk error after {elapsed:.1f}s at {downloaded // 1024}KB: {type(chunk_err).__name__}: {chunk_err}")
                     pdf_path.unlink(missing_ok=True)
-                return None
-        elapsed = _time.monotonic() - t0
-        tqdm.write(f"    [{paper_id}] PDF downloaded {downloaded // 1024}KB in {elapsed:.1f}s → {pdf_path}")
-        return pdf_path
-    except Exception as e:
-        elapsed = _time.monotonic() - t0
-        tqdm.write(f"    [{paper_id}] PDF fetch failed after {elapsed:.1f}s: {type(e).__name__}: {e}")
-        if pdf_path.exists():
+        except Exception as e:
+            elapsed = _time.monotonic() - t0
+            tqdm.write(f"    [{paper_id}] PDF fetch failed after {elapsed:.1f}s: {type(e).__name__}: {e}")
             pdf_path.unlink(missing_ok=True)
-        return None
+
+        if attempt < _PDF_DOWNLOAD_RETRIES:
+            wait_secs = _PDF_RETRY_BACKOFF * (2 ** (attempt - 1))
+            tqdm.write(f"    [{paper_id}] PDF retry in {wait_secs}s…")
+            _time.sleep(wait_secs)
+
+    tqdm.write(f"    [{paper_id}] PDF download failed after {_PDF_DOWNLOAD_RETRIES} attempts")
+    return None
 
 
 def _detect_in_text(
@@ -234,12 +244,12 @@ def _process_single_paper(
             pdf_path = _download_pdf(pdf_url, pdf_dir, paper_id)
             tqdm.write(f"  [{paper_id}] PDF download {'ok' if pdf_path else 'failed'} in {_time.monotonic()-t_pdf:.1f}s")
             if pdf_path:
-                record["sources_checked"].append("pdf")
                 try:
                     t_extract = _time.monotonic()
                     processor = PDFProcessor(input_dir=str(pdf_path.parent), output_dir=str(pdf_path.parent))
                     raw_text, _ = processor.extract_text(pdf_path)
                     tqdm.write(f"  [{paper_id}] PDF text extracted ({len(raw_text)} chars) in {_time.monotonic()-t_extract:.1f}s")
+                    record["sources_checked"].append("pdf")
                     if raw_text:
                         cleaned_text = processor.clean_text(raw_text)
                         body_text = trim_pdf_text_to_body(cleaned_text)
@@ -264,6 +274,7 @@ def _process_single_paper(
                 except Exception as exc:
                     tqdm.write(f"  [{paper_id}] PDF processing error: {type(exc).__name__}: {exc}")
                     record["warnings"].append({"step": "pdf_processing", "error": str(exc)})
+                    record["sources_checked"].append("pdf_unavailable")
             else:
                 record["warnings"].append({"step": "pdf_download", "error": f"Failed to download PDF from {pdf_url}"})
                 record["sources_checked"].append("pdf_unavailable")
@@ -465,7 +476,8 @@ def reprocess_from_cache(
                             if source in stats["sources"]:
                                 stats["sources"][source] += 1
                         if record.get("warnings"):
-                            all_warnings.extend(record["warnings"])
+                            pid = record.get("paper_id", "unknown")
+                            all_warnings.extend({**w, "paper_id": pid} for w in record["warnings"])
                         if record.get("sections"):
                             results.append(record)
                             stats["papers_with_detections"] += 1
@@ -586,7 +598,8 @@ def process_papers(
                             if source in stats["sources"]:
                                 stats["sources"][source] += 1
                         if record.get("warnings"):
-                            all_warnings.extend(record["warnings"])
+                            pid = record.get("paper_id", "unknown")
+                            all_warnings.extend({**w, "paper_id": pid} for w in record["warnings"])
                         if record.get("sections"):
                             results.append(record)
                             stats["papers_with_detections"] += 1
