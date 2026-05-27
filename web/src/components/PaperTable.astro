@@ -467,7 +467,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
     });
     if (activeLanguage !== 'all') {
       const activeChip = langChips.find(c => c.dataset.lang === activeLanguage);
-      if (activeChip?.hidden) { setActiveChip('all'); applyFilters(); }
+      if (activeChip?.hidden || q.length === 0) { setActiveChip('all'); applyFilters(); }
     }
     if (chipExpanded) {
       langChips.forEach(c => { if (!c.hidden) c.style.removeProperty('display'); });
