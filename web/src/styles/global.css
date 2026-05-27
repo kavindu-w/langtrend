@@ -372,6 +372,12 @@ a { color: inherit; text-decoration: none; }
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
 }
+/* first row of weekly grid: stretch both tiles to equal height */
+.weekly-overview-grid > .chart-subpanel:not(.chart-subpanel-wide) {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
 .chart-subpanel {
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -380,6 +386,13 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   gap: 12px;
   align-self: start;
+}
+/* class pie wrapper grows to fill remaining tile height */
+.chart-subpanel > .class-bar-wrap.class-pie-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .chart-subpanel-wide { grid-column: 1 / -1; }
 .chart-subpanel-head {
