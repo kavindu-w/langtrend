@@ -146,8 +146,8 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   const hasPdf = sources.includes('pdf');
   const coverageBadge = !hasHtml
     ? (hasPdf
-        ? { label: 'PDF only', title: 'HTML version could not be extracted — analysis done with PDF' }
-        : { label: 'Abstract only', title: 'HTML & PDF versions could not be extracted — analysis done with abstract only' })
+        ? { label: 'PDF & Abstract', title: 'HTML version could not be extracted — analysis done with PDF and abstract' }
+        : { label: 'Abstract only', title: 'HTML and PDF versions could not be extracted — analysis done with abstract only' })
     : null;
 
   const searchText = `${paper.title} ${paper.authors.join(' ')}`.toLowerCase();
@@ -288,7 +288,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
                 )
               ))}
               {item.coverageBadge && (
-                <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} title={item.coverageBadge.title}>
+                <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} data-tooltip={item.coverageBadge.title}>
                   {item.coverageBadge.label}
                 </span>
               )}
