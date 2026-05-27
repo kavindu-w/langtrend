@@ -271,6 +271,30 @@ def build_and_save(
         html_cache_dir, pdf_cache_dir,
     )
 
+    # Include pdf_unavailable no-detection papers so the frontend counts them
+    # in coverageStats.abstractOnly (they were scanned but PDF download failed).
+    no_detections_path = output_dir / input_path.name.replace(".jsonl", "_no_detections.json")
+    if no_detections_path.exists():
+        with open(no_detections_path, encoding="utf-8") as f:
+            no_detection_records = json.load(f)
+        papers_by_id = {str(p.get("id", "")): p for p in papers}
+        pdf_unavailable_papers = []
+        for r in no_detection_records:
+            if "pdf_unavailable" not in r.get("sources_checked", []):
+                continue
+            paper_obj = papers_by_id.get(r.get("paper_id", ""))
+            if paper_obj is None:
+                continue
+            pdf_unavailable_papers.append({
+                "paper": paper_obj,
+                "languages": [],
+                "sources_checked": r.get("sources_checked", []),
+                "sections_with_detections": [],
+            })
+        if pdf_unavailable_papers:
+            print(f"  pdf_unavailable (no detection): {len(pdf_unavailable_papers)} paper(s) added")
+            flagged_papers.extend(pdf_unavailable_papers)
+
     # Parse week dates from filename (e.g. arxiv_papers_20260518_to_20260525.jsonl)
     week_start = week_end = None
     m = _WEEK_RE.search(input_path.stem)

@@ -11,13 +11,15 @@ END_DATE    ?= 2026-05-25
 # Pass --end-date only when END_DATE is set
 _END_DATE_FLAG = $(if $(END_DATE),--end-date $(END_DATE),)
 
-.PHONY: help setup fetch process reprocess manifest pipeline web-install web-dev web-build dev build clean
+.PHONY: help setup fetch process reprocess retry-missing manifest pipeline web-install web-dev web-build dev build clean
 
 help:
 	@echo "Pipeline targets:"
 	@echo "  make fetch            Fetch papers from arXiv (skipped if JSONL already exists)"
 	@echo "  make process          Detect languages in HTML/PDF (skipped if already done)"
 	@echo "  make reprocess        Re-run cleaning+detection on cached text only (no downloads)"
+	@echo "  make retry-pdf        Retry PDF download for papers where it previously failed"
+	@echo "  make retry-missing    Retry papers not yet detected or with no html/pdf cache (uses cache, downloads missing)"
 	@echo "  make manifest         Build the web manifest from caches (always re-runs, fast)"
 	@echo "  make pipeline         Run all three steps above in sequence"
 	@echo ""
@@ -64,6 +66,16 @@ reprocess:
 		$(_END_DATE_FLAG) \
 		--skip-fetch \
 		--reprocess-cache
+
+
+retry-missing:
+	$(PYTHON) scripts/run_langtrend_pipeline.py \
+		--data-root $(DATA_ROOT) \
+		--window-days $(WINDOW_DAYS) \
+		--workers $(WORKERS) \
+		$(_END_DATE_FLAG) \
+		--skip-fetch \
+		--retry-missing
 
 manifest:
 	$(PYTHON) scripts/build_manifest.py \
