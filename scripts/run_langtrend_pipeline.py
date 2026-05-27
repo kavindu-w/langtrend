@@ -16,6 +16,7 @@ Usage:
     python scripts/run_langtrend_pipeline.py --skip-fetch      # reuse existing JSONL
     python scripts/run_langtrend_pipeline.py --skip-process    # skip HTML/PDF, rebuild manifest only
     python scripts/run_langtrend_pipeline.py --workers 8
+    python scripts/run_langtrend_pipeline.py --reprocess-cache # re-run cleaning+detection on cached text only
 """
 
 from __future__ import annotations
@@ -96,6 +97,8 @@ def main() -> None:
                         help="Skip fetch step even if no JSONL exists (will fail if no file found)")
     parser.add_argument("--skip-process", action="store_true",
                         help="Skip process step; rebuild manifest from existing caches only")
+    parser.add_argument("--reprocess-cache", action="store_true",
+                        help="Re-run text cleaning+detection on cached HTML/PDF text only (no downloads)")
     args = parser.parse_args()
 
     data_root: Path = args.data_root
@@ -162,6 +165,16 @@ def main() -> None:
 
     if args.skip_process:
         print(f"\nStep 2 [SKIPPED] process")
+    elif args.reprocess_cache:
+        cmd = [
+            sys.executable,
+            str(_SCRIPTS_DIR / "process_papers.py"),
+            "--input", str(input_path),
+            "--output-dir", str(week_dir),
+            "--workers", str(args.workers),
+            "--reprocess-cache",
+        ]
+        timings["process"] = _run("Step 2: reprocess from cache (cleaning+detection only)", cmd)
     elif detected_path.exists():
         print(f"\nStep 2 [SKIP] process — {detected_path.name} already exists")
     else:
