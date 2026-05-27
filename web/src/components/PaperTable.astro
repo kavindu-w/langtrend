@@ -534,4 +534,94 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   sortSelect?.addEventListener('change', () => { sortPapers(sortSelect.value); applyFilters(); });
 
   requestAnimationFrame(() => { applyCollapse(); applyFilters(); });
+
+  // ── Per-tile chip collapse ───────────────────────────────────────────────────
+
+  function initPaperTagsCollapse() {
+    document.querySelectorAll<HTMLElement>('.paper-tags').forEach(tagsDiv => {
+      const chipEls = Array.from(tagsDiv.querySelectorAll<HTMLElement>('.lang-chip, .lang-chip-popover'));
+      if (chipEls.length <= 1) return;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'paper-chip-expand-btn';
+      btn.style.display = 'none';
+      const badge = tagsDiv.querySelector('.coverage-badge');
+      if (badge) tagsDiv.insertBefore(btn, badge);
+      else tagsDiv.appendChild(btn);
+
+      let expanded = false;
+
+      function applyTagsCollapse() {
+        chipEls.forEach(c => c.style.removeProperty('display'));
+        btn.style.display = 'none';
+
+        requestAnimationFrame(() => {
+          if (!chipEls[0]) return;
+          const firstTop = chipEls[0].getBoundingClientRect().top;
+          const chipH = chipEls[0].getBoundingClientRect().height;
+          const threshold = firstTop + chipH * 0.5;
+          const firstRow = chipEls.filter(c => c.getBoundingClientRect().top < threshold);
+          const overflow = chipEls.filter(c => c.getBoundingClientRect().top >= threshold);
+          if (overflow.length === 0) return;
+
+          const toHide = [...overflow];
+          if (firstRow.length > 0) toHide.push(firstRow[firstRow.length - 1]);
+          toHide.forEach(c => { c.style.display = 'none'; });
+          btn.style.removeProperty('display');
+          btn.textContent = `+${toHide.length} more`;
+
+          requestAnimationFrame(() => {
+            const btnTop = btn.getBoundingClientRect().top;
+            if (Math.abs(btnTop - firstTop) > chipH * 0.5) {
+              const stillVisible = chipEls.filter(c => c.style.display !== 'none');
+              const extra = stillVisible[stillVisible.length - 1];
+              if (extra) {
+                extra.style.display = 'none';
+                btn.textContent = `+${chipEls.filter(c => c.style.display === 'none').length} more`;
+              }
+            }
+          });
+        });
+      }
+
+      btn.addEventListener('click', () => {
+        expanded = !expanded;
+        if (expanded) {
+          chipEls.forEach(c => c.style.removeProperty('display'));
+          btn.style.removeProperty('display');
+          btn.textContent = 'Show less';
+        } else {
+          applyTagsCollapse();
+        }
+      });
+
+      applyTagsCollapse();
+    });
+  }
+
+  requestAnimationFrame(initPaperTagsCollapse);
+  window.addEventListener('resize', () => {
+    document.querySelectorAll<HTMLElement>('.paper-chip-expand-btn').forEach(btn => {
+      const tagsDiv = btn.closest<HTMLElement>('.paper-tags');
+      if (!tagsDiv || btn.textContent === 'Show less') return;
+      const chipEls = Array.from(tagsDiv.querySelectorAll<HTMLElement>('.lang-chip, .lang-chip-popover'));
+      chipEls.forEach(c => c.style.removeProperty('display'));
+      btn.style.display = 'none';
+      requestAnimationFrame(() => {
+        if (!chipEls[0]) return;
+        const firstTop = chipEls[0].getBoundingClientRect().top;
+        const chipH = chipEls[0].getBoundingClientRect().height;
+        const threshold = firstTop + chipH * 0.5;
+        const firstRow = chipEls.filter(c => c.getBoundingClientRect().top < threshold);
+        const overflow = chipEls.filter(c => c.getBoundingClientRect().top >= threshold);
+        if (overflow.length === 0) return;
+        const toHide = [...overflow];
+        if (firstRow.length > 0) toHide.push(firstRow[firstRow.length - 1]);
+        toHide.forEach(c => { c.style.display = 'none'; });
+        btn.style.removeProperty('display');
+        btn.textContent = `+${toHide.length} more`;
+      });
+    });
+  });
 </script>
