@@ -266,14 +266,13 @@ const weeklyLanguageSeries = [...languageCounts]
   .sort((left, right) => {
     const countDelta = right.count - left.count;
     return countDelta !== 0 ? countDelta : left.language.localeCompare(right.language);
-  })
-  .slice(0, 20);
+  });
 const weeklyLanguageMax = Math.max(1, ...weeklyLanguageSeries.map((item) => item.count || 0));
-const weeklyLanguageBarHeight = 620;
 const weeklyLanguageBarWidth = 920;
 const weeklyLanguageBarMargins = { top: 18, right: 24, bottom: 20, left: 210 };
 const weeklyLanguageBarInnerWidth = weeklyLanguageBarWidth - weeklyLanguageBarMargins.left - weeklyLanguageBarMargins.right;
 const weeklyLanguageRowHeight = 28;
+const weeklyLanguageBarHeight = weeklyLanguageBarMargins.top + weeklyLanguageBarMargins.bottom + weeklyLanguageSeries.length * weeklyLanguageRowHeight;
 const weeklyLanguageTotalCount = Math.max(1, languageCounts.reduce((sum, item) => sum + item.count, 0));
 
 // Color palettes declared early so they can be used in data computations below
@@ -928,24 +927,30 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
       <article class="chart-subpanel chart-subpanel-wide">
         <div class="chart-subpanel-head">
           <div>
-            <h3>Top-20 language frequency</h3>
-            <p>Top 20 languages by mention count this week. Bar length encodes count; colour encodes language class.</p>
+            <h3>Full language frequency</h3>
+            <p>All languages by mention count this week.</p>
           </div>
-          <span class="chart-caption">Sorted by total mentions</span>
         </div>
         {weeklyLanguageSeries.length > 0 ? (
-          <div class="chart-scroll">
-            <svg class="chart-svg" width="100%" height={weeklyLanguageBarHeight} viewBox={`0 0 ${weeklyLanguageBarWidth} ${weeklyLanguageBarHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Top 20 language frequency horizontal bar chart">
+          <div class="chart-scroll" style="max-height:520px;overflow-y:auto;">
+            <svg class="chart-svg" style="height:auto" width="100%" viewBox={`0 0 ${weeklyLanguageBarWidth} ${weeklyLanguageBarHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Full language frequency horizontal bar chart">
               <g transform={`translate(${weeklyLanguageBarMargins.left} ${weeklyLanguageBarMargins.top})`}>
                 {weeklyLanguageSeries.map((item, index) => {
                   const y = index * weeklyLanguageRowHeight;
                   const barWidth = (item.count / weeklyLanguageMax) * weeklyLanguageBarInnerWidth;
                   const classColorValue = classColor(item.language);
+                  const labelInside = barWidth > weeklyLanguageBarInnerWidth - 100;
                   return (
                     <g transform={`translate(0 ${y})`}>
                       <text x={-12} y={16} text-anchor="end" class="h-bar-label h-bar-label-name">{item.language}</text>
                       <rect x="0" y="3" width={barWidth} height="18" rx="4" fill={classColorValue} fill-opacity="0.86"></rect>
-                      <text x={Math.min(barWidth + 8, weeklyLanguageBarInnerWidth - 4)} y="16" text-anchor="start" class="h-bar-label h-bar-label-count">{item.count} ({formatPercent(item.count, weeklyLanguageTotalCount)})</text>
+                      <text
+                        x={labelInside ? barWidth - 6 : barWidth + 8}
+                        y="16"
+                        text-anchor={labelInside ? 'end' : 'start'}
+                        class="h-bar-label h-bar-label-count"
+                        style={labelInside ? 'fill:#fff' : ''}
+                      >{item.count} ({formatPercent(item.count, weeklyLanguageTotalCount)})</text>
                     </g>
                   );
                 })}
