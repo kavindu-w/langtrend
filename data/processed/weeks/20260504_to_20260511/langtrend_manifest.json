@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-27T07:13:16.195223+00:00",
+  "generated_at": "2026-05-27T10:40:35.725088+00:00",
   "window_days": 7,
   "week_start": "2026-05-04",
   "week_end": "2026-05-11",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 606,
-    "flagged_papers": 380,
+    "flagged_papers": 382,
     "unique_languages": 296
   },
   "language_counts": [
@@ -1031,11 +1031,11 @@
       "count": 1
     },
     {
-      "language": "Siwu",
+      "language": "Nkonya",
       "count": 1
     },
     {
-      "language": "Nkonya",
+      "language": "Siwu",
       "count": 1
     },
     {
@@ -1245,7 +1245,7 @@
     {
       "date": "2026-05-08",
       "papers": 144,
-      "flagged": 80
+      "flagged": 81
     },
     {
       "date": "2026-05-09",
@@ -1255,7 +1255,7 @@
     {
       "date": "2026-05-10",
       "papers": 60,
-      "flagged": 37
+      "flagged": 38
     }
   ],
   "papers": [
@@ -14746,6 +14746,14 @@
       },
       "languages": [
         {
+          "language": "Italian",
+          "class": 4,
+          "sources": [
+            "abstract",
+            "html"
+          ]
+        },
+        {
           "language": "Catalan",
           "class": 4,
           "sources": [
@@ -14754,8 +14762,8 @@
           ]
         },
         {
-          "language": "Italian",
-          "class": 4,
+          "language": "Spanish",
+          "class": 5,
           "sources": [
             "abstract",
             "html"
@@ -14771,14 +14779,6 @@
         },
         {
           "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract",
-            "html"
-          ]
-        },
-        {
-          "language": "Spanish",
           "class": 5,
           "sources": [
             "abstract",
@@ -17389,7 +17389,7 @@
       },
       "languages": [
         {
-          "language": "English",
+          "language": "Chinese",
           "class": 5,
           "sources": [
             "abstract",
@@ -17397,7 +17397,7 @@
           ]
         },
         {
-          "language": "Chinese",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -22738,7 +22738,7 @@
       },
       "languages": [
         {
-          "language": "English",
+          "language": "Chinese",
           "class": 5,
           "sources": [
             "abstract",
@@ -22746,7 +22746,7 @@
           ]
         },
         {
-          "language": "Chinese",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -23009,7 +23009,7 @@
       },
       "languages": [
         {
-          "language": "English",
+          "language": "Chinese",
           "class": 5,
           "sources": [
             "abstract",
@@ -23017,7 +23017,7 @@
           ]
         },
         {
-          "language": "Chinese",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -30752,7 +30752,7 @@
       },
       "languages": [
         {
-          "language": "Siwu",
+          "language": "Nkonya",
           "class": 0,
           "sources": [
             "abstract",
@@ -30760,7 +30760,7 @@
           ]
         },
         {
-          "language": "Nkonya",
+          "language": "Siwu",
           "class": 0,
           "sources": [
             "abstract",
@@ -33354,7 +33354,7 @@
       },
       "languages": [
         {
-          "language": "Japanese",
+          "language": "Chinese",
           "class": 5,
           "sources": [
             "abstract",
@@ -33362,7 +33362,7 @@
           ]
         },
         {
-          "language": "Chinese",
+          "language": "Japanese",
           "class": 5,
           "sources": [
             "abstract",
@@ -33870,7 +33870,7 @@
           ]
         },
         {
-          "language": "Tamil",
+          "language": "Hindi",
           "class": 3,
           "sources": [
             "abstract",
@@ -33878,7 +33878,7 @@
           ]
         },
         {
-          "language": "Hindi",
+          "language": "Tamil",
           "class": 3,
           "sources": [
             "abstract",
@@ -34101,6 +34101,14 @@
           ]
         },
         {
+          "language": "Spanish",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "html"
+          ]
+        },
+        {
           "language": "Arabic",
           "class": 5,
           "sources": [
@@ -34110,14 +34118,6 @@
         },
         {
           "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract",
-            "html"
-          ]
-        },
-        {
-          "language": "Spanish",
           "class": 5,
           "sources": [
             "abstract",
@@ -36549,6 +36549,60 @@
         "B.1 Mid-training",
         "B.1.2 Evaluation"
       ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2605.09492v2",
+        "title": "APCD: Adaptive Path-Contrastive Decoding for Reliable Large Language Model Generation",
+        "abstract": "Large language models (LLMs) often suffer from hallucinations due to error accumulation in autoregressive decoding, where suboptimal early token choices misguide subsequent generation. Although multi-path decoding can improve robustness by exploring alternative trajectories, existing methods lack principled strategies for determining when to branch and how to regulate inter-path interactions. We propose Adaptive Path-Contrastive Decoding (APCD), a multi-path decoding framework that improves output reliability through adaptive exploration and controlled path interaction. APCD consists of two components: (1) Entropy-Driven Path Expansion, which delays branching until predictive uncertainty - measured by Shannon entropy over top candidate tokens - indicates multiple plausible continuations; and (2) Divergence-Aware Path Contrast, which encourages diverse reasoning trajectories while dynamically attenuating inter-path influence as prediction distributions diverge. Experiments on eight benchmarks demonstrate improved factual accuracy while maintaining decoding efficiency. Our code is available at https://github.com/zty-king/APCD.",
+        "authors": [
+          "Tianyu Zheng",
+          "Hong Wu",
+          "Jiaji Zhong"
+        ],
+        "published": "2026-05-10T11:57:39+00:00",
+        "updated": "2026-05-20T15:55:09+00:00",
+        "categories": [
+          "cs.CL",
+          "cs.AI"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2605.09492v2",
+        "_fetch_source": "arxiv_api"
+      },
+      "languages": [],
+      "sources_checked": [
+        "abstract",
+        "pdf_unavailable"
+      ],
+      "sections_with_detections": []
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2605.08522v2",
+        "title": "Coordinates of Capability: A Unified MTMM-Geometric Framework for LLM Evaluation",
+        "abstract": "The evaluation of Large Language Models (LLMs) faces a critical challenge in construct validity, where fragmented benchmarks and ad hoc metrics frequently conflate method variance, such as prompt sensitivity, with true latent capabilities. Concurrently, emerging research suggests that LLM capabilities and outputs can be modeled as continuous geometric manifolds. In this Systematization of Knowledge (SoK), we bridge these paradigms by proposing a generalized Multi-Trait Multi-Method (MTMM) framework for LLM evaluation. We formalize and unify nine evaluation metrics, including Paraphrase Instability, Drift Score, Overton Width, and Pluralism Score, interpreting them not as isolated scalar values but as geometric measurements within a shared latent coordinate space. This spatial unification factorizes model behavior into three orthogonal latent dimensions: (1) Instability and Sensitivity, (2) Position and Alignment, and (3) Coverage and Expressiveness. By systematically separating task-irrelevant perturbations from true capability spans, the framework provides a theoretically grounded and domain-agnostic taxonomy for robust and empirically stable benchmark design.",
+        "authors": [
+          "Adib Sakhawat",
+          "Tahsin Islam",
+          "Takia Farhin",
+          "Syed Rifat Raiyan",
+          "Hasan Mahmud",
+          "Md Kamrul Hasan"
+        ],
+        "published": "2026-05-08T22:05:19+00:00",
+        "updated": "2026-05-14T09:18:49+00:00",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2605.08522v2",
+        "_fetch_source": "arxiv_api"
+      },
+      "languages": [],
+      "sources_checked": [
+        "abstract",
+        "pdf_unavailable"
+      ],
+      "sections_with_detections": []
     }
   ]
 }

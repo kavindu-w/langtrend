@@ -99,6 +99,8 @@ def main() -> None:
                         help="Skip process step; rebuild manifest from existing caches only")
     parser.add_argument("--reprocess-cache", action="store_true",
                         help="Re-run text cleaning+detection on cached HTML/PDF text only (no downloads)")
+    parser.add_argument("--retry-missing", action="store_true",
+                        help="Retry papers not yet detected or with no html/pdf cache; uses cache where available")
     args = parser.parse_args()
 
     data_root: Path = args.data_root
@@ -175,6 +177,16 @@ def main() -> None:
             "--reprocess-cache",
         ]
         timings["process"] = _run("Step 2: reprocess from cache (cleaning+detection only)", cmd)
+    elif args.retry_missing:
+        cmd = [
+            sys.executable,
+            str(_SCRIPTS_DIR / "process_papers.py"),
+            "--input", str(input_path),
+            "--output-dir", str(week_dir),
+            "--workers", str(args.workers),
+            "--retry-missing",
+        ]
+        timings["process"] = _run("Step 2: retry missing (papers not yet detected or missing html/pdf cache)", cmd)
     elif detected_path.exists():
         print(f"\nStep 2 [SKIP] process — {detected_path.name} already exists")
     else:

@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-05-27T06:54:48.262302+00:00",
+  "generated_at": "2026-05-27T10:37:58.493736+00:00",
   "window_days": 7,
   "week_start": "2026-04-27",
   "week_end": "2026-05-04",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 474,
-    "flagged_papers": 293,
+    "flagged_papers": 294,
     "unique_languages": 250
   },
   "language_counts": [
     {
       "language": "English",
-      "count": 162
+      "count": 163
     },
     {
       "language": "Chinese",
@@ -135,6 +135,10 @@
       "count": 7
     },
     {
+      "language": "Bo",
+      "count": 6
+    },
+    {
       "language": "Bengali",
       "count": 6
     },
@@ -145,10 +149,6 @@
     {
       "language": "Persian",
       "count": 6
-    },
-    {
-      "language": "Bo",
-      "count": 5
     },
     {
       "language": "Tem",
@@ -312,6 +312,10 @@
     },
     {
       "language": "Tulu",
+      "count": 2
+    },
+    {
+      "language": "Ata",
       "count": 2
     },
     {
@@ -847,10 +851,6 @@
       "count": 1
     },
     {
-      "language": "Ata",
-      "count": 1
-    },
-    {
       "language": "Pol",
       "count": 1
     },
@@ -1014,7 +1014,7 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 302
+      "count": 304
     },
     {
       "class_id": 1,
@@ -1034,7 +1034,7 @@
     },
     {
       "class_id": 5,
-      "count": 361
+      "count": 362
     }
   ],
   "daily_series": [
@@ -1071,7 +1071,7 @@
     {
       "date": "2026-05-03",
       "papers": 38,
-      "flagged": 19
+      "flagged": 20
     }
   ],
   "papers": [
@@ -10861,6 +10861,7 @@
         "html"
       ],
       "sections_with_detections": [
+        "2Related Work",
         "2.4Parameter-efficient LLM adaptation and adapter transfer",
         "4Data and Protocol",
         "4.1Dataset and targets"
@@ -11743,6 +11744,62 @@
         "Appendix BExperimental setting",
         "B.1Evaluation Metrics",
         "Min-K score."
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2605.01720v2",
+        "title": "SignVerse-2M: A Two-Million-Clip Pose-Native Universe of 55+ Sign Languages",
+        "abstract": "Existing large-scale sign language resources typically provide supervision only at the level of raw video-text alignment and are often produced in laboratory settings. While such resources are important for semantic understanding, they do not directly provide a unified interface for open-world recognition and translation, or for modern pose-driven sign language video generation frameworks: 1. RGB-based pretrained recognition models depend heavily on fixed backgrounds or clothing conditions during recording, and are less robust in open-world settings than style-agnostic pose-processing models. 2. Recent pose-guided image/video generation models mostly use a unified keypoint representation such as DWPose as their control interface. At present, the sign language field still lacks a data resource that can directly interface with this modern pose-native paradigm while also targeting real-world open scenarios. We present SignVerse-2M, a large-scale multilingual pose-native dataset for sign language pose modeling and evaluation. Built from publicly available multilingual sign language video resources, it applies DWPose in a unified preprocessing pipeline to convert raw videos into 2D pose sequences that can be used directly for modeling, resulting in a consolidated corpus of about two million clips covering more than 55 sign languages. Unlike many laboratory datasets, this resource preserves the recording conditions and speaker diversity of real-world videos while reducing appearance variation through a unified pose representation. Toward this goal, we further provide the data construction pipeline, task definitions, and a simple SignDW Transformer baseline, demonstrating the feasibility of this resource for multilingual pose-space modeling and its compatibility with modern pose-driven pipelines, while discussing the evaluation claims it can support as well as its current limitations.",
+        "authors": [
+          "Sen Fang",
+          "Hongbin Zhong",
+          "Yanxin Zhang",
+          "Dimitris N. Metaxas"
+        ],
+        "published": "2026-05-03T05:26:26+00:00",
+        "updated": "2026-05-06T16:29:09+00:00",
+        "categories": [
+          "cs.CV",
+          "cs.AI",
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2605.01720v2",
+        "_fetch_source": "arxiv_api"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Bo",
+          "class": 0,
+          "needs_review": true,
+          "flag_reason": "BO = Bayesian Optimization (GP-BO); also could be a common given name appearing in author lists",
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Ata",
+          "class": 0,
+          "needs_review": true,
+          "flag_reason": "Math subscript artifact: a_t^a rendered as 'ata' in arXiv HTML before annotation fix",
+          "sources": [
+            "pdf"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract",
+        "pdf"
+      ],
+      "sections_with_detections": [
+        "pdf_full_text"
       ]
     },
     {
@@ -12728,7 +12785,7 @@
       },
       "languages": [
         {
-          "language": "Chinese",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -12736,7 +12793,7 @@
           ]
         },
         {
-          "language": "English",
+          "language": "Chinese",
           "class": 5,
           "sources": [
             "abstract",
@@ -14984,7 +15041,7 @@
       },
       "languages": [
         {
-          "language": "Chinese",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -14992,7 +15049,7 @@
           ]
         },
         {
-          "language": "English",
+          "language": "Chinese",
           "class": 5,
           "sources": [
             "abstract",
@@ -17349,7 +17406,7 @@
           ]
         },
         {
-          "language": "French",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -17365,7 +17422,7 @@
           ]
         },
         {
-          "language": "English",
+          "language": "French",
           "class": 5,
           "sources": [
             "abstract",
@@ -19040,7 +19097,7 @@
       },
       "languages": [
         {
-          "language": "Japanese",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -19048,7 +19105,7 @@
           ]
         },
         {
-          "language": "English",
+          "language": "Japanese",
           "class": 5,
           "sources": [
             "abstract",
@@ -19199,7 +19256,7 @@
       },
       "languages": [
         {
-          "language": "Chinese",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -19207,7 +19264,7 @@
           ]
         },
         {
-          "language": "English",
+          "language": "Chinese",
           "class": 5,
           "sources": [
             "abstract",
@@ -19861,6 +19918,14 @@
           ]
         },
         {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
           "language": "French",
           "class": 5,
           "sources": [
@@ -19870,14 +19935,6 @@
         },
         {
           "language": "Spanish",
-          "class": 5,
-          "sources": [
-            "abstract",
-            "pdf"
-          ]
-        },
-        {
-          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -20816,14 +20873,6 @@
           ]
         },
         {
-          "language": "Russian",
-          "class": 4,
-          "sources": [
-            "abstract",
-            "html"
-          ]
-        },
-        {
           "language": "Dutch",
           "class": 4,
           "sources": [
@@ -20832,7 +20881,23 @@
           ]
         },
         {
+          "language": "Russian",
+          "class": 4,
+          "sources": [
+            "abstract",
+            "html"
+          ]
+        },
+        {
           "language": "German",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "html"
+          ]
+        },
+        {
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -20849,14 +20914,6 @@
         },
         {
           "language": "Spanish",
-          "class": 5,
-          "sources": [
-            "abstract",
-            "html"
-          ]
-        },
-        {
-          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -22485,7 +22542,7 @@
           ]
         },
         {
-          "language": "French",
+          "language": "Chinese",
           "class": 5,
           "sources": [
             "abstract",
@@ -22493,7 +22550,7 @@
           ]
         },
         {
-          "language": "Chinese",
+          "language": "French",
           "class": 5,
           "sources": [
             "abstract",
@@ -25101,7 +25158,7 @@
           ]
         },
         {
-          "language": "Tamil",
+          "language": "Latin",
           "class": 3,
           "sources": [
             "abstract",
@@ -25109,7 +25166,7 @@
           ]
         },
         {
-          "language": "Latin",
+          "language": "Tamil",
           "class": 3,
           "sources": [
             "abstract",
@@ -25247,7 +25304,7 @@
       },
       "languages": [
         {
-          "language": "Chinese",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -25255,7 +25312,7 @@
           ]
         },
         {
-          "language": "English",
+          "language": "Chinese",
           "class": 5,
           "sources": [
             "abstract",
@@ -28721,7 +28778,7 @@
           ]
         },
         {
-          "language": "Chinese",
+          "language": "English",
           "class": 5,
           "sources": [
             "abstract",
@@ -28729,7 +28786,7 @@
           ]
         },
         {
-          "language": "English",
+          "language": "Chinese",
           "class": 5,
           "sources": [
             "abstract",

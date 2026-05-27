@@ -64,12 +64,13 @@ def load_language_data(path: Path) -> tuple[dict[int, set[str]], set[str], dict[
     return lang_classes, languages_to_ignore, possible_false_positive_languages
 
 
-_PDF_MAX_BYTES = 30 * 1024 * 1024  # skip PDFs larger than 30 MB
+_PDF_MAX_BYTES = 200 * 1024 * 1024  # skip PDFs larger than 200 MB
 
 _PDF_DOWNLOAD_TIMEOUT = 180  # wall-clock cap for entire PDF download
 _PDF_LOG_EVERY = 256 * 1024
 _PDF_DOWNLOAD_RETRIES = 4
 _PDF_RETRY_BACKOFF = 15  # seconds; doubles each attempt
+_PDF_EXTRACT_RETRIES = 4  # re-download and retry if extraction fails (e.g. truncated file)
 
 def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
     """Download a PDF into a per-paper subdirectory. Returns path or None on failure."""
@@ -244,37 +245,48 @@ def _process_single_paper(
             pdf_path = _download_pdf(pdf_url, pdf_dir, paper_id)
             tqdm.write(f"  [{paper_id}] PDF download {'ok' if pdf_path else 'failed'} in {_time.monotonic()-t_pdf:.1f}s")
             if pdf_path:
-                try:
-                    t_extract = _time.monotonic()
-                    processor = PDFProcessor(input_dir=str(pdf_path.parent), output_dir=str(pdf_path.parent))
-                    raw_text, _ = processor.extract_text(pdf_path)
-                    tqdm.write(f"  [{paper_id}] PDF text extracted ({len(raw_text)} chars) in {_time.monotonic()-t_extract:.1f}s")
-                    record["sources_checked"].append("pdf")
-                    if raw_text:
-                        cleaned_text = processor.clean_text(raw_text)
-                        body_text = trim_pdf_text_to_body(cleaned_text)
-                        screened_blocks, _ = clean_paper_text_for_language_screening(body_text, _label=paper_id)
-                        raw_langs = detect_languages_in_text(screened_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
-                        detections = build_detections(raw_langs, lang_classes, possible_false_positive_languages)
-                        if detections:
-                            record["sections"]["pdf_full_text"] = {
-                                "source": "pdf",
-                                "detected_languages": detections,
-                            }
-                        pdf_cache_dir.mkdir(parents=True, exist_ok=True)
-                        with pdf_cache_path.open("w", encoding="utf-8") as fh:
-                            json.dump({
-                                "paper_id": paper_id,
-                                "text": raw_text,
-                                "cleaned_text": cleaned_text,
-                                "body_text": body_text,
-                                "screened_text": "\n\n".join(screened_blocks),
-                                "detected_languages": detections,
-                            }, fh, ensure_ascii=False, indent=2)
-                except Exception as exc:
-                    tqdm.write(f"  [{paper_id}] PDF processing error: {type(exc).__name__}: {exc}")
-                    record["warnings"].append({"step": "pdf_processing", "error": str(exc)})
-                    record["sources_checked"].append("pdf_unavailable")
+                for extract_attempt in range(1, _PDF_EXTRACT_RETRIES + 1):
+                    try:
+                        t_extract = _time.monotonic()
+                        processor = PDFProcessor(input_dir=str(pdf_path.parent), output_dir=str(pdf_path.parent))
+                        raw_text, _ = processor.extract_text(pdf_path)
+                        tqdm.write(f"  [{paper_id}] PDF text extracted ({len(raw_text)} chars) in {_time.monotonic()-t_extract:.1f}s")
+                        record["sources_checked"].append("pdf")
+                        if raw_text:
+                            cleaned_text = processor.clean_text(raw_text)
+                            body_text = trim_pdf_text_to_body(cleaned_text)
+                            screened_blocks, _ = clean_paper_text_for_language_screening(body_text, _label=paper_id)
+                            raw_langs = detect_languages_in_text(screened_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
+                            detections = build_detections(raw_langs, lang_classes, possible_false_positive_languages)
+                            if detections:
+                                record["sections"]["pdf_full_text"] = {
+                                    "source": "pdf",
+                                    "detected_languages": detections,
+                                }
+                            pdf_cache_dir.mkdir(parents=True, exist_ok=True)
+                            with pdf_cache_path.open("w", encoding="utf-8") as fh:
+                                json.dump({
+                                    "paper_id": paper_id,
+                                    "text": raw_text,
+                                    "cleaned_text": cleaned_text,
+                                    "body_text": body_text,
+                                    "screened_text": "\n\n".join(screened_blocks),
+                                    "detected_languages": detections,
+                                }, fh, ensure_ascii=False, indent=2)
+                        break  # extraction succeeded
+                    except Exception as exc:
+                        tqdm.write(f"  [{paper_id}] PDF extract error (attempt {extract_attempt}/{_PDF_EXTRACT_RETRIES}): {type(exc).__name__}: {exc}")
+                        pdf_path.unlink(missing_ok=True)  # remove corrupt file before retry
+                        if extract_attempt < _PDF_EXTRACT_RETRIES:
+                            tqdm.write(f"  [{paper_id}] Re-downloading PDF for extraction retry…")
+                            pdf_path = _download_pdf(pdf_url, pdf_dir, paper_id)
+                            if not pdf_path:
+                                record["warnings"].append({"step": "pdf_processing", "error": f"Re-download failed after extract error: {exc}"})
+                                record["sources_checked"].append("pdf_unavailable")
+                                break
+                        else:
+                            record["warnings"].append({"step": "pdf_processing", "error": str(exc)})
+                            record["sources_checked"].append("pdf_unavailable")
             else:
                 record["warnings"].append({"step": "pdf_download", "error": f"Failed to download PDF from {pdf_url}"})
                 record["sources_checked"].append("pdf_unavailable")
@@ -432,6 +444,7 @@ def reprocess_from_cache(
     warnings_file: Path,
     html_cache_dir: Path,
     pdf_cache_dir: Path,
+    no_detections_file: Path | None = None,
     max_workers: int = 4,
 ) -> dict:
     """Re-run cleaning + detection on cached HTML/PDF text; write new output JSONL."""
@@ -439,6 +452,7 @@ def reprocess_from_cache(
 
     all_warnings: list[dict] = []
     results: list[dict] = []
+    no_detection_records: list[dict] = []
     stats = {
         "total_papers": len(papers),
         "papers_with_detections": 0,
@@ -483,6 +497,13 @@ def reprocess_from_cache(
                             stats["papers_with_detections"] += 1
                             for sec in record["sections"].values():
                                 stats["total_detections"] += len(sec.get("detected_languages", []))
+                        else:
+                            no_detection_records.append({
+                                "paper_id": record.get("paper_id"),
+                                "title": record.get("paper", {}).get("title"),
+                                "sources_checked": record.get("sources_checked", []),
+                                "warnings": record.get("warnings", []),
+                            })
                     except Exception as exc:
                         paper = futures[future]
                         tqdm.write(f"  ERROR: [{paper.get('id', 'unknown')}] {type(exc).__name__}: {exc}")
@@ -504,6 +525,11 @@ def reprocess_from_cache(
         with warnings_file.open("w", encoding="utf-8") as fp:
             json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
         print(f"Warnings saved to {warnings_file}")
+
+    _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
+    with _nd_path.open("w", encoding="utf-8") as fp:
+        json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
+    print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
 
     print(f"\nTotal papers:            {stats['total_papers']}")
     print(f"Papers with detections:  {stats['papers_with_detections']}")
@@ -529,6 +555,7 @@ def process_papers(
     pdf_dir: Path,
     html_cache_dir: Path,
     pdf_cache_dir: Path,
+    no_detections_file: Path | None = None,
     max_workers: int = 4,
 ) -> dict:
     for d in [pdf_dir, html_cache_dir, pdf_cache_dir]:
@@ -537,6 +564,7 @@ def process_papers(
 
     all_warnings: list[dict] = []
     results: list[dict] = []
+    no_detection_records: list[dict] = []
     stats = {
         "total_papers": len(papers),
         "papers_with_detections": 0,
@@ -605,6 +633,13 @@ def process_papers(
                             stats["papers_with_detections"] += 1
                             for sec in record["sections"].values():
                                 stats["total_detections"] += len(sec.get("detected_languages", []))
+                        else:
+                            no_detection_records.append({
+                                "paper_id": record.get("paper_id"),
+                                "title": record.get("paper", {}).get("title"),
+                                "sources_checked": record.get("sources_checked", []),
+                                "warnings": record.get("warnings", []),
+                            })
                     except Exception as exc:
                         paper = futures[future]
                         tqdm.write(f"  ERROR: [{paper.get('id', 'unknown')}] {type(exc).__name__}: {exc}")
@@ -627,6 +662,11 @@ def process_papers(
         with warnings_file.open("w", encoding="utf-8") as fp:
             json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
         print(f"Warnings saved to {warnings_file}")
+
+    _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
+    with _nd_path.open("w", encoding="utf-8") as fp:
+        json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
+    print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
 
     print(f"\nTotal papers:            {stats['total_papers']}")
     print(f"Papers with detections:  {stats['papers_with_detections']}")
@@ -675,6 +715,15 @@ def main() -> None:
             "Use after updating text cleaning logic."
         ),
     )
+    parser.add_argument(
+        "--retry-missing",
+        action="store_true",
+        help=(
+            "Retry papers not yet detected or with no html/pdf cache. Uses cached "
+            "extractions where available; downloads only what is still missing. "
+            "Merges results into existing detected, warnings, and no-detections files."
+        ),
+    )
     args = parser.parse_args()
 
     if not args.input.exists():
@@ -721,6 +770,90 @@ def main() -> None:
             pdf_cache_dir=pdf_cache_dir,
             max_workers=args.workers,
         )
+    elif args.retry_missing:
+        detected_path = output_dir / f"{stem}_detected.jsonl"
+        warnings_path = output_dir / f"{stem}_warnings.json"
+        no_det_path   = output_dir / f"{stem}_no_detections.json"
+
+        if args.retry_missing:
+            detected_ids: set[str] = set()
+            if detected_path.exists():
+                for line in detected_path.read_text(encoding="utf-8").splitlines():
+                    if line.strip():
+                        detected_ids.add(json.loads(line).get("paper_id", ""))
+            cached_html_ids = {p.stem for p in html_cache_dir.glob("*.json")}
+            cached_pdf_ids  = {p.stem for p in pdf_cache_dir.glob("*.json")}
+            # Include papers not yet detected, plus papers that were only abstract-scanned
+            # (no html and no pdf cache — PDF was never successfully downloaded/extracted).
+            subset = [
+                p for p in papers
+                if p["id"] not in detected_ids
+                or (
+                    p["id"].split("/")[-1] not in cached_html_ids
+                    and p["id"].split("/")[-1] not in cached_pdf_ids
+                )
+            ]
+            label = f"--retry-missing: {len(subset)} paper(s) not yet detected or missing html/pdf cache"
+
+        if not subset:
+            print(f"{label.split(':')[0]}: nothing to do.")
+            sys.exit(0)
+        print(label)
+
+        import tempfile
+        with tempfile.NamedTemporaryFile(suffix=".jsonl", delete=False) as tmp:
+            tmp_detected = Path(tmp.name)
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
+            tmp_warnings = Path(tmp.name)
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
+            tmp_no_det = Path(tmp.name)
+
+        process_papers(
+            papers=subset,
+            lang_classes=lang_classes,
+            languages_to_ignore=languages_to_ignore,
+            possible_false_positive_languages=possible_false_positive_languages,
+            output_jsonl=tmp_detected,
+            warnings_file=tmp_warnings,
+            pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
+            html_cache_dir=html_cache_dir,
+            pdf_cache_dir=pdf_cache_dir,
+            no_detections_file=tmp_no_det,
+            max_workers=args.workers,
+        )
+
+        # Merge detections
+        existing_ids: set[str] = set()
+        if detected_path.exists():
+            for line in detected_path.read_text(encoding="utf-8").splitlines():
+                if line.strip():
+                    existing_ids.add(json.loads(line).get("paper_id", ""))
+        new_lines = [l for l in tmp_detected.read_text(encoding="utf-8").splitlines()
+                     if l.strip() and json.loads(l).get("paper_id", "") not in existing_ids]
+        with detected_path.open("a", encoding="utf-8") as fp:
+            for line in new_lines:
+                fp.write(line + "\n")
+        print(f"Merged {len(new_lines)} new detection record(s) into {detected_path}")
+
+        # Merge warnings
+        new_warnings = json.loads(tmp_warnings.read_text(encoding="utf-8")) if tmp_warnings.stat().st_size > 2 else []
+        if new_warnings:
+            existing_warnings = json.loads(warnings_path.read_text(encoding="utf-8")) if warnings_path.exists() else []
+            with warnings_path.open("w", encoding="utf-8") as fp:
+                json.dump(existing_warnings + new_warnings, fp, ensure_ascii=False, indent=2)
+            print(f"Appended {len(new_warnings)} warning(s) to {warnings_path}")
+
+        # Merge no-detections
+        new_no_det = json.loads(tmp_no_det.read_text(encoding="utf-8")) if tmp_no_det.stat().st_size > 2 else []
+        existing_no_det = json.loads(no_det_path.read_text(encoding="utf-8")) if no_det_path.exists() else []
+        existing_nd_ids = {r.get("paper_id") for r in existing_no_det}
+        merged_no_det = existing_no_det + [r for r in new_no_det if r.get("paper_id") not in existing_nd_ids]
+        with no_det_path.open("w", encoding="utf-8") as fp:
+            json.dump(merged_no_det, fp, ensure_ascii=False, indent=2)
+        print(f"No-detections file updated: {len(merged_no_det)} total record(s) → {no_det_path}")
+
+        for tmp_path in (tmp_detected, tmp_warnings, tmp_no_det):
+            tmp_path.unlink(missing_ok=True)
     else:
         process_papers(
             papers=papers,
@@ -732,6 +865,7 @@ def main() -> None:
             pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
             html_cache_dir=html_cache_dir,
             pdf_cache_dir=pdf_cache_dir,
+            no_detections_file=output_dir / f"{stem}_no_detections.json",
             max_workers=args.workers,
         )
 
