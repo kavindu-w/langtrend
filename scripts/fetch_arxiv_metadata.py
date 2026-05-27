@@ -157,6 +157,20 @@ def _fetch_oai_records(category_query: str, end_date: datetime, window_days: int
                         if created is None or not (end_date - timedelta(days=window_days) <= created <= end_date):
                             continue
                         paper_id = parsed["id"]
+                        # Reject cross-listed papers: OAI sets <created> to the cross-listing
+                        # date rather than the original submission date, so the created filter
+                        # above passes them. Guard by checking the YYMM prefix in the paper ID
+                        # against the window's month range.
+                        id_match = re.search(r"(\d{2})(\d{2})\.\d+", paper_id)
+                        if id_match:
+                            id_year = 2000 + int(id_match.group(1))
+                            id_month = int(id_match.group(2))
+                            id_month_start = datetime(id_year, id_month, 1)
+                            window_start = end_date - timedelta(days=window_days)
+                            window_month_start = datetime(window_start.year, window_start.month, 1)
+                            window_month_end = datetime(end_date.year, end_date.month, 1)
+                            if not (window_month_start <= id_month_start <= window_month_end):
+                                continue
                         if paper_id and paper_id not in records_by_id:
                             records_by_id[paper_id] = parsed
 
@@ -256,10 +270,7 @@ def fetch_and_save(
         for rec in oai_records:
             rec["_fetch_source"] = "oai_pmh"
         paper_dicts = oai_records
-        print(
-            f"Retrieved {len(paper_dicts)} papers via OAI-PMH fallback "
-            "(note: OAI created dates may not align exactly with the requested week window)"
-        )
+        print(f"Retrieved {len(paper_dicts)} papers via OAI-PMH fallback")
 
     print(f"Retrieved {len(paper_dicts)} papers (source: {fetch_source})")
 
