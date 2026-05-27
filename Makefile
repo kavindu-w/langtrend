@@ -3,7 +3,10 @@ DATA_ROOT   ?= data
 WINDOW_DAYS ?= 7
 MAX_RESULTS ?= 1000
 WORKERS     ?= 12
-END_DATE    ?=
+# END_DATE    ?= 2026-05-04
+# END_DATE    ?= 2026-05-11
+# END_DATE    ?= 2026-05-18
+END_DATE    ?= 2026-05-25
 
 # Pass --end-date only when END_DATE is set
 _END_DATE_FLAG = $(if $(END_DATE),--end-date $(END_DATE),)
