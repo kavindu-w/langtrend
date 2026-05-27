@@ -213,6 +213,18 @@ def _process_single_paper(
         if pdf_cache_path.exists():
             tqdm.write(f"  [{paper_id}] PDF cache hit")
             record["sources_checked"].append("pdf")
+            try:
+                with pdf_cache_path.open("r", encoding="utf-8") as fh:
+                    pdf_cached = json.load(fh)
+                detections = pdf_cached.get("detected_languages", [])
+                if detections:
+                    record["sections"]["pdf_full_text"] = {
+                        "source": "pdf",
+                        "detected_languages": detections,
+                    }
+            except Exception as exc:
+                tqdm.write(f"  [{paper_id}] PDF cache read error: {type(exc).__name__}: {exc}")
+                record["warnings"].append({"step": "pdf_cache_read", "error": str(exc)})
             tqdm.write(f"  [{paper_id}] DONE in {_time.monotonic()-t_paper:.1f}s")
             return record
 
@@ -277,6 +289,218 @@ def _process_single_paper(
 
     tqdm.write(f"  [{paper_id}] DONE in {_time.monotonic()-t_paper:.1f}s")
     return record
+
+
+# ---------------------------------------------------------------------------
+# Cache-only reprocessing (skip HTML/PDF downloads; re-run cleaning+detection)
+# ---------------------------------------------------------------------------
+
+def _reprocess_single_paper(
+    paper: dict,
+    lang_classes: dict[int, set[str]],
+    languages_to_ignore: set[str],
+    possible_false_positive_languages: dict[str, str],
+    html_cache_dir: Path,
+    pdf_cache_dir: Path,
+) -> dict:
+    """Re-run text cleaning + language detection on cached extractions only."""
+    import time as _time
+    t_paper = _time.monotonic()
+    paper_id = paper.get("id", "unknown")
+    safe_id = str(paper_id).split("/")[-1]
+
+    record: dict = {
+        "paper_id": paper_id,
+        "paper": paper,
+        "sources_checked": [],
+        "sections": {},
+        "warnings": [],
+    }
+
+    # 1. Abstract (always re-scanned from paper metadata)
+    abstract = paper.get("abstract", "")
+    if abstract:
+        detections = _detect_in_text(abstract, lang_classes, languages_to_ignore, paper_id, possible_false_positive_languages)
+        record["sources_checked"].append("abstract")
+        if detections:
+            record["sections"]["abstract"] = {"source": "abstract", "detected_languages": detections}
+
+    # 2. HTML cache
+    html_cache_path = html_cache_dir / f"{safe_id}.json"
+    is_html_complete = False
+    html_detections: dict[str, list[str]] = {}
+
+    if html_cache_path.exists():
+        try:
+            with html_cache_path.open("r", encoding="utf-8") as fh:
+                html_cached = json.load(fh)
+            is_html_complete = html_cached.get("_complete", True)
+
+            updated_cache: dict = {"_complete": is_html_complete}
+            for section_title, section_data in html_cached.items():
+                if section_title.startswith("_"):
+                    continue
+                text = section_data.get("text", "") if isinstance(section_data, dict) else ""
+                if not text:
+                    updated_cache[section_title] = section_data
+                    continue
+                cleaned_blocks, _ = clean_paper_text_for_language_screening(text, _label=paper_id)
+                cleaned_text = "\n\n".join(cleaned_blocks)
+                detected: list[str] = []
+                if cleaned_blocks:
+                    detected = detect_languages_in_text(
+                        [section_title] + cleaned_blocks, lang_classes, languages_to_ignore, paper_id=paper_id
+                    )
+                updated_cache[section_title] = {
+                    "text": text,
+                    "cleaned_text": cleaned_text,
+                    "detected": detected,
+                }
+                if detected:
+                    html_detections[section_title] = detected
+
+            with html_cache_path.open("w", encoding="utf-8") as fh:
+                json.dump(updated_cache, fh, ensure_ascii=False, indent=2)
+
+            if is_html_complete:
+                record["sources_checked"].append("html")
+                for section_title, languages in html_detections.items():
+                    dets = build_detections(languages, lang_classes, possible_false_positive_languages)
+                    if dets:
+                        record["sections"][section_title] = {"source": "html", "detected_languages": dets}
+        except Exception as exc:
+            tqdm.write(f"  [{paper_id}] HTML cache reprocess error: {type(exc).__name__}: {exc}")
+            record["warnings"].append({"step": "html_reprocess", "error": str(exc)})
+            is_html_complete = False
+
+    # 3. PDF cache — same fallback condition as _process_single_paper
+    html_unavailable = not html_cache_path.exists() or not is_html_complete or len(html_detections) == 0
+    if html_unavailable:
+        pdf_cache_path = pdf_cache_dir / f"{safe_id}.json"
+        if pdf_cache_path.exists():
+            try:
+                with pdf_cache_path.open("r", encoding="utf-8") as fh:
+                    pdf_cached = json.load(fh)
+                text = pdf_cached.get("text", "")
+                if text:
+                    processor = PDFProcessor(input_dir=".", output_dir=".")
+                    cleaned_text = processor.clean_text(text)
+                    body_text = trim_pdf_text_to_body(cleaned_text)
+                    screened_blocks, _ = clean_paper_text_for_language_screening(body_text, _label=paper_id)
+                    raw_langs = detect_languages_in_text(screened_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
+                    detections = build_detections(raw_langs, lang_classes, possible_false_positive_languages)
+                    pdf_cached.update({
+                        "cleaned_text": cleaned_text,
+                        "body_text": body_text,
+                        "screened_text": "\n\n".join(screened_blocks),
+                        "detected_languages": detections,
+                    })
+                    with pdf_cache_path.open("w", encoding="utf-8") as fh:
+                        json.dump(pdf_cached, fh, ensure_ascii=False, indent=2)
+                else:
+                    detections = pdf_cached.get("detected_languages", [])
+                record["sources_checked"].append("pdf")
+                if detections:
+                    record["sections"]["pdf_full_text"] = {"source": "pdf", "detected_languages": detections}
+            except Exception as exc:
+                tqdm.write(f"  [{paper_id}] PDF cache reprocess error: {type(exc).__name__}: {exc}")
+                record["warnings"].append({"step": "pdf_reprocess", "error": str(exc)})
+        else:
+            record["warnings"].append({"step": "reprocess", "error": "No HTML or PDF cache found — skipped"})
+
+    tqdm.write(f"  [{paper_id}] reprocessed in {_time.monotonic()-t_paper:.1f}s")
+    return record
+
+
+def reprocess_from_cache(
+    papers: list[dict],
+    lang_classes: dict[int, set[str]],
+    languages_to_ignore: set[str],
+    possible_false_positive_languages: dict[str, str],
+    output_jsonl: Path,
+    warnings_file: Path,
+    html_cache_dir: Path,
+    pdf_cache_dir: Path,
+    max_workers: int = 4,
+) -> dict:
+    """Re-run cleaning + detection on cached HTML/PDF text; write new output JSONL."""
+    output_jsonl.parent.mkdir(parents=True, exist_ok=True)
+
+    all_warnings: list[dict] = []
+    results: list[dict] = []
+    stats = {
+        "total_papers": len(papers),
+        "papers_with_detections": 0,
+        "total_detections": 0,
+        "failed_papers": 0,
+        "sources": {"abstract": 0, "html": 0, "pdf": 0},
+    }
+
+    executor = ThreadPoolExecutor(max_workers=max_workers)
+    try:
+        futures = {
+            executor.submit(
+                _reprocess_single_paper,
+                paper,
+                lang_classes,
+                languages_to_ignore,
+                possible_false_positive_languages,
+                html_cache_dir,
+                pdf_cache_dir,
+            ): paper
+            for paper in papers
+        }
+
+        pending = set(futures.keys())
+        with tqdm(total=len(futures), desc="Reprocessing papers") as pbar:
+            while pending:
+                done, pending = wait(pending, timeout=120, return_when=FIRST_COMPLETED)
+                if not done:
+                    tqdm.write("[reprocess] no paper completed in 120s — possible stall, continuing…")
+                    continue
+                for future in done:
+                    try:
+                        record = future.result()
+                        for source in record.get("sources_checked", []):
+                            if source in stats["sources"]:
+                                stats["sources"][source] += 1
+                        if record.get("warnings"):
+                            all_warnings.extend(record["warnings"])
+                        if record.get("sections"):
+                            results.append(record)
+                            stats["papers_with_detections"] += 1
+                            for sec in record["sections"].values():
+                                stats["total_detections"] += len(sec.get("detected_languages", []))
+                    except Exception as exc:
+                        paper = futures[future]
+                        tqdm.write(f"  ERROR: [{paper.get('id', 'unknown')}] {type(exc).__name__}: {exc}")
+                        all_warnings.append({
+                            "paper_id": paper.get("id", "unknown"),
+                            "error": str(exc),
+                            "timestamp": datetime.now().isoformat(),
+                        })
+                        stats["failed_papers"] += 1
+                    pbar.update(1)
+    finally:
+        executor.shutdown(wait=False)
+
+    with output_jsonl.open("w", encoding="utf-8") as fp:
+        for record in results:
+            fp.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+    if all_warnings:
+        with warnings_file.open("w", encoding="utf-8") as fp:
+            json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
+        print(f"Warnings saved to {warnings_file}")
+
+    print(f"\nTotal papers:            {stats['total_papers']}")
+    print(f"Papers with detections:  {stats['papers_with_detections']}")
+    print(f"Total detections:        {stats['total_detections']}")
+    print(f"Failed:                  {stats['failed_papers']}")
+    print(f"Sources — abstract:{stats['sources']['abstract']}  html:{stats['sources']['html']}  pdf:{stats['sources']['pdf']}")
+    print(f"Output: {output_jsonl}")
+
+    return stats
 
 
 # ---------------------------------------------------------------------------
@@ -429,6 +653,15 @@ def main() -> None:
         help="Week output directory (default: auto-derived from input filename as data/processed/weeks/YYYYMMDD_to_YYYYMMDD/)",
     )
     parser.add_argument("--workers", type=int, default=4, help="Parallel worker threads (default: 4)")
+    parser.add_argument(
+        "--reprocess-cache",
+        action="store_true",
+        help=(
+            "Skip HTML/PDF downloads; re-run text cleaning + language detection on cached "
+            "html_cache/*.json and pdf_cache/*.json files and rewrite the output JSONL. "
+            "Use after updating text cleaning logic."
+        ),
+    )
     args = parser.parse_args()
 
     if not args.input.exists():
@@ -459,19 +692,35 @@ def main() -> None:
     print(f"Loaded {len(papers)} papers from {args.input}")
 
     stem = args.input.stem
+    html_cache_dir = output_dir / "html_cache"
+    pdf_cache_dir = output_dir / "pdf_cache"
 
-    process_papers(
-        papers=papers,
-        lang_classes=lang_classes,
-        languages_to_ignore=languages_to_ignore,
-        possible_false_positive_languages=possible_false_positive_languages,
-        output_jsonl=output_dir / f"{stem}_detected.jsonl",
-        warnings_file=output_dir / f"{stem}_warnings.json",
-        pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
-        html_cache_dir=output_dir / "html_cache",
-        pdf_cache_dir=output_dir / "pdf_cache",
-        max_workers=args.workers,
-    )
+    if args.reprocess_cache:
+        print(f"--reprocess-cache: re-running cleaning+detection on cached extractions in {output_dir}")
+        reprocess_from_cache(
+            papers=papers,
+            lang_classes=lang_classes,
+            languages_to_ignore=languages_to_ignore,
+            possible_false_positive_languages=possible_false_positive_languages,
+            output_jsonl=output_dir / f"{stem}_detected.jsonl",
+            warnings_file=output_dir / f"{stem}_warnings.json",
+            html_cache_dir=html_cache_dir,
+            pdf_cache_dir=pdf_cache_dir,
+            max_workers=args.workers,
+        )
+    else:
+        process_papers(
+            papers=papers,
+            lang_classes=lang_classes,
+            languages_to_ignore=languages_to_ignore,
+            possible_false_positive_languages=possible_false_positive_languages,
+            output_jsonl=output_dir / f"{stem}_detected.jsonl",
+            warnings_file=output_dir / f"{stem}_warnings.json",
+            pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
+            html_cache_dir=html_cache_dir,
+            pdf_cache_dir=pdf_cache_dir,
+            max_workers=args.workers,
+        )
 
 
 if __name__ == "__main__":

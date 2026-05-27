@@ -188,11 +188,9 @@ def extract_sections_from_soup(soup: BeautifulSoup) -> dict[str, str]:
         title = heading.get_text(strip=True) if heading else section.get("id") or "section"
 
         paragraphs: list[str] = []
-        for element in section.find_all(["p", "div"]):
+        for element in section.find_all(["p", "div", "figcaption", "caption"]):
             text = re.sub(r"\s+", " ", element.get_text(separator="", strip=False)).strip()
             if not text:
-                continue
-            if re.match(r"^[A-Z][\w\s\-:,]{0,100}$", text) and len(text.split()) < 6 and text.endswith(":"):
                 continue
             paragraphs.append(text)
 
@@ -204,7 +202,7 @@ def extract_sections_from_soup(soup: BeautifulSoup) -> dict[str, str]:
     if not sections:
         current_title = "body"
         current_texts: list[str] = []
-        for node in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "p", "div"]):
+        for node in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "p", "div", "figcaption", "caption"]):
             if node.name and re.match("^h[1-6]$", node.name):
                 if current_texts:
                     sections[current_title] = "\n\n".join(current_texts).strip()
