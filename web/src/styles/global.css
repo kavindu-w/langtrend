@@ -487,8 +487,9 @@ a { color: inherit; text-decoration: none; }
 .overall-summary-stats {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-content: start;
+  grid-template-columns: 1fr;
+  align-content: stretch;
+  height: 100%;
 }
 
 .coverage-pie-svg,
@@ -518,7 +519,6 @@ a { color: inherit; text-decoration: none; }
   .trend-line-layout { grid-template-columns: 1fr; }
   .coverage-summary-grid,
   .overall-summary-grid { grid-template-columns: 1fr; }
-  .overall-summary-stats { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 720px) {
