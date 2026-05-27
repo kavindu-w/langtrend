@@ -645,12 +645,13 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
 
 ---
 <section class="stats-stack">
-  <article class="panel chart-panel wide-panel">
-    <div class="panel-head">
+  <details class="panel chart-panel wide-panel" open>
+    <summary class="paper-collapse-summary">
       <div>
         <h2 id="weekly-stat-title">For {weekLabel}</h2>
       </div>
-    </div>
+      <span class="paper-collapse-hint">Collapse section</span>
+    </summary>
 
     <div class="stat-row">
       {weeklySummaryCards.map((card) => (
@@ -999,15 +1000,16 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         )}
       </article>
     </div>
-  </article>
+  </details>
 
-  <article class="panel chart-panel wide-panel">
-    <div class="panel-head">
+  <details class="panel chart-panel wide-panel" open>
+    <summary class="paper-collapse-summary">
       <div>
         <h2>Overall trends</h2>
         <p>Aggregated across all available weeks, with coverage and trend views rolled up over time.</p>
       </div>
-    </div>
+      <span class="paper-collapse-hint">Collapse section</span>
+    </summary>
 
     <div class="overall-summary-grid" style="margin-bottom:14px">
       <div class="coverage-summary-card">
@@ -1291,5 +1293,5 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         )}
       </article>
     </div>
-  </article>
+  </details>
 </section>
