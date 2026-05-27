@@ -415,7 +415,7 @@ const mirrorLabelPad = 8; // gap between bar end and rank circle edge
 // Layout: left half [labelWidth | barArea | rankCircleR | gap | rankCircleR | barArea | labelWidth] right half
 const mirrorLabelWidth = 160;
 const mirrorRankR = 12;
-const mirrorSpineGap = 20; // gap between the two rank circles at center
+const mirrorSpineGap = 60; // gap between the two spine circle columns at center
 const mirrorBarAreaWidth = (mirrorSvgWidth / 2) - mirrorLabelWidth - mirrorRankR * 2 - mirrorSpineGap / 2 - 4;
 // Left spine x (where left bars end / right edge of left bar zone)
 const mirrorLeftSpineX = mirrorLabelWidth + mirrorBarAreaWidth;
@@ -447,6 +447,18 @@ const mirrorConnections = mirrorCurrRows
 const mirrorDropped = mirrorPrevRows.filter(r => !mirrorCurrRowMap.has(r.language));
 // Languages only in current (new to top-10)
 const mirrorNew = mirrorCurrRows.filter(r => !mirrorPrevRowMap.has(r.language));
+
+// Full sorted lists for computing out-of-top-10 ranks for dropped/new items
+const mirrorCurrFullSorted = [...languageCounts].sort((a, b) => b.count - a.count);
+const mirrorPrevFullSorted = prevWeekData ? [...(prevWeekData.languageCounts || [])].sort((a, b) => b.count - a.count) : [];
+const mirrorDroppedWithRank = mirrorDropped.map(row => {
+  const idx = mirrorCurrFullSorted.findIndex(x => x.language === row.language);
+  return { ...row, currRank: idx >= 0 ? idx + 1 : null };
+});
+const mirrorNewWithRank = mirrorNew.map(row => {
+  const idx = mirrorPrevFullSorted.findIndex(x => x.language === row.language);
+  return { ...row, prevRank: idx >= 0 ? idx + 1 : null };
+});
 
 // Bump chart
 const bumpLanguageList = topTrendLanguages.slice(0, 10);
@@ -807,92 +819,102 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
             <h3>Weekly rank comparison</h3>
             <p>Top-10 languages this week vs. last week — each side ranked independently, lines connect matched languages.</p>
           </div>
-          <span class="chart-caption">← Prev week · This week →</span>
         </div>
         {hasPrevWeek && (mirrorPrevRows.length > 0 || mirrorCurrRows.length > 0) ? (
           <div class="chart-scroll">
             <svg class="chart-svg" width="100%" height={mirrorSvgHeight} viewBox={`0 0 ${mirrorSvgWidth} ${mirrorSvgHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mirror rank comparison chart">
               {/* Column headers */}
               <text x={mirrorLeftSpineX / 2} y="22" text-anchor="middle" class="chart-caption">PREV WEEK</text>
-              <text x={mirrorSvgWidth / 2} y="22" text-anchor="middle" class="chart-caption">LANGUAGE</text>
               <text x={mirrorRightSpineX + (mirrorSvgWidth - mirrorRightSpineX) / 2} y="22" text-anchor="middle" class="chart-caption">THIS WEEK</text>
 
-              {/* Connection bezier lines (drawn first, behind bars) */}
+              {/* Vertical spine guide lines */}
+              <line x1={mirrorLeftSpineX} x2={mirrorLeftSpineX} y1={mirrorTopPad - 8} y2={mirrorSvgHeight - 8} stroke="var(--line)" stroke-width="1" opacity="0.25"></line>
+              <line x1={mirrorRightSpineX} x2={mirrorRightSpineX} y1={mirrorTopPad - 8} y2={mirrorSvgHeight - 8} stroke="var(--line)" stroke-width="1" opacity="0.25"></line>
+
+              {/* Connection S-curves between spine circle centres (drawn first, under bars) */}
               {mirrorConnections.map(conn => {
-                const prevRow = mirrorPrevRowMap.get(conn.language)!;
-                const currRow = mirrorCurrRowMap.get(conn.language)!;
                 const barColor = classColor(conn.language);
-                const prevBarW = (prevRow.count / mirrorPrevMaxCount) * mirrorBarAreaWidth;
-                const currBarW = (currRow.count / mirrorCurrMaxCount) * mirrorBarAreaWidth;
-                const x1 = mirrorLeftSpineX - prevBarW - mirrorRankR;
-                const x2 = mirrorRightSpineX + currBarW + mirrorRankR;
                 const midX = mirrorSvgWidth / 2;
+                const lx = mirrorLeftSpineX + mirrorRankR;
+                const rx = mirrorRightSpineX - mirrorRankR;
                 return (
-                  <path d={`M ${x1} ${conn.prevY} C ${midX} ${conn.prevY} ${midX} ${conn.currY} ${x2} ${conn.currY}`}
-                    fill="none" stroke={barColor} stroke-width="1.5" stroke-opacity="0.35"></path>
+                  <path d={`M ${lx} ${conn.prevY} C ${midX} ${conn.prevY} ${midX} ${conn.currY} ${rx} ${conn.currY}`}
+                    fill="none" stroke={barColor} stroke-width="1.5" stroke-opacity="0.4"></path>
                 );
               })}
 
-              {/* Prev week rows */}
+              {/* Prev week rows — bar extends left from spine, circle at inner (right/spine) end, stacked label outside */}
               {mirrorPrevRows.map(row => {
                 const barColor = classColor(row.language);
                 const barW = (row.count / mirrorPrevMaxCount) * mirrorBarAreaWidth;
                 const cy = row.y + mirrorRowHeight / 2;
-                const circleX = mirrorLeftSpineX - barW - mirrorRankR;
+                const labelX = mirrorLeftSpineX - barW - 8;
+                const isConnected = mirrorCurrRowMap.has(row.language);
                 return (
                   <g>
                     <rect x={mirrorLeftSpineX - barW} y={row.y + 4} width={barW} height={mirrorRowHeight - 8} rx="4" fill={barColor} fill-opacity="0.25"></rect>
-                    <circle cx={circleX} cy={cy} r={mirrorRankR} fill={barColor} stroke="#000" stroke-width="1.5"></circle>
-                    <text x={circleX} y={cy + 4} text-anchor="middle" style="fill:#fff;font-size:0.65rem;font-weight:700">{row.rank}</text>
-                    <text x={mirrorLeftSpineX - barW - mirrorRankR * 2 - 4} y={cy + 4} text-anchor="end" class="h-bar-label h-bar-label-name" style="font-size:0.75rem">{row.language}</text>
-                    <text x={mirrorLeftSpineX + 4} y={cy + 4} text-anchor="start" class="chart-axis-label">{row.count}</text>
+                    {isConnected && (
+                      <g>
+                        <circle cx={mirrorLeftSpineX + mirrorRankR} cy={cy} r={mirrorRankR} fill={barColor} stroke="var(--panel)" stroke-width="2"></circle>
+                        <text x={mirrorLeftSpineX + mirrorRankR} y={cy + 4} text-anchor="middle" style="fill:#fff;font-size:0.65rem;font-weight:700">{row.rank}</text>
+                      </g>
+                    )}
+                    <text x={labelX} y={cy - 3} text-anchor="end" class="h-bar-label h-bar-label-name">{row.language}</text>
+                    <text x={labelX} y={cy + 11} text-anchor="end" class="chart-axis-label">{row.count}</text>
                   </g>
                 );
               })}
 
-              {/* Dropped languages: dashed downward vanishing line on right side */}
-              {mirrorDropped.map(row => {
+              {/* Dropped languages: S-curve dropping down from bar tip to rank circle in centre zone */}
+              {mirrorDroppedWithRank.map(row => {
                 const barColor = classColor(row.language);
                 const cy = row.y + mirrorRowHeight / 2;
-                const ghostX = mirrorRightSpineX + 24;
-                const ghostBottomY = Math.min(cy + 50, mirrorSvgHeight - 10);
+                const indicatorX = mirrorLeftSpineX + mirrorRankR * 3;
+                const indicatorY = cy + 20;
                 return (
-                  <g opacity="0.45">
-                    <line x1={ghostX} y1={cy} x2={ghostX} y2={ghostBottomY} stroke={barColor} stroke-dasharray="4 4" stroke-width="1.5"></line>
-                    <circle cx={ghostX} cy={ghostBottomY} r={mirrorRankR} fill="var(--panel)" stroke={barColor} stroke-width="1.5"></circle>
-                    <text x={ghostX} y={ghostBottomY + 4} text-anchor="middle" style={`fill:${barColor};font-size:0.65rem;font-weight:700`}>↓</text>
+                  <g opacity="0.65">
+                    <path d={`M ${mirrorLeftSpineX} ${cy} C ${mirrorLeftSpineX + 22} ${cy} ${indicatorX - 5} ${indicatorY} ${indicatorX} ${indicatorY}`}
+                      fill="none" stroke={barColor} stroke-width="1.2" stroke-dasharray="3 3"></path>
+                    <circle cx={indicatorX} cy={indicatorY} r="10" fill="var(--panel)" stroke={barColor} stroke-width="1.5" stroke-dasharray="3 3"></circle>
+                    <text x={indicatorX} y={indicatorY + 4} text-anchor="middle" style="fill:#000;font-size:0.6rem;font-weight:700">{row.currRank ?? '–'}</text>
                   </g>
                 );
               })}
 
-              {/* Current week rows */}
+              {/* Current week rows — circle at inner (left/spine) end, bar extends right, stacked label outside */}
               {mirrorCurrRows.map(row => {
                 const barColor = classColor(row.language);
                 const barW = (row.count / mirrorCurrMaxCount) * mirrorBarAreaWidth;
                 const cy = row.y + mirrorRowHeight / 2;
-                const circleX = mirrorRightSpineX + barW + mirrorRankR;
+                const labelX = mirrorRightSpineX + barW + 8;
+                const isConnected = mirrorPrevRowMap.has(row.language);
                 return (
                   <g>
                     <rect x={mirrorRightSpineX} y={row.y + 4} width={barW} height={mirrorRowHeight - 8} rx="4" fill={barColor} fill-opacity="0.85"></rect>
-                    <circle cx={circleX} cy={cy} r={mirrorRankR} fill={barColor} stroke="#000" stroke-width="1.5"></circle>
-                    <text x={circleX} y={cy + 4} text-anchor="middle" style="fill:#fff;font-size:0.65rem;font-weight:700">{row.rank}</text>
-                    <text x={mirrorRightSpineX + barW + mirrorRankR * 2 + 4} y={cy + 4} text-anchor="start" class="h-bar-label h-bar-label-name" style="font-size:0.75rem">{row.language}</text>
-                    <text x={mirrorRightSpineX - 4} y={cy + 4} text-anchor="end" class="chart-axis-label">{row.count}</text>
+                    {isConnected && (
+                      <g>
+                        <circle cx={mirrorRightSpineX - mirrorRankR} cy={cy} r={mirrorRankR} fill={barColor} stroke="var(--panel)" stroke-width="2"></circle>
+                        <text x={mirrorRightSpineX - mirrorRankR} y={cy + 4} text-anchor="middle" style="fill:#fff;font-size:0.65rem;font-weight:700">{row.rank}</text>
+                      </g>
+                    )}
+                    <text x={labelX} y={cy - 3} text-anchor="start" class="h-bar-label h-bar-label-name">{row.language}</text>
+                    <text x={labelX} y={cy + 11} text-anchor="start" class="chart-axis-label">{row.count}</text>
                   </g>
                 );
               })}
 
-              {/* New languages: upward vanishing line on left side */}
-              {mirrorNew.map(row => {
+              {/* New languages: rank circle below in centre zone, S-curve rising up to bar */}
+              {mirrorNewWithRank.map(row => {
                 const barColor = classColor(row.language);
                 const cy = row.y + mirrorRowHeight / 2;
-                const ghostX = mirrorLeftSpineX - 24;
-                const ghostTopY = Math.max(cy - 50, mirrorTopPad);
+                const indicatorX = mirrorRightSpineX - mirrorRankR * 3;
+                const indicatorY = cy + 20;
                 return (
-                  <g opacity="0.45">
-                    <line x1={ghostX} y1={ghostTopY} x2={ghostX} y2={cy} stroke={barColor} stroke-dasharray="4 4" stroke-width="1.5"></line>
-                    <circle cx={ghostX} cy={ghostTopY} r={mirrorRankR} fill="var(--panel)" stroke={barColor} stroke-width="1.5"></circle>
-                    <text x={ghostX} y={ghostTopY + 4} text-anchor="middle" style={`fill:${barColor};font-size:0.65rem;font-weight:700`}>↑</text>
+                  <g opacity="0.65">
+                    <path d={`M ${indicatorX} ${indicatorY} C ${indicatorX + 5} ${indicatorY} ${mirrorRightSpineX - 22} ${cy} ${mirrorRightSpineX} ${cy}`}
+                      fill="none" stroke={barColor} stroke-width="1.2" stroke-dasharray="3 3"></path>
+                    <circle cx={indicatorX} cy={indicatorY} r="10" fill="var(--panel)" stroke={barColor} stroke-width="1.5" stroke-dasharray="3 3"></circle>
+                    <text x={indicatorX} y={indicatorY + 4} text-anchor="middle" style="fill:#000;font-size:0.6rem;font-weight:700">{row.prevRank ?? '–'}</text>
                   </g>
                 );
               })}
