@@ -965,14 +965,13 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
       <article class="chart-subpanel chart-subpanel-wide">
         <div class="chart-subpanel-head">
           <div>
-            <h3>Class → language flow</h3>
-            <p>Descending flow from resource class to language, ordered from the largest bands to the smallest.</p>
+            <h3>Mention flow by language class</h3>
+            <p>Bands show how this week's language mentions flow from broad language families (left) down to individual languages (right). Band width is proportional to mention count.</p>
           </div>
-          <span class="chart-caption">Labels stay neutral</span>
         </div>
         {showSankey ? (
           <div class="chart-scroll">
-            <svg class="chart-svg" width="100%" height={sankeySvgHeight} viewBox={`0 0 ${sankeySvgWidth} ${sankeySvgHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Sankey diagram of class to language flow">
+            <svg class="chart-svg" style="height:auto" width="100%" viewBox={`0 0 ${sankeySvgWidth} ${sankeySvgHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Sankey diagram of language class to language mention flow">
               <g transform="translate(0 0)">
                 {sankeyPaths.map(link => (
                   <path d={link.d} fill={link.color} fill-opacity="0.3" stroke={link.color} stroke-width="0.5" stroke-opacity="0.4">
@@ -982,13 +981,13 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                 {sankeyLeftNodes.map(node => (
                   <g>
                     <rect x={sankeyLeftNodeX} y={node.y} width={sankeyNodeWidth} height={node.height} fill={node.color} rx="2"></rect>
-                    <text x={sankeyLeftNodeX + sankeyNodeWidth / 2} y={node.y - 6} text-anchor="middle" class="chart-axis-label" style="fill:var(--text);font-weight:700">{node.label} ({node.total})</text>
+                    <text x={sankeyLeftNodeX - 8} y={node.y + node.height / 2 + 4} text-anchor="end" class="chart-axis-label" style="fill:var(--text);font-weight:700">{node.label} ({node.total})</text>
                   </g>
                 ))}
                 {sankeyRightNodes.map(node => (
                   <g>
                     <rect x={sankeyRightNodeX} y={node.y} width={sankeyNodeWidth} height={node.height} fill={node.color} rx="2"></rect>
-                    <text x={sankeyRightNodeX + sankeyNodeWidth / 2} y={node.y - 6} text-anchor="middle" class="chart-axis-label" style="fill:var(--text);font-weight:700">{node.language} ({node.count})</text>
+                    <text x={sankeyRightNodeX + sankeyNodeWidth + 8} y={node.y + node.height / 2 + 4} text-anchor="start" class="chart-axis-label" style="fill:var(--text);font-weight:700">{node.language} ({node.count})</text>
                   </g>
                 ))}
               </g>
