@@ -918,6 +918,27 @@ a { color: inherit; text-decoration: none; }
 
 .placeholder-text { color: var(--muted); }
 
+.chart-legend-inline {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.84rem;
+  color: var(--muted);
+  align-items: center;
+}
+.chart-legend-inline span { display: inline-flex; align-items: center; gap: 6px; }
+
+.coverage-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.coverage-dot.html  { background: #1b998b; }
+.coverage-dot.pdf   { background: #f4c036; }
+.coverage-dot.abstract { background: rgba(32,22,19,0.28); }
+
 @media (max-width: 960px) {
   .hero, .stat-grid, .dashboard-grid, .about-grid { grid-template-columns: 1fr; }
   .paper-summary { grid-template-columns: 1fr; }
