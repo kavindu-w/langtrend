@@ -1,184 +1,554 @@
 ---
-import { arc, pie, scaleBand, scaleLinear } from 'd3';
+import { scaleBand, scaleLinear } from 'd3';
+import { CLASS_LABELS, colorForIndex } from '../lib/data.js';
 import { LANGUAGE_CLASS_COLORS, languageBorderClass } from '../lib/language-colors.js';
 
 type LanguageCount = { language: string; count: number };
 type WeekPoint = { date: string; papers: number; flagged: number };
-type TopLanguage = { language: string; count: number; color: string };
-type WeekDonutSegment = { label: string; value: number; color: string };
 type CoverageStats = { htmlScanned: number; pdfOnly: number; abstractOnly: number };
-
-const { languageCounts, weekSeries, topLanguages, coverageStats } = Astro.props as {
+type ClassCount = { class_id: number; count: number };
+type WeekAggregate = {
+  weekStart: string;
+  weekEnd?: string | null;
+  papers: number;
+  flaggedPapers: number;
+  uniqueLanguages: number;
   languageCounts: LanguageCount[];
-  weekSeries: WeekPoint[];
-  topLanguages: TopLanguage[];
-  coverageStats: CoverageStats;
-  languageData: { lang_classes?: Record<string, unknown[]> };
-  manifest: {
-    papers?: unknown[];
-    flagged_papers?: unknown[];
-  };
+  classCounts: ClassCount[];
+  dailySeries: WeekPoint[];
 };
 
-const scannedCount = (Astro.props.manifest.flagged_papers || []).length;
-const totalCount = (Astro.props.manifest.papers || []).length;
-const nonScannedCount = Math.max(totalCount - scannedCount, 0);
-const donutTotal = Math.max(totalCount, 1);
-const sortedLanguageCounts = [...languageCounts].sort((left: LanguageCount, right: LanguageCount) => {
-  const countDelta = right.count - left.count;
-  if (countDelta !== 0) {
-    return countDelta;
-  }
-  return left.language.localeCompare(right.language);
-});
-const langClasses = Astro.props.languageData?.lang_classes || {};
-const topTenLanguages = [...topLanguages]
-  .sort((left: TopLanguage, right: TopLanguage) => {
-    const countDelta = right.count - left.count;
-    if (countDelta !== 0) {
-      return countDelta;
-    }
-    return left.language.localeCompare(right.language);
-  })
-  .slice(0, 10);
+type Props = {
+  languageCounts: LanguageCount[];
+  classCounts: ClassCount[];
+  weekSeries: WeekPoint[];
+  coverageStats: CoverageStats;
+  allWeeksData: WeekAggregate[];
+  manifest: {
+    counts?: {
+      papers?: number;
+      flagged_papers?: number;
+      unique_languages?: number;
+    };
+    papers?: unknown[];
+    flagged_papers?: unknown[];
+    week_start?: string;
+    week_end?: string;
+  };
+  languageData: { lang_classes?: Record<string, unknown[]> };
+};
 
-function formatWeekRange(series: WeekPoint[]) {
-  if (series.length === 0) {
+const { languageCounts = [], classCounts = [], weekSeries = [], coverageStats, allWeeksData = [], manifest, languageData } = Astro.props as Props;
+
+const langClasses = languageData?.lang_classes || {};
+const weeklyPapers = manifest.counts?.papers ?? (manifest.papers || []).length;
+const weeklyFlagged = manifest.counts?.flagged_papers ?? (manifest.flagged_papers || []).length;
+const weeklyUniqueLanguages = manifest.counts?.unique_languages ?? languageCounts.length;
+
+function formatWeekRange(series: WeekPoint[], fallbackStart?: string, fallbackEnd?: string) {
+  const startSource = series[0]?.date || fallbackStart;
+  const endSource = series[series.length - 1]?.date || fallbackEnd || fallbackStart;
+  if (!startSource || !endSource) {
     return 'the current window';
   }
 
-  const start = new Date(`${series[0].date}T00:00:00`);
-  const end = new Date(`${series[series.length - 1].date}T00:00:00`);
+  const start = new Date(`${startSource}T00:00:00`);
+  const end = new Date(`${endSource}T00:00:00`);
   const startLabel = start.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
   const endLabel = end.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
   return `The Week of ${startLabel}–${endLabel}`;
 }
 
-const weekLabel = formatWeekRange(weekSeries);
+function formatWeekLabel(weekStart: string) {
+  const date = new Date(`${weekStart}T00:00:00`);
+  return date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+}
 
-const donutSegments: WeekDonutSegment[] = [
-  { label: 'Flagged', value: scannedCount, color: LANGUAGE_CLASS_COLORS[4] },
-  { label: 'Not flagged', value: nonScannedCount, color: 'rgba(32, 22, 19, 0.18)' },
-];
-const donutPie = pie<WeekDonutSegment>().sort(null).value((segment: WeekDonutSegment) => segment.value);
-const donutArc = arc().innerRadius(68).outerRadius(96);
-const donutOuterArc = arc().innerRadius(100).outerRadius(170);
-const donutSlices: import('d3').PieArcDatum<WeekDonutSegment>[] = donutPie(donutSegments);
+function formatWeekdayLabel(dateString: string) {
+  const date = new Date(`${dateString}T00:00:00`);
+  return date.toLocaleDateString(undefined, { weekday: 'short' });
+}
 
-const barChartWidth = Math.max(560, sortedLanguageCounts.length * 54);
-const barChartHeight = 320;
-const barMargins = { top: 18, right: 18, bottom: 78, left: 34 };
-const barInnerWidth = barChartWidth - barMargins.left - barMargins.right;
-const barInnerHeight = barChartHeight - barMargins.top - barMargins.bottom;
-const maxLanguageCount = Math.max(1, ...sortedLanguageCounts.map((item: LanguageCount) => item.count));
-const xScale = scaleBand()
-  .domain(sortedLanguageCounts.map((item: LanguageCount) => item.language))
-  .range([0, barInnerWidth])
-  .padding(0.24);
-const yScale = scaleLinear().domain([0, maxLanguageCount]).nice().range([barInnerHeight, 0]);
+function formatPercent(value: number, total: number) {
+  if (!total) return '0%';
+  return `${Math.round((value / total) * 100)}%`;
+}
+
+function sumCounts(items: { count: number }[]) {
+  return items.reduce((sum, item) => sum + (item.count || 0), 0);
+}
+
+function buildLinePath(points: { x: number; y: number }[]) {
+  if (!points.length) return '';
+  return points.map((point, index) => `${index === 0 ? 'M' : 'L'}${point.x},${point.y}`).join(' ');
+}
 
 function classColor(language: string) {
   const index = languageBorderClass(language, langClasses);
   return LANGUAGE_CLASS_COLORS[index] || LANGUAGE_CLASS_COLORS[0];
 }
+
+function classColorForId(classId: number) {
+  return LANGUAGE_CLASS_COLORS[classId] || LANGUAGE_CLASS_COLORS[0];
+}
+
+const weekLabel = formatWeekRange(weekSeries, manifest.week_start, manifest.week_end);
+const weeklySummaryCards = [
+  { label: 'Total papers scanned', value: weeklyPapers },
+  { label: 'Papers with language mentions', value: weeklyFlagged },
+  { label: 'Unique languages detected', value: weeklyUniqueLanguages },
+];
+
+const weeklyDailySeries = [...weekSeries];
+const weeklyDailyWidth = 760;
+const weeklyDailyHeight = 240;
+const weeklyDailyMargins = { top: 24, right: 18, bottom: 52, left: 42 };
+const weeklyDailyInnerWidth = weeklyDailyWidth - weeklyDailyMargins.left - weeklyDailyMargins.right;
+const weeklyDailyInnerHeight = weeklyDailyHeight - weeklyDailyMargins.top - weeklyDailyMargins.bottom;
+const weeklyDailyScale = scaleBand()
+  .domain(weeklyDailySeries.map((item) => item.date))
+  .range([0, weeklyDailyInnerWidth])
+  .padding(0.22);
+const weeklyDailyMax = Math.max(1, ...weeklyDailySeries.map((item) => item.papers || 0));
+const weeklyDailyY = scaleLinear().domain([0, weeklyDailyMax]).nice().range([weeklyDailyInnerHeight, 0]);
+
+const weeklyClassSeries = CLASS_LABELS.map((label, classId) => ({
+  classId,
+  label,
+  count: classCounts.find((item) => item.class_id === classId)?.count ?? 0,
+  color: classColorForId(classId),
+}));
+const weeklyClassTotal = Math.max(1, sumCounts(weeklyClassSeries));
+
+const weeklyLanguageSeries = [...languageCounts]
+  .sort((left, right) => {
+    const countDelta = right.count - left.count;
+    return countDelta !== 0 ? countDelta : left.language.localeCompare(right.language);
+  })
+  .slice(0, 20);
+const weeklyLanguageMax = Math.max(1, ...weeklyLanguageSeries.map((item) => item.count || 0));
+const weeklyLanguageBarHeight = 620;
+const weeklyLanguageBarWidth = 920;
+const weeklyLanguageBarMargins = { top: 18, right: 24, bottom: 20, left: 210 };
+const weeklyLanguageBarInnerWidth = weeklyLanguageBarWidth - weeklyLanguageBarMargins.left - weeklyLanguageBarMargins.right;
+const weeklyLanguageRowHeight = 28;
+const weeklyLanguageTotalCount = Math.max(1, languageCounts.reduce((sum, item) => sum + item.count, 0));
+
+const trendWeeks = [...allWeeksData].sort((left, right) => left.weekStart.localeCompare(right.weekStart));
+const trendWeekLabels = trendWeeks.map((week) => week.weekStart);
+const trendLanguageTotals = new Map<string, number>();
+for (const week of trendWeeks) {
+  for (const item of week.languageCounts || []) {
+    if (!item.language) continue;
+    trendLanguageTotals.set(item.language, (trendLanguageTotals.get(item.language) || 0) + item.count);
+  }
+}
+const topTrendLanguages = [...trendLanguageTotals.entries()]
+  .sort((left, right) => {
+    const countDelta = right[1] - left[1];
+    return countDelta !== 0 ? countDelta : left[0].localeCompare(right[0]);
+  })
+  .slice(0, 8)
+  .map(([language, count], index) => ({ language, count, color: colorForIndex(index) }));
+
+const trendGroupedWidth = 760;
+const trendGroupedHeight = 260;
+const trendGroupedMargins = { top: 24, right: 18, bottom: 50, left: 42 };
+const trendGroupedInnerWidth = trendGroupedWidth - trendGroupedMargins.left - trendGroupedMargins.right;
+const trendGroupedInnerHeight = trendGroupedHeight - trendGroupedMargins.top - trendGroupedMargins.bottom;
+const trendGroupedScale = scaleBand().domain(trendWeekLabels).range([0, trendGroupedInnerWidth]).padding(0.22);
+const trendGroupedMax = Math.max(1, ...trendWeeks.map((week) => week.papers || 0));
+const trendGroupedY = scaleLinear().domain([0, trendGroupedMax]).nice().range([trendGroupedInnerHeight, 0]);
+
+const trendTopLanguageWidth = 760;
+const trendTopLanguageHeight = 280;
+const trendTopLanguageMargins = { top: 28, right: 18, bottom: 50, left: 42 };
+const trendTopLanguageInnerWidth = trendTopLanguageWidth - trendTopLanguageMargins.left - trendTopLanguageMargins.right;
+const trendTopLanguageInnerHeight = trendTopLanguageHeight - trendTopLanguageMargins.top - trendTopLanguageMargins.bottom;
+const trendTopLanguageScale = scaleBand().domain(trendWeekLabels).range([0, trendTopLanguageInnerWidth]).padding(0.3);
+const trendTopLanguageMax = Math.max(
+  1,
+  ...topTrendLanguages.flatMap((item) => trendWeeks.map((week) => {
+    const found = (week.languageCounts || []).find((language) => language.language === item.language);
+    return found?.count || 0;
+  })),
+);
+const trendTopLanguageY = scaleLinear().domain([0, trendTopLanguageMax]).nice().range([trendTopLanguageInnerHeight, 0]);
+const trendSeries = topTrendLanguages.map((item) => {
+  const points = trendWeeks.map((week) => {
+    const found = (week.languageCounts || []).find((language) => language.language === item.language);
+    const x = (trendTopLanguageScale(week.weekStart) || 0) + trendTopLanguageScale.bandwidth() / 2;
+    return {
+      x,
+      y: trendTopLanguageY(found?.count || 0),
+      value: found?.count || 0,
+    };
+  });
+  return { ...item, points, path: buildLinePath(points) };
+});
+
+const trendClassWidth = 760;
+const trendClassHeight = 260;
+const trendClassMargins = { top: 20, right: 18, bottom: 54, left: 42 };
+const trendClassInnerWidth = trendClassWidth - trendClassMargins.left - trendClassMargins.right;
+const trendClassInnerHeight = trendClassHeight - trendClassMargins.top - trendClassMargins.bottom;
+const trendClassScale = scaleBand().domain(trendWeekLabels).range([0, trendClassInnerWidth]).padding(0.28);
+const trendClassBars = trendWeeks.map((week) => {
+  const classMap = new Map((week.classCounts || []).map((item) => [item.class_id, item.count]));
+  const total = Math.max(1, CLASS_LABELS.reduce((sum, _label, classId) => sum + (classMap.get(classId) || 0), 0));
+  let offset = 0;
+  return {
+    weekStart: week.weekStart,
+    total,
+    segments: CLASS_LABELS.map((label, classId) => {
+      const count = classMap.get(classId) || 0;
+      const percentage = count / total;
+      const height = trendClassInnerHeight * percentage;
+      const segment = {
+        classId,
+        label,
+        count,
+        percent: percentage,
+        y: trendClassInnerHeight - offset - height,
+        height,
+        color: classColorForId(classId),
+      };
+      offset += height;
+      return segment;
+    }),
+  };
+});
+
+const trendUniqueWidth = 760;
+const trendUniqueHeight = 240;
+const trendUniqueMargins = { top: 24, right: 18, bottom: 50, left: 42 };
+const trendUniqueInnerWidth = trendUniqueWidth - trendUniqueMargins.left - trendUniqueMargins.right;
+const trendUniqueInnerHeight = trendUniqueHeight - trendUniqueMargins.top - trendUniqueMargins.bottom;
+const trendUniqueScale = scaleBand().domain(trendWeekLabels).range([0, trendUniqueInnerWidth]).padding(0.22);
+const trendUniqueMax = Math.max(1, ...trendWeeks.map((week) => week.uniqueLanguages || 0));
+const trendUniqueY = scaleLinear().domain([0, trendUniqueMax]).nice().range([trendUniqueInnerHeight, 0]);
 ---
 <section class="stats-stack">
   <article class="panel chart-panel wide-panel">
     <div class="panel-head">
       <div>
         <h2 id="weekly-stat-title">For {weekLabel}</h2>
-        <!-- <p>Scanned vs non-scanned papers, plus the language counts for this week.</p> -->
+        <p>Weekly summary, activity timing, resource-class mix, and the top language counts.</p>
       </div>
     </div>
-    <div class="weekly-overview">
-      <div class="coverage-stats">
-        <h3 class="coverage-title">Source coverage</h3>
-        <ul class="coverage-list">
-          <li><span class="coverage-dot html"></span><span>HTML scanned</span><strong>{coverageStats?.htmlScanned ?? 0}</strong></li>
-          <li><span class="coverage-dot pdf"></span><span>PDF only</span><strong>{coverageStats?.pdfOnly ?? 0}</strong></li>
-          <li><span class="coverage-dot abstract"></span><span>Abstract only</span><strong>{coverageStats?.abstractOnly ?? 0}</strong></li>
-        </ul>
-      </div>
-      <div class="donut-wrap">
-        <svg class="donut-svg" viewBox="0 0 520 240" role="img" aria-label={`Weekly paper total ${donutTotal}, with ${scannedCount} flagged and ${nonScannedCount} not flagged`} overflow="visible">
-          <defs>
-            <marker id="week-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
-            </marker>
-          </defs>
-          <g transform="translate(260 120)">
-              {donutSlices.map((slice) => {
-                const mid = ((slice.startAngle || 0) + (slice.endAngle || 0)) / 2;
-                const innerCent = donutArc.centroid(slice as never) as [number, number];
-                const outerCent = donutOuterArc.centroid(slice as never) as [number, number];
-                const labelX = outerCent[0] + (mid < Math.PI ? 28 : -28);
-                const labelY = outerCent[1];
-                const anchor = mid < Math.PI ? 'start' : 'end';
-                return (
-                  <g key={slice.data.label}>
-                    <path d={donutArc(slice as never) || undefined} fill={slice.data.color} stroke="var(--panel)" stroke-width="3"></path>
-                    <polyline points={`${innerCent[0]},${innerCent[1]} ${outerCent[0]},${outerCent[1]} ${labelX},${labelY}`} fill="none" stroke="var(--text)" stroke-width="1.4" stroke-linecap="round"></polyline>
-                    <text x={labelX} y={labelY} dy="4" text-anchor={anchor} class="donut-slice-label">{slice.data.label} <tspan font-weight="700" dx="6">({slice.data.value})</tspan></text>
+
+    <div class="stat-row">
+      {weeklySummaryCards.map((card) => (
+        <article class="stat-card-mini">
+          <strong>{card.value}</strong>
+          <span>{card.label}</span>
+        </article>
+      ))}
+    </div>
+
+    <div class="coverage-badges" aria-label="Source coverage summary">
+      <span class="coverage-pill"><span class="coverage-dot html"></span>HTML scanned {coverageStats?.htmlScanned ?? 0}</span>
+      <span class="coverage-pill"><span class="coverage-dot pdf"></span>PDF only {coverageStats?.pdfOnly ?? 0}</span>
+      <span class="coverage-pill"><span class="coverage-dot abstract"></span>Abstract only {coverageStats?.abstractOnly ?? 0}</span>
+    </div>
+
+    <div class="weekly-overview-grid">
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Daily submission activity</h3>
+            <p>Flagged papers are stacked on top of the other papers for each day in the window.</p>
+          </div>
+          <span class="chart-caption">Flagged share shown above each bar</span>
+        </div>
+        {weeklyDailySeries.length > 0 ? (
+          <div class="chart-scroll">
+            <svg class="chart-svg" width="100%" height={weeklyDailyHeight} viewBox={`0 0 ${weeklyDailyWidth} ${weeklyDailyHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Daily submission activity stacked bar chart">
+              <g transform={`translate(${weeklyDailyMargins.left} ${weeklyDailyMargins.top})`}>
+                {weeklyDailyY.ticks(4).map((tick) => (
+                  <g transform={`translate(0 ${weeklyDailyY(tick)})`}>
+                    <line x1="0" x2={weeklyDailyInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                    <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
                   </g>
-                );
-              })}
-            <circle r="64" fill="var(--panel)"></circle>
-            <text text-anchor="middle" dominant-baseline="middle" class="donut-total">{totalCount}</text>
-            <text text-anchor="middle" dominant-baseline="middle" dy="20" class="donut-total-label">papers analysed</text>
-          </g>
-        </svg>
-      </div>
-      <div class="bar-chart-shell">
-        <div class="bar-chart-scroll">
-          <svg class="language-bar-chart" width="100%" height={barChartHeight} viewBox={`0 0 ${barChartWidth} ${barChartHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Language counts vertical bar chart">
-            <g transform={`translate(${barMargins.left} ${barMargins.top})`}>
-              {yScale.ticks(4).map((tick: number) => (
-                <g transform={`translate(0 ${yScale(tick)})`}>
-                  <line x1="0" x2={barInnerWidth} y1="0" y2="0" stroke="rgba(32, 22, 19, 0.08)"></line>
-                  <text x="-10" y="4" text-anchor="end" class="bar-axis-label">{tick}</text>
-                </g>
-              ))}
-              {sortedLanguageCounts.map((item: LanguageCount) => {
-                const x = xScale(item.language) || 0;
-                const barWidth = xScale.bandwidth();
-                const barHeight = barInnerHeight - yScale(item.count);
-                const fill = classColor(item.language);
+                ))}
+                {weeklyDailySeries.map((point) => {
+                  const total = Math.max(point.papers || 0, 0);
+                  const flagged = Math.max(Math.min(point.flagged || 0, total), 0);
+                  const x = weeklyDailyScale(point.date) || 0;
+                  const barWidth = weeklyDailyScale.bandwidth();
+                  const totalHeight = total > 0 ? (total / weeklyDailyMax) * weeklyDailyInnerHeight : 0;
+                  const flaggedHeight = total > 0 ? totalHeight * (flagged / total) : 0;
+                  const nonFlaggedHeight = Math.max(totalHeight - flaggedHeight, 0);
+                  const y = weeklyDailyInnerHeight - totalHeight;
+                  const flaggedPercent = total > 0 ? Math.round((flagged / total) * 100) : 0;
+                  return (
+                    <g transform={`translate(${x} 0)`}>
+                      <rect x="0" y={y} width={barWidth} height={nonFlaggedHeight} fill="rgba(32, 22, 19, 0.16)" rx="5"></rect>
+                      <rect x="0" y={y + nonFlaggedHeight} width={barWidth} height={flaggedHeight} fill={LANGUAGE_CLASS_COLORS[4]} rx="5"></rect>
+                      <text x={barWidth / 2} y={Math.max(y - 8, 10)} text-anchor="middle" class="chart-value">{flaggedPercent}%</text>
+                      <text x={barWidth / 2} y={weeklyDailyInnerHeight + 16} text-anchor="middle" class="chart-label">{formatWeekdayLabel(point.date)}</text>
+                      <text x={barWidth / 2} y={weeklyDailyInnerHeight + 30} text-anchor="middle" class="chart-label chart-label-subtle">{point.date.slice(5)}</text>
+                    </g>
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Daily submission series will appear once a weekly snapshot is available.</p>
+        )}
+      </article>
+
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Resource class breakdown</h3>
+            <p>Language mentions split by resource class for the selected week.</p>
+          </div>
+          <span class="chart-caption">Proportional by mention count</span>
+        </div>
+        <div class="class-bar-wrap">
+          <svg class="chart-svg" width="100%" height="92" viewBox="0 0 760 92" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Resource class breakdown proportional bar">
+            <g transform="translate(0 24)">
+              {weeklyClassSeries.map((item, index) => {
+                const previous = weeklyClassSeries.slice(0, index).reduce((sum, entry) => sum + entry.count, 0);
+                const width = (item.count / weeklyClassTotal) * 760;
                 return (
-                  <g transform={`translate(${x} 0)`}>
-                    <rect x="0" y={yScale(item.count)} width={barWidth} height={Math.max(0, barHeight)} fill={fill} stroke={fill} stroke-width="2"></rect>
-                    <text x={barWidth / 2} y={yScale(item.count) - 8} text-anchor="middle" class="bar-value">{item.count}</text>
-                    <text x={barWidth / 2} y={barInnerHeight + 18} text-anchor="middle" class="bar-label">
-                      <tspan x={barWidth / 2} dy="0">{item.language}</tspan>
-                    </text>
-                  </g>
+                  <rect x={(previous / weeklyClassTotal) * 760} y="0" width={Math.max(width, 0)} height="24" fill={item.color}>
+                    <title>{`${item.label}: ${item.count}`}</title>
+                  </rect>
                 );
               })}
             </g>
           </svg>
         </div>
-      </div>
+        <ul class="class-legend">
+          {weeklyClassSeries.map((item) => (
+            <li>
+              <span class="lang-swatch" style={`background:${item.color}`}></span>
+              <span>{item.label}</span>
+              <strong>{item.count}</strong>
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      <article class="chart-subpanel chart-subpanel-wide">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Top-20 language frequency</h3>
+            <p>Horizontal bars make the language names readable while preserving the ranking.</p>
+          </div>
+          <span class="chart-caption">Count and share of weekly mentions</span>
+        </div>
+        {weeklyLanguageSeries.length > 0 ? (
+          <div class="chart-scroll">
+            <svg class="chart-svg" width="100%" height={weeklyLanguageBarHeight} viewBox={`0 0 ${weeklyLanguageBarWidth} ${weeklyLanguageBarHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Top 20 language frequency horizontal bar chart">
+              <g transform={`translate(${weeklyLanguageBarMargins.left} ${weeklyLanguageBarMargins.top})`}>
+                {weeklyLanguageSeries.map((item, index) => {
+                  const y = index * weeklyLanguageRowHeight;
+                  const barWidth = (item.count / weeklyLanguageMax) * weeklyLanguageBarInnerWidth;
+                  const classColorValue = classColor(item.language);
+                  return (
+                    <g transform={`translate(0 ${y})`}>
+                      <text x={-12} y={16} text-anchor="end" class="h-bar-label h-bar-label-name">{item.language}</text>
+                      <rect x="0" y="3" width={barWidth} height="18" rx="9" fill="rgba(32, 22, 19, 0.08)"></rect>
+                      <rect x="0" y="3" width="4" height="18" rx="4" fill={classColorValue}></rect>
+                      <text x={weeklyLanguageBarInnerWidth + 10} y="16" text-anchor="start" class="h-bar-label h-bar-label-count">{item.count} ({formatPercent(item.count, weeklyLanguageTotalCount)})</text>
+                    </g>
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Top languages will appear here once language mentions are available.</p>
+        )}
+      </article>
     </div>
   </article>
 
   <article class="panel chart-panel wide-panel">
     <div class="panel-head">
       <div>
-        <h2>Overall trend</h2>
-        <p>Side-by-side placeholder view of the top 10 languages.</p>
+        <h2>Overall trends</h2>
+        <p>Aggregated across all available weeks.</p>
       </div>
     </div>
-    <div class="top-language-grid">
-      {topTenLanguages.length > 0 ? (
-        topTenLanguages.map((item: TopLanguage) => (
-          <article class="top-language-card">
-            <span class="lang-swatch" style={`background:${item.color}`}></span>
-            <strong>{item.language}</strong>
-            <span>{item.count}</span>
-          </article>
-        ))
-      ) : (
-        <p class="placeholder-text">Top language placeholders will appear here once the weekly snapshot is populated.</p>
-      )}
+
+    <div class="overall-trend-grid">
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Weekly scan volume</h3>
+            <p>Total papers versus flagged papers in each weekly snapshot.</p>
+          </div>
+          <span class="chart-caption">Flagged bars sit beside total bars</span>
+        </div>
+        {trendWeeks.length > 0 ? (
+          <svg class="chart-svg" width="100%" height={trendGroupedHeight} viewBox={`0 0 ${trendGroupedWidth} ${trendGroupedHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Grouped bar chart of weekly scan volume">
+            <g transform={`translate(${trendGroupedMargins.left} ${trendGroupedMargins.top})`}>
+              {trendGroupedY.ticks(4).map((tick) => (
+                <g transform={`translate(0 ${trendGroupedY(tick)})`}>
+                  <line x1="0" x2={trendGroupedInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                  <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
+                </g>
+              ))}
+              {trendWeeks.map((week) => {
+                const x = trendGroupedScale(week.weekStart) || 0;
+                const barWidth = trendGroupedScale.bandwidth();
+                const totalBarWidth = barWidth * 0.38;
+                const flaggedBarWidth = barWidth * 0.38;
+                const totalX = x + barWidth * 0.08;
+                const flaggedX = x + barWidth * 0.54;
+                const totalHeight = (week.papers / trendGroupedMax) * trendGroupedInnerHeight;
+                const flaggedHeight = (week.flaggedPapers / trendGroupedMax) * trendGroupedInnerHeight;
+                return (
+                  <g>
+                    <rect x={totalX} y={trendGroupedInnerHeight - totalHeight} width={totalBarWidth} height={totalHeight} fill="rgba(32, 22, 19, 0.18)" rx="5"></rect>
+                    <rect x={flaggedX} y={trendGroupedInnerHeight - flaggedHeight} width={flaggedBarWidth} height={flaggedHeight} fill={LANGUAGE_CLASS_COLORS[4]} rx="5"></rect>
+                    <text x={totalX + totalBarWidth / 2} y={Math.max(trendGroupedInnerHeight - totalHeight - 8, 10)} text-anchor="middle" class="chart-value">{week.papers}</text>
+                    <text x={flaggedX + flaggedBarWidth / 2} y={Math.max(trendGroupedInnerHeight - flaggedHeight - 8, 10)} text-anchor="middle" class="chart-value">{week.flaggedPapers}</text>
+                    <text x={x + barWidth / 2} y={trendGroupedInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+                  </g>
+                );
+              })}
+            </g>
+          </svg>
+        ) : (
+          <p class="placeholder-text">Weekly scan volume will appear once multiple snapshots are available.</p>
+        )}
+        <div class="chart-legend-inline">
+          <span><span class="coverage-dot abstract"></span>Total papers</span>
+          <span><span class="coverage-dot html"></span>Flagged papers</span>
+        </div>
+      </article>
+
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Top-language trends</h3>
+            <p>One line per top language, selected from the combined multi-week counts.</p>
+          </div>
+          <span class="chart-caption">Legend shown on the right</span>
+        </div>
+        {trendWeeks.length > 0 && topTrendLanguages.length > 0 ? (
+          <div class="trend-line-layout">
+            <svg class="chart-svg" width="100%" height={trendTopLanguageHeight} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of top-language trends across weeks">
+              <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
+                {trendTopLanguageY.ticks(4).map((tick) => (
+                  <g transform={`translate(0 ${trendTopLanguageY(tick)})`}>
+                    <line x1="0" x2={trendTopLanguageInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                    <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
+                  </g>
+                ))}
+                {trendSeries.map((series) => (
+                  <g>
+                    <path d={series.path} fill="none" stroke={series.color} stroke-width="2.5"></path>
+                    {series.points.map((point) => (
+                      <circle cx={point.x} cy={point.y} r="3.5" fill={series.color} stroke="white" stroke-width="1.2"></circle>
+                    ))}
+                  </g>
+                ))}
+                {trendWeeks.map((week) => {
+                  const x = trendTopLanguageScale(week.weekStart) || 0;
+                  return (
+                    <text x={x + trendTopLanguageScale.bandwidth() / 2} y={trendTopLanguageInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+                  );
+                })}
+              </g>
+            </svg>
+            <div class="trend-legend">
+              {trendSeries.map((series) => (
+                <div class="trend-legend-item">
+                  <span class="trend-legend-swatch" style={`background:${series.color}`}></span>
+                  <span>{series.language}</span>
+                  <strong>{series.count}</strong>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <p class="placeholder-text">Multi-week language trend lines will appear after more than one weekly snapshot is available.</p>
+        )}
+      </article>
+
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Resource class mix by week</h3>
+            <p>Each weekly bar is normalized to 100% to compare class mix over time.</p>
+          </div>
+          <span class="chart-caption">100% stacked bars</span>
+        </div>
+        {trendWeeks.length > 0 ? (
+          <svg class="chart-svg" width="100%" height={trendClassHeight} viewBox={`0 0 ${trendClassWidth} ${trendClassHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="100 percent stacked bar chart of resource class mix by week">
+            <g transform={`translate(${trendClassMargins.left} ${trendClassMargins.top})`}>
+              {trendWeeks.map((week, index) => {
+                const x = trendClassScale(week.weekStart) || 0;
+                const barWidth = trendClassScale.bandwidth();
+                const bar = trendClassBars[index];
+                return (
+                  <g>
+                    {bar.segments.map((segment) => (
+                      <rect x={x} y={segment.y} width={barWidth} height={Math.max(segment.height, 0)} fill={segment.color}>
+                        <title>{`${segment.label}: ${segment.count}`}</title>
+                      </rect>
+                    ))}
+                    <text x={x + barWidth / 2} y={trendClassInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+                  </g>
+                );
+              })}
+            </g>
+          </svg>
+        ) : (
+          <p class="placeholder-text">Class mix will appear once multiple weekly snapshots are available.</p>
+        )}
+        <div class="class-legend">
+          {CLASS_LABELS.map((label, classId) => (
+            <div class="class-legend-item">
+              <span class="trend-legend-swatch" style={`background:${classColorForId(classId)}`}></span>
+              <span>{label}</span>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Unique languages per week</h3>
+            <p>Shows how broad the weekly language coverage is across snapshots.</p>
+          </div>
+          <span class="chart-caption">Simple breadth indicator</span>
+        </div>
+        {trendWeeks.length > 0 ? (
+          <svg class="chart-svg" width="100%" height={trendUniqueHeight} viewBox={`0 0 ${trendUniqueWidth} ${trendUniqueHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Bar chart of unique languages per week">
+            <g transform={`translate(${trendUniqueMargins.left} ${trendUniqueMargins.top})`}>
+              {trendUniqueY.ticks(4).map((tick) => (
+                <g transform={`translate(0 ${trendUniqueY(tick)})`}>
+                  <line x1="0" x2={trendUniqueInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                  <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
+                </g>
+              ))}
+              {trendWeeks.map((week) => {
+                const x = trendUniqueScale(week.weekStart) || 0;
+                const barWidth = trendUniqueScale.bandwidth();
+                const barHeight = (week.uniqueLanguages / trendUniqueMax) * trendUniqueInnerHeight;
+                return (
+                  <g>
+                    <rect x={x} y={trendUniqueInnerHeight - barHeight} width={barWidth} height={barHeight} fill={LANGUAGE_CLASS_COLORS[3]} rx="5"></rect>
+                    <text x={x + barWidth / 2} y={Math.max(trendUniqueInnerHeight - barHeight - 8, 10)} text-anchor="middle" class="chart-value">{week.uniqueLanguages}</text>
+                    <text x={x + barWidth / 2} y={trendUniqueInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+                  </g>
+                );
+              })}
+            </g>
+          </svg>
+        ) : (
+          <p class="placeholder-text">Unique-language counts will appear once multiple weekly snapshots are available.</p>
+        )}
+      </article>
     </div>
   </article>
 </section>

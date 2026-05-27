@@ -121,6 +121,8 @@ function normalizeSections(sectionMap) {
   }));
 }
 
+export const CLASS_LABELS = ['Class 0', 'Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5'];
+
 /** @param {string | undefined} weekStart @param {number} windowDays */
 export function loadSiteData(weekStart = undefined, windowDays = 7) {
   const manifestPath = weekStart
@@ -164,6 +166,7 @@ export function loadSiteData(weekStart = undefined, windowDays = 7) {
   }));
 
   const weekSeries = manifest.daily_series || [];
+  const classCounts = manifest.class_counts || [];
   const papers = manifest.papers || [];
 
   return {
@@ -174,8 +177,32 @@ export function loadSiteData(weekStart = undefined, windowDays = 7) {
     languageCounts,
     topLanguages,
     weekSeries,
+    classCounts,
     papers,
   };
+}
+
+export function loadAllWeeksData() {
+  return getAvailableWeeks()
+    .map((weekStart) => {
+      const manifest = readJson(datedManifestPath(weekStart), null);
+      if (!manifest) {
+        return null;
+      }
+
+      return {
+        weekStart,
+        weekEnd: manifest.week_end ?? null,
+        papers: manifest.counts?.papers ?? 0,
+        flaggedPapers: manifest.counts?.flagged_papers ?? 0,
+        uniqueLanguages: manifest.counts?.unique_languages ?? 0,
+        languageCounts: Array.isArray(manifest.language_counts) ? manifest.language_counts : [],
+        classCounts: Array.isArray(manifest.class_counts) ? manifest.class_counts : [],
+        dailySeries: Array.isArray(manifest.daily_series) ? manifest.daily_series : [],
+      };
+    })
+    .filter(Boolean)
+    .sort((left, right) => left.weekStart.localeCompare(right.weekStart));
 }
 
 export function getAvailableWeeks() {
