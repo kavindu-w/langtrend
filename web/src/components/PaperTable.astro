@@ -17,11 +17,19 @@ type SectionRecord = {
   source: string;
   detected_languages: LanguageEntry[];
 };
+type PaperWarning = {
+  step: string;
+  acronym?: string;
+  language?: string;
+  language_class?: number;
+  message?: string;
+};
 type FlaggedPaper = {
   paper: PaperRecord;
   languages: LanguageEntry[];
   sourcesChecked: string[];
   sections: SectionRecord[];
+  warnings?: PaperWarning[];
 };
 
 const { flaggedPapers } = Astro.props as { flaggedPapers: FlaggedPaper[] };
@@ -123,6 +131,7 @@ type PaperItem = {
   updDateStr: string;
   showUpdated: boolean;
   arxivUrl: string;
+  acronymConflicts: PaperWarning[];
 };
 
 const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
@@ -192,7 +201,9 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   const showUpdated = !!updDay && updDay !== pubDay;
   const arxivUrl = paper.id ? paper.id.replace('http://', 'https://') : paper.pdf_url;
 
-  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl };
+  const acronymConflicts = (item.warnings ?? []).filter(w => w.step === 'acronym_language_conflict');
+
+  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts };
 });
 ---
 <section class="panel paper-panel">
@@ -312,6 +323,20 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
           )}
           <strong class="paper-abstract-label">Abstract</strong>
           <p class="paper-abstract">{item.paper.abstract}</p>
+          {item.acronymConflicts.length > 0 && (
+            <div class="acronym-conflict-notice">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>
+                <strong>Manual review may be needed:</strong>{' '}
+                {item.acronymConflicts.map((w, i) => (
+                  <span>
+                    {i > 0 && ' · '}
+                    This paper defines <code>{w.acronym}</code> as an acronym — mentions of the language <em>{w.language}</em> (class {w.language_class}) may have been suppressed.
+                  </span>
+                ))}
+              </span>
+            </div>
+          )}
           {item.sourcesGroups.length > 0 && (
             <details class="lang-sources-summary">
               <summary class="lang-sources-toggle">

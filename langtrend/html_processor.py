@@ -9,7 +9,7 @@ from typing import Any
 import requests
 from bs4 import BeautifulSoup
 
-from .text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text
+from .text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text, extract_paper_acronyms, find_language_acronym_conflicts
 
 # One Session per thread — reuses TCP connections within each worker
 _thread_local = threading.local()
@@ -40,6 +40,9 @@ _REMOVE_HEADINGS_DEFAULT = [
     "Funding",
     "Ethics",
     "Ethics Statement",
+    # Non-Latin transliterations of "References" that appear in arXiv HTML
+    # for papers with non-ASCII section headings (e.g. Greek LLM papers).
+    "Ρεφερενςες",  # Greek transliteration of "References"
 ]
 
 
@@ -233,7 +236,7 @@ def recheck_languages_from_html(
     languages_to_ignore: set[str],
     out_dir: Path | None = None,
     remove_headings: list[str] | None = None,
-) -> tuple[dict[str, list[str]], bool]:
+) -> tuple[dict[str, list[str]], bool, list[dict]]:
     """Fetch arXiv HTML, extract sections, run language detection per section.
 
     Returns (detections, is_html_complete) where:
@@ -262,8 +265,9 @@ def recheck_languages_from_html(
             with json_path.open("r", encoding="utf-8") as fh:
                 cached = json.load(fh)
             is_complete = cached.get("_complete", True)  # older caches pre-date this field → assume complete
+            conflicts = cached.get("_acronym_conflicts", [])
             sections_data = {k: v for k, v in cached.items() if not k.startswith("_")}
-            return {title: data.get("detected", []) for title, data in sections_data.items()}, is_complete
+            return {title: data.get("detected", []) for title, data in sections_data.items()}, is_complete, conflicts
         except Exception:
             pass  # fall through to re-fetch if cache is corrupt
 
@@ -271,7 +275,7 @@ def recheck_languages_from_html(
 
     html, _html_url, is_complete = fetch_arxiv_html(str(paper_id))
     if not html:
-        return {}, False
+        return {}, False, []
 
     t1 = _time.monotonic()
     soup = clean_html_soup(html, remove_headings, _label=str(paper_id))
@@ -284,12 +288,19 @@ def recheck_languages_from_html(
     detections_per_section: dict[str, list[str]] = {title: [] for title in sections}
     cleaned_texts_per_section: dict[str, str] = {}
 
+    # Build paper-level acronym set from all sections at once so that an acronym
+    # defined in the Introduction (e.g. "Generative Adversarial Network (GAN)") is
+    # also stripped from the Method and Experiment sections.
+    paper_acronyms = extract_paper_acronyms("\n\n".join(sections.values()))
+    # Flag any acronym that shadows a real language name so the frontend can warn.
+    acronym_conflicts = find_language_acronym_conflicts(paper_acronyms, lang_classes, languages_to_ignore)
+
     t3 = _time.monotonic()
     for title, text in sections.items():
         if re.search("|".join(re.escape(h) for h in remove_headings), title, re.IGNORECASE):
             continue
 
-        cleaned_blocks, _ = clean_paper_text_for_language_screening(text)
+        cleaned_blocks, _ = clean_paper_text_for_language_screening(text, paper_acronyms=paper_acronyms)
         cleaned_texts_per_section[title] = "\n\n".join(cleaned_blocks)
         if not cleaned_blocks:
             continue
@@ -302,6 +313,8 @@ def recheck_languages_from_html(
     print(f"  [{paper_id}] language detection done in {_time.monotonic()-t3:.1f}s", flush=True)
 
     payload: dict[str, Any] = {"_complete": is_complete}
+    if acronym_conflicts:
+        payload["_acronym_conflicts"] = acronym_conflicts
     payload.update({
         title: {
             "text": text,
@@ -316,4 +329,4 @@ def recheck_languages_from_html(
     except Exception:
         pass
 
-    return detections_per_section, is_complete
+    return detections_per_section, is_complete, acronym_conflicts

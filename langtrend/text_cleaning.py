@@ -73,6 +73,11 @@ _COL_ASSIGNMENT_RE = re.compile(r"\bcol(?:[@$\\])?\s*=\s*[^\n]+", re.IGNORECASE)
 _COL_SLICE_RE = re.compile(r"\bcol(?:[@$\\])?\s*\[[^\]]+\]", re.IGNORECASE)
 _COL_MATH_MARKER_RE = re.compile(r"\bcol[@$\\]+", re.IGNORECASE)
 _MULTI_SPACE_RE = re.compile(r"\s+")
+# Words that indicate a token is being used as a language name rather than an acronym.
+# Used to prevent stripping e.g. "GAN" when the text says "speakers in GAN" or "fluent in GAN".
+_LANG_CONTEXT_RE = re.compile(
+    r"(?i)\b(?:language|speakers?|dialect|corpus|script|words?|text|spoken|fluent|native)\b"
+)
 # "a", "the", etc. are ambiguous: they match BOTH the main word slot AND the inner small-word slot,
 # causing exponential backtracking when followed by a non-acronym "(" (e.g. typical NLP abstracts).
 # Fix: require the main word to NOT be a small word via a negative lookahead.
@@ -253,8 +258,58 @@ def should_ignore_acronym_language_match(
     return ignored
 
 
-def clean_paper_text_for_language_screening(text: str, _label: str = "") -> tuple[list[str], dict]:
-    """Return (cleaned_blocks, step_matches) for language screening."""
+def find_language_acronym_conflicts(
+    paper_acronyms: set[str],
+    lang_classes: dict[int, set[str]],
+    languages_to_ignore: set[str] | None = None,
+) -> list[dict]:
+    """Return entries where a paper-defined acronym case-insensitively matches a language name.
+
+    Example: paper defines "GAN" → returns [{"acronym": "GAN", "language": "Gan", "class": 1}].
+    These languages may have had legitimate mentions suppressed by acronym stripping, so the
+    frontend should flag them for manual review.
+    """
+    ignore = {v.lower() for v in (languages_to_ignore or set())}
+    conflicts = []
+    for cls, langs in lang_classes.items():
+        for lang in langs:
+            if lang.lower() in ignore:
+                continue
+            if lang.upper() in paper_acronyms:
+                conflicts.append({"acronym": lang.upper(), "language": lang, "class": cls})
+    return conflicts
+
+
+def extract_paper_acronyms(text: str) -> set[str]:
+    """Scan text for acronym definitions like 'Foo Bar (FB)' and return the acronym strings.
+
+    Intended for a first-pass over all sections of a paper so the resulting set can be
+    supplied as ``paper_acronyms`` to :func:`clean_paper_text_for_language_screening`,
+    suppressing acronym matches across section boundaries.
+    """
+    if not text:
+        return set()
+    normalized = _normalize_text_for_screening(text)
+    return {
+        m2.group(1)
+        for m in _ACRONYM_DEFINITION_RE.finditer(normalized)
+        for m2 in [_ACRO_PARENS_RE.search(m.group(0))]
+        if m2
+    }
+
+
+def clean_paper_text_for_language_screening(
+    text: str,
+    _label: str = "",
+    paper_acronyms: set[str] | None = None,
+) -> tuple[list[str], dict]:
+    """Return (cleaned_blocks, step_matches) for language screening.
+
+    ``paper_acronyms`` — optional set of uppercase acronym strings already found in
+    other sections of the same paper (built via :func:`extract_paper_acronyms`).
+    When supplied, these are merged with any acronyms defined in *this* section so that
+    cross-section uses like "EGA" (defined in Introduction, used in Method) are stripped.
+    """
     import time as _time
 
     def _warn_slow(step: str, t_start: float, threshold: float = 0.05) -> None:
@@ -269,9 +324,9 @@ def clean_paper_text_for_language_screening(text: str, _label: str = "") -> tupl
     cleaned_blocks: list[str] = []
     step_matches: dict = {}
 
-    # Pass 1: collect all acronyms defined anywhere in the text (case-insensitive expansion).
-    # This handles cross-paragraph uses: "Document Layout Analysis (DLA)" in paragraph 1
-    # → bare "DLA" in paragraph 3 is also stripped.
+    # Pass 1: collect all acronyms defined anywhere in the text (cross-paragraph).
+    # Also merge in acronyms found in other sections of the same paper (paper_acronyms),
+    # so "GAN" defined in the Introduction is stripped from the Method section too.
     _t = _time.monotonic()
     all_defined_acronyms: set[str] = {
         m2.group(1)
@@ -279,6 +334,8 @@ def clean_paper_text_for_language_screening(text: str, _label: str = "") -> tupl
         for m2 in [_ACRO_PARENS_RE.search(m.group(0))]
         if m2
     }
+    if paper_acronyms:
+        all_defined_acronyms |= paper_acronyms
     _warn_slow("acronym_scan", _t)
 
     for block in re.split(r"\n{2,}|\r\n{2,}", normalized):
@@ -395,7 +452,19 @@ def clean_paper_text_for_language_screening(text: str, _label: str = "") -> tupl
         )
         _warn_slow("acronym_sub", _tb)
         for _acro in all_defined_acronyms:
-            block = re.sub(r"(?<!\w)" + re.escape(_acro) + r"(?!\w)", " ", block)
+            # Safety: don't strip an all-caps token that appears in a linguistic context
+            # within a ±60-char window (e.g. "the GAN language", "speakers in GAN",
+            # "fluent in GAN") — it may be naming the language rather than using the acronym.
+            block = re.sub(
+                r"(?<!\w)" + re.escape(_acro) + r"(?!\w)",
+                lambda m, _b=block: (
+                    m.group(0)
+                    if _LANG_CONTEXT_RE.search(_b[max(0, m.start() - 60): m.start()])
+                    or _LANG_CONTEXT_RE.search(_b[m.end(): m.end() + 60])
+                    else " "
+                ),
+                block,
+            )
 
         out_chars: list[str] = []
         replaced: list[str] = []
