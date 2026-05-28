@@ -1057,11 +1057,20 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
               {mirrorConnections.map(conn => {
                 const barColor = classColor(conn.language);
                 const midX = mirrorSvgWidth / 2;
-                const lx = mirrorLeftSpineX + mirrorRankR;
-                const rx = mirrorRightSpineX - mirrorRankR;
+                // start/end a little further from circle edges to avoid overlaps
+                const startX = mirrorLeftSpineX + mirrorRankR * 3; // more clearance from left rank circle
+                const endX = mirrorRightSpineX - mirrorRankR * 3; // more clearance from right rank circle
+                // curve offset to bow the S above/below centre depending on direction
+                const deltaY = conn.currY - conn.prevY;
+                const sign = deltaY === 0 ? 1 : Math.sign(deltaY);
+                // enforce a minimum curvature so nearly-horizontal links still bow away from circles
+                const off = (Math.max(18, Math.min(48, Math.abs(deltaY) * 0.5))) * sign;
+                const c1y = conn.prevY + off;
+                const c2y = conn.currY - off;
+                const d = `M ${startX} ${conn.prevY} C ${midX} ${c1y} ${midX} ${c2y} ${endX} ${conn.currY}`;
                 return (
-                  <path d={`M ${lx} ${conn.prevY} C ${midX} ${conn.prevY} ${midX} ${conn.currY} ${rx} ${conn.currY}`}
-                    fill="none" stroke={barColor} stroke-width="1.5" stroke-opacity="0.4"></path>
+                  <path d={d}
+                    fill="none" stroke={barColor} stroke-width="1.6" stroke-opacity="0.45" stroke-linecap="round"></path>
                 );
               })}
 
@@ -1095,9 +1104,20 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                 const indicatorY = cy + 20;
                 return (
                   <g opacity="0.65">
-                    <path d={`M ${mirrorLeftSpineX} ${cy} C ${mirrorLeftSpineX + 22} ${cy} ${indicatorX - 5} ${indicatorY} ${indicatorX} ${indicatorY}`}
-                      fill="none" stroke={barColor} stroke-width="1.2" stroke-dasharray="3 3"></path>
-                    <circle cx={indicatorX} cy={indicatorY} r="10" fill="var(--panel)" stroke={barColor} stroke-width="1.5" stroke-dasharray="3 3"></circle>
+                    {(() => {
+                      const startX = mirrorLeftSpineX + mirrorRankR * 2; // leave left circle edge
+                      const endX = indicatorX - 10; // left edge of indicator circle
+                      const midX = (startX + endX) / 2;
+                      const deltaY = indicatorY - cy;
+                      const off = Math.min(18, Math.abs(deltaY) / 2) * (deltaY === 0 ? 1 : Math.sign(deltaY));
+                      const d = `M ${startX} ${cy} C ${midX} ${cy + off} ${midX} ${indicatorY - off} ${endX} ${indicatorY}`;
+                      return (
+                        <g>
+                          <path d={d} fill="none" stroke={barColor} stroke-width="1.2" stroke-dasharray="3 3" stroke-linecap="round"></path>
+                          <circle cx={indicatorX} cy={indicatorY} r="10" fill="var(--panel)" stroke={barColor} stroke-width="1.5"></circle>
+                        </g>
+                      );
+                    })()}
                     <text x={indicatorX} y={indicatorY + 4} text-anchor="middle" style="fill:#000;font-size:0.6rem;font-weight:700">{row.currRank ?? '–'}</text>
                   </g>
                 );
@@ -1133,9 +1153,20 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                 const indicatorY = cy + 20;
                 return (
                   <g opacity="0.65">
-                    <path d={`M ${indicatorX} ${indicatorY} C ${indicatorX + 5} ${indicatorY} ${mirrorRightSpineX - 22} ${cy} ${mirrorRightSpineX} ${cy}`}
-                      fill="none" stroke={barColor} stroke-width="1.2" stroke-dasharray="3 3"></path>
-                    <circle cx={indicatorX} cy={indicatorY} r="10" fill="var(--panel)" stroke={barColor} stroke-width="1.5" stroke-dasharray="3 3"></circle>
+                    {(() => {
+                      const startX = indicatorX + 10; // right edge of indicator circle
+                      const endX = mirrorRightSpineX - mirrorRankR * 2; // leave right circle edge
+                      const midX = (startX + endX) / 2;
+                      const deltaY = cy - indicatorY;
+                      const off = Math.min(18, Math.abs(deltaY) / 2) * (deltaY === 0 ? 1 : Math.sign(deltaY));
+                      const d = `M ${startX} ${indicatorY} C ${midX} ${indicatorY + off} ${midX} ${cy - off} ${endX} ${cy}`;
+                      return (
+                        <g>
+                          <path d={d} fill="none" stroke={barColor} stroke-width="1.2" stroke-dasharray="3 3" stroke-linecap="round"></path>
+                          <circle cx={indicatorX} cy={indicatorY} r="10" fill="var(--panel)" stroke={barColor} stroke-width="1.5"></circle>
+                        </g>
+                      );
+                    })()}
                     <text x={indicatorX} y={indicatorY + 4} text-anchor="middle" style="fill:#000;font-size:0.6rem;font-weight:700">{row.prevRank ?? '–'}</text>
                   </g>
                 );
