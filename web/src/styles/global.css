@@ -1106,6 +1106,31 @@ a { color: inherit; text-decoration: none; }
 .table-notes p { margin: 4px 0; }
 .table-notes sup { font-size: 0.75em; vertical-align: super; margin-right: 4px; }
 
+.page-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.page-footer h2 { margin: 0; }
+.page-footer p { margin: 0; }
+.copyright-line { color: var(--muted); }
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
+.footer-link svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+.footer-link:hover { color: var(--accent); }
+
 .placeholder-text { color: var(--muted); }
 
 .chart-legend-inline {
