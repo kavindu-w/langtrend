@@ -43,10 +43,10 @@ for (const row of classRows) {
 <BaseLayout title="About LangTrend" description="Pipeline, limits, and references for LangTrend">
   <section class="page-intro">
     <h1>How does this work?</h1>
-    <p>Pipeline notes, language classes, references, and planned digest integrations.</p>
+    <p>Full pipeline description, language classes composition, limitations, Future directions, and references.</p>
   </section>
 
-  <section class="panel about-grid">
+  <section class="panel">
     <article>
       <h2>Pipeline diagram</h2>
       <div class="diagram-placeholder">Placeholder for pipeline diagram</div>
@@ -78,16 +78,15 @@ for (const row of classRows) {
     </div>
   </section>
 
-  <section class="panel about-grid">
+  <section class="panel">
     <article>
       <h2>Limitations</h2>
       <ul class="info-list">
-        <li>Language detection is heuristic and title/abstract-driven.</li>
-        <li>HTML extraction only works when arXiv exposes the HTML page.</li>
-        <li>The first release targets weekly snapshots, not real-time ingestion.</li>
+        <li>Language detection is based on explicit mentions in titles, abstracts, section text, and cleaned PDF text, so indirect references can be missed. Futhermore, the pipeline may capture false positives (e.g., especially shorter language names found due to acronyms, names etc. while text cleaning process was made to identify and remove them or display warnings, the users should always go through the paper and verify if the flagged languages are present in the paper and are infact not false positives).</li>
+        <li>HTML is preferred (More accurate extraction), but the pipeline depends on arXiv pages being available and may fall back to PDF text when HTML is missing or incomplete. Moreover, if the PDF is also unavailable (broken or likely extracted version is withdrawn), the pipeline will only analyse the abstract text.</li>
+        <li>The current build covers weekly arXiv snapshots, and update once a week. There is possibility of missing papers that were published in that week.</li>
       </ul>
     </article>
-    <!-- Digest subscription section removed temporarily -->
   </section>
   <section class="panel">
     <article>
