@@ -1011,6 +1011,21 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
       <span class="paper-collapse-hint">Collapse section</span>
     </summary>
 
+    <div class="stat-row">
+      <article class="stat-card-mini">
+        <strong>{trendOverallPapers}</strong>
+        <span>Total papers analyzed</span>
+      </article>
+      <article class="stat-card-mini">
+        <strong>{trendOverallFlagged}</strong>
+        <span>Papers with language mentions</span>
+      </article>
+      <article class="stat-card-mini">
+        <strong>{overallCoverageUniqueText}</strong>
+        <span>Unique languages across weeks</span>
+      </article>
+    </div>
+
     <div class="overall-summary-grid" style="margin-bottom:14px">
       <div class="coverage-summary-card">
         <div class="chart-subpanel-head">
@@ -1040,33 +1055,19 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         </g>
       </svg>
       </div>
-      <div class="overall-summary-stats">
-        <article class="stat-card-mini">
-          <strong>{trendOverallPapers}</strong>
-          <span>Total papers analyzed</span>
-        </article>
-        <article class="stat-card-mini">
-          <strong>{trendOverallFlagged}</strong>
-          <span>Papers with language mentions</span>
-        </article>
-        <article class="stat-card-mini">
-          <strong>{overallCoverageUniqueText}</strong>
-          <span>Unique languages across weeks</span>
-        </article>
-      </div>
-    </div>
-
-    <div class="overall-trend-grid">
       <article class="chart-subpanel">
         <div class="chart-subpanel-head">
           <div>
             <h3>Weekly scan volume</h3>
             <p>Total papers scanned each week, split by papers with and without language mentions.</p>
           </div>
-          <span class="chart-caption">Stacked by weekly volume</span>
+        </div>
+        <div class="chart-legend-inline" style="justify-content:center">
+          <span><span class="coverage-dot abstract"></span>Other papers</span>
+          <span><span class="coverage-dot html"></span>Papers with language mentions</span>
         </div>
         {trendWeeks.length > 0 ? (
-          <svg class="chart-svg" width="100%" height={trendGroupedHeight} viewBox={`0 0 ${trendGroupedWidth} ${trendGroupedHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Stacked bar chart of weekly scan volume">
+          <svg class="chart-svg" width="100%" viewBox={`0 0 ${trendGroupedWidth} ${trendGroupedHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Stacked bar chart of weekly scan volume">
             <g transform={`translate(${trendGroupedMargins.left} ${trendGroupedMargins.top})`}>
               {trendGroupedY.ticks(4).map((tick) => (
                 <g transform={`translate(0 ${trendGroupedY(tick)})`}>
@@ -1095,12 +1096,10 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         ) : (
           <p class="placeholder-text">Weekly scan volume will appear once multiple snapshots are available.</p>
         )}
-        <div class="chart-legend-inline">
-          <span><span class="coverage-dot abstract"></span>Other papers</span>
-          <span><span class="coverage-dot html"></span>Papers with language mentions</span>
-        </div>
       </article>
+    </div>
 
+    <div class="overall-trend-grid">
       <article class="chart-subpanel">
         <div class="chart-subpanel-head">
           <div>

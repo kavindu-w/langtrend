@@ -376,11 +376,29 @@ a { color: inherit; text-decoration: none; }
   align-items: start;
 }
 /* first row of weekly grid: stretch both tiles to equal height */
-.weekly-overview-grid > .chart-subpanel:not(.chart-subpanel-wide) {
+.weekly-overview-grid > .chart-subpanel:not(.chart-subpanel-wide),
+.overall-summary-grid > .chart-subpanel {
   align-self: stretch;
   display: flex;
   flex-direction: column;
 }
+
+.overall-summary-grid > .coverage-summary-card {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.overall-summary-grid > .coverage-summary-card > .coverage-pie-svg {
+  flex: 1 1 auto;
+  display: block;
+}
+
+.overall-summary-grid > .chart-subpanel > .chart-svg {
+  display: block;
+  height: auto;
+}
+
 .chart-subpanel {
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -462,11 +480,6 @@ a { color: inherit; text-decoration: none; }
 .overall-summary-grid {
   display: grid;
   gap: 12px;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.95fr);
-  align-items: stretch;
-}
-
-.coverage-summary-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch;
 }
