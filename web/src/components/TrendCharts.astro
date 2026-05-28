@@ -858,6 +858,15 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                 <g>
                   <path d={slice.path} fill={slice.color} stroke="white" stroke-width="1.5"></path>
                   <path d={slice.calloutPath} fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path>
+                  <text
+                    x={228 + Math.cos(slice.midAngle) * 51}
+                    y={110 + Math.sin(slice.midAngle) * 51 + 4}
+                    text-anchor="middle"
+                    class="chart-value"
+                    style={`fill:${slice.label === 'Not flagged' ? 'var(--text)' : '#fff'};font-size:0.5rem;font-weight:800`}
+                  >
+                    {coverageSlicePercent(slice.value, weeklyPapers)}
+                  </text>
                   <text x={slice.labelX + (slice.side === 'right' ? 8 : -8)} y={slice.labelY + 4} text-anchor={slice.side === 'right' ? 'start' : 'end'} class="chart-axis-label">
                     {coverageSliceLines(slice.label, slice.value).map((line, index) => (
                       <tspan x={slice.labelX + (slice.side === 'right' ? 8 : -8)} dy={index === 0 ? 0 : 14}>{line}</tspan>
@@ -1232,7 +1241,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                 y={130 + Math.sin(slice.midAngle) * 60 + 4}
                 text-anchor="middle"
                 class="chart-value"
-                style={`fill:${slice.label === 'Not flagged' ? 'var(--text)' : '#fff'};font-size:0.92rem;font-weight:800`}
+                style={`fill:${slice.label === 'Not flagged' ? 'var(--text)' : '#fff'};font-size:0.6rem;font-weight:800`}
               >
                 {coverageSlicePercent(slice.value, trendOverallPapers)}
               </text>
