@@ -341,7 +341,7 @@ const trendClassHeight = 380;
 const trendClassMargins = { top: 20, right: 18, bottom: 56, left: 42 };
 const trendClassInnerWidth = trendClassWidth - trendClassMargins.left - trendClassMargins.right;
 const trendClassInnerHeight = trendClassHeight - trendClassMargins.top - trendClassMargins.bottom;
-const trendClassScale = scaleBand().domain(trendWeekLabels).range([0, trendClassInnerWidth]).padding(0.18);
+const trendClassScale = scaleBand().domain(trendWeekLabels).range([0, trendClassInnerWidth]).padding(0.45);
 const trendClassBars = trendWeeks.map((week) => {
   const classMap = new Map((week.classCounts || []).map((item) => [item.class_id, item.count]));
   const total = Math.max(1, CLASS_LABELS.reduce((sum, _label, classId) => sum + (classMap.get(classId) || 0), 0));
@@ -1153,21 +1153,20 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         <div class="chart-subpanel-head">
           <div>
             <h3>Resource class mix by week</h3>
-            <p>Each weekly bar is normalized to 100% to compare class mix over time.</p>
+            <p>Proportional share of language mentions per resource-availability tier each week.</p>
           </div>
-          <span class="chart-caption">100% stacked bars</span>
         </div>
         <div class="class-legend">
           {CLASS_LABELS.map((label, classId) => (
             <div class="class-legend-item">
               <span class="trend-legend-swatch" style={`background:${classColorForId(classId)}`}></span>
-              <span>{label}</span>
+              <span>{label}{classId === 0 ? ' (lowest)' : classId === CLASS_LABELS.length - 1 ? ' (highest)' : ''}</span>
             </div>
           ))}
         </div>
         {trendWeeks.length > 0 ? (
           <div class="chart-scroll">
-            <svg class="chart-svg" width="100%" height={trendClassHeight} viewBox={`0 0 ${trendClassWidth} ${trendClassHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="100 percent stacked bar chart of resource class mix by week">
+            <svg class="chart-svg" width="100%" viewBox={`0 0 ${trendClassWidth} ${trendClassHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="100 percent stacked bar chart of resource class mix by week">
               <g transform={`translate(${trendClassMargins.left} ${trendClassMargins.top})`}>
                 {trendWeeks.map((week, index) => {
                   const x = trendClassScale(week.weekStart) || 0;
