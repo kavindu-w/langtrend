@@ -2,8 +2,10 @@
 """
 Fetch arXiv paper metadata for a given time window and save as JSONL.
 
-Defaults to the 7-day window ending last Monday at midnight — designed to run
-on Monday morning as a scheduled task.
+Defaults to the 7-day window ending last Monday at midnight UTC — designed to
+run on Tuesday morning UTC, after arXiv's Monday 20:00 ET announcement (which
+covers Fri–Mon submissions) has completed (~Tue 00:00 UTC). The query end is
+extended +1 day internally to capture those Tuesday-published papers.
 
 Usage:
     python scripts/fetch_arxiv_metadata.py
@@ -14,20 +16,28 @@ Usage:
 
 import argparse
 import json
+import logging
 import re
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
 import arxiv
 import requests
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s  %(levelname)-8s  %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+log = logging.getLogger(__name__)
+
 _DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "data/raw/extracted_papers_metadata"
 _OAI_BASE_URL = "https://oaipmh.arxiv.org/oai"
 _OAI_USER_AGENT = "LangTrendHarvester/1.0 (contact@yourinstitution.edu; supports OAI-PMH)"
-_ARXIV_CLIENT_PAGE_SIZE = 1000
-_ARXIV_CLIENT_DELAY_SECONDS = 10.0
+_ARXIV_CLIENT_PAGE_SIZE = 100
+_ARXIV_CLIENT_DELAY_SECONDS = 30.0
 _ARXIV_CLIENT_NUM_RETRIES = 5
 _FETCH_ATTEMPTS = 4
 _FETCH_BACKOFF_SECONDS = 60
@@ -122,13 +132,18 @@ def _parse_oai_record(record: ET.Element) -> dict | None:
 def _fetch_oai_records(category_query: str, end_date: datetime, window_days: int) -> list[dict]:
     start_date = end_date - timedelta(days=window_days + _OAI_CREATED_WINDOW_BUFFER_DAYS)
     start_str = start_date.strftime("%Y-%m-%d")
-    end_str = end_date.strftime("%Y-%m-%d")
+    # OAI-PMH `until` is exclusive for same-day datestamps — papers submitted on the
+    # last weekend (Sat/Sun) are announced on end_date Monday and get datestamp=end_date,
+    # so extend by 1 day to include them.
+    oai_end_date = end_date + timedelta(days=1)
+    end_str = oai_end_date.strftime("%Y-%m-%d")
     category_tokens = _extract_category_tokens(category_query)
     set_specs = [_category_token_to_oai_set_spec(token) for token in category_tokens] or [None]
 
-    headers = {
-        "User-Agent": _OAI_USER_AGENT,
-    }
+    log.info("OAI-PMH harvest: %s → %s  set(s)=%s", start_str, end_str,
+             [s for s in set_specs if s])
+
+    headers = {"User-Agent": _OAI_USER_AGENT}
 
     records_by_id: dict[str, dict] = {}
     for set_spec in set_specs:
@@ -141,20 +156,25 @@ def _fetch_oai_records(category_query: str, end_date: datetime, window_days: int
         if set_spec:
             params["set"] = set_spec
 
+        page = 0
         url = _OAI_BASE_URL
         current_params = params
         while url:
             try:
+                page += 1
+                log.info("  OAI page %d (records so far: %d)", page, len(records_by_id))
                 response = requests.get(url, params=current_params, headers=headers, timeout=_OAI_REQUEST_TIMEOUT)
                 if response.status_code == 200:
                     root = ET.fromstring(response.content)
                     ns = {"oai": "http://www.openarchives.org/OAI/2.0/"}
+                    page_added = 0
                     for record in root.findall(".//oai:record", ns):
                         parsed = _parse_oai_record(record)
                         if not parsed:
                             continue
                         created = _parse_oai_date(parsed.get("created"))
-                        if created is None or not (end_date - timedelta(days=window_days) <= created <= end_date):
+                        # end_date is exclusive: papers created on end_date belong to the next window
+                        if created is None or not (end_date - timedelta(days=window_days) <= created < end_date):
                             continue
                         paper_id = parsed["id"]
                         # Reject cross-listed papers: OAI sets <created> to the cross-listing
@@ -173,6 +193,8 @@ def _fetch_oai_records(category_query: str, end_date: datetime, window_days: int
                                 continue
                         if paper_id and paper_id not in records_by_id:
                             records_by_id[paper_id] = parsed
+                            page_added += 1
+                    log.info("  OAI page %d: +%d new records", page, page_added)
 
                     token = _parse_resumption_token(response.content)
                     if token:
@@ -182,24 +204,31 @@ def _fetch_oai_records(category_query: str, end_date: datetime, window_days: int
                         url = None
                 elif response.status_code == 429:
                     wait_time = int(response.headers.get("Retry-After", 60))
-                    print(f"OAI-PMH returned 429 Too Many Requests; retrying in {wait_time}s")
+                    log.warning("OAI-PMH 429 Too Many Requests; retrying in %ds", wait_time)
                     time.sleep(wait_time)
                 else:
-                    print(f"OAI-PMH error: {response.status_code}")
+                    log.error("OAI-PMH error: HTTP %d", response.status_code)
                     break
             except requests.exceptions.RequestException as exc:
-                print(f"OAI-PMH request failed: {exc}")
+                log.error("OAI-PMH request failed: %s", exc)
                 time.sleep(60)
                 continue
 
+    log.info("OAI-PMH harvest complete: %d records", len(records_by_id))
     return list(records_by_id.values())
 
 
 def _last_monday_midnight() -> datetime:
-    today = datetime.now()
-    days_since_monday = today.weekday()
+    """Return the most recent Monday 00:00 UTC (treating today as Tuesday or later).
+
+    Run this on Tuesday morning UTC: 'last Monday' then resolves to yesterday,
+    giving a Mon-Mon window. By Tuesday morning, arXiv has finished its Monday
+    20:00 ET announcement (Fri–Mon submissions), so the week is complete.
+    """
+    today = datetime.now(timezone.utc)
+    days_since_monday = today.weekday()  # Mon=0, Tue=1, ...
     monday = today - timedelta(days=days_since_monday)
-    return monday.replace(hour=0, minute=0, second=0, microsecond=0)
+    return monday.replace(hour=0, minute=0, second=0, microsecond=0, tzinfo=None)
 
 
 def fetch_and_save(
@@ -208,76 +237,89 @@ def fetch_and_save(
     max_results: int,
     category_query: str,
     output_dir: Path,
+    oai_only: bool = False,
 ) -> Path:
     start_date = end_date - timedelta(days=window_days)
     start_str = start_date.strftime("%Y%m%d%H%M")
     end_str = end_date.strftime("%Y%m%d%H%M")
 
-    query = f"{category_query} AND submittedDate:[{start_str} TO {end_str}]"
-    print(f"Query:       {query}")
-    print(f"Max results: {max_results}")
-    print(f"Window:      {start_date.strftime('%Y-%m-%d')} → {end_date.strftime('%Y-%m-%d')}")
-
-    search = arxiv.Search(
-        query=query,
-        max_results=max_results,
-        sort_by=arxiv.SortCriterion.SubmittedDate,
-    )
-
-    client = arxiv.Client(
-        page_size=_ARXIV_CLIENT_PAGE_SIZE,
-        delay_seconds=_ARXIV_CLIENT_DELAY_SECONDS,
-        num_retries=_ARXIV_CLIENT_NUM_RETRIES,
-    )
+    log.info("Window:      %s → %s", start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
 
     paper_dicts: list[dict] = []
     fetch_source = "arxiv_api"
     last_error: Exception | None = None
-    for attempt in range(1, _FETCH_ATTEMPTS + 1):
-        try:
-            results = list(client.results(search))
-            paper_dicts = [
-                {
-                    "id": r.entry_id,
-                    "title": r.title,
-                    "abstract": r.summary,
-                    "authors": [author.name for author in r.authors],
-                    "published": r.published.isoformat(),
-                    "updated": r.updated.isoformat(),
-                    "categories": list(r.categories),
-                    "pdf_url": r.pdf_url,
-                    "_fetch_source": "arxiv_api",
-                }
-                for r in results
-            ]
-            last_error = None
-            break
-        except arxiv.HTTPError as err:
-            last_error = err
-            if not _is_transient_arxiv_error(err) or attempt == _FETCH_ATTEMPTS:
+
+    if oai_only:
+        log.info("--oai-only: skipping arXiv search API")
+        last_error = Exception("oai_only")
+    else:
+        query = f"{category_query} AND submittedDate:[{start_str} TO {end_str}]"
+        log.info("Query:       %s", query)
+        log.info("Max results: %d  page_size=%d  delay=%.1fs  retries=%d",
+                 max_results, _ARXIV_CLIENT_PAGE_SIZE, _ARXIV_CLIENT_DELAY_SECONDS, _ARXIV_CLIENT_NUM_RETRIES)
+        search = arxiv.Search(
+            query=query,
+            max_results=max_results,
+            sort_by=arxiv.SortCriterion.SubmittedDate,
+        )
+        client = arxiv.Client(
+            page_size=_ARXIV_CLIENT_PAGE_SIZE,
+            delay_seconds=_ARXIV_CLIENT_DELAY_SECONDS,
+            num_retries=_ARXIV_CLIENT_NUM_RETRIES,
+        )
+        for attempt in range(1, _FETCH_ATTEMPTS + 1):
+            log.info("arXiv API attempt %d/%d …", attempt, _FETCH_ATTEMPTS)
+            try:
+                paper_dicts = []
+                for r in client.results(search):
+                    paper_dicts.append({
+                        "id": r.entry_id,
+                        "title": r.title,
+                        "abstract": r.summary,
+                        "authors": [author.name for author in r.authors],
+                        "published": r.published.isoformat(),
+                        "updated": r.updated.isoformat(),
+                        "categories": list(r.categories),
+                        "pdf_url": r.pdf_url,
+                        "_fetch_source": "arxiv_api",
+                    })
+                    if len(paper_dicts) % _ARXIV_CLIENT_PAGE_SIZE == 0:
+                        log.info("  … fetched %d papers so far", len(paper_dicts))
+                log.info("arXiv API returned %d results on attempt %d", len(paper_dicts), attempt)
+                last_error = None
                 break
-            wait_seconds = _FETCH_BACKOFF_SECONDS * attempt
-            print(
-                f"arXiv returned a transient API error; retrying in {wait_seconds}s "
-                f"(attempt {attempt}/{_FETCH_ATTEMPTS})"
-            )
-            time.sleep(wait_seconds)
+            except arxiv.HTTPError as err:
+                last_error = err
+                is_transient = _is_transient_arxiv_error(err)
+                log.warning("arXiv HTTP error (attempt %d/%d): %s  [transient=%s]",
+                            attempt, _FETCH_ATTEMPTS, err, is_transient)
+                if not is_transient or attempt == _FETCH_ATTEMPTS:
+                    log.error("Giving up on arXiv API after %d attempt(s): %s", attempt, err)
+                    break
+                wait_seconds = _FETCH_BACKOFF_SECONDS * attempt
+                log.info("Retrying in %ds …", wait_seconds)
+                time.sleep(wait_seconds)
+            except Exception as err:
+                last_error = err
+                log.error("Unexpected error on attempt %d/%d: %s: %s",
+                          attempt, _FETCH_ATTEMPTS, type(err).__name__, err)
+                break
 
     if last_error is not None and not paper_dicts:
-        print("arXiv API fetch failed; falling back to OAI-PMH harvest")
+        log.warning("arXiv API fetch failed; falling back to OAI-PMH harvest")
         oai_records = _fetch_oai_records(category_query, end_date, window_days)
         fetch_source = "oai_pmh"
         for rec in oai_records:
             rec["_fetch_source"] = "oai_pmh"
         paper_dicts = oai_records
-        print(f"Retrieved {len(paper_dicts)} papers via OAI-PMH fallback")
+        log.info("Retrieved %d papers via OAI-PMH fallback", len(paper_dicts))
 
-    print(f"Retrieved {len(paper_dicts)} papers (source: {fetch_source})")
+    log.info("Retrieved %d papers (source: %s)", len(paper_dicts), fetch_source)
 
     if fetch_source == "arxiv_api" and len(paper_dicts) >= max_results:
-        print(
-            f"Warning: max_results limit ({max_results}) reached — "
-            "there may be more papers in this window. Consider increasing --max-results."
+        log.warning(
+            "max_results limit (%d) reached — there may be more papers in this window. "
+            "Consider increasing --max-results.", max_results
         )
 
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -290,7 +332,7 @@ def fetch_and_save(
         for paper_data in paper_dicts:
             fp.write(json.dumps(paper_data, ensure_ascii=False) + "\n")
 
-    print(f"Saved to {output_path}")
+    log.info("Saved %d papers to %s", len(paper_dicts), output_path)
     return output_path
 
 
@@ -312,15 +354,20 @@ def main() -> None:
         "--end-date",
         default=None,
         metavar="YYYY-MM-DD",
-        help="End date for the window (default: last Monday at midnight)",
+        help="End date for the window (default: last Monday at midnight UTC — run on Tuesdays)",
+    )
+    parser.add_argument(
+        "--oai-only",
+        action="store_true",
+        help="Skip the arXiv search API and go directly to OAI-PMH (recommended for automated runs)",
     )
     args = parser.parse_args()
 
     if args.end_date:
-        end_date = datetime.strptime(args.end_date, "%Y-%m-%d")
+        end_date = datetime.strptime(args.end_date, "%Y-%m-%d")  # treated as UTC boundary
     else:
         end_date = _last_monday_midnight()
-        print(f"Using last Monday as end date: {end_date.strftime('%Y-%m-%d')}")
+        log.info("Using last Monday as end date: %s", end_date.strftime("%Y-%m-%d"))
 
     fetch_and_save(
         end_date=end_date,
@@ -328,6 +375,7 @@ def main() -> None:
         max_results=args.max_results,
         category_query=args.category,
         output_dir=args.output_dir,
+        oai_only=args.oai_only,
     )
 
 
