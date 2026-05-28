@@ -4,6 +4,39 @@ import { loadSiteData } from '../lib/data.js';
 
 const data = loadSiteData(undefined, 7);
 const classes = (data.languageData.lang_classes || {}) as Record<string, unknown[]>;
+const classDescriptions: Record<string, string> = {
+  '0': 'Have exceptionally limited resources, and have rarely been considered in language technologies.',
+  '1': 'Have some unlabelled data; however, collecting labelled data is challenging.',
+  '2': 'A small set of labelled datasets has been collected, and language support communities are there to support the language.',
+  '3': 'Has a strong web presence, and a cultural community that backs it. Have been highly benefited by unsupervised pre-training.',
+  '4': 'Have a large amount of unlabelled data, and lesser, but still a significant amount of labelled data. have dedicated NLP communities researching these languages.',
+  '5': 'Have a dominant online presence. There have been massive investments in the development of resources and technologies.',
+};
+
+const classRows = Object.entries(classes)
+  .sort(([left], [right]) => Number(left) - Number(right))
+  .map(([classId, languages]) => ({
+    classId,
+    description: classDescriptions[classId] || '',
+    count: languages.length,
+    examples: languages.slice(0, 2).map((language) => String(language)).join(', '),
+  }));
+
+const classExamples: Record<string, string[]> = {
+  '0': ['Pinyin', 'Irarutu', 'Himarimã'],
+  '1': ['Hawaiian', 'Frisian', 'Nahuatl'],
+  '2': ['Sinhala', 'Irish', 'Zulu'],
+  '3': ['Hindi', 'Tamil', 'Urdu'],
+  '4': ['Indonesian', 'Russian', 'Italian'],
+  '5': ['Arabic', 'Chinese', 'English'],
+};
+
+// Replace the examples field with explicit examples when provided, otherwise use repo data
+for (const row of classRows) {
+  if (classExamples[row.classId]) {
+    row.examples = classExamples[row.classId].slice(0, 3).join(', ');
+  }
+}
 ---
 <BaseLayout title="About LangTrend" description="Pipeline, limits, and references for LangTrend">
   <section class="page-intro">
@@ -28,21 +61,26 @@ const classes = (data.languageData.lang_classes || {}) as Record<string, unknown
   <section class="panel">
     <div class="panel-head">
       <h2>Language classes</h2>
-      <p>Current six-class availability grouping from the existing codebase.</p>
     </div>
     <table class="class-table">
       <thead>
-        <tr><th>Class</th><th>Languages</th></tr>
+        <tr><th>Class</th><th>Description<sup>1</sup></th><th>Count<sup>2</sup></th><th>Examples<sup>2</sup></th></tr>
       </thead>
       <tbody>
-        {Object.entries(classes).map(([classId, languages]: [string, unknown[]]) => (
+        {classRows.map((row) => (
           <tr>
-            <td>Class {classId}</td>
-            <td>{languages.length}</td>
+            <td>Class {row.classId}</td>
+            <td>{row.description}</td>
+            <td>{row.count}</td>
+            <td>{row.examples}</td>
           </tr>
         ))}
       </tbody>
     </table>
+    <div class="table-notes">
+      <p><sup>1</sup> Class descriptions are adapted from <a href="https://aclanthology.org/2020.acl-main.560/" target="_blank" rel="noreferrer"><u>Joshi et al. (2020)</u></a>.</p>
+      <p><sup>2</sup> Counts and example languages are updated from the <a href="https://github.com/NisansaDdS/Some-Languages-are-More-Equal-than-Others" target="_blank" rel="noreferrer"><u>Some Languages are More Equal than Others</u></a> repository, which follows the work from <a href="https://doi.org/10.18653/v1/2022.aacl-main.62" target="_blank" rel="noreferrer"><u>Ranathunga and de Silva (2022)</u></a>.</p>
+    </div>
   </section>
 
   <section class="panel about-grid">
