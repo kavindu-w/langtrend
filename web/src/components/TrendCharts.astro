@@ -674,7 +674,7 @@ for (const item of languageCounts) {
 }
 const sankeyGrandTotal = Math.max(1, [...sankeyClassTotalMap.values()].reduce((sum, value) => sum + value, 0));
 type SankeyLeftNode = { classId: number; label: string; total: number; color: string; y: number; height: number };
-type SankeyRightNode = { classId: number; language: string; count: number; color: string; y: number; height: number };
+type SankeyRightNode = { classId: number; language: string; count: number; color: string; y: number; height: number; hidden?: boolean };
 type SankeyClassGroup = SankeyLeftNode & { languages: SankeyRightNode[] };
 type SankeyVisibleLanguage = SankeyRightNode & { hidden: boolean };
 
