@@ -207,6 +207,13 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
 });
 ---
 <section class="panel paper-panel">
+  <div id="active-filters-bar" class="active-filters-bar" style="display:none">
+    <button id="clear-filters-btn" class="clear-filters-btn" type="button">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Clear filters
+    </button>
+    <span id="active-filter-tags" class="active-filter-tags"></span>
+  </div>
   <div class="paper-controls-bar">
     <div class="search-wrapper paper-search-wrapper">
       <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
@@ -227,13 +234,23 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
         </svg>
         <label class="sr-only" for="paper-sort">Sort papers</label>
         <select id="paper-sort" class="sort-select">
-          <option value="default">Newest first (arXiv order)</option>
-          <option value="lang-desc">Most languages (count ↓)</option>
-          <option value="lang-asc">Fewest languages (count ↑)</option>
-          <option value="resource-asc">Low-resource first (class 0→5)</option>
-          <option value="resource-desc">High-resource first (class 5→0)</option>
-          <option value="title-asc">Title A–Z</option>
-          <option value="title-desc">Title Z–A</option>
+          <optgroup label="Sort">
+            <option value="default">Newest first (arXiv order)</option>
+            <option value="lang-desc">Most languages (count ↓)</option>
+            <option value="lang-asc">Fewest languages (count ↑)</option>
+            <option value="resource-asc">Low-resource first (class 0→5)</option>
+            <option value="resource-desc">High-resource first (class 5→0)</option>
+            <option value="title-asc">Title A–Z</option>
+            <option value="title-desc">Title Z–A</option>
+          </optgroup>
+          <optgroup label="Filter by class">
+            <option value="class-0">Class 0</option>
+            <option value="class-1">Class 1</option>
+            <option value="class-2">Class 2</option>
+            <option value="class-3">Class 3</option>
+            <option value="class-4">Class 4</option>
+            <option value="class-5">Class 5</option>
+          </optgroup>
         </select>
       </div>
       <span id="result-count" class="result-count" aria-live="polite"></span>
@@ -267,6 +284,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
         data-languages={item.chipLanguageNames.join('|')}
         data-lang-count={item.chipLanguageNames.length}
         data-min-class={item.minClass}
+        data-classes={[...new Set(item.chips.map(c => c.borderClass))].join(',')}
         data-title={item.paper.title.toLowerCase()}
         data-index={item.index}
       >
@@ -395,6 +413,9 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   const langSearchInput = document.getElementById('lang-search') as HTMLInputElement | null;
   const sortSelect = document.getElementById('paper-sort') as HTMLSelectElement | null;
   const resultCount = document.getElementById('result-count') as HTMLElement | null;
+  const activeFiltersBar = document.getElementById('active-filters-bar') as HTMLElement | null;
+  const activeFilterTags = document.getElementById('active-filter-tags') as HTMLElement | null;
+  const clearFiltersBtn = document.getElementById('clear-filters-btn') as HTMLButtonElement | null;
   const expandBtn = document.getElementById('chip-expand-btn') as HTMLButtonElement | null;
   const paperList = document.getElementById('paper-list') as HTMLElement | null;
   const allChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .chip'));
@@ -510,15 +531,37 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
 
   // ── Paper filters ───────────────────────────────────────────────────────────
 
+  function getClassFilter(): string {
+    const v = sortSelect?.value ?? '';
+    return v.startsWith('class-') ? v.slice(6) : 'all';
+  }
+
+  function updateFilterBar() {
+    const searchTerm = searchInput?.value.trim() ?? '';
+    const langTerm = langSearchInput?.value.trim() ?? '';
+    const classFilter = getClassFilter();
+    const tags: string[] = [];
+    if (searchTerm) tags.push(`Title: "${searchTerm}"`);
+    if (langTerm) tags.push(`Language search: "${langTerm}"`);
+    if (activeLanguage !== 'all') tags.push(`Language: ${activeLanguage}`);
+    if (classFilter !== 'all') tags.push(`Class: ${classFilter}`);
+    const active = tags.length > 0;
+    if (activeFiltersBar) activeFiltersBar.style.display = active ? '' : 'none';
+    if (activeFilterTags) activeFilterTags.textContent = tags.join(' · ');
+  }
+
   function applyFilters() {
     const searchTerm = searchInput?.value.trim().toLowerCase() ?? '';
+    const classFilter = getClassFilter();
     let visible = 0;
     rows.forEach(row => {
       const rowSearch = row.dataset.search || '';
       const rowLanguages = (row.dataset.languages || '').split('|').filter(Boolean);
+      const rowClasses = (row.dataset.classes || '').split(',').filter(Boolean);
       const matchesLanguage = activeLanguage === 'all' || rowLanguages.includes(activeLanguage);
       const matchesSearch = !searchTerm || rowSearch.includes(searchTerm);
-      const show = matchesLanguage && matchesSearch;
+      const matchesClass = classFilter === 'all' || rowClasses.includes(classFilter);
+      const show = matchesLanguage && matchesSearch && matchesClass;
       row.style.display = show ? '' : 'none';
       if (show) visible++;
     });
@@ -527,6 +570,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
         ? `${rows.length} papers`
         : `${visible} of ${rows.length} papers`;
     }
+    updateFilterBar();
   }
 
   // ── Sort ────────────────────────────────────────────────────────────────────
@@ -555,8 +599,20 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
     chip.addEventListener('click', () => { setActiveChip(chip.dataset.lang || 'all'); applyFilters(); });
   });
   searchInput?.addEventListener('input', applyFilters);
-  langSearchInput?.addEventListener('input', e => filterLangChips((e.target as HTMLInputElement).value));
-  sortSelect?.addEventListener('change', () => { sortPapers(sortSelect.value); applyFilters(); });
+  langSearchInput?.addEventListener('input', e => { filterLangChips((e.target as HTMLInputElement).value); updateFilterBar(); });
+  sortSelect?.addEventListener('change', () => {
+    const v = sortSelect.value;
+    sortPapers(v.startsWith('class-') ? 'default' : v);
+    applyFilters();
+  });
+  clearFiltersBtn?.addEventListener('click', () => {
+    if (searchInput) searchInput.value = '';
+    if (langSearchInput) { langSearchInput.value = ''; filterLangChips(''); }
+    setActiveChip('all');
+    if (sortSelect) sortSelect.value = 'default';
+    sortPapers('default');
+    applyFilters();
+  });
 
   requestAnimationFrame(() => { applyCollapse(); applyFilters(); });
 
