@@ -1076,6 +1076,18 @@ a { color: inherit; text-decoration: none; }
 .page-intro { margin: 10px 0 18px; }
 .about-grid { grid-template-columns: 1fr 1fr; margin-bottom: 16px; }
 .diagram-placeholder, .subscribe-box { min-height: 140px; border-radius: 18px; border: 1px dashed var(--line); display: grid; place-items: center; color: var(--muted); background: rgba(255, 255, 255, 0.5); }
+.pipeline-diagram {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+.pipeline-diagram img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 .subscribe-box { gap: 12px; padding: 16px; }
 .subscription-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
 .subscribe-btn {

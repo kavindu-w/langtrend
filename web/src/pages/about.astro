@@ -1,34 +1,40 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { loadSiteData } from '../lib/data.js';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { loadSiteData } from "../lib/data.js";
 
 const data = loadSiteData(undefined, 7);
-const classes = (data.languageData.lang_classes || {}) as Record<string, unknown[]>;
+const classes = (data.languageData.lang_classes || {}) as Record<
+  string,
+  unknown[]
+>;
 const classDescriptions: Record<string, string> = {
-  '0': 'Have exceptionally limited resources, and have rarely been considered in language technologies.',
-  '1': 'Have some unlabelled data; however, collecting labelled data is challenging.',
-  '2': 'A small set of labelled datasets has been collected, and language support communities are there to support the language.',
-  '3': 'Has a strong web presence, and a cultural community that backs it. Have been highly benefited by unsupervised pre-training.',
-  '4': 'Have a large amount of unlabelled data, and lesser, but still a significant amount of labelled data. have dedicated NLP communities researching these languages.',
-  '5': 'Have a dominant online presence. There have been massive investments in the development of resources and technologies.',
+  "0": "Have exceptionally limited resources, and have rarely been considered in language technologies.",
+  "1": "Have some unlabelled data; however, collecting labelled data is challenging.",
+  "2": "A small set of labelled datasets has been collected, and language support communities are there to support the language.",
+  "3": "Has a strong web presence, and a cultural community that backs it. Have been highly benefited by unsupervised pre-training.",
+  "4": "Have a large amount of unlabelled data, and lesser, but still a significant amount of labelled data. have dedicated NLP communities researching these languages.",
+  "5": "Have a dominant online presence. There have been massive investments in the development of resources and technologies.",
 };
 
 const classRows = Object.entries(classes)
   .sort(([left], [right]) => Number(left) - Number(right))
   .map(([classId, languages]) => ({
     classId,
-    description: classDescriptions[classId] || '',
+    description: classDescriptions[classId] || "",
     count: languages.length,
-    examples: languages.slice(0, 2).map((language) => String(language)).join(', '),
+    examples: languages
+      .slice(0, 2)
+      .map((language) => String(language))
+      .join(", "),
   }));
 
 const classExamples: Record<string, string[]> = {
-  '0': ['Pinyin', 'Irarutu', 'Himarimã'],
-  '1': ['Hawaiian', 'Frisian', 'Nahuatl'],
-  '2': ['Sinhala', 'Irish', 'Zulu'],
-  '3': ['Hindi', 'Tamil', 'Urdu'],
-  '4': ['Indonesian', 'Russian', 'Italian'],
-  '5': ['Arabic', 'Chinese', 'English'],
+  "0": ["Pinyin", "Irarutu", "Himarimã"],
+  "1": ["Hawaiian", "Frisian", "Nahuatl"],
+  "2": ["Sinhala", "Irish", "Zulu"],
+  "3": ["Hindi", "Tamil", "Urdu"],
+  "4": ["Indonesian", "Russian", "Italian"],
+  "5": ["Arabic", "Chinese", "English"],
 };
 
 const currentYear = new Date().getFullYear();
@@ -36,20 +42,33 @@ const currentYear = new Date().getFullYear();
 // Replace the examples field with explicit examples when provided, otherwise use repo data
 for (const row of classRows) {
   if (classExamples[row.classId]) {
-    row.examples = classExamples[row.classId].slice(0, 3).join(', ');
+    row.examples = classExamples[row.classId].slice(0, 3).join(", ");
   }
 }
 ---
-<BaseLayout title="About LangTrend" description="Pipeline, limits, and references for LangTrend">
+
+<BaseLayout
+  title="About LangTrend"
+  description="Pipeline, limits, and references for LangTrend"
+>
   <section class="page-intro">
     <h1>How does this work?</h1>
-    <p>Full pipeline description, language classes composition, limitations, Future directions, and references.</p>
+    <p>
+      Full pipeline description, language classes composition, limitations,
+      Future directions, and references.
+    </p>
   </section>
 
   <section class="panel">
     <article>
       <h2>Pipeline diagram</h2>
-      <div class="diagram-placeholder">Placeholder for pipeline diagram</div>
+      <figure class="pipeline-diagram">
+        <img
+          src={`${import.meta.env.BASE_URL}/images/langtrend-pipeline.png`}
+          alt="LangTrend data pipeline from arXiv fetch through extraction, cleaning, manifest build, and dashboard deploy"
+          loading="lazy"
+        />
+      </figure>
     </article>
   </section>
 
@@ -59,22 +78,44 @@ for (const row of classRows) {
     </div>
     <table class="class-table">
       <thead>
-        <tr><th>Class</th><th>Description<sup>1</sup></th><th>Count<sup>2</sup></th><th>Examples<sup>2</sup></th></tr>
+        <tr
+          ><th>Class</th><th>Description<sup>1</sup></th><th
+            >Count<sup>2</sup></th
+          ><th>Examples<sup>2</sup></th></tr
+        >
       </thead>
       <tbody>
-        {classRows.map((row) => (
-          <tr>
-            <td>Class {row.classId}</td>
-            <td>{row.description}</td>
-            <td>{row.count}</td>
-            <td>{row.examples}</td>
-          </tr>
-        ))}
+        {
+          classRows.map((row) => (
+            <tr>
+              <td>Class {row.classId}</td>
+              <td>{row.description}</td>
+              <td>{row.count}</td>
+              <td>{row.examples}</td>
+            </tr>
+          ))
+        }
       </tbody>
     </table>
     <div class="table-notes">
-      <p><sup>1</sup> Class descriptions are adapted from <a href="https://aclanthology.org/2020.acl-main.560/" target="_blank" rel="noreferrer"><u>Joshi et al. [3]</u></a>.</p>
-      <p><sup>2</sup> Counts and example languages are updated from the <a href="https://github.com/NisansaDdS/Some-Languages-are-More-Equal-than-Others" target="_blank" rel="noreferrer"><u>Some Languages are More Equal than Others</u></a> repository, which follows the work from <a href="https://doi.org/10.18653/v1/2022.aacl-main.62" target="_blank" rel="noreferrer"><u>Ranathunga and de Silva [2]</u></a>.</p>
+      <p>
+        <sup>1</sup> Class descriptions are adapted from <a
+          href="https://aclanthology.org/2020.acl-main.560/"
+          target="_blank"
+          rel="noreferrer"><u>Joshi et al. [3]</u></a
+        >.
+      </p>
+      <p>
+        <sup>2</sup> Counts and example languages are updated from the <a
+          href="https://github.com/NisansaDdS/Some-Languages-are-More-Equal-than-Others"
+          target="_blank"
+          rel="noreferrer"><u>Some Languages are More Equal than Others</u></a
+        > repository, which follows the work from <a
+          href="https://doi.org/10.18653/v1/2022.aacl-main.62"
+          target="_blank"
+          rel="noreferrer"><u>Ranathunga and de Silva [2]</u></a
+        >.
+      </p>
     </div>
   </section>
 
@@ -82,9 +123,41 @@ for (const row of classRows) {
     <article>
       <h2>Limitations</h2>
       <ul class="info-list">
-        <li>Language detection is based on explicit mentions in titles, abstracts, section text, and cleaned PDF text, so indirect references can be missed. Futhermore, the pipeline may capture false positives (e.g., especially shorter language names found due to acronyms, names etc. while text cleaning process was made to identify and remove them or display warnings, the users should always go through the paper and verify if the flagged languages are present in the paper and are infact not false positives).</li>
-        <li>HTML is preferred (More accurate extraction), but the pipeline depends on arXiv pages being available and may fall back to PDF text when HTML is missing or incomplete. Moreover, if the PDF is also unavailable (broken or likely extracted version is withdrawn), the pipeline will only analyse the abstract text.</li>
-        <li>The current build covers weekly arXiv snapshots, and update once a week. There is possibility of missing papers that were published in that week.</li>
+        <li>
+          Language detection is based on explicit mentions in titles, abstracts,
+          section text, and cleaned PDF body text, so indirect references (e.g.,
+          citing a multilingual dataset without naming the languages) can be
+          missed. Furthermore, the pipeline may produce false positives (shorter
+          language names in particular can appear as acronyms, author names, or
+          technical terms). While text cleaning and acronym filtering are
+          applied to reduce these, users should always verify flagged languages
+          directly in the paper.
+        </li>
+
+        <li>
+          HTML extraction is preferred for accuracy, but the pipeline depends on
+          the availability of arXiv HTML pages. If the HTML version is missing
+          or incomplete, the pipeline falls back to the PDF (via Docling). If
+          the PDF is also unavailable or has been withdrawn, only the abstract
+          text is analysed.
+        </li>
+
+        <li>
+          The pipeline only covers papers submitted to the <code>cs.CL</code> arXiv
+          category (It may include multiple categories, which include <code
+            >cs.CL</code
+          >). Multilingual NLP papers appearing in adjacent categories (cs.AI,
+          cs.LG, cs.CV, etc.), which exclude <code>cs.CL</code> are not captured.
+        </li>
+        <li>
+          Papers are processed at fetch time. If an author updates a paper with
+          new or removed language mentions, these are not reflected unless the
+          pipeline re-runs for the same date window.
+        </li><li>
+          The pipeline runs once a week (every Tuesday), covering the previous
+          week's arXiv announcement window. As a result, papers that fall across
+          the date boundary may be missed in a given snapshot.
+        </li>
       </ul>
     </article>
   </section>
@@ -92,11 +165,36 @@ for (const row of classRows) {
     <article>
       <h2>References</h2>
       <ol class="ref-list">
-        <li>S. Ranathunga, N. De Silva, D. Jayakody, and A. Fernando, “Shoulders of Giants: A Look at the Degree and Utility of Openness in NLP Research,” in Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers), L.-W. Ku, A. Martins, and V. Srikumar, Eds., Bangkok, Thailand: Association for Computational Linguistics, Aug. 2024, pp. 519–529. doi: 10.18653/v1/2024.acl-short.48.</li>
-        <li>S. Ranathunga and N. de Silva, “Some Languages are More Equal than Others: Probing Deeper into the Linguistic Disparity in the NLP World,” in Proceedings of the 2nd Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics and the 12th International Joint Conference on Natural Language Processing (Volume 1: Long Papers), Y. He, H. Ji, S. Li, Y. Liu, and C.-H. Chang, Eds., Online only: Association for Computational Linguistics, Nov. 2022, pp. 823–848. doi: 10.18653/v1/2022.aacl-main.62.</li>
-        <li>P. Joshi, S. Santy, A. Budhiraja, K. Bali, and M. Choudhury, “The State and Fate of Linguistic Diversity and Inclusion in the NLP World,” in Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics, D. Jurafsky, J. Chai, N. Schluter, and J. Tetreault, Eds., Online: Association for Computational Linguistics, Jul. 2020, pp. 6282–6293. doi: 10.18653/v1/2020.acl-main.560.
+        <li>
+          S. Ranathunga, N. De Silva, D. Jayakody, and A. Fernando, “Shoulders
+          of Giants: A Look at the Degree and Utility of Openness in NLP
+          Research,” in Proceedings of the 62nd Annual Meeting of the
+          Association for Computational Linguistics (Volume 2: Short Papers),
+          L.-W. Ku, A. Martins, and V. Srikumar, Eds., Bangkok, Thailand:
+          Association for Computational Linguistics, Aug. 2024, pp. 519–529.
+          doi: 10.18653/v1/2024.acl-short.48.
         </li>
-        <li>C. Auer et al., “Docling Technical Report,” 2024, arXiv. doi: 10.48550/ARXIV.2408.09869.
+        <li>
+          S. Ranathunga and N. de Silva, “Some Languages are More Equal than
+          Others: Probing Deeper into the Linguistic Disparity in the NLP
+          World,” in Proceedings of the 2nd Conference of the Asia-Pacific
+          Chapter of the Association for Computational Linguistics and the 12th
+          International Joint Conference on Natural Language Processing (Volume
+          1: Long Papers), Y. He, H. Ji, S. Li, Y. Liu, and C.-H. Chang, Eds.,
+          Online only: Association for Computational Linguistics, Nov. 2022, pp.
+          823–848. doi: 10.18653/v1/2022.aacl-main.62.
+        </li>
+        <li>
+          P. Joshi, S. Santy, A. Budhiraja, K. Bali, and M. Choudhury, “The
+          State and Fate of Linguistic Diversity and Inclusion in the NLP
+          World,” in Proceedings of the 58th Annual Meeting of the Association
+          for Computational Linguistics, D. Jurafsky, J. Chai, N. Schluter, and
+          J. Tetreault, Eds., Online: Association for Computational Linguistics,
+          Jul. 2020, pp. 6282–6293. doi: 10.18653/v1/2020.acl-main.560.
+        </li>
+        <li>
+          C. Auer et al., “Docling Technical Report,” 2024, arXiv. doi:
+          10.48550/ARXIV.2408.09869.
         </li>
       </ol>
     </article>
@@ -104,18 +202,34 @@ for (const row of classRows) {
 
   <footer class="page-footer panel">
     <h2>Contact</h2>
-    <a class="footer-link footer-mail" href="mailto:akwarnakulasuriya@gmail.com" aria-label="Email awarnakulasuriya@gmail.com" title="Email awarnakulasuriya@gmail.com">
+    <a
+      class="footer-link footer-mail"
+      href="mailto:akwarnakulasuriya@gmail.com"
+      aria-label="Email awarnakulasuriya@gmail.com"
+      title="Email awarnakulasuriya@gmail.com"
+    >
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.23l8 5.33 8-5.33V7H4Zm16 10V9.57l-7.45 4.96a1 1 0 0 1-1.1 0L4 9.57V17h16Z" fill="currentColor" />
+        <path
+          d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.23l8 5.33 8-5.33V7H4Zm16 10V9.57l-7.45 4.96a1 1 0 0 1-1.1 0L4 9.57V17h16Z"
+          fill="currentColor"></path>
       </svg>
       <span>Email</span>
     </a>
-    <a class="footer-link footer-github" href="https://github.com/kavindu-w/langtrend" target="_blank" rel="noreferrer">
+    <a
+      class="footer-link footer-github"
+      href="https://github.com/kavindu-w/langtrend"
+      target="_blank"
+      rel="noreferrer"
+    >
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M12 2C6.48 2 2 6.48 2 12.02c0 4.42 2.87 8.17 6.84 9.49.5.09.66-.22.66-.48 0-.24-.01-.87-.02-1.71-2.78.61-3.37-1.34-3.37-1.34-.46-1.17-1.12-1.49-1.12-1.49-.92-.63.07-.62.07-.62 1.02.07 1.56 1.05 1.56 1.05.9 1.54 2.36 1.1 2.93.84.09-.66.35-1.1.64-1.35-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.03a9.5 9.5 0 0 1 5 0c1.9-1.3 2.74-1.03 2.74-1.03.55 1.37.2 2.39.1 2.64.64.7 1.02 1.6 1.02 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.86 0 1.34-.01 2.42-.01 2.75 0 .26.17.57.67.47A10.02 10.02 0 0 0 22 12.02C22 6.48 17.52 2 12 2Z" fill="currentColor" />
+        <path
+          d="M12 2C6.48 2 2 6.48 2 12.02c0 4.42 2.87 8.17 6.84 9.49.5.09.66-.22.66-.48 0-.24-.01-.87-.02-1.71-2.78.61-3.37-1.34-3.37-1.34-.46-1.17-1.12-1.49-1.12-1.49-.92-.63.07-.62.07-.62 1.02.07 1.56 1.05 1.56 1.05.9 1.54 2.36 1.1 2.93.84.09-.66.35-1.1.64-1.35-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.03a9.5 9.5 0 0 1 5 0c1.9-1.3 2.74-1.03 2.74-1.03.55 1.37.2 2.39.1 2.64.64.7 1.02 1.6 1.02 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.86 0 1.34-.01 2.42-.01 2.75 0 .26.17.57.67.47A10.02 10.02 0 0 0 22 12.02C22 6.48 17.52 2 12 2Z"
+          fill="currentColor"></path>
       </svg>
       <span>GitHub</span>
     </a>
-    <p class="copyright-line">© {currentYear} LangTrend. All rights reserved.</p>
+    <p class="copyright-line">
+      © {currentYear} LangTrend. All rights reserved.
+    </p>
   </footer>
 </BaseLayout>
