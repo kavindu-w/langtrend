@@ -1390,8 +1390,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         )}
       </article>
 
-      <div class="trend-pair-row">
-        <article class="chart-subpanel">
+      <article class="chart-subpanel chart-subpanel-wide">
           <div class="chart-subpanel-head">
             <div>
               <h3>Top-language trends</h3>
@@ -1440,63 +1439,62 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
           ) : (
             <p class="placeholder-text">Multi-period language trend lines will appear once data is available.</p>
           )}
-        </article>
+      </article>
 
-        <article class="chart-subpanel">
-          <div class="chart-subpanel-head">
-            <div>
-              <h3>Language rank trajectory</h3>
-              <p>Rank 1 = most mentions in that period. Tracks the languages that appear in each top 10 across the selected {trendGranularity} view.</p>
-            </div>
+      <article class="chart-subpanel chart-subpanel-wide">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Language rank trajectory</h3>
+            <p>Rank 1 = most mentions in that period. Tracks the languages that appear in each top 10 across the selected {trendGranularity} view.</p>
           </div>
-          {trendPeriods.length >= 2 && bumpSeriesData.length > 0 ? (
-            <div class="chart-scroll bump-chart-scroll">
-              <svg class="chart-svg" width={bumpScrollPx === null ? "100%" : undefined} style={bumpScrollPx !== null ? `width:${bumpSvgWidth}px;max-width:none` : undefined} height={bumpScrollPx !== null ? bumpSvgHeight : undefined} viewBox={`0 0 ${bumpSvgWidth} ${bumpSvgHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Language rank bump chart across ${trendGranularity}s`}>
-                <g transform={`translate(${bumpMargins.left} ${bumpMargins.top})`}>
-                  {Array.from({ length: bumpMaxRank }, (_, i) => i + 1).map((rank) => (
-                    <line x1="0" x2={bumpInnerWidth} y1={bumpYScale(rank)} y2={bumpYScale(rank)} class="chart-grid-line"></line>
-                  ))}
-                  {trendPeriods.map((period) => (
-                    <text x={(bumpXScale(period.label) || 0) + bumpXScale.bandwidth() / 2} y={bumpInnerHeight + 34} text-anchor="middle" class="chart-label">{period.label}</text>
-                  ))}
-                  {bumpSegments.map((segment) => (
-                    <path d={segment.d} fill="none" stroke={segment.color} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                  ))}
-                  {bumpSeriesData.map((series, seriesIdx) => (
-                    <g>
-                      {series.firstPt && (
+        </div>
+        {trendPeriods.length >= 2 && bumpSeriesData.length > 0 ? (
+          <div class="chart-scroll bump-chart-scroll">
+            <svg class="chart-svg" width={bumpScrollPx === null ? "100%" : undefined} style={bumpScrollPx !== null ? `width:${bumpSvgWidth}px;max-width:none` : undefined} height={bumpScrollPx !== null ? bumpSvgHeight : undefined} viewBox={`0 0 ${bumpSvgWidth} ${bumpSvgHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Language rank bump chart across ${trendGranularity}s`}>
+              <g transform={`translate(${bumpMargins.left} ${bumpMargins.top})`}>
+                {Array.from({ length: bumpMaxRank }, (_, i) => i + 1).map((rank) => (
+                  <line x1="0" x2={bumpInnerWidth} y1={bumpYScale(rank)} y2={bumpYScale(rank)} class="chart-grid-line"></line>
+                ))}
+                {trendPeriods.map((period) => (
+                  <text x={(bumpXScale(period.label) || 0) + bumpXScale.bandwidth() / 2} y={bumpInnerHeight + 34} text-anchor="middle" class="chart-label">{period.label}</text>
+                ))}
+                {bumpSegments.map((segment) => (
+                  <path d={segment.d} fill="none" stroke={segment.color} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                ))}
+                {bumpSeriesData.map((series, seriesIdx) => (
+                  <g>
+                    {series.firstPt && (
+                      <g>
+                        <path d={`M ${series.firstPt.x - 14} ${series.firstPt.y} L ${-14} ${bumpLeftLabelY[seriesIdx]}`} fill="none" stroke={bumpLabelColor(series.language, seriesIdx)} stroke-dasharray="3 4" stroke-width="1"></path>
+                        <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
+                      </g>
+                    )}
+                    {series.lastPt && (
+                      <g>
+                        <path d={`M ${series.lastPt.x + 14} ${series.lastPt.y} L ${bumpInnerWidth + 14} ${bumpRightLabelY[seriesIdx]}`} fill="none" stroke={bumpLabelColor(series.language, seriesIdx)} stroke-dasharray="3 4" stroke-width="1"></path>
+                        <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
+                      </g>
+                    )}
+                    {series.points.map((point) => point && (() => {
+                      const rankColor = BUMP_RANK_COLORS[point.rank - 1] ?? BUMP_RANK_COLORS[BUMP_RANK_COLORS.length - 1];
+                      const isLight = point.rank >= 6;
+                      const textColor = isLight ? '#000' : '#fff';
+                      return (
                         <g>
-                          <path d={`M ${series.firstPt.x - 14} ${series.firstPt.y} L ${-14} ${bumpLeftLabelY[seriesIdx]}`} fill="none" stroke={bumpLabelColor(series.language, seriesIdx)} stroke-dasharray="3 4" stroke-width="1"></path>
-                          <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
+                          <circle cx={point.x} cy={point.y} r="14" fill={rankColor} stroke="#000" stroke-width="1.5"></circle>
+                          <text x={point.x} y={point.y + 5} text-anchor="middle" style={`fill:${textColor};font-size:0.65rem;font-weight:700`}>{point.rank}</text>
                         </g>
-                      )}
-                      {series.lastPt && (
-                        <g>
-                          <path d={`M ${series.lastPt.x + 14} ${series.lastPt.y} L ${bumpInnerWidth + 14} ${bumpRightLabelY[seriesIdx]}`} fill="none" stroke={bumpLabelColor(series.language, seriesIdx)} stroke-dasharray="3 4" stroke-width="1"></path>
-                          <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
-                        </g>
-                      )}
-                      {series.points.map((point) => point && (() => {
-                        const rankColor = BUMP_RANK_COLORS[point.rank - 1] ?? BUMP_RANK_COLORS[BUMP_RANK_COLORS.length - 1];
-                        const isLight = point.rank >= 6;
-                        const textColor = isLight ? '#000' : '#fff';
-                        return (
-                          <g>
-                            <circle cx={point.x} cy={point.y} r="14" fill={rankColor} stroke="#000" stroke-width="1.5"></circle>
-                            <text x={point.x} y={point.y + 5} text-anchor="middle" style={`fill:${textColor};font-size:0.65rem;font-weight:700`}>{point.rank}</text>
-                          </g>
-                        );
-                      })())}
-                    </g>
-                  ))}
-                </g>
-              </svg>
-            </div>
-          ) : (
-            <p class="placeholder-text">Language rank trajectory will appear once multiple periods are available.</p>
-          )}
-        </article>
-      </div>
+                      );
+                    })())}
+                  </g>
+                ))}
+              </g>
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Language rank trajectory will appear once multiple periods are available.</p>
+        )}
+      </article>
     </div>
   </details>
   <script is:inline>
