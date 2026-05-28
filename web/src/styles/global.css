@@ -438,6 +438,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .chart-scroll { width: 100%; overflow-x: auto; padding-bottom: 6px; scrollbar-gutter: stable both-edges; -webkit-overflow-scrolling: touch; }
+.bump-chart-scroll { overflow-y: hidden; padding-bottom: 0; scrollbar-gutter: auto; }
 .chart-scroll::after { content: ''; display: block; height: 8px; }
 .chart-svg { display: block; width: 100%; max-width: 100%; overflow: visible; }
 .chart-grid-line { stroke: rgba(32, 22, 19, 0.08); stroke-width: 1; }
@@ -475,6 +476,31 @@ a { color: inherit; text-decoration: none; }
 
 .trend-line-layout > .chart-svg {
   display: block;
+}
+
+.trend-pair-row {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.trend-pair-row > .chart-subpanel {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+.trend-pair-row > .chart-subpanel > .trend-line-layout,
+.trend-pair-row > .chart-subpanel > .chart-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.trend-pair-row > .chart-subpanel > .trend-line-layout > .chart-svg,
+.trend-pair-row > .chart-subpanel > .chart-scroll > .chart-svg {
+  height: 100%;
 }
 
 .coverage-summary-panel,
@@ -543,6 +569,14 @@ a { color: inherit; text-decoration: none; }
   .trend-line-layout { grid-template-columns: 1fr; }
   .coverage-summary-grid,
   .overall-summary-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 1100px) {
+  .trend-pair-row { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 1280px) {
+  .trend-pair-row { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 720px) {
