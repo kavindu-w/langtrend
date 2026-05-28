@@ -99,6 +99,21 @@ make pipeline     # Steps 1–3 — full data run
 
 ---
 
+## Repository Structure
+
+```text
+Code/
+├── langtrend/                           Python package with the core pipeline logic
+├── scripts/                             Command-line entry points for fetch/process/build steps
+├── web/                                 Astro frontend for the public dashboard
+├── data/
+│   ├── raw/                             Paper metadata
+│   └── processed/                       Generated manifests, detections, and summary tables
+├── tests/                               Automated tests for pipeline helpers and processing code
+├── notebooks/                           Exploratory notebooks for analysis and chart development
+└── Some-Languages-are-More-Equal-than-Others/  Submodule with language-class taxonomy and counts
+```
+
 ## GitHub Actions
 
 The workflow at `.github/workflows/langtrend.yml` runs automatically every **Tuesday at 12:00 UTC** (after arXiv's Monday announcement window closes). It can also be triggered manually or on push to the main branch.
