@@ -169,16 +169,27 @@ def clean_html_soup(html: str, remove_headings: list[str] | None = None, _label:
     _tick("removed boilerplate tags")
 
     # arXiv HTML wraps math in <math><semantics>...<annotation encoding="application/x-tex">
-    # The annotation contains the LaTeX source, which get_text() picks up and concatenates
-    # with the MathML display text, producing artifacts like "UtU_{t}" from U_t.
-    # Remove annotations before text extraction to keep only the display rendering.
-    n_annotations = len(soup.find_all("annotation"))
-    for tag in soup.find_all("annotation"):
-        try:
-            tag.decompose()
-        except Exception:
-            pass
-    _tick(f"removed {n_annotations} math annotations")
+    # Subscript/superscript blocks (msub/msup/msubsup) concatenate child letters via
+    # get_text() into garbled tokens (e.g. <mi>i</mi><mi>k</mi> → "ik", falsely matching
+    # Inupiaq). Replace those blocks entirely with a space. For all other math elements,
+    # just strip the annotation to prevent LaTeX source duplication (the original fix).
+    n_math_sub = 0
+    n_annotations = 0
+    for tag in soup.find_all("math"):
+        if tag.find(["msub", "msup", "msubsup"]):
+            try:
+                tag.replace_with(" ")
+                n_math_sub += 1
+            except Exception:
+                pass
+        else:
+            for ann in tag.find_all("annotation"):
+                try:
+                    ann.decompose()
+                    n_annotations += 1
+                except Exception:
+                    pass
+    _tick(f"removed {n_math_sub} subscript/superscript math blocks, stripped {n_annotations} annotations")
 
     return soup
 

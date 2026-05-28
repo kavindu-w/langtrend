@@ -5,8 +5,8 @@ MAX_RESULTS ?= 1000
 WORKERS     ?= 12
 # END_DATE    ?= 2026-05-04
 # END_DATE    ?= 2026-05-11
-# END_DATE    ?= 2026-05-18
-END_DATE    ?= 2026-05-25
+END_DATE    ?= 2026-05-18
+# END_DATE    ?= 2026-05-25
 
 # Pass --end-date only when END_DATE is set
 _END_DATE_FLAG = $(if $(END_DATE),--end-date $(END_DATE),)
@@ -109,6 +109,9 @@ web-dev: web-install
 web-build: web-install
 	cd web && npm run build
 
+web-deploy: web-build
+	cd web && vercel deploy --prebuilt --prod
+
 dev: web-dev
 
 build: pipeline web-build
@@ -116,4 +119,4 @@ build: pipeline web-build
 # --- Housekeeping -----------------------------------------------------------
 
 clean:
-	rm -rf web/dist
+	rm -rf web/dist web/.vercel/output

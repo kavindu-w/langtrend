@@ -90,7 +90,9 @@ _POSSIBLE_FALSE_POSITIVE_LANGUAGES: dict[str, str] = {
     "Tumi":     "Bangla pronoun 'tumi' (informal 'you') — common in Bangla NLP papers",
     "Wa":       "Too short — matches many common words and abbreviations",
     "Yale":     "Possible false positive — Yale University",
-    "Col":      "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+    "Col":      "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+    "Latin": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+    
 }
 
 # taken from https://github.com/dilithjay/Shoulders-of-Giants/blob/main/categorize_filtered_papers.ipynb

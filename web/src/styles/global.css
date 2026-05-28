@@ -102,9 +102,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero-copy { padding: 30px; }
-.eyebrow { text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); font-size: 0.78rem; }
+.eyebrow { text-transform: none; letter-spacing: 0.04em; color: var(--accent); font-size: 0.90rem; }
 .hero h1, .page-intro h1 { margin: 10px 0; font-size: clamp(3rem, 8vw, 5rem); line-height: 0.92; }
-.hero-text { max-width: 60ch; color: var(--muted); font-size: 1.05rem; }
+.hero-text { max-width: 100%; color: var(--muted); font-size: 1.05rem; }
 
 .hero-actions { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
 .primary-btn, .secondary-btn, .pdf-link {
@@ -341,7 +341,7 @@ a { color: inherit; text-decoration: none; }
 .stat-card-mini {
   border: 1px solid var(--line);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.68);
+  background: #fff;
   padding: 14px 16px;
   display: grid;
   gap: 4px;
@@ -406,7 +406,7 @@ a { color: inherit; text-decoration: none; }
 .chart-subpanel {
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.68);
+  background: #fff;
   padding: 14px;
   display: grid;
   gap: 12px;
@@ -460,9 +460,12 @@ a { color: inherit; text-decoration: none; }
   border-radius: 999px;
   border: 1px solid var(--line);
   color: var(--muted);
-  background: rgba(255, 255, 255, 0.82);
+  background: #fff;
   font-size: 0.8rem;
   font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .trend-view-chip.is-active {
@@ -560,7 +563,7 @@ a { color: inherit; text-decoration: none; }
 .coverage-summary-card {
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.72);
+  background: #fff;
   padding: 6px 10px;
   display: grid;
   gap: 8px;
@@ -781,6 +784,34 @@ a { color: inherit; text-decoration: none; }
   color: var(--muted);
   white-space: nowrap;
   min-width: 5ch;
+}
+.active-filters-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.clear-filters-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.clear-filters-btn:hover { background: rgba(15,108,93,0.07); }
+.active-filter-tags {
+  font-size: 0.82rem;
+  color: var(--muted);
 }
 /* Chip area */
 .chip-row-wrapper {
@@ -1071,6 +1102,9 @@ a { color: inherit; text-decoration: none; }
 }
 .review-popover-body strong { display: block; margin-bottom: 4px; font-size: 0.83rem; color: var(--accent-2); }
 .review-popover-body p { margin: 0; color: var(--muted); }
+.chart-warn-label { cursor: help; }
+.warn-star-svg { fill: var(--accent-2); font-weight: 700; }
+.chart-pfp-tooltip { position: absolute; z-index: 40; width: 320px; max-width: 320px; bottom: auto !important; pointer-events: none; transition: opacity 160ms ease, visibility 0s linear 160ms; }
 .pdf-link { background: var(--accent-2); color: #fff; }
 
 .page-intro { margin: 10px 0 18px; }

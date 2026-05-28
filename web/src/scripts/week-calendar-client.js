@@ -3,7 +3,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 const panel = document.querySelector('.week-calendar-panel');
 const availableWeeks = JSON.parse(panel?.dataset.availableWeeks || '[]');
-const baseUrl = panel?.dataset.baseUrl || '/';
+const baseUrl = (panel?.dataset.baseUrl || '').replace(/\/+$/, '');
 // Fallback constants in case data is empty
 const _fallbackEarliest = new Date(2026, 3, 27); // Apr 27 2026
 const earliestAvailable = availableWeeks.length
