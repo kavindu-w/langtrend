@@ -1,0 +1,137 @@
+"""
+Unit tests for langtrend/html_processor.py.
+
+Run with:  pytest tests/test_html_processor.py -v
+"""
+
+import pytest
+from bs4 import BeautifulSoup
+
+from langtrend.html_processor import (
+    clean_html_soup,
+    extract_sections_from_soup,
+    extract_sections_from_html,
+)
+
+
+def _soup(html: str) -> BeautifulSoup:
+    return BeautifulSoup(html, "html.parser")
+
+
+# ---------------------------------------------------------------------------
+# extract_sections_from_soup — inline tag handling
+# ---------------------------------------------------------------------------
+
+class TestInlineTagTextExtraction:
+    def test_inline_span_does_not_split_word(self):
+        soup = _soup(
+            '<section><h2>Intro</h2>'
+            '<p>human <span class="ltx_font_bold">Mo</span>tion understanding</p>'
+            "</section>"
+        )
+        sections = extract_sections_from_soup(soup)
+        assert "Motion" in sections["Intro"]
+        assert "Mo tion" not in sections["Intro"]
+
+    def test_words_around_inline_tag_keep_space(self):
+        soup = _soup(
+            '<section><h2>S</h2>'
+            '<p>We evaluate on <em>Arabic</em> and Swahili corpora.</p>'
+            "</section>"
+        )
+        text = extract_sections_from_soup(soup)["S"]
+        assert "Arabic" in text
+        assert " Arabic " in text  # space on both sides
+
+    def test_bold_word_keeps_surrounding_spaces(self):
+        soup = _soup(
+            '<section><h2>S</h2>'
+            '<p>Hello <strong>World</strong> stays together.</p>'
+            "</section>"
+        )
+        text = extract_sections_from_soup(soup)["S"]
+        assert "Hello World stays together" in text
+
+    def test_multiple_inline_splits_in_one_paragraph(self):
+        soup = _soup(
+            '<section><h2>S</h2>'
+            '<p><em>Swahi</em>li and <span>Ara</span>bic datasets.</p>'
+            "</section>"
+        )
+        text = extract_sections_from_soup(soup)["S"]
+        assert "Swahili" in text
+        assert "Arabic" in text
+
+
+# ---------------------------------------------------------------------------
+# extract_sections_from_soup — section structure
+# ---------------------------------------------------------------------------
+
+class TestSectionExtraction:
+    def test_single_section_with_heading(self):
+        soup = _soup(
+            '<section><h2>Methods</h2><p>We use Arabic data.</p></section>'
+        )
+        sections = extract_sections_from_soup(soup)
+        assert "Methods" in sections
+        assert "Arabic" in sections["Methods"]
+
+    def test_multiple_sections(self):
+        soup = _soup(
+            '<section><h2>Intro</h2><p>First.</p></section>'
+            '<section><h2>Results</h2><p>Second.</p></section>'
+        )
+        sections = extract_sections_from_soup(soup)
+        assert "Intro" in sections
+        assert "Results" in sections
+
+    def test_fallback_when_no_section_tags(self):
+        soup = _soup(
+            '<html><body>'
+            '<h2>Methods</h2><p>We use Hindi data.</p>'
+            '<h2>Results</h2><p>We report on Swahili.</p>'
+            '</body></html>'
+        )
+        sections = extract_sections_from_soup(soup)
+        assert len(sections) >= 2
+
+    def test_body_fallback_when_no_structure(self):
+        soup = _soup('<p>Some plain text.</p>')
+        sections = extract_sections_from_soup(soup)
+        assert len(sections) > 0
+        assert any("plain text" in v for v in sections.values())
+
+
+# ---------------------------------------------------------------------------
+# clean_html_soup — removes unwanted sections
+# ---------------------------------------------------------------------------
+
+class TestCleanHtmlSoup:
+    def test_removes_abstract_div(self):
+        soup = clean_html_soup(
+            '<div class="abstract">This is the abstract.</div>'
+            '<p>Main body text.</p>'
+        )
+        assert "abstract" not in soup.get_text().lower()
+        assert "Main body" in soup.get_text()
+
+    def test_removes_references_heading_and_content(self):
+        soup = clean_html_soup(
+            '<section><h2>Introduction</h2><p>Intro text.</p></section>'
+            '<section><h2>References</h2><p>[1] Smith 2022.</p></section>',
+            remove_headings=["References"],
+        )
+        text = soup.get_text()
+        assert "Intro text" in text
+        assert "Smith 2022" not in text
+
+    def test_removes_nav_and_footer(self):
+        soup = clean_html_soup(
+            '<nav>Navigation</nav>'
+            '<p>Content</p>'
+            '<footer>Footer</footer>'
+        )
+        text = soup.get_text()
+        assert "Navigation" not in text
+        assert "Footer" not in text
+        assert "Content" in text

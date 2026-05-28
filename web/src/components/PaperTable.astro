@@ -1,0 +1,652 @@
+---
+import { languageBorderClass, languageFillColor } from '../lib/language-colors.js';
+
+type LanguageEntry = string | [string, number] | { language?: string | null; class?: number; name?: string; needs_review?: boolean; flag_reason?: string; sources?: string[] };
+type PaperRecord = {
+  id?: string;
+  title: string;
+  authors: string[];
+  abstract: string;
+  pdf_url: string;
+  published?: string;
+  updated?: string;
+  categories?: string[];
+};
+type SectionRecord = {
+  name: string;
+  source: string;
+  detected_languages: LanguageEntry[];
+};
+type PaperWarning = {
+  step: string;
+  acronym?: string;
+  language?: string;
+  language_class?: number;
+  message?: string;
+};
+type FlaggedPaper = {
+  paper: PaperRecord;
+  languages: LanguageEntry[];
+  sourcesChecked: string[];
+  sections: SectionRecord[];
+  warnings?: PaperWarning[];
+};
+
+const { flaggedPapers } = Astro.props as { flaggedPapers: FlaggedPaper[] };
+const { languageData } = Astro.props as { flaggedPapers: FlaggedPaper[]; languageData?: { lang_classes?: Record<string, unknown[]> } };
+
+const normalizeLanguage = (entry: LanguageEntry): string => {
+  if (typeof entry === 'string') return entry;
+  if (Array.isArray(entry)) return entry[0] ?? '';
+  return entry?.language ?? entry?.name ?? '';
+};
+const classFromEntry = (entry: LanguageEntry): number | null => {
+  if (Array.isArray(entry) && typeof entry[1] === 'number') return entry[1];
+  if (!Array.isArray(entry) && typeof entry === 'object' && entry && typeof entry.class === 'number') return entry.class;
+  return null;
+};
+const sourcesOfEntry = (entry: LanguageEntry): string[] => {
+  if (typeof entry === 'string' || Array.isArray(entry)) return [];
+  return (entry as { sources?: string[] }).sources ?? [];
+};
+
+const formatSectionTitle = (sectionName: string): string => {
+  const compact = sectionName.replace(/\s+/g, ' ').trim();
+  if (!compact) return 'Untitled section';
+
+  const appendixMatch = compact.match(/^(Appendix\s+[A-Z])(?=[A-Z0-9])/);
+  if (appendixMatch) {
+    const prefix = appendixMatch[1];
+    const suffix = compact.slice(prefix.length).replace(/^[\s.]+/, '');
+    return suffix ? `${prefix}. ${suffix}` : prefix;
+  }
+
+  const numberedMatch = compact.match(/^((?:[A-Z]\.?\d+(?:\.\d+)*|\d+(?:\.\d+)*|[A-Z]))(?=[A-Z])/);
+  if (numberedMatch) {
+    const prefix = numberedMatch[1].replace(/\.$/, '');
+    const suffix = compact.slice(numberedMatch[1].length).replace(/^[\s.]+/, '');
+    return suffix ? `${prefix}. ${suffix}` : prefix;
+  }
+
+  return compact;
+};
+
+const chipFromEntry = (entry: LanguageEntry, langClasses: Record<string, unknown[]>): ChipEntry => {
+  const language = normalizeLanguage(entry);
+  const explicitNeeds = !Array.isArray(entry) && typeof entry === 'object' && !!entry?.needs_review;
+  const explicitReason = !Array.isArray(entry) && typeof entry === 'object' ? (entry?.flag_reason ?? '') : '';
+  const twoLetterCode = typeof language === 'string' && /^[A-Za-z]{2}$/.test(language.trim());
+  // Check language_data possible_false_positive_languages map (if provided by loader)
+  const pfpMap = (languageData as any)?.possible_false_positive_languages ?? {};
+  const pfpReason = typeof language === 'string' && pfpMap[language] ? String(pfpMap[language]) : '';
+  const needsReview = explicitNeeds || twoLetterCode || !!pfpReason;
+  const flagReason = explicitReason || pfpReason || (twoLetterCode ? 'Detected as 2-letter language code — confirm mapping/label.' : '');
+  return {
+    language,
+    borderClass: classFromEntry(entry) ?? languageBorderClass(language, langClasses),
+    needsReview,
+    flagReason,
+    fillColor: languageFillColor(language),
+  };
+};
+
+const langClasses = languageData?.lang_classes ?? {};
+const languageCounts = new Map<string, number>();
+for (const item of flaggedPapers) {
+  for (const entry of item.languages) {
+    const language = normalizeLanguage(entry);
+    if (!language) continue;
+    languageCounts.set(language, (languageCounts.get(language) || 0) + 1);
+  }
+}
+const languages = [...languageCounts.entries()]
+  .sort((l, r) => { const d = r[1] - l[1]; return d !== 0 ? d : l[0].localeCompare(r[0]); })
+  .map(([language]) => language);
+
+function formatDate(iso: string | undefined): string {
+  if (!iso) return '';
+  try { return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }); }
+  catch { return iso; }
+}
+
+const SOURCE_LABEL: Record<string, string> = { abstract: 'Abstract', html: 'Full Text (HTML)', pdf: 'Full Text (PDF)' };
+const SOURCE_ORDER = ['abstract', 'html', 'pdf'];
+
+type SourceGroup = { src: string; label: string; langs: string[] };
+type ChipEntry = { language: string; borderClass: number; needsReview: boolean; flagReason: string; fillColor: string };
+type SectionItem = { name: string; label: string; source: string; sourceLabel: string; chips: ChipEntry[] };
+type PaperItem = {
+  index: number;
+  paper: PaperRecord;
+  allAuthors: string;
+  chips: ChipEntry[];
+  chipLanguageNames: string[];
+  minClass: number;
+  hasPdf: boolean;
+  coverageBadge: { label: string; title: string } | null;
+  searchText: string;
+  sourcesGroups: SourceGroup[];
+  sections: SectionItem[];
+  pubDateStr: string;
+  updDateStr: string;
+  showUpdated: boolean;
+  arxivUrl: string;
+  acronymConflicts: PaperWarning[];
+};
+
+const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
+  const paper = item.paper;
+  const allAuthors = Array.isArray(paper.authors) && paper.authors.length > 0 ? paper.authors.join(', ') : 'Unknown authors';
+
+  const chipLanguages = [...item.languages].filter(Boolean).sort((l, r) => {
+    const lc = classFromEntry(l) ?? languageBorderClass(normalizeLanguage(l), langClasses);
+    const rc = classFromEntry(r) ?? languageBorderClass(normalizeLanguage(r), langClasses);
+    const d = rc - lc;
+    return d !== 0 ? d : normalizeLanguage(l).localeCompare(normalizeLanguage(r));
+  });
+
+  const chips: ChipEntry[] = chipLanguages.map(entry => chipFromEntry(entry, langClasses));
+
+  const chipLanguageNames = chips.map(c => c.language).filter(Boolean);
+  const minClass = chips.length > 0 ? chips.reduce((min, c) => Math.min(min, c.borderClass), 5) : 5;
+
+  const sources = item.sourcesChecked ?? [];
+  const hasHtml = sources.includes('html');
+  const hasPdf = sources.includes('pdf');
+  const coverageBadge = !hasHtml
+    ? (hasPdf
+        ? { label: 'PDF & Abstract', title: 'HTML version could not be extracted — analysis done with PDF and abstract' }
+        : { label: 'Abstract only', title: 'HTML and PDF versions could not be extracted — analysis done with abstract only' })
+    : null;
+
+  const searchText = `${paper.title} ${paper.authors.join(' ')}`.toLowerCase();
+
+  const sourcesMap = new Map<string, string[]>();
+  for (const entry of chipLanguages) {
+    const lang = normalizeLanguage(entry);
+    if (!lang) continue;
+    for (const src of sourcesOfEntry(entry)) {
+      if (!sourcesMap.has(src)) sourcesMap.set(src, []);
+      sourcesMap.get(src)!.push(lang);
+    }
+  }
+  const sourcesGroups: SourceGroup[] = [...sourcesMap.entries()]
+    .sort(([a], [b]) => {
+      const ai = SOURCE_ORDER.indexOf(a);
+      const bi = SOURCE_ORDER.indexOf(b);
+      return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+    })
+    .map(([src, langs]) => ({ src, label: SOURCE_LABEL[src] ?? src, langs }));
+
+  const sections: SectionItem[] = (item.sections || [])
+    .filter((section) => section?.name)
+    .map((section) => ({
+      name: section.name,
+      label: formatSectionTitle(section.name),
+      source: section.source,
+      sourceLabel: SOURCE_LABEL[section.source] ?? section.source,
+      chips: (section.detected_languages || [])
+        .filter(Boolean)
+        .map((entry) => chipFromEntry(entry, langClasses))
+        .sort((left, right) => {
+          const classDelta = right.borderClass - left.borderClass;
+          return classDelta !== 0 ? classDelta : left.language.localeCompare(right.language);
+        }),
+    }));
+
+  const pubDateStr = formatDate(paper.published);
+  const updDateStr = formatDate(paper.updated);
+  const pubDay = paper.published ? paper.published.slice(0, 10) : '';
+  const updDay = paper.updated ? paper.updated.slice(0, 10) : '';
+  const showUpdated = !!updDay && updDay !== pubDay;
+  const arxivUrl = paper.id ? paper.id.replace('http://', 'https://') : paper.pdf_url;
+
+  const acronymConflicts = (item.warnings ?? []).filter(w => w.step === 'acronym_language_conflict');
+
+  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts };
+});
+---
+<section class="panel paper-panel">
+  <div class="paper-controls-bar">
+    <div class="search-wrapper paper-search-wrapper">
+      <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input id="paper-search" class="search-input" type="search" placeholder="Search by title or author" />
+    </div>
+    <div class="search-wrapper lang-search-wrapper">
+      <svg class="input-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input id="lang-search" class="search-input lang-search-input" type="search" placeholder="Search languages…" aria-label="Filter language chips" />
+    </div>
+    <div class="paper-controls-right">
+      <div class="sort-wrapper">
+        <svg class="input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
+        </svg>
+        <label class="sr-only" for="paper-sort">Sort papers</label>
+        <select id="paper-sort" class="sort-select">
+          <option value="default">Newest first (arXiv order)</option>
+          <option value="lang-desc">Most languages (count ↓)</option>
+          <option value="lang-asc">Fewest languages (count ↑)</option>
+          <option value="resource-asc">Low-resource first (class 0→5)</option>
+          <option value="resource-desc">High-resource first (class 5→0)</option>
+          <option value="title-asc">Title A–Z</option>
+          <option value="title-desc">Title Z–A</option>
+        </select>
+      </div>
+      <span id="result-count" class="result-count" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <div class="chip-area" id="chip-area">
+    <div class="chip-row-wrapper" id="chip-row-wrapper">
+      <div class="chip-row" id="language-filters">
+        <button class="chip active" type="button" data-lang="all">All</button>
+        {languages.map((language) => (
+          <button
+            class={`chip lang-filter-chip class-${languageBorderClass(language, langClasses)}`}
+            type="button"
+            data-lang={language}
+            style={`background:${languageFillColor(language)}`}
+          >
+            {language} <span class="chip-count">({languageCounts.get(language) || 0})</span>
+          </button>
+        ))}
+        <button id="chip-expand-btn" class="chip-expand-btn" type="button" aria-expanded="false" style="display:none">… +0 more</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="paper-list" id="paper-list">
+    {paperItems.map((item) => (
+      <details
+        class="paper-row"
+        data-search={item.searchText}
+        data-languages={item.chipLanguageNames.join('|')}
+        data-lang-count={item.chipLanguageNames.length}
+        data-min-class={item.minClass}
+        data-title={item.paper.title.toLowerCase()}
+        data-index={item.index}
+      >
+        <summary class="paper-summary">
+          <div class="paper-main">
+            <div class="paper-title-row">
+              <h3>{item.paper.title}</h3>
+              <a class="pdf-link" href={item.paper.pdf_url} target="_blank" rel="noreferrer">
+                <svg class="pdf-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7zm0 1.5V8h4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                </svg>
+                <span>PDF</span>
+              </a>
+            </div>
+            <p class="paper-authors">{item.allAuthors}</p>
+            <div class="paper-tags">
+              {item.chips.map((chip) => (
+                chip.needsReview ? (
+                  <span class="lang-chip-popover">
+                    <span class={`lang-chip class-${chip.borderClass} needs-review`} tabindex="0" style={`background:${chip.fillColor}`}>
+                      {chip.language}<span class="review-star" aria-label="manual review recommended">★</span>
+                    </span>
+                    <div class="review-popover-body">
+                      <strong>⚠ Manual verification may be needed</strong>
+                      {chip.flagReason && <p>{chip.flagReason}</p>}
+                    </div>
+                  </span>
+                ) : (
+                  <span class={`lang-chip class-${chip.borderClass}`} style={`background:${chip.fillColor}`}>{chip.language}</span>
+                )
+              ))}
+              {item.coverageBadge && (
+                <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} data-tooltip={item.coverageBadge.title}>
+                  {item.coverageBadge.label}
+                </span>
+              )}
+            </div>
+          </div>
+        </summary>
+        <div class="paper-body">
+          {(item.pubDateStr || (item.paper.categories && item.paper.categories.length > 0)) && (
+            <div class="paper-meta">
+              {item.pubDateStr && <span class="paper-date">Published {item.pubDateStr}</span>}
+              {item.showUpdated && <span class="paper-meta-sep">·</span>}
+              {item.showUpdated && <span class="paper-date">Updated {item.updDateStr}</span>}
+              {item.paper.categories && item.paper.categories.length > 0 && (
+                <span class="paper-categories">
+                  {item.paper.categories.map((cat: string) => (
+                    <span class="category-badge">{cat}</span>
+                  ))}
+                </span>
+              )}
+            </div>
+          )}
+          <strong class="paper-abstract-label">Abstract</strong>
+          <p class="paper-abstract">{item.paper.abstract}</p>
+          {item.acronymConflicts.length > 0 && (
+            <div class="acronym-conflict-notice">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>
+                <strong>Manual review may be needed:</strong>{' '}
+                {item.acronymConflicts.map((w, i) => (
+                  <span>
+                    {i > 0 && ' · '}
+                    This paper defines <code>{w.acronym}</code> as an acronym — mentions of the language <em>{w.language}</em> (class {w.language_class}) may have been suppressed.
+                  </span>
+                ))}
+              </span>
+            </div>
+          )}
+          {item.sourcesGroups.length > 0 && (
+            <details class="lang-sources-summary">
+              <summary class="lang-sources-toggle">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lang-sources-chevron"><polyline points="9 18 15 12 9 6"/></svg>
+                Language detection sources
+              </summary>
+              <div class="lang-sources-body">
+                {item.sourcesGroups
+                  .filter((g) => g.src !== 'abstract')
+                  .map((g) => (
+                    <div class="lang-source-row">
+                      <span class="lang-source-label">{g.label}:</span>
+                      <span class="lang-source-langs">{g.langs.join(', ')}</span>
+                      {g.src === 'html' && item.sections && item.sections.length > 0 && (
+                        <details class="html-sections-list">
+                          <summary class="html-sections-summary">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="html-sections-chevron"><polyline points="9 18 15 12 9 6"/></svg>
+                            Section-wise breakdown
+                          </summary>
+                          <div class="html-sections-body">
+                            {item.sections
+                              .filter((s) => s.source === 'html')
+                              .map((s) => (
+                                <div class="html-section-item">
+                                  <div class="html-section-title"><strong>{formatSectionTitle(s.name)}</strong></div>
+                                  <div class="html-section-langs">{Array.from(new Set((s.chips || []).map(c => c.language).filter(Boolean))).join(', ')}</div>
+                                </div>
+                              ))}
+                          </div>
+                        </details>
+                      )}
+                    </div>
+                  ))}
+              </div>
+            </details>
+          )}
+          <!-- Section-level details moved into the Language detection sources block above. -->
+          <div class="paper-body-footer">
+            <a class="arxiv-link" href={item.arxivUrl} target="_blank" rel="noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              View on arXiv
+            </a>
+          </div>
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<script>
+  const searchInput = document.getElementById('paper-search') as HTMLInputElement | null;
+  const langSearchInput = document.getElementById('lang-search') as HTMLInputElement | null;
+  const sortSelect = document.getElementById('paper-sort') as HTMLSelectElement | null;
+  const resultCount = document.getElementById('result-count') as HTMLElement | null;
+  const expandBtn = document.getElementById('chip-expand-btn') as HTMLButtonElement | null;
+  const paperList = document.getElementById('paper-list') as HTMLElement | null;
+  const allChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .chip'));
+  const langChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .lang-filter-chip'));
+  const rows = Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row'));
+  let activeLanguage = 'all';
+  let chipExpanded = false;
+  let anchorChip: HTMLButtonElement | null = null;
+  const chipRow = document.getElementById('language-filters') as HTMLElement | null;
+
+  // ── Collapse helpers ────────────────────────────────────────────────────────
+
+  function measureFirstRow(): { firstRowChips: HTMLButtonElement[]; overflowChips: HTMLButtonElement[] } {
+    const visible = langChips.filter(c => !c.hidden && c.style.display !== 'none');
+    if (!visible.length) return { firstRowChips: [], overflowChips: [] };
+    const firstTop = visible[0].getBoundingClientRect().top;
+    const chipH   = visible[0].getBoundingClientRect().height;
+    const threshold = firstTop + chipH * 0.5;
+    return {
+      firstRowChips: visible.filter(c => c.getBoundingClientRect().top < threshold),
+      overflowChips: visible.filter(c => c.getBoundingClientRect().top >= threshold),
+    };
+  }
+
+  function applyCollapse() {
+    if (!expandBtn || !chipRow) return;
+    chipRow.appendChild(expandBtn);
+    langChips.forEach(c => c.style.removeProperty('display'));
+    anchorChip = null;
+    expandBtn.style.display = 'none';
+
+    requestAnimationFrame(() => {
+      const { firstRowChips, overflowChips } = measureFirstRow();
+      if (overflowChips.length === 0) return;
+
+      const toHide = [...overflowChips];
+      if (firstRowChips.length > 0) toHide.push(firstRowChips[firstRowChips.length - 1]);
+      toHide.forEach(c => { c.style.display = 'none'; });
+      anchorChip = firstRowChips.length >= 2 ? firstRowChips[firstRowChips.length - 2] : null;
+
+      let hiddenCount = toHide.length;
+      expandBtn!.style.removeProperty('display');
+      expandBtn!.setAttribute('aria-expanded', 'false');
+      expandBtn!.textContent = `… +${hiddenCount} more`;
+
+      requestAnimationFrame(() => {
+        if (!expandBtn || !firstRowChips.length) return;
+        const btnTop   = expandBtn.getBoundingClientRect().top;
+        const firstTop = firstRowChips[0].getBoundingClientRect().top;
+        const chipH    = firstRowChips[0].getBoundingClientRect().height;
+        if (Math.abs(btnTop - firstTop) > chipH * 0.5) {
+          const stillVisible = langChips.filter(c => !c.hidden && c.style.display !== 'none');
+          const extra = stillVisible[stillVisible.length - 1];
+          if (extra) {
+            extra.style.display = 'none';
+            anchorChip = stillVisible[stillVisible.length - 2] ?? null;
+            expandBtn.textContent = `… +${++hiddenCount} more`;
+          }
+        }
+      });
+    });
+  }
+
+  function expandChips() {
+    if (!expandBtn || !chipRow) return;
+    chipExpanded = true;
+    if (anchorChip && !anchorChip.hidden) {
+      anchorChip.insertAdjacentElement('afterend', expandBtn);
+    }
+    langChips.forEach(c => { if (!c.hidden) c.style.removeProperty('display'); });
+    expandBtn.style.removeProperty('display');
+    expandBtn.setAttribute('aria-expanded', 'true');
+    expandBtn.textContent = 'Show less';
+  }
+
+  function collapseChips() {
+    chipExpanded = false;
+    applyCollapse();
+  }
+
+  expandBtn?.addEventListener('click', () => {
+    chipExpanded ? collapseChips() : expandChips();
+  });
+
+  window.addEventListener('resize', () => {
+    if (!chipExpanded) requestAnimationFrame(applyCollapse);
+  });
+
+  // ── Language chip search ────────────────────────────────────────────────────
+
+  function filterLangChips(query: string) {
+    const q = query.trim().toLowerCase();
+    langChips.forEach(chip => {
+      chip.hidden = q.length > 0 && !(chip.dataset.lang || '').toLowerCase().includes(q);
+    });
+    if (activeLanguage !== 'all') {
+      const activeChip = langChips.find(c => c.dataset.lang === activeLanguage);
+      if (activeChip?.hidden || q.length === 0) { setActiveChip('all'); applyFilters(); }
+    }
+    if (chipExpanded) {
+      langChips.forEach(c => { if (!c.hidden) c.style.removeProperty('display'); });
+    } else {
+      applyCollapse();
+    }
+  }
+
+  function setActiveChip(lang: string) {
+    allChips.forEach(c => c.classList.remove('active'));
+    const target = allChips.find(c => c.dataset.lang === lang);
+    if (target) target.classList.add('active');
+    activeLanguage = lang;
+  }
+
+  // ── Paper filters ───────────────────────────────────────────────────────────
+
+  function applyFilters() {
+    const searchTerm = searchInput?.value.trim().toLowerCase() ?? '';
+    let visible = 0;
+    rows.forEach(row => {
+      const rowSearch = row.dataset.search || '';
+      const rowLanguages = (row.dataset.languages || '').split('|').filter(Boolean);
+      const matchesLanguage = activeLanguage === 'all' || rowLanguages.includes(activeLanguage);
+      const matchesSearch = !searchTerm || rowSearch.includes(searchTerm);
+      const show = matchesLanguage && matchesSearch;
+      row.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (resultCount) {
+      resultCount.textContent = visible === rows.length
+        ? `${rows.length} papers`
+        : `${visible} of ${rows.length} papers`;
+    }
+  }
+
+  // ── Sort ────────────────────────────────────────────────────────────────────
+
+  function sortPapers(mode: string) {
+    if (!paperList) return;
+    const sorted = [...rows].sort((a, b) => {
+      switch (mode) {
+        case 'lang-desc':    return parseInt(b.dataset.langCount || '0') - parseInt(a.dataset.langCount || '0');
+        case 'lang-asc':     return parseInt(a.dataset.langCount || '0') - parseInt(b.dataset.langCount || '0');
+        case 'resource-asc': return parseInt(a.dataset.minClass  || '5') - parseInt(b.dataset.minClass  || '5');
+        case 'resource-desc':return parseInt(b.dataset.minClass  || '5') - parseInt(a.dataset.minClass  || '5');
+        case 'title-asc':    return (a.dataset.title || '').localeCompare(b.dataset.title || '');
+        case 'title-desc':   return (b.dataset.title || '').localeCompare(a.dataset.title || '');
+        default:             return parseInt(a.dataset.index || '0') - parseInt(b.dataset.index || '0');
+      }
+    });
+    sorted.forEach(row => paperList.appendChild(row));
+  }
+
+  // Popovers are now hover/focus driven; no global click-close needed.
+
+  // ── Wire up ─────────────────────────────────────────────────────────────────
+
+  allChips.forEach(chip => {
+    chip.addEventListener('click', () => { setActiveChip(chip.dataset.lang || 'all'); applyFilters(); });
+  });
+  searchInput?.addEventListener('input', applyFilters);
+  langSearchInput?.addEventListener('input', e => filterLangChips((e.target as HTMLInputElement).value));
+  sortSelect?.addEventListener('change', () => { sortPapers(sortSelect.value); applyFilters(); });
+
+  requestAnimationFrame(() => { applyCollapse(); applyFilters(); });
+
+  // ── Per-tile chip collapse ───────────────────────────────────────────────────
+
+  function initPaperTagsCollapse() {
+    document.querySelectorAll<HTMLElement>('.paper-tags').forEach(tagsDiv => {
+      const chipEls = Array.from(tagsDiv.querySelectorAll<HTMLElement>('.lang-chip, .lang-chip-popover'));
+      if (chipEls.length <= 1) return;
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'paper-chip-expand-btn';
+      btn.style.display = 'none';
+      const badge = tagsDiv.querySelector('.coverage-badge');
+      if (badge) tagsDiv.insertBefore(btn, badge);
+      else tagsDiv.appendChild(btn);
+
+      let expanded = false;
+
+      function applyTagsCollapse() {
+        chipEls.forEach(c => c.style.removeProperty('display'));
+        btn.style.display = 'none';
+
+        requestAnimationFrame(() => {
+          if (!chipEls[0]) return;
+          const firstTop = chipEls[0].getBoundingClientRect().top;
+          const chipH = chipEls[0].getBoundingClientRect().height;
+          const threshold = firstTop + chipH * 0.5;
+          const firstRow = chipEls.filter(c => c.getBoundingClientRect().top < threshold);
+          const overflow = chipEls.filter(c => c.getBoundingClientRect().top >= threshold);
+          if (overflow.length === 0) return;
+
+          const toHide = [...overflow];
+          if (firstRow.length > 0) toHide.push(firstRow[firstRow.length - 1]);
+          toHide.forEach(c => { c.style.display = 'none'; });
+          btn.style.removeProperty('display');
+          btn.textContent = `+${toHide.length} more`;
+
+          requestAnimationFrame(() => {
+            const btnTop = btn.getBoundingClientRect().top;
+            if (Math.abs(btnTop - firstTop) > chipH * 0.5) {
+              const stillVisible = chipEls.filter(c => c.style.display !== 'none');
+              const extra = stillVisible[stillVisible.length - 1];
+              if (extra) {
+                extra.style.display = 'none';
+                btn.textContent = `+${chipEls.filter(c => c.style.display === 'none').length} more`;
+              }
+            }
+          });
+        });
+      }
+
+      btn.addEventListener('click', () => {
+        expanded = !expanded;
+        if (expanded) {
+          chipEls.forEach(c => c.style.removeProperty('display'));
+          btn.style.removeProperty('display');
+          btn.textContent = 'Show less';
+        } else {
+          applyTagsCollapse();
+        }
+      });
+
+      applyTagsCollapse();
+    });
+  }
+
+  requestAnimationFrame(initPaperTagsCollapse);
+  window.addEventListener('resize', () => {
+    document.querySelectorAll<HTMLElement>('.paper-chip-expand-btn').forEach(btn => {
+      const tagsDiv = btn.closest<HTMLElement>('.paper-tags');
+      if (!tagsDiv || btn.textContent === 'Show less') return;
+      const chipEls = Array.from(tagsDiv.querySelectorAll<HTMLElement>('.lang-chip, .lang-chip-popover'));
+      chipEls.forEach(c => c.style.removeProperty('display'));
+      btn.style.display = 'none';
+      requestAnimationFrame(() => {
+        if (!chipEls[0]) return;
+        const firstTop = chipEls[0].getBoundingClientRect().top;
+        const chipH = chipEls[0].getBoundingClientRect().height;
+        const threshold = firstTop + chipH * 0.5;
+        const firstRow = chipEls.filter(c => c.getBoundingClientRect().top < threshold);
+        const overflow = chipEls.filter(c => c.getBoundingClientRect().top >= threshold);
+        if (overflow.length === 0) return;
+        const toHide = [...overflow];
+        if (firstRow.length > 0) toHide.push(firstRow[firstRow.length - 1]);
+        toHide.forEach(c => { c.style.display = 'none'; });
+        btn.style.removeProperty('display');
+        btn.textContent = `+${toHide.length} more`;
+      });
+    });
+  });
+</script>

@@ -1,2 +1,19 @@
 venv/
 **/.DS_Store
+**/__pycache__/
+.pytest_cache/
+**/.vscode/
+**/node_modules/
+**/.astro/
+**/dist/
+**/coverage/
+**/*.log
+
+# Per-week caches contain full paper body text — never publish
+data/processed/weeks/*/html_cache/
+data/processed/weeks/*/pdf_cache/
+
+# Raw PDF downloads
+data/raw/pdfs/
+
+.claude/

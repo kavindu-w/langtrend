@@ -1,0 +1,1626 @@
+---
+import { scaleBand, scaleLinear } from 'd3';
+import { CLASS_LABELS, colorForIndex } from '../lib/data.js';
+import { LANGUAGE_CLASS_COLORS, languageBorderClass } from '../lib/language-colors.js';
+
+type LanguageCount = { language: string; count: number };
+type WeekPoint = { date: string; papers: number; flagged: number };
+type CoverageStats = { htmlScanned: number; pdfOnly: number; abstractOnly: number };
+type ClassCount = { class_id: number; count: number };
+type WeekAggregate = {
+  weekStart: string;
+  weekEnd?: string | null;
+  papers: number;
+  flaggedPapers: number;
+  uniqueLanguages: number;
+  languageCounts: LanguageCount[];
+  classCounts: ClassCount[];
+  dailySeries: WeekPoint[];
+};
+
+type Props = {
+  languageCounts: LanguageCount[];
+  classCounts: ClassCount[];
+  weekSeries: WeekPoint[];
+  coverageStats: CoverageStats;
+  allWeeksData: WeekAggregate[];
+  manifest: {
+    counts?: {
+      papers?: number;
+      flagged_papers?: number;
+      unique_languages?: number;
+    };
+    papers?: unknown[];
+    flagged_papers?: unknown[];
+    week_start?: string;
+    week_end?: string;
+  };
+  languageData: { lang_classes?: Record<string, unknown[]> };
+};
+
+const { languageCounts = [], classCounts = [], weekSeries = [], coverageStats, allWeeksData = [], manifest, languageData } = Astro.props as Props;
+
+const langClasses = languageData?.lang_classes || {};
+const weeklyPapers = manifest.counts?.papers ?? (manifest.papers || []).length;
+const weeklyFlagged = manifest.counts?.flagged_papers ?? (manifest.flagged_papers || []).length;
+const weeklyUniqueLanguages = manifest.counts?.unique_languages ?? languageCounts.length;
+
+function formatWeekRange(series: WeekPoint[], fallbackStart?: string, fallbackEnd?: string) {
+  const startSource = series[0]?.date || fallbackStart;
+  const endSource = series[series.length - 1]?.date || fallbackEnd || fallbackStart;
+  if (!startSource || !endSource) {
+    return 'the current window';
+  }
+
+  const start = new Date(`${startSource}T00:00:00`);
+  const end = new Date(`${endSource}T00:00:00`);
+  const startLabel = start.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+  const endLabel = end.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+  return `The Week of ${startLabel}–${endLabel}`;
+}
+
+function formatWeekLabel(weekStart: string) {
+  const date = new Date(`${weekStart}T00:00:00`);
+  return date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+}
+
+function formatWeekdayLabel(dateString: string) {
+  const date = new Date(`${dateString}T00:00:00`);
+  return date.toLocaleDateString(undefined, { weekday: 'short' });
+}
+
+function formatPercent(value: number, total: number) {
+  if (!total) return '0.0%';
+  return `${((value / total) * 100).toFixed(1)}%`;
+}
+
+function sumCounts(items: { count: number }[]) {
+  return items.reduce((sum, item) => sum + (item.count || 0), 0);
+}
+
+function buildLinePath(points: { x: number; y: number }[]) {
+  if (!points.length) return '';
+  return points.map((point, index) => `${index === 0 ? 'M' : 'L'}${point.x},${point.y}`).join(' ');
+}
+
+function classColor(language: string) {
+  const index = languageBorderClass(language, langClasses);
+  return LANGUAGE_CLASS_COLORS[index] || LANGUAGE_CLASS_COLORS[0];
+}
+
+function classColorForId(classId: number) {
+  return LANGUAGE_CLASS_COLORS[classId] || LANGUAGE_CLASS_COLORS[0];
+}
+
+type PieItem = { label: string; value: number; color: string; countLabel?: string };
+type PieSlice = PieItem & {
+  startAngle: number;
+  endAngle: number;
+  midAngle: number;
+  path: string;
+  calloutPath: string;
+  labelX: number;
+  labelY: number;
+  side: 'left' | 'right';
+};
+
+function polarToCartesian(centerX: number, centerY: number, radius: number, angle: number) {
+  return {
+    x: centerX + radius * Math.cos(angle),
+    y: centerY + radius * Math.sin(angle),
+  };
+}
+
+function buildPiePath(centerX: number, centerY: number, radius: number, startAngle: number, endAngle: number) {
+  const start = polarToCartesian(centerX, centerY, radius, startAngle);
+  const end = polarToCartesian(centerX, centerY, radius, endAngle);
+  const largeArcFlag = endAngle - startAngle > Math.PI ? 1 : 0;
+  return `M ${centerX} ${centerY} L ${start.x} ${start.y} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${end.x} ${end.y} Z`;
+}
+
+function buildPieSlices(items: PieItem[], centerX: number, centerY: number, radius: number, startOffset = -Math.PI / 2, labelOffset = 72) {
+  const total = Math.max(1, items.reduce((sum, item) => sum + Math.max(item.value || 0, 0), 0));
+  let angle = startOffset;
+  const slices: PieSlice[] = [];
+
+  for (const item of items) {
+    if ((item.value || 0) <= 0) {
+      continue;
+    }
+
+    const sweep = (item.value / total) * Math.PI * 2;
+    const startAngle = angle;
+    const endAngle = angle + sweep;
+    const midAngle = startAngle + sweep / 2;
+    const side: 'left' | 'right' = Math.cos(midAngle) >= 0 ? 'right' : 'left';
+    const calloutStart = polarToCartesian(centerX, centerY, radius, midAngle);
+    const calloutElbow = polarToCartesian(centerX, centerY, radius + 16, midAngle);
+    const labelX = centerX + (side === 'right' ? radius + labelOffset : -(radius + labelOffset));
+    const labelY = centerY + Math.sin(midAngle) * (radius + 22);
+
+    slices.push({
+      ...item,
+      startAngle,
+      endAngle,
+      midAngle,
+      path: buildPiePath(centerX, centerY, radius, startAngle, endAngle),
+      calloutPath: `M ${calloutStart.x} ${calloutStart.y} L ${calloutElbow.x} ${calloutElbow.y} L ${labelX} ${labelY}`,
+      labelX,
+      labelY,
+      side,
+    });
+    angle = endAngle;
+  }
+
+  const leftSlices = slices.filter((slice) => slice.side === 'left').sort((left, right) => left.labelY - right.labelY);
+  const rightSlices = slices.filter((slice) => slice.side === 'right').sort((left, right) => left.labelY - right.labelY);
+
+  const settle = (collection: PieSlice[]) => {
+    let previousY = -Infinity;
+    for (const slice of collection) {
+      slice.labelY = Math.max(slice.labelY, previousY + 16);
+      previousY = slice.labelY;
+    }
+  };
+
+  settle(leftSlices);
+  settle(rightSlices);
+  return slices;
+}
+
+function formatSliceLabel(label: string, value: number) {
+  return `${label} (${value})`;
+}
+
+function formatCountWithShare(count: number, total: number) {
+  if (!total) return `${count}`;
+  return `${count} (${Math.round((count / total) * 100)}%)`;
+}
+
+const weekLabel = formatWeekRange(weekSeries, manifest.week_start, manifest.week_end);
+const weeklySummaryCards = [
+  { label: 'Total papers scanned', value: weeklyPapers },
+  { label: 'Papers with language mentions', value: weeklyFlagged },
+  { label: 'Unique languages detected', value: weeklyUniqueLanguages },
+];
+
+const weeklyCoveragePieData = [
+  { label: 'Not flagged', value: Math.max(weeklyPapers - weeklyFlagged, 0), color: 'rgba(32, 22, 19, 0.16)' },
+  { label: 'Papers with language mentions', value: weeklyFlagged, color: '#0f6c5d' },
+];
+const weeklyCoveragePie = buildPieSlices([...weeklyCoveragePieData].sort((left, right) => right.value - left.value), 228, 110, 66, -Math.PI / 2, 30);
+const weeklyCoverageSources = [
+  { label: 'HTML + Abstract', value: coverageStats?.htmlScanned ?? 0, color: '#ec008b' },
+  { label: 'PDF + Abstract', value: coverageStats?.pdfOnly ?? 0, color: '#d94f2b' },
+  { label: 'Abstract only', value: coverageStats?.abstractOnly ?? 0, color: '#7b6c64' },
+].sort((a, b) => b.value - a.value);
+const weeklyCoverageSourceTotal = Math.max(1, weeklyCoverageSources.reduce((sum, item) => sum + item.value, 0));
+const weeklyCoverageFlowHeight = 160;
+const weeklyCoverageFlowLeftX = 140;
+const weeklyCoverageFlowRightX = 360;
+const weeklyCoverageFlowNodeWidth = 18;
+const weeklyCoverageFlowBarHeight = 90;
+const weeklyCoverageFlowRightYBase = 28;
+const weeklyCoverageFlowRightGap = 6;
+const weeklyCoverageFlowRightNodes = (() => {
+  const nodes: { label: string; value: number; color: string; y: number; height: number }[] = [];
+  let cursor = weeklyCoverageFlowRightYBase;
+  for (const item of weeklyCoverageSources) {
+    const height = Math.max(10, (item.value / weeklyCoverageSourceTotal) * weeklyCoverageFlowBarHeight);
+    nodes.push({ ...item, y: cursor, height });
+    cursor += height + weeklyCoverageFlowRightGap;
+  }
+  return nodes;
+})();
+// Left bar height = sum of link heights only (no inter-bar gaps) so strips fill the bar exactly
+const weeklyCoverageFlowLeftLinkTotal = weeklyCoverageFlowRightNodes.reduce((sum, item) => sum + item.height, 0);
+const weeklyCoverageFlowRightSpanTop = weeklyCoverageFlowRightNodes[0]?.y ?? weeklyCoverageFlowRightYBase;
+const weeklyCoverageFlowRightSpanBottom = weeklyCoverageFlowRightNodes.length > 0
+  ? weeklyCoverageFlowRightNodes[weeklyCoverageFlowRightNodes.length - 1].y + weeklyCoverageFlowRightNodes[weeklyCoverageFlowRightNodes.length - 1].height
+  : weeklyCoverageFlowRightYBase;
+const weeklyCoverageFlowLeftHeight = Math.max(18, weeklyCoverageFlowLeftLinkTotal);
+// Center left bar vertically relative to the full right-bars span (including gaps)
+const weeklyCoverageFlowLeftNodeY = (weeklyCoverageFlowRightSpanTop + weeklyCoverageFlowRightSpanBottom) / 2 - weeklyCoverageFlowLeftHeight / 2;
+const weeklyCoverageFlowLinks = (() => {
+  let offset = 0;
+  return weeklyCoverageFlowRightNodes.map((item) => {
+    const linkHeight = Math.max(10, item.height);
+    const srcY = weeklyCoverageFlowLeftNodeY + offset;
+    const tgtY = item.y;
+    offset += linkHeight;
+    return {
+      ...item,
+      linkHeight,
+      path: `M ${weeklyCoverageFlowLeftX + weeklyCoverageFlowNodeWidth} ${srcY} C ${weeklyCoverageFlowLeftX + 112} ${srcY} ${weeklyCoverageFlowLeftX + 112} ${tgtY} ${weeklyCoverageFlowRightX} ${tgtY} L ${weeklyCoverageFlowRightX} ${tgtY + linkHeight} C ${weeklyCoverageFlowLeftX + 112} ${tgtY + linkHeight} ${weeklyCoverageFlowLeftX + 112} ${srcY + linkHeight} ${weeklyCoverageFlowLeftX + weeklyCoverageFlowNodeWidth} ${srcY + linkHeight} Z`,
+    };
+  });
+})();
+
+const weeklyDailySeries = fillWeekSeries(weekSeries, manifest.week_start, manifest.week_end);
+const weeklyDailyWidth = 760;
+const weeklyDailyHeight = 420;
+const weeklyDailyMargins = { top: 24, right: 18, bottom: 52, left: 42 };
+const weeklyDailyInnerWidth = weeklyDailyWidth - weeklyDailyMargins.left - weeklyDailyMargins.right;
+const weeklyDailyInnerHeight = weeklyDailyHeight - weeklyDailyMargins.top - weeklyDailyMargins.bottom;
+const weeklyDailyScale = scaleBand()
+  .domain(weeklyDailySeries.map((item) => item.date))
+  .range([0, weeklyDailyInnerWidth])
+  .padding(0.22);
+const weeklyDailyMax = Math.max(1, ...weeklyDailySeries.map((item) => item.papers || 0));
+const weeklyDailyY = scaleLinear().domain([0, weeklyDailyMax]).nice().range([weeklyDailyInnerHeight, 0]);
+
+const weeklyClassSeries = CLASS_LABELS.map((label, classId) => ({
+  classId,
+  label,
+  count: classCounts.find((item) => item.class_id === classId)?.count ?? 0,
+  color: classColorForId(classId),
+}));
+const weeklyClassTotal = Math.max(1, sumCounts(weeklyClassSeries));
+const weeklyClassPieData = [...weeklyClassSeries]
+  .filter((item) => item.count > 0)
+  .sort((left, right) => right.count - left.count || left.classId - right.classId)
+  .map((item) => ({ label: item.label, value: item.count, color: item.color }));
+const weeklyClassPie = buildPieSlices(weeklyClassPieData, 228, 110, 66);
+
+const weeklyLanguageSeries = [...languageCounts]
+  .sort((left, right) => {
+    const countDelta = right.count - left.count;
+    return countDelta !== 0 ? countDelta : left.language.localeCompare(right.language);
+  });
+const weeklyLanguageMax = Math.max(1, ...weeklyLanguageSeries.map((item) => item.count || 0));
+const weeklyLanguageBarWidth = 920;
+const weeklyLanguageBarMargins = { top: 18, right: 24, bottom: 20, left: 210 };
+const weeklyLanguageBarInnerWidth = weeklyLanguageBarWidth - weeklyLanguageBarMargins.left - weeklyLanguageBarMargins.right;
+const weeklyLanguageRowHeight = 28;
+const weeklyLanguageBarHeight = weeklyLanguageBarMargins.top + weeklyLanguageBarMargins.bottom + weeklyLanguageSeries.length * weeklyLanguageRowHeight;
+const weeklyLanguageTotalCount = Math.max(1, languageCounts.reduce((sum, item) => sum + item.count, 0));
+
+// Color palettes declared early so they can be used in data computations below
+const BUMP_RANK_COLORS = ['#1A2E19','#2C5C2D','#347032','#408941','#55B748','#78C26D','#8ABE80','#98CF90','#BCDEB4','#DCEDD9'];
+const TREND_LINE_COLORS = ['#1696d2','#000000','#d2d2d2','#fdbf11','#55b748','#ec008b','#0a4c6a','#db2b27','#5c5859','#a2d4ec'];
+
+const trendWeeks = [...allWeeksData].sort((left, right) => left.weekStart.localeCompare(right.weekStart));
+const trendWeekLabels = trendWeeks.map((week) => week.weekStart);
+
+type TrendGranularity = 'week' | 'month' | 'year';
+type TrendPeriod = {
+  periodKey: string;
+  label: string;
+  sortKey: string;
+  papers: number;
+  flaggedPapers: number;
+  uniqueLanguages: number;
+  languageCounts: LanguageCount[];
+  classCounts: ClassCount[];
+};
+
+const trendGranularity = ((Astro.url.searchParams.get('trend') as TrendGranularity) || 'week');
+
+function trendPeriodKey(weekStart: string, granularity: TrendGranularity) {
+  if (granularity === 'week') return weekStart;
+  const date = new Date(`${weekStart}T00:00:00`);
+  if (granularity === 'month') {
+    return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}`;
+  }
+  return `${date.getUTCFullYear()}`;
+}
+
+function trendPeriodLabel(weekStart: string, granularity: TrendGranularity) {
+  const date = new Date(`${weekStart}T00:00:00`);
+  if (granularity === 'week') return formatWeekLabel(weekStart);
+  if (granularity === 'month') {
+    return date.toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+  }
+  return `${date.getUTCFullYear()}`;
+}
+
+function aggregateTrendPeriods(weeks: WeekAggregate[], granularity: TrendGranularity): TrendPeriod[] {
+  const groups = new Map<string, {
+    periodKey: string;
+    label: string;
+    sortKey: string;
+    papers: number;
+    flaggedPapers: number;
+    uniqueLanguages: Set<string>;
+    languageCounts: Map<string, number>;
+    classCounts: Map<number, number>;
+  }>();
+
+  for (const week of weeks) {
+    const periodKey = trendPeriodKey(week.weekStart, granularity);
+    const existing = groups.get(periodKey) || {
+      periodKey,
+      label: trendPeriodLabel(week.weekStart, granularity),
+      sortKey: week.weekStart,
+      papers: 0,
+      flaggedPapers: 0,
+      uniqueLanguages: new Set<string>(),
+      languageCounts: new Map<string, number>(),
+      classCounts: new Map<number, number>(),
+    };
+
+    existing.sortKey = existing.sortKey < week.weekStart ? existing.sortKey : week.weekStart;
+    existing.papers += week.papers || 0;
+    existing.flaggedPapers += week.flaggedPapers || 0;
+    for (const item of week.languageCounts || []) {
+      if (!item.language) continue;
+      existing.uniqueLanguages.add(item.language);
+      existing.languageCounts.set(item.language, (existing.languageCounts.get(item.language) || 0) + item.count);
+    }
+    for (const item of week.classCounts || []) {
+      existing.classCounts.set(item.class_id, (existing.classCounts.get(item.class_id) || 0) + item.count);
+    }
+    groups.set(periodKey, existing);
+  }
+
+  return [...groups.values()]
+    .sort((left, right) => left.sortKey.localeCompare(right.sortKey))
+    .map((group) => ({
+      periodKey: group.periodKey,
+      label: group.label,
+      sortKey: group.sortKey,
+      papers: group.papers,
+      flaggedPapers: group.flaggedPapers,
+      uniqueLanguages: group.uniqueLanguages.size,
+      languageCounts: [...group.languageCounts.entries()]
+        .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+        .map(([language, count]) => ({ language, count })),
+      classCounts: [...group.classCounts.entries()]
+        .sort((left, right) => right[1] - left[1] || left[0] - right[0])
+        .map(([class_id, count]) => ({ class_id, count })),
+    }));
+}
+
+const trendPeriods = aggregateTrendPeriods(trendWeeks, trendGranularity);
+const trendPeriodLabels = trendPeriods.map((period) => period.label);
+const trendGranularityLabel = trendGranularity === 'week' ? 'Weekly' : trendGranularity === 'month' ? 'Monthly' : 'Yearly';
+
+function trendModeHref(mode: TrendGranularity) {
+  const url = new URL(Astro.url.href);
+  url.searchParams.set('trend', mode);
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+const trendStateStorageKey = 'langtrend:overall-trend-details-state';
+const trendScrollStorageKey = 'langtrend:overall-trend-scroll-y';
+
+const trendLanguageTotals = new Map<string, number>();
+for (const period of trendPeriods) {
+  for (const item of period.languageCounts || []) {
+    if (!item.language) continue;
+    trendLanguageTotals.set(item.language, (trendLanguageTotals.get(item.language) || 0) + item.count);
+  }
+}
+const topTrendLanguages = [...trendLanguageTotals.entries()]
+  .sort((left, right) => {
+    const countDelta = right[1] - left[1];
+    return countDelta !== 0 ? countDelta : left[0].localeCompare(right[0]);
+  })
+  .slice(0, 10)
+  .map(([language, count], index) => ({
+    language,
+    count,
+    color: TREND_LINE_COLORS[index] || colorForIndex(index),
+  }));
+const trendLanguageColorMap = new Map(topTrendLanguages.map((item) => [item.language, item.color]));
+
+function bumpLabelColor(language: string, fallbackIndex: number) {
+  return trendLanguageColorMap.get(language) || TREND_LINE_COLORS[fallbackIndex] || colorForIndex(fallbackIndex);
+}
+
+// Returns the explicit pixel width needed when there are more than maxVisible
+// periods. Returns null when the chart should fill its container responsively
+// (≤ maxVisible periods — no scroll needed).
+function scrollableChartWidth(baseWidth: number, margins: { left: number; right: number }, periodCount: number, maxVisible = 5): number | null {
+  if (periodCount <= maxVisible) return null;
+  const baseInner = baseWidth - margins.left - margins.right;
+  const pxPerPeriod = baseInner / maxVisible;
+  return Math.ceil(periodCount * pxPerPeriod) + margins.left + margins.right;
+}
+
+const trendGroupedHeight = 260;
+const trendGroupedMargins = { top: 24, right: 44, bottom: 50, left: 42 };
+const trendGroupedScrollPx = scrollableChartWidth(760, trendGroupedMargins, trendPeriods.length);
+const trendGroupedWidth = trendGroupedScrollPx ?? 760;
+const trendGroupedInnerWidth = trendGroupedWidth - trendGroupedMargins.left - trendGroupedMargins.right;
+const trendGroupedInnerHeight = trendGroupedHeight - trendGroupedMargins.top - trendGroupedMargins.bottom;
+const trendGroupedScale = scaleBand().domain(trendPeriodLabels).range([0, trendGroupedInnerWidth]).padding(0.22);
+const trendGroupedMax = Math.max(1, ...trendPeriods.map((period) => period.papers || 0));
+const trendGroupedY = scaleLinear().domain([0, trendGroupedMax]).nice().range([trendGroupedInnerHeight, 0]);
+
+const trendTopLanguageHeight = 500;
+const trendTopLanguageMargins = { top: 28, right: 124, bottom: 130, left: 42 };
+const trendTopLanguageScrollPx = scrollableChartWidth(760, trendTopLanguageMargins, trendPeriods.length);
+const trendTopLanguageWidth = trendTopLanguageScrollPx ?? 760;
+const trendTopLanguageInnerWidth = trendTopLanguageWidth - trendTopLanguageMargins.left - trendTopLanguageMargins.right;
+const trendTopLanguageInnerHeight = trendTopLanguageHeight - trendTopLanguageMargins.top - trendTopLanguageMargins.bottom;
+const trendTopLanguageScale = scaleBand().domain(trendPeriodLabels).range([0, trendTopLanguageInnerWidth]).padding(0.3);
+const trendTopLanguageMax = Math.max(
+  1,
+  ...topTrendLanguages.flatMap((item) => trendPeriods.map((period) => {
+    const found = (period.languageCounts || []).find((language) => language.language === item.language);
+    return found?.count || 0;
+  })),
+);
+const trendTopLanguageY = scaleLinear().domain([0, trendTopLanguageMax]).nice().range([trendTopLanguageInnerHeight, 0]);
+const trendSeries = topTrendLanguages.map((item) => {
+  const points = trendPeriods.map((period) => {
+    const found = (period.languageCounts || []).find((language) => language.language === item.language);
+    const x = (trendTopLanguageScale(period.label) || 0) + trendTopLanguageScale.bandwidth() / 2;
+    return {
+      x,
+      y: trendTopLanguageY(found?.count || 0),
+      value: found?.count || 0,
+    };
+  });
+  return { ...item, points, path: buildLinePath(points) };
+});
+
+const trendClassHeight = 380;
+const trendClassMargins = { top: 20, right: 18, bottom: 56, left: 42 };
+const trendClassScrollPx = scrollableChartWidth(700, trendClassMargins, trendPeriods.length);
+const trendClassWidth = trendClassScrollPx ?? 700;
+const trendClassInnerWidth = trendClassWidth - trendClassMargins.left - trendClassMargins.right;
+const trendClassInnerHeight = trendClassHeight - trendClassMargins.top - trendClassMargins.bottom;
+const trendClassScale = scaleBand().domain(trendPeriodLabels).range([0, trendClassInnerWidth]).padding(0.45);
+const trendClassBars = trendPeriods.map((period) => {
+  const classMap = new Map((period.classCounts || []).map((item) => [item.class_id, item.count]));
+  const total = Math.max(1, CLASS_LABELS.reduce((sum, _label, classId) => sum + (classMap.get(classId) || 0), 0));
+  let offset = 0;
+  return {
+    label: period.label,
+    total,
+    segments: CLASS_LABELS.map((label, classId) => {
+      const count = classMap.get(classId) || 0;
+      const percentage = count / total;
+      const height = trendClassInnerHeight * percentage;
+      const segment = {
+        classId,
+        label,
+        count,
+        percent: percentage,
+        y: trendClassInnerHeight - offset - height,
+        height,
+        color: classColorForId(classId),
+      };
+      offset += height;
+      return segment;
+    }),
+  };
+});
+
+const trendUniqueHeight = 380;
+const trendUniqueMargins = { top: 24, right: 18, bottom: 56, left: 42 };
+const trendUniqueScrollPx = scrollableChartWidth(700, trendUniqueMargins, trendPeriods.length);
+const trendUniqueWidth = trendUniqueScrollPx ?? 700;
+const trendUniqueInnerWidth = trendUniqueWidth - trendUniqueMargins.left - trendUniqueMargins.right;
+const trendUniqueInnerHeight = trendUniqueHeight - trendUniqueMargins.top - trendUniqueMargins.bottom;
+const trendUniqueScale = scaleBand().domain(trendPeriodLabels).range([0, trendUniqueInnerWidth]).padding(0.22);
+const trendUniqueMax = Math.max(1, ...trendPeriods.map((period) => period.uniqueLanguages || 0));
+const trendUniqueY = scaleLinear().domain([0, trendUniqueMax]).nice().range([trendUniqueInnerHeight, 0]);
+
+// Scan volume — flagged percent overlay
+const trendGroupedSecondaryY = scaleLinear().domain([0, 100]).range([trendGroupedInnerHeight, 0]);
+const trendGroupedFlaggedLine = trendPeriods.map((period) => ({
+  x: (trendGroupedScale(period.label) || 0) + trendGroupedScale.bandwidth() / 2,
+  y: trendGroupedSecondaryY(period.papers > 0 ? (period.flaggedPapers / period.papers) * 100 : 0),
+  pct: period.papers > 0 ? Math.round((period.flaggedPapers / period.papers) * 100) : 0,
+}));
+
+// Trend line — endpoint label vertical deconfliction
+const trendEndpointRaw = trendSeries.map((series, idx) => {
+  const lastPt = series.points[series.points.length - 1];
+  return { idx, naturalY: lastPt?.y ?? 0, value: lastPt?.value ?? 0, color: series.color };
+}).sort((a, b) => a.naturalY - b.naturalY);
+const trendEndpointLabelY: number[] = new Array(trendSeries.length).fill(0);
+let prevEndpointY = -Infinity;
+for (const item of trendEndpointRaw) {
+  const y = Math.max(item.naturalY, prevEndpointY + 14);
+  trendEndpointLabelY[item.idx] = y;
+  prevEndpointY = y;
+}
+
+// Mirror ranking chart — independent top-10 lists for prev and current week
+const hasPrevWeek = trendWeeks.length >= 2;
+const prevWeekData = hasPrevWeek ? trendWeeks[trendWeeks.length - 2] : null;
+const currTop10 = [...languageCounts].sort((a, b) => b.count - a.count).slice(0, 10);
+const prevTop10Sorted = prevWeekData ? [...(prevWeekData.languageCounts || [])].sort((a, b) => b.count - a.count).slice(0, 10) : [];
+
+const mirrorSvgWidth = 960;
+const mirrorSvgHeight = 420;
+const mirrorRowHeight = 32;
+const mirrorRowGap = 6;
+const mirrorTopPad = 46;
+const mirrorLabelPad = 8; // gap between bar end and rank circle edge
+
+// Layout: left half [labelWidth | barArea | rankCircleR | gap | rankCircleR | barArea | labelWidth] right half
+const mirrorLabelWidth = 160;
+const mirrorRankR = 12;
+const mirrorSpineGap = 60; // gap between the two spine circle columns at center
+const mirrorBarAreaWidth = (mirrorSvgWidth / 2) - mirrorLabelWidth - mirrorRankR * 2 - mirrorSpineGap / 2 - 4;
+// Left spine x (where left bars end / right edge of left bar zone)
+const mirrorLeftSpineX = mirrorLabelWidth + mirrorBarAreaWidth;
+// Right spine x (where right bars begin)
+const mirrorRightSpineX = mirrorSvgWidth - mirrorLabelWidth - mirrorBarAreaWidth;
+
+const mirrorPrevMaxCount = Math.max(1, ...prevTop10Sorted.map(x => x.count));
+const mirrorCurrMaxCount = Math.max(1, ...currTop10.map(x => x.count));
+
+type MirrorRow = { language: string; count: number; rank: number; y: number };
+const mirrorPrevRows: MirrorRow[] = prevTop10Sorted.map((item, i) => ({
+  language: item.language, count: item.count, rank: i + 1,
+  y: mirrorTopPad + i * (mirrorRowHeight + mirrorRowGap),
+}));
+const mirrorCurrRows: MirrorRow[] = currTop10.map((item, i) => ({
+  language: item.language, count: item.count, rank: i + 1,
+  y: mirrorTopPad + i * (mirrorRowHeight + mirrorRowGap),
+}));
+const mirrorPrevRowMap = new Map<string, MirrorRow>(mirrorPrevRows.map(r => [r.language, r]));
+const mirrorCurrRowMap = new Map<string, MirrorRow>(mirrorCurrRows.map(r => [r.language, r]));
+// Connection lines: languages appearing in both lists
+const mirrorConnections = mirrorCurrRows
+  .filter(r => mirrorPrevRowMap.has(r.language))
+  .map(r => {
+    const prev = mirrorPrevRowMap.get(r.language)!;
+    return { language: r.language, prevY: prev.y + mirrorRowHeight / 2, currY: r.y + mirrorRowHeight / 2 };
+  });
+// Languages only in prev (dropped from current top-10)
+const mirrorDropped = mirrorPrevRows.filter(r => !mirrorCurrRowMap.has(r.language));
+// Languages only in current (new to top-10)
+const mirrorNew = mirrorCurrRows.filter(r => !mirrorPrevRowMap.has(r.language));
+
+// Full sorted lists for computing out-of-top-10 ranks for dropped/new items
+const mirrorCurrFullSorted = [...languageCounts].sort((a, b) => b.count - a.count);
+const mirrorPrevFullSorted = prevWeekData ? [...(prevWeekData.languageCounts || [])].sort((a, b) => b.count - a.count) : [];
+const mirrorDroppedWithRank = mirrorDropped.map(row => {
+  const idx = mirrorCurrFullSorted.findIndex(x => x.language === row.language);
+  return { ...row, currRank: idx >= 0 ? idx + 1 : null };
+});
+const mirrorNewWithRank = mirrorNew.map(row => {
+  const idx = mirrorPrevFullSorted.findIndex(x => x.language === row.language);
+  return { ...row, prevRank: idx >= 0 ? idx + 1 : null };
+});
+
+// Bump chart
+type BumpPoint = { x: number; y: number; rank: number; language: string };
+type BumpSegment = { d: string; color: string };
+type BumpWeek = { weekStart: string; rankedLanguages: BumpPoint[]; rankMap: Map<string, BumpPoint> };
+
+function buildBumpSegmentPath(start: BumpPoint, end: BumpPoint) {
+  const midX = (start.x + end.x) / 2;
+  return `M ${start.x} ${start.y} C ${midX} ${start.y} ${midX} ${end.y} ${end.x} ${end.y}`;
+}
+
+const bumpMaxRank = 10;
+const bumpSvgHeight = 520;
+const bumpMargins = { top: 24, right: 190, bottom: 74, left: 160 };
+const bumpScrollPx = scrollableChartWidth(960, bumpMargins, trendPeriods.length);
+const bumpSvgWidth = bumpScrollPx ?? 960;
+const bumpInnerWidth = bumpSvgWidth - bumpMargins.left - bumpMargins.right;
+const bumpInnerHeight = bumpSvgHeight - bumpMargins.top - bumpMargins.bottom;
+const bumpYScale = scaleLinear().domain([1, bumpMaxRank]).range([0, bumpInnerHeight]);
+const bumpXScale = scaleBand().domain(trendPeriodLabels).range([0, bumpInnerWidth]).padding(0.42);
+const bumpWeeks: BumpWeek[] = trendPeriods.map((period) => {
+  const rankedLanguages = [...(period.languageCounts || [])]
+    .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
+    .slice(0, bumpMaxRank)
+    .map((item, index) => {
+      const rank = index + 1;
+      const x = (bumpXScale(period.label) || 0) + bumpXScale.bandwidth() / 2;
+      return { x, y: bumpYScale(rank), rank, language: item.language };
+    });
+  return { weekStart: period.label, rankedLanguages, rankMap: new Map(rankedLanguages.map((item) => [item.language, item])) };
+});
+const bumpLanguageList = [...new Set(bumpWeeks.flatMap((week) => week.rankedLanguages.map((item) => item.language)))].sort((left, right) => {
+  const rightTotal = trendLanguageTotals.get(right) || 0;
+  const leftTotal = trendLanguageTotals.get(left) || 0;
+  return rightTotal - leftTotal || left.localeCompare(right);
+});
+const bumpSeriesData = bumpLanguageList.map((language) => {
+  const points = bumpWeeks.map((week) => week.rankMap.get(language) ?? null);
+  const segments: BumpSegment[] = [];
+  let previousPoint: BumpPoint | null = null;
+  for (const point of points) {
+    if (!point) {
+      previousPoint = null;
+      continue;
+    }
+    if (previousPoint) {
+      segments.push({
+        d: buildBumpSegmentPath(previousPoint, point),
+        color: BUMP_RANK_COLORS[previousPoint.rank - 1] || BUMP_RANK_COLORS[BUMP_RANK_COLORS.length - 1],
+      });
+    }
+    previousPoint = point;
+  }
+  const firstPt = points.find((point): point is BumpPoint => point !== null) ?? null;
+  const lastPt = [...points].reverse().find((point): point is BumpPoint => point !== null) ?? null;
+  return { language, points, segments, firstPt, lastPt };
+});
+const bumpSegments = bumpSeriesData.flatMap((series) => series.segments);
+const bumpLeftLabelRaw = bumpSeriesData.map((series, idx) => ({ idx, naturalY: series.firstPt?.y ?? 0 }));
+const bumpRightLabelRaw = bumpSeriesData.map((series, idx) => ({ idx, naturalY: series.lastPt?.y ?? 0 }));
+const bumpLeftLabelY: number[] = new Array(bumpSeriesData.length).fill(0);
+const bumpRightLabelY: number[] = new Array(bumpSeriesData.length).fill(0);
+let bumpLeftPrevY = -Infinity;
+for (const item of [...bumpLeftLabelRaw].sort((a, b) => a.naturalY - b.naturalY)) {
+  const y = Math.max(item.naturalY, bumpLeftPrevY + 16);
+  bumpLeftLabelY[item.idx] = y;
+  bumpLeftPrevY = y;
+}
+let bumpRightPrevY = -Infinity;
+for (const item of [...bumpRightLabelRaw].sort((a, b) => a.naturalY - b.naturalY)) {
+  const y = Math.max(item.naturalY, bumpRightPrevY + 16);
+  bumpRightLabelY[item.idx] = y;
+  bumpRightPrevY = y;
+}
+
+// Sankey chart
+const sankeyLanguages = [...languageCounts]
+  .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
+  .slice(0, 10);
+const showSankey = sankeyLanguages.length >= 5;
+const sankeySvgWidth = 1120;
+const sankeyNodeWidth = 18;
+const sankeyPad = 8;
+const sankeyGroupGap = 0;
+const sankeyLeftNodeX = 230;
+const sankeyRightNodeX = 900;
+const sankeyMidX = (sankeyLeftNodeX + sankeyNodeWidth + sankeyRightNodeX) / 2;
+const sankeyClassTotalMap = new Map<number, number>();
+for (const item of languageCounts) {
+  const classId = languageBorderClass(item.language, langClasses);
+  sankeyClassTotalMap.set(classId, (sankeyClassTotalMap.get(classId) || 0) + item.count);
+}
+const sankeyGrandTotal = Math.max(1, [...sankeyClassTotalMap.values()].reduce((sum, value) => sum + value, 0));
+type SankeyLeftNode = { classId: number; label: string; total: number; color: string; y: number; height: number };
+type SankeyRightNode = { classId: number; language: string; count: number; color: string; y: number; height: number; hidden?: boolean };
+type SankeyClassGroup = SankeyLeftNode & { languages: SankeyRightNode[] };
+type SankeyVisibleLanguage = SankeyRightNode & { hidden: boolean };
+
+const sankeyLeftNodes: SankeyLeftNode[] = [...sankeyClassTotalMap.entries()]
+  .sort((a, b) => b[1] - a[1] || a[0] - b[0])
+  .map(([classId, total]) => ({ classId, label: CLASS_LABELS[classId] || `Class ${classId}`, total, color: classColorForId(classId), y: 0, height: 0 }));
+
+const sankeyNodeMinH = 5; // min right-node height in SVG units (labels are font-size 12 SVG units)
+const sankeyNodeSlot = sankeyNodeMinH + sankeyPad; // SVG units each language slot consumes
+
+const sankeyClassGroups: SankeyClassGroup[] = sankeyLeftNodes.map((group) => {
+  // Strictly proportional — no inflation from language count
+  const proportionalHeight = Math.max(24, (group.total / sankeyGrandTotal) * 720);
+  const allLangs = [...languageCounts]
+    .filter((item) => languageBorderClass(item.language, langClasses) === group.classId)
+    .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
+    .map((item) => ({
+      classId: group.classId,
+      language: item.language,
+      count: item.count,
+      color: classColor(item.language),
+      y: 0,
+      height: 0,
+    }));
+  // Show up to 10 languages per class if available; expand the band as needed
+  // so smaller classes are not artificially truncated.
+  const visibleLanguages = allLangs.slice(0, 10);
+  const hiddenCount = Math.max(0, allLangs.length - visibleLanguages.length);
+  const languageRows: SankeyVisibleLanguage[] = [
+    ...visibleLanguages.map((item) => ({ ...item, hidden: false })),
+    ...(hiddenCount > 0 ? [{
+      classId: group.classId,
+      language: `${hiddenCount} more languages not shown`,
+      count: allLangs.slice(10).reduce((sum, item) => sum + item.count, 0),
+      color: 'rgba(32, 22, 19, 0.16)',
+      y: 0,
+      height: 0,
+      hidden: true,
+    } as SankeyVisibleLanguage] : []),
+  ];
+  const requiredHeight = 16 + languageRows.length * sankeyNodeMinH + Math.max(0, languageRows.length - 1) * sankeyPad;
+  return { ...group, height: Math.max(proportionalHeight, requiredHeight), languages: languageRows };
+});
+
+let sankeyCursor = 20;
+for (const group of sankeyClassGroups) {
+  group.y = sankeyCursor;
+  const n = group.languages.length;
+  const languageCountTotal = Math.max(1, group.languages.reduce((sum, item) => sum + item.count, 0));
+  const availableHeight = Math.max(n * sankeyNodeMinH, group.height - 16 - Math.max(0, n - 1) * sankeyPad);
+  // Proportional heights with a floor, then scale down uniformly if they'd overflow
+  const rawHeights = group.languages.map(node => Math.max(sankeyNodeMinH, (node.count / languageCountTotal) * availableHeight));
+  const totalRaw = rawHeights.reduce((s, h) => s + h, 0);
+  // Scale heights so they exactly fill the availableHeight. Previously we
+  // prevented up-scaling which left gaps; allow hScale > 1 when totalRaw is
+  // smaller than availableHeight so the right-node strips fill the left bar.
+  const hScale = availableHeight / Math.max(1, totalRaw);
+  let rowCursor = group.y + 8;
+  for (let i = 0; i < n; i++) {
+    group.languages[i].height = rawHeights[i] * hScale;
+    group.languages[i].y = rowCursor;
+    rowCursor += group.languages[i].height + sankeyPad;
+  }
+  sankeyCursor += group.height + sankeyGroupGap;
+}
+const sankeySvgHeight = sankeyCursor + 20;
+const sankeyRightNodes = sankeyClassGroups.flatMap((group) => group.languages);
+const sankeyVisibleClassCount = 3;
+const sankeyVisibleHeight = sankeyClassGroups[sankeyVisibleClassCount - 1]
+  ? sankeyClassGroups[sankeyVisibleClassCount - 1].y + sankeyClassGroups[sankeyVisibleClassCount - 1].height + 20
+  : sankeySvgHeight;
+const sankeyPaths = sankeyClassGroups.flatMap((group) => {
+  const shownTotal = Math.max(1, group.languages.reduce((sum, item) => sum + item.count, 0));
+  const leftInnerH = group.height;
+  let leftOffset = 0;
+  return group.languages.map((item) => {
+    const srcH = (item.count / shownTotal) * leftInnerH;
+    const srcY1 = group.y + leftOffset;
+    const srcY2 = srcY1 + srcH;
+    leftOffset += srcH;
+    const tgtY1 = item.y;
+    const tgtY2 = tgtY1 + item.height;
+    const lx = sankeyLeftNodeX + sankeyNodeWidth;
+    const rx = sankeyRightNodeX;
+    const d = `M ${lx} ${srcY1} C ${sankeyMidX} ${srcY1} ${sankeyMidX} ${tgtY1} ${rx} ${tgtY1} L ${rx} ${tgtY2} C ${sankeyMidX} ${tgtY2} ${sankeyMidX} ${srcY2} ${lx} ${srcY2} Z`;
+    return { language: item.language, classId: group.classId, d, color: item.hidden ? 'rgba(32, 22, 19, 0.16)' : group.color, count: item.count };
+  });
+});
+
+const trendOverallPapers = trendWeeks.reduce((sum, week) => sum + (week.papers || 0), 0);
+const trendOverallFlagged = trendWeeks.reduce((sum, week) => sum + (week.flaggedPapers || 0), 0);
+const trendOverallUniqueLanguages = new Set(trendWeeks.flatMap((week) => (week.languageCounts || []).map((item) => item.language))).size;
+const overallCoveragePieData = [
+  { label: 'Not flagged', value: Math.max(trendOverallPapers - trendOverallFlagged, 0), color: 'rgba(32, 22, 19, 0.16)' },
+  { label: 'Papers with language mentions', value: trendOverallFlagged, color: '#0f6c5d' },
+];
+const overallCoveragePie = buildPieSlices([...overallCoveragePieData].sort((left, right) => right.value - left.value), 260, 130, 82, -Math.PI / 2, 36);
+const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
+
+function coverageSliceLines(label: string, value: number) {
+  if (label === 'Papers with language mentions') {
+    return ['Papers with', `language mentions (${value})`];
+  }
+  return [`${label} (${value})`];
+}
+
+function coverageSliceLinesWithPercent(label: string, value: number, total: number) {
+  const percentLabel = total > 0 ? ` (${formatPercent(value, total)})` : '';
+  if (label === 'Papers with language mentions') {
+    return ['Papers with', `language mentions (${value})${percentLabel}`];
+  }
+  return [`${label} (${value})${percentLabel}`];
+}
+
+function coverageSlicePercent(value: number, total: number) {
+  return formatPercent(value, total);
+}
+
+// SVG path helpers for stacked bars with flat junctions
+function roundedTopRect(x: number, y: number, w: number, h: number, r: number) {
+  if (h <= 0) return '';
+  const cr = Math.min(r, w / 2, h);
+  return `M ${x + cr},${y} H ${x + w - cr} Q ${x + w},${y} ${x + w},${y + cr} V ${y + h} H ${x} V ${y + cr} Q ${x},${y} ${x + cr},${y} Z`;
+}
+function roundedBottomRect(x: number, y: number, w: number, h: number, r: number) {
+  if (h <= 0) return '';
+  const cr = Math.min(r, w / 2, h);
+  return `M ${x},${y} H ${x + w} V ${y + h - cr} Q ${x + w},${y + h} ${x + w - cr},${y + h} H ${x + cr} Q ${x},${y + h} ${x},${y + h - cr} V ${y} Z`;
+}
+
+// Fill Mon–Sun for the week containing weekStart.
+// Uses UTC throughout to avoid local-timezone drift in toISOString().
+function fillWeekSeries(series: WeekPoint[], weekStart: string | undefined, _weekEnd: string | undefined): WeekPoint[] {
+  if (!weekStart) return series;
+  const map = new Map(series.map((p) => [p.date, p]));
+  const [y, mo, d] = weekStart.split('-').map(Number);
+  const raw = new Date(Date.UTC(y, mo - 1, d));
+  const dow = raw.getUTCDay(); // 0=Sun, 1=Mon, …, 6=Sat
+  // Shift to Monday: if Sunday move +1 day forward, otherwise go back to nearest Monday
+  const mondayMs = dow === 0
+    ? raw.getTime() + 86400000
+    : raw.getTime() - (dow - 1) * 86400000;
+  const filled: WeekPoint[] = [];
+  for (let i = 0; i < 7; i++) {
+    const t = new Date(mondayMs + i * 86400000);
+    const key = `${t.getUTCFullYear()}-${String(t.getUTCMonth() + 1).padStart(2, '0')}-${String(t.getUTCDate()).padStart(2, '0')}`;
+    filled.push(map.get(key) ?? { date: key, papers: 0, flagged: 0 });
+  }
+  return filled;
+}
+
+// Per-series SVG marker shape paths (centered at cx, cy with given size)
+function markerPath(shapeIdx: number, cx: number, cy: number, size: number): string {
+  const s = size;
+  switch (shapeIdx % 10) {
+    case 0: return `M ${cx},${cy - s} A ${s},${s} 0 1 1 ${cx - 0.001},${cy - s} Z`; // circle (approx)
+    case 1: return `M ${cx - s},${cy - s} H ${cx + s} V ${cy + s} H ${cx - s} Z`; // square
+    case 2: return `M ${cx},${cy - s * 1.3} L ${cx + s * 1.3},${cy} L ${cx},${cy + s * 1.3} L ${cx - s * 1.3},${cy} Z`; // diamond
+    case 3: return `M ${cx},${cy - s * 1.3} L ${cx + s * 1.15},${cy + s * 0.75} L ${cx - s * 1.15},${cy + s * 0.75} Z`; // triangle up
+    case 4: return `M ${cx},${cy + s * 1.3} L ${cx + s * 1.15},${cy - s * 0.75} L ${cx - s * 1.15},${cy - s * 0.75} Z`; // triangle down
+    case 5: return `M ${cx - s},${cy} H ${cx + s} M ${cx},${cy - s} V ${cx},${cy + s}`.replace(`${cx},`, `${cx} `); // cross (workaround)
+    case 6: { // pentagon
+      const pts = Array.from({length: 5}, (_, i) => {
+        const a = (i * 2 * Math.PI / 5) - Math.PI / 2;
+        return `${cx + s * 1.2 * Math.cos(a)},${cy + s * 1.2 * Math.sin(a)}`;
+      });
+      return `M ${pts.join(' L ')} Z`;
+    }
+    case 7: { // hexagon
+      const pts = Array.from({length: 6}, (_, i) => {
+        const a = (i * Math.PI / 3);
+        return `${cx + s * 1.1 * Math.cos(a)},${cy + s * 1.1 * Math.sin(a)}`;
+      });
+      return `M ${pts.join(' L ')} Z`;
+    }
+    case 8: return `M ${cx - s * 0.4},${cy - s * 1.2} H ${cx + s * 0.4} V ${cy - s * 0.4} H ${cx + s * 1.2} V ${cy + s * 0.4} H ${cx + s * 0.4} V ${cy + s * 1.2} H ${cx - s * 0.4} V ${cy + s * 0.4} H ${cx - s * 1.2} V ${cy - s * 0.4} H ${cx - s * 0.4} Z`; // plus/cross solid
+    default: return `M ${cx - s},${cy - s} L ${cx + s},${cy - s} L ${cx},${cy + s} Z`; // triangle
+  }
+}
+
+---
+<section class="stats-stack">
+  <details id="weekly-trends-panel" class="panel chart-panel wide-panel" open>
+    <summary class="paper-collapse-summary">
+      <div>
+        <h2 id="weekly-stat-title">For {weekLabel}</h2>
+      </div>
+      <span class="paper-collapse-hint">Collapse section</span>
+    </summary>
+
+    <div class="stat-row">
+      {weeklySummaryCards.map((card) => (
+        <article class="stat-card-mini">
+          <strong>{card.value}</strong>
+          <span>{card.label}</span>
+        </article>
+      ))}
+    </div>
+
+    <div class="coverage-summary-panel">
+      <div class="coverage-summary-grid">
+        <div class="coverage-summary-card">
+          <div class="chart-subpanel-head">
+            <div>
+              <h3>Weekly coverage</h3>
+              <p>Papers scanned this week vs. papers with at least one language mention.</p>
+            </div>
+          </div>
+          <svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of weekly papers scanned versus papers with language mentions">
+            <g>
+              {weeklyCoveragePie.map((slice) => (
+                <g>
+                  <path d={slice.path} fill={slice.color} stroke="white" stroke-width="1.5"></path>
+                  <path d={slice.calloutPath} fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path>
+                  <text
+                    x={228 + Math.cos(slice.midAngle) * 51}
+                    y={110 + Math.sin(slice.midAngle) * 51 + 4}
+                    text-anchor="middle"
+                    class="chart-value"
+                    style={`fill:${slice.label === 'Not flagged' ? 'var(--text)' : '#fff'};font-size:0.5rem;font-weight:800`}
+                  >
+                    {coverageSlicePercent(slice.value, weeklyPapers)}
+                  </text>
+                  <text x={slice.labelX + (slice.side === 'right' ? 8 : -8)} y={slice.labelY + 4} text-anchor={slice.side === 'right' ? 'start' : 'end'} class="chart-axis-label">
+                    {coverageSliceLines(slice.label, slice.value).map((line, index) => (
+                      <tspan x={slice.labelX + (slice.side === 'right' ? 8 : -8)} dy={index === 0 ? 0 : 14}>{line}</tspan>
+                    ))}
+                  </text>
+                </g>
+              ))}
+              <circle cx="228" cy="110" r="36" fill="var(--panel)" stroke="var(--line)"></circle>
+              <text x="228" y="102" text-anchor="middle" class="chart-value">
+                <tspan x="228" dy="0">{weeklyPapers}</tspan>
+                <tspan x="228" dy="14" class="chart-axis-label">scanned</tspan>
+              </text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="coverage-summary-card">
+          <div class="chart-subpanel-head">
+            <div>
+              <h3>Source breakdown</h3>
+              <p>How papers with language mentions were accessed — HTML full-text, PDF, or abstract only.</p>
+            </div>
+          </div>
+          <svg class="chart-svg coverage-flow-svg" width="100%" height={weeklyCoverageFlowHeight} viewBox={`0 0 520 ${weeklyCoverageFlowHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Small sankey showing language mentions flowing into source types">
+            <g>
+              {weeklyCoverageFlowLinks.map((link) => (
+                <path d={link.path} fill={link.color} fill-opacity="0.22" stroke={link.color} stroke-opacity="0.45" stroke-width="0.6">
+                  <title>{`${link.label}: ${link.value}`}</title>
+                </path>
+              ))}
+              <g>
+                <rect x={weeklyCoverageFlowLeftX} y={weeklyCoverageFlowLeftNodeY} width={weeklyCoverageFlowNodeWidth} height={weeklyCoverageFlowLeftHeight} fill="#0f6c5d" rx="3"></rect>
+                <text x={weeklyCoverageFlowLeftX - 8} y={weeklyCoverageFlowLeftNodeY + weeklyCoverageFlowLeftHeight / 2} text-anchor="end" class="chart-axis-label" style="fill:var(--text);font-weight:700">
+                  <tspan x={weeklyCoverageFlowLeftX - 8} dy="-6">With languages</tspan>
+                  <tspan x={weeklyCoverageFlowLeftX - 8} dy="13">({weeklyCoverageSourceTotal})</tspan>
+                </text>
+              </g>
+              {weeklyCoverageFlowLinks.map((link) => (
+                <g>
+                  <rect x={weeklyCoverageFlowRightX} y={link.y} width={weeklyCoverageFlowNodeWidth} height={link.linkHeight} fill={link.color} rx="3"></rect>
+                  <text x={weeklyCoverageFlowRightX + weeklyCoverageFlowNodeWidth + 8} y={link.y + link.linkHeight / 2 + 4} text-anchor="start" class="chart-axis-label" style="fill:var(--text);font-weight:700">{link.label} ({link.value})</text>
+                </g>
+              ))}
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="weekly-overview-grid">
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Daily submission activity</h3>
+            <p>Papers submitted each day of the week, split by whether they contained a language mention.</p>
+          </div>
+        </div>
+        <div class="chart-legend-inline" style="justify-content:center">
+          <span><span class="coverage-dot abstract"></span>Other papers</span>
+          <span><span class="coverage-dot html"></span>Papers with language mentions</span>
+        </div>
+        {weeklyDailySeries.length > 0 ? (
+          <div class="chart-scroll">
+            <svg class="chart-svg" style="height:auto" width="100%" viewBox={`0 0 ${weeklyDailyWidth} ${weeklyDailyHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Daily submission activity stacked bar chart">
+              <g transform={`translate(${weeklyDailyMargins.left} ${weeklyDailyMargins.top})`}>
+                {/* baseline */}
+                <line x1="0" x2={weeklyDailyInnerWidth} y1={weeklyDailyInnerHeight} y2={weeklyDailyInnerHeight} class="chart-grid-line"></line>
+                {weeklyDailyY.ticks(5).map((tick) => (
+                  <g transform={`translate(0 ${weeklyDailyY(tick)})`}>
+                    <line x1="0" x2={weeklyDailyInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                    <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
+                  </g>
+                ))}
+                {weeklyDailySeries.map((point) => {
+                  const total = Math.max(point.papers || 0, 0);
+                  const flagged = Math.max(Math.min(point.flagged || 0, total), 0);
+                  const other = total - flagged;
+                  const x = weeklyDailyScale(point.date) || 0;
+                  const barWidth = weeklyDailyScale.bandwidth();
+                  const totalHeight = total > 0 ? (total / weeklyDailyMax) * weeklyDailyInnerHeight : 0;
+                  const flaggedHeight = total > 0 ? totalHeight * (flagged / total) : 0;
+                  const nonFlaggedHeight = Math.max(totalHeight - flaggedHeight, 0);
+                  const y = weeklyDailyInnerHeight - totalHeight;
+                  return (
+                    <g transform={`translate(${x} 0)`}>
+                      {nonFlaggedHeight > 0 && <path d={roundedTopRect(0, y, barWidth, nonFlaggedHeight, 5)} fill="rgba(32, 22, 19, 0.18)"></path>}
+                      {flaggedHeight > 0 && <path d={roundedBottomRect(0, y + nonFlaggedHeight, barWidth, flaggedHeight, 5)} fill="#0f6c5d"></path>}
+                      {nonFlaggedHeight > 14 && (
+                        <text x={barWidth / 2} y={y + nonFlaggedHeight / 2 + 4} text-anchor="middle" class="chart-value">{other}</text>
+                      )}
+                      {total > 0 && nonFlaggedHeight <= 14 && other > 0 && (
+                        <text x={barWidth / 2} y={Math.max(y - 4, 6)} text-anchor="middle" class="chart-value">{other}</text>
+                      )}
+                      {flaggedHeight > 14 && (
+                        <text x={barWidth / 2} y={y + nonFlaggedHeight + flaggedHeight / 2 + 4} text-anchor="middle" class="chart-value" style="fill:#fff">{flagged}</text>
+                      )}
+                      <text x={barWidth / 2} y={weeklyDailyInnerHeight + 16} text-anchor="middle" class="chart-label">{formatWeekdayLabel(point.date)}</text>
+                      <text x={barWidth / 2} y={weeklyDailyInnerHeight + 30} text-anchor="middle" class="chart-label chart-label-subtle">{point.date.slice(5)}</text>
+                    </g>
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Daily submission series will appear once a weekly snapshot is available.</p>
+        )}
+      </article>
+
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Language class distribution</h3>
+            <p>Total language detections this week grouped by class type. Each language occurrence in a paper is counted — a paper mentioning multiple language classes contributes to each.</p>
+          </div>
+        </div>
+        <p class="chart-axis-label" style="text-align:center;margin-bottom:8px">Resource availability: Class 0 (lowest) to Class 5 (highest)</p>
+        <div class="class-bar-wrap class-pie-wrap">
+          <svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of resource class breakdown">
+            <g>
+              {weeklyClassPie.map((slice) => (
+                <g>
+                  <path d={slice.path} fill={slice.color} stroke="white" stroke-width="1.5"></path>
+                  <path d={slice.calloutPath} fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path>
+                  <text x={slice.labelX + (slice.side === 'right' ? 8 : -8)} y={slice.labelY + 4} text-anchor={slice.side === 'right' ? 'start' : 'end'} class="chart-axis-label" style="fill:var(--text);font-weight:700">
+                    {formatSliceLabel(slice.label, slice.value)}
+                  </text>
+                </g>
+              ))}
+              <circle cx="228" cy="110" r="36" fill="var(--panel)" stroke="var(--line)"></circle>
+              <text x="228" y="104" text-anchor="middle" class="chart-value">{weeklyClassTotal}</text>
+              <text x="228" y="119" text-anchor="middle" class="chart-axis-label">classified</text>
+            </g>
+          </svg>
+        </div>
+      </article>
+
+      <article class="chart-subpanel chart-subpanel-wide">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Weekly rank comparison</h3>
+            <p>Top-10 languages this week vs. last week — each side ranked independently, lines connect matched languages.</p>
+          </div>
+        </div>
+        {hasPrevWeek && (mirrorPrevRows.length > 0 || mirrorCurrRows.length > 0) ? (
+          <div class="chart-scroll">
+            <svg class="chart-svg" width="100%" height={mirrorSvgHeight} viewBox={`0 0 ${mirrorSvgWidth} ${mirrorSvgHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mirror rank comparison chart">
+              {/* Column headers */}
+              <text x={mirrorLeftSpineX / 2} y="22" text-anchor="middle" class="chart-caption">PREV WEEK</text>
+              <text x={mirrorRightSpineX + (mirrorSvgWidth - mirrorRightSpineX) / 2} y="22" text-anchor="middle" class="chart-caption">THIS WEEK</text>
+
+              {/* Vertical spine guide lines */}
+              <line x1={mirrorLeftSpineX} x2={mirrorLeftSpineX} y1={mirrorTopPad - 8} y2={mirrorSvgHeight - 8} stroke="var(--line)" stroke-width="1" opacity="0.25"></line>
+              <line x1={mirrorRightSpineX} x2={mirrorRightSpineX} y1={mirrorTopPad - 8} y2={mirrorSvgHeight - 8} stroke="var(--line)" stroke-width="1" opacity="0.25"></line>
+
+              {/* Connection S-curves between spine circle centres (drawn first, under bars) */}
+              {mirrorConnections.map(conn => {
+                const barColor = classColor(conn.language);
+                const midX = mirrorSvgWidth / 2;
+                // start/end a little further from circle edges to avoid overlaps
+                const startX = mirrorLeftSpineX + mirrorRankR * 3; // more clearance from left rank circle
+                const endX = mirrorRightSpineX - mirrorRankR * 3; // more clearance from right rank circle
+                // curve offset to bow the S above/below centre depending on direction
+                const deltaY = conn.currY - conn.prevY;
+                const sign = deltaY === 0 ? 1 : Math.sign(deltaY);
+                // enforce a minimum curvature so nearly-horizontal links still bow away from circles
+                const off = (Math.max(18, Math.min(48, Math.abs(deltaY) * 0.5))) * sign;
+                const c1y = conn.prevY + off;
+                const c2y = conn.currY - off;
+                const d = `M ${startX} ${conn.prevY} C ${midX} ${c1y} ${midX} ${c2y} ${endX} ${conn.currY}`;
+                return (
+                  <path d={d}
+                    fill="none" stroke={barColor} stroke-width="1.6" stroke-opacity="0.45" stroke-linecap="round"></path>
+                );
+              })}
+
+              {/* Prev week rows — bar extends left from spine, circle at inner (right/spine) end, stacked label outside */}
+              {mirrorPrevRows.map(row => {
+                const barColor = classColor(row.language);
+                const barW = (row.count / mirrorPrevMaxCount) * mirrorBarAreaWidth;
+                const cy = row.y + mirrorRowHeight / 2;
+                const labelX = mirrorLeftSpineX - barW - 8;
+                const isConnected = mirrorCurrRowMap.has(row.language);
+                return (
+                  <g>
+                    <rect x={mirrorLeftSpineX - barW} y={row.y + 4} width={barW} height={mirrorRowHeight - 8} rx="4" fill={barColor} fill-opacity="0.25"></rect>
+                    {isConnected && (
+                      <g>
+                        <circle cx={mirrorLeftSpineX + mirrorRankR} cy={cy} r={mirrorRankR} fill={barColor} stroke="var(--panel)" stroke-width="2"></circle>
+                        <text x={mirrorLeftSpineX + mirrorRankR} y={cy + 4} text-anchor="middle" style="fill:#fff;font-size:0.65rem;font-weight:700">{row.rank}</text>
+                      </g>
+                    )}
+                    <text x={labelX} y={cy - 3} text-anchor="end" class="h-bar-label h-bar-label-name">{row.language}</text>
+                    <text x={labelX} y={cy + 11} text-anchor="end" class="chart-axis-label">{row.count}</text>
+                  </g>
+                );
+              })}
+
+              {/* Dropped languages: S-curve dropping down from bar tip to rank circle in centre zone */}
+              {mirrorDroppedWithRank.map(row => {
+                const barColor = classColor(row.language);
+                const cy = row.y + mirrorRowHeight / 2;
+                const indicatorX = mirrorLeftSpineX + mirrorRankR * 3;
+                const indicatorY = cy + 20;
+                return (
+                  <g opacity="0.65">
+                    {(() => {
+                      const startX = mirrorLeftSpineX + mirrorRankR * 2; // leave left circle edge
+                      const endX = indicatorX - 10; // left edge of indicator circle
+                      const midX = (startX + endX) / 2;
+                      const deltaY = indicatorY - cy;
+                      const off = Math.min(18, Math.abs(deltaY) / 2) * (deltaY === 0 ? 1 : Math.sign(deltaY));
+                      const d = `M ${startX} ${cy} C ${midX} ${cy + off} ${midX} ${indicatorY - off} ${endX} ${indicatorY}`;
+                      return (
+                        <g>
+                          <path d={d} fill="none" stroke={barColor} stroke-width="1.2" stroke-dasharray="3 3" stroke-linecap="round"></path>
+                          <circle cx={indicatorX} cy={indicatorY} r="10" fill="var(--panel)" stroke={barColor} stroke-width="1.5"></circle>
+                        </g>
+                      );
+                    })()}
+                    <text x={indicatorX} y={indicatorY + 4} text-anchor="middle" style="fill:#000;font-size:0.6rem;font-weight:700">{row.currRank ?? '–'}</text>
+                  </g>
+                );
+              })}
+
+              {/* Current week rows — circle at inner (left/spine) end, bar extends right, stacked label outside */}
+              {mirrorCurrRows.map(row => {
+                const barColor = classColor(row.language);
+                const barW = (row.count / mirrorCurrMaxCount) * mirrorBarAreaWidth;
+                const cy = row.y + mirrorRowHeight / 2;
+                const labelX = mirrorRightSpineX + barW + 8;
+                const isConnected = mirrorPrevRowMap.has(row.language);
+                return (
+                  <g>
+                    <rect x={mirrorRightSpineX} y={row.y + 4} width={barW} height={mirrorRowHeight - 8} rx="4" fill={barColor} fill-opacity="0.85"></rect>
+                    {isConnected && (
+                      <g>
+                        <circle cx={mirrorRightSpineX - mirrorRankR} cy={cy} r={mirrorRankR} fill={barColor} stroke="var(--panel)" stroke-width="2"></circle>
+                        <text x={mirrorRightSpineX - mirrorRankR} y={cy + 4} text-anchor="middle" style="fill:#fff;font-size:0.65rem;font-weight:700">{row.rank}</text>
+                      </g>
+                    )}
+                    <text x={labelX} y={cy - 3} text-anchor="start" class="h-bar-label h-bar-label-name">{row.language}</text>
+                    <text x={labelX} y={cy + 11} text-anchor="start" class="chart-axis-label">{row.count}</text>
+                  </g>
+                );
+              })}
+
+              {/* New languages: rank circle below in centre zone, S-curve rising up to bar */}
+              {mirrorNewWithRank.map(row => {
+                const barColor = classColor(row.language);
+                const cy = row.y + mirrorRowHeight / 2;
+                const indicatorX = mirrorRightSpineX - mirrorRankR * 3;
+                const indicatorY = cy + 20;
+                return (
+                  <g opacity="0.65">
+                    {(() => {
+                      const startX = indicatorX + 10; // right edge of indicator circle
+                      const endX = mirrorRightSpineX - mirrorRankR * 2; // leave right circle edge
+                      const midX = (startX + endX) / 2;
+                      const deltaY = cy - indicatorY;
+                      const off = Math.min(18, Math.abs(deltaY) / 2) * (deltaY === 0 ? 1 : Math.sign(deltaY));
+                      const d = `M ${startX} ${indicatorY} C ${midX} ${indicatorY + off} ${midX} ${cy - off} ${endX} ${cy}`;
+                      return (
+                        <g>
+                          <path d={d} fill="none" stroke={barColor} stroke-width="1.2" stroke-dasharray="3 3" stroke-linecap="round"></path>
+                          <circle cx={indicatorX} cy={indicatorY} r="10" fill="var(--panel)" stroke={barColor} stroke-width="1.5"></circle>
+                        </g>
+                      );
+                    })()}
+                    <text x={indicatorX} y={indicatorY + 4} text-anchor="middle" style="fill:#000;font-size:0.6rem;font-weight:700">{row.prevRank ?? '–'}</text>
+                  </g>
+                );
+              })}
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Rank comparison will appear once at least two weekly snapshots are available.</p>
+        )}
+      </article>
+
+      <article class="chart-subpanel chart-subpanel-wide">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Full language frequency</h3>
+            <p>All languages by mention count this week.</p>
+          </div>
+        </div>
+        {weeklyLanguageSeries.length > 0 ? (
+          <div class="chart-scroll" style="max-height:520px;overflow-y:auto;">
+            <svg class="chart-svg" style="height:auto" width="100%" viewBox={`0 0 ${weeklyLanguageBarWidth} ${weeklyLanguageBarHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Full language frequency horizontal bar chart">
+              <g transform={`translate(${weeklyLanguageBarMargins.left} ${weeklyLanguageBarMargins.top})`}>
+                {weeklyLanguageSeries.map((item, index) => {
+                  const y = index * weeklyLanguageRowHeight;
+                  const barWidth = (item.count / weeklyLanguageMax) * weeklyLanguageBarInnerWidth;
+                  const classColorValue = classColor(item.language);
+                  const labelInside = barWidth > weeklyLanguageBarInnerWidth - 100;
+                  return (
+                    <g transform={`translate(0 ${y})`}>
+                      <text x={-12} y={16} text-anchor="end" class="h-bar-label h-bar-label-name">{item.language}</text>
+                      <rect x="0" y="3" width={barWidth} height="18" rx="4" fill={classColorValue} fill-opacity="0.86"></rect>
+                      <text
+                        x={labelInside ? barWidth - 6 : barWidth + 8}
+                        y="16"
+                        text-anchor={labelInside ? 'end' : 'start'}
+                        class="h-bar-label h-bar-label-count"
+                        style={labelInside ? 'fill:#fff' : ''}
+                      >{item.count} ({formatPercent(item.count, weeklyLanguageTotalCount)})</text>
+                    </g>
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Top languages will appear here once language mentions are available.</p>
+        )}
+      </article>
+
+      <article class="chart-subpanel chart-subpanel-wide">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Mention flow by language class</h3>
+            <p>Bands show how this week's language mentions flow from each class to up to its top 10 languages, with band width proportional to mention count.</p>
+          </div>
+        </div>
+        {showSankey ? (
+          <div class="chart-scroll sankey-scroll" style={`max-height:${sankeyVisibleHeight}px;overflow-y:auto;`}>
+            <svg class="chart-svg" style="height:auto" width="100%" viewBox={`0 0 ${sankeySvgWidth} ${sankeySvgHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Sankey diagram of language class to language mention flow">
+              <g transform="translate(0 0)">
+                {sankeyPaths.map(link => (
+                  <path d={link.d} fill={link.color} fill-opacity="0.3" stroke={link.color} stroke-width="0.5" stroke-opacity="0.4">
+                    <title>{`${CLASS_LABELS[link.classId] || `Class ${link.classId}`} → ${link.language}: ${link.count}`}</title>
+                  </path>
+                ))}
+                {sankeyClassGroups.map(node => (
+                  <g>
+                    <rect x={sankeyLeftNodeX} y={node.y} width={sankeyNodeWidth} height={node.height} fill={node.color} rx="2" stroke="rgba(0,0,0,0.25)" stroke-width="1"></rect>
+                    <text x={sankeyLeftNodeX - 10} y={node.y + node.height / 2 + 5} text-anchor="end" font-size="14" font-weight="700" fill="var(--text)">{node.label} ({node.total})</text>
+                  </g>
+                ))}
+                {sankeyRightNodes.map(node => (
+                  <g>
+                    <rect x={sankeyRightNodeX} y={node.y} width={sankeyNodeWidth} height={node.height} fill={node.color} rx="2"></rect>
+                    <text x={sankeyRightNodeX + sankeyNodeWidth + 8} y={node.y + node.height / 2 + 4} text-anchor="start" font-size="12" font-weight="700" fill="var(--text)">{node.language} ({node.count})</text>
+                  </g>
+                ))}
+              </g>
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Flow diagram will appear once at least 5 languages are detected.</p>
+        )}
+      </article>
+    </div>
+  </details>
+
+  <details id="overall-trends-panel" class="panel chart-panel wide-panel" open>
+    <summary class="paper-collapse-summary">
+      <div>
+        <h2>Overall trends</h2>
+        <p>Aggregated across all available weeks, with coverage and trend views rolled up over time.</p>
+      </div>
+      <span class="paper-collapse-hint">Collapse section</span>
+    </summary>
+
+    <div class="stat-row">
+      <article class="stat-card-mini">
+        <strong>{trendOverallPapers}</strong>
+        <span>Total papers analyzed</span>
+      </article>
+      <article class="stat-card-mini">
+        <strong>{trendOverallFlagged}</strong>
+        <span>Papers with language mentions</span>
+      </article>
+      <article class="stat-card-mini">
+        <strong>{overallCoverageUniqueText}</strong>
+        <span>Unique languages across weeks</span>
+      </article>
+    </div>
+
+    <div class="overall-summary-grid" style="margin-bottom:14px">
+      <div class="trend-view-controls trend-view-controls-inline">
+        <a class={`trend-view-chip ${trendGranularity === 'week' ? 'is-active' : ''}`} href={trendModeHref('week')} data-trend-mode="week">Week</a>
+        <a class={`trend-view-chip ${trendGranularity === 'month' ? 'is-active' : ''}`} href={trendModeHref('month')} data-trend-mode="month">Month</a>
+        <a class={`trend-view-chip ${trendGranularity === 'year' ? 'is-active' : ''}`} href={trendModeHref('year')} data-trend-mode="year">Year</a>
+        <span class="chart-caption">Overall trends grouped by {trendGranularityLabel.toLowerCase()}</span>
+      </div>
+      <div class="coverage-summary-card">
+        <div class="chart-subpanel-head">
+            <div>
+              <h3>Overall coverage</h3>
+              <p>Papers scanned all time vs. papers with at least one language mention.</p>
+            </div>
+          </div>
+      <svg class="chart-svg coverage-pie-svg" width="100%" height="260" viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of total papers analyzed versus papers with language mentions across all weeks">
+        <g>
+          {overallCoveragePie.map((slice) => (
+            <g>
+              <path d={slice.path} fill={slice.color} stroke="white" stroke-width="1.5"></path>
+              <path d={slice.calloutPath} fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path>
+              <text
+                x={260 + Math.cos(slice.midAngle) * 60}
+                y={130 + Math.sin(slice.midAngle) * 60 + 4}
+                text-anchor="middle"
+                class="chart-value"
+                style={`fill:${slice.label === 'Not flagged' ? 'var(--text)' : '#fff'};font-size:0.6rem;font-weight:800`}
+              >
+                {coverageSlicePercent(slice.value, trendOverallPapers)}
+              </text>
+              <text x={slice.labelX + (slice.side === 'right' ? 8 : -8)} y={slice.labelY + 4} text-anchor={slice.side === 'right' ? 'start' : 'end'} class="chart-axis-label">
+                {coverageSliceLines(slice.label, slice.value).map((line, index) => (
+                  <tspan x={slice.labelX + (slice.side === 'right' ? 8 : -8)} dy={index === 0 ? 0 : 14}>{line}</tspan>
+                ))}
+              </text>
+            </g>
+          ))}
+          <circle cx="260" cy="130" r="44" fill="var(--panel)" stroke="var(--line)"></circle>
+          <text x="260" y="122" text-anchor="middle" class="chart-value">
+            <tspan x="260" dy="0">{trendOverallPapers}</tspan>
+            <tspan x="260" dy="14" class="chart-axis-label">papers</tspan>
+          </text>
+        </g>
+      </svg>
+      </div>
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>{trendGranularityLabel} scan volume</h3>
+            <p>Total papers scanned in each {trendGranularity} period, split by papers with and without language mentions.</p>
+          </div>
+        </div>
+        <div class="chart-legend-inline" style="justify-content:center">
+          <span><span class="coverage-dot abstract"></span>Other papers</span>
+          <span><span class="coverage-dot html"></span>Papers with language mentions</span>
+        </div>
+        {trendPeriods.length > 0 ? (
+          <div class="chart-scroll trend-period-chart-scroll">
+            <svg class="chart-svg" width={trendGroupedScrollPx === null ? "100%" : undefined} style={trendGroupedScrollPx !== null ? `width:${trendGroupedScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendGroupedWidth} ${trendGroupedHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`Stacked bar chart of ${trendGranularity} scan volume`}>
+              <g transform={`translate(${trendGroupedMargins.left} ${trendGroupedMargins.top})`}>
+                {trendGroupedY.ticks(4).map((tick) => (
+                  <g transform={`translate(0 ${trendGroupedY(tick)})`}>
+                    <line x1="0" x2={trendGroupedInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                    <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
+                  </g>
+                ))}
+                {trendPeriods.map((period) => {
+                  const x = trendGroupedScale(period.label) || 0;
+                  const barWidth = trendGroupedScale.bandwidth();
+                  const totalHeight = (period.papers / trendGroupedMax) * trendGroupedInnerHeight;
+                  const flaggedHeight = (period.flaggedPapers / trendGroupedMax) * trendGroupedInnerHeight;
+                  const otherHeight = Math.max(totalHeight - flaggedHeight, 0);
+                  const yTop = trendGroupedInnerHeight - totalHeight;
+                  const otherCount = Math.max(period.papers - period.flaggedPapers, 0);
+                  return (
+                    <g>
+                      {otherHeight > 0 && <path d={roundedTopRect(x, yTop, barWidth, otherHeight, 5)} fill="rgba(32, 22, 19, 0.18)"></path>}
+                      {flaggedHeight > 0 && <path d={roundedBottomRect(x, trendGroupedInnerHeight - flaggedHeight, barWidth, flaggedHeight, 5)} fill="#0f6c5d"></path>}
+                      {otherHeight > 14 && (
+                        <text x={x + barWidth / 2} y={yTop + otherHeight / 2 + 4} text-anchor="middle" class="chart-value">{otherCount}</text>
+                      )}
+                      {flaggedHeight > 14 && (
+                        <text x={x + barWidth / 2} y={trendGroupedInnerHeight - flaggedHeight / 2 + 4} text-anchor="middle" class="chart-value" style="fill:#fff">{period.flaggedPapers}</text>
+                      )}
+                      <text x={x + barWidth / 2} y={trendGroupedInnerHeight + 18} text-anchor="middle" class="chart-label">{period.label}</text>
+                    </g>
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Scan volume will appear once multiple snapshots are available.</p>
+        )}
+      </article>
+    </div>
+
+    <div class="overall-trend-grid">
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Resource class mix by {trendGranularity}</h3>
+            <p>Proportional share of language mentions per resource-availability tier each {trendGranularity}.</p>
+          </div>
+        </div>
+        <div class="class-legend">
+          {CLASS_LABELS.map((label, classId) => (
+            <div class="class-legend-item">
+              <span class="trend-legend-swatch" style={`background:${classColorForId(classId)}`}></span>
+              <span>{label}{classId === 0 ? ' (lowest)' : classId === CLASS_LABELS.length - 1 ? ' (highest)' : ''}</span>
+            </div>
+          ))}
+        </div>
+        {trendPeriods.length > 0 ? (
+          <div class="chart-scroll">
+            <svg class="chart-svg" width={trendClassScrollPx === null ? "100%" : undefined} style={trendClassScrollPx !== null ? `width:${trendClassScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendClassWidth} ${trendClassHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`100 percent stacked bar chart of resource class mix by ${trendGranularity}`}>
+              <g transform={`translate(${trendClassMargins.left} ${trendClassMargins.top})`}>
+                {trendPeriods.map((period, index) => {
+                  const x = trendClassScale(period.label) || 0;
+                  const barWidth = trendClassScale.bandwidth();
+                  const bar = trendClassBars[index];
+                  return (
+                    <g>
+                      {bar.segments.map((segment) => (
+                        <rect x={x} y={segment.y} width={barWidth} height={Math.max(segment.height, 0)} fill={segment.color}>
+                          <title>{`${segment.label}: ${segment.count}`}</title>
+                        </rect>
+                      ))}
+                      <text x={x + barWidth / 2} y={trendClassInnerHeight + 18} text-anchor="middle" class="chart-label">{period.label}</text>
+                    </g>
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Class mix will appear once multiple snapshots are available.</p>
+        )}
+      </article>
+
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Unique languages per {trendGranularity}</h3>
+            <p>How many distinct languages were mentioned in each {trendGranularity} period — a measure of breadth.</p>
+          </div>
+        </div>
+        {trendPeriods.length > 0 ? (
+          <div class="chart-scroll trend-period-chart-scroll">
+            <svg class="chart-svg" width={trendUniqueScrollPx === null ? "100%" : undefined} style={trendUniqueScrollPx !== null ? `width:${trendUniqueScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendUniqueWidth} ${trendUniqueHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`Line chart of unique languages per ${trendGranularity}`}>
+              <g transform={`translate(${trendUniqueMargins.left} ${trendUniqueMargins.top})`}>
+                {trendUniqueY.ticks(4).map((tick) => (
+                  <g transform={`translate(0 ${trendUniqueY(tick)})`}>
+                    <line x1="0" x2={trendUniqueInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                    <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
+                  </g>
+                ))}
+                <path
+                  d={trendPeriods.map((period, i) => {
+                    const x = (trendUniqueScale(period.label) || 0) + trendUniqueScale.bandwidth() / 2;
+                    const y = trendUniqueY(period.uniqueLanguages);
+                    return `${i === 0 ? 'M' : 'L'}${x},${y}`;
+                  }).join(' ')}
+                  fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round"
+                />
+                {trendPeriods.map((period) => {
+                  const x = (trendUniqueScale(period.label) || 0) + trendUniqueScale.bandwidth() / 2;
+                  const y = trendUniqueY(period.uniqueLanguages);
+                  return (
+                    <g>
+                      <circle cx={x} cy={y} r="5" fill="#7c3aed" stroke="white" stroke-width="2"></circle>
+                      <text x={x} y={y - 10} text-anchor="middle" class="chart-value">{period.uniqueLanguages}</text>
+                      <text x={x} y={trendUniqueInnerHeight + 18} text-anchor="middle" class="chart-label">{period.label}</text>
+                    </g>
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Unique-language counts will appear once multiple snapshots are available.</p>
+        )}
+      </article>
+
+      <article class="chart-subpanel chart-subpanel-wide">
+          <div class="chart-subpanel-head">
+            <div>
+              <h3>Top-language trends</h3>
+              <p>Mention counts for the top 10 languages in the selected {trendGranularity} view, tracked across all available periods.</p>
+            </div>
+          </div>
+          {trendPeriods.length > 0 && topTrendLanguages.length > 0 ? (
+            <div class="trend-line-layout">
+              <div class="chart-scroll trend-period-chart-scroll">
+                <svg class="chart-svg" width={trendTopLanguageScrollPx === null ? "100%" : undefined} style={trendTopLanguageScrollPx !== null ? `width:${trendTopLanguageScrollPx}px;max-width:none` : undefined} height={trendTopLanguageScrollPx !== null ? trendTopLanguageHeight : undefined} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Line chart of top-language trends across ${trendGranularity}s`}>
+                  <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
+                    {trendTopLanguageY.ticks(6).map((tick) => (
+                      <g transform={`translate(0 ${trendTopLanguageY(tick)})`}>
+                        <line x1="0" x2={trendTopLanguageInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                        <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
+                      </g>
+                    ))}
+                    {trendSeries.map((series, idx) => {
+                      const lastPt = series.points[series.points.length - 1];
+                      const labelY = trendEndpointLabelY[idx];
+                      return (
+                        <g>
+                          <path d={series.path} fill="none" stroke={series.color} stroke-width="2.5"></path>
+                          {lastPt && lastPt.value > 0 && (
+                            <g>
+                              <path d={`M ${lastPt.x + 14} ${lastPt.y} L ${trendTopLanguageInnerWidth + 10} ${labelY}`} fill="none" stroke={series.color} stroke-dasharray="3 4" stroke-width="1"></path>
+                              <text x={trendTopLanguageInnerWidth + 14} y={labelY + 4} class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language} · {lastPt.value}</text>
+                            </g>
+                          )}
+                          {series.points.map((point) => (
+                            <path d={markerPath(idx, point.x, point.y, 4)} fill={series.color} stroke="white" stroke-width="1.2"></path>
+                          ))}
+                        </g>
+                      );
+                    })}
+                    {trendPeriods.map((period) => {
+                      const x = trendTopLanguageScale(period.label) || 0;
+                      return (
+                        <text x={x + trendTopLanguageScale.bandwidth() / 2} y={trendTopLanguageInnerHeight + 18} text-anchor="middle" class="chart-label">{period.label}</text>
+                      );
+                    })}
+                  </g>
+                </svg>
+              </div>
+            </div>
+          ) : (
+            <p class="placeholder-text">Multi-period language trend lines will appear once data is available.</p>
+          )}
+      </article>
+
+      <article class="chart-subpanel chart-subpanel-wide">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Language rank trajectory</h3>
+            <p>Rank 1 = most mentions in that period. Tracks the languages that appear in each top 10 across the selected {trendGranularity} view.</p>
+          </div>
+        </div>
+        {trendPeriods.length >= 2 && bumpSeriesData.length > 0 ? (
+          <div class="chart-scroll bump-chart-scroll">
+            <svg class="chart-svg" width={bumpScrollPx === null ? "100%" : undefined} style={bumpScrollPx !== null ? `width:${bumpSvgWidth}px;max-width:none` : undefined} height={bumpScrollPx !== null ? bumpSvgHeight : undefined} viewBox={`0 0 ${bumpSvgWidth} ${bumpSvgHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Language rank bump chart across ${trendGranularity}s`}>
+              <g transform={`translate(${bumpMargins.left} ${bumpMargins.top})`}>
+                {Array.from({ length: bumpMaxRank }, (_, i) => i + 1).map((rank) => (
+                  <line x1="0" x2={bumpInnerWidth} y1={bumpYScale(rank)} y2={bumpYScale(rank)} class="chart-grid-line"></line>
+                ))}
+                {trendPeriods.map((period) => (
+                  <text x={(bumpXScale(period.label) || 0) + bumpXScale.bandwidth() / 2} y={bumpInnerHeight + 34} text-anchor="middle" class="chart-label">{period.label}</text>
+                ))}
+                {bumpSegments.map((segment) => (
+                  <path d={segment.d} fill="none" stroke={segment.color} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                ))}
+                {bumpSeriesData.map((series, seriesIdx) => (
+                  <g>
+                    {series.firstPt && (
+                      <g>
+                        <path d={`M ${series.firstPt.x - 14} ${series.firstPt.y} L ${-14} ${bumpLeftLabelY[seriesIdx]}`} fill="none" stroke={bumpLabelColor(series.language, seriesIdx)} stroke-dasharray="3 4" stroke-width="1"></path>
+                        <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
+                      </g>
+                    )}
+                    {series.lastPt && (
+                      <g>
+                        <path d={`M ${series.lastPt.x + 14} ${series.lastPt.y} L ${bumpInnerWidth + 14} ${bumpRightLabelY[seriesIdx]}`} fill="none" stroke={bumpLabelColor(series.language, seriesIdx)} stroke-dasharray="3 4" stroke-width="1"></path>
+                        <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
+                      </g>
+                    )}
+                    {series.points.map((point) => point && (() => {
+                      const rankColor = BUMP_RANK_COLORS[point.rank - 1] ?? BUMP_RANK_COLORS[BUMP_RANK_COLORS.length - 1];
+                      const isLight = point.rank >= 6;
+                      const textColor = isLight ? '#000' : '#fff';
+                      return (
+                        <g>
+                          <circle cx={point.x} cy={point.y} r="14" fill={rankColor} stroke="#000" stroke-width="1.5"></circle>
+                          <text x={point.x} y={point.y + 5} text-anchor="middle" style={`fill:${textColor};font-size:0.65rem;font-weight:700`}>{point.rank}</text>
+                        </g>
+                      );
+                    })())}
+                  </g>
+                ))}
+              </g>
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Language rank trajectory will appear once multiple periods are available.</p>
+        )}
+      </article>
+    </div>
+  </details>
+  <script is:inline>
+    const trendStateStorageKey = 'langtrend:overall-trend-details-state';
+    const trendScrollStorageKey = 'langtrend:overall-trend-scroll-y';
+
+    try { window.history.scrollRestoration = 'manual'; } catch {}
+
+    // Apply collapse state immediately, before toggle listeners are attached,
+    // to avoid a flash of all-expanded sections after filter-button navigation.
+    try {
+      const _rawState = sessionStorage.getItem(trendStateStorageKey);
+      if (_rawState) {
+        const _state = JSON.parse(_rawState);
+        document.querySelectorAll('details').forEach((el, i) => {
+          const key = el.id || el.getAttribute('data-trend-panel') || el.getAttribute('name') || `details-${i}`;
+          if (Object.prototype.hasOwnProperty.call(_state, key)) el.open = Boolean(_state[key]);
+        });
+      }
+    } catch {}
+
+    const saveTrendState = () => {
+      try {
+        sessionStorage.setItem(trendScrollStorageKey, String(window.scrollY));
+        const state = {};
+        document.querySelectorAll('details').forEach((el, i) => {
+          const key = el.id || el.getAttribute('data-trend-panel') || el.getAttribute('name') || `details-${i}`;
+          state[key] = el.open;
+        });
+        sessionStorage.setItem(trendStateStorageKey, JSON.stringify(state));
+      } catch {}
+    };
+
+    // Add toggle listeners after the initial restore so restoration-triggered
+    // toggles don't overwrite sessionStorage with a partially-restored state.
+    document.querySelectorAll('details').forEach((el) => el.addEventListener('toggle', saveTrendState));
+
+    document.addEventListener('click', (event) => {
+      const target = event.target instanceof Element ? event.target.closest('a[data-trend-mode]') : null;
+      if (target) saveTrendState();
+    });
+
+    window.addEventListener('beforeunload', saveTrendState);
+
+    // Restore scroll position. Try immediately on load (collapse state was
+    // applied synchronously so layout height is already correct), then
+    // retry once after a frame to cover any deferred rendering.
+    window.addEventListener('load', () => {
+      try {
+        const scrollY = Number(sessionStorage.getItem(trendScrollStorageKey)) || 0;
+        if (scrollY > 0) {
+          window.scrollTo(0, scrollY);
+          requestAnimationFrame(() => window.scrollTo(0, scrollY));
+        }
+      } catch {}
+    });
+  </script>
+</section>

@@ -1,0 +1,66 @@
+---
+import '../styles/global.css';
+
+const { title = 'LangTrend', description = 'LangTrend dashboard for language inclusion in NLP papers' } = Astro.props as {
+  title?: string;
+  description?: string;
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href={import.meta.env.BASE_URL + '/'}>LangTrend</a>
+        <nav class="navlinks">
+          <a class="navlink" href={import.meta.env.BASE_URL + '/'}>
+            <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-4.5v-6.5h-5V21H5a1 1 0 0 1-1-1v-8.5Z" fill="currentColor" />
+            </svg>
+            <span>Home</span>
+          </a>
+          <a class="navlink" href={`${import.meta.env.BASE_URL}/about/`}>
+            <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M11 10h2v7h-2zm0-4h2v2h-2z" fill="currentColor" />
+              <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" fill="currentColor" />
+            </svg>
+            <span>About</span>
+          </a>
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+    </div>
+
+    <button id="go-top-button" class="go-top-button" type="button" aria-label="Go to top" title="Go to top" data-tooltip="Go to Top">
+      <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 4 5 11h4v9h6v-9h4l-7-7Z" fill="currentColor" />
+      </svg>
+    </button>
+
+    <script>
+      const goTopButton = document.getElementById('go-top-button');
+
+      if (goTopButton) {
+        const updateVisibility = () => {
+          goTopButton.classList.toggle('is-visible', window.scrollY > 300);
+        };
+
+        goTopButton.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        window.addEventListener('scroll', updateVisibility, { passive: true });
+        window.addEventListener('load', updateVisibility);
+        updateVisibility();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+---
+import clientScript from '../scripts/week-calendar-client.js?url';
+const { activeWeek, availableWeeks = [] } = Astro.props as { activeWeek?: string; availableWeeks?: string[] };
+---
+
+<div class="calendar-card week-calendar-panel" data-active-week={activeWeek ?? ''} data-available-weeks={JSON.stringify(availableWeeks)} data-base-url={import.meta.env.BASE_URL}>
+  <div class="panel-head compact-head">
+    <button id="fc-prev" class="week-nav-btn" aria-label="Previous week">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <h2 id="week-title">The Week of May 18–24</h2>
+    <button id="fc-next" class="week-nav-btn" aria-label="Next week">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <!-- FullCalendar styles (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.20/main.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.20/main.min.css">
+
+  <div class="fc-controls">
+    <div class="fc-week-wrapper">
+      <div id="fc-root" class="fc-root"></div>
+    </div>
+  </div>
+
+  <p class="placeholder-text small">Click a week to view its data. (Note: Data available from April 27, 2026.)</p>
+  <script type="module" src={clientScript} is:inline></script>
+</div>
