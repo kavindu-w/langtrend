@@ -299,6 +299,11 @@ const topTrendLanguages = [...trendLanguageTotals.entries()]
     count,
     color: TREND_LINE_COLORS[index] || colorForIndex(index),
   }));
+const trendLanguageColorMap = new Map(topTrendLanguages.map((item) => [item.language, item.color]));
+
+function bumpLabelColor(language: string, fallbackIndex: number) {
+  return trendLanguageColorMap.get(language) || TREND_LINE_COLORS[fallbackIndex] || colorForIndex(fallbackIndex);
+}
 
 const trendGroupedWidth = 760;
 const trendGroupedHeight = 260;
@@ -460,35 +465,61 @@ const mirrorNewWithRank = mirrorNew.map(row => {
 });
 
 // Bump chart
-const bumpLanguageList = topTrendLanguages.slice(0, 10);
+type BumpPoint = { x: number; y: number; rank: number; language: string };
+type BumpSegment = { d: string; color: string };
+type BumpWeek = { weekStart: string; rankedLanguages: BumpPoint[]; rankMap: Map<string, BumpPoint> };
+
+function buildBumpSegmentPath(start: BumpPoint, end: BumpPoint) {
+  const midX = (start.x + end.x) / 2;
+  return `M ${start.x} ${start.y} C ${midX} ${start.y} ${midX} ${end.y} ${end.x} ${end.y}`;
+}
+
+const bumpMaxRank = 10;
 const bumpSvgWidth = 960;
-const bumpSvgHeight = 420;
-const bumpMargins = { top: 30, right: 190, bottom: 52, left: 160 };
+const bumpSvgHeight = 520;
+const bumpMargins = { top: 24, right: 190, bottom: 74, left: 160 };
 const bumpInnerWidth = bumpSvgWidth - bumpMargins.left - bumpMargins.right;
 const bumpInnerHeight = bumpSvgHeight - bumpMargins.top - bumpMargins.bottom;
-const bumpMaxRank = Math.max(2, Math.min(10, bumpLanguageList.length));
 const bumpYScale = scaleLinear().domain([1, bumpMaxRank]).range([0, bumpInnerHeight]);
 const bumpXScale = scaleBand().domain(trendWeekLabels).range([0, bumpInnerWidth]).padding(0.42);
-const bumpSeriesData = bumpLanguageList.map((lang) => {
-  const pts = trendWeeks.map((week) => {
-    const sorted = [...(week.languageCounts || [])].sort((a, b) => b.count - a.count);
-    const pos = sorted.findIndex(x => x.language === lang.language);
-    if (pos < 0 || pos >= bumpMaxRank) return null;
-    const x = (bumpXScale(week.weekStart) || 0) + bumpXScale.bandwidth() / 2;
-    const y = bumpYScale(pos + 1);
-    return { x, y, rank: pos + 1 };
-  });
-  let pathD = '';
-  let penDown = false;
-  for (const pt of pts) {
-    if (!pt) { penDown = false; continue; }
-    if (!penDown) { pathD += `M ${pt.x} ${pt.y}`; penDown = true; }
-    else { pathD += ` L ${pt.x} ${pt.y}`; }
-  }
-  const firstPt = pts.find(p => p !== null) ?? null;
-  const lastPt = [...pts].reverse().find(p => p !== null) ?? null;
-  return { language: lang.language, color: lang.color, pts, pathD, firstPt, lastPt };
+const bumpWeeks: BumpWeek[] = trendWeeks.map((week) => {
+  const rankedLanguages = [...(week.languageCounts || [])]
+    .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
+    .slice(0, bumpMaxRank)
+    .map((item, index) => {
+      const rank = index + 1;
+      const x = (bumpXScale(week.weekStart) || 0) + bumpXScale.bandwidth() / 2;
+      return { x, y: bumpYScale(rank), rank, language: item.language };
+    });
+  return { weekStart: week.weekStart, rankedLanguages, rankMap: new Map(rankedLanguages.map((item) => [item.language, item])) };
 });
+const bumpLanguageList = [...new Set(bumpWeeks.flatMap((week) => week.rankedLanguages.map((item) => item.language)))].sort((left, right) => {
+  const rightTotal = trendLanguageTotals.get(right) || 0;
+  const leftTotal = trendLanguageTotals.get(left) || 0;
+  return rightTotal - leftTotal || left.localeCompare(right);
+});
+const bumpSeriesData = bumpLanguageList.map((language) => {
+  const points = bumpWeeks.map((week) => week.rankMap.get(language) ?? null);
+  const segments: BumpSegment[] = [];
+  let previousPoint: BumpPoint | null = null;
+  for (const point of points) {
+    if (!point) {
+      previousPoint = null;
+      continue;
+    }
+    if (previousPoint) {
+      segments.push({
+        d: buildBumpSegmentPath(previousPoint, point),
+        color: BUMP_RANK_COLORS[previousPoint.rank - 1] || BUMP_RANK_COLORS[BUMP_RANK_COLORS.length - 1],
+      });
+    }
+    previousPoint = point;
+  }
+  const firstPt = points.find((point): point is BumpPoint => point !== null) ?? null;
+  const lastPt = [...points].reverse().find((point): point is BumpPoint => point !== null) ?? null;
+  return { language, points, segments, firstPt, lastPt };
+});
+const bumpSegments = bumpSeriesData.flatMap((series) => series.segments);
 const bumpLeftLabelRaw = bumpSeriesData.map((series, idx) => ({ idx, naturalY: series.firstPt?.y ?? 0 }));
 const bumpRightLabelRaw = bumpSeriesData.map((series, idx) => ({ idx, naturalY: series.lastPt?.y ?? 0 }));
 const bumpLeftLabelY: number[] = new Array(bumpSeriesData.length).fill(0);
@@ -1148,7 +1179,6 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
             <h3>Unique languages per week</h3>
             <p>How many distinct languages were mentioned each week — a measure of weekly breadth.</p>
           </div>
-          <span class="chart-caption">Simple breadth indicator</span>
         </div>
         {trendWeeks.length > 0 ? (
           <svg class="chart-svg" width="100%" viewBox={`0 0 ${trendUniqueWidth} ${trendUniqueHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of unique languages per week">
@@ -1185,115 +1215,111 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         )}
       </article>
 
-      <article class="chart-subpanel chart-subpanel-wide">
-        <div class="chart-subpanel-head">
-          <div>
-            <h3>Top-language trends</h3>
-            <p>Weekly mention counts for the top 10 languages overall, tracked across all available weeks.</p>
+      <div class="trend-pair-row">
+        <article class="chart-subpanel">
+          <div class="chart-subpanel-head">
+            <div>
+              <h3>Top-language trends</h3>
+              <p>Weekly mention counts for the top 10 languages overall, tracked across all available weeks.</p>
+            </div>
           </div>
-        </div>
-        {trendWeeks.length > 0 && topTrendLanguages.length > 0 ? (
-          <div class="trend-line-layout">
-            <svg class="chart-svg" width="100%" height={trendTopLanguageHeight} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across weeks">
-              <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
-                {trendTopLanguageY.ticks(6).map((tick) => (
-                  <g transform={`translate(0 ${trendTopLanguageY(tick)})`}>
-                    <line x1="0" x2={trendTopLanguageInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
-                    <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
-                  </g>
-                ))}
-                {trendSeries.map((series, idx) => {
-                  const lastPt = series.points[series.points.length - 1];
-                  const labelY = trendEndpointLabelY[idx];
-                  return (
+          {trendWeeks.length > 0 && topTrendLanguages.length > 0 ? (
+            <div class="trend-line-layout">
+              <svg class="chart-svg" width="100%" height={trendTopLanguageHeight} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across weeks">
+                <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
+                  {trendTopLanguageY.ticks(6).map((tick) => (
+                    <g transform={`translate(0 ${trendTopLanguageY(tick)})`}>
+                      <line x1="0" x2={trendTopLanguageInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                      <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
+                    </g>
+                  ))}
+                  {trendSeries.map((series, idx) => {
+                    const lastPt = series.points[series.points.length - 1];
+                    const labelY = trendEndpointLabelY[idx];
+                    return (
+                      <g>
+                        <path d={series.path} fill="none" stroke={series.color} stroke-width="2.5"></path>
+                        {lastPt && lastPt.value > 0 && (
+                          <g>
+                            <path d={`M ${lastPt.x + 14} ${lastPt.y} L ${trendTopLanguageInnerWidth + 10} ${labelY}`} fill="none" stroke={series.color} stroke-dasharray="3 4" stroke-width="1"></path>
+                            <text x={trendTopLanguageInnerWidth + 14} y={labelY + 4} class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language} · {lastPt.value}</text>
+                          </g>
+                        )}
+                        {series.points.map((point) => (
+                          <path d={markerPath(idx, point.x, point.y, 4)} fill={series.color} stroke="white" stroke-width="1.2"></path>
+                        ))}
+                      </g>
+                    );
+                  })}
+                  {trendWeeks.map((week) => {
+                    const x = trendTopLanguageScale(week.weekStart) || 0;
+                    return (
+                      <text x={x + trendTopLanguageScale.bandwidth() / 2} y={trendTopLanguageInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+                    );
+                  })}
+                </g>
+              </svg>
+            </div>
+          ) : (
+            <p class="placeholder-text">Multi-week language trend lines will appear after more than one weekly snapshot is available.</p>
+          )}
+        </article>
+
+        <article class="chart-subpanel">
+          <div class="chart-subpanel-head">
+            <div>
+              <h3>Language rank trajectory</h3>
+              <p>Rank 1 = most mentions in that week. Tracks the languages that appear in each weekly top 10 across all available weeks.</p>
+            </div>
+          </div>
+          {trendWeeks.length >= 2 && bumpSeriesData.length > 0 ? (
+            <div class="chart-scroll bump-chart-scroll">
+              <svg class="chart-svg" width="100%" height={bumpSvgHeight} viewBox={`0 0 ${bumpSvgWidth} ${bumpSvgHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Language rank bump chart across weeks">
+                <g transform={`translate(${bumpMargins.left} ${bumpMargins.top})`}>
+                  {Array.from({ length: bumpMaxRank }, (_, i) => i + 1).map((rank) => (
+                    <line x1="0" x2={bumpInnerWidth} y1={bumpYScale(rank)} y2={bumpYScale(rank)} class="chart-grid-line"></line>
+                  ))}
+                  {trendWeeks.map((week) => (
+                    <text x={(bumpXScale(week.weekStart) || 0) + bumpXScale.bandwidth() / 2} y={bumpInnerHeight + 34} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+                  ))}
+                  {bumpSegments.map((segment) => (
+                    <path d={segment.d} fill="none" stroke={segment.color} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                  ))}
+                  {bumpSeriesData.map((series, seriesIdx) => (
                     <g>
-                      <path d={series.path} fill="none" stroke={series.color} stroke-width="2.5"></path>
-                      {series.points.map((point) => (
-                        <path d={markerPath(idx, point.x, point.y, 4)} fill={series.color} stroke="white" stroke-width="1.2"></path>
-                      ))}
-                      {lastPt && lastPt.value > 0 && (
+                      {series.firstPt && (
                         <g>
-                          <path d={`M ${lastPt.x} ${lastPt.y} L ${trendTopLanguageInnerWidth + 10} ${labelY}`} fill="none" stroke={series.color} stroke-dasharray="3 4" stroke-width="1"></path>
-                          <text x={trendTopLanguageInnerWidth + 14} y={labelY + 4} class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language} · {lastPt.value}</text>
+                          <path d={`M ${series.firstPt.x - 14} ${series.firstPt.y} L ${-14} ${bumpLeftLabelY[seriesIdx]}`} fill="none" stroke={bumpLabelColor(series.language, seriesIdx)} stroke-dasharray="3 4" stroke-width="1"></path>
+                          <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
                         </g>
                       )}
-                    </g>
-                  );
-                })}
-                {trendWeeks.map((week) => {
-                  const x = trendTopLanguageScale(week.weekStart) || 0;
-                  return (
-                    <text x={x + trendTopLanguageScale.bandwidth() / 2} y={trendTopLanguageInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
-                  );
-                })}
-              </g>
-            </svg>
-          </div>
-        ) : (
-          <p class="placeholder-text">Multi-week language trend lines will appear after more than one weekly snapshot is available.</p>
-        )}
-      </article>
-
-      <article class="chart-subpanel chart-subpanel-wide">
-        <div class="chart-subpanel-head">
-          <div>
-            <h3>Language rank trajectory</h3>
-            <p>Rank 1 = most mentions in that week. Tracks the top 10 languages across all available weeks.</p>
-          </div>
-          <span class="chart-caption">Bump chart — rank 1 at top</span>
-        </div>
-        {trendWeeks.length >= 2 && bumpSeriesData.length > 0 ? (
-          <div class="chart-scroll">
-            <svg class="chart-svg" width="100%" height={bumpSvgHeight} viewBox={`0 0 ${bumpSvgWidth} ${bumpSvgHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Language rank bump chart across weeks">
-              <g transform={`translate(${bumpMargins.left} ${bumpMargins.top})`}>
-                {Array.from({ length: bumpMaxRank }, (_, i) => i + 1).map(rank => (
-                  <line x1="0" x2={bumpInnerWidth} y1={bumpYScale(rank)} y2={bumpYScale(rank)} class="chart-grid-line"></line>
-                ))}
-                {trendWeeks.map(week => (
-                  <text x={(bumpXScale(week.weekStart) || 0) + bumpXScale.bandwidth() / 2} y={bumpInnerHeight + 22} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
-                ))}
-                {/* Lines with black border (drawn first so circles sit on top) */}
-                {bumpSeriesData.map(series => series.pathD && (
-                  <path d={series.pathD} fill="none" stroke="#000" stroke-width="5" stroke-linejoin="round" opacity="0.5"></path>
-                ))}
-                {bumpSeriesData.map(series => series.pathD && (
-                  <path d={series.pathD} fill="none" stroke={series.color} stroke-width="2.5" stroke-linejoin="round"></path>
-                ))}
-                {/* Rank circles and labels */}
-                {bumpSeriesData.map((series, seriesIdx) => (
-                  <g>
-                    {series.pts.map(pt => pt && (() => {
-                      const rankColor = BUMP_RANK_COLORS[pt.rank - 1] ?? '#DCEDD9';
-                      const isLight = pt.rank >= 6;
-                      const textColor = isLight ? '#000' : '#fff';
-                      return (
+                      {series.lastPt && (
                         <g>
-                          <circle cx={pt.x} cy={pt.y} r="14" fill={rankColor} stroke="#000" stroke-width="1.5"></circle>
-                          <text x={pt.x} y={pt.y + 5} text-anchor="middle" style={`fill:${textColor};font-size:0.65rem;font-weight:700`}>{pt.rank}</text>
+                          <path d={`M ${series.lastPt.x + 14} ${series.lastPt.y} L ${bumpInnerWidth + 14} ${bumpRightLabelY[seriesIdx]}`} fill="none" stroke={bumpLabelColor(series.language, seriesIdx)} stroke-dasharray="3 4" stroke-width="1"></path>
+                          <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
                         </g>
-                      );
-                    })())}
-                    {series.firstPt && (
-                      <g>
-                        <path d={`M ${series.firstPt.x} ${series.firstPt.y} L ${-14} ${bumpLeftLabelY[seriesIdx]}`} fill="none" stroke={series.color} stroke-dasharray="3 4" stroke-width="1"></path>
-                        <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language}</text>
-                      </g>
-                    )}
-                    {series.lastPt && (
-                      <g>
-                        <path d={`M ${series.lastPt.x} ${series.lastPt.y} L ${bumpInnerWidth + 14} ${bumpRightLabelY[seriesIdx]}`} fill="none" stroke={series.color} stroke-dasharray="3 4" stroke-width="1"></path>
-                        <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language}</text>
-                      </g>
-                    )}
-                  </g>
-                ))}
-              </g>
-            </svg>
-          </div>
-        ) : (
-          <p class="placeholder-text">Language rank trajectory will appear once multiple weekly snapshots are available.</p>
-        )}
-      </article>
+                      )}
+                      {series.points.map((point) => point && (() => {
+                        const rankColor = BUMP_RANK_COLORS[point.rank - 1] ?? BUMP_RANK_COLORS[BUMP_RANK_COLORS.length - 1];
+                        const isLight = point.rank >= 6;
+                        const textColor = isLight ? '#000' : '#fff';
+                        return (
+                          <g>
+                            <circle cx={point.x} cy={point.y} r="14" fill={rankColor} stroke="#000" stroke-width="1.5"></circle>
+                            <text x={point.x} y={point.y + 5} text-anchor="middle" style={`fill:${textColor};font-size:0.65rem;font-weight:700`}>{point.rank}</text>
+                          </g>
+                        );
+                      })())}
+                    </g>
+                  ))}
+                </g>
+              </svg>
+            </div>
+          ) : (
+            <p class="placeholder-text">Language rank trajectory will appear once multiple weekly snapshots are available.</p>
+          )}
+        </article>
+      </div>
     </div>
   </details>
 </section>
