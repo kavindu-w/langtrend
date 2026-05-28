@@ -70,8 +70,8 @@ function formatWeekdayLabel(dateString: string) {
 }
 
 function formatPercent(value: number, total: number) {
-  if (!total) return '0%';
-  return `${Math.round((value / total) * 100)}%`;
+  if (!total) return '0.0%';
+  return `${((value / total) * 100).toFixed(1)}%`;
 }
 
 function sumCounts(items: { count: number }[]) {
@@ -281,9 +281,112 @@ const TREND_LINE_COLORS = ['#1696d2','#000000','#d2d2d2','#fdbf11','#55b748','#e
 
 const trendWeeks = [...allWeeksData].sort((left, right) => left.weekStart.localeCompare(right.weekStart));
 const trendWeekLabels = trendWeeks.map((week) => week.weekStart);
+
+type TrendGranularity = 'week' | 'month' | 'year';
+type TrendPeriod = {
+  periodKey: string;
+  label: string;
+  sortKey: string;
+  papers: number;
+  flaggedPapers: number;
+  uniqueLanguages: number;
+  languageCounts: LanguageCount[];
+  classCounts: ClassCount[];
+};
+
+const trendGranularity = ((Astro.url.searchParams.get('trend') as TrendGranularity) || 'week');
+
+function trendPeriodKey(weekStart: string, granularity: TrendGranularity) {
+  if (granularity === 'week') return weekStart;
+  const date = new Date(`${weekStart}T00:00:00`);
+  if (granularity === 'month') {
+    return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}`;
+  }
+  return `${date.getUTCFullYear()}`;
+}
+
+function trendPeriodLabel(weekStart: string, granularity: TrendGranularity) {
+  const date = new Date(`${weekStart}T00:00:00`);
+  if (granularity === 'week') return formatWeekLabel(weekStart);
+  if (granularity === 'month') {
+    return date.toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+  }
+  return `${date.getUTCFullYear()}`;
+}
+
+function aggregateTrendPeriods(weeks: WeekAggregate[], granularity: TrendGranularity): TrendPeriod[] {
+  const groups = new Map<string, {
+    periodKey: string;
+    label: string;
+    sortKey: string;
+    papers: number;
+    flaggedPapers: number;
+    uniqueLanguages: Set<string>;
+    languageCounts: Map<string, number>;
+    classCounts: Map<number, number>;
+  }>();
+
+  for (const week of weeks) {
+    const periodKey = trendPeriodKey(week.weekStart, granularity);
+    const existing = groups.get(periodKey) || {
+      periodKey,
+      label: trendPeriodLabel(week.weekStart, granularity),
+      sortKey: week.weekStart,
+      papers: 0,
+      flaggedPapers: 0,
+      uniqueLanguages: new Set<string>(),
+      languageCounts: new Map<string, number>(),
+      classCounts: new Map<number, number>(),
+    };
+
+    existing.sortKey = existing.sortKey < week.weekStart ? existing.sortKey : week.weekStart;
+    existing.papers += week.papers || 0;
+    existing.flaggedPapers += week.flaggedPapers || 0;
+    for (const item of week.languageCounts || []) {
+      if (!item.language) continue;
+      existing.uniqueLanguages.add(item.language);
+      existing.languageCounts.set(item.language, (existing.languageCounts.get(item.language) || 0) + item.count);
+    }
+    for (const item of week.classCounts || []) {
+      existing.classCounts.set(item.class_id, (existing.classCounts.get(item.class_id) || 0) + item.count);
+    }
+    groups.set(periodKey, existing);
+  }
+
+  return [...groups.values()]
+    .sort((left, right) => left.sortKey.localeCompare(right.sortKey))
+    .map((group) => ({
+      periodKey: group.periodKey,
+      label: group.label,
+      sortKey: group.sortKey,
+      papers: group.papers,
+      flaggedPapers: group.flaggedPapers,
+      uniqueLanguages: group.uniqueLanguages.size,
+      languageCounts: [...group.languageCounts.entries()]
+        .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+        .map(([language, count]) => ({ language, count })),
+      classCounts: [...group.classCounts.entries()]
+        .sort((left, right) => right[1] - left[1] || left[0] - right[0])
+        .map(([class_id, count]) => ({ class_id, count })),
+    }));
+}
+
+const trendPeriods = aggregateTrendPeriods(trendWeeks, trendGranularity);
+const trendPeriodLabels = trendPeriods.map((period) => period.label);
+const trendGranularityLabel = trendGranularity === 'week' ? 'Weekly' : trendGranularity === 'month' ? 'Monthly' : 'Yearly';
+
+function trendModeHref(mode: TrendGranularity) {
+  const url = new URL(Astro.url.href);
+  url.searchParams.set('trend', mode);
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
+const trendStateStorageKey = 'langtrend:overall-trend-details-state';
+const trendScrollStorageKey = 'langtrend:overall-trend-scroll-y';
+
 const trendLanguageTotals = new Map<string, number>();
-for (const week of trendWeeks) {
-  for (const item of week.languageCounts || []) {
+for (const period of trendPeriods) {
+  for (const item of period.languageCounts || []) {
     if (!item.language) continue;
     trendLanguageTotals.set(item.language, (trendLanguageTotals.get(item.language) || 0) + item.count);
   }
@@ -305,33 +408,45 @@ function bumpLabelColor(language: string, fallbackIndex: number) {
   return trendLanguageColorMap.get(language) || TREND_LINE_COLORS[fallbackIndex] || colorForIndex(fallbackIndex);
 }
 
-const trendGroupedWidth = 760;
+// Returns the explicit pixel width needed when there are more than maxVisible
+// periods. Returns null when the chart should fill its container responsively
+// (≤ maxVisible periods — no scroll needed).
+function scrollableChartWidth(baseWidth: number, margins: { left: number; right: number }, periodCount: number, maxVisible = 5): number | null {
+  if (periodCount <= maxVisible) return null;
+  const baseInner = baseWidth - margins.left - margins.right;
+  const pxPerPeriod = baseInner / maxVisible;
+  return Math.ceil(periodCount * pxPerPeriod) + margins.left + margins.right;
+}
+
 const trendGroupedHeight = 260;
 const trendGroupedMargins = { top: 24, right: 44, bottom: 50, left: 42 };
+const trendGroupedScrollPx = scrollableChartWidth(760, trendGroupedMargins, trendPeriods.length);
+const trendGroupedWidth = trendGroupedScrollPx ?? 760;
 const trendGroupedInnerWidth = trendGroupedWidth - trendGroupedMargins.left - trendGroupedMargins.right;
 const trendGroupedInnerHeight = trendGroupedHeight - trendGroupedMargins.top - trendGroupedMargins.bottom;
-const trendGroupedScale = scaleBand().domain(trendWeekLabels).range([0, trendGroupedInnerWidth]).padding(0.22);
-const trendGroupedMax = Math.max(1, ...trendWeeks.map((week) => week.papers || 0));
+const trendGroupedScale = scaleBand().domain(trendPeriodLabels).range([0, trendGroupedInnerWidth]).padding(0.22);
+const trendGroupedMax = Math.max(1, ...trendPeriods.map((period) => period.papers || 0));
 const trendGroupedY = scaleLinear().domain([0, trendGroupedMax]).nice().range([trendGroupedInnerHeight, 0]);
 
-const trendTopLanguageWidth = 760;
 const trendTopLanguageHeight = 500;
 const trendTopLanguageMargins = { top: 28, right: 124, bottom: 130, left: 42 };
+const trendTopLanguageScrollPx = scrollableChartWidth(760, trendTopLanguageMargins, trendPeriods.length);
+const trendTopLanguageWidth = trendTopLanguageScrollPx ?? 760;
 const trendTopLanguageInnerWidth = trendTopLanguageWidth - trendTopLanguageMargins.left - trendTopLanguageMargins.right;
 const trendTopLanguageInnerHeight = trendTopLanguageHeight - trendTopLanguageMargins.top - trendTopLanguageMargins.bottom;
-const trendTopLanguageScale = scaleBand().domain(trendWeekLabels).range([0, trendTopLanguageInnerWidth]).padding(0.3);
+const trendTopLanguageScale = scaleBand().domain(trendPeriodLabels).range([0, trendTopLanguageInnerWidth]).padding(0.3);
 const trendTopLanguageMax = Math.max(
   1,
-  ...topTrendLanguages.flatMap((item) => trendWeeks.map((week) => {
-    const found = (week.languageCounts || []).find((language) => language.language === item.language);
+  ...topTrendLanguages.flatMap((item) => trendPeriods.map((period) => {
+    const found = (period.languageCounts || []).find((language) => language.language === item.language);
     return found?.count || 0;
   })),
 );
 const trendTopLanguageY = scaleLinear().domain([0, trendTopLanguageMax]).nice().range([trendTopLanguageInnerHeight, 0]);
 const trendSeries = topTrendLanguages.map((item) => {
-  const points = trendWeeks.map((week) => {
-    const found = (week.languageCounts || []).find((language) => language.language === item.language);
-    const x = (trendTopLanguageScale(week.weekStart) || 0) + trendTopLanguageScale.bandwidth() / 2;
+  const points = trendPeriods.map((period) => {
+    const found = (period.languageCounts || []).find((language) => language.language === item.language);
+    const x = (trendTopLanguageScale(period.label) || 0) + trendTopLanguageScale.bandwidth() / 2;
     return {
       x,
       y: trendTopLanguageY(found?.count || 0),
@@ -341,18 +456,19 @@ const trendSeries = topTrendLanguages.map((item) => {
   return { ...item, points, path: buildLinePath(points) };
 });
 
-const trendClassWidth = 700;
 const trendClassHeight = 380;
 const trendClassMargins = { top: 20, right: 18, bottom: 56, left: 42 };
+const trendClassScrollPx = scrollableChartWidth(700, trendClassMargins, trendPeriods.length);
+const trendClassWidth = trendClassScrollPx ?? 700;
 const trendClassInnerWidth = trendClassWidth - trendClassMargins.left - trendClassMargins.right;
 const trendClassInnerHeight = trendClassHeight - trendClassMargins.top - trendClassMargins.bottom;
-const trendClassScale = scaleBand().domain(trendWeekLabels).range([0, trendClassInnerWidth]).padding(0.45);
-const trendClassBars = trendWeeks.map((week) => {
-  const classMap = new Map((week.classCounts || []).map((item) => [item.class_id, item.count]));
+const trendClassScale = scaleBand().domain(trendPeriodLabels).range([0, trendClassInnerWidth]).padding(0.45);
+const trendClassBars = trendPeriods.map((period) => {
+  const classMap = new Map((period.classCounts || []).map((item) => [item.class_id, item.count]));
   const total = Math.max(1, CLASS_LABELS.reduce((sum, _label, classId) => sum + (classMap.get(classId) || 0), 0));
   let offset = 0;
   return {
-    weekStart: week.weekStart,
+    label: period.label,
     total,
     segments: CLASS_LABELS.map((label, classId) => {
       const count = classMap.get(classId) || 0;
@@ -373,21 +489,22 @@ const trendClassBars = trendWeeks.map((week) => {
   };
 });
 
-const trendUniqueWidth = 700;
 const trendUniqueHeight = 380;
 const trendUniqueMargins = { top: 24, right: 18, bottom: 56, left: 42 };
+const trendUniqueScrollPx = scrollableChartWidth(700, trendUniqueMargins, trendPeriods.length);
+const trendUniqueWidth = trendUniqueScrollPx ?? 700;
 const trendUniqueInnerWidth = trendUniqueWidth - trendUniqueMargins.left - trendUniqueMargins.right;
 const trendUniqueInnerHeight = trendUniqueHeight - trendUniqueMargins.top - trendUniqueMargins.bottom;
-const trendUniqueScale = scaleBand().domain(trendWeekLabels).range([0, trendUniqueInnerWidth]).padding(0.22);
-const trendUniqueMax = Math.max(1, ...trendWeeks.map((week) => week.uniqueLanguages || 0));
+const trendUniqueScale = scaleBand().domain(trendPeriodLabels).range([0, trendUniqueInnerWidth]).padding(0.22);
+const trendUniqueMax = Math.max(1, ...trendPeriods.map((period) => period.uniqueLanguages || 0));
 const trendUniqueY = scaleLinear().domain([0, trendUniqueMax]).nice().range([trendUniqueInnerHeight, 0]);
 
 // Scan volume — flagged percent overlay
 const trendGroupedSecondaryY = scaleLinear().domain([0, 100]).range([trendGroupedInnerHeight, 0]);
-const trendGroupedFlaggedLine = trendWeeks.map(week => ({
-  x: (trendGroupedScale(week.weekStart) || 0) + trendGroupedScale.bandwidth() / 2,
-  y: trendGroupedSecondaryY(week.papers > 0 ? (week.flaggedPapers / week.papers) * 100 : 0),
-  pct: week.papers > 0 ? Math.round((week.flaggedPapers / week.papers) * 100) : 0,
+const trendGroupedFlaggedLine = trendPeriods.map((period) => ({
+  x: (trendGroupedScale(period.label) || 0) + trendGroupedScale.bandwidth() / 2,
+  y: trendGroupedSecondaryY(period.papers > 0 ? (period.flaggedPapers / period.papers) * 100 : 0),
+  pct: period.papers > 0 ? Math.round((period.flaggedPapers / period.papers) * 100) : 0,
 }));
 
 // Trend line — endpoint label vertical deconfliction
@@ -475,23 +592,24 @@ function buildBumpSegmentPath(start: BumpPoint, end: BumpPoint) {
 }
 
 const bumpMaxRank = 10;
-const bumpSvgWidth = 960;
 const bumpSvgHeight = 520;
 const bumpMargins = { top: 24, right: 190, bottom: 74, left: 160 };
+const bumpScrollPx = scrollableChartWidth(960, bumpMargins, trendPeriods.length);
+const bumpSvgWidth = bumpScrollPx ?? 960;
 const bumpInnerWidth = bumpSvgWidth - bumpMargins.left - bumpMargins.right;
 const bumpInnerHeight = bumpSvgHeight - bumpMargins.top - bumpMargins.bottom;
 const bumpYScale = scaleLinear().domain([1, bumpMaxRank]).range([0, bumpInnerHeight]);
-const bumpXScale = scaleBand().domain(trendWeekLabels).range([0, bumpInnerWidth]).padding(0.42);
-const bumpWeeks: BumpWeek[] = trendWeeks.map((week) => {
-  const rankedLanguages = [...(week.languageCounts || [])]
+const bumpXScale = scaleBand().domain(trendPeriodLabels).range([0, bumpInnerWidth]).padding(0.42);
+const bumpWeeks: BumpWeek[] = trendPeriods.map((period) => {
+  const rankedLanguages = [...(period.languageCounts || [])]
     .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
     .slice(0, bumpMaxRank)
     .map((item, index) => {
       const rank = index + 1;
-      const x = (bumpXScale(week.weekStart) || 0) + bumpXScale.bandwidth() / 2;
+      const x = (bumpXScale(period.label) || 0) + bumpXScale.bandwidth() / 2;
       return { x, y: bumpYScale(rank), rank, language: item.language };
     });
-  return { weekStart: week.weekStart, rankedLanguages, rankMap: new Map(rankedLanguages.map((item) => [item.language, item])) };
+  return { weekStart: period.label, rankedLanguages, rankMap: new Map(rankedLanguages.map((item) => [item.language, item])) };
 });
 const bumpLanguageList = [...new Set(bumpWeeks.flatMap((week) => week.rankedLanguages.map((item) => item.language)))].sort((left, right) => {
   const rightTotal = trendLanguageTotals.get(right) || 0;
@@ -540,59 +658,79 @@ for (const item of [...bumpRightLabelRaw].sort((a, b) => a.naturalY - b.naturalY
 // Sankey chart
 const sankeyLanguages = [...languageCounts]
   .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
-  .slice(0, 8);
+  .slice(0, 10);
 const showSankey = sankeyLanguages.length >= 5;
 const sankeySvgWidth = 1120;
-const sankeySvgHeight = 360;
 const sankeyNodeWidth = 18;
 const sankeyPad = 8;
-const sankeyDrawHeight = 300;
+const sankeyGroupGap = 18;
 const sankeyLeftNodeX = 150;
 const sankeyRightNodeX = 950;
 const sankeyMidX = (sankeyLeftNodeX + sankeyNodeWidth + sankeyRightNodeX) / 2;
 const sankeyClassTotalMap = new Map<number, number>();
-for (const item of sankeyLanguages) {
+for (const item of languageCounts) {
   const classId = languageBorderClass(item.language, langClasses);
   sankeyClassTotalMap.set(classId, (sankeyClassTotalMap.get(classId) || 0) + item.count);
 }
-const sankeyGrandTotal = Math.max(1, sankeyLanguages.reduce((s, x) => s + x.count, 0));
+const sankeyGrandTotal = Math.max(1, [...sankeyClassTotalMap.values()].reduce((sum, value) => sum + value, 0));
 type SankeyLeftNode = { classId: number; label: string; total: number; color: string; y: number; height: number };
+type SankeyRightNode = { classId: number; language: string; count: number; color: string; y: number; height: number };
+type SankeyClassGroup = SankeyLeftNode & { languages: SankeyRightNode[] };
+
 const sankeyLeftNodes: SankeyLeftNode[] = [...sankeyClassTotalMap.entries()]
   .sort((a, b) => b[1] - a[1] || a[0] - b[0])
   .map(([classId, total]) => ({ classId, label: CLASS_LABELS[classId] || `Class ${classId}`, total, color: classColorForId(classId), y: 0, height: 0 }));
-let sankeyLeftCursor = 20;
-for (const node of sankeyLeftNodes) {
-  node.height = Math.max(2, (node.total / sankeyGrandTotal) * sankeyDrawHeight);
-  node.y = sankeyLeftCursor;
-  sankeyLeftCursor += node.height + sankeyPad;
+
+const sankeyClassGroups: SankeyClassGroup[] = sankeyLeftNodes.map((group) => {
+  const languages = [...languageCounts]
+    .filter((item) => languageBorderClass(item.language, langClasses) === group.classId)
+    .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
+    .slice(0, 10)
+    .map((item) => ({
+      classId: group.classId,
+      language: item.language,
+      count: item.count,
+      color: classColor(item.language),
+      y: 0,
+      height: 0,
+    }));
+
+  const proportionalHeight = (group.total / sankeyGrandTotal) * 720;
+  const labelHeight = Math.max(220, languages.length * 22 + Math.max(0, languages.length - 1) * sankeyPad + 24);
+  return { ...group, height: Math.max(proportionalHeight, labelHeight), languages };
+});
+
+let sankeyCursor = 20;
+for (const group of sankeyClassGroups) {
+  group.y = sankeyCursor;
+  const languageCountTotal = Math.max(1, group.languages.reduce((sum, item) => sum + item.count, 0));
+  const availableHeight = Math.max(16, group.height - 16 - Math.max(0, group.languages.length - 1) * sankeyPad);
+  let rowCursor = group.y + 8;
+  for (const node of group.languages) {
+    node.height = Math.max(14, (node.count / languageCountTotal) * availableHeight);
+    node.y = rowCursor;
+    rowCursor += node.height + sankeyPad;
+  }
+  sankeyCursor += group.height + sankeyGroupGap;
 }
-type SankeyRightNode = { language: string; count: number; color: string; y: number; height: number };
-const sankeyRightNodes: SankeyRightNode[] = sankeyLanguages.map(item => ({ language: item.language, count: item.count, color: classColor(item.language), y: 0, height: 0 }));
-let sankeyRightCursor = 20;
-for (const node of sankeyRightNodes) {
-  node.height = Math.max(2, (node.count / sankeyGrandTotal) * sankeyDrawHeight);
-  node.y = sankeyRightCursor;
-  sankeyRightCursor += node.height + sankeyPad;
-}
-const sankeyClassOffsets = new Map<number, number>(sankeyLeftNodes.map(n => [n.classId, 0]));
-const sankeyLangOffsets = new Map<string, number>(sankeyRightNodes.map(n => [n.language, 0]));
-const sankeyPaths = sankeyLanguages.map(item => {
-  const classId = languageBorderClass(item.language, langClasses);
-  const leftNode = sankeyLeftNodes.find(n => n.classId === classId)!;
-  const rightNode = sankeyRightNodes.find(n => n.language === item.language)!;
-  const lOffset = sankeyClassOffsets.get(classId) || 0;
-  const rOffset = sankeyLangOffsets.get(item.language) || 0;
-  const linkH = Math.max(2, (item.count / sankeyGrandTotal) * sankeyDrawHeight);
-  const srcY1 = leftNode.y + lOffset;
-  const srcY2 = srcY1 + linkH;
-  const tgtY1 = rightNode.y + rOffset;
-  const tgtY2 = tgtY1 + linkH;
-  sankeyClassOffsets.set(classId, lOffset + linkH);
-  sankeyLangOffsets.set(item.language, rOffset + linkH);
-  const lx = sankeyLeftNodeX + sankeyNodeWidth;
-  const rx = sankeyRightNodeX;
-  const d = `M ${lx} ${srcY1} C ${sankeyMidX} ${srcY1} ${sankeyMidX} ${tgtY1} ${rx} ${tgtY1} L ${rx} ${tgtY2} C ${sankeyMidX} ${tgtY2} ${sankeyMidX} ${srcY2} ${lx} ${srcY2} Z`;
-  return { language: item.language, classId, d, color: classColorForId(classId), count: item.count };
+const sankeySvgHeight = sankeyCursor + 20;
+const sankeyRightNodes = sankeyClassGroups.flatMap((group) => group.languages);
+const sankeyPaths = sankeyClassGroups.flatMap((group) => {
+  const leftNode = group;
+  const classOffsetMap = new Map<string, number>();
+  let offset = 0;
+  return group.languages.map((item) => {
+    const linkH = item.height;
+    const srcY1 = leftNode.y + offset;
+    const srcY2 = srcY1 + linkH;
+    const tgtY1 = item.y;
+    const tgtY2 = tgtY1 + linkH;
+    offset += linkH + sankeyPad;
+    const lx = sankeyLeftNodeX + sankeyNodeWidth;
+    const rx = sankeyRightNodeX;
+    const d = `M ${lx} ${srcY1} C ${sankeyMidX} ${srcY1} ${sankeyMidX} ${tgtY1} ${rx} ${tgtY1} L ${rx} ${tgtY2} C ${sankeyMidX} ${tgtY2} ${sankeyMidX} ${srcY2} ${lx} ${srcY2} Z`;
+    return { language: item.language, classId: group.classId, d, color: group.color, count: item.count };
+  });
 });
 
 const trendOverallPapers = trendWeeks.reduce((sum, week) => sum + (week.papers || 0), 0);
@@ -602,7 +740,7 @@ const overallCoveragePieData = [
   { label: 'Not flagged', value: Math.max(trendOverallPapers - trendOverallFlagged, 0), color: 'rgba(32, 22, 19, 0.16)' },
   { label: 'Papers with language mentions', value: trendOverallFlagged, color: '#0f6c5d' },
 ];
-const overallCoveragePie = buildPieSlices([...overallCoveragePieData].sort((left, right) => right.value - left.value), 228, 110, 66, -Math.PI / 2, 30);
+const overallCoveragePie = buildPieSlices([...overallCoveragePieData].sort((left, right) => right.value - left.value), 260, 130, 82, -Math.PI / 2, 36);
 const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
 
 function coverageSliceLines(label: string, value: number) {
@@ -610,6 +748,18 @@ function coverageSliceLines(label: string, value: number) {
     return ['Papers with', `language mentions (${value})`];
   }
   return [`${label} (${value})`];
+}
+
+function coverageSliceLinesWithPercent(label: string, value: number, total: number) {
+  const percentLabel = total > 0 ? ` (${formatPercent(value, total)})` : '';
+  if (label === 'Papers with language mentions') {
+    return ['Papers with', `language mentions (${value})${percentLabel}`];
+  }
+  return [`${label} (${value})${percentLabel}`];
+}
+
+function coverageSlicePercent(value: number, total: number) {
+  return formatPercent(value, total);
 }
 
 // SVG path helpers for stacked bars with flat junctions
@@ -676,7 +826,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
 
 ---
 <section class="stats-stack">
-  <details class="panel chart-panel wide-panel" open>
+  <details id="weekly-trends-panel" class="panel chart-panel wide-panel" open>
     <summary class="paper-collapse-summary">
       <div>
         <h2 id="weekly-stat-title">For {weekLabel}</h2>
@@ -1033,7 +1183,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
     </div>
   </details>
 
-  <details class="panel chart-panel wide-panel" open>
+  <details id="overall-trends-panel" class="panel chart-panel wide-panel" open>
     <summary class="paper-collapse-summary">
       <div>
         <h2>Overall trends</h2>
@@ -1058,6 +1208,12 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
     </div>
 
     <div class="overall-summary-grid" style="margin-bottom:14px">
+      <div class="trend-view-controls trend-view-controls-inline">
+        <a class={`trend-view-chip ${trendGranularity === 'week' ? 'is-active' : ''}`} href={trendModeHref('week')} data-trend-mode="week">Week</a>
+        <a class={`trend-view-chip ${trendGranularity === 'month' ? 'is-active' : ''}`} href={trendModeHref('month')} data-trend-mode="month">Month</a>
+        <a class={`trend-view-chip ${trendGranularity === 'year' ? 'is-active' : ''}`} href={trendModeHref('year')} data-trend-mode="year">Year</a>
+        <span class="chart-caption">Overall trends grouped by {trendGranularityLabel.toLowerCase()}</span>
+      </div>
       <div class="coverage-summary-card">
         <div class="chart-subpanel-head">
             <div>
@@ -1065,12 +1221,21 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
               <p>Papers scanned all time vs. papers with at least one language mention.</p>
             </div>
           </div>
-      <svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of total papers analyzed versus papers with language mentions across all weeks">
+      <svg class="chart-svg coverage-pie-svg" width="100%" height="260" viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of total papers analyzed versus papers with language mentions across all weeks">
         <g>
           {overallCoveragePie.map((slice) => (
             <g>
               <path d={slice.path} fill={slice.color} stroke="white" stroke-width="1.5"></path>
               <path d={slice.calloutPath} fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path>
+              <text
+                x={260 + Math.cos(slice.midAngle) * 60}
+                y={130 + Math.sin(slice.midAngle) * 60 + 4}
+                text-anchor="middle"
+                class="chart-value"
+                style={`fill:${slice.label === 'Not flagged' ? 'var(--text)' : '#fff'};font-size:0.92rem;font-weight:800`}
+              >
+                {coverageSlicePercent(slice.value, trendOverallPapers)}
+              </text>
               <text x={slice.labelX + (slice.side === 'right' ? 8 : -8)} y={slice.labelY + 4} text-anchor={slice.side === 'right' ? 'start' : 'end'} class="chart-axis-label">
                 {coverageSliceLines(slice.label, slice.value).map((line, index) => (
                   <tspan x={slice.labelX + (slice.side === 'right' ? 8 : -8)} dy={index === 0 ? 0 : 14}>{line}</tspan>
@@ -1078,10 +1243,10 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
               </text>
             </g>
           ))}
-          <circle cx="228" cy="110" r="36" fill="var(--panel)" stroke="var(--line)"></circle>
-          <text x="228" y="102" text-anchor="middle" class="chart-value">
-            <tspan x="228" dy="0">{trendOverallPapers}</tspan>
-            <tspan x="228" dy="14" class="chart-axis-label">papers</tspan>
+          <circle cx="260" cy="130" r="44" fill="var(--panel)" stroke="var(--line)"></circle>
+          <text x="260" y="122" text-anchor="middle" class="chart-value">
+            <tspan x="260" dy="0">{trendOverallPapers}</tspan>
+            <tspan x="260" dy="14" class="chart-axis-label">papers</tspan>
           </text>
         </g>
       </svg>
@@ -1089,43 +1254,51 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
       <article class="chart-subpanel">
         <div class="chart-subpanel-head">
           <div>
-            <h3>Weekly scan volume</h3>
-            <p>Total papers scanned each week, split by papers with and without language mentions.</p>
+            <h3>{trendGranularityLabel} scan volume</h3>
+            <p>Total papers scanned in each {trendGranularity} period, split by papers with and without language mentions.</p>
           </div>
         </div>
         <div class="chart-legend-inline" style="justify-content:center">
           <span><span class="coverage-dot abstract"></span>Other papers</span>
           <span><span class="coverage-dot html"></span>Papers with language mentions</span>
         </div>
-        {trendWeeks.length > 0 ? (
-          <svg class="chart-svg" width="100%" viewBox={`0 0 ${trendGroupedWidth} ${trendGroupedHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Stacked bar chart of weekly scan volume">
-            <g transform={`translate(${trendGroupedMargins.left} ${trendGroupedMargins.top})`}>
-              {trendGroupedY.ticks(4).map((tick) => (
-                <g transform={`translate(0 ${trendGroupedY(tick)})`}>
-                  <line x1="0" x2={trendGroupedInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
-                  <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
-                </g>
-              ))}
-              {trendWeeks.map((week) => {
-                const x = trendGroupedScale(week.weekStart) || 0;
-                const barWidth = trendGroupedScale.bandwidth();
-                const totalHeight = (week.papers / trendGroupedMax) * trendGroupedInnerHeight;
-                const flaggedHeight = (week.flaggedPapers / trendGroupedMax) * trendGroupedInnerHeight;
-                const otherHeight = Math.max(totalHeight - flaggedHeight, 0);
-                const yTop = trendGroupedInnerHeight - totalHeight;
-                return (
-                  <g>
-                    {otherHeight > 0 && <path d={roundedTopRect(x, yTop, barWidth, otherHeight, 5)} fill="rgba(32, 22, 19, 0.18)"></path>}
-                    {flaggedHeight > 0 && <path d={roundedBottomRect(x, trendGroupedInnerHeight - flaggedHeight, barWidth, flaggedHeight, 5)} fill="#0f6c5d"></path>}
-                    <text x={x + barWidth / 2} y={Math.max(yTop - 4, 10)} text-anchor="middle" class="chart-value">{week.papers}</text>
-                    <text x={x + barWidth / 2} y={trendGroupedInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+        {trendPeriods.length > 0 ? (
+          <div class="chart-scroll trend-period-chart-scroll">
+            <svg class="chart-svg" width={trendGroupedScrollPx === null ? "100%" : undefined} style={trendGroupedScrollPx !== null ? `width:${trendGroupedScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendGroupedWidth} ${trendGroupedHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`Stacked bar chart of ${trendGranularity} scan volume`}>
+              <g transform={`translate(${trendGroupedMargins.left} ${trendGroupedMargins.top})`}>
+                {trendGroupedY.ticks(4).map((tick) => (
+                  <g transform={`translate(0 ${trendGroupedY(tick)})`}>
+                    <line x1="0" x2={trendGroupedInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                    <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
                   </g>
-                );
-              })}
-            </g>
-          </svg>
+                ))}
+                {trendPeriods.map((period) => {
+                  const x = trendGroupedScale(period.label) || 0;
+                  const barWidth = trendGroupedScale.bandwidth();
+                  const totalHeight = (period.papers / trendGroupedMax) * trendGroupedInnerHeight;
+                  const flaggedHeight = (period.flaggedPapers / trendGroupedMax) * trendGroupedInnerHeight;
+                  const otherHeight = Math.max(totalHeight - flaggedHeight, 0);
+                  const yTop = trendGroupedInnerHeight - totalHeight;
+                  const otherCount = Math.max(period.papers - period.flaggedPapers, 0);
+                  return (
+                    <g>
+                      {otherHeight > 0 && <path d={roundedTopRect(x, yTop, barWidth, otherHeight, 5)} fill="rgba(32, 22, 19, 0.18)"></path>}
+                      {flaggedHeight > 0 && <path d={roundedBottomRect(x, trendGroupedInnerHeight - flaggedHeight, barWidth, flaggedHeight, 5)} fill="#0f6c5d"></path>}
+                      {otherHeight > 14 && (
+                        <text x={x + barWidth / 2} y={yTop + otherHeight / 2 + 4} text-anchor="middle" class="chart-value">{otherCount}</text>
+                      )}
+                      {flaggedHeight > 14 && (
+                        <text x={x + barWidth / 2} y={trendGroupedInnerHeight - flaggedHeight / 2 + 4} text-anchor="middle" class="chart-value" style="fill:#fff">{period.flaggedPapers}</text>
+                      )}
+                      <text x={x + barWidth / 2} y={trendGroupedInnerHeight + 18} text-anchor="middle" class="chart-label">{period.label}</text>
+                    </g>
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
         ) : (
-          <p class="placeholder-text">Weekly scan volume will appear once multiple snapshots are available.</p>
+          <p class="placeholder-text">Scan volume will appear once multiple snapshots are available.</p>
         )}
       </article>
     </div>
@@ -1134,8 +1307,8 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
       <article class="chart-subpanel">
         <div class="chart-subpanel-head">
           <div>
-            <h3>Resource class mix by week</h3>
-            <p>Proportional share of language mentions per resource-availability tier each week.</p>
+            <h3>Resource class mix by {trendGranularity}</h3>
+            <p>Proportional share of language mentions per resource-availability tier each {trendGranularity}.</p>
           </div>
         </div>
         <div class="class-legend">
@@ -1146,12 +1319,12 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
             </div>
           ))}
         </div>
-        {trendWeeks.length > 0 ? (
+        {trendPeriods.length > 0 ? (
           <div class="chart-scroll">
-            <svg class="chart-svg" width="100%" viewBox={`0 0 ${trendClassWidth} ${trendClassHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="100 percent stacked bar chart of resource class mix by week">
+            <svg class="chart-svg" width={trendClassScrollPx === null ? "100%" : undefined} style={trendClassScrollPx !== null ? `width:${trendClassScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendClassWidth} ${trendClassHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`100 percent stacked bar chart of resource class mix by ${trendGranularity}`}>
               <g transform={`translate(${trendClassMargins.left} ${trendClassMargins.top})`}>
-                {trendWeeks.map((week, index) => {
-                  const x = trendClassScale(week.weekStart) || 0;
+                {trendPeriods.map((period, index) => {
+                  const x = trendClassScale(period.label) || 0;
                   const barWidth = trendClassScale.bandwidth();
                   const bar = trendClassBars[index];
                   return (
@@ -1161,7 +1334,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                           <title>{`${segment.label}: ${segment.count}`}</title>
                         </rect>
                       ))}
-                      <text x={x + barWidth / 2} y={trendClassInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+                      <text x={x + barWidth / 2} y={trendClassInnerHeight + 18} text-anchor="middle" class="chart-label">{period.label}</text>
                     </g>
                   );
                 })}
@@ -1169,49 +1342,51 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
             </svg>
           </div>
         ) : (
-          <p class="placeholder-text">Class mix will appear once multiple weekly snapshots are available.</p>
+          <p class="placeholder-text">Class mix will appear once multiple snapshots are available.</p>
         )}
       </article>
 
       <article class="chart-subpanel">
         <div class="chart-subpanel-head">
           <div>
-            <h3>Unique languages per week</h3>
-            <p>How many distinct languages were mentioned each week — a measure of weekly breadth.</p>
+            <h3>Unique languages per {trendGranularity}</h3>
+            <p>How many distinct languages were mentioned in each {trendGranularity} period — a measure of breadth.</p>
           </div>
         </div>
-        {trendWeeks.length > 0 ? (
-          <svg class="chart-svg" width="100%" viewBox={`0 0 ${trendUniqueWidth} ${trendUniqueHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of unique languages per week">
-            <g transform={`translate(${trendUniqueMargins.left} ${trendUniqueMargins.top})`}>
-              {trendUniqueY.ticks(4).map((tick) => (
-                <g transform={`translate(0 ${trendUniqueY(tick)})`}>
-                  <line x1="0" x2={trendUniqueInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
-                  <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
-                </g>
-              ))}
-              <path
-                d={trendWeeks.map((week, i) => {
-                  const x = (trendUniqueScale(week.weekStart) || 0) + trendUniqueScale.bandwidth() / 2;
-                  const y = trendUniqueY(week.uniqueLanguages);
-                  return `${i === 0 ? 'M' : 'L'}${x},${y}`;
-                }).join(' ')}
-                fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round"
-              />
-              {trendWeeks.map((week) => {
-                const x = (trendUniqueScale(week.weekStart) || 0) + trendUniqueScale.bandwidth() / 2;
-                const y = trendUniqueY(week.uniqueLanguages);
-                return (
-                  <g>
-                    <circle cx={x} cy={y} r="5" fill="#7c3aed" stroke="white" stroke-width="2"></circle>
-                    <text x={x} y={y - 10} text-anchor="middle" class="chart-value">{week.uniqueLanguages}</text>
-                    <text x={x} y={trendUniqueInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+        {trendPeriods.length > 0 ? (
+          <div class="chart-scroll trend-period-chart-scroll">
+            <svg class="chart-svg" width={trendUniqueScrollPx === null ? "100%" : undefined} style={trendUniqueScrollPx !== null ? `width:${trendUniqueScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendUniqueWidth} ${trendUniqueHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`Line chart of unique languages per ${trendGranularity}`}>
+              <g transform={`translate(${trendUniqueMargins.left} ${trendUniqueMargins.top})`}>
+                {trendUniqueY.ticks(4).map((tick) => (
+                  <g transform={`translate(0 ${trendUniqueY(tick)})`}>
+                    <line x1="0" x2={trendUniqueInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                    <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
                   </g>
-                );
-              })}
-            </g>
-          </svg>
+                ))}
+                <path
+                  d={trendPeriods.map((period, i) => {
+                    const x = (trendUniqueScale(period.label) || 0) + trendUniqueScale.bandwidth() / 2;
+                    const y = trendUniqueY(period.uniqueLanguages);
+                    return `${i === 0 ? 'M' : 'L'}${x},${y}`;
+                  }).join(' ')}
+                  fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round"
+                />
+                {trendPeriods.map((period) => {
+                  const x = (trendUniqueScale(period.label) || 0) + trendUniqueScale.bandwidth() / 2;
+                  const y = trendUniqueY(period.uniqueLanguages);
+                  return (
+                    <g>
+                      <circle cx={x} cy={y} r="5" fill="#7c3aed" stroke="white" stroke-width="2"></circle>
+                      <text x={x} y={y - 10} text-anchor="middle" class="chart-value">{period.uniqueLanguages}</text>
+                      <text x={x} y={trendUniqueInnerHeight + 18} text-anchor="middle" class="chart-label">{period.label}</text>
+                    </g>
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
         ) : (
-          <p class="placeholder-text">Unique-language counts will appear once multiple weekly snapshots are available.</p>
+          <p class="placeholder-text">Unique-language counts will appear once multiple snapshots are available.</p>
         )}
       </article>
 
@@ -1220,48 +1395,50 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
           <div class="chart-subpanel-head">
             <div>
               <h3>Top-language trends</h3>
-              <p>Weekly mention counts for the top 10 languages overall, tracked across all available weeks.</p>
+              <p>Mention counts for the top 10 languages in the selected {trendGranularity} view, tracked across all available periods.</p>
             </div>
           </div>
-          {trendWeeks.length > 0 && topTrendLanguages.length > 0 ? (
+          {trendPeriods.length > 0 && topTrendLanguages.length > 0 ? (
             <div class="trend-line-layout">
-              <svg class="chart-svg" width="100%" height={trendTopLanguageHeight} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across weeks">
-                <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
-                  {trendTopLanguageY.ticks(6).map((tick) => (
-                    <g transform={`translate(0 ${trendTopLanguageY(tick)})`}>
-                      <line x1="0" x2={trendTopLanguageInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
-                      <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
-                    </g>
-                  ))}
-                  {trendSeries.map((series, idx) => {
-                    const lastPt = series.points[series.points.length - 1];
-                    const labelY = trendEndpointLabelY[idx];
-                    return (
-                      <g>
-                        <path d={series.path} fill="none" stroke={series.color} stroke-width="2.5"></path>
-                        {lastPt && lastPt.value > 0 && (
-                          <g>
-                            <path d={`M ${lastPt.x + 14} ${lastPt.y} L ${trendTopLanguageInnerWidth + 10} ${labelY}`} fill="none" stroke={series.color} stroke-dasharray="3 4" stroke-width="1"></path>
-                            <text x={trendTopLanguageInnerWidth + 14} y={labelY + 4} class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language} · {lastPt.value}</text>
-                          </g>
-                        )}
-                        {series.points.map((point) => (
-                          <path d={markerPath(idx, point.x, point.y, 4)} fill={series.color} stroke="white" stroke-width="1.2"></path>
-                        ))}
+              <div class="chart-scroll trend-period-chart-scroll">
+                <svg class="chart-svg" width={trendTopLanguageScrollPx === null ? "100%" : undefined} style={trendTopLanguageScrollPx !== null ? `width:${trendTopLanguageScrollPx}px;max-width:none` : undefined} height={trendTopLanguageScrollPx !== null ? trendTopLanguageHeight : undefined} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Line chart of top-language trends across ${trendGranularity}s`}>
+                  <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
+                    {trendTopLanguageY.ticks(6).map((tick) => (
+                      <g transform={`translate(0 ${trendTopLanguageY(tick)})`}>
+                        <line x1="0" x2={trendTopLanguageInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                        <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
                       </g>
-                    );
-                  })}
-                  {trendWeeks.map((week) => {
-                    const x = trendTopLanguageScale(week.weekStart) || 0;
-                    return (
-                      <text x={x + trendTopLanguageScale.bandwidth() / 2} y={trendTopLanguageInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
-                    );
-                  })}
-                </g>
-              </svg>
+                    ))}
+                    {trendSeries.map((series, idx) => {
+                      const lastPt = series.points[series.points.length - 1];
+                      const labelY = trendEndpointLabelY[idx];
+                      return (
+                        <g>
+                          <path d={series.path} fill="none" stroke={series.color} stroke-width="2.5"></path>
+                          {lastPt && lastPt.value > 0 && (
+                            <g>
+                              <path d={`M ${lastPt.x + 14} ${lastPt.y} L ${trendTopLanguageInnerWidth + 10} ${labelY}`} fill="none" stroke={series.color} stroke-dasharray="3 4" stroke-width="1"></path>
+                              <text x={trendTopLanguageInnerWidth + 14} y={labelY + 4} class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language} · {lastPt.value}</text>
+                            </g>
+                          )}
+                          {series.points.map((point) => (
+                            <path d={markerPath(idx, point.x, point.y, 4)} fill={series.color} stroke="white" stroke-width="1.2"></path>
+                          ))}
+                        </g>
+                      );
+                    })}
+                    {trendPeriods.map((period) => {
+                      const x = trendTopLanguageScale(period.label) || 0;
+                      return (
+                        <text x={x + trendTopLanguageScale.bandwidth() / 2} y={trendTopLanguageInnerHeight + 18} text-anchor="middle" class="chart-label">{period.label}</text>
+                      );
+                    })}
+                  </g>
+                </svg>
+              </div>
             </div>
           ) : (
-            <p class="placeholder-text">Multi-week language trend lines will appear after more than one weekly snapshot is available.</p>
+            <p class="placeholder-text">Multi-period language trend lines will appear once data is available.</p>
           )}
         </article>
 
@@ -1269,18 +1446,18 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
           <div class="chart-subpanel-head">
             <div>
               <h3>Language rank trajectory</h3>
-              <p>Rank 1 = most mentions in that week. Tracks the languages that appear in each weekly top 10 across all available weeks.</p>
+              <p>Rank 1 = most mentions in that period. Tracks the languages that appear in each top 10 across the selected {trendGranularity} view.</p>
             </div>
           </div>
-          {trendWeeks.length >= 2 && bumpSeriesData.length > 0 ? (
+          {trendPeriods.length >= 2 && bumpSeriesData.length > 0 ? (
             <div class="chart-scroll bump-chart-scroll">
-              <svg class="chart-svg" width="100%" height={bumpSvgHeight} viewBox={`0 0 ${bumpSvgWidth} ${bumpSvgHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Language rank bump chart across weeks">
+              <svg class="chart-svg" width={bumpScrollPx === null ? "100%" : undefined} style={bumpScrollPx !== null ? `width:${bumpSvgWidth}px;max-width:none` : undefined} height={bumpScrollPx !== null ? bumpSvgHeight : undefined} viewBox={`0 0 ${bumpSvgWidth} ${bumpSvgHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Language rank bump chart across ${trendGranularity}s`}>
                 <g transform={`translate(${bumpMargins.left} ${bumpMargins.top})`}>
                   {Array.from({ length: bumpMaxRank }, (_, i) => i + 1).map((rank) => (
                     <line x1="0" x2={bumpInnerWidth} y1={bumpYScale(rank)} y2={bumpYScale(rank)} class="chart-grid-line"></line>
                   ))}
-                  {trendWeeks.map((week) => (
-                    <text x={(bumpXScale(week.weekStart) || 0) + bumpXScale.bandwidth() / 2} y={bumpInnerHeight + 34} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+                  {trendPeriods.map((period) => (
+                    <text x={(bumpXScale(period.label) || 0) + bumpXScale.bandwidth() / 2} y={bumpInnerHeight + 34} text-anchor="middle" class="chart-label">{period.label}</text>
                   ))}
                   {bumpSegments.map((segment) => (
                     <path d={segment.d} fill="none" stroke={segment.color} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -1316,10 +1493,65 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
               </svg>
             </div>
           ) : (
-            <p class="placeholder-text">Language rank trajectory will appear once multiple weekly snapshots are available.</p>
+            <p class="placeholder-text">Language rank trajectory will appear once multiple periods are available.</p>
           )}
         </article>
       </div>
     </div>
   </details>
+  <script is:inline>
+    const trendStateStorageKey = 'langtrend:overall-trend-details-state';
+    const trendScrollStorageKey = 'langtrend:overall-trend-scroll-y';
+
+    try { window.history.scrollRestoration = 'manual'; } catch {}
+
+    // Apply collapse state immediately, before toggle listeners are attached,
+    // to avoid a flash of all-expanded sections after filter-button navigation.
+    try {
+      const _rawState = sessionStorage.getItem(trendStateStorageKey);
+      if (_rawState) {
+        const _state = JSON.parse(_rawState);
+        document.querySelectorAll('details').forEach((el, i) => {
+          const key = el.id || el.getAttribute('data-trend-panel') || el.getAttribute('name') || `details-${i}`;
+          if (Object.prototype.hasOwnProperty.call(_state, key)) el.open = Boolean(_state[key]);
+        });
+      }
+    } catch {}
+
+    const saveTrendState = () => {
+      try {
+        sessionStorage.setItem(trendScrollStorageKey, String(window.scrollY));
+        const state = {};
+        document.querySelectorAll('details').forEach((el, i) => {
+          const key = el.id || el.getAttribute('data-trend-panel') || el.getAttribute('name') || `details-${i}`;
+          state[key] = el.open;
+        });
+        sessionStorage.setItem(trendStateStorageKey, JSON.stringify(state));
+      } catch {}
+    };
+
+    // Add toggle listeners after the initial restore so restoration-triggered
+    // toggles don't overwrite sessionStorage with a partially-restored state.
+    document.querySelectorAll('details').forEach((el) => el.addEventListener('toggle', saveTrendState));
+
+    document.addEventListener('click', (event) => {
+      const target = event.target instanceof Element ? event.target.closest('a[data-trend-mode]') : null;
+      if (target) saveTrendState();
+    });
+
+    window.addEventListener('beforeunload', saveTrendState);
+
+    // Restore scroll position. Try immediately on load (collapse state was
+    // applied synchronously so layout height is already correct), then
+    // retry once after a frame to cover any deferred rendering.
+    window.addEventListener('load', () => {
+      try {
+        const scrollY = Number(sessionStorage.getItem(trendScrollStorageKey)) || 0;
+        if (scrollY > 0) {
+          window.scrollTo(0, scrollY);
+          requestAnimationFrame(() => window.scrollTo(0, scrollY));
+        }
+      } catch {}
+    });
+  </script>
 </section>
