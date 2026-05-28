@@ -310,8 +310,8 @@ const trendGroupedMax = Math.max(1, ...trendWeeks.map((week) => week.papers || 0
 const trendGroupedY = scaleLinear().domain([0, trendGroupedMax]).nice().range([trendGroupedInnerHeight, 0]);
 
 const trendTopLanguageWidth = 760;
-const trendTopLanguageHeight = 420;
-const trendTopLanguageMargins = { top: 28, right: 124, bottom: 50, left: 42 };
+const trendTopLanguageHeight = 500;
+const trendTopLanguageMargins = { top: 28, right: 124, bottom: 130, left: 42 };
 const trendTopLanguageInnerWidth = trendTopLanguageWidth - trendTopLanguageMargins.left - trendTopLanguageMargins.right;
 const trendTopLanguageInnerHeight = trendTopLanguageHeight - trendTopLanguageMargins.top - trendTopLanguageMargins.bottom;
 const trendTopLanguageScale = scaleBand().domain(trendWeekLabels).range([0, trendTopLanguageInnerWidth]).padding(0.3);
@@ -1100,17 +1100,16 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
     </div>
 
     <div class="overall-trend-grid">
-      <article class="chart-subpanel">
+      <article class="chart-subpanel chart-subpanel-wide">
         <div class="chart-subpanel-head">
           <div>
             <h3>Top-language trends</h3>
             <p>Weekly mention counts for the top 10 languages overall, tracked across all available weeks.</p>
           </div>
-          <span class="chart-caption">Direct labels, no legend</span>
         </div>
         {trendWeeks.length > 0 && topTrendLanguages.length > 0 ? (
           <div class="trend-line-layout">
-            <svg class="chart-svg" width="100%" height={trendTopLanguageHeight} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of top-language trends across weeks">
+            <svg class="chart-svg" width="100%" height={trendTopLanguageHeight} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across weeks">
               <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
                 {trendTopLanguageY.ticks(6).map((tick) => (
                   <g transform={`translate(0 ${trendTopLanguageY(tick)})`}>
