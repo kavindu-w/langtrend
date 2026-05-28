@@ -3,6 +3,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 
 const panel = document.querySelector('.week-calendar-panel');
 const availableWeeks = JSON.parse(panel?.dataset.availableWeeks || '[]');
+const baseUrl = panel?.dataset.baseUrl || '/';
 // Fallback constants in case data is empty
 const _fallbackEarliest = new Date(2026, 3, 27); // Apr 27 2026
 const earliestAvailable = availableWeeks.length
@@ -143,14 +144,8 @@ root.addEventListener('click', (e) => {
     return;
   }
   setSelectedWeek(start);
-  window.location.href = `?week=${startStr}`;
+  window.location.href = `${baseUrl}/weeks/${startStr}/`;
 });
-
-function updateUrlForWeek(start) {
-  const q = new URLSearchParams(window.location.search);
-  q.set('week', isoDate(start));
-  history.replaceState(null, '', `${location.pathname}?${q.toString()}`);
-}
 
 function setSelectedWeek(start) {
   const existing = calendar.getEventById(bgEventId);
@@ -166,18 +161,14 @@ function setSelectedWeek(start) {
     classNames: ['selected-week-bg']
   });
   updateWeekTitle(start);
-  updateUrlForWeek(start);
 }
 
-// init selected week: prefer server-resolved activeWeek attr, then URL param, then latest available
+// init selected week: use server-resolved activeWeek attr (set per page), then fall back to latest
 function initSelectedWeek() {
   const serverWeek = document.querySelector('.week-calendar-panel')?.dataset.activeWeek;
-  const q = new URLSearchParams(window.location.search);
-  const urlWeek = q.get('week');
-  const raw = serverWeek || urlWeek;
   let start;
-  if (raw) {
-    const parsed = new Date(raw + 'T12:00:00');
+  if (serverWeek) {
+    const parsed = new Date(serverWeek + 'T12:00:00');
     if (!isNaN(parsed)) start = startOfWeek(parsed);
   }
   if (!start || isoDate(start) < earliestStr) start = startOfWeek(latestAvailable);
@@ -193,7 +184,7 @@ prev.addEventListener('click', () => {
     showToast(`Data is only available from ${fmtShort(earliestAvailable)}.`);
     return;
   }
-  window.location.href = `?week=${isoDate(prevStart)}`;
+  window.location.href = `${baseUrl}/weeks/${isoDate(prevStart)}/`;
 });
 
 next.addEventListener('click', () => {
@@ -204,7 +195,7 @@ next.addEventListener('click', () => {
     showToast('No data available for future weeks.');
     return;
   }
-  window.location.href = `?week=${isoDate(nextStart)}`;
+  window.location.href = `${baseUrl}/weeks/${isoDate(nextStart)}/`;
 });
 
 initSelectedWeek();

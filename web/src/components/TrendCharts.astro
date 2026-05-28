@@ -663,7 +663,7 @@ const showSankey = sankeyLanguages.length >= 5;
 const sankeySvgWidth = 1120;
 const sankeyNodeWidth = 18;
 const sankeyPad = 8;
-const sankeyGroupGap = 18;
+const sankeyGroupGap = 0;
 const sankeyLeftNodeX = 230;
 const sankeyRightNodeX = 900;
 const sankeyMidX = (sankeyLeftNodeX + sankeyNodeWidth + sankeyRightNodeX) / 2;
@@ -676,6 +676,7 @@ const sankeyGrandTotal = Math.max(1, [...sankeyClassTotalMap.values()].reduce((s
 type SankeyLeftNode = { classId: number; label: string; total: number; color: string; y: number; height: number };
 type SankeyRightNode = { classId: number; language: string; count: number; color: string; y: number; height: number };
 type SankeyClassGroup = SankeyLeftNode & { languages: SankeyRightNode[] };
+type SankeyVisibleLanguage = SankeyRightNode & { hidden: boolean };
 
 const sankeyLeftNodes: SankeyLeftNode[] = [...sankeyClassTotalMap.entries()]
   .sort((a, b) => b[1] - a[1] || a[0] - b[0])
@@ -690,7 +691,6 @@ const sankeyClassGroups: SankeyClassGroup[] = sankeyLeftNodes.map((group) => {
   const allLangs = [...languageCounts]
     .filter((item) => languageBorderClass(item.language, langClasses) === group.classId)
     .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
-    .slice(0, 10)
     .map((item) => ({
       classId: group.classId,
       language: item.language,
@@ -699,10 +699,24 @@ const sankeyClassGroups: SankeyClassGroup[] = sankeyLeftNodes.map((group) => {
       y: 0,
       height: 0,
     }));
-  // Limit to languages that fit without overlapping their labels
-  const maxLangs = Math.max(1, Math.floor((proportionalHeight - 8) / sankeyNodeSlot));
-  const languages = allLangs.slice(0, Math.min(10, maxLangs));
-  return { ...group, height: proportionalHeight, languages };
+  // Show up to 10 languages per class if available; expand the band as needed
+  // so smaller classes are not artificially truncated.
+  const visibleLanguages = allLangs.slice(0, 10);
+  const hiddenCount = Math.max(0, allLangs.length - visibleLanguages.length);
+  const languageRows: SankeyVisibleLanguage[] = [
+    ...visibleLanguages.map((item) => ({ ...item, hidden: false })),
+    ...(hiddenCount > 0 ? [{
+      classId: group.classId,
+      language: `${hiddenCount} more languages not shown`,
+      count: allLangs.slice(10).reduce((sum, item) => sum + item.count, 0),
+      color: 'rgba(32, 22, 19, 0.16)',
+      y: 0,
+      height: 0,
+      hidden: true,
+    } as SankeyVisibleLanguage] : []),
+  ];
+  const requiredHeight = 16 + languageRows.length * sankeyNodeMinH + Math.max(0, languageRows.length - 1) * sankeyPad;
+  return { ...group, height: Math.max(proportionalHeight, requiredHeight), languages: languageRows };
 });
 
 let sankeyCursor = 20;
@@ -714,7 +728,10 @@ for (const group of sankeyClassGroups) {
   // Proportional heights with a floor, then scale down uniformly if they'd overflow
   const rawHeights = group.languages.map(node => Math.max(sankeyNodeMinH, (node.count / languageCountTotal) * availableHeight));
   const totalRaw = rawHeights.reduce((s, h) => s + h, 0);
-  const hScale = availableHeight / Math.max(availableHeight, totalRaw);
+  // Scale heights so they exactly fill the availableHeight. Previously we
+  // prevented up-scaling which left gaps; allow hScale > 1 when totalRaw is
+  // smaller than availableHeight so the right-node strips fill the left bar.
+  const hScale = availableHeight / Math.max(1, totalRaw);
   let rowCursor = group.y + 8;
   for (let i = 0; i < n; i++) {
     group.languages[i].height = rawHeights[i] * hScale;
@@ -725,10 +742,14 @@ for (const group of sankeyClassGroups) {
 }
 const sankeySvgHeight = sankeyCursor + 20;
 const sankeyRightNodes = sankeyClassGroups.flatMap((group) => group.languages);
+const sankeyVisibleClassCount = 3;
+const sankeyVisibleHeight = sankeyClassGroups[sankeyVisibleClassCount - 1]
+  ? sankeyClassGroups[sankeyVisibleClassCount - 1].y + sankeyClassGroups[sankeyVisibleClassCount - 1].height + 20
+  : sankeySvgHeight;
 const sankeyPaths = sankeyClassGroups.flatMap((group) => {
   const shownTotal = Math.max(1, group.languages.reduce((sum, item) => sum + item.count, 0));
-  const leftInnerH = group.height - 16;
-  let leftOffset = 8;
+  const leftInnerH = group.height;
+  let leftOffset = 0;
   return group.languages.map((item) => {
     const srcH = (item.count / shownTotal) * leftInnerH;
     const srcY1 = group.y + leftOffset;
@@ -739,7 +760,7 @@ const sankeyPaths = sankeyClassGroups.flatMap((group) => {
     const lx = sankeyLeftNodeX + sankeyNodeWidth;
     const rx = sankeyRightNodeX;
     const d = `M ${lx} ${srcY1} C ${sankeyMidX} ${srcY1} ${sankeyMidX} ${tgtY1} ${rx} ${tgtY1} L ${rx} ${tgtY2} C ${sankeyMidX} ${tgtY2} ${sankeyMidX} ${srcY2} ${lx} ${srcY2} Z`;
-    return { language: item.language, classId: group.classId, d, color: group.color, count: item.count };
+    return { language: item.language, classId: group.classId, d, color: item.hidden ? 'rgba(32, 22, 19, 0.16)' : group.color, count: item.count };
   });
 });
 
@@ -1168,11 +1189,11 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         <div class="chart-subpanel-head">
           <div>
             <h3>Mention flow by language class</h3>
-            <p>Bands show how this week's language mentions flow from broad language families (left) down to individual languages (right). Band width is proportional to mention count.</p>
+            <p>Bands show how this week's language mentions flow from each class to up to its top 10 languages, with band width proportional to mention count.</p>
           </div>
         </div>
         {showSankey ? (
-          <div class="chart-scroll">
+          <div class="chart-scroll sankey-scroll" style={`max-height:${sankeyVisibleHeight}px;overflow-y:auto;`}>
             <svg class="chart-svg" style="height:auto" width="100%" viewBox={`0 0 ${sankeySvgWidth} ${sankeySvgHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Sankey diagram of language class to language mention flow">
               <g transform="translate(0 0)">
                 {sankeyPaths.map(link => (
