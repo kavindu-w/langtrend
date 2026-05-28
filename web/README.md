@@ -1,6 +1,6 @@
 # LangTrend Web
 
-Static Astro frontend for the LangTrend research dashboard.
+Astro frontend for the LangTrend research dashboard, configured for Vercel SSR.
 
 ## Run
 
@@ -15,4 +15,12 @@ npm run dev
 ```bash
 cd web
 npm run build
+```
+
+## Deploy to Vercel
+
+```bash
+cd web
+npm run build
+npm run deploy
 ```

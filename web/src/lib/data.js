@@ -1,9 +1,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-// process.cwd() is always the web/ project dir when Astro runs; go up one level to repo root
-const repoRoot = path.resolve(process.cwd(), '..');
-const dataRoot = path.join(repoRoot, 'data');
+// In production (Vercel), data files are bundled into the function dir alongside the code.
+// In local dev/build, data lives at ../data relative to web/ (the repo root).
+function findDataRoot() {
+  const bundled = path.join(process.cwd(), 'data');
+  if (fs.existsSync(bundled)) return bundled;
+  return path.resolve(process.cwd(), '..', 'data');
+}
+const dataRoot = findDataRoot();
 
 function readJson(filePath, fallback) {
   try {
