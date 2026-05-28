@@ -36,12 +36,12 @@ log = logging.getLogger(__name__)
 _DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "data/raw/extracted_papers_metadata"
 _OAI_BASE_URL = "https://oaipmh.arxiv.org/oai"
 _OAI_USER_AGENT = "LangTrendHarvester/1.0 (contact@yourinstitution.edu; supports OAI-PMH)"
-_ARXIV_CLIENT_PAGE_SIZE = 100
-_ARXIV_CLIENT_DELAY_SECONDS = 30.0
+_ARXIV_CLIENT_PAGE_SIZE = 1000
+_ARXIV_CLIENT_DELAY_SECONDS = 300.0
 _ARXIV_CLIENT_NUM_RETRIES = 5
 _FETCH_ATTEMPTS = 4
-_FETCH_BACKOFF_SECONDS = 60
-_OAI_REQUEST_TIMEOUT = 60
+_FETCH_BACKOFF_SECONDS = 300
+_OAI_REQUEST_TIMEOUT = 300
 _OAI_CREATED_WINDOW_BUFFER_DAYS = 2
 
 
