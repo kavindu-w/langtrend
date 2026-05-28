@@ -34,7 +34,7 @@ help:
 	@echo ""
 	@echo "Overrides:"
 	@echo "  DATA_ROOT=$(DATA_ROOT)  WINDOW_DAYS=$(WINDOW_DAYS)  MAX_RESULTS=$(MAX_RESULTS)"
-	@echo "  WORKERS=$(WORKERS)  END_DATE=$(if $(END_DATE),$(END_DATE),(last Monday))"
+	@echo "  WORKERS=$(WORKERS)  END_DATE=$(if $(END_DATE),$(END_DATE),(last Monday, run on Tuesdays))"
 
 setup:
 	pip install -r requirements.txt
@@ -49,6 +49,13 @@ fetch:
 		--max-results $(MAX_RESULTS) \
 		$(_END_DATE_FLAG) \
 		--skip-process
+
+fetch-oai:
+	$(PYTHON) scripts/fetch_arxiv_metadata.py \
+		--window-days $(WINDOW_DAYS) \
+		--max-results $(MAX_RESULTS) \
+		$(_END_DATE_FLAG) \
+		--oai-only
 
 process:
 	$(PYTHON) scripts/run_langtrend_pipeline.py \

@@ -1,9 +1,11 @@
 name: LangTrend Snapshot
 
 on:
-  # Every Monday at 03:15 UTC — after the previous week closes at midnight
+  # Every Tuesday at 12:00 UTC — arXiv's Mon 20:00 ET announcement (covering
+  # Fri–Mon submissions) completes ~Tue 00:00 UTC; noon gives the API time to
+  # fully index before we harvest via OAI-PMH.
   schedule:
-    - cron: '15 3 * * 1'
+    - cron: '0 12 * * 2'
   # Also trigger on manual dispatch and on pushes to main for code changes
   workflow_dispatch:
   push:
@@ -58,7 +60,7 @@ jobs:
             --data-root data \
             --window-days 7 \
             --max-results 1000 \
-            --workers 4
+            --workers 4 
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

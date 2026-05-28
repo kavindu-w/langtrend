@@ -95,6 +95,8 @@ def main() -> None:
     )
     parser.add_argument("--skip-fetch", action="store_true",
                         help="Skip fetch step even if no JSONL exists (will fail if no file found)")
+    parser.add_argument("--oai-only", action="store_true",
+                        help="Pass --oai-only to fetch step: skip arXiv search API, use OAI-PMH directly")
     parser.add_argument("--skip-process", action="store_true",
                         help="Skip process step; rebuild manifest from existing caches only")
     parser.add_argument("--reprocess-cache", action="store_true",
@@ -140,6 +142,7 @@ def main() -> None:
             "--max-results", str(args.max_results),
             "--category", args.query,
             "--output-dir", str(metadata_dir),
+            *(["--oai-only"] if args.oai_only else []),
         ])
 
     # Resolve the actual input path after fetch (may differ from expected if already existed)
