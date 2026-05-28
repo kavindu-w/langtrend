@@ -169,14 +169,12 @@ jobs:
           git commit -m "Update processed weekly outputs"
           git push origin HEAD:main
 
-      - name: Deploy to Vercel (pre-built)
+      - name: Deploy to GitHub Pages
         if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.publish_site) || github.event_name == 'push'
-        working-directory: web
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: npx vercel deploy --prebuilt --prod --token $VERCEL_TOKEN
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: web/dist
 
       - name: Upload snapshot artifact (for debugging)
         uses: actions/upload-artifact@v4

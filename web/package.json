@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "deploy": "vercel deploy --prebuilt --prod",
+    "deploy": "npm run build && gh-pages -d dist",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -15,7 +15,6 @@
     "d3": "^7.9.0"
   },
   "devDependencies": {
-    "@astrojs/vercel": "^10.0.8",
     "@types/d3": "^7.4.3"
   }
 }

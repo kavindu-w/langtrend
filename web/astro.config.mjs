@@ -1,8 +1,7 @@
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   output: 'static',
-  adapter: vercel(),
-  site: 'https://langtrend.vercel.app',
+  site: 'https://kavindu-w.github.io',
+  base: '/langtrend/',
 });
