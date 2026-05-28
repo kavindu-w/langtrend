@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       publish_site:
-        description: 'Also commit generated outputs and deploy GitHub Pages'
+        description: 'Deploy to GitHub Pages after building'
         required: false
         default: false
         type: boolean
@@ -86,7 +86,7 @@ jobs:
         run: npm run build
 
       - name: Commit generated week outputs
-        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.publish_site)
+        if: github.event_name == 'schedule'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
