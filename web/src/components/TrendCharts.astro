@@ -35,12 +35,14 @@ type Props = {
     week_start?: string;
     week_end?: string;
   };
-  languageData: { lang_classes?: Record<string, unknown[]> };
+  languageData: { lang_classes?: Record<string, unknown[]>; possible_false_positive_languages?: Record<string, string> };
 };
 
 const { languageCounts = [], classCounts = [], weekSeries = [], coverageStats, allWeeksData = [], manifest, languageData } = Astro.props as Props;
 
 const langClasses = languageData?.lang_classes || {};
+const pfpWarnings: Record<string, string> = languageData?.possible_false_positive_languages ?? {};
+function pfpWarn(lang: string): string { return pfpWarnings[lang] ?? ''; }
 const weeklyPapers = manifest.counts?.papers ?? (manifest.papers || []).length;
 const weeklyFlagged = manifest.counts?.flagged_papers ?? (manifest.flagged_papers || []).length;
 const weeklyUniqueLanguages = manifest.counts?.unique_languages ?? languageCounts.length;
@@ -1081,7 +1083,13 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                         <text x={mirrorLeftSpineX + mirrorRankR} y={cy + 4} text-anchor="middle" style="fill:#fff;font-size:0.65rem;font-weight:700">{row.rank}</text>
                       </g>
                     )}
-                    <text x={labelX} y={cy - 3} text-anchor="end" class="h-bar-label h-bar-label-name">{row.language}</text>
+                    {pfpWarn(row.language) ? (
+                      <g class="chart-warn-label" data-pfp-reason={pfpWarn(row.language)}>
+                        <text x={labelX} y={cy - 3} text-anchor="end" class="h-bar-label h-bar-label-name">{row.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan></text>
+                      </g>
+                    ) : (
+                      <text x={labelX} y={cy - 3} text-anchor="end" class="h-bar-label h-bar-label-name">{row.language}</text>
+                    )}
                     <text x={labelX} y={cy + 11} text-anchor="end" class="chart-axis-label">{row.count}</text>
                   </g>
                 );
@@ -1132,7 +1140,13 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                         <text x={mirrorRightSpineX - mirrorRankR} y={cy + 4} text-anchor="middle" style="fill:#fff;font-size:0.65rem;font-weight:700">{row.rank}</text>
                       </g>
                     )}
-                    <text x={labelX} y={cy - 3} text-anchor="start" class="h-bar-label h-bar-label-name">{row.language}</text>
+                    {pfpWarn(row.language) ? (
+                      <g class="chart-warn-label" data-pfp-reason={pfpWarn(row.language)}>
+                        <text x={labelX} y={cy - 3} text-anchor="start" class="h-bar-label h-bar-label-name">{row.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan></text>
+                      </g>
+                    ) : (
+                      <text x={labelX} y={cy - 3} text-anchor="start" class="h-bar-label h-bar-label-name">{row.language}</text>
+                    )}
                     <text x={labelX} y={cy + 11} text-anchor="start" class="chart-axis-label">{row.count}</text>
                   </g>
                 );
@@ -1178,7 +1192,13 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                   const labelInside = barWidth > weeklyLanguageBarInnerWidth - 100;
                   return (
                     <g transform={`translate(0 ${y})`}>
-                      <text x={-12} y={16} text-anchor="end" class="h-bar-label h-bar-label-name">{item.language}</text>
+                      {pfpWarn(item.language) ? (
+                        <g class="chart-warn-label" data-pfp-reason={pfpWarn(item.language)}>
+                          <text x={-12} y={16} text-anchor="end" class="h-bar-label h-bar-label-name">{item.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan></text>
+                        </g>
+                      ) : (
+                        <text x={-12} y={16} text-anchor="end" class="h-bar-label h-bar-label-name">{item.language}</text>
+                      )}
                       <rect x="0" y="3" width={barWidth} height="18" rx="4" fill={classColorValue} fill-opacity="0.86"></rect>
                       <text
                         x={labelInside ? barWidth - 6 : barWidth + 8}
@@ -1223,7 +1243,13 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                 {sankeyRightNodes.map(node => (
                   <g>
                     <rect x={sankeyRightNodeX} y={node.y} width={sankeyNodeWidth} height={node.height} fill={node.color} rx="2"></rect>
-                    <text x={sankeyRightNodeX + sankeyNodeWidth + 8} y={node.y + node.height / 2 + 4} text-anchor="start" font-size="12" font-weight="700" fill="var(--text)">{node.language} ({node.count})</text>
+                    {pfpWarn(node.language) ? (
+                      <g class="chart-warn-label" data-pfp-reason={pfpWarn(node.language)}>
+                        <text x={sankeyRightNodeX + sankeyNodeWidth + 8} y={node.y + node.height / 2 + 4} text-anchor="start" font-size="12" font-weight="700" fill="var(--text)">{node.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="6">★</tspan> ({node.count})</text>
+                      </g>
+                    ) : (
+                      <text x={sankeyRightNodeX + sankeyNodeWidth + 8} y={node.y + node.height / 2 + 4} text-anchor="start" font-size="12" font-weight="700" fill="var(--text)">{node.language} ({node.count})</text>
+                    )}
                   </g>
                 ))}
               </g>
@@ -1470,7 +1496,13 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                           {lastPt && lastPt.value > 0 && (
                             <g>
                               <path d={`M ${lastPt.x + 14} ${lastPt.y} L ${trendTopLanguageInnerWidth + 10} ${labelY}`} fill="none" stroke={series.color} stroke-dasharray="3 4" stroke-width="1"></path>
-                              <text x={trendTopLanguageInnerWidth + 14} y={labelY + 4} class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language} · {lastPt.value}</text>
+                              {pfpWarn(series.language) ? (
+                                <g class="chart-warn-label" data-pfp-reason={pfpWarn(series.language)}>
+                                  <text x={trendTopLanguageInnerWidth + 14} y={labelY + 4} class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan> · {lastPt.value}</text>
+                                </g>
+                              ) : (
+                                <text x={trendTopLanguageInnerWidth + 14} y={labelY + 4} class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language} · {lastPt.value}</text>
+                              )}
                             </g>
                           )}
                           {series.points.map((point) => (
@@ -1519,13 +1551,25 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                     {series.firstPt && (
                       <g>
                         <path d={`M ${series.firstPt.x - 14} ${series.firstPt.y} L ${-14} ${bumpLeftLabelY[seriesIdx]}`} fill="none" stroke={bumpLabelColor(series.language, seriesIdx)} stroke-dasharray="3 4" stroke-width="1"></path>
-                        <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
+                        {pfpWarn(series.language) ? (
+                          <g class="chart-warn-label" data-pfp-reason={pfpWarn(series.language)}>
+                            <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan></text>
+                          </g>
+                        ) : (
+                          <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
+                        )}
                       </g>
                     )}
                     {series.lastPt && (
                       <g>
                         <path d={`M ${series.lastPt.x + 14} ${series.lastPt.y} L ${bumpInnerWidth + 14} ${bumpRightLabelY[seriesIdx]}`} fill="none" stroke={bumpLabelColor(series.language, seriesIdx)} stroke-dasharray="3 4" stroke-width="1"></path>
-                        <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
+                        {pfpWarn(series.language) ? (
+                          <g class="chart-warn-label" data-pfp-reason={pfpWarn(series.language)}>
+                            <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan></text>
+                          </g>
+                        ) : (
+                          <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${bumpLabelColor(series.language, seriesIdx)};font-weight:700`}>{series.language}</text>
+                        )}
                       </g>
                     )}
                     {series.points.map((point) => point && (() => {
@@ -1550,6 +1594,11 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
       </article>
     </div>
   </details>
+  <div id="chart-pfp-tooltip" class="review-popover-body chart-pfp-tooltip" aria-hidden="true">
+    <strong>⚠ Manual verification may be needed</strong>
+    <p id="chart-pfp-tooltip-reason"></p>
+  </div>
+
   <script is:inline>
     const trendStateStorageKey = 'langtrend:overall-trend-details-state';
     const trendScrollStorageKey = 'langtrend:overall-trend-scroll-y';
@@ -1591,6 +1640,37 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
     });
 
     window.addEventListener('beforeunload', saveTrendState);
+
+    // Chart language warning tooltips
+    const _pfpTip = document.getElementById('chart-pfp-tooltip');
+    const _pfpReason = document.getElementById('chart-pfp-tooltip-reason');
+    function _showPfpTip(el, reason) {
+      if (!_pfpTip || !_pfpReason) return;
+      _pfpReason.textContent = reason;
+      const rect = el.getBoundingClientRect();
+      const tipW = 280;
+      let left = rect.left + window.scrollX + rect.width / 2 - tipW / 2;
+      left = Math.max(8, Math.min(left, window.innerWidth + window.scrollX - tipW - 8));
+      _pfpTip.style.left = left + 'px';
+      _pfpTip.style.top = (rect.top + window.scrollY - 8) + 'px';
+      _pfpTip.style.transform = 'translateY(-100%)';
+      _pfpTip.style.opacity = '1';
+      _pfpTip.style.visibility = 'visible';
+      _pfpTip.removeAttribute('aria-hidden');
+    }
+    function _hidePfpTip() {
+      if (!_pfpTip) return;
+      _pfpTip.style.opacity = '0';
+      _pfpTip.style.visibility = 'hidden';
+      _pfpTip.setAttribute('aria-hidden', 'true');
+    }
+    document.querySelectorAll('.chart-warn-label').forEach(function(el) {
+      const reason = el.getAttribute('data-pfp-reason') || '';
+      el.addEventListener('mouseenter', function() { _showPfpTip(el, reason); });
+      el.addEventListener('mouseleave', _hidePfpTip);
+      el.addEventListener('focusin', function() { _showPfpTip(el, reason); });
+      el.addEventListener('focusout', _hidePfpTip);
+    });
 
     // Restore scroll position. Try immediately on load (collapse state was
     // applied synchronously so layout height is already correct), then
