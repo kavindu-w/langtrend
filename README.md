@@ -122,3 +122,7 @@ Steps executed by the workflow:
 3. P. Joshi, S. Santy, A. Budhiraja, K. Bali, and M. Choudhury, "The State and Fate of Linguistic Diversity and Inclusion in the NLP World," in *Proc. 58th Annual Meeting of the Association for Computational Linguistics*, Online, Jul. 2020, pp. 6282–6293. doi: [10.18653/v1/2020.acl-main.560](https://doi.org/10.18653/v1/2020.acl-main.560)
 
 4. C. Auer et al., "Docling Technical Report," 2024, arXiv. doi: [10.48550/ARXIV.2408.09869](https://doi.org/10.48550/ARXIV.2408.09869)
+
+---
+
+This project builds on the ideas, code and data from [2] and [4], with assistance from GitHub Copilot and Claude.
