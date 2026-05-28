@@ -368,9 +368,9 @@ const trendClassBars = trendWeeks.map((week) => {
   };
 });
 
-const trendUniqueWidth = 760;
-const trendUniqueHeight = 260;
-const trendUniqueMargins = { top: 24, right: 18, bottom: 50, left: 42 };
+const trendUniqueWidth = 700;
+const trendUniqueHeight = 380;
+const trendUniqueMargins = { top: 24, right: 18, bottom: 56, left: 42 };
 const trendUniqueInnerWidth = trendUniqueWidth - trendUniqueMargins.left - trendUniqueMargins.right;
 const trendUniqueInnerHeight = trendUniqueHeight - trendUniqueMargins.top - trendUniqueMargins.bottom;
 const trendUniqueScale = scaleBand().domain(trendWeekLabels).range([0, trendUniqueInnerWidth]).padding(0.22);
@@ -1100,55 +1100,6 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
     </div>
 
     <div class="overall-trend-grid">
-      <article class="chart-subpanel chart-subpanel-wide">
-        <div class="chart-subpanel-head">
-          <div>
-            <h3>Top-language trends</h3>
-            <p>Weekly mention counts for the top 10 languages overall, tracked across all available weeks.</p>
-          </div>
-        </div>
-        {trendWeeks.length > 0 && topTrendLanguages.length > 0 ? (
-          <div class="trend-line-layout">
-            <svg class="chart-svg" width="100%" height={trendTopLanguageHeight} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across weeks">
-              <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
-                {trendTopLanguageY.ticks(6).map((tick) => (
-                  <g transform={`translate(0 ${trendTopLanguageY(tick)})`}>
-                    <line x1="0" x2={trendTopLanguageInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
-                    <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
-                  </g>
-                ))}
-                {trendSeries.map((series, idx) => {
-                  const lastPt = series.points[series.points.length - 1];
-                  const labelY = trendEndpointLabelY[idx];
-                  return (
-                    <g>
-                      <path d={series.path} fill="none" stroke={series.color} stroke-width="2.5"></path>
-                      {series.points.map((point) => (
-                        <path d={markerPath(idx, point.x, point.y, 4)} fill={series.color} stroke="white" stroke-width="1.2"></path>
-                      ))}
-                      {lastPt && lastPt.value > 0 && (
-                        <g>
-                          <path d={`M ${lastPt.x} ${lastPt.y} L ${trendTopLanguageInnerWidth + 10} ${labelY}`} fill="none" stroke={series.color} stroke-dasharray="3 4" stroke-width="1"></path>
-                          <text x={trendTopLanguageInnerWidth + 14} y={labelY + 4} class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language} · {lastPt.value}</text>
-                        </g>
-                      )}
-                    </g>
-                  );
-                })}
-                {trendWeeks.map((week) => {
-                  const x = trendTopLanguageScale(week.weekStart) || 0;
-                  return (
-                    <text x={x + trendTopLanguageScale.bandwidth() / 2} y={trendTopLanguageInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
-                  );
-                })}
-              </g>
-            </svg>
-          </div>
-        ) : (
-          <p class="placeholder-text">Multi-week language trend lines will appear after more than one weekly snapshot is available.</p>
-        )}
-      </article>
-
       <article class="chart-subpanel">
         <div class="chart-subpanel-head">
           <div>
@@ -1200,7 +1151,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
           <span class="chart-caption">Simple breadth indicator</span>
         </div>
         {trendWeeks.length > 0 ? (
-          <svg class="chart-svg" width="100%" height={trendUniqueHeight} viewBox={`0 0 ${trendUniqueWidth} ${trendUniqueHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Bar chart of unique languages per week">
+          <svg class="chart-svg" width="100%" viewBox={`0 0 ${trendUniqueWidth} ${trendUniqueHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of unique languages per week">
             <g transform={`translate(${trendUniqueMargins.left} ${trendUniqueMargins.top})`}>
               {trendUniqueY.ticks(4).map((tick) => (
                 <g transform={`translate(0 ${trendUniqueY(tick)})`}>
@@ -1208,17 +1159,22 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                   <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
                 </g>
               ))}
+              <path
+                d={trendWeeks.map((week, i) => {
+                  const x = (trendUniqueScale(week.weekStart) || 0) + trendUniqueScale.bandwidth() / 2;
+                  const y = trendUniqueY(week.uniqueLanguages);
+                  return `${i === 0 ? 'M' : 'L'}${x},${y}`;
+                }).join(' ')}
+                fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round"
+              />
               {trendWeeks.map((week) => {
-                const x = trendUniqueScale(week.weekStart) || 0;
-                const barWidth = trendUniqueScale.bandwidth();
-                const barHeight = (week.uniqueLanguages / trendUniqueMax) * trendUniqueInnerHeight;
-                const labelAboveY = trendUniqueInnerHeight - barHeight - 6;
-                const labelInside = labelAboveY < 4;
+                const x = (trendUniqueScale(week.weekStart) || 0) + trendUniqueScale.bandwidth() / 2;
+                const y = trendUniqueY(week.uniqueLanguages);
                 return (
                   <g>
-                    <rect x={x} y={trendUniqueInnerHeight - barHeight} width={barWidth} height={barHeight} fill="#1696d2" rx="5"></rect>
-                    <text x={x + barWidth / 2} y={labelInside ? trendUniqueInnerHeight - barHeight + 14 : labelAboveY} text-anchor="middle" class="chart-value" style={labelInside ? 'fill:#fff' : ''}>{week.uniqueLanguages}</text>
-                    <text x={x + barWidth / 2} y={trendUniqueInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+                    <circle cx={x} cy={y} r="5" fill="#7c3aed" stroke="white" stroke-width="2"></circle>
+                    <text x={x} y={y - 10} text-anchor="middle" class="chart-value">{week.uniqueLanguages}</text>
+                    <text x={x} y={trendUniqueInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
                   </g>
                 );
               })}
@@ -1226,6 +1182,55 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
           </svg>
         ) : (
           <p class="placeholder-text">Unique-language counts will appear once multiple weekly snapshots are available.</p>
+        )}
+      </article>
+
+      <article class="chart-subpanel chart-subpanel-wide">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Top-language trends</h3>
+            <p>Weekly mention counts for the top 10 languages overall, tracked across all available weeks.</p>
+          </div>
+        </div>
+        {trendWeeks.length > 0 && topTrendLanguages.length > 0 ? (
+          <div class="trend-line-layout">
+            <svg class="chart-svg" width="100%" height={trendTopLanguageHeight} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across weeks">
+              <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
+                {trendTopLanguageY.ticks(6).map((tick) => (
+                  <g transform={`translate(0 ${trendTopLanguageY(tick)})`}>
+                    <line x1="0" x2={trendTopLanguageInnerWidth} y1="0" y2="0" class="chart-grid-line"></line>
+                    <text x="-10" y="4" text-anchor="end" class="chart-axis-label">{tick}</text>
+                  </g>
+                ))}
+                {trendSeries.map((series, idx) => {
+                  const lastPt = series.points[series.points.length - 1];
+                  const labelY = trendEndpointLabelY[idx];
+                  return (
+                    <g>
+                      <path d={series.path} fill="none" stroke={series.color} stroke-width="2.5"></path>
+                      {series.points.map((point) => (
+                        <path d={markerPath(idx, point.x, point.y, 4)} fill={series.color} stroke="white" stroke-width="1.2"></path>
+                      ))}
+                      {lastPt && lastPt.value > 0 && (
+                        <g>
+                          <path d={`M ${lastPt.x} ${lastPt.y} L ${trendTopLanguageInnerWidth + 10} ${labelY}`} fill="none" stroke={series.color} stroke-dasharray="3 4" stroke-width="1"></path>
+                          <text x={trendTopLanguageInnerWidth + 14} y={labelY + 4} class="chart-axis-label" style={`fill:${series.color};font-weight:700`}>{series.language} · {lastPt.value}</text>
+                        </g>
+                      )}
+                    </g>
+                  );
+                })}
+                {trendWeeks.map((week) => {
+                  const x = trendTopLanguageScale(week.weekStart) || 0;
+                  return (
+                    <text x={x + trendTopLanguageScale.bandwidth() / 2} y={trendTopLanguageInnerHeight + 18} text-anchor="middle" class="chart-label">{formatWeekLabel(week.weekStart)}</text>
+                  );
+                })}
+              </g>
+            </svg>
+          </div>
+        ) : (
+          <p class="placeholder-text">Multi-week language trend lines will appear after more than one weekly snapshot is available.</p>
         )}
       </article>
 
