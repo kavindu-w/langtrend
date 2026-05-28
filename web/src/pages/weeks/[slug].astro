@@ -5,7 +5,9 @@ import PaperTable from '../../components/PaperTable.astro';
 import WeekCalendar from '../../components/WeekCalendar.astro';
 import { loadSiteData, getAvailableWeeks, loadAllWeeksData } from '../../lib/data.js';
 
-export const prerender = false;
+export function getStaticPaths() {
+  return getAvailableWeeks().map((weekStart) => ({ params: { slug: weekStart } }));
+}
 
 const { slug } = Astro.params;
 const data = loadSiteData(slug);

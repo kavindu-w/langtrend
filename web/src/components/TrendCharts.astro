@@ -565,70 +565,11 @@ function computeTrendData(granularity: TrendGranularity) {
   };
 }
 
-const trendGranularity = ((Astro.url.searchParams.get('trend') as TrendGranularity) || 'week');
-
-function trendModeHref(mode: TrendGranularity) {
-  const url = new URL(Astro.url.href);
-  url.searchParams.set('trend', mode);
-  return `${url.pathname}${url.search}${url.hash}`;
-}
-
-const {
-  granularityLabel: trendGranularityLabel,
-  periods: trendPeriods,
-  periodLabels: trendPeriodLabels,
-  topLanguages: topTrendLanguages,
-  trendSeries,
-  endpointLabelY: trendEndpointLabelY,
-  groupedHeight: trendGroupedHeight,
-  groupedMargins: trendGroupedMargins,
-  groupedScrollPx: trendGroupedScrollPx,
-  groupedWidth: trendGroupedWidth,
-  groupedInnerWidth: trendGroupedInnerWidth,
-  groupedInnerHeight: trendGroupedInnerHeight,
-  groupedScale: trendGroupedScale,
-  groupedMax: trendGroupedMax,
-  groupedY: trendGroupedY,
-  topLangHeight: trendTopLanguageHeight,
-  topLangMargins: trendTopLanguageMargins,
-  topLangScrollPx: trendTopLanguageScrollPx,
-  topLangWidth: trendTopLanguageWidth,
-  topLangInnerWidth: trendTopLanguageInnerWidth,
-  topLangInnerHeight: trendTopLanguageInnerHeight,
-  topLangScale: trendTopLanguageScale,
-  topLangMax: trendTopLanguageMax,
-  topLangY: trendTopLanguageY,
-  classHeight: trendClassHeight,
-  classMargins: trendClassMargins,
-  classScrollPx: trendClassScrollPx,
-  classWidth: trendClassWidth,
-  classInnerWidth: trendClassInnerWidth,
-  classInnerHeight: trendClassInnerHeight,
-  classScale: trendClassScale,
-  classBars: trendClassBars,
-  uniqueHeight: trendUniqueHeight,
-  uniqueMargins: trendUniqueMargins,
-  uniqueScrollPx: trendUniqueScrollPx,
-  uniqueWidth: trendUniqueWidth,
-  uniqueInnerWidth: trendUniqueInnerWidth,
-  uniqueInnerHeight: trendUniqueInnerHeight,
-  uniqueScale: trendUniqueScale,
-  uniqueMax: trendUniqueMax,
-  uniqueY: trendUniqueY,
-  bumpMaxRank,
-  bumpSvgHeight,
-  bumpMargins,
-  bumpScrollPx,
-  bumpSvgWidth,
-  bumpInnerWidth,
-  bumpInnerHeight,
-  bumpYScale,
-  bumpXScale,
-  bumpSeriesData,
-  bumpSegments,
-  bumpLeftLabelY,
-  bumpRightLabelY,
-} = computeTrendData(trendGranularity);
+const trendDataByGranularity = {
+  week: computeTrendData('week'),
+  month: computeTrendData('month'),
+  year: computeTrendData('year'),
+};
 
 // Mirror ranking chart — independent top-10 lists for prev and current week
 const hasPrevWeek = trendWeeks.length >= 2;
@@ -1320,12 +1261,71 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
       </article>
     </div>
 
-    <div class="overall-summary-grid" style="margin-bottom:14px">
-      <div class="trend-view-controls trend-view-controls-inline">
-        <a class={`trend-view-chip ${trendGranularity === 'week' ? 'is-active' : ''}`} href={trendModeHref('week')} data-trend-mode="week">Week</a>
-        <a class={`trend-view-chip ${trendGranularity === 'month' ? 'is-active' : ''}`} href={trendModeHref('month')} data-trend-mode="month">Month</a>
-        <a class={`trend-view-chip ${trendGranularity === 'year' ? 'is-active' : ''}`} href={trendModeHref('year')} data-trend-mode="year">Year</a>
-        <span class="chart-caption">Overall trends grouped by {trendGranularityLabel.toLowerCase()}</span>
+    {(['week', 'month', 'year'] as TrendGranularity[]).map((gran) => {
+      const {
+        granularity: trendGranularity,
+        granularityLabel: trendGranularityLabel,
+        periods: trendPeriods,
+        topLanguages: topTrendLanguages,
+        trendSeries,
+        endpointLabelY: trendEndpointLabelY,
+        groupedHeight: trendGroupedHeight,
+        groupedMargins: trendGroupedMargins,
+        groupedScrollPx: trendGroupedScrollPx,
+        groupedWidth: trendGroupedWidth,
+        groupedInnerWidth: trendGroupedInnerWidth,
+        groupedInnerHeight: trendGroupedInnerHeight,
+        groupedScale: trendGroupedScale,
+        groupedMax: trendGroupedMax,
+        groupedY: trendGroupedY,
+        topLangHeight: trendTopLanguageHeight,
+        topLangMargins: trendTopLanguageMargins,
+        topLangScrollPx: trendTopLanguageScrollPx,
+        topLangWidth: trendTopLanguageWidth,
+        topLangInnerWidth: trendTopLanguageInnerWidth,
+        topLangInnerHeight: trendTopLanguageInnerHeight,
+        topLangScale: trendTopLanguageScale,
+        topLangMax: trendTopLanguageMax,
+        topLangY: trendTopLanguageY,
+        classHeight: trendClassHeight,
+        classMargins: trendClassMargins,
+        classScrollPx: trendClassScrollPx,
+        classWidth: trendClassWidth,
+        classInnerWidth: trendClassInnerWidth,
+        classInnerHeight: trendClassInnerHeight,
+        classScale: trendClassScale,
+        classBars: trendClassBars,
+        uniqueHeight: trendUniqueHeight,
+        uniqueMargins: trendUniqueMargins,
+        uniqueScrollPx: trendUniqueScrollPx,
+        uniqueWidth: trendUniqueWidth,
+        uniqueInnerWidth: trendUniqueInnerWidth,
+        uniqueInnerHeight: trendUniqueInnerHeight,
+        uniqueScale: trendUniqueScale,
+        uniqueMax: trendUniqueMax,
+        uniqueY: trendUniqueY,
+        bumpMaxRank,
+        bumpSvgHeight,
+        bumpMargins,
+        bumpScrollPx,
+        bumpSvgWidth,
+        bumpInnerWidth,
+        bumpInnerHeight,
+        bumpYScale,
+        bumpXScale,
+        bumpSeriesData,
+        bumpSegments,
+        bumpLeftLabelY,
+        bumpRightLabelY,
+      } = trendDataByGranularity[gran];
+      return (
+        <div class="trend-granularity-pane" data-granularity={gran} style={gran !== 'week' ? 'display:none' : ''}>
+          <div class="overall-summary-grid" style="margin-bottom:14px">
+            <div class="trend-view-controls trend-view-controls-inline">
+              <button type="button" class={`trend-view-chip ${trendGranularity === 'week' ? 'is-active' : ''}`} data-trend-mode="week">Week</button>
+              <button type="button" class={`trend-view-chip ${trendGranularity === 'month' ? 'is-active' : ''}`} data-trend-mode="month">Month</button>
+              <button type="button" class={`trend-view-chip ${trendGranularity === 'year' ? 'is-active' : ''}`} data-trend-mode="year">Year</button>
+              <span class="chart-caption">Overall trends grouped by {trendGranularityLabel.toLowerCase()}</span>
       </div>
       <div class="coverage-summary-card">
         <div class="chart-subpanel-head">
@@ -1626,7 +1626,10 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
               <p class="placeholder-text">Language rank trajectory will appear once multiple periods are available.</p>
             )}
           </article>
-    </div>
+        </div>
+        </div>
+      );
+    })}
   </details>
   <div id="chart-pfp-tooltip" class="review-popover-body chart-pfp-tooltip" aria-hidden="true">
     <strong>⚠ Manual verification may be needed</strong>
@@ -1636,6 +1639,21 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
   <script is:inline>
     const trendStateStorageKey = 'langtrend:overall-trend-details-state';
     const trendScrollStorageKey = 'langtrend:overall-trend-scroll-y';
+    const trendModeStorageKey = 'langtrend:trend-mode';
+
+    function switchTrendPane(mode) {
+      document.querySelectorAll('.trend-granularity-pane').forEach(function(pane) {
+        pane.style.display = pane.dataset.granularity === mode ? '' : 'none';
+      });
+      try { history.replaceState(null, '', '?trend=' + mode); } catch {}
+      try { sessionStorage.setItem(trendModeStorageKey, mode); } catch {}
+    }
+
+    // Restore trend mode from URL param or session storage
+    try {
+      var _trendMode = new URLSearchParams(location.search).get('trend') || sessionStorage.getItem(trendModeStorageKey) || 'week';
+      if (_trendMode !== 'week') switchTrendPane(_trendMode);
+    } catch {}
 
     try { window.history.scrollRestoration = 'manual'; } catch {}
 
@@ -1669,8 +1687,10 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
     document.querySelectorAll('details').forEach((el) => el.addEventListener('toggle', saveTrendState));
 
     document.addEventListener('click', (event) => {
-      const target = event.target instanceof Element ? event.target.closest('a[data-trend-mode]') : null;
-      if (target) saveTrendState();
+      const target = event.target instanceof Element ? event.target.closest('[data-trend-mode]') : null;
+      if (!target) return;
+      saveTrendState();
+      switchTrendPane(target.getAttribute('data-trend-mode'));
     });
 
     window.addEventListener('beforeunload', saveTrendState);
