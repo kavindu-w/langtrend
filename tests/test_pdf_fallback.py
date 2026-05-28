@@ -71,6 +71,45 @@ def possible_false_positives(language_data):
 
 
 # ---------------------------------------------------------------------------
+# clean_text unit tests — no PDF required
+# ---------------------------------------------------------------------------
+
+class TestCleanTextHyphenation:
+    """clean_text must rejoin PDF line-break hyphenation artifacts."""
+
+    @pytest.fixture(autouse=True)
+    def processor(self):
+        from langtrend.pdf_processor import PDFProcessor
+        self.p = PDFProcessor(input_dir=".", output_dir=".")
+
+    def test_bare_hyphen_newline(self):
+        # Classic pdfplumber: "dura-\ntion" → "duration"
+        assert self.p.clean_text("dura-\ntion") == "duration"
+
+    def test_space_hyphen_newline(self):
+        # pdfplumber variant with trailing space: "anecdo -\ntal" → "anecdotal"
+        assert self.p.clean_text("anecdo -\ntal") == "anecdotal"
+
+    def test_space_hyphen_no_newline(self):
+        # docling artifact (lines joined as space): "anecdo -tal" → "anecdotal"
+        # This is the real case from 2605.22447v1.json.
+        assert self.p.clean_text("anecdo -tal") == "anecdotal"
+
+    def test_legitimate_hyphen_unchanged(self):
+        # No preceding space, no newline — genuine compound word, must not change.
+        assert self.p.clean_text("self-aware") == "self-aware"
+
+    def test_multipart_compound_unchanged(self):
+        assert self.p.clean_text("state-of-the-art") == "state-of-the-art"
+
+    def test_in_sentence_context(self):
+        text = "Without such resources it is difficult to move beyond anecdo -tal observations."
+        cleaned = self.p.clean_text(text)
+        assert "anecdotal" in cleaned
+        assert "anecdo -tal" not in cleaned
+
+
+# ---------------------------------------------------------------------------
 # PDFProcessor smoke tests
 # ---------------------------------------------------------------------------
 

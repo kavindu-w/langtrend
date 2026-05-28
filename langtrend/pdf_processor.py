@@ -167,6 +167,8 @@ class PDFProcessor:
         """Basic text cleaning (applied after extract_text)."""
         # Rejoin hyphenated line breaks: "dura-\ntion" → "duration"
         text = re.sub(r"([a-z])-\n([a-z])", r"\1\2", text)
+        # PDF/docling artifact: space before hyphen with optional newline: "anecdo -tal" → "anecdotal"
+        text = re.sub(r"([a-z]) -\n?([a-z])", r"\1\2", text)
         text = re.sub(r"\n{3,}", "\n\n", text)
         text = re.sub(r" {2,}", " ", text)
         text = text.replace("\x0c", "")
