@@ -135,3 +135,64 @@ class TestCleanHtmlSoup:
         assert "Navigation" not in text
         assert "Footer" not in text
         assert "Content" in text
+
+    # --- math element handling ---
+
+    def test_subscript_math_block_removed(self):
+        # i_k rendered as MathML msub would produce "ik" which falsely matches Inupiaq.
+        # The whole <math> block should be replaced with a space.
+        html = (
+            '<p>For each pair '
+            '<math><semantics>'
+            '<msub><mi>i</mi><mi>k</mi></msub>'
+            '<annotation encoding="application/x-tex">i_k</annotation>'
+            '</semantics></math>'
+            ' we compute a score.</p>'
+        )
+        soup = clean_html_soup(html)
+        text = soup.get_text()
+        assert "ik" not in text
+
+    def test_superscript_math_block_removed(self):
+        html = (
+            '<p>The value '
+            '<math><msup><mi>x</mi><mn>2</mn></msup></math>'
+            ' is computed.</p>'
+        )
+        soup = clean_html_soup(html)
+        text = soup.get_text()
+        # "x2" or "2x" concatenation should not appear
+        assert "x2" not in text
+        assert "2x" not in text
+
+    def test_plain_math_block_annotation_stripped_not_whole_block(self):
+        # A math block with no subscript/superscript should NOT be removed wholesale;
+        # only its <annotation> child should be stripped.
+        html = (
+            '<p>Let '
+            '<math><semantics>'
+            '<mi>x</mi>'
+            '<annotation encoding="application/x-tex">x</annotation>'
+            '</semantics></math>'
+            ' be a variable.</p>'
+        )
+        soup = clean_html_soup(html)
+        text = soup.get_text()
+        # The annotation LaTeX source "x" is gone but the display "x" remains
+        assert "variable" in text
+        # The word "x" should appear once (display), not twice (display + annotation)
+        assert text.count("x") == 1
+
+    def test_language_in_prose_adjacent_to_math_preserved(self):
+        # A real language name in prose text must survive even when nearby math is stripped.
+        html = (
+            '<section><h2>Method</h2>'
+            '<p>We train on Inupiaq data with input '
+            '<math><msub><mi>i</mi><mi>k</mi></msub></math>'
+            ' at each step.</p>'
+            '</section>'
+        )
+        soup = clean_html_soup(html)
+        text = soup.get_text()
+        assert "Inupiaq" in text
+        assert "ik" not in text
