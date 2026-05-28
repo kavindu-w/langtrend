@@ -323,7 +323,7 @@ a { color: inherit; text-decoration: none; }
 .section-title p { margin: 0; color: var(--muted); }
 
 .about-grid { display: grid; gap: 16px; }
-.panel { padding: 20px; }
+.panel { padding: 20px; margin-bottom: 16px; }
 .panel.chart-panel { overflow: visible; }
 .wide-panel { grid-column: 1 / -1; }
 .panel-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; margin-bottom: 16px; }
@@ -617,7 +617,25 @@ a { color: inherit; text-decoration: none; }
   .stat-row { grid-template-columns: 1fr; }
 }
 
-.top-lang-list, .info-list, .ref-list { margin: 0; padding-left: 18px; color: var(--muted); }
+.top-lang-list, .info-list { margin: 0; padding-left: 18px; color: var(--muted); }
+.ref-list {
+  margin: 0;
+  padding-left: 0;
+  color: var(--muted);
+  list-style: none;
+  counter-reset: ref;
+}
+.ref-list li {
+  position: relative;
+  padding-left: 2.4em;
+}
+.ref-list li::before {
+  counter-increment: ref;
+  content: "[" counter(ref) "]";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
 .top-lang-list { list-style: none; padding: 0; display: grid; gap: 10px; }
 .top-lang-list li { display: grid; grid-template-columns: 16px 1fr auto; gap: 10px; align-items: center; }
 .lang-swatch { width: 14px; height: 14px; border-radius: 999px; display: block; }
