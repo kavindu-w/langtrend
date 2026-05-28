@@ -109,6 +109,9 @@ web-dev: web-install
 web-build: web-install
 	cd web && npm run build
 
+web-deploy: web-build
+	cd web && vercel deploy --prebuilt --prod
+
 dev: web-dev
 
 build: pipeline web-build
@@ -116,4 +119,4 @@ build: pipeline web-build
 # --- Housekeeping -----------------------------------------------------------
 
 clean:
-	rm -rf web/dist
+	rm -rf web/dist web/.vercel/output
