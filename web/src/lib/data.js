@@ -1,9 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-const here = path.dirname(fileURLToPath(import.meta.url));
-const repoRoot = path.resolve(here, '../../..');
+// process.cwd() is always the web/ project dir when Astro runs; go up one level to repo root
+const repoRoot = path.resolve(process.cwd(), '..');
 const dataRoot = path.join(repoRoot, 'data');
 
 function readJson(filePath, fallback) {
