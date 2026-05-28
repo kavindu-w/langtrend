@@ -48,6 +48,7 @@ def _get_docling_converter():
 
 
 _DOCLING_CONVERTER: Optional[object] = None  # module-level singleton
+_DOCLING_LOCK: object = None  # threading.Lock, initialised lazily to avoid import at module load
 
 
 # Markdown heading prefix (docling output) → strip for plain text
@@ -109,14 +110,20 @@ class PDFProcessor:
 
         Falls back to pdfplumber if docling fails.
         """
-        global _DOCLING_CONVERTER
-        if _DOCLING_CONVERTER is None:
-            print(f"    [docling] loading models (first call)…", flush=True)
-            _DOCLING_CONVERTER = _get_docling_converter()
+        import threading
+        global _DOCLING_CONVERTER, _DOCLING_LOCK
+        if _DOCLING_LOCK is None:
+            _DOCLING_LOCK = threading.Lock()
+
+        with _DOCLING_LOCK:
+            if _DOCLING_CONVERTER is None:
+                print(f"    [docling] loading models (first call)…", flush=True)
+                _DOCLING_CONVERTER = _get_docling_converter()
 
         try:
-            print(f"    [docling] converting {pdf_path.name}…", flush=True)
-            result = _DOCLING_CONVERTER.convert(pdf_path)
+            with _DOCLING_LOCK:
+                print(f"    [docling] converting {pdf_path.name}…", flush=True)
+                result = _DOCLING_CONVERTER.convert(pdf_path)
             md = result.document.export_to_markdown()
 
             # Cut at the first end-matter heading (References, Acknowledgements …)
