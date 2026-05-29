@@ -52,6 +52,21 @@ import threading as _threading
 _DOCLING_LOCK = _threading.Lock()
 
 
+def init_docling() -> None:
+    """Pre-initialize the docling converter in the calling (main) thread.
+
+    Docling/PyTorch creates multiprocessing semaphores on first use.  If that
+    first use happens inside a ThreadPoolExecutor worker the semaphores are
+    owned by a non-main thread, which causes SIGSEGV on macOS with Python 3.13.
+    Call this once from the main thread before spawning any workers.
+    """
+    global _DOCLING_CONVERTER
+    with _DOCLING_LOCK:
+        if _DOCLING_CONVERTER is None:
+            print("    [docling] pre-initializing models in main thread…", flush=True)
+            _DOCLING_CONVERTER = _get_docling_converter()
+
+
 # Markdown heading prefix (docling output) → strip for plain text
 _MD_HEADING_RE = re.compile(r"^#{1,6}\s+", re.MULTILINE)
 # References / bibliography heading in docling markdown output

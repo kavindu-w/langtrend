@@ -28,6 +28,10 @@ from pathlib import Path
 import requests
 from tqdm import tqdm
 
+# Prevent HuggingFace tokenizers from forking worker processes inside threads,
+# which causes multiprocessing semaphore leaks and SIGSEGV on macOS/Py3.13.
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from langtrend.manifest import build_detections
@@ -614,6 +618,10 @@ def process_papers(
 
     import time as _time
     _PER_PAPER_TIMEOUT = 600  # seconds before a stuck paper is skipped (HTML 120s + PDF 180s + processing headroom)
+
+    if not no_pdf:
+        from langtrend.pdf_processor import init_docling
+        init_docling()
 
     executor = ThreadPoolExecutor(max_workers=max_workers)
     try:
