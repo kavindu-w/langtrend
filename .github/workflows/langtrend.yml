@@ -106,8 +106,13 @@ jobs:
             exit 1
           fi
 
-          patch=$((patch + 1))
-          new_version="$major.$minor.$patch"
+          if echo "${{ github.event.head_commit.message }}" | grep -qF '[major]'; then
+            major=$((major + 1))
+            new_version="$major.0.0"
+          else
+            patch=$((patch + 1))
+            new_version="$major.$minor.$patch"
+          fi
 
           printf '%s\n' "$new_version" > VERSION
 
