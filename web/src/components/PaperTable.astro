@@ -423,7 +423,6 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   const rows = Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row'));
   let activeLanguage = 'all';
   let chipExpanded = false;
-  let anchorChip: HTMLButtonElement | null = null;
   const chipRow = document.getElementById('language-filters') as HTMLElement | null;
 
   // ── Collapse helpers ────────────────────────────────────────────────────────
@@ -443,52 +442,85 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   function applyCollapse() {
     if (!expandBtn || !chipRow) return;
     chipRow.appendChild(expandBtn);
-    langChips.forEach(c => c.style.removeProperty('display'));
-    anchorChip = null;
-    expandBtn.style.display = 'none';
 
+    // All mutations inside the rAF so the browser paints only the final collapsed state —
+    // no intermediate full-width flash.
     requestAnimationFrame(() => {
+      langChips.forEach(c => c.style.removeProperty('display'));
+      expandBtn!.style.display = 'none';
+
       const { firstRowChips, overflowChips } = measureFirstRow();
       if (overflowChips.length === 0) return;
+
+      // Capture row position before hiding anything
+      const firstTop = firstRowChips[0].getBoundingClientRect().top;
+      const chipH    = firstRowChips[0].getBoundingClientRect().height;
 
       const toHide = [...overflowChips];
       if (firstRowChips.length > 0) toHide.push(firstRowChips[firstRowChips.length - 1]);
       toHide.forEach(c => { c.style.display = 'none'; });
-      anchorChip = firstRowChips.length >= 2 ? firstRowChips[firstRowChips.length - 2] : null;
 
       let hiddenCount = toHide.length;
       expandBtn!.style.removeProperty('display');
       expandBtn!.setAttribute('aria-expanded', 'false');
       expandBtn!.textContent = `… +${hiddenCount} more`;
 
-      requestAnimationFrame(() => {
-        if (!expandBtn || !firstRowChips.length) return;
-        const btnTop   = expandBtn.getBoundingClientRect().top;
-        const firstTop = firstRowChips[0].getBoundingClientRect().top;
-        const chipH    = firstRowChips[0].getBoundingClientRect().height;
-        if (Math.abs(btnTop - firstTop) > chipH * 0.5) {
-          const stillVisible = langChips.filter(c => !c.hidden && c.style.display !== 'none');
-          const extra = stillVisible[stillVisible.length - 1];
-          if (extra) {
-            extra.style.display = 'none';
-            anchorChip = stillVisible[stillVisible.length - 2] ?? null;
-            expandBtn.textContent = `… +${++hiddenCount} more`;
-          }
-        }
-      });
+      // Loop: keep hiding chips until expand button lands on the first row.
+      // getBoundingClientRect forces synchronous reflow so positions are always current.
+      for (let i = 0; i < langChips.length; i++) {
+        if (chipH === 0) break;
+        if (Math.abs(expandBtn!.getBoundingClientRect().top - firstTop) <= chipH * 0.5) break;
+        const stillVisible = langChips.filter(c => !c.hidden && c.style.display !== 'none');
+        const extra = stillVisible[stillVisible.length - 1];
+        if (!extra) break;
+        extra.style.display = 'none';
+        hiddenCount++;
+        expandBtn!.textContent = `… +${hiddenCount} more`;
+      }
+
     });
   }
 
   function expandChips() {
     if (!expandBtn || !chipRow) return;
     chipExpanded = true;
-    if (anchorChip && !anchorChip.hidden) {
-      anchorChip.insertAdjacentElement('afterend', expandBtn);
-    }
-    langChips.forEach(c => { if (!c.hidden) c.style.removeProperty('display'); });
-    expandBtn.style.removeProperty('display');
-    expandBtn.setAttribute('aria-expanded', 'true');
-    expandBtn.textContent = 'Show less';
+
+    // All work inside a single rAF so the browser paints only the final state.
+    requestAnimationFrame(() => {
+      // Show all chips first; keep button hidden so it doesn't affect first-row measurement.
+      langChips.forEach(c => { if (!c.hidden) c.style.removeProperty('display'); });
+      expandBtn!.style.display = 'none';
+
+      const visible = langChips.filter(c => !c.hidden && c.style.display !== 'none');
+      if (visible.length > 0) {
+        const firstTop = visible[0].getBoundingClientRect().top;
+        const chipH    = visible[0].getBoundingClientRect().height;
+        const threshold = firstTop + chipH * 0.5;
+        const firstRowChips = visible.filter(c => c.getBoundingClientRect().top < threshold);
+
+        // Place button after the last chip on the first row.
+        if (firstRowChips.length > 0) {
+          firstRowChips[firstRowChips.length - 1].insertAdjacentElement('afterend', expandBtn!);
+        }
+
+        expandBtn!.style.removeProperty('display');
+        expandBtn!.setAttribute('aria-expanded', 'true');
+        expandBtn!.textContent = 'Show less';
+
+        // If the button still wraps (row too narrow), move it one chip earlier per iteration.
+        for (let i = 0; i < langChips.length; i++) {
+          if (chipH === 0) break;
+          if (Math.abs(expandBtn!.getBoundingClientRect().top - firstTop) <= chipH * 0.5) break;
+          const prev = expandBtn!.previousElementSibling as Element | null;
+          if (!prev || !langChips.includes(prev as HTMLButtonElement)) break;
+          chipRow!.insertBefore(expandBtn!, prev);
+        }
+      } else {
+        expandBtn!.style.removeProperty('display');
+        expandBtn!.setAttribute('aria-expanded', 'true');
+        expandBtn!.textContent = 'Show less';
+      }
+    });
   }
 
   function collapseChips() {
@@ -501,7 +533,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   });
 
   window.addEventListener('resize', () => {
-    if (!chipExpanded) requestAnimationFrame(applyCollapse);
+    if (!chipExpanded) applyCollapse();
   });
 
   // ── Language chip search ────────────────────────────────────────────────────
@@ -634,11 +666,11 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
       let expanded = false;
 
       function applyTagsCollapse() {
-        chipEls.forEach(c => c.style.removeProperty('display'));
-        btn.style.display = 'none';
-
         requestAnimationFrame(() => {
+          chipEls.forEach(c => c.style.removeProperty('display'));
+          btn.style.display = 'none';
           if (!chipEls[0]) return;
+
           const firstTop = chipEls[0].getBoundingClientRect().top;
           const chipH = chipEls[0].getBoundingClientRect().height;
           const threshold = firstTop + chipH * 0.5;
@@ -650,19 +682,20 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
           if (firstRow.length > 0) toHide.push(firstRow[firstRow.length - 1]);
           toHide.forEach(c => { c.style.display = 'none'; });
           btn.style.removeProperty('display');
-          btn.textContent = `+${toHide.length} more`;
 
-          requestAnimationFrame(() => {
-            const btnTop = btn.getBoundingClientRect().top;
-            if (Math.abs(btnTop - firstTop) > chipH * 0.5) {
-              const stillVisible = chipEls.filter(c => c.style.display !== 'none');
-              const extra = stillVisible[stillVisible.length - 1];
-              if (extra) {
-                extra.style.display = 'none';
-                btn.textContent = `+${chipEls.filter(c => c.style.display === 'none').length} more`;
-              }
-            }
-          });
+          let hiddenCount = toHide.length;
+          btn.textContent = `+${hiddenCount} more`;
+
+          for (let i = 0; i < chipEls.length; i++) {
+            if (chipH === 0) break;
+            if (Math.abs(btn.getBoundingClientRect().top - firstTop) <= chipH * 0.5) break;
+            const stillVisible = chipEls.filter(c => c.style.display !== 'none');
+            const extra = stillVisible[stillVisible.length - 1];
+            if (!extra) break;
+            extra.style.display = 'none';
+            hiddenCount++;
+            btn.textContent = `+${hiddenCount} more`;
+          }
         });
       }
 
@@ -687,9 +720,9 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
       const tagsDiv = btn.closest<HTMLElement>('.paper-tags');
       if (!tagsDiv || btn.textContent === 'Show less') return;
       const chipEls = Array.from(tagsDiv.querySelectorAll<HTMLElement>('.lang-chip, .lang-chip-popover'));
-      chipEls.forEach(c => c.style.removeProperty('display'));
-      btn.style.display = 'none';
       requestAnimationFrame(() => {
+        chipEls.forEach(c => c.style.removeProperty('display'));
+        btn.style.display = 'none';
         if (!chipEls[0]) return;
         const firstTop = chipEls[0].getBoundingClientRect().top;
         const chipH = chipEls[0].getBoundingClientRect().height;
@@ -701,7 +734,18 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
         if (firstRow.length > 0) toHide.push(firstRow[firstRow.length - 1]);
         toHide.forEach(c => { c.style.display = 'none'; });
         btn.style.removeProperty('display');
-        btn.textContent = `+${toHide.length} more`;
+        let hiddenCount = toHide.length;
+        btn.textContent = `+${hiddenCount} more`;
+        for (let i = 0; i < chipEls.length; i++) {
+          if (chipH === 0) break;
+          if (Math.abs(btn.getBoundingClientRect().top - firstTop) <= chipH * 0.5) break;
+          const stillVisible = chipEls.filter(c => c.style.display !== 'none');
+          const extra = stillVisible[stillVisible.length - 1];
+          if (!extra) break;
+          extra.style.display = 'none';
+          hiddenCount++;
+          btn.textContent = `+${hiddenCount} more`;
+        }
       });
     });
   });
