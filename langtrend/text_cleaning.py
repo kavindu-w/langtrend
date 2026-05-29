@@ -73,6 +73,19 @@ _COL_ASSIGNMENT_RE = re.compile(r"\bcol(?:[@$\\])?\s*=\s*[^\n]+", re.IGNORECASE)
 _COL_SLICE_RE = re.compile(r"\bcol(?:[@$\\])?\s*\[[^\]]+\]", re.IGNORECASE)
 _COL_MATH_MARKER_RE = re.compile(r"\bcol[@$\\]+", re.IGNORECASE)
 _MULTI_SPACE_RE = re.compile(r"\s+")
+# Author affiliation metadata — strip before language detection.
+# Matches a complete line containing "email:" followed by an address (e.g.
+# "∗Duke University; email: xxx@duke.edu").  Removing the whole line
+# is safer than stripping just the email because the institution name on the
+# same line (e.g. "Duke") would otherwise survive and match a language name.
+_AFFILIATION_EMAIL_LINE_RE = re.compile(
+    r"^[^\n]*\bemail\s*:\s*\S+@\S+[^\n]*",
+    re.MULTILINE | re.IGNORECASE,
+)
+# Bare email addresses in body text (e.g. parenthetical contact info).
+# Removed after affiliation lines so any domain fragment (duke.edu → "duke")
+# does not survive into language detection.
+_EMAIL_ADDRESS_RE = re.compile(r"\S+@\S+\.\S+")
 # Words that indicate a token is being used as a language name rather than an acronym.
 # Used to prevent stripping e.g. "GAN" when the text says "speakers in GAN" or "fluent in GAN".
 _LANG_CONTEXT_RE = re.compile(
@@ -345,6 +358,18 @@ def clean_paper_text_for_language_screening(
 
         step_matches = {}
         _tb = _time.monotonic()
+
+        # Author affiliation metadata cleanup — must run before character replacement
+        # so "Duke University; email: xxx@duke.edu" is gone before "Duke" is scanned.
+        matches = _AFFILIATION_EMAIL_LINE_RE.findall(block)
+        if matches:
+            step_matches["affiliation_email_lines"] = matches
+        block = _AFFILIATION_EMAIL_LINE_RE.sub(" ", block)
+
+        matches = _EMAIL_ADDRESS_RE.findall(block)
+        if matches:
+            step_matches["email_addresses"] = matches
+        block = _EMAIL_ADDRESS_RE.sub(" ", block)
 
         # Code/pseudocode cleanup
         matches = _DEF_FUNCTION_BLOCK_RE.findall(block)
