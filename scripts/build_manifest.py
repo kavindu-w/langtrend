@@ -246,6 +246,39 @@ def _week_dir(input_path: Path, processed_dir: Path | None = None) -> Path:
     return root / "weeks" / slug
 
 
+def _flagged_from_detected_jsonl(detected_path: Path) -> list[dict]:
+    """Build flagged_papers from a pre-computed detected.jsonl (process_papers output).
+
+    Used instead of assemble_flagged_papers when caches are unavailable (e.g. CI).
+    The detected.jsonl already has filtered, merged detections per paper.
+    """
+    flagged: list[dict] = []
+    with detected_path.open("r", encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line:
+                continue
+            record = json.loads(line)
+            sections = record.get("sections", {})
+            detection_groups: list[tuple[list[dict], str]] = []
+            sections_with_detections: list[str] = []
+            for section_name, section_data in sections.items():
+                dets = section_data.get("detected_languages", [])
+                source = section_data.get("source", "unknown")
+                if dets:
+                    detection_groups.append((dets, source))
+                    sections_with_detections.append(section_name)
+            languages = _merge_detections(detection_groups)
+            if languages:
+                flagged.append({
+                    "paper": record["paper"],
+                    "languages": languages,
+                    "sources_checked": record.get("sources_checked", []),
+                    "sections_with_detections": sections_with_detections,
+                })
+    return flagged
+
+
 def build_and_save(
     input_path: Path,
     output_dir: Path,
@@ -262,14 +295,19 @@ def build_and_save(
     print(f"  {sum(len(v) for v in lang_classes.values())} language entries, "
           f"{len(possible_false_positives)} flagged for review")
 
-    html_cache_dir = output_dir / "html_cache"
-    pdf_cache_dir = output_dir / "pdf_cache"
-
-    print("Assembling detections from abstract + caches…")
-    flagged_papers = assemble_flagged_papers(
-        papers, lang_classes, languages_to_ignore, possible_false_positives,
-        html_cache_dir, pdf_cache_dir,
-    )
+    detected_path = output_dir / input_path.name.replace(".jsonl", "_detected.jsonl")
+    if detected_path.exists():
+        print(f"Reading pre-computed detections from {detected_path.name}…")
+        flagged_papers = _flagged_from_detected_jsonl(detected_path)
+        print(f"  Papers flagged  : {len(flagged_papers)}/{len(papers)}")
+    else:
+        html_cache_dir = output_dir / "html_cache"
+        pdf_cache_dir = output_dir / "pdf_cache"
+        print("Assembling detections from abstract + caches…")
+        flagged_papers = assemble_flagged_papers(
+            papers, lang_classes, languages_to_ignore, possible_false_positives,
+            html_cache_dir, pdf_cache_dir,
+        )
 
     # Include pdf_unavailable no-detection papers so the frontend counts them
     # in coverageStats.abstractOnly (they were scanned but PDF download failed).
