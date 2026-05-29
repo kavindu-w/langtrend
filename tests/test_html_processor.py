@@ -196,3 +196,68 @@ class TestCleanHtmlSoup:
         text = soup.get_text()
         assert "Inupiaq" in text
         assert "ik" not in text
+
+    # --- numbered heading removal (arXiv section numbers) ---
+
+    def test_removes_numbered_related_work_section(self):
+        # arXiv headings render as "6 Related Work" — must still be removed.
+        html = (
+            '<section><h2>Introduction</h2><p>Intro text.</p></section>'
+            '<section><h2>6 Related Work</h2><p>GAN-based methods.</p></section>'
+        )
+        soup = clean_html_soup(html, remove_headings=["Related Work"])
+        text = soup.get_text()
+        assert "Intro text" in text
+        assert "GAN-based methods" not in text
+
+    def test_removes_dotted_numbered_related_work_section(self):
+        # Handles "6. Related Work" (dot after number) as well.
+        html = (
+            '<section><h2>Methods</h2><p>Method text.</p></section>'
+            '<section><h2>6. Related Work</h2><p>Prior work text.</p></section>'
+        )
+        soup = clean_html_soup(html, remove_headings=["Related Work"])
+        text = soup.get_text()
+        assert "Method text" in text
+        assert "Prior work text" not in text
+
+    def test_removes_nested_subsections_within_numbered_related_work(self):
+        # When subsections are nested inside the Related Work <section>, they must
+        # also be removed — the whole tree goes with sec.decompose().
+        html = (
+            '<section><h2>Introduction</h2><p>Intro.</p></section>'
+            '<section>'
+            '  <h2>6 Related Work</h2>'
+            '  <section>'
+            '    <h3>6.1 Sign-to-text and text-to-sign translation</h3>'
+            '    <p>GAN-based pose synthesis.</p>'
+            '  </section>'
+            '  <section>'
+            '    <h3>6.2 Multilingual sign processing</h3>'
+            '    <p>Multilingual methods.</p>'
+            '  </section>'
+            '</section>'
+        )
+        soup = clean_html_soup(html, remove_headings=["Related Work"])
+        text = soup.get_text()
+        assert "Intro" in text
+        assert "GAN-based pose synthesis" not in text
+        assert "Multilingual methods" not in text
+        assert "Sign-to-text" not in text
+
+    def test_flat_numbered_related_work_stops_at_next_top_heading(self):
+        # Flat HTML (no <section> tags): heading-based removal walks siblings until
+        # it hits any h-tag, so content between "Related Work" and the next heading
+        # is removed, and content after the next heading is preserved.
+        html = (
+            '<html><body>'
+            '<h2>Introduction</h2><p>Intro text.</p>'
+            '<h2>6 Related Work</h2><p>Related work prose.</p>'
+            '<h2>Conclusion</h2><p>Conclusion text.</p>'
+            '</body></html>'
+        )
+        soup = clean_html_soup(html, remove_headings=["Related Work"])
+        text = soup.get_text()
+        assert "Intro text" in text
+        assert "Related work prose" not in text
+        assert "Conclusion text" in text

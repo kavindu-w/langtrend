@@ -104,7 +104,8 @@ def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str |
 def _remove_section_by_heading(soup: BeautifulSoup, heading_texts: list[str]) -> None:
     """Remove content following matching heading tags (h1–h6) and whole <section> blocks."""
     for h in soup.find_all(re.compile("^h[1-6]$")):
-        text = h.get_text().strip().lower()
+        raw = h.get_text().strip().lower()
+        text = re.sub(r"^\d[\d.]*[\s.]+", "", raw)  # strip leading "6." / "6.1." numbering
         for target in heading_texts:
             if text.startswith(target.lower()):
                 nxt = h.next_sibling
@@ -126,7 +127,8 @@ def _remove_section_by_heading(soup: BeautifulSoup, heading_texts: list[str]) ->
     for sec in soup.find_all("section"):
         h = sec.find(re.compile("^h[1-6]$"))
         if h:
-            title = h.get_text().strip().lower()
+            raw = h.get_text().strip().lower()
+            title = re.sub(r"^\d[\d.]*[\s.]+", "", raw)  # strip leading "6." / "6.1." numbering
             for target in heading_texts:
                 if title.startswith(target.lower()):
                     try:
