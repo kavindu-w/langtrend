@@ -32,6 +32,7 @@ _REMOVE_HEADINGS_DEFAULT = [
     "Related work",
     "Related Work",
     "Related Works",
+    "Bibliographical References",
     "Literature Review",
     "Acknowledgements",
     "Acknowledgement",
