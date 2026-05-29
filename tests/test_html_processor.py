@@ -264,6 +264,41 @@ class TestCleanHtmlSoup:
         assert "Related work prose" not in text
         assert "Conclusion text" in text
 
+    # --- ltx_bibliography split structure ---
+
+    def test_removes_ltx_bibliography_section_without_heading(self):
+        # arXiv renders some papers with the References heading in one <section>
+        # and the actual bibliography entries in a separate sibling
+        # <section class="ltx_bibliography"> with no heading.  Both must be removed.
+        html = (
+            '<section><h2>Introduction</h2><p>Intro text.</p></section>'
+            '<section><h2>References</h2><p>See bibliography below.</p></section>'
+            '<section class="ltx_bibliography">'
+            '<p>Smith et al. 2023. Some paper. arXiv:2301.00001.</p>'
+            '<p>Jones et al. 2024. Another paper. EMNLP 2024.</p>'
+            '</section>'
+        )
+        soup = clean_html_soup(html)
+        text = soup.get_text()
+        assert "Intro text" in text
+        assert "Smith et al" not in text
+        assert "Jones et al" not in text
+
+    def test_ltx_bibliography_with_heading_inside_also_removed(self):
+        # When ltx_bibliography contains the heading itself (the other arXiv variant),
+        # the existing heading-based removal handles it — verify it still works.
+        html = (
+            '<section><h2>Introduction</h2><p>Intro text.</p></section>'
+            '<section class="ltx_bibliography">'
+            '<h2>References</h2>'
+            '<p>Smith et al. 2023. Some paper.</p>'
+            '</section>'
+        )
+        soup = clean_html_soup(html)
+        text = soup.get_text()
+        assert "Intro text" in text
+        assert "Smith et al" not in text
+
 
 # ---------------------------------------------------------------------------
 # recheck_languages_from_html — raw HTML caching

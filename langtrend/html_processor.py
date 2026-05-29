@@ -181,6 +181,16 @@ def clean_html_soup(html: str, remove_headings: list[str] | None = None, _label:
             pass
     _tick("removed ltx_ERROR spans")
 
+    # arXiv renders bibliography entries in a <section class="ltx_bibliography"> that is
+    # a sibling of the "References" heading section, not a child — so _remove_section_by_heading
+    # only removes the heading section and leaves this one intact.  Remove it explicitly.
+    for tag in soup.find_all("section", class_="ltx_bibliography"):
+        try:
+            tag.decompose()
+        except Exception:
+            pass
+    _tick("removed ltx_bibliography sections")
+
     # arXiv HTML wraps math in <math><semantics>...<annotation encoding="application/x-tex">
     # Subscript/superscript blocks (msub/msup/msubsup) concatenate child letters via
     # get_text() into garbled tokens (e.g. <mi>i</mi><mi>k</mi> → "ik", falsely matching
