@@ -123,8 +123,8 @@ Steps executed by the workflow:
 1. Fetch arXiv `cs.CL` papers for the past 7 days
 2. Extract and clean text (HTML → PDF → abstract fallback)
 3. Build the manifest JSON
-4. Build the Astro static site
-5. Deploy to GitHub Pages
+4. Build the Astro site for Vercel SSR
+5. Deploy to Vercel
 
 ---
 
@@ -141,3 +141,8 @@ Steps executed by the workflow:
 ---
 
 This project builds on the ideas, code and data from [2] and [4], with assistance from GitHub Copilot and Claude.
+
+---
+# License
+
+The code and data are released under the [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). By using this code and data, you are agreeing to its usage terms.
