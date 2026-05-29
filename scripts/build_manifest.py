@@ -284,7 +284,7 @@ def build_and_save(
     output_dir: Path,
     lang_data_path: Path,
     window_days: int = 7,
-    query: str = "cs.CL",
+    query: str = "cat:cs.CL",
 ) -> Path:
     print(f"Loading papers from {input_path}")
     papers = _load_papers(input_path)
@@ -383,7 +383,7 @@ def main() -> None:
         help="Week output directory (default: auto-derived from input filename as data/processed/weeks/YYYYMMDD_to_YYYYMMDD/)",
     )
     parser.add_argument("--window-days", type=int, default=7)
-    parser.add_argument("--query", type=str, default="cs.CL")
+    parser.add_argument("--query", type=str, default="cat:cs.CL")
     args = parser.parse_args()
 
     input_path = args.input or _find_latest_input()
