@@ -56,7 +56,7 @@ _DOCLING_LOCK = _threading.Lock()
 _MD_HEADING_RE = re.compile(r"^#{1,6}\s+", re.MULTILINE)
 # References / bibliography heading in docling markdown output
 _MD_REFS_RE = re.compile(
-    r"^#{1,6}\s+(?:References|Bibliography|Related [Ww]ork|Acknowledgements?|Acknowledgments?|Funding|Ethics(?: Statement)?)\s*$",
+    r"^#{1,6}\s+(?:References|Bibliography|Related [Ww]ork|Related Works|Bibliographical References|Acknowledgement?|Acknowledgements?|Acknowledgments?|Acknowledgment?|Funding|Ethics(?: Statement)?)\s*$",
     re.MULTILINE,
 )
 
