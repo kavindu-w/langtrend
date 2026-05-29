@@ -91,8 +91,8 @@ _POSSIBLE_FALSE_POSITIVE_LANGUAGES: dict[str, str] = {
     "Wa":       "Too short — matches many common words and abbreviations",
     "Yale":     "Possible false positive — Yale University",
     "Col":      "Possible false positive - could refer to column or color mentioned in code or tables in papers",
-    "Latin": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
-    
+    "Latin":    "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+    "Tol":      "Tol. = common abbreviation for Tolerance (Risk Tol., Error Tol.) in ML/statistics/finance papers",
 }
 
 # taken from https://github.com/dilithjay/Shoulders-of-Giants/blob/main/categorize_filtered_papers.ipynb
