@@ -490,6 +490,10 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
 
       const { firstRowChips, overflowChips } = measureFirstRow();
       if (overflowChips.length === 0) return;
+      // firstRowChips is empty when the chip area is inside a collapsed <details> —
+      // getBoundingClientRect returns zeros for hidden content. Bail out; the
+      // <details> toggle listener below will re-run applyCollapse when it opens.
+      if (firstRowChips.length === 0) return;
 
       // Capture row position before hiding anything
       const firstTop = firstRowChips[0].getBoundingClientRect().top;
@@ -577,6 +581,13 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
 
   window.addEventListener('resize', () => {
     if (!chipExpanded) applyCollapse();
+  });
+
+  // Re-measure when the enclosing <details> section is opened — chips have
+  // zero dimensions while the section is collapsed so the initial measurement
+  // bails out early and leaves the expand button hidden.
+  document.getElementById('flagged-papers')?.addEventListener('toggle', (e) => {
+    if ((e.target as HTMLDetailsElement).open && !chipExpanded) applyCollapse();
   });
 
   // ── Language chip search ────────────────────────────────────────────────────
@@ -691,5 +702,10 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
     applyFilters();
   });
 
-  requestAnimationFrame(() => { applyCollapse(); applyFilters(); });
+  // Wait for fonts before measuring chip positions — on a refresh, fonts may not be
+  // loaded yet so getBoundingClientRect returns wrong heights, causing the expand
+  // button to stay hidden until a filter re-triggers the measurement.
+  document.fonts.ready.then(() => {
+    requestAnimationFrame(() => { applyCollapse(); applyFilters(); });
+  });
 </script>
