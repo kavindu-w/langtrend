@@ -149,7 +149,11 @@ export function loadSiteData(weekStart = undefined, windowDays = 7) {
     paper: item.paper,
     languages: item.languages || [],
     sourcesChecked: item.sources_checked || [],
-    sections: normalizeSections(detectedByPaperId.get(normalizePaperId(item.paper?.id || ''))),
+    // Prefer the sections array already in the manifest (populated by build_manifest.py).
+    // Fall back to the old detectedByPaperId lookup for week pages that use the raw JSONL.
+    sections: Array.isArray(item.sections) && item.sections.length > 0
+      ? item.sections
+      : normalizeSections(detectedByPaperId.get(normalizePaperId(item.paper?.id || ''))),
     warnings: item.warnings || [],
   }));
 

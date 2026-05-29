@@ -4,7 +4,7 @@
   --text: #201613;
   --muted: #6c5f58;
   --accent: #0f6c5d;
-  --accent-2: #d94f2b;
+  --accent-2: #c44020;
   --line: rgba(32, 22, 19, 0.12);
   --shadow: 0 18px 40px rgba(35, 22, 15, 0.08);
 }
@@ -12,6 +12,56 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html { overflow-x: hidden; }
+
+/* Global focus ring — visible on keyboard nav, suppressed on mouse */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+/* Round/pill elements get a matching pill outline */
+.chip:focus-visible,
+.lang-filter-chip:focus-visible,
+.primary-btn:focus-visible,
+.secondary-btn:focus-visible,
+.arxiv-link:focus-visible,
+.pdf-link:focus-visible,
+.chip-expand-btn:focus-visible,
+.paper-chip-expand-btn:focus-visible,
+.week-nav-btn:focus-visible,
+.go-top-button:focus-visible,
+.clear-filters-btn:focus-visible,
+.subscribe-btn:focus-visible,
+.trend-view-chip:focus-visible {
+  border-radius: 999px;
+}
+/* Inputs: outline inside the border */
+.search-input:focus-visible,
+.sort-select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Restore underlines for body-copy links (removed by the global a rule) */
+article a,
+.table-notes a,
+.ref-list a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Footnote back-links in table headers */
+sup a { color: inherit; text-decoration: none; }
 
 body {
   margin: 0;
@@ -155,17 +205,18 @@ a { color: inherit; text-decoration: none; }
 /* Wrapper owns centering + left gutter so fc-root's margin: 0 auto stays intact.
    overflow:hidden prevents week-number badges from bleeding below the calendar. */
 .fc-week-wrapper {
-  width: min(calc(560px + 2.6em), 100%);
+  width: min(calc(560px + 5.2em), 100%);
   margin: 0 auto;
   padding-left: 2.6em;
+  padding-right: 2.6em;
   box-sizing: border-box;
   overflow: hidden;
 }
-.fc-root { position: relative; width: 100%; max-width: 560px; margin: 0 auto; display: block; min-height: 260px; }
+.fc-root { position: relative; width: 100%; max-width: 560px; margin: 0 auto; display: block; }
 .calendar-card.week-calendar-panel { display: flex; flex-direction: column; align-items: center; }
 
 @media (max-width: 640px) {
-  .fc-week-wrapper { padding-left: 1.8em; width: 100%; }
+  .fc-week-wrapper { padding-left: 1.8em; padding-right: 1.8em; width: 100%; }
   .fc-wknum { left: -1.6em; font-size: 0.65rem; }
 }
 
@@ -201,17 +252,16 @@ a { color: inherit; text-decoration: none; }
 
 /* Compact FullCalendar day frames */
 .fc .fc-daygrid-day-frame {
-  min-height: 60px;
+  min-height: 44px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding-top: 4px;
 }
 
-/* Force calendar internals to expand so grid is visible even if some styles missing */
+/* Keep the grid width full — height is now driven by height:'auto' in the Calendar config */
 .fc-root, .fc-root .fc, .fc-root .fc-view, .fc-root .fc-daygrid, .fc-root .fc-daygrid-body {
   width: 100% !important;
-  min-height: 260px !important;
 }
 
 .calendar-card.week-calendar-panel { position: relative; }
@@ -275,7 +325,7 @@ a { color: inherit; text-decoration: none; }
   width: 2em;
   text-align: right;
   font-size: 0.72rem;
-  color: var(--text-muted, #8a8a8a);
+  color: var(--muted);
   font-weight: 600;
   pointer-events: none;
   line-height: 1;
@@ -284,7 +334,7 @@ a { color: inherit; text-decoration: none; }
 
 /* Unavailable weeks (before earliest / after latest available data) */
 .fc .fc-daygrid-day.unavailable-week { background-color: rgba(0,0,0,0.055); }
-.fc .fc-daygrid-day.unavailable-week .fc-daygrid-day-number { color: #bbb; font-weight: 500; }
+.fc .fc-daygrid-day.unavailable-week .fc-daygrid-day-number { color: #666; font-weight: 500; }
 
 /* Pointer cursor on all calendar week rows */
 .fc .fc-daygrid-body tr { cursor: pointer; }
@@ -672,31 +722,14 @@ a { color: inherit; text-decoration: none; }
 .acronym-conflict-notice { display: flex; align-items: flex-start; gap: 8px; margin: 10px 0 6px; padding: 8px 12px; border-radius: 7px; background: rgba(244,192,54,0.12); border: 1px solid rgba(244,192,54,0.45); color: #7a5c00; font-size: 0.82em; line-height: 1.45; }
 .acronym-conflict-notice svg { flex-shrink: 0; margin-top: 2px; color: #c8900a; }
 .acronym-conflict-notice code { font-family: monospace; background: rgba(0,0,0,0.07); padding: 1px 4px; border-radius: 3px; }
-.coverage-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 99px; font-size: 0.68em; font-family: inherit; border: 1px solid; vertical-align: middle; position: relative; cursor: default; }
+.coverage-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 99px; font-size: 0.68em; font-family: inherit; border: 1px solid; vertical-align: middle; position: relative; cursor: pointer; }
 .coverage-badge::before { content: 'ⓘ'; font-size: 0.9em; }
 .coverage-badge.pdf-only { background: rgba(244,192,54,0.15); border-color: rgba(244,192,54,0.5); color: #8a6a00; }
 .coverage-badge.abstract-only { background: rgba(32,22,19,0.06); border-color: rgba(32,22,19,0.2); color: var(--muted); }
-.coverage-badge[data-tooltip]::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 7px);
-  transform: translateX(-50%) translateY(4px);
-  padding: 5px 9px;
-  border-radius: 8px;
-  background: var(--text);
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 500;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 120ms ease, transform 120ms ease;
-  z-index: 10;
-}
-.coverage-badge[data-tooltip]:hover::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+.lang-chip-popover:hover > .coverage-badge,
+.lang-chip-popover > .coverage-badge:focus {
+  outline: 2px solid rgba(217,79,43,0.45);
+  outline-offset: 1px;
 }
 .chip {
   border: 0; border-radius: 999px; padding: 8px 12px; color: var(--text); background: rgba(32, 22, 19, 0.08);
@@ -835,8 +868,17 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0;
 }
 .chip-expand-btn:hover { background: rgba(15,108,93,0.07); }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 .paper-list { display: grid; gap: 14px; }
+/* Wrapper lets the PDF link sit outside <summary> (avoids nested-interactive) while
+   remaining visually anchored to the top-right of the card. */
+.paper-row-wrap { position: relative; }
+.paper-row-wrap > .pdf-link {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+}
 .paper-row { border: 1px solid var(--line); border-radius: 18px; padding: 0; background: rgba(255, 255, 255, 0.7); overflow: visible; }
 .paper-summary {
   display: grid;
@@ -844,6 +886,8 @@ a { color: inherit; text-decoration: none; }
   gap: 14px;
   align-items: start;
   padding: 16px;
+  /* Right padding reserves space for the absolutely-positioned PDF button */
+  padding-right: 90px;
   cursor: pointer;
   list-style: none;
 }
@@ -855,9 +899,7 @@ a { color: inherit; text-decoration: none; }
 .paper-abstract-label { display: block; font-weight: 800; margin-bottom: 6px; color: var(--text); font-size: 0.96rem; }
 .paper-body .paper-abstract { margin: 0; line-height: 1.55; }
 .paper-main { display: grid; gap: 10px; }
-.paper-title-row { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
-.paper-title-row .pdf-link { position: static; margin-left: auto; flex: 0 0 auto; }
-.paper-title-row h3 { margin: 0; min-width: 0; }
+.paper-title-row h3 { margin: 0; }
 .paper-authors, .paper-abstract, .page-intro p { color: var(--muted); }
 .paper-authors {
   margin: 0;
@@ -865,23 +907,6 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.5;
 }
 .paper-tags { margin-top: 0; }
-.paper-chip-expand-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  background: none;
-  border: 1px solid var(--accent);
-  border-radius: 99px;
-  color: var(--accent);
-  font: inherit;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  line-height: 1.5;
-}
-.paper-chip-expand-btn:hover { background: rgba(15,108,93,0.07); }
 .paper-abstract { margin-bottom: 0; }
 
 /* Paper body — meta row (dates + categories) */
@@ -946,7 +971,7 @@ a { color: inherit; text-decoration: none; }
   grid-auto-rows: auto;
 }
 .lang-source-label { font-weight: 700; white-space: nowrap; color: var(--text); }
-.lang-source-langs { color: var(--muted); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lang-source-langs { color: var(--muted); display: block; white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
 
 /* Section-level language detection expandable block */
 .lang-sections-summary {
@@ -1005,7 +1030,7 @@ a { color: inherit; text-decoration: none; }
   border-radius: 8px;
   overflow: hidden;
   display: block;
-  grid-column: 2 / 3; /* align under the language column */
+  grid-column: 1 / -1;
 }
 .html-sections-summary {
   padding: 6px 10px;
@@ -1013,8 +1038,9 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
   color: var(--muted);
   background: rgba(32,22,19,0.02);
+  display: flex;
+  align-items: center;
 }
-.html-sections-summary { display: inline-flex; align-items: center; }
 .html-sections-chevron { transition: transform 180ms ease; flex-shrink: 0; margin-right: 8px; }
 .html-sections-list[open] .html-sections-chevron { transform: rotate(90deg); }
 .html-sections-body {
@@ -1210,4 +1236,7 @@ a { color: inherit; text-decoration: none; }
   .page-shell { width: min(100% - 20px, 1200px); }
   .topbar { flex-direction: column; gap: 12px; align-items: start; }
   .featured-paper { flex-direction: column; align-items: start; }
+  /* Stack label / languages / section-breakdown vertically so the fixed 140px
+     label column never squeezes the html-sections-list into invisibility */
+  .lang-source-row { grid-template-columns: 1fr; }
 }

@@ -31,6 +31,8 @@ if (next) next.setAttribute('data-tooltip', 'Next week');
 function showToast(msg, timeout = 3000) {
   const t = document.createElement('div');
   t.className = 'lt-toast';
+  t.setAttribute('role', 'status');
+  t.setAttribute('aria-live', 'polite');
   t.textContent = msg;
   document.body.appendChild(t);
   requestAnimationFrame(() => t.classList.add('visible'));
@@ -110,6 +112,7 @@ const calendar = new Calendar(root, {
   initialView: 'dayGridMonth',
   headerToolbar: false,
   firstDay: 1,
+  height: 'auto',
   // weekNumbers disabled — we render our own badges outside the grid via renderWeekNumbers()
   datesSet: () => renderWeekNumbers(),
   dayCellClassNames: (arg) => {
@@ -147,6 +150,21 @@ root.addEventListener('click', (e) => {
   window.location.href = `${baseUrl}/weeks/${startStr}/`;
 });
 
+function updateNavBoundaryState(startStr) {
+  const prevStr = isoDate(new Date(new Date(startStr + 'T12:00:00').setDate(new Date(startStr + 'T12:00:00').getDate() - 7)));
+  const nextStr = isoDate(new Date(new Date(startStr + 'T12:00:00').setDate(new Date(startStr + 'T12:00:00').getDate() + 7)));
+  const atStart = prevStr < earliestStr;
+  const atEnd   = nextStr > latestStr;
+  if (prev) {
+    prev.setAttribute('aria-disabled', atStart ? 'true' : 'false');
+    prev.style.opacity = atStart ? '0.45' : '';
+  }
+  if (next) {
+    next.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
+    next.style.opacity = atEnd ? '0.45' : '';
+  }
+}
+
 function setSelectedWeek(start) {
   const existing = calendar.getEventById(bgEventId);
   if (existing) existing.remove();
@@ -161,6 +179,7 @@ function setSelectedWeek(start) {
     classNames: ['selected-week-bg']
   });
   updateWeekTitle(start);
+  updateNavBoundaryState(isoDate(start));
 }
 
 // init selected week: use server-resolved activeWeek attr (set per page), then fall back to latest

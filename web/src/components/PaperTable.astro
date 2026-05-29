@@ -219,7 +219,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
       <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
       </svg>
-      <input id="paper-search" class="search-input" type="search" placeholder="Search by title or author" />
+      <input id="paper-search" class="search-input" type="search" placeholder="Search by title or author" aria-label="Search papers by title or author" />
     </div>
     <div class="search-wrapper lang-search-wrapper">
       <svg class="input-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
@@ -253,7 +253,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
           </optgroup>
         </select>
       </div>
-      <span id="result-count" class="result-count" aria-live="polite"></span>
+      <span id="result-count" class="result-count" aria-live="polite" aria-atomic="true"></span>
     </div>
   </div>
 
@@ -271,43 +271,38 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
             {language} <span class="chip-count">({languageCounts.get(language) || 0})</span>
           </button>
         ))}
-        <button id="chip-expand-btn" class="chip-expand-btn" type="button" aria-expanded="false" style="display:none">… +0 more</button>
+        <button id="chip-expand-btn" class="chip-expand-btn" type="button" aria-expanded="false" aria-label="Show more language filters" style="display:none">… +0 more</button>
       </div>
     </div>
   </div>
 
   <div class="paper-list" id="paper-list">
     {paperItems.map((item) => (
-      <details
-        class="paper-row"
-        data-search={item.searchText}
-        data-languages={item.chipLanguageNames.join('|')}
-        data-lang-count={item.chipLanguageNames.length}
-        data-min-class={item.minClass}
-        data-classes={[...new Set(item.chips.map(c => c.borderClass))].join(',')}
-        data-title={item.paper.title.toLowerCase()}
-        data-index={item.index}
-      >
-        <summary class="paper-summary">
-          <div class="paper-main">
-            <div class="paper-title-row">
-              <h3>{item.paper.title}</h3>
-              <a class="pdf-link" href={item.paper.pdf_url} target="_blank" rel="noreferrer">
-                <svg class="pdf-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7zm0 1.5V8h4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
-                </svg>
-                <span>PDF</span>
-              </a>
-            </div>
+      <div class="paper-row-wrap">
+        <details
+          class="paper-row"
+          data-search={item.searchText}
+          data-languages={item.chipLanguageNames.join('|')}
+          data-lang-count={item.chipLanguageNames.length}
+          data-min-class={item.minClass}
+          data-classes={[...new Set(item.chips.map(c => c.borderClass))].join(',')}
+          data-title={item.paper.title.toLowerCase()}
+          data-index={item.index}
+        >
+          <summary class="paper-summary">
+            <div class="paper-main">
+              <div class="paper-title-row">
+                <h3>{item.paper.title}</h3>
+              </div>
             <p class="paper-authors">{item.allAuthors}</p>
             <div class="paper-tags">
-              {item.chips.map((chip) => (
+              {item.chips.map((chip, chipIdx) => (
                 chip.needsReview ? (
                   <span class="lang-chip-popover">
-                    <span class={`lang-chip class-${chip.borderClass} needs-review`} tabindex="0" style={`background:${chip.fillColor}`}>
-                      {chip.language}<span class="review-star" aria-label="manual review recommended">★</span>
+                    <span class={`lang-chip class-${chip.borderClass} needs-review`} style={`background:${chip.fillColor}`} aria-describedby={`chip-tip-${item.index}-${chipIdx}`}>
+                      {chip.language}<span class="review-star" aria-hidden="true">★</span>
                     </span>
-                    <div class="review-popover-body">
+                    <div class="review-popover-body" id={`chip-tip-${item.index}-${chipIdx}`} role="tooltip">
                       <strong>⚠ Manual verification may be needed</strong>
                       {chip.flagReason && <p>{chip.flagReason}</p>}
                     </div>
@@ -317,8 +312,14 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
                 )
               ))}
               {item.coverageBadge && (
-                <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} data-tooltip={item.coverageBadge.title}>
-                  {item.coverageBadge.label}
+                <span class="lang-chip-popover">
+                  <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} aria-describedby={`coverage-tip-${item.index}`}>
+                    {item.coverageBadge.label}
+                  </span>
+                  <div class="review-popover-body" id={`coverage-tip-${item.index}`} role="tooltip">
+                    <strong>⚠ {item.coverageBadge.label}</strong>
+                    <p>{item.coverageBadge.title}</p>
+                  </div>
                 </span>
               )}
             </div>
@@ -399,11 +400,18 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
                 <polyline points="15 3 21 3 21 9"/>
                 <line x1="10" y1="14" x2="21" y2="3"/>
               </svg>
-              View on arXiv
+              View on arXiv<span class="sr-only"> (opens in new tab)</span>
             </a>
           </div>
         </div>
-      </details>
+        </details>
+        <a class="pdf-link" href={item.paper.pdf_url} target="_blank" rel="noreferrer" aria-label={`PDF — ${item.paper.title} (opens in new tab)`}>
+          <svg class="pdf-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7zm0 1.5V8h4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          </svg>
+          <span aria-hidden="true">PDF</span>
+        </a>
+      </div>
     ))}
   </div>
 </section>
@@ -464,6 +472,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
       expandBtn!.style.removeProperty('display');
       expandBtn!.setAttribute('aria-expanded', 'false');
       expandBtn!.textContent = `… +${hiddenCount} more`;
+      expandBtn!.setAttribute('aria-label', `Show ${hiddenCount} more language filters`);
 
       // Loop: keep hiding chips until expand button lands on the first row.
       // getBoundingClientRect forces synchronous reflow so positions are always current.
@@ -476,6 +485,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
         extra.style.display = 'none';
         hiddenCount++;
         expandBtn!.textContent = `… +${hiddenCount} more`;
+        expandBtn!.setAttribute('aria-label', `Show ${hiddenCount} more language filters`);
       }
 
     });
@@ -506,19 +516,21 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
         expandBtn!.style.removeProperty('display');
         expandBtn!.setAttribute('aria-expanded', 'true');
         expandBtn!.textContent = 'Show less';
+        expandBtn!.setAttribute('aria-label', 'Show fewer language filters');
 
         // If the button still wraps (row too narrow), move it one chip earlier per iteration.
         for (let i = 0; i < langChips.length; i++) {
           if (chipH === 0) break;
           if (Math.abs(expandBtn!.getBoundingClientRect().top - firstTop) <= chipH * 0.5) break;
           const prev = expandBtn!.previousElementSibling as Element | null;
-          if (!prev || !langChips.includes(prev as HTMLButtonElement)) break;
+          if (!prev || !langChips.includes(prev as HTMLButtonElement) || prev.parentNode !== chipRow) break;
           chipRow!.insertBefore(expandBtn!, prev);
         }
       } else {
         expandBtn!.style.removeProperty('display');
         expandBtn!.setAttribute('aria-expanded', 'true');
         expandBtn!.textContent = 'Show less';
+        expandBtn!.setAttribute('aria-label', 'Show fewer language filters');
       }
     });
   }
@@ -594,7 +606,8 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
       const matchesSearch = !searchTerm || rowSearch.includes(searchTerm);
       const matchesClass = classFilter === 'all' || rowClasses.includes(classFilter);
       const show = matchesLanguage && matchesSearch && matchesClass;
-      row.style.display = show ? '' : 'none';
+      // Hide the wrapper so the absolutely-positioned PDF link is hidden along with the row
+      (row.parentElement as HTMLElement).style.display = show ? '' : 'none';
       if (show) visible++;
     });
     if (resultCount) {
@@ -620,7 +633,8 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
         default:             return parseInt(a.dataset.index || '0') - parseInt(b.dataset.index || '0');
       }
     });
-    sorted.forEach(row => paperList.appendChild(row));
+    // Append the wrapper (grid item) so the PDF link moves with its row
+    sorted.forEach(row => paperList.appendChild(row.parentElement as HTMLElement));
   }
 
   // Popovers are now hover/focus driven; no global click-close needed.
@@ -647,106 +661,4 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   });
 
   requestAnimationFrame(() => { applyCollapse(); applyFilters(); });
-
-  // ── Per-tile chip collapse ───────────────────────────────────────────────────
-
-  function initPaperTagsCollapse() {
-    document.querySelectorAll<HTMLElement>('.paper-tags').forEach(tagsDiv => {
-      const chipEls = Array.from(tagsDiv.querySelectorAll<HTMLElement>('.lang-chip, .lang-chip-popover'));
-      if (chipEls.length <= 1) return;
-
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'paper-chip-expand-btn';
-      btn.style.display = 'none';
-      const badge = tagsDiv.querySelector('.coverage-badge');
-      if (badge) tagsDiv.insertBefore(btn, badge);
-      else tagsDiv.appendChild(btn);
-
-      let expanded = false;
-
-      function applyTagsCollapse() {
-        requestAnimationFrame(() => {
-          chipEls.forEach(c => c.style.removeProperty('display'));
-          btn.style.display = 'none';
-          if (!chipEls[0]) return;
-
-          const firstTop = chipEls[0].getBoundingClientRect().top;
-          const chipH = chipEls[0].getBoundingClientRect().height;
-          const threshold = firstTop + chipH * 0.5;
-          const firstRow = chipEls.filter(c => c.getBoundingClientRect().top < threshold);
-          const overflow = chipEls.filter(c => c.getBoundingClientRect().top >= threshold);
-          if (overflow.length === 0) return;
-
-          const toHide = [...overflow];
-          if (firstRow.length > 0) toHide.push(firstRow[firstRow.length - 1]);
-          toHide.forEach(c => { c.style.display = 'none'; });
-          btn.style.removeProperty('display');
-
-          let hiddenCount = toHide.length;
-          btn.textContent = `+${hiddenCount} more`;
-
-          for (let i = 0; i < chipEls.length; i++) {
-            if (chipH === 0) break;
-            if (Math.abs(btn.getBoundingClientRect().top - firstTop) <= chipH * 0.5) break;
-            const stillVisible = chipEls.filter(c => c.style.display !== 'none');
-            const extra = stillVisible[stillVisible.length - 1];
-            if (!extra) break;
-            extra.style.display = 'none';
-            hiddenCount++;
-            btn.textContent = `+${hiddenCount} more`;
-          }
-        });
-      }
-
-      btn.addEventListener('click', () => {
-        expanded = !expanded;
-        if (expanded) {
-          chipEls.forEach(c => c.style.removeProperty('display'));
-          btn.style.removeProperty('display');
-          btn.textContent = 'Show less';
-        } else {
-          applyTagsCollapse();
-        }
-      });
-
-      applyTagsCollapse();
-    });
-  }
-
-  requestAnimationFrame(initPaperTagsCollapse);
-  window.addEventListener('resize', () => {
-    document.querySelectorAll<HTMLElement>('.paper-chip-expand-btn').forEach(btn => {
-      const tagsDiv = btn.closest<HTMLElement>('.paper-tags');
-      if (!tagsDiv || btn.textContent === 'Show less') return;
-      const chipEls = Array.from(tagsDiv.querySelectorAll<HTMLElement>('.lang-chip, .lang-chip-popover'));
-      requestAnimationFrame(() => {
-        chipEls.forEach(c => c.style.removeProperty('display'));
-        btn.style.display = 'none';
-        if (!chipEls[0]) return;
-        const firstTop = chipEls[0].getBoundingClientRect().top;
-        const chipH = chipEls[0].getBoundingClientRect().height;
-        const threshold = firstTop + chipH * 0.5;
-        const firstRow = chipEls.filter(c => c.getBoundingClientRect().top < threshold);
-        const overflow = chipEls.filter(c => c.getBoundingClientRect().top >= threshold);
-        if (overflow.length === 0) return;
-        const toHide = [...overflow];
-        if (firstRow.length > 0) toHide.push(firstRow[firstRow.length - 1]);
-        toHide.forEach(c => { c.style.display = 'none'; });
-        btn.style.removeProperty('display');
-        let hiddenCount = toHide.length;
-        btn.textContent = `+${hiddenCount} more`;
-        for (let i = 0; i < chipEls.length; i++) {
-          if (chipH === 0) break;
-          if (Math.abs(btn.getBoundingClientRect().top - firstTop) <= chipH * 0.5) break;
-          const stillVisible = chipEls.filter(c => c.style.display !== 'none');
-          const extra = stillVisible[stillVisible.length - 1];
-          if (!extra) break;
-          extra.style.display = 'none';
-          hiddenCount++;
-          btn.textContent = `+${hiddenCount} more`;
-        }
-      });
-    });
-  });
 </script>
