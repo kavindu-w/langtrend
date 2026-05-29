@@ -1322,9 +1322,9 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         <div class="trend-granularity-pane" data-granularity={gran} style={gran !== 'week' ? 'display:none' : ''}>
           <div class="overall-summary-grid" style="margin-bottom:14px">
             <div class="trend-view-controls trend-view-controls-inline">
-              <button type="button" class={`trend-view-chip ${trendGranularity === 'week' ? 'is-active' : ''}`} data-trend-mode="week">Week</button>
-              <button type="button" class={`trend-view-chip ${trendGranularity === 'month' ? 'is-active' : ''}`} data-trend-mode="month">Month</button>
-              <button type="button" class={`trend-view-chip ${trendGranularity === 'year' ? 'is-active' : ''}`} data-trend-mode="year">Year</button>
+              <button type="button" class={`trend-view-chip ${trendGranularity === 'week' ? 'is-active' : ''}`} data-trend-mode="week" aria-pressed={trendGranularity === 'week' ? 'true' : 'false'}>Week</button>
+              <button type="button" class={`trend-view-chip ${trendGranularity === 'month' ? 'is-active' : ''}`} data-trend-mode="month" aria-pressed={trendGranularity === 'month' ? 'true' : 'false'}>Month</button>
+              <button type="button" class={`trend-view-chip ${trendGranularity === 'year' ? 'is-active' : ''}`} data-trend-mode="year" aria-pressed={trendGranularity === 'year' ? 'true' : 'false'}>Year</button>
               <span class="chart-caption">Overall trends grouped by {trendGranularityLabel.toLowerCase()}</span>
       </div>
       <div class="coverage-summary-card">
@@ -1644,6 +1644,11 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
     function switchTrendPane(mode) {
       document.querySelectorAll('.trend-granularity-pane').forEach(function(pane) {
         pane.style.display = pane.dataset.granularity === mode ? '' : 'none';
+      });
+      document.querySelectorAll('.trend-view-chip').forEach(function(btn) {
+        var active = btn.getAttribute('data-trend-mode') === mode;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
       try { history.replaceState(null, '', '?trend=' + mode); } catch {}
       try { sessionStorage.setItem(trendModeStorageKey, mode); } catch {}

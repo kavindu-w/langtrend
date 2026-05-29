@@ -5,12 +5,18 @@ const { title = 'LangTrend', description = 'LangTrend dashboard for language inc
   title?: string;
   description?: string;
 };
+
+const { pathname } = Astro.url;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isHome = pathname === base + '/' || pathname === base;
+const isAbout = pathname.startsWith(base + '/about');
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
     <meta name="description" content={description} />
     <title>{title}</title>
   </head>
@@ -18,14 +24,14 @@ const { title = 'LangTrend', description = 'LangTrend dashboard for language inc
     <div class="page-shell">
       <header class="topbar">
         <a class="brand" href={import.meta.env.BASE_URL}>LangTrend</a>
-        <nav class="navlinks">
-          <a class="navlink" href={import.meta.env.BASE_URL}>
+        <nav class="navlinks" aria-label="Site navigation">
+          <a class="navlink" href={import.meta.env.BASE_URL} aria-current={isHome ? 'page' : undefined}>
             <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path d="M4 11.5 12 4l8 7.5V20a1 1 0 0 1-1 1h-4.5v-6.5h-5V21H5a1 1 0 0 1-1-1v-8.5Z" fill="currentColor" />
             </svg>
             <span>Home</span>
           </a>
-          <a class="navlink" href={`${import.meta.env.BASE_URL}about/`}>
+          <a class="navlink" href={`${import.meta.env.BASE_URL}about/`} aria-current={isAbout ? 'page' : undefined}>
             <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path d="M11 10h2v7h-2zm0-4h2v2h-2z" fill="currentColor" />
               <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" fill="currentColor" />
@@ -54,7 +60,8 @@ const { title = 'LangTrend', description = 'LangTrend dashboard for language inc
         };
 
         goTopButton.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          window.scrollTo({ top: 0, behavior: reduced ? 'instant' : 'smooth' });
         });
 
         window.addEventListener('scroll', updateVisibility, { passive: true });

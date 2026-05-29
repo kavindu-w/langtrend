@@ -99,19 +99,20 @@ def _load_html_detections(
     lang_classes: dict[int, set[str]],
     possible_false_positives: dict[str, str],
     languages_to_ignore: set[str] | None = None,
-) -> tuple[list[dict], list[str]] | tuple[None, list]:
-    """Return (flat detections list, sections that had hits) or (None, []) if not cached."""
+) -> tuple[list[dict], list[str], list[dict]] | tuple[None, list, list]:
+    """Return (flat detections, section names that had hits, section detail objects) or (None, [], []) if not cached."""
     path = html_cache_dir / f"{safe_id}.json"
     if not path.exists():
-        return None, []
+        return None, [], []
     try:
         with path.open("r", encoding="utf-8") as fh:
             data = json.load(fh)
     except Exception:
-        return None, []
+        return None, [], []
 
     all_dets: list[dict] = []
     sections_hit: list[str] = []
+    section_details: list[dict] = []
     for section_name, section_data in data.items():
         if section_name.startswith("_"):
             continue
@@ -123,7 +124,12 @@ def _load_html_detections(
             if dets:
                 all_dets.extend(dets)
                 sections_hit.append(section_name)
-    return all_dets, sections_hit
+                section_details.append({
+                    "name": section_name,
+                    "source": "html",
+                    "detected_languages": dets,
+                })
+    return all_dets, sections_hit, section_details
 
 
 def _load_pdf_detections(
@@ -194,6 +200,7 @@ def assemble_flagged_papers(
 
         sources_checked: list[str] = []
         sections_with_detections: list[str] = []
+        section_details: list[dict] = []
         detection_groups: list[tuple[list[dict], str]] = []
 
         # 1. Abstract (always scanned — public on arXiv)
@@ -204,7 +211,7 @@ def assemble_flagged_papers(
             sections_with_detections.append("abstract")
 
         # 2. HTML cache
-        html_dets, html_sections = _load_html_detections(
+        html_dets, html_sections, html_section_details = _load_html_detections(
             safe_id, html_cache_dir, lang_classes, possible_false_positives, languages_to_ignore
         )
         if html_dets is not None:
@@ -213,6 +220,7 @@ def assemble_flagged_papers(
             if html_dets:
                 detection_groups.append((html_dets, "html"))
                 sections_with_detections.extend(html_sections)
+                section_details.extend(html_section_details)
 
         # 3. PDF cache
         pdf_dets = _load_pdf_detections(safe_id, pdf_cache_dir, languages_to_ignore)
@@ -230,6 +238,7 @@ def assemble_flagged_papers(
                 "languages": languages,
                 "sources_checked": sources_checked,
                 "sections_with_detections": sections_with_detections,
+                "sections": section_details,
             })
 
     print(f"  HTML cache hits : {html_cached}/{len(papers)}")
@@ -262,12 +271,18 @@ def _flagged_from_detected_jsonl(detected_path: Path) -> list[dict]:
             sections = record.get("sections", {})
             detection_groups: list[tuple[list[dict], str]] = []
             sections_with_detections: list[str] = []
+            section_details: list[dict] = []
             for section_name, section_data in sections.items():
                 dets = section_data.get("detected_languages", [])
                 source = section_data.get("source", "unknown")
                 if dets:
                     detection_groups.append((dets, source))
                     sections_with_detections.append(section_name)
+                    section_details.append({
+                        "name": section_name,
+                        "source": source,
+                        "detected_languages": dets,
+                    })
             languages = _merge_detections(detection_groups)
             if languages:
                 flagged.append({
@@ -275,6 +290,7 @@ def _flagged_from_detected_jsonl(detected_path: Path) -> list[dict]:
                     "languages": languages,
                     "sources_checked": record.get("sources_checked", []),
                     "sections_with_detections": sections_with_detections,
+                    "sections": section_details,
                 })
     return flagged
 
@@ -328,6 +344,7 @@ def build_and_save(
                 "languages": [],
                 "sources_checked": r.get("sources_checked", []),
                 "sections_with_detections": [],
+                "sections": [],
             })
         if pdf_unavailable_papers:
             print(f"  pdf_unavailable (no detection): {len(pdf_unavailable_papers)} paper(s) added")
