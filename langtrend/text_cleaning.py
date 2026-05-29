@@ -595,7 +595,11 @@ def trim_pdf_text_to_body(
         start = intro_match.start()
 
     end = len(text)
-    end_match = end_re.search(text, start)
+    # Search for end-matter from whichever is later: the Introduction start or
+    # the document midpoint. This prevents cutting at front-matter Acknowledgements
+    # in thesis PDFs (or any paper without a detectable Introduction heading).
+    end_search_from = max(start, len(text) // 2)
+    end_match = end_re.search(text, end_search_from)
     if end_match:
         end = end_match.start()
 

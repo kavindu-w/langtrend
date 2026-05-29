@@ -139,7 +139,11 @@ class PDFProcessor:
             md = result.document.export_to_markdown()
 
             # Cut at the first end-matter heading (References, Acknowledgements …)
-            m = _MD_REFS_RE.search(md)
+            # that appears in the second half of the document. Thesis PDFs have an
+            # Acknowledgements section in the front matter (before the Introduction);
+            # cutting at the first match would discard the entire body.
+            midpoint = len(md) // 2
+            m = _MD_REFS_RE.search(md, midpoint)
             body_md = md[: m.start()] if m else md
 
             # Strip markdown heading markers to get plain text
