@@ -104,9 +104,13 @@ _POSSIBLE_FALSE_POSITIVE_LANGUAGES: dict[str, str] = {
         "Ong": "Possible false positive",
         "Niue": "Possible false positive - could refer to Niue Island or Niuean language, but both are very rare in CS/NLP papers and may be more likely to be false positives from author/place names or technical terms containing 'Niue' as a substring",
         "Hehe": "Possible false positive - 'hehe' is a common informal English expression of laughter, and may appear in dialogue datasets or social media text, rather than referring to the Hehe language of Tanzania",
-        "Abu": "Possible false positive"
-        
-        
+        "Abu": "Possible false positive",
+        "Maya": "Possible false positive - Model name",
+    "Lolo":     "LOLO = Leave-One-Language-Out — cross-validation method common in multilingual NLP papers",
+    "Pali": "Possible false positive",
+    "Mohawk": "Possible false positive",
+    "Gua": "Possible false positive",
+    "Lusi": "Possible false positive"
 }
 
 # taken from https://github.com/dilithjay/Shoulders-of-Giants/blob/main/categorize_filtered_papers.ipynb
