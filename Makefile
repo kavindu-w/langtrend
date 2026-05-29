@@ -6,10 +6,13 @@ WORKERS     ?= 12
 # END_DATE    ?= 2026-05-04
 # END_DATE    ?= 2026-05-11
 # END_DATE    ?= 2026-05-18
-# END_DATE    ?= 2026-05-25/
+END_DATE    ?= 2026-05-25
+NO_PDF      ?= 1
 
 # Pass --end-date only when END_DATE is set
 _END_DATE_FLAG = $(if $(END_DATE),--end-date $(END_DATE),)
+# Pass --no-pdf only when NO_PDF=1 (skips docling; safe to run in multiple terminals)
+_NO_PDF_FLAG   = $(if $(NO_PDF),--no-pdf,)
 
 .PHONY: help setup fetch process reprocess retry-missing manifest pipeline web-install web-dev web-build dev build clean
 
@@ -35,6 +38,13 @@ help:
 	@echo "Overrides:"
 	@echo "  DATA_ROOT=$(DATA_ROOT)  WINDOW_DAYS=$(WINDOW_DAYS)  MAX_RESULTS=$(MAX_RESULTS)"
 	@echo "  WORKERS=$(WORKERS)  END_DATE=$(if $(END_DATE),$(END_DATE),(last Monday, run on Tuesdays))"
+	@echo "  NO_PDF=1  skip PDF/docling (safe for parallel terminals; follow up with retry-missing)"
+	@echo ""
+	@echo "Parallel multi-week workflow:"
+	@echo "  Terminal 1: make process NO_PDF=1 END_DATE=2026-05-04"
+	@echo "  Terminal 2: make process NO_PDF=1 END_DATE=2026-05-11"
+	@echo "  Terminal 3: make process NO_PDF=1 END_DATE=2026-05-18"
+	@echo "  Then once: make retry-missing END_DATE=<each week> (handles PDF papers)"
 
 setup:
 	pip install -r requirements.txt
@@ -63,6 +73,7 @@ process:
 		--window-days $(WINDOW_DAYS) \
 		--workers $(WORKERS) \
 		$(_END_DATE_FLAG) \
+		$(_NO_PDF_FLAG) \
 		--skip-fetch
 
 reprocess:

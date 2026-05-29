@@ -48,7 +48,8 @@ def _get_docling_converter():
 
 
 _DOCLING_CONVERTER: Optional[object] = None  # module-level singleton
-_DOCLING_LOCK: object = None  # threading.Lock, initialised lazily to avoid import at module load
+import threading as _threading
+_DOCLING_LOCK = _threading.Lock()
 
 
 # Markdown heading prefix (docling output) → strip for plain text
@@ -110,11 +111,7 @@ class PDFProcessor:
 
         Falls back to pdfplumber if docling fails.
         """
-        import threading
-        global _DOCLING_CONVERTER, _DOCLING_LOCK
-        if _DOCLING_LOCK is None:
-            _DOCLING_LOCK = threading.Lock()
-
+        global _DOCLING_CONVERTER
         with _DOCLING_LOCK:
             if _DOCLING_CONVERTER is None:
                 print(f"    [docling] loading models (first call)…", flush=True)

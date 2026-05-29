@@ -5,12 +5,14 @@ Run with:  pytest tests/test_html_processor.py -v
 """
 
 import pytest
+from unittest.mock import patch
 from bs4 import BeautifulSoup
 
 from langtrend.html_processor import (
     clean_html_soup,
     extract_sections_from_soup,
     extract_sections_from_html,
+    recheck_languages_from_html,
 )
 
 
@@ -261,3 +263,52 @@ class TestCleanHtmlSoup:
         assert "Intro text" in text
         assert "Related work prose" not in text
         assert "Conclusion text" in text
+
+
+# ---------------------------------------------------------------------------
+# recheck_languages_from_html — raw HTML caching
+# ---------------------------------------------------------------------------
+
+_MINIMAL_HTML = (
+    '<section><h2>Introduction</h2><p>We use Python.</p></section>'
+)
+
+
+class TestRawHtmlCaching:
+    def test_saves_raw_html_on_first_fetch(self, tmp_path):
+        with patch("langtrend.html_processor.fetch_arxiv_html", return_value=(_MINIMAL_HTML, "url", True)) as mock_fetch:
+            recheck_languages_from_html(
+                {"id": "2000.00001"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        assert (tmp_path / "2000.00001.html").exists()
+        assert (tmp_path / "2000.00001.html").read_text() == _MINIMAL_HTML
+        mock_fetch.assert_called_once()
+
+    def test_uses_cached_html_without_fetching(self, tmp_path):
+        (tmp_path / "2000.00002.html").write_text(_MINIMAL_HTML, encoding="utf-8")
+        with patch("langtrend.html_processor.fetch_arxiv_html") as mock_fetch:
+            recheck_languages_from_html(
+                {"id": "2000.00002"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        mock_fetch.assert_not_called()
+
+    def test_json_cache_still_short_circuits_before_html(self, tmp_path):
+        # If the JSON result cache exists, neither the HTML file nor fetch is touched.
+        import json
+        json_path = tmp_path / "2000.00003.json"
+        json_path.write_text(json.dumps({"_complete": True}), encoding="utf-8")
+        with patch("langtrend.html_processor.fetch_arxiv_html") as mock_fetch:
+            recheck_languages_from_html(
+                {"id": "2000.00003"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        mock_fetch.assert_not_called()
+        assert not (tmp_path / "2000.00003.html").exists()

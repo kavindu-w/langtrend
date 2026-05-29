@@ -103,6 +103,9 @@ def main() -> None:
                         help="Re-run text cleaning+detection on cached HTML/PDF text only (no downloads)")
     parser.add_argument("--retry-missing", action="store_true",
                         help="Retry papers not yet detected or with no html/pdf cache; uses cache where available")
+    parser.add_argument("--no-pdf", action="store_true",
+                        help="Skip PDF fallback (no docling); safe to run in parallel across terminals. "
+                             "Follow up with --retry-missing to cover the ~10%% of papers that need PDF.")
     args = parser.parse_args()
 
     data_root: Path = args.data_root
@@ -168,6 +171,8 @@ def main() -> None:
     # -------------------------------------------------------------------------
     detected_path = week_dir / f"{input_path.stem}_detected.jsonl"
 
+    _no_pdf_flag = ["--no-pdf"] if args.no_pdf else []
+
     if args.skip_process:
         print(f"\nStep 2 [SKIPPED] process")
     elif args.reprocess_cache:
@@ -178,7 +183,7 @@ def main() -> None:
             "--output-dir", str(week_dir),
             "--workers", str(args.workers),
             "--reprocess-cache",
-        ]
+        ] + _no_pdf_flag
         timings["process"] = _run("Step 2: reprocess from cache (cleaning+detection only)", cmd)
     elif args.retry_missing:
         cmd = [
@@ -188,7 +193,7 @@ def main() -> None:
             "--output-dir", str(week_dir),
             "--workers", str(args.workers),
             "--retry-missing",
-        ]
+        ] + _no_pdf_flag
         timings["process"] = _run("Step 2: retry missing (papers not yet detected or missing html/pdf cache)", cmd)
     elif detected_path.exists():
         print(f"\nStep 2 [SKIP] process — {detected_path.name} already exists")
@@ -199,7 +204,7 @@ def main() -> None:
             "--input", str(input_path),
             "--output-dir", str(week_dir),
             "--workers", str(args.workers),
-        ])
+        ] + _no_pdf_flag)
 
     # -------------------------------------------------------------------------
     # Step 3: Build manifest (always runs — fast, no network)

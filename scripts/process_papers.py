@@ -19,6 +19,7 @@ Usage:
 
 import argparse
 import json
+import os
 import sys
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 from datetime import datetime
@@ -159,6 +160,7 @@ def _process_single_paper(
     pdf_dir: Path,
     html_cache_dir: Path,
     pdf_cache_dir: Path,
+    no_pdf: bool = False,
 ) -> dict:
     import time as _time
     t_paper = _time.monotonic()
@@ -231,7 +233,9 @@ def _process_single_paper(
 
     # 3. PDF fallback — when HTML unavailable, empty, or incomplete (stalled download)
     html_unavailable = html_cache is None or not is_html_complete or len(html_cache) == 0
-    if html_unavailable:
+    if html_unavailable and no_pdf:
+        tqdm.write(f"  [{paper_id}] PDF skipped (--no-pdf)")
+    if html_unavailable and not no_pdf:
         safe_id = str(paper_id).split("/")[-1]
         pdf_cache_path = pdf_cache_dir / f"{safe_id}.json"
         if pdf_cache_path.exists():
@@ -591,6 +595,7 @@ def process_papers(
     pdf_cache_dir: Path,
     no_detections_file: Path | None = None,
     max_workers: int = 4,
+    no_pdf: bool = False,
 ) -> dict:
     for d in [pdf_dir, html_cache_dir, pdf_cache_dir]:
         d.mkdir(parents=True, exist_ok=True)
@@ -622,6 +627,7 @@ def process_papers(
                 pdf_dir,
                 html_cache_dir,
                 pdf_cache_dir,
+                no_pdf,
             ): paper
             for paper in papers
         }
@@ -758,6 +764,15 @@ def main() -> None:
             "Merges results into existing detected, warnings, and no-detections files."
         ),
     )
+    parser.add_argument(
+        "--no-pdf",
+        action="store_true",
+        help=(
+            "Skip PDF fallback entirely (no docling, no downloading). Safe to run in "
+            "multiple terminals simultaneously. Follow up with --retry-missing to pick "
+            "up the ~10%% of papers that need PDF."
+        ),
+    )
     args = parser.parse_args()
 
     if not args.input.exists():
@@ -854,6 +869,7 @@ def main() -> None:
             pdf_cache_dir=pdf_cache_dir,
             no_detections_file=tmp_no_det,
             max_workers=args.workers,
+            no_pdf=args.no_pdf,
         )
 
         # Merge detections
@@ -901,8 +917,15 @@ def main() -> None:
             pdf_cache_dir=pdf_cache_dir,
             no_detections_file=output_dir / f"{stem}_no_detections.json",
             max_workers=args.workers,
+            no_pdf=args.no_pdf,
         )
 
 
 if __name__ == "__main__":
     main()
+    # Bypass Python's interpreter-shutdown destructor chain.  docling holds a
+    # DocumentConverter singleton that owns PyTorch C++ thread pools; their
+    # C++ destructors reliably SIGSEGV (-11) when the Python runtime is already
+    # partially torn down.  All output files are written per-paper before this
+    # point, so hard-exiting is safe.
+    os._exit(0)
