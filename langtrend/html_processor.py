@@ -170,6 +170,16 @@ def clean_html_soup(html: str, remove_headings: list[str] | None = None, _label:
                 pass
     _tick("removed boilerplate tags")
 
+    # arXiv emits <span class="ltx_ERROR undefined">\tera</span> (and similar) when a
+    # LaTeX command fails to render (e.g. siunitx \tera, \giga, \mega).  The raw
+    # command text leaks into body text and matches language names ("Tera", "Giga" …).
+    for tag in soup.find_all("span", class_="ltx_ERROR"):
+        try:
+            tag.decompose()
+        except Exception:
+            pass
+    _tick("removed ltx_ERROR spans")
+
     # arXiv HTML wraps math in <math><semantics>...<annotation encoding="application/x-tex">
     # Subscript/superscript blocks (msub/msup/msubsup) concatenate child letters via
     # get_text() into garbled tokens (e.g. <mi>i</mi><mi>k</mi> → "ik", falsely matching
