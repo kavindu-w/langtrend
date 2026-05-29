@@ -113,7 +113,8 @@ _POSSIBLE_FALSE_POSITIVE_LANGUAGES: dict[str, str] = {
     "Mohawk": "Possible false positive",
     "Gua": "Possible false positive",
     "Lusi": "Possible false positive",
-    "Moba": "Possible false positive"
+    "Moba": "Possible false positive",
+    "Mango": "Possible false positive",
 }
 
 # taken from https://github.com/dilithjay/Shoulders-of-Giants/blob/main/categorize_filtered_papers.ipynb
