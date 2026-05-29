@@ -271,6 +271,7 @@ def recheck_languages_from_html(
 
     safe_name = str(paper_id).split("/")[-1] or paper_record.get("title", "paper").replace(" ", "_")[:60]
     json_path = out_dir / f"{safe_name}.json"
+    html_path = out_dir / f"{safe_name}.html"
 
     # Return cached result if already processed
     if json_path.exists():
@@ -286,9 +287,18 @@ def recheck_languages_from_html(
 
     import time as _time
 
-    html, _html_url, is_complete = fetch_arxiv_html(str(paper_id))
-    if not html:
-        return {}, False, []
+    if html_path.exists():
+        html = html_path.read_text(encoding="utf-8")
+        is_complete = True
+        print(f"  [{paper_id}] loaded HTML from cache ({len(html) // 1024}KB)", flush=True)
+    else:
+        html, _html_url, is_complete = fetch_arxiv_html(str(paper_id))
+        if not html:
+            return {}, False, []
+        try:
+            html_path.write_text(html, encoding="utf-8")
+        except Exception:
+            pass
 
     t1 = _time.monotonic()
     soup = clean_html_soup(html, remove_headings, _label=str(paper_id))
