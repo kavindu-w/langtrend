@@ -3,22 +3,30 @@
 - [x] add tests
 - [x] false positive
 - [x] backup options (abstract to html to pdf)
-- [x] run pipeline for the last 3 weeks
+- [x] run pipeline for the last 4 weeks
 
 # frontend
 - [x] modify layout
 - [x] fix language tiles
-- [ ] about page: diagram of the pipeline
-- [ ] about page: cleanup
-- [ ] about page: connect email/slack subscription
-- [ ] footer: add contact info
-- [ ] week link
-- [ ] calendar Monday start
-- [ ] calendar: add week numbers
-- [ ] calendar: add links to weekly selection
-- [ ] overall trend update with two weeks
-- [ ] warning for false positives, disclaimer for false positives
-- [ ] total papers analysed, total papers flagged, languages deteceted, etc.
+- [x] about page: diagram of the pipeline
+- [x] about page: cleanup
+- [x] about page: connect email/slack subscription
+- [x] footer: add contact info
+- [x] week link
+- [x] calendar Monday start
+- [x] calendar: add week numbers
+- [x] calendar: add links to weekly selection
+- [x] overall trend update with two weeks
+- [x] warning for false positives, disclaimer for false positives
+- [x] total papers analysed, total papers flagged, languages deteceted, etc.
 # future work
 - [ ] iso codes?
-- [ ] AA?
+- [ ] AA (ACL Anthology)?
+- [ ] About-page email or Slack subscription link
+- [ ] Ethnography data use
+- [ ] Simple topic clustering with NLP
+
+## overall
+
+- [x] Test GitHub Actions
+- [x] Push to `main` and verify GitHub Pages
