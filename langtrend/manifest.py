@@ -54,6 +54,7 @@ def build_snapshot_manifest(
     category_query: str,
     week_start: str | None = None,
     week_end: str | None = None,
+    pdf_failed_no_detection: int = 0,
 ) -> dict[str, Any]:
     language_counts: Counter[str] = Counter()
     class_counts: Counter[int] = Counter()
@@ -88,6 +89,7 @@ def build_snapshot_manifest(
             "papers": len(papers),
             "flagged_papers": len(flagged_papers),
             "unique_languages": len(language_counts),
+            "pdf_failed_no_detection": pdf_failed_no_detection,
         },
         "language_counts": [
             {"language": language, "count": count}

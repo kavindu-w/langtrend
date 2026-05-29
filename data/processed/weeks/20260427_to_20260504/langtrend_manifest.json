@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-29T15:56:30.679951+00:00",
+  "generated_at": "2026-05-29T17:34:04.098320+00:00",
   "window_days": 7,
   "week_start": "2026-04-27",
   "week_end": "2026-05-04",
@@ -7,16 +7,17 @@
   "counts": {
     "papers": 475,
     "flagged_papers": 275,
-    "unique_languages": 200
+    "unique_languages": 201,
+    "pdf_failed_no_detection": 0
   },
   "language_counts": [
     {
       "language": "English",
-      "count": 160
+      "count": 163
     },
     {
       "language": "Chinese",
-      "count": 67
+      "count": 68
     },
     {
       "language": "German",
@@ -24,7 +25,7 @@
     },
     {
       "language": "French",
-      "count": 28
+      "count": 29
     },
     {
       "language": "Spanish",
@@ -32,7 +33,7 @@
     },
     {
       "language": "Arabic",
-      "count": 20
+      "count": 21
     },
     {
       "language": "Japanese",
@@ -43,15 +44,19 @@
       "count": 18
     },
     {
+      "language": "Hindi",
+      "count": 17
+    },
+    {
       "language": "Polish",
       "count": 17
     },
     {
-      "language": "Italian",
+      "language": "Latin",
       "count": 16
     },
     {
-      "language": "Hindi",
+      "language": "Italian",
       "count": 16
     },
     {
@@ -59,16 +64,12 @@
       "count": 16
     },
     {
-      "language": "Latin",
-      "count": 15
-    },
-    {
       "language": "Indonesian",
       "count": 14
     },
     {
       "language": "Russian",
-      "count": 11
+      "count": 12
     },
     {
       "language": "Dutch",
@@ -79,12 +80,12 @@
       "count": 10
     },
     {
-      "language": "Turkish",
+      "language": "Vietnamese",
       "count": 10
     },
     {
-      "language": "Vietnamese",
-      "count": 9
+      "language": "Turkish",
+      "count": 10
     },
     {
       "language": "Carrier",
@@ -444,6 +445,10 @@
     },
     {
       "language": "Saba",
+      "count": 1
+    },
+    {
+      "language": "Tucano",
       "count": 1
     },
     {
@@ -814,7 +819,7 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 185
+      "count": 186
     },
     {
       "class_id": 1,
@@ -826,15 +831,15 @@
     },
     {
       "class_id": 3,
-      "count": 94
+      "count": 96
     },
     {
       "class_id": 4,
-      "count": 168
+      "count": 170
     },
     {
       "class_id": 5,
-      "count": 352
+      "count": 358
     }
   ],
   "daily_series": [
@@ -10627,21 +10632,66 @@
           "language": "English",
           "class": 5,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
           ]
         }
       ],
       "sources_checked": [
-        "abstract"
+        "abstract",
+        "pdf"
       ],
       "sections_with_detections": [
-        "abstract"
+        "abstract",
+        "pdf_full_text"
       ],
       "sections": [
         {
           "name": "abstract",
           "source": "abstract",
           "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
             {
               "language": "English",
               "class": 5
@@ -14511,31 +14561,229 @@
       },
       "languages": [
         {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
           "language": "Chinese",
           "class": 5,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "pdf"
           ]
         }
       ],
       "sources_checked": [
-        "abstract"
+        "abstract",
+        "pdf"
       ],
       "sections_with_detections": [
-        "abstract"
+        "abstract",
+        "pdf_full_text"
       ],
       "sections": [
         {
           "name": "abstract",
           "source": "abstract",
           "detected_languages": [
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
             {
               "language": "English",
               "class": 5
@@ -17286,20 +17534,33 @@
           "language": "Indonesian",
           "class": 4,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
           ]
         }
       ],
       "sources_checked": [
-        "abstract"
+        "abstract",
+        "pdf"
       ],
       "sections_with_detections": [
-        "abstract"
+        "abstract",
+        "pdf_full_text"
       ],
       "sections": [
         {
           "name": "abstract",
           "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Indonesian",
+              "class": 4
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
           "detected_languages": [
             {
               "language": "Indonesian",
@@ -18749,15 +19010,62 @@
           "language": "English",
           "class": 5,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "Latin",
+          "class": 3,
+          "needs_review": true,
+          "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Hindi",
+          "class": 3,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Russian",
+          "class": 4,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Vietnamese",
+          "class": 4,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "French",
+          "class": 5,
+          "sources": [
+            "pdf"
           ]
         }
       ],
       "sources_checked": [
-        "abstract"
+        "abstract",
+        "pdf"
       ],
       "sections_with_detections": [
-        "abstract"
+        "abstract",
+        "pdf_full_text"
       ],
       "sections": [
         {
@@ -18767,6 +19075,132 @@
             {
               "language": "English",
               "class": 5
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Latin",
+              "class": 3,
+              "needs_review": true,
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+            },
+            {
+              "language": "Hindi",
+              "class": 3
+            },
+            {
+              "language": "Russian",
+              "class": 4
+            },
+            {
+              "language": "Vietnamese",
+              "class": 4
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Hindi",
+              "class": 3
+            },
+            {
+              "language": "Russian",
+              "class": 4
+            },
+            {
+              "language": "Vietnamese",
+              "class": 4
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Hindi",
+              "class": 3
+            },
+            {
+              "language": "Vietnamese",
+              "class": 4
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "Latin",
+              "class": 3,
+              "needs_review": true,
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
             }
           ]
         }
@@ -20445,7 +20879,8 @@
         }
       ],
       "sources_checked": [
-        "abstract"
+        "abstract",
+        "pdf"
       ],
       "sections_with_detections": [
         "abstract"
@@ -30248,21 +30683,68 @@
           "language": "Portuguese",
           "class": 4,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "Tucano",
+          "class": 0,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "pdf"
           ]
         }
       ],
       "sources_checked": [
-        "abstract"
+        "abstract",
+        "pdf"
       ],
       "sections_with_detections": [
-        "abstract"
+        "abstract",
+        "pdf_full_text"
       ],
       "sections": [
         {
           "name": "abstract",
           "source": "abstract",
           "detected_languages": [
+            {
+              "language": "Portuguese",
+              "class": 4
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "Portuguese",
+              "class": 4
+            },
+            {
+              "language": "Tucano",
+              "class": 0
+            },
+            {
+              "language": "Portuguese",
+              "class": 4
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Portuguese",
+              "class": 4
+            },
             {
               "language": "Portuguese",
               "class": 4
@@ -33808,21 +34290,69 @@
           "language": "Arabic",
           "class": 5,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "pdf"
           ]
         }
       ],
       "sources_checked": [
-        "abstract"
+        "abstract",
+        "pdf"
       ],
       "sections_with_detections": [
-        "abstract"
+        "abstract",
+        "pdf_full_text"
       ],
       "sections": [
         {
           "name": "abstract",
           "source": "abstract",
           "detected_languages": [
+            {
+              "language": "Arabic",
+              "class": 5
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
             {
               "language": "Arabic",
               "class": 5
@@ -44481,22 +45011,40 @@
           "language": "Hindi",
           "class": 3,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
           ]
         },
         {
           "language": "German",
           "class": 5,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Chinese",
+          "class": 5,
+          "sources": [
+            "pdf"
           ]
         }
       ],
       "sources_checked": [
-        "abstract"
+        "abstract",
+        "pdf"
       ],
       "sections_with_detections": [
-        "abstract"
+        "abstract",
+        "pdf_full_text"
       ],
       "sections": [
         {
@@ -44509,6 +45057,28 @@
             },
             {
               "language": "German",
+              "class": 5
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "Hindi",
+              "class": 3
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "German",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
               "class": 5
             }
           ]
@@ -44536,50 +45106,58 @@
           "language": "Romanian",
           "class": 4,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
           ]
         },
         {
           "language": "Italian",
           "class": 4,
           "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Spanish",
-          "class": 5,
-          "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
           ]
         },
         {
           "language": "French",
           "class": 5,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
           ]
         },
         {
           "language": "German",
           "class": 5,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "Spanish",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "pdf"
           ]
         }
       ],
       "sources_checked": [
-        "abstract"
+        "abstract",
+        "pdf"
       ],
       "sections_with_detections": [
-        "abstract"
+        "abstract",
+        "pdf_full_text"
       ],
       "sections": [
         {
@@ -44595,7 +45173,49 @@
               "class": 4
             },
             {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "German",
+              "class": 5
+            },
+            {
+              "language": "Spanish",
+              "class": 5
+            },
+            {
               "language": "English",
+              "class": 5
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "Romanian",
+              "class": 4
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Romanian",
+              "class": 4
+            },
+            {
+              "language": "Italian",
+              "class": 4
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "German",
               "class": 5
             },
             {
@@ -44607,8 +45227,12 @@
               "class": 5
             },
             {
-              "language": "German",
+              "language": "English",
               "class": 5
+            },
+            {
+              "language": "Romanian",
+              "class": 4
             }
           ]
         }
@@ -64997,21 +65621,38 @@
           "language": "Korean",
           "class": 4,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
           ]
         }
       ],
       "sources_checked": [
-        "abstract"
+        "abstract",
+        "pdf"
       ],
       "sections_with_detections": [
-        "abstract"
+        "abstract",
+        "pdf_full_text"
       ],
       "sections": [
         {
           "name": "abstract",
           "source": "abstract",
           "detected_languages": [
+            {
+              "language": "Korean",
+              "class": 4
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "Korean",
+              "class": 4
+            },
             {
               "language": "Korean",
               "class": 4
@@ -68574,21 +69215,66 @@
           "language": "Korean",
           "class": 4,
           "sources": [
-            "abstract"
+            "abstract",
+            "pdf"
           ]
         }
       ],
       "sources_checked": [
-        "abstract"
+        "abstract",
+        "pdf"
       ],
       "sections_with_detections": [
-        "abstract"
+        "abstract",
+        "pdf_full_text"
       ],
       "sections": [
         {
           "name": "abstract",
           "source": "abstract",
           "detected_languages": [
+            {
+              "language": "Korean",
+              "class": 4
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "Korean",
+              "class": 4
+            },
+            {
+              "language": "Korean",
+              "class": 4
+            },
+            {
+              "language": "Korean",
+              "class": 4
+            },
+            {
+              "language": "Korean",
+              "class": 4
+            },
+            {
+              "language": "Korean",
+              "class": 4
+            },
+            {
+              "language": "Korean",
+              "class": 4
+            },
+            {
+              "language": "Korean",
+              "class": 4
+            },
+            {
+              "language": "Korean",
+              "class": 4
+            },
             {
               "language": "Korean",
               "class": 4

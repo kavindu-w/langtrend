@@ -833,23 +833,35 @@ def main() -> None:
         no_det_path   = output_dir / f"{stem}_no_detections.json"
 
         if args.retry_missing:
-            detected_ids: set[str] = set()
+            cached_html_ids = {p.stem for p in html_cache_dir.glob("*.json")}
+            cached_pdf_ids  = {p.stem for p in pdf_cache_dir.glob("*.json")}
+
+            # Build a map of paper_id → sources_checked for already-detected papers.
+            # This lets us catch the crash-leftover case: a PDF cache was written by a
+            # worker thread but the process died before flushing the record to the JSONL,
+            # leaving the entry in a stale abstract-only state.
+            detected_sources: dict[str, list[str]] = {}
             if detected_path.exists():
                 for line in detected_path.read_text(encoding="utf-8").splitlines():
                     if line.strip():
-                        detected_ids.add(json.loads(line).get("paper_id", ""))
-            cached_html_ids = {p.stem for p in html_cache_dir.glob("*.json")}
-            cached_pdf_ids  = {p.stem for p in pdf_cache_dir.glob("*.json")}
-            # Include papers not yet detected, plus papers that were only abstract-scanned
-            # (no html and no pdf cache — PDF was never successfully downloaded/extracted).
-            subset = [
-                p for p in papers
-                if p["id"] not in detected_ids
-                or (
-                    p["id"].split("/")[-1] not in cached_html_ids
-                    and p["id"].split("/")[-1] not in cached_pdf_ids
-                )
-            ]
+                        rec = json.loads(line)
+                        detected_sources[rec.get("paper_id", "")] = rec.get("sources_checked", [])
+
+            def _needs_retry(p: dict) -> bool:
+                pid = p["id"]
+                safe_id = pid.split("/")[-1]
+                if pid not in detected_sources:
+                    return True  # never detected
+                sources = detected_sources.get(pid, [])
+                # PDF cache exists but detection entry never recorded pdf/html — crashed mid-run
+                if safe_id in cached_pdf_ids and "pdf" not in sources and "html" not in sources:
+                    return True
+                # No cache at all — PDF was never attempted
+                if safe_id not in cached_html_ids and safe_id not in cached_pdf_ids:
+                    return True
+                return False
+
+            subset = [p for p in papers if _needs_retry(p)]
             label = f"--retry-missing: {len(subset)} paper(s) not yet detected or missing html/pdf cache"
 
         if not subset:
@@ -880,18 +892,38 @@ def main() -> None:
             no_pdf=args.no_pdf,
         )
 
-        # Merge detections
-        existing_ids: set[str] = set()
+        # Merge detections — append new records; replace stale abstract-only records that
+        # now have better coverage (e.g. PDF cache was written in a crashed prior run).
+        existing_lines: list[str] = []
+        existing_by_id: dict[str, int] = {}  # paper_id → line index
         if detected_path.exists():
-            for line in detected_path.read_text(encoding="utf-8").splitlines():
+            for i, line in enumerate(detected_path.read_text(encoding="utf-8").splitlines()):
                 if line.strip():
-                    existing_ids.add(json.loads(line).get("paper_id", ""))
-        new_lines = [l for l in tmp_detected.read_text(encoding="utf-8").splitlines()
-                     if l.strip() and json.loads(l).get("paper_id", "") not in existing_ids]
-        with detected_path.open("a", encoding="utf-8") as fp:
-            for line in new_lines:
+                    existing_lines.append(line)
+                    existing_by_id[json.loads(line).get("paper_id", "")] = i
+
+        appended = replaced = 0
+        for line in tmp_detected.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            rec = json.loads(line)
+            pid = rec.get("paper_id", "")
+            new_sources = rec.get("sources_checked", [])
+            if pid not in existing_by_id:
+                existing_lines.append(line)
+                existing_by_id[pid] = len(existing_lines) - 1
+                appended += 1
+            else:
+                # Replace only if the new record has better coverage (html or pdf vs abstract-only)
+                old_sources = detected_sources.get(pid, [])
+                if ("html" in new_sources or "pdf" in new_sources) and "html" not in old_sources and "pdf" not in old_sources:
+                    existing_lines[existing_by_id[pid]] = line
+                    replaced += 1
+
+        with detected_path.open("w", encoding="utf-8") as fp:
+            for line in existing_lines:
                 fp.write(line + "\n")
-        print(f"Merged {len(new_lines)} new detection record(s) into {detected_path}")
+        print(f"Merged {appended} new + {replaced} upgraded detection record(s) into {detected_path}")
 
         # Merge warnings
         new_warnings = json.loads(tmp_warnings.read_text(encoding="utf-8")) if tmp_warnings.stat().st_size > 2 else []

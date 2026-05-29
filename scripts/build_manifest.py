@@ -325,30 +325,19 @@ def build_and_save(
             html_cache_dir, pdf_cache_dir,
         )
 
-    # Include pdf_unavailable no-detection papers so the frontend counts them
-    # in coverageStats.abstractOnly (they were scanned but PDF download failed).
+    # Count papers where PDF download failed and nothing was detected — stored as a
+    # separate manifest stat, not added to flagged_papers (which means "language detected").
+    pdf_failed_no_detection_count = 0
     no_detections_path = output_dir / input_path.name.replace(".jsonl", "_no_detections.json")
     if no_detections_path.exists():
         with open(no_detections_path, encoding="utf-8") as f:
             no_detection_records = json.load(f)
-        papers_by_id = {str(p.get("id", "")): p for p in papers}
-        pdf_unavailable_papers = []
-        for r in no_detection_records:
-            if "pdf_unavailable" not in r.get("sources_checked", []):
-                continue
-            paper_obj = papers_by_id.get(r.get("paper_id", ""))
-            if paper_obj is None:
-                continue
-            pdf_unavailable_papers.append({
-                "paper": paper_obj,
-                "languages": [],
-                "sources_checked": r.get("sources_checked", []),
-                "sections_with_detections": [],
-                "sections": [],
-            })
-        if pdf_unavailable_papers:
-            print(f"  pdf_unavailable (no detection): {len(pdf_unavailable_papers)} paper(s) added")
-            flagged_papers.extend(pdf_unavailable_papers)
+        pdf_failed_no_detection_count = sum(
+            1 for r in no_detection_records
+            if "pdf_unavailable" in r.get("sources_checked", [])
+        )
+        if pdf_failed_no_detection_count:
+            print(f"  pdf_unavailable (no detection): {pdf_failed_no_detection_count} paper(s)")
 
     # Parse week dates from filename (e.g. arxiv_papers_20260518_to_20260525.jsonl)
     week_start = week_end = None
@@ -365,6 +354,7 @@ def build_and_save(
         category_query=query,
         week_start=week_start,
         week_end=week_end,
+        pdf_failed_no_detection=pdf_failed_no_detection_count,
     )
 
     # Week-specific manifest lives inside the week folder

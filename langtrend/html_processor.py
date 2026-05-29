@@ -299,6 +299,8 @@ def recheck_languages_from_html(
         try:
             with json_path.open("r", encoding="utf-8") as fh:
                 cached = json.load(fh)
+            if cached.get("_unavailable"):
+                return {}, False, []  # HTML was tried before and not available — skip
             is_complete = cached.get("_complete", True)  # older caches pre-date this field → assume complete
             conflicts = cached.get("_acronym_conflicts", [])
             sections_data = {k: v for k, v in cached.items() if not k.startswith("_")}
@@ -315,6 +317,13 @@ def recheck_languages_from_html(
     else:
         html, _html_url, is_complete = fetch_arxiv_html(str(paper_id))
         if not html:
+            # Write a sentinel so retry-missing knows HTML was tried and unavailable,
+            # preventing a redundant re-fetch on every future retry run.
+            try:
+                with json_path.open("w", encoding="utf-8") as fh:
+                    json.dump({"_complete": False, "_unavailable": True}, fh)
+            except Exception:
+                pass
             return {}, False, []
         try:
             html_path.write_text(html, encoding="utf-8")
