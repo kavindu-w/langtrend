@@ -108,6 +108,10 @@ _ACRO_PARENS_RE = re.compile(r"\(([A-Z]{2,8})\)")
 _HYPHENATED_ACRONYM_DEF_RE = re.compile(
     r"[A-Z][a-zA-Z0-9]*(?:-[A-Z][a-zA-Z0-9]*){1,7}\s*\([A-Z]{2,8}\)"
 )
+# Same but all-lowercase: "leave-one-language-out (LOLO)"
+_LOWER_HYPHENATED_ACRONYM_DEF_RE = re.compile(
+    r"[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*){1,7}\s*\([A-Z]{2,8}\)"
+)
 
 # PDF body trimming — start marker
 # We use \b rather than $ because pdfplumber often merges the heading and the first
@@ -320,6 +324,13 @@ def extract_paper_acronyms(text: str) -> set[str]:
     acronyms |= {
         m2.group(1)
         for m in _HYPHENATED_ACRONYM_DEF_RE.finditer(normalized)
+        for m2 in [_ACRO_PARENS_RE.search(m.group(0))]
+        if m2
+    }
+    # Lowercase-hyphenated definitions: "leave-one-language-out (LOLO)".
+    acronyms |= {
+        m2.group(1)
+        for m in _LOWER_HYPHENATED_ACRONYM_DEF_RE.finditer(normalized)
         for m2 in [_ACRO_PARENS_RE.search(m.group(0))]
         if m2
     }
