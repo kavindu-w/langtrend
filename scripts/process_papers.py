@@ -373,6 +373,7 @@ def _reprocess_single_paper(
     html_cache_path = html_cache_dir / f"{safe_id}.json"
     is_html_complete = False
     html_detections: dict[str, list[str]] = {}
+    html_sections_with_text = 0
 
     if html_cache_path.exists():
         try:
@@ -409,6 +410,7 @@ def _reprocess_single_paper(
                 if not text:
                     updated_cache[section_title] = section_data
                     continue
+                html_sections_with_text += 1
                 cleaned_blocks, _ = clean_paper_text_for_language_screening(text, _label=paper_id, paper_acronyms=paper_acronyms)
                 cleaned_text = "\n\n".join(cleaned_blocks)
                 detected: list[str] = []
@@ -437,10 +439,13 @@ def _reprocess_single_paper(
             tqdm.write(f"  [{paper_id}] HTML cache reprocess error: {type(exc).__name__}: {exc}")
             record["warnings"].append({"step": "html_reprocess", "error": str(exc)})
             is_html_complete = False
+            html_sections_with_text = 0
 
-    # 3. PDF cache — same fallback condition as _process_single_paper
-    html_unavailable = not html_cache_path.exists() or not is_html_complete or len(html_detections) == 0
-    if html_unavailable:
+    # 3. PDF cache — fall back only when HTML is genuinely missing, incomplete, or empty.
+    # A complete HTML with no non-English detections is not "unavailable" — it means
+    # the paper is English-only and PDF fallback would add no signal.
+    html_missing_or_empty = not html_cache_path.exists() or not is_html_complete or html_sections_with_text == 0
+    if html_missing_or_empty:
         pdf_cache_path = pdf_cache_dir / f"{safe_id}.json"
         if pdf_cache_path.exists():
             try:
@@ -470,8 +475,10 @@ def _reprocess_single_paper(
             except Exception as exc:
                 tqdm.write(f"  [{paper_id}] PDF cache reprocess error: {type(exc).__name__}: {exc}")
                 record["warnings"].append({"step": "pdf_reprocess", "error": str(exc)})
-        else:
+        elif not html_cache_path.exists():
             record["warnings"].append({"step": "reprocess", "error": "No HTML or PDF cache found — skipped"})
+        elif not is_html_complete:
+            record["warnings"].append({"step": "reprocess", "error": "HTML cache incomplete, no PDF cache available — skipped"})
 
     tqdm.write(f"  [{paper_id}] reprocessed in {_time.monotonic()-t_paper:.1f}s")
     return record
@@ -859,6 +866,15 @@ def main() -> None:
                 # No cache at all — PDF was never attempted
                 if safe_id not in cached_html_ids and safe_id not in cached_pdf_ids:
                     return True
+                # HTML cache exists but is incomplete (_complete=False) and detection is
+                # abstract-only — the HTML fetch failed so a raw PDF may provide better coverage.
+                if safe_id in cached_html_ids and "html" not in sources:
+                    try:
+                        cached = json.loads((html_cache_dir / f"{safe_id}.json").read_text(encoding="utf-8"))
+                        if not cached.get("_complete", True):
+                            return True
+                    except Exception:
+                        pass
                 return False
 
             subset = [p for p in papers if _needs_retry(p)]
@@ -936,8 +952,22 @@ def main() -> None:
         # Merge no-detections
         new_no_det = json.loads(tmp_no_det.read_text(encoding="utf-8")) if tmp_no_det.stat().st_size > 2 else []
         existing_no_det = json.loads(no_det_path.read_text(encoding="utf-8")) if no_det_path.exists() else []
+        # Build index of new no-det records so we can upgrade stale ones (e.g. abstract-only → abstract+pdf)
+        new_nd_by_id = {r.get("paper_id"): r for r in new_no_det}
+        # Papers now in detected must be removed from no-detections
+        now_detected_ids = {json.loads(line).get("paper_id") for line in existing_lines if line.strip()}
+        merged_no_det = []
+        for r in existing_no_det:
+            pid = r.get("paper_id")
+            if pid in now_detected_ids:
+                continue  # promoted to detected — drop from no-detections
+            if pid in new_nd_by_id:
+                merged_no_det.append(new_nd_by_id[pid])  # upgrade (e.g. sources_checked updated)
+            else:
+                merged_no_det.append(r)
+        # Append genuinely new no-det records not seen before
         existing_nd_ids = {r.get("paper_id") for r in existing_no_det}
-        merged_no_det = existing_no_det + [r for r in new_no_det if r.get("paper_id") not in existing_nd_ids]
+        merged_no_det += [r for r in new_no_det if r.get("paper_id") not in existing_nd_ids and r.get("paper_id") not in now_detected_ids]
         with no_det_path.open("w", encoding="utf-8") as fp:
             json.dump(merged_no_det, fp, ensure_ascii=False, indent=2)
         print(f"No-detections file updated: {len(merged_no_det)} total record(s) → {no_det_path}")
