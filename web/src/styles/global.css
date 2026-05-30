@@ -719,6 +719,8 @@ a { color: inherit; text-decoration: none; }
 .lang-chip.class-5 { border-color: #12719e; }
 .lang-chip.needs-review { border-style: dashed; }
 .review-star { margin-left: 3px; font-size: 0.7em; vertical-align: super; opacity: 0.75; }
+.lang-chip.suppressed { border-style: dashed; opacity: 0.45; }
+.suppressed-mark { margin-left: 3px; font-size: 0.75em; vertical-align: super; opacity: 0.9; }
 .acronym-conflict-notice { display: flex; align-items: flex-start; gap: 8px; margin: 10px 0 6px; padding: 8px 12px; border-radius: 7px; background: rgba(244,192,54,0.12); border: 1px solid rgba(244,192,54,0.45); color: #7a5c00; font-size: 0.82em; line-height: 1.45; }
 .acronym-conflict-notice svg { flex-shrink: 0; margin-top: 2px; color: #c8900a; }
 .acronym-conflict-notice code { font-family: monospace; background: rgba(0,0,0,0.07); padding: 1px 4px; border-radius: 3px; }
@@ -886,8 +888,9 @@ a { color: inherit; text-decoration: none; }
   gap: 14px;
   align-items: start;
   padding: 16px;
-  /* Right padding reserves space for the absolutely-positioned PDF button */
-  padding-right: 90px;
+  /* Right padding reserves space for the absolutely-positioned PDF button. Increased
+     to accomodate wider buttons and long unbroken words that previously overlapped. */
+  padding-right: 120px;
   cursor: pointer;
   list-style: none;
 }
@@ -899,7 +902,16 @@ a { color: inherit; text-decoration: none; }
 .paper-abstract-label { display: block; font-weight: 800; margin-bottom: 6px; color: var(--text); font-size: 0.96rem; }
 .paper-body .paper-abstract { margin: 0; line-height: 1.55; }
 .paper-main { display: grid; gap: 10px; }
-.paper-title-row h3 { margin: 0; }
+.paper-title-row { display: flex; gap: 10px; align-items: center; }
+.paper-title-row h3 {
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  /* Ensure very long words and non-breaking tokens wrap instead of overflowing
+     beneath the PDF button. */
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
 .paper-authors, .paper-abstract, .page-intro p { color: var(--muted); }
 .paper-authors {
   margin: 0;
@@ -1129,6 +1141,7 @@ a { color: inherit; text-decoration: none; }
 }
 .review-popover-body strong { display: block; margin-bottom: 4px; font-size: 0.83rem; color: var(--accent-2); }
 .review-popover-body p { margin: 0; color: var(--muted); }
+.review-popover-body code { font-family: monospace; background: rgba(0,0,0,0.1); padding: 1px 4px; border-radius: 3px; }
 .chart-warn-label { cursor: help; }
 .warn-star-svg { fill: var(--accent-2); font-weight: 700; }
 .chart-pfp-tooltip { position: absolute; z-index: 40; width: 320px; max-width: 320px; bottom: auto !important; pointer-events: none; transition: opacity 160ms ease, visibility 0s linear 160ms; }
@@ -1239,4 +1252,20 @@ a { color: inherit; text-decoration: none; }
   /* Stack label / languages / section-breakdown vertically so the fixed 140px
      label column never squeezes the html-sections-list into invisibility */
   .lang-source-row { grid-template-columns: 1fr; }
+  /* Make PDF link flow below the summary on small screens so long titles
+     never get visually overlapped by the absolute button. Also allow the
+     title to wrap and shrink as needed. */
+  .paper-row-wrap > .pdf-link {
+    position: static;
+    top: auto;
+    right: auto;
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  .paper-summary { padding-right: 16px; }
+  .paper-title-row { display: flex; gap: 10px; align-items: center; }
+  .paper-title-row h3 { flex: 1 1 auto; min-width: 0; word-break: break-word; overflow-wrap: anywhere; }
 }

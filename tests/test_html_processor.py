@@ -5,12 +5,14 @@ Run with:  pytest tests/test_html_processor.py -v
 """
 
 import pytest
+from unittest.mock import patch
 from bs4 import BeautifulSoup
 
 from langtrend.html_processor import (
     clean_html_soup,
     extract_sections_from_soup,
     extract_sections_from_html,
+    recheck_languages_from_html,
 )
 
 
@@ -196,3 +198,152 @@ class TestCleanHtmlSoup:
         text = soup.get_text()
         assert "Inupiaq" in text
         assert "ik" not in text
+
+    # --- numbered heading removal (arXiv section numbers) ---
+
+    def test_removes_numbered_related_work_section(self):
+        # arXiv headings render as "6 Related Work" — must still be removed.
+        html = (
+            '<section><h2>Introduction</h2><p>Intro text.</p></section>'
+            '<section><h2>6 Related Work</h2><p>GAN-based methods.</p></section>'
+        )
+        soup = clean_html_soup(html, remove_headings=["Related Work"])
+        text = soup.get_text()
+        assert "Intro text" in text
+        assert "GAN-based methods" not in text
+
+    def test_removes_dotted_numbered_related_work_section(self):
+        # Handles "6. Related Work" (dot after number) as well.
+        html = (
+            '<section><h2>Methods</h2><p>Method text.</p></section>'
+            '<section><h2>6. Related Work</h2><p>Prior work text.</p></section>'
+        )
+        soup = clean_html_soup(html, remove_headings=["Related Work"])
+        text = soup.get_text()
+        assert "Method text" in text
+        assert "Prior work text" not in text
+
+    def test_removes_nested_subsections_within_numbered_related_work(self):
+        # When subsections are nested inside the Related Work <section>, they must
+        # also be removed — the whole tree goes with sec.decompose().
+        html = (
+            '<section><h2>Introduction</h2><p>Intro.</p></section>'
+            '<section>'
+            '  <h2>6 Related Work</h2>'
+            '  <section>'
+            '    <h3>6.1 Sign-to-text and text-to-sign translation</h3>'
+            '    <p>GAN-based pose synthesis.</p>'
+            '  </section>'
+            '  <section>'
+            '    <h3>6.2 Multilingual sign processing</h3>'
+            '    <p>Multilingual methods.</p>'
+            '  </section>'
+            '</section>'
+        )
+        soup = clean_html_soup(html, remove_headings=["Related Work"])
+        text = soup.get_text()
+        assert "Intro" in text
+        assert "GAN-based pose synthesis" not in text
+        assert "Multilingual methods" not in text
+        assert "Sign-to-text" not in text
+
+    def test_flat_numbered_related_work_stops_at_next_top_heading(self):
+        # Flat HTML (no <section> tags): heading-based removal walks siblings until
+        # it hits any h-tag, so content between "Related Work" and the next heading
+        # is removed, and content after the next heading is preserved.
+        html = (
+            '<html><body>'
+            '<h2>Introduction</h2><p>Intro text.</p>'
+            '<h2>6 Related Work</h2><p>Related work prose.</p>'
+            '<h2>Conclusion</h2><p>Conclusion text.</p>'
+            '</body></html>'
+        )
+        soup = clean_html_soup(html, remove_headings=["Related Work"])
+        text = soup.get_text()
+        assert "Intro text" in text
+        assert "Related work prose" not in text
+        assert "Conclusion text" in text
+
+    # --- ltx_bibliography split structure ---
+
+    def test_removes_ltx_bibliography_section_without_heading(self):
+        # arXiv renders some papers with the References heading in one <section>
+        # and the actual bibliography entries in a separate sibling
+        # <section class="ltx_bibliography"> with no heading.  Both must be removed.
+        html = (
+            '<section><h2>Introduction</h2><p>Intro text.</p></section>'
+            '<section><h2>References</h2><p>See bibliography below.</p></section>'
+            '<section class="ltx_bibliography">'
+            '<p>Smith et al. 2023. Some paper. arXiv:2301.00001.</p>'
+            '<p>Jones et al. 2024. Another paper. EMNLP 2024.</p>'
+            '</section>'
+        )
+        soup = clean_html_soup(html)
+        text = soup.get_text()
+        assert "Intro text" in text
+        assert "Smith et al" not in text
+        assert "Jones et al" not in text
+
+    def test_ltx_bibliography_with_heading_inside_also_removed(self):
+        # When ltx_bibliography contains the heading itself (the other arXiv variant),
+        # the existing heading-based removal handles it — verify it still works.
+        html = (
+            '<section><h2>Introduction</h2><p>Intro text.</p></section>'
+            '<section class="ltx_bibliography">'
+            '<h2>References</h2>'
+            '<p>Smith et al. 2023. Some paper.</p>'
+            '</section>'
+        )
+        soup = clean_html_soup(html)
+        text = soup.get_text()
+        assert "Intro text" in text
+        assert "Smith et al" not in text
+
+
+# ---------------------------------------------------------------------------
+# recheck_languages_from_html — raw HTML caching
+# ---------------------------------------------------------------------------
+
+_MINIMAL_HTML = (
+    '<section><h2>Introduction</h2><p>We use Python.</p></section>'
+)
+
+
+class TestRawHtmlCaching:
+    def test_saves_raw_html_on_first_fetch(self, tmp_path):
+        with patch("langtrend.html_processor.fetch_arxiv_html", return_value=(_MINIMAL_HTML, "url", True)) as mock_fetch:
+            recheck_languages_from_html(
+                {"id": "2000.00001"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        assert (tmp_path / "2000.00001.html").exists()
+        assert (tmp_path / "2000.00001.html").read_text() == _MINIMAL_HTML
+        mock_fetch.assert_called_once()
+
+    def test_uses_cached_html_without_fetching(self, tmp_path):
+        (tmp_path / "2000.00002.html").write_text(_MINIMAL_HTML, encoding="utf-8")
+        with patch("langtrend.html_processor.fetch_arxiv_html") as mock_fetch:
+            recheck_languages_from_html(
+                {"id": "2000.00002"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        mock_fetch.assert_not_called()
+
+    def test_json_cache_still_short_circuits_before_html(self, tmp_path):
+        # If the JSON result cache exists, neither the HTML file nor fetch is touched.
+        import json
+        json_path = tmp_path / "2000.00003.json"
+        json_path.write_text(json.dumps({"_complete": True}), encoding="utf-8")
+        with patch("langtrend.html_processor.fetch_arxiv_html") as mock_fetch:
+            recheck_languages_from_html(
+                {"id": "2000.00003"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        mock_fetch.assert_not_called()
+        assert not (tmp_path / "2000.00003.html").exists()

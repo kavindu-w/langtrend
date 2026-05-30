@@ -73,10 +73,26 @@ _COL_ASSIGNMENT_RE = re.compile(r"\bcol(?:[@$\\])?\s*=\s*[^\n]+", re.IGNORECASE)
 _COL_SLICE_RE = re.compile(r"\bcol(?:[@$\\])?\s*\[[^\]]+\]", re.IGNORECASE)
 _COL_MATH_MARKER_RE = re.compile(r"\bcol[@$\\]+", re.IGNORECASE)
 _MULTI_SPACE_RE = re.compile(r"\s+")
+# Author affiliation metadata — strip the "email: addr" token from lines.
+# We strip only the keyword + address, NOT the whole line, so that a language
+# name on the same line (e.g. "Vai corpus; email: vai@example.org") is not
+# silently lost.  Institution names that share a language name (e.g. "Duke")
+# are handled via possible_false_positive_languages so they are flagged rather
+# than silently dropped.
+_AFFILIATION_EMAIL_LINE_RE = re.compile(
+    r"\bemail\s*:\s*\S+@\S+",
+    re.IGNORECASE,
+)
+# Bare email addresses in body text (e.g. parenthetical contact info).
+# Removed after affiliation lines so any domain fragment (duke.edu → "duke")
+# does not survive into language detection.
+_EMAIL_ADDRESS_RE = re.compile(r"\S+@\S+\.\S+")
 # Words that indicate a token is being used as a language name rather than an acronym.
 # Used to prevent stripping e.g. "GAN" when the text says "speakers in GAN" or "fluent in GAN".
+# The negative lookbehind (?<![-...]) excludes words that are embedded inside a hyphenated
+# compound (e.g. "Language" in "Leave-One-Language-Out") — those are not linguistic context.
 _LANG_CONTEXT_RE = re.compile(
-    r"(?i)\b(?:language|speakers?|dialect|corpus|script|words?|text|spoken|fluent|native)\b"
+    r"(?i)(?<![-‐‑‒–—−])\b(?:language|speakers?|dialect|corpus|script|words?|text|spoken|fluent|native)\b"
 )
 # "a", "the", etc. are ambiguous: they match BOTH the main word slot AND the inner small-word slot,
 # causing exponential backtracking when followed by a non-acronym "(" (e.g. typical NLP abstracts).
@@ -87,6 +103,15 @@ _ACRONYM_DEFINITION_RE = re.compile(
 )
 # Helper to extract the acronym string from a definition match
 _ACRO_PARENS_RE = re.compile(r"\(([A-Z]{2,8})\)")
+# Hyphenated-phrase acronym definitions: "Leave-One-Language-Out (LOLO)", "State-Of-The-Art (SOTA)".
+# _ACRONYM_DEFINITION_RE only handles space-separated words; this covers the hyphenated case.
+_HYPHENATED_ACRONYM_DEF_RE = re.compile(
+    r"[A-Z][a-zA-Z0-9]*(?:-[A-Z][a-zA-Z0-9]*){1,7}\s*\([A-Z]{2,8}\)"
+)
+# Same but all-lowercase: "leave-one-language-out (LOLO)"
+_LOWER_HYPHENATED_ACRONYM_DEF_RE = re.compile(
+    r"[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*){1,7}\s*\([A-Z]{2,8}\)"
+)
 
 # PDF body trimming — start marker
 # We use \b rather than $ because pdfplumber often merges the heading and the first
@@ -290,12 +315,26 @@ def extract_paper_acronyms(text: str) -> set[str]:
     if not text:
         return set()
     normalized = _normalize_text_for_screening(text)
-    return {
+    acronyms: set[str] = {
         m2.group(1)
         for m in _ACRONYM_DEFINITION_RE.finditer(normalized)
         for m2 in [_ACRO_PARENS_RE.search(m.group(0))]
         if m2
     }
+    acronyms |= {
+        m2.group(1)
+        for m in _HYPHENATED_ACRONYM_DEF_RE.finditer(normalized)
+        for m2 in [_ACRO_PARENS_RE.search(m.group(0))]
+        if m2
+    }
+    # Lowercase-hyphenated definitions: "leave-one-language-out (LOLO)".
+    acronyms |= {
+        m2.group(1)
+        for m in _LOWER_HYPHENATED_ACRONYM_DEF_RE.finditer(normalized)
+        for m2 in [_ACRO_PARENS_RE.search(m.group(0))]
+        if m2
+    }
+    return acronyms
 
 
 def clean_paper_text_for_language_screening(
@@ -334,6 +373,12 @@ def clean_paper_text_for_language_screening(
         for m2 in [_ACRO_PARENS_RE.search(m.group(0))]
         if m2
     }
+    all_defined_acronyms |= {
+        m2.group(1)
+        for m in _HYPHENATED_ACRONYM_DEF_RE.finditer(normalized)
+        for m2 in [_ACRO_PARENS_RE.search(m.group(0))]
+        if m2
+    }
     if paper_acronyms:
         all_defined_acronyms |= paper_acronyms
     _warn_slow("acronym_scan", _t)
@@ -345,6 +390,18 @@ def clean_paper_text_for_language_screening(
 
         step_matches = {}
         _tb = _time.monotonic()
+
+        # Author affiliation metadata cleanup — must run before character replacement
+        # so "Duke University; email: xxx@duke.edu" is gone before "Duke" is scanned.
+        matches = _AFFILIATION_EMAIL_LINE_RE.findall(block)
+        if matches:
+            step_matches["affiliation_email_lines"] = matches
+        block = _AFFILIATION_EMAIL_LINE_RE.sub(" ", block)
+
+        matches = _EMAIL_ADDRESS_RE.findall(block)
+        if matches:
+            step_matches["email_addresses"] = matches
+        block = _EMAIL_ADDRESS_RE.sub(" ", block)
 
         # Code/pseudocode cleanup
         matches = _DEF_FUNCTION_BLOCK_RE.findall(block)
@@ -441,12 +498,20 @@ def clean_paper_text_for_language_screening(
             step_matches["math_func_notation"] = matches
         block = _MATH_FUNC_NOTATION_RE.sub(" ", block)
 
-        # Remove acronym introductions (e.g. "Mean Absolute Error (MAE)" → "Mean Absolute Error")
-        # then strip all standalone uses of any acronym defined anywhere in the text.
+        # Remove acronym introductions then strip all standalone uses.
+        # Space-separated:  "Mean Absolute Error (MAE)" → "Mean Absolute Error"
+        # Hyphenated:       "Leave-One-Language-Out (LOLO)" → "Leave-One-Language-Out"
+        # Stripping the (ACRONYM) parenthetical here prevents _LANG_CONTEXT_RE from
+        # falsely firing on words inside the definition (e.g. "Language" in "Leave-One-
+        # Language-Out") and blocking the later per-acronym strip pass.
         if all_defined_acronyms:
             step_matches["acronym_catch"] = list(all_defined_acronyms)
         _tb = _time.monotonic()
         block = _ACRONYM_DEFINITION_RE.sub(
+            lambda m: re.sub(r"\s*\([A-Z]{2,8}\)", " ", m.group(0)),
+            block,
+        )
+        block = _HYPHENATED_ACRONYM_DEF_RE.sub(
             lambda m: re.sub(r"\s*\([A-Z]{2,8}\)", " ", m.group(0)),
             block,
         )
@@ -541,7 +606,11 @@ def trim_pdf_text_to_body(
         start = intro_match.start()
 
     end = len(text)
-    end_match = end_re.search(text, start)
+    # Search for end-matter from whichever is later: the Introduction start or
+    # the document midpoint. This prevents cutting at front-matter Acknowledgements
+    # in thesis PDFs (or any paper without a detectable Introduction heading).
+    end_search_from = max(start, len(text) // 2)
+    end_match = end_re.search(text, end_search_from)
     if end_match:
         end = end_match.start()
 

@@ -48,14 +48,30 @@ def _get_docling_converter():
 
 
 _DOCLING_CONVERTER: Optional[object] = None  # module-level singleton
-_DOCLING_LOCK: object = None  # threading.Lock, initialised lazily to avoid import at module load
+import threading as _threading
+_DOCLING_LOCK = _threading.Lock()
+
+
+def init_docling() -> None:
+    """Pre-initialize the docling converter in the calling (main) thread.
+
+    Docling/PyTorch creates multiprocessing semaphores on first use.  If that
+    first use happens inside a ThreadPoolExecutor worker the semaphores are
+    owned by a non-main thread, which causes SIGSEGV on macOS with Python 3.13.
+    Call this once from the main thread before spawning any workers.
+    """
+    global _DOCLING_CONVERTER
+    with _DOCLING_LOCK:
+        if _DOCLING_CONVERTER is None:
+            print("    [docling] pre-initializing models in main thread…", flush=True)
+            _DOCLING_CONVERTER = _get_docling_converter()
 
 
 # Markdown heading prefix (docling output) → strip for plain text
 _MD_HEADING_RE = re.compile(r"^#{1,6}\s+", re.MULTILINE)
 # References / bibliography heading in docling markdown output
 _MD_REFS_RE = re.compile(
-    r"^#{1,6}\s+(?:References|Bibliography|Related [Ww]ork|Acknowledgements?|Acknowledgments?|Funding|Ethics(?: Statement)?)\s*$",
+    r"^#{1,6}\s+(?:References|Bibliography|Related [Ww]ork|Related Works|Bibliographical References|Acknowledgement?|Acknowledgements?|Acknowledgments?|Acknowledgment?|Funding|Ethics(?: Statement)?)\s*$",
     re.MULTILINE,
 )
 
@@ -110,11 +126,7 @@ class PDFProcessor:
 
         Falls back to pdfplumber if docling fails.
         """
-        import threading
-        global _DOCLING_CONVERTER, _DOCLING_LOCK
-        if _DOCLING_LOCK is None:
-            _DOCLING_LOCK = threading.Lock()
-
+        global _DOCLING_CONVERTER
         with _DOCLING_LOCK:
             if _DOCLING_CONVERTER is None:
                 print(f"    [docling] loading models (first call)…", flush=True)
@@ -127,7 +139,11 @@ class PDFProcessor:
             md = result.document.export_to_markdown()
 
             # Cut at the first end-matter heading (References, Acknowledgements …)
-            m = _MD_REFS_RE.search(md)
+            # that appears in the second half of the document. Thesis PDFs have an
+            # Acknowledgements section in the front matter (before the Introduction);
+            # cutting at the first match would discard the entire body.
+            midpoint = len(md) // 2
+            m = _MD_REFS_RE.search(md, midpoint)
             body_md = md[: m.start()] if m else md
 
             # Strip markdown heading markers to get plain text

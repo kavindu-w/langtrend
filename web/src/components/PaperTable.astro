@@ -115,6 +115,7 @@ const SOURCE_ORDER = ['abstract', 'html', 'pdf'];
 type SourceGroup = { src: string; label: string; langs: string[] };
 type ChipEntry = { language: string; borderClass: number; needsReview: boolean; flagReason: string; fillColor: string };
 type SectionItem = { name: string; label: string; source: string; sourceLabel: string; chips: ChipEntry[] };
+type SuppressedChip = { language: string; borderClass: number; acronyms: string[] };
 type PaperItem = {
   index: number;
   paper: PaperRecord;
@@ -132,6 +133,7 @@ type PaperItem = {
   showUpdated: boolean;
   arxivUrl: string;
   acronymConflicts: PaperWarning[];
+  suppressedChips: SuppressedChip[];
 };
 
 const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
@@ -203,7 +205,25 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
 
   const acronymConflicts = (item.warnings ?? []).filter(w => w.step === 'acronym_language_conflict');
 
-  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts };
+  // Languages that were fully suppressed (not in any detected chip). Group by language so
+  // multiple acronyms that suppress the same language collapse into one chip.
+  const suppressedByLang = new Map<string, SuppressedChip>();
+  for (const w of acronymConflicts) {
+    if (!w.language || !w.acronym) continue;
+    if (chipLanguageNames.includes(w.language)) continue; // already shown as a real chip
+    if (!suppressedByLang.has(w.language)) {
+      suppressedByLang.set(w.language, {
+        language: w.language,
+        borderClass: w.language_class ?? 0,
+        acronyms: [],
+      });
+    }
+    const entry = suppressedByLang.get(w.language)!;
+    if (!entry.acronyms.includes(w.acronym)) entry.acronyms.push(w.acronym);
+  }
+  const suppressedChips = [...suppressedByLang.values()];
+
+  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts, suppressedChips };
 });
 ---
 <section class="panel paper-panel">
@@ -322,6 +342,17 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
                   </div>
                 </span>
               )}
+              {item.suppressedChips.map((sc, scIdx) => (
+                <span class="lang-chip-popover">
+                  <span class={`lang-chip class-${sc.borderClass} suppressed`} aria-describedby={`suppressed-tip-${item.index}-${scIdx}`}>
+                    {sc.language}<span class="suppressed-mark" aria-hidden="true">?</span>
+                  </span>
+                  <div class="review-popover-body" id={`suppressed-tip-${item.index}-${scIdx}`} role="tooltip">
+                    <strong>Potentially suppressed</strong>
+                    <p>This paper defines <code>{sc.acronyms.join(', ')}</code> as {sc.acronyms.length === 1 ? 'an acronym' : 'acronyms'} — mentions of <em>{sc.language}</em> may not have been detected.</p>
+                  </div>
+                </span>
+              ))}
             </div>
           </div>
         </summary>
@@ -459,6 +490,10 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
 
       const { firstRowChips, overflowChips } = measureFirstRow();
       if (overflowChips.length === 0) return;
+      // firstRowChips is empty when the chip area is inside a collapsed <details> —
+      // getBoundingClientRect returns zeros for hidden content. Bail out; the
+      // <details> toggle listener below will re-run applyCollapse when it opens.
+      if (firstRowChips.length === 0) return;
 
       // Capture row position before hiding anything
       const firstTop = firstRowChips[0].getBoundingClientRect().top;
@@ -546,6 +581,13 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
 
   window.addEventListener('resize', () => {
     if (!chipExpanded) applyCollapse();
+  });
+
+  // Re-measure when the enclosing <details> section is opened — chips have
+  // zero dimensions while the section is collapsed so the initial measurement
+  // bails out early and leaves the expand button hidden.
+  document.getElementById('flagged-papers')?.addEventListener('toggle', (e) => {
+    if ((e.target as HTMLDetailsElement).open && !chipExpanded) applyCollapse();
   });
 
   // ── Language chip search ────────────────────────────────────────────────────
@@ -660,5 +702,10 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
     applyFilters();
   });
 
-  requestAnimationFrame(() => { applyCollapse(); applyFilters(); });
+  // Wait for fonts before measuring chip positions — on a refresh, fonts may not be
+  // loaded yet so getBoundingClientRect returns wrong heights, causing the expand
+  // button to stay hidden until a filter re-triggers the measurement.
+  document.fonts.ready.then(() => {
+    requestAnimationFrame(() => { applyCollapse(); applyFilters(); });
+  });
 </script>

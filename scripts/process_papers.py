@@ -19,6 +19,7 @@ Usage:
 
 import argparse
 import json
+import os
 import sys
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 from datetime import datetime
@@ -26,6 +27,10 @@ from pathlib import Path
 
 import requests
 from tqdm import tqdm
+
+# Prevent HuggingFace tokenizers from forking worker processes inside threads,
+# which causes multiprocessing semaphore leaks and SIGSEGV on macOS/Py3.13.
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -159,6 +164,7 @@ def _process_single_paper(
     pdf_dir: Path,
     html_cache_dir: Path,
     pdf_cache_dir: Path,
+    no_pdf: bool = False,
 ) -> dict:
     import time as _time
     t_paper = _time.monotonic()
@@ -231,7 +237,9 @@ def _process_single_paper(
 
     # 3. PDF fallback — when HTML unavailable, empty, or incomplete (stalled download)
     html_unavailable = html_cache is None or not is_html_complete or len(html_cache) == 0
-    if html_unavailable:
+    if html_unavailable and no_pdf:
+        tqdm.write(f"  [{paper_id}] PDF skipped (--no-pdf)")
+    if html_unavailable and not no_pdf:
         safe_id = str(paper_id).split("/")[-1]
         pdf_cache_path = pdf_cache_dir / f"{safe_id}.json"
         if pdf_cache_path.exists():
@@ -365,6 +373,7 @@ def _reprocess_single_paper(
     html_cache_path = html_cache_dir / f"{safe_id}.json"
     is_html_complete = False
     html_detections: dict[str, list[str]] = {}
+    html_sections_with_text = 0
 
     if html_cache_path.exists():
         try:
@@ -401,6 +410,7 @@ def _reprocess_single_paper(
                 if not text:
                     updated_cache[section_title] = section_data
                     continue
+                html_sections_with_text += 1
                 cleaned_blocks, _ = clean_paper_text_for_language_screening(text, _label=paper_id, paper_acronyms=paper_acronyms)
                 cleaned_text = "\n\n".join(cleaned_blocks)
                 detected: list[str] = []
@@ -429,10 +439,13 @@ def _reprocess_single_paper(
             tqdm.write(f"  [{paper_id}] HTML cache reprocess error: {type(exc).__name__}: {exc}")
             record["warnings"].append({"step": "html_reprocess", "error": str(exc)})
             is_html_complete = False
+            html_sections_with_text = 0
 
-    # 3. PDF cache — same fallback condition as _process_single_paper
-    html_unavailable = not html_cache_path.exists() or not is_html_complete or len(html_detections) == 0
-    if html_unavailable:
+    # 3. PDF cache — fall back only when HTML is genuinely missing, incomplete, or empty.
+    # A complete HTML with no non-English detections is not "unavailable" — it means
+    # the paper is English-only and PDF fallback would add no signal.
+    html_missing_or_empty = not html_cache_path.exists() or not is_html_complete or html_sections_with_text == 0
+    if html_missing_or_empty:
         pdf_cache_path = pdf_cache_dir / f"{safe_id}.json"
         if pdf_cache_path.exists():
             try:
@@ -462,8 +475,10 @@ def _reprocess_single_paper(
             except Exception as exc:
                 tqdm.write(f"  [{paper_id}] PDF cache reprocess error: {type(exc).__name__}: {exc}")
                 record["warnings"].append({"step": "pdf_reprocess", "error": str(exc)})
-        else:
+        elif not html_cache_path.exists():
             record["warnings"].append({"step": "reprocess", "error": "No HTML or PDF cache found — skipped"})
+        elif not is_html_complete:
+            record["warnings"].append({"step": "reprocess", "error": "HTML cache incomplete, no PDF cache available — skipped"})
 
     tqdm.write(f"  [{paper_id}] reprocessed in {_time.monotonic()-t_paper:.1f}s")
     return record
@@ -591,6 +606,7 @@ def process_papers(
     pdf_cache_dir: Path,
     no_detections_file: Path | None = None,
     max_workers: int = 4,
+    no_pdf: bool = False,
 ) -> dict:
     for d in [pdf_dir, html_cache_dir, pdf_cache_dir]:
         d.mkdir(parents=True, exist_ok=True)
@@ -610,6 +626,10 @@ def process_papers(
     import time as _time
     _PER_PAPER_TIMEOUT = 600  # seconds before a stuck paper is skipped (HTML 120s + PDF 180s + processing headroom)
 
+    if not no_pdf:
+        from langtrend.pdf_processor import init_docling
+        init_docling()
+
     executor = ThreadPoolExecutor(max_workers=max_workers)
     try:
         futures = {
@@ -622,6 +642,7 @@ def process_papers(
                 pdf_dir,
                 html_cache_dir,
                 pdf_cache_dir,
+                no_pdf,
             ): paper
             for paper in papers
         }
@@ -758,6 +779,15 @@ def main() -> None:
             "Merges results into existing detected, warnings, and no-detections files."
         ),
     )
+    parser.add_argument(
+        "--no-pdf",
+        action="store_true",
+        help=(
+            "Skip PDF fallback entirely (no docling, no downloading). Safe to run in "
+            "multiple terminals simultaneously. Follow up with --retry-missing to pick "
+            "up the ~10%% of papers that need PDF."
+        ),
+    )
     args = parser.parse_args()
 
     if not args.input.exists():
@@ -810,23 +840,44 @@ def main() -> None:
         no_det_path   = output_dir / f"{stem}_no_detections.json"
 
         if args.retry_missing:
-            detected_ids: set[str] = set()
+            cached_html_ids = {p.stem for p in html_cache_dir.glob("*.json")}
+            cached_pdf_ids  = {p.stem for p in pdf_cache_dir.glob("*.json")}
+
+            # Build a map of paper_id → sources_checked for already-detected papers.
+            # This lets us catch the crash-leftover case: a PDF cache was written by a
+            # worker thread but the process died before flushing the record to the JSONL,
+            # leaving the entry in a stale abstract-only state.
+            detected_sources: dict[str, list[str]] = {}
             if detected_path.exists():
                 for line in detected_path.read_text(encoding="utf-8").splitlines():
                     if line.strip():
-                        detected_ids.add(json.loads(line).get("paper_id", ""))
-            cached_html_ids = {p.stem for p in html_cache_dir.glob("*.json")}
-            cached_pdf_ids  = {p.stem for p in pdf_cache_dir.glob("*.json")}
-            # Include papers not yet detected, plus papers that were only abstract-scanned
-            # (no html and no pdf cache — PDF was never successfully downloaded/extracted).
-            subset = [
-                p for p in papers
-                if p["id"] not in detected_ids
-                or (
-                    p["id"].split("/")[-1] not in cached_html_ids
-                    and p["id"].split("/")[-1] not in cached_pdf_ids
-                )
-            ]
+                        rec = json.loads(line)
+                        detected_sources[rec.get("paper_id", "")] = rec.get("sources_checked", [])
+
+            def _needs_retry(p: dict) -> bool:
+                pid = p["id"]
+                safe_id = pid.split("/")[-1]
+                if pid not in detected_sources:
+                    return True  # never detected
+                sources = detected_sources.get(pid, [])
+                # PDF cache exists but detection entry never recorded pdf/html — crashed mid-run
+                if safe_id in cached_pdf_ids and "pdf" not in sources and "html" not in sources:
+                    return True
+                # No cache at all — PDF was never attempted
+                if safe_id not in cached_html_ids and safe_id not in cached_pdf_ids:
+                    return True
+                # HTML cache exists but is incomplete (_complete=False) and detection is
+                # abstract-only — the HTML fetch failed so a raw PDF may provide better coverage.
+                if safe_id in cached_html_ids and "html" not in sources:
+                    try:
+                        cached = json.loads((html_cache_dir / f"{safe_id}.json").read_text(encoding="utf-8"))
+                        if not cached.get("_complete", True):
+                            return True
+                    except Exception:
+                        pass
+                return False
+
+            subset = [p for p in papers if _needs_retry(p)]
             label = f"--retry-missing: {len(subset)} paper(s) not yet detected or missing html/pdf cache"
 
         if not subset:
@@ -854,20 +905,41 @@ def main() -> None:
             pdf_cache_dir=pdf_cache_dir,
             no_detections_file=tmp_no_det,
             max_workers=args.workers,
+            no_pdf=args.no_pdf,
         )
 
-        # Merge detections
-        existing_ids: set[str] = set()
+        # Merge detections — append new records; replace stale abstract-only records that
+        # now have better coverage (e.g. PDF cache was written in a crashed prior run).
+        existing_lines: list[str] = []
+        existing_by_id: dict[str, int] = {}  # paper_id → line index
         if detected_path.exists():
-            for line in detected_path.read_text(encoding="utf-8").splitlines():
+            for i, line in enumerate(detected_path.read_text(encoding="utf-8").splitlines()):
                 if line.strip():
-                    existing_ids.add(json.loads(line).get("paper_id", ""))
-        new_lines = [l for l in tmp_detected.read_text(encoding="utf-8").splitlines()
-                     if l.strip() and json.loads(l).get("paper_id", "") not in existing_ids]
-        with detected_path.open("a", encoding="utf-8") as fp:
-            for line in new_lines:
+                    existing_lines.append(line)
+                    existing_by_id[json.loads(line).get("paper_id", "")] = i
+
+        appended = replaced = 0
+        for line in tmp_detected.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            rec = json.loads(line)
+            pid = rec.get("paper_id", "")
+            new_sources = rec.get("sources_checked", [])
+            if pid not in existing_by_id:
+                existing_lines.append(line)
+                existing_by_id[pid] = len(existing_lines) - 1
+                appended += 1
+            else:
+                # Replace only if the new record has better coverage (html or pdf vs abstract-only)
+                old_sources = detected_sources.get(pid, [])
+                if ("html" in new_sources or "pdf" in new_sources) and "html" not in old_sources and "pdf" not in old_sources:
+                    existing_lines[existing_by_id[pid]] = line
+                    replaced += 1
+
+        with detected_path.open("w", encoding="utf-8") as fp:
+            for line in existing_lines:
                 fp.write(line + "\n")
-        print(f"Merged {len(new_lines)} new detection record(s) into {detected_path}")
+        print(f"Merged {appended} new + {replaced} upgraded detection record(s) into {detected_path}")
 
         # Merge warnings
         new_warnings = json.loads(tmp_warnings.read_text(encoding="utf-8")) if tmp_warnings.stat().st_size > 2 else []
@@ -880,8 +952,22 @@ def main() -> None:
         # Merge no-detections
         new_no_det = json.loads(tmp_no_det.read_text(encoding="utf-8")) if tmp_no_det.stat().st_size > 2 else []
         existing_no_det = json.loads(no_det_path.read_text(encoding="utf-8")) if no_det_path.exists() else []
+        # Build index of new no-det records so we can upgrade stale ones (e.g. abstract-only → abstract+pdf)
+        new_nd_by_id = {r.get("paper_id"): r for r in new_no_det}
+        # Papers now in detected must be removed from no-detections
+        now_detected_ids = {json.loads(line).get("paper_id") for line in existing_lines if line.strip()}
+        merged_no_det = []
+        for r in existing_no_det:
+            pid = r.get("paper_id")
+            if pid in now_detected_ids:
+                continue  # promoted to detected — drop from no-detections
+            if pid in new_nd_by_id:
+                merged_no_det.append(new_nd_by_id[pid])  # upgrade (e.g. sources_checked updated)
+            else:
+                merged_no_det.append(r)
+        # Append genuinely new no-det records not seen before
         existing_nd_ids = {r.get("paper_id") for r in existing_no_det}
-        merged_no_det = existing_no_det + [r for r in new_no_det if r.get("paper_id") not in existing_nd_ids]
+        merged_no_det += [r for r in new_no_det if r.get("paper_id") not in existing_nd_ids and r.get("paper_id") not in now_detected_ids]
         with no_det_path.open("w", encoding="utf-8") as fp:
             json.dump(merged_no_det, fp, ensure_ascii=False, indent=2)
         print(f"No-detections file updated: {len(merged_no_det)} total record(s) → {no_det_path}")
@@ -901,8 +987,15 @@ def main() -> None:
             pdf_cache_dir=pdf_cache_dir,
             no_detections_file=output_dir / f"{stem}_no_detections.json",
             max_workers=args.workers,
+            no_pdf=args.no_pdf,
         )
 
 
 if __name__ == "__main__":
     main()
+    # Bypass Python's interpreter-shutdown destructor chain.  docling holds a
+    # DocumentConverter singleton that owns PyTorch C++ thread pools; their
+    # C++ destructors reliably SIGSEGV (-11) when the Python runtime is already
+    # partially torn down.  All output files are written per-paper before this
+    # point, so hard-exiting is safe.
+    os._exit(0)

@@ -32,6 +32,7 @@ _REMOVE_HEADINGS_DEFAULT = [
     "Related work",
     "Related Work",
     "Related Works",
+    "Bibliographical References",
     "Literature Review",
     "Acknowledgements",
     "Acknowledgement",
@@ -104,7 +105,8 @@ def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str |
 def _remove_section_by_heading(soup: BeautifulSoup, heading_texts: list[str]) -> None:
     """Remove content following matching heading tags (h1–h6) and whole <section> blocks."""
     for h in soup.find_all(re.compile("^h[1-6]$")):
-        text = h.get_text().strip().lower()
+        raw = h.get_text().strip().lower()
+        text = re.sub(r"^\d[\d.]*[\s.]+", "", raw)  # strip leading "6." / "6.1." numbering
         for target in heading_texts:
             if text.startswith(target.lower()):
                 nxt = h.next_sibling
@@ -126,7 +128,8 @@ def _remove_section_by_heading(soup: BeautifulSoup, heading_texts: list[str]) ->
     for sec in soup.find_all("section"):
         h = sec.find(re.compile("^h[1-6]$"))
         if h:
-            title = h.get_text().strip().lower()
+            raw = h.get_text().strip().lower()
+            title = re.sub(r"^\d[\d.]*[\s.]+", "", raw)  # strip leading "6." / "6.1." numbering
             for target in heading_texts:
                 if title.startswith(target.lower()):
                     try:
@@ -167,6 +170,26 @@ def clean_html_soup(html: str, remove_headings: list[str] | None = None, _label:
             except Exception:
                 pass
     _tick("removed boilerplate tags")
+
+    # arXiv emits <span class="ltx_ERROR undefined">\tera</span> (and similar) when a
+    # LaTeX command fails to render (e.g. siunitx \tera, \giga, \mega).  The raw
+    # command text leaks into body text and matches language names ("Tera", "Giga" …).
+    for tag in soup.find_all("span", class_="ltx_ERROR"):
+        try:
+            tag.decompose()
+        except Exception:
+            pass
+    _tick("removed ltx_ERROR spans")
+
+    # arXiv renders bibliography entries in a <section class="ltx_bibliography"> that is
+    # a sibling of the "References" heading section, not a child — so _remove_section_by_heading
+    # only removes the heading section and leaves this one intact.  Remove it explicitly.
+    for tag in soup.find_all("section", class_="ltx_bibliography"):
+        try:
+            tag.decompose()
+        except Exception:
+            pass
+    _tick("removed ltx_bibliography sections")
 
     # arXiv HTML wraps math in <math><semantics>...<annotation encoding="application/x-tex">
     # Subscript/superscript blocks (msub/msup/msubsup) concatenate child letters via
@@ -269,12 +292,15 @@ def recheck_languages_from_html(
 
     safe_name = str(paper_id).split("/")[-1] or paper_record.get("title", "paper").replace(" ", "_")[:60]
     json_path = out_dir / f"{safe_name}.json"
+    html_path = out_dir / f"{safe_name}.html"
 
     # Return cached result if already processed
     if json_path.exists():
         try:
             with json_path.open("r", encoding="utf-8") as fh:
                 cached = json.load(fh)
+            if cached.get("_unavailable"):
+                return {}, False, []  # HTML was tried before and not available — skip
             is_complete = cached.get("_complete", True)  # older caches pre-date this field → assume complete
             conflicts = cached.get("_acronym_conflicts", [])
             sections_data = {k: v for k, v in cached.items() if not k.startswith("_")}
@@ -284,9 +310,25 @@ def recheck_languages_from_html(
 
     import time as _time
 
-    html, _html_url, is_complete = fetch_arxiv_html(str(paper_id))
-    if not html:
-        return {}, False, []
+    if html_path.exists():
+        html = html_path.read_text(encoding="utf-8")
+        is_complete = True
+        print(f"  [{paper_id}] loaded HTML from cache ({len(html) // 1024}KB)", flush=True)
+    else:
+        html, _html_url, is_complete = fetch_arxiv_html(str(paper_id))
+        if not html:
+            # Write a sentinel so retry-missing knows HTML was tried and unavailable,
+            # preventing a redundant re-fetch on every future retry run.
+            try:
+                with json_path.open("w", encoding="utf-8") as fh:
+                    json.dump({"_complete": False, "_unavailable": True}, fh)
+            except Exception:
+                pass
+            return {}, False, []
+        try:
+            html_path.write_text(html, encoding="utf-8")
+        except Exception:
+            pass
 
     t1 = _time.monotonic()
     soup = clean_html_soup(html, remove_headings, _label=str(paper_id))
