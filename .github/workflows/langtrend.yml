@@ -76,19 +76,24 @@ jobs:
       # Commit the JSONL immediately so the paper list is preserved even if
       # the long process step later times out.
       - name: Commit fetched paper list
-        if: github.event_name == 'schedule'
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
           shopt -s nullglob
           fetched=(data/raw/extracted_papers_metadata/arxiv_papers_*.jsonl)
+          echo "JSONL files found: ${#fetched[@]}"
+          for f in "${fetched[@]}"; do echo "  $f"; done
           if [ ${#fetched[@]} -eq 0 ]; then
             echo "No JSONL found to commit."
             exit 0
           fi
           git add -f "${fetched[@]}"
+          echo "git status after add:"
+          git status --short
           if git diff --cached --quiet; then
-            echo "No new paper data to commit."
+            echo "No new paper data to commit — file already in repo."
             exit 0
           fi
           git commit -m "Add fetched paper list"
