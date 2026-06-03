@@ -35,6 +35,7 @@ os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from langtrend.manifest import build_detections
+from langtrend.html_processor import ARXIV_USER_AGENT
 from langtrend.text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text, trim_pdf_text_to_body, extract_paper_acronyms, find_language_acronym_conflicts
 from langtrend.html_processor import recheck_languages_from_html
 from langtrend.pdf_processor import PDFProcessor
@@ -93,7 +94,11 @@ def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
         tqdm.write(f"    [{paper_id}] PDF GET {pdf_url} (attempt {attempt}/{_PDF_DOWNLOAD_RETRIES})")
         t0 = _time.monotonic()
         try:
-            resp = requests.get(pdf_url, stream=True, timeout=(10, 30))
+            resp = requests.get(pdf_url, stream=True, timeout=(10, 30), headers={
+                "User-Agent": ARXIV_USER_AGENT,
+                "Accept": "application/pdf",
+                "Accept-Encoding": "gzip, deflate",
+            })
             resp.raise_for_status()
             tqdm.write(f"    [{paper_id}] PDF response {resp.status_code}, streaming…")
             downloaded = 0
