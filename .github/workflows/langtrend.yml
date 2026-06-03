@@ -66,16 +66,43 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 1 + 2 + 3: fetch → process → manifest
-      # Skip logic is handled inside the script: if the JSONL / detected JSONL
-      # already exists for this week's window it won't re-fetch or re-process.
+      # Step 1: fetch paper metadata from arXiv (fast, ~2-5 min)
+      - name: Fetch papers from arXiv
+        run: |
+          python scripts/fetch_arxiv_metadata.py \
+            --window-days 7 \
+            --max-results 1000
+
+      # Commit the JSONL immediately so the paper list is preserved even if
+      # the long process step later times out.
+      - name: Commit fetched paper list
+        if: github.event_name == 'schedule'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          shopt -s nullglob
+          fetched=(data/raw/extracted_papers_metadata/arxiv_papers_*.jsonl)
+          if [ ${#fetched[@]} -eq 0 ]; then
+            echo "No JSONL found to commit."
+            exit 0
+          fi
+          git add -f "${fetched[@]}"
+          if git diff --cached --quiet; then
+            echo "No new paper data to commit."
+            exit 0
+          fi
+          git commit -m "Add fetched paper list"
+          git push origin HEAD:main
+
+      # Step 2 + 3: process (HTML/PDF detection) + manifest — the long step
       - name: Run LangTrend pipeline
         run: |
           python scripts/run_langtrend_pipeline.py \
             --data-root data \
             --window-days 7 \
             --max-results 1000 \
-            --workers 12
+            --workers 12 \
+            --skip-fetch
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

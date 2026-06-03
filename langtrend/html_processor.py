@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import random
 import re
 import threading
 from pathlib import Path
@@ -19,10 +20,25 @@ _ARXIV_SEMAPHORE = threading.Semaphore(10)
 _HTML_MAX_BYTES = 10 * 1024 * 1024  # 10 MB — enough for any paper's HTML
 _HTML_DOWNLOAD_TIMEOUT = 120  # wall-clock cap; arXiv keepalives defeat per-chunk read timeouts
 
+# Honest bot UA — arXiv's access policy asks automated tools to self-identify with contact info.
+# Update the email if you deploy this under a different project.
+ARXIV_USER_AGENT = (
+    "LangTrendBot (automated research tool; "
+    "https://github.com/kavindu-w/langtrend; "
+    "akwarnakulasuriya@gmail.com)"
+)
+
 
 def _get_session() -> requests.Session:
     if not hasattr(_thread_local, "session"):
-        _thread_local.session = requests.Session()
+        s = requests.Session()
+        s.headers.update({
+            "User-Agent": ARXIV_USER_AGENT,
+            "Accept": "text/html,application/xhtml+xml;q=0.9",
+            "Accept-Encoding": "gzip, deflate",
+            "Accept-Language": "en-US,en;q=0.9",
+        })
+        _thread_local.session = s
     return _thread_local.session
 
 _REMOVE_HEADINGS_DEFAULT = [
@@ -61,6 +77,8 @@ def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str |
     try:
         print(f"    [{abs_url}] waiting for semaphore…", flush=True)
         with _ARXIV_SEMAPHORE:
+            # Small random jitter to avoid simultaneous burst from all workers
+            _time.sleep(random.uniform(0.3, 1.2))
             t0 = _time.monotonic()
             print(f"    [{abs_url}] GET started…", flush=True)
             # connect=5s, read=15s per chunk — short enough to detect arXiv CDN throttling
