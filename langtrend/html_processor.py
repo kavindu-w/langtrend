@@ -15,7 +15,7 @@ from .text_cleaning import clean_paper_text_for_language_screening, detect_langu
 _thread_local = threading.local()
 
 # Cap concurrent arXiv HTML requests regardless of worker count
-_ARXIV_SEMAPHORE = threading.Semaphore(6)
+_ARXIV_SEMAPHORE = threading.Semaphore(10)
 _HTML_MAX_BYTES = 10 * 1024 * 1024  # 10 MB — enough for any paper's HTML
 _HTML_DOWNLOAD_TIMEOUT = 120  # wall-clock cap; arXiv keepalives defeat per-chunk read timeouts
 
