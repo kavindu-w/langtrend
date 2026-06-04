@@ -72,11 +72,11 @@ def load_language_data(path: Path) -> tuple[dict[int, set[str]], set[str], dict[
 
 _PDF_MAX_BYTES = 200 * 1024 * 1024  # skip PDFs larger than 200 MB
 
-_PDF_DOWNLOAD_TIMEOUT = 180  # wall-clock cap for entire PDF download
+_PDF_DOWNLOAD_TIMEOUT = 120  # wall-clock cap for entire PDF download
 _PDF_LOG_EVERY = 256 * 1024
 _PDF_DOWNLOAD_RETRIES = 2
 _PDF_RETRY_BACKOFF = 5  # seconds; doubles each attempt
-_PDF_EXTRACT_RETRIES = 4  # re-download and retry if extraction fails (e.g. truncated file)
+_PDF_EXTRACT_RETRIES = 2  # re-download and retry if extraction fails (e.g. truncated file)
 
 def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
     """Download a PDF into a per-paper subdirectory. Returns path or None on failure."""

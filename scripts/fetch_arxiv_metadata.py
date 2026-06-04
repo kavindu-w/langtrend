@@ -27,7 +27,7 @@ import arxiv
 import requests
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s  %(levelname)-8s  %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
@@ -36,11 +36,15 @@ log = logging.getLogger(__name__)
 _DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "data/raw/extracted_papers_metadata"
 _OAI_BASE_URL = "https://oaipmh.arxiv.org/oai"
 _OAI_USER_AGENT = "LangTrendBot (automated research tool; https://github.com/kavindu-w/langtrend; akwarnakulasuriya@gmail.com; supports OAI-PMH)"
-_ARXIV_CLIENT_PAGE_SIZE = 1000
-_ARXIV_CLIENT_DELAY_SECONDS = 30.0
-_ARXIV_CLIENT_NUM_RETRIES = 2
+_ARXIV_DIRECT_BASE_URL = "https://export.arxiv.org/api/query"
+_ARXIV_DIRECT_PAGE_SIZE = 500
+_ARXIV_DIRECT_DELAY_SECONDS = 5.0
+_ARXIV_DIRECT_TIMEOUT = 60
+_ARXIV_CLIENT_PAGE_SIZE = 500
+_ARXIV_CLIENT_DELAY_SECONDS = 10.0
+_ARXIV_CLIENT_NUM_RETRIES = 0
 _FETCH_ATTEMPTS = 3
-_FETCH_BACKOFF_SECONDS = 30
+_FETCH_BACKOFF_SECONDS = 600
 _OAI_REQUEST_TIMEOUT = 120
 _OAI_CREATED_WINDOW_BUFFER_DAYS = 2
 
@@ -218,6 +222,77 @@ def _fetch_oai_records(category_query: str, end_date: datetime, window_days: int
     return list(records_by_id.values())
 
 
+def _fetch_arxiv_direct(query: str, max_results: int) -> list[dict]:
+    """Fetch papers directly from the arXiv Atom API using requests, paginating until max_results."""
+    ATOM = "http://www.w3.org/2005/Atom"
+    OPENSEARCH = "http://a9.com/-/spec/opensearch/1.1/"
+
+    def _text(el: ET.Element, tag: str) -> str:
+        node = el.find(f"{{{ATOM}}}{tag}")
+        return (node.text or "").strip() if node is not None else ""
+
+    papers: list[dict] = []
+    start = 0
+    total_available = max_results
+
+    while start < min(max_results, total_available):
+        page_size = min(_ARXIV_DIRECT_PAGE_SIZE, max_results - start)
+        params = {
+            "search_query": query,
+            "sortBy": "submittedDate",
+            "sortOrder": "descending",
+            "start": start,
+            "max_results": page_size,
+        }
+        log.info("  arXiv direct: start=%d page_size=%d", start, page_size)
+        resp = requests.get(_ARXIV_DIRECT_BASE_URL, params=params, timeout=_ARXIV_DIRECT_TIMEOUT)
+        resp.raise_for_status()
+
+        root = ET.fromstring(resp.content)
+
+        if start == 0:
+            total_node = root.find(f"{{{OPENSEARCH}}}totalResults")
+            if total_node is not None and total_node.text:
+                total_available = int(total_node.text)
+                log.info("  arXiv direct: totalResults=%d", total_available)
+
+        entries = root.findall(f"{{{ATOM}}}entry")
+        if not entries:
+            break
+
+        for entry in entries:
+            authors = [_text(author, "name") for author in entry.findall(f"{{{ATOM}}}author")]
+            categories = [
+                cat.get("term", "")
+                for cat in entry.findall(f"{{{ATOM}}}category")
+                if cat.get("term")
+            ]
+            pdf_url = next(
+                (lnk.get("href", "") for lnk in entry.findall(f"{{{ATOM}}}link")
+                 if lnk.get("type") == "application/pdf"),
+                "",
+            )
+            papers.append({
+                "id": _text(entry, "id"),
+                "title": _text(entry, "title"),
+                "abstract": _text(entry, "summary"),
+                "authors": authors,
+                "published": _text(entry, "published"),
+                "updated": _text(entry, "updated"),
+                "categories": categories,
+                "pdf_url": pdf_url,
+                "_fetch_source": "arxiv_direct",
+            })
+
+        start += len(entries)
+        if len(entries) < page_size:
+            break
+        if start < min(max_results, total_available):
+            time.sleep(_ARXIV_DIRECT_DELAY_SECONDS)
+
+    return papers
+
+
 def _last_monday_midnight() -> datetime:
     """Return the most recent Monday 00:00 UTC (treating today as Tuesday or later).
 
@@ -246,67 +321,99 @@ def fetch_and_save(
     log.info("Window:      %s → %s", start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
 
     paper_dicts: list[dict] = []
-    fetch_source = "arxiv_api"
+    fetch_source = "arxiv_direct"
     last_error: Exception | None = None
 
+    query = f"{category_query} AND submittedDate:[{start_str} TO {end_str}]"
+    log.info("Query:       %s", query)
+
     if oai_only:
-        log.info("--oai-only: skipping arXiv search API")
+        log.info("--oai-only: skipping arXiv API")
         last_error = Exception("oai_only")
     else:
-        query = f"{category_query} AND submittedDate:[{start_str} TO {end_str}]"
-        log.info("Query:       %s", query)
-        log.info("Max results: %d  page_size=%d  delay=%.1fs  retries=%d",
-                 max_results, _ARXIV_CLIENT_PAGE_SIZE, _ARXIV_CLIENT_DELAY_SECONDS, _ARXIV_CLIENT_NUM_RETRIES)
-        search = arxiv.Search(
-            query=query,
-            max_results=max_results,
-            sort_by=arxiv.SortCriterion.SubmittedDate,
-        )
-        client = arxiv.Client(
-            page_size=_ARXIV_CLIENT_PAGE_SIZE,
-            delay_seconds=_ARXIV_CLIENT_DELAY_SECONDS,
-            num_retries=_ARXIV_CLIENT_NUM_RETRIES,
-        )
+        # --- Primary: direct requests to arXiv Atom API ---
+        log.info("Max results: %d  page_size=%d  delay=%.1fs",
+                 max_results, _ARXIV_DIRECT_PAGE_SIZE, _ARXIV_DIRECT_DELAY_SECONDS)
         for attempt in range(1, _FETCH_ATTEMPTS + 1):
-            log.info("arXiv API attempt %d/%d …", attempt, _FETCH_ATTEMPTS)
+            log.info("arXiv direct API attempt %d/%d …", attempt, _FETCH_ATTEMPTS)
             try:
-                paper_dicts = []
-                for r in client.results(search):
-                    paper_dicts.append({
-                        "id": r.entry_id,
-                        "title": r.title,
-                        "abstract": r.summary,
-                        "authors": [author.name for author in r.authors],
-                        "published": r.published.isoformat(),
-                        "updated": r.updated.isoformat(),
-                        "categories": list(r.categories),
-                        "pdf_url": r.pdf_url,
-                        "_fetch_source": "arxiv_api",
-                    })
-                    if len(paper_dicts) % _ARXIV_CLIENT_PAGE_SIZE == 0:
-                        log.info("  … fetched %d papers so far", len(paper_dicts))
-                log.info("arXiv API returned %d results on attempt %d", len(paper_dicts), attempt)
+                paper_dicts = _fetch_arxiv_direct(query, max_results)
+                log.info("arXiv direct API returned %d results", len(paper_dicts))
                 last_error = None
+                fetch_source = "arxiv_direct"
                 break
-            except arxiv.HTTPError as err:
+            except requests.HTTPError as err:
                 last_error = err
-                is_transient = _is_transient_arxiv_error(err)
-                log.warning("arXiv HTTP error (attempt %d/%d): %s  [transient=%s]",
+                is_transient = err.response is not None and err.response.status_code in (429, 502, 503, 504)
+                log.warning("arXiv direct error (attempt %d/%d): %s  [transient=%s]",
                             attempt, _FETCH_ATTEMPTS, err, is_transient)
                 if not is_transient or attempt == _FETCH_ATTEMPTS:
-                    log.error("Giving up on arXiv API after %d attempt(s): %s", attempt, err)
+                    log.error("Giving up on arXiv direct API after %d attempt(s)", attempt)
                     break
                 wait_seconds = _FETCH_BACKOFF_SECONDS * attempt
                 log.info("Retrying in %ds …", wait_seconds)
                 time.sleep(wait_seconds)
             except Exception as err:
                 last_error = err
-                log.error("Unexpected error on attempt %d/%d: %s: %s",
+                log.error("Unexpected error on direct API attempt %d/%d: %s: %s",
                           attempt, _FETCH_ATTEMPTS, type(err).__name__, err)
                 break
 
+        # --- Fallback 1: arxiv Python package ---
+        if last_error is not None and not paper_dicts:
+            log.warning("arXiv direct API failed; trying arxiv Python package …")
+            fetch_source = "arxiv_api"
+            search = arxiv.Search(
+                query=query,
+                max_results=max_results,
+                sort_by=arxiv.SortCriterion.SubmittedDate,
+            )
+            client = arxiv.Client(
+                page_size=_ARXIV_CLIENT_PAGE_SIZE,
+                delay_seconds=_ARXIV_CLIENT_DELAY_SECONDS,
+                num_retries=_ARXIV_CLIENT_NUM_RETRIES,
+            )
+            for attempt in range(1, _FETCH_ATTEMPTS + 1):
+                log.info("arxiv package attempt %d/%d …", attempt, _FETCH_ATTEMPTS)
+                try:
+                    paper_dicts = []
+                    for r in client.results(search):
+                        paper_dicts.append({
+                            "id": r.entry_id,
+                            "title": r.title,
+                            "abstract": r.summary,
+                            "authors": [author.name for author in r.authors],
+                            "published": r.published.isoformat(),
+                            "updated": r.updated.isoformat(),
+                            "categories": list(r.categories),
+                            "pdf_url": r.pdf_url,
+                            "_fetch_source": "arxiv_api",
+                        })
+                        if len(paper_dicts) % _ARXIV_CLIENT_PAGE_SIZE == 0:
+                            log.info("  … fetched %d papers so far", len(paper_dicts))
+                    log.info("arxiv package returned %d results on attempt %d", len(paper_dicts), attempt)
+                    last_error = None
+                    break
+                except arxiv.HTTPError as err:
+                    last_error = err
+                    is_transient = _is_transient_arxiv_error(err)
+                    log.warning("arxiv package HTTP error (attempt %d/%d): %s  [transient=%s]",
+                                attempt, _FETCH_ATTEMPTS, err, is_transient)
+                    if not is_transient or attempt == _FETCH_ATTEMPTS:
+                        log.error("Giving up on arxiv package after %d attempt(s): %s", attempt, err)
+                        break
+                    wait_seconds = _FETCH_BACKOFF_SECONDS * attempt
+                    log.info("Retrying in %ds …", wait_seconds)
+                    time.sleep(wait_seconds)
+                except Exception as err:
+                    last_error = err
+                    log.error("Unexpected error on package attempt %d/%d: %s: %s",
+                              attempt, _FETCH_ATTEMPTS, type(err).__name__, err)
+                    break
+
+    # --- Fallback 2: OAI-PMH ---
     if last_error is not None and not paper_dicts:
-        log.warning("arXiv API fetch failed; falling back to OAI-PMH harvest")
+        log.warning("All arXiv API methods failed; falling back to OAI-PMH harvest")
         oai_records = _fetch_oai_records(category_query, end_date, window_days)
         fetch_source = "oai_pmh"
         for rec in oai_records:
@@ -316,7 +423,7 @@ def fetch_and_save(
 
     log.info("Retrieved %d papers (source: %s)", len(paper_dicts), fetch_source)
 
-    if fetch_source == "arxiv_api" and len(paper_dicts) >= max_results:
+    if fetch_source in ("arxiv_direct", "arxiv_api") and len(paper_dicts) >= max_results:
         log.warning(
             "max_results limit (%d) reached — there may be more papers in this window. "
             "Consider increasing --max-results.", max_results
