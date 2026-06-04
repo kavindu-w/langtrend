@@ -67,11 +67,14 @@ jobs:
           pip install -r requirements.txt
 
       # Step 1: fetch paper metadata from arXiv (fast, ~2-5 min)
+      # run_langtrend_pipeline auto-skips fetch if this week's JSONL already exists
       - name: Fetch papers from arXiv
         run: |
-          python scripts/fetch_arxiv_metadata.py \
+          python scripts/run_langtrend_pipeline.py \
+            --data-root data \
             --window-days 7 \
-            --max-results 1000
+            --max-results 1000 \
+            --skip-process
 
       # Commit the JSONL immediately so the paper list is preserved even if
       # the long process step later times out.
@@ -80,7 +83,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
+          git pull --rebase --autostash origin main
           shopt -s nullglob
           fetched=(data/raw/extracted_papers_metadata/arxiv_papers_*.jsonl)
           echo "JSONL files found: ${#fetched[@]}"
@@ -196,7 +199,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
+          git pull --rebase --autostash origin main
 
           shopt -s nullglob
           generated_files=(
