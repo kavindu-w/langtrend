@@ -99,15 +99,27 @@ jobs:
           git commit -m "Add fetched paper list"
           git push origin HEAD:main
 
-      # Step 2 + 3: process (HTML/PDF detection) + manifest — the long step
-      - name: Run LangTrend pipeline
+      # Step 2a: HTML-only pass — fast, no docling, saturate I/O threads
+      - name: Run LangTrend pipeline (HTML pass)
         run: |
           python scripts/run_langtrend_pipeline.py \
             --data-root data \
             --window-days 7 \
             --max-results 1000 \
-            --workers 12 \
-            --skip-fetch
+            --workers 24 \
+            --skip-fetch \
+            --no-pdf
+
+      # Step 2b: PDF retry — only the ~10% that had no HTML; docling is CPU-bound so fewer workers
+      - name: Run LangTrend pipeline (PDF retry)
+        run: |
+          python scripts/run_langtrend_pipeline.py \
+            --data-root data \
+            --window-days 7 \
+            --max-results 1000 \
+            --workers 6 \
+            --skip-fetch \
+            --retry-missing
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
