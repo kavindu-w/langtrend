@@ -76,7 +76,7 @@ jobs:
       # Commit the JSONL immediately so the paper list is preserved even if
       # the long process step later times out.
       - name: Commit fetched paper list
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
