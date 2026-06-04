@@ -192,10 +192,11 @@ jobs:
           git push origin HEAD:main
 
       - name: Commit generated week outputs
-        if: github.event_name == 'schedule'
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
 
           shopt -s nullglob
           generated_files=(
