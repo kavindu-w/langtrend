@@ -868,9 +868,13 @@ def main() -> None:
                 # PDF cache exists but detection entry never recorded pdf/html — crashed mid-run
                 if safe_id in cached_pdf_ids and "pdf" not in sources and "html" not in sources:
                     return True
-                # No cache at all — PDF was never attempted
+                # No cache at all AND only abstract-only detection — HTML/PDF was never
+                # successfully attempted. Skip this check if html/pdf is already in sources:
+                # the cache may simply be absent (e.g. gitignored on a fresh checkout) even
+                # though the paper was already fully processed.
                 if safe_id not in cached_html_ids and safe_id not in cached_pdf_ids:
-                    return True
+                    if "html" not in sources and "pdf" not in sources:
+                        return True
                 # HTML cache exists but is incomplete (_complete=False) and detection is
                 # abstract-only — the HTML fetch failed so a raw PDF may provide better coverage.
                 if safe_id in cached_html_ids and "html" not in sources:

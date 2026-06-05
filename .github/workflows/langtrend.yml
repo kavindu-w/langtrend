@@ -77,9 +77,12 @@ jobs:
             --max-results 1000 \
             --skip-process
 
-      # Commit the JSONL immediately so it is preserved even if the HTML pass times out
+      # Commit the JSONL immediately so it is preserved even if the HTML pass times out.
+      # continue-on-error: a push failure here is non-fatal — the JSONL will be
+      # committed later by "Commit HTML pass outputs" and the HTML pass must still run.
       - name: Commit fetched paper list
         if: always()
+        continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -98,7 +101,10 @@ jobs:
             exit 0
           fi
           git commit -m "Add fetched paper list"
-          git push origin HEAD:main
+          git push origin HEAD:main || {
+            git pull --rebase --autostash origin main
+            git push origin HEAD:main
+          }
 
       # HTML-only pass — fast, no docling, saturate I/O threads
       - name: Run LangTrend pipeline (HTML pass)
@@ -114,8 +120,11 @@ jobs:
       # Commit HTML outputs so pdf-and-deploy picks them up via a fresh checkout.
       # --retry-missing uses the committed detected/no_detections files to skip
       # papers already processed here, so it only runs docling on true PDF cases.
+      # continue-on-error: if this push fails after retrying, Job 1 still succeeds
+      # so Job 2 runs (it will just reprocess more papers via --retry-missing).
       - name: Commit HTML pass outputs
         if: always()
+        continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -123,6 +132,7 @@ jobs:
 
           shopt -s nullglob
           generated_files=(
+            data/raw/extracted_papers_metadata/arxiv_papers_*.jsonl
             data/processed/language_screening_warnings.json
             data/processed/langtrend_manifest_last_7_days.json
             data/processed/weeks/*/arxiv_papers_*_detected.jsonl
@@ -144,7 +154,10 @@ jobs:
           fi
 
           git commit -m "Update HTML pass outputs"
-          git push origin HEAD:main
+          git push origin HEAD:main || {
+            git pull --rebase --autostash origin main
+            git push origin HEAD:main
+          }
 
 # ---------------------------------------------------------------------------
 # Job 2: PDF retry + build + deploy (~1-4 h, CPU-bound docling)
@@ -205,6 +218,10 @@ jobs:
       - name: Bump product version
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+
           current_version=$(tr -d '[:space:]' < VERSION)
           major=${current_version%%.*}
           minor_patch=${current_version#*.}
@@ -225,16 +242,20 @@ jobs:
           fi
 
           printf '%s\n' "$new_version" > VERSION
-
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add VERSION
           git commit -m "Bump version to $new_version"
-          git push origin HEAD:main
+          git push origin HEAD:main || {
+            git pull --rebase --autostash origin main
+            git push origin HEAD:main
+          }
 
       - name: Bump product version (major)
         if: github.event_name == 'workflow_dispatch' && inputs.publish_site && inputs.major_version_update
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+
           current_version=$(tr -d '[:space:]' < VERSION)
           major=${current_version%%.*}
           minor_patch=${current_version#*.}
@@ -250,12 +271,12 @@ jobs:
           new_version="$major.0.0"
 
           printf '%s\n' "$new_version" > VERSION
-
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add VERSION
           git commit -m "Bump version to $new_version"
-          git push origin HEAD:main
+          git push origin HEAD:main || {
+            git pull --rebase --autostash origin main
+            git push origin HEAD:main
+          }
 
       - name: Commit final outputs
         if: always()
@@ -287,7 +308,10 @@ jobs:
           fi
 
           git commit -m "Update processed weekly outputs"
-          git push origin HEAD:main
+          git push origin HEAD:main || {
+            git pull --rebase --autostash origin main
+            git push origin HEAD:main
+          }
 
       - name: Configure Pages
         if: github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_site)
