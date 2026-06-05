@@ -40,8 +40,118 @@ concurrency:
   group: deploy
   cancel-in-progress: false
 
+# ---------------------------------------------------------------------------
+# Job 1: fetch paper metadata + HTML text extraction (~1-3 h, I/O-bound)
+# Commits its outputs so Job 2 can pick them up via a fresh checkout and
+# only run docling on the ~10 % of papers that truly need PDF.
+# ---------------------------------------------------------------------------
 jobs:
-  pipeline:
+  fetch-and-html:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: '.python-version'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # run_langtrend_pipeline auto-skips fetch if this week's JSONL already exists
+      - name: Fetch papers from arXiv
+        run: |
+          python scripts/run_langtrend_pipeline.py \
+            --data-root data \
+            --window-days 7 \
+            --max-results 1000 \
+            --skip-process
+
+      # Commit the JSONL immediately so it is preserved even if the HTML pass times out
+      - name: Commit fetched paper list
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+          shopt -s nullglob
+          fetched=(data/raw/extracted_papers_metadata/arxiv_papers_*.jsonl)
+          echo "JSONL files found: ${#fetched[@]}"
+          for f in "${fetched[@]}"; do echo "  $f"; done
+          if [ ${#fetched[@]} -eq 0 ]; then
+            echo "No JSONL found to commit."
+            exit 0
+          fi
+          git add -f "${fetched[@]}"
+          if git diff --cached --quiet; then
+            echo "No new paper data to commit — file already in repo."
+            exit 0
+          fi
+          git commit -m "Add fetched paper list"
+          git push origin HEAD:main
+
+      # HTML-only pass — fast, no docling, saturate I/O threads
+      - name: Run LangTrend pipeline (HTML pass)
+        run: |
+          python scripts/run_langtrend_pipeline.py \
+            --data-root data \
+            --window-days 7 \
+            --max-results 1000 \
+            --workers 24 \
+            --skip-fetch \
+            --no-pdf
+
+      # Commit HTML outputs so pdf-and-deploy picks them up via a fresh checkout.
+      # --retry-missing uses the committed detected/no_detections files to skip
+      # papers already processed here, so it only runs docling on true PDF cases.
+      - name: Commit HTML pass outputs
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+
+          shopt -s nullglob
+          generated_files=(
+            data/processed/language_screening_warnings.json
+            data/processed/langtrend_manifest_last_7_days.json
+            data/processed/weeks/*/arxiv_papers_*_detected.jsonl
+            data/processed/weeks/*/arxiv_papers_*_no_detections.json
+            data/processed/weeks/*/arxiv_papers_*_warnings.json
+            data/processed/weeks/*/langtrend_manifest.json
+          )
+
+          if [ ${#generated_files[@]} -eq 0 ]; then
+            echo "No generated files matched any pattern."
+            exit 0
+          fi
+
+          git add -f "${generated_files[@]}"
+
+          if git diff --cached --quiet; then
+            echo "No HTML pass changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update HTML pass outputs"
+          git push origin HEAD:main
+
+# ---------------------------------------------------------------------------
+# Job 2: PDF retry + build + deploy (~1-4 h, CPU-bound docling)
+# Fresh checkout sees the HTML outputs committed by Job 1.
+# ---------------------------------------------------------------------------
+  pdf-and-deploy:
+    needs: fetch-and-html
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -66,54 +176,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 1: fetch paper metadata from arXiv (fast, ~2-5 min)
-      # run_langtrend_pipeline auto-skips fetch if this week's JSONL already exists
-      - name: Fetch papers from arXiv
-        run: |
-          python scripts/run_langtrend_pipeline.py \
-            --data-root data \
-            --window-days 7 \
-            --max-results 1000 \
-            --skip-process
-
-      # Commit the JSONL immediately so the paper list is preserved even if
-      # the long process step later times out.
-      - name: Commit fetched paper list
-        if: always()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase --autostash origin main
-          shopt -s nullglob
-          fetched=(data/raw/extracted_papers_metadata/arxiv_papers_*.jsonl)
-          echo "JSONL files found: ${#fetched[@]}"
-          for f in "${fetched[@]}"; do echo "  $f"; done
-          if [ ${#fetched[@]} -eq 0 ]; then
-            echo "No JSONL found to commit."
-            exit 0
-          fi
-          git add -f "${fetched[@]}"
-          echo "git status after add:"
-          git status --short
-          if git diff --cached --quiet; then
-            echo "No new paper data to commit — file already in repo."
-            exit 0
-          fi
-          git commit -m "Add fetched paper list"
-          git push origin HEAD:main
-
-      # Step 2a: HTML-only pass — fast, no docling, saturate I/O threads
-      - name: Run LangTrend pipeline (HTML pass)
-        run: |
-          python scripts/run_langtrend_pipeline.py \
-            --data-root data \
-            --window-days 7 \
-            --max-results 1000 \
-            --workers 24 \
-            --skip-fetch \
-            --no-pdf
-
-      # Step 2b: PDF retry — only the ~10% that had no HTML; docling is CPU-bound so fewer workers
+      # PDF retry — only papers with no detection yet; docling is CPU-bound so fewer workers
       - name: Run LangTrend pipeline (PDF retry)
         run: |
           python scripts/run_langtrend_pipeline.py \
@@ -194,7 +257,7 @@ jobs:
           git commit -m "Bump version to $new_version"
           git push origin HEAD:main
 
-      - name: Commit generated week outputs
+      - name: Commit final outputs
         if: always()
         run: |
           git config user.name "github-actions[bot]"
@@ -203,7 +266,6 @@ jobs:
 
           shopt -s nullglob
           generated_files=(
-            data/raw/extracted_papers_metadata/arxiv_papers_*_to_*.jsonl
             data/processed/language_screening_warnings.json
             data/processed/langtrend_manifest_last_7_days.json
             data/processed/weeks/*/arxiv_papers_*_detected.jsonl
@@ -220,7 +282,7 @@ jobs:
           git add -f "${generated_files[@]}"
 
           if git diff --cached --quiet; then
-            echo "No generated data changes to commit."
+            echo "No final output changes to commit."
             exit 0
           fi
 
@@ -250,4 +312,3 @@ jobs:
             data/processed/langtrend_manifest_last_7_days.json
             data/processed/langtrend_manifest_*_to_*.json
           retention-days: 30
-
