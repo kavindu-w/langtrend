@@ -31,9 +31,21 @@ type FlaggedPaper = {
   sections: SectionRecord[];
   warnings?: PaperWarning[];
 };
+type WeekMeta = { weekStart: string; papers: number; flaggedPapers: number; uniqueLanguages: number };
 
-const { flaggedPapers } = Astro.props as { flaggedPapers: FlaggedPaper[] };
-const { languageData } = Astro.props as { flaggedPapers: FlaggedPaper[]; languageData?: { lang_classes?: Record<string, unknown[]> } };
+const {
+  flaggedPapers,
+  languageData,
+  availableWeeks = [] as string[],
+  currentWeekSlug = '',
+  allWeeksMetadata = [] as WeekMeta[],
+} = Astro.props as {
+  flaggedPapers: FlaggedPaper[];
+  languageData?: { lang_classes?: Record<string, unknown[]> };
+  availableWeeks?: string[];
+  currentWeekSlug?: string;
+  allWeeksMetadata?: WeekMeta[];
+};
 
 const normalizeLanguage = (entry: LanguageEntry): string => {
   if (typeof entry === 'string') return entry;
@@ -76,7 +88,6 @@ const chipFromEntry = (entry: LanguageEntry, langClasses: Record<string, unknown
   const explicitNeeds = !Array.isArray(entry) && typeof entry === 'object' && !!entry?.needs_review;
   const explicitReason = !Array.isArray(entry) && typeof entry === 'object' ? (entry?.flag_reason ?? '') : '';
   const twoLetterCode = typeof language === 'string' && /^[A-Za-z]{2}$/.test(language.trim());
-  // Check language_data possible_false_positive_languages map (if provided by loader)
   const pfpMap = (languageData as any)?.possible_false_positive_languages ?? {};
   const pfpReason = typeof language === 'string' && pfpMap[language] ? String(pfpMap[language]) : '';
   const needsReview = explicitNeeds || twoLetterCode || !!pfpReason;
@@ -91,23 +102,6 @@ const chipFromEntry = (entry: LanguageEntry, langClasses: Record<string, unknown
 };
 
 const langClasses = languageData?.lang_classes ?? {};
-const languageCounts = new Map<string, number>();
-for (const item of flaggedPapers) {
-  for (const entry of item.languages) {
-    const language = normalizeLanguage(entry);
-    if (!language) continue;
-    languageCounts.set(language, (languageCounts.get(language) || 0) + 1);
-  }
-}
-const languages = [...languageCounts.entries()]
-  .sort((l, r) => { const d = r[1] - l[1]; return d !== 0 ? d : l[0].localeCompare(r[0]); })
-  .map(([language]) => language);
-
-function formatDate(iso: string | undefined): string {
-  if (!iso) return '';
-  try { return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }); }
-  catch { return iso; }
-}
 
 const SOURCE_LABEL: Record<string, string> = { abstract: 'Abstract', html: 'Full Text (HTML)', pdf: 'Full Text (PDF)' };
 const SOURCE_ORDER = ['abstract', 'html', 'pdf'];
@@ -134,9 +128,16 @@ type PaperItem = {
   arxivUrl: string;
   acronymConflicts: PaperWarning[];
   suppressedChips: SuppressedChip[];
+  weekStart: string;
 };
 
-const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
+function formatDate(iso: string | undefined): string {
+  if (!iso) return '';
+  try { return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }); }
+  catch { return iso; }
+}
+
+function buildPaperItem(item: FlaggedPaper, index: number, weekStart: string): PaperItem {
   const paper = item.paper;
   const allAuthors = Array.isArray(paper.authors) && paper.authors.length > 0 ? paper.authors.join(', ') : 'Unknown authors';
 
@@ -148,7 +149,6 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   });
 
   const chips: ChipEntry[] = chipLanguages.map(entry => chipFromEntry(entry, langClasses));
-
   const chipLanguageNames = chips.map(c => c.language).filter(Boolean);
   const minClass = chips.length > 0 ? chips.reduce((min, c) => Math.min(min, c.borderClass), 5) : 5;
 
@@ -205,28 +205,49 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
 
   const acronymConflicts = (item.warnings ?? []).filter(w => w.step === 'acronym_language_conflict');
 
-  // Languages that were fully suppressed (not in any detected chip). Group by language so
-  // multiple acronyms that suppress the same language collapse into one chip.
   const suppressedByLang = new Map<string, SuppressedChip>();
   for (const w of acronymConflicts) {
     if (!w.language || !w.acronym) continue;
-    if (chipLanguageNames.includes(w.language)) continue; // already shown as a real chip
+    if (chipLanguageNames.includes(w.language)) continue;
     if (!suppressedByLang.has(w.language)) {
-      suppressedByLang.set(w.language, {
-        language: w.language,
-        borderClass: w.language_class ?? 0,
-        acronyms: [],
-      });
+      suppressedByLang.set(w.language, { language: w.language, borderClass: w.language_class ?? 0, acronyms: [] });
     }
     const entry = suppressedByLang.get(w.language)!;
     if (!entry.acronyms.includes(w.acronym)) entry.acronyms.push(w.acronym);
   }
   const suppressedChips = [...suppressedByLang.values()];
 
-  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts, suppressedChips };
+  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts, suppressedChips, weekStart };
+}
+
+// Current week papers first, tracking seen IDs for deduplication
+const seenIds = new Set<string>();
+const paperItems: PaperItem[] = flaggedPapers.map((item, i) => {
+  if (item.paper.id) seenIds.add(item.paper.id);
+  return buildPaperItem(item, i, currentWeekSlug);
 });
+
+// Language chips — derived from current week only at build time; counts updated in JS for multi-week
+const languageCounts = new Map<string, number>();
+for (const it of paperItems) {
+  for (const chip of it.chips) {
+    if (!chip.language) continue;
+    languageCounts.set(chip.language, (languageCounts.get(chip.language) || 0) + 1);
+  }
+}
+const languages = [...languageCounts.entries()]
+  .sort((l, r) => { const d = r[1] - l[1]; return d !== 0 ? d : l[0].localeCompare(r[0]); })
+  .map(([language]) => language);
+
 ---
-<section class="panel paper-panel">
+<section
+  class="panel paper-panel"
+  id="paper-table-root"
+  data-current-week={currentWeekSlug}
+  data-available-weeks={JSON.stringify(availableWeeks)}
+  data-weeks-meta={JSON.stringify(allWeeksMetadata)}
+  data-base-url={import.meta.env.BASE_URL}
+>
   <div id="active-filters-bar" class="active-filters-bar" style="display:none">
     <button id="clear-filters-btn" class="clear-filters-btn" type="button">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -234,6 +255,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
     </button>
     <span id="active-filter-tags" class="active-filter-tags"></span>
   </div>
+
   <div class="paper-controls-bar">
     <div class="search-wrapper paper-search-wrapper">
       <svg class="input-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
@@ -288,7 +310,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
             data-lang={language}
             style={`background:${languageFillColor(language)}`}
           >
-            {language} <span class="chip-count">({languageCounts.get(language) || 0})</span>
+            {language} <span class="chip-count">(<span class="chip-count-val">{languageCounts.get(language) || 0}</span>)</span>
           </button>
         ))}
         <button id="chip-expand-btn" class="chip-expand-btn" type="button" aria-expanded="false" aria-label="Show more language filters" style="display:none">… +0 more</button>
@@ -308,6 +330,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
           data-classes={[...new Set(item.chips.map(c => c.borderClass))].join(',')}
           data-title={item.paper.title.toLowerCase()}
           data-index={item.index}
+          data-week={item.weekStart}
         >
           <summary class="paper-summary">
             <div class="paper-main">
@@ -423,7 +446,6 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
               </div>
             </details>
           )}
-          <!-- Section-level details moved into the Language detection sources block above. -->
           <div class="paper-body-footer">
             <a class="arxiv-link" href={item.arxivUrl} target="_blank" rel="noreferrer">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -448,6 +470,21 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
 </section>
 
 <script>
+  // ── State ────────────────────────────────────────────────────────────────────
+
+  const root = document.getElementById('paper-table-root') as HTMLElement;
+  const currentWeekSlug: string = root?.dataset.currentWeek ?? '';
+  const availableWeeks: string[] = JSON.parse(root?.dataset.availableWeeks ?? '[]');
+  const baseUrl: string = (root?.dataset.baseUrl ?? '').replace(/\/+$/, '');
+
+  const urlParams = new URLSearchParams(location.search);
+  const _langParam = urlParams.get('lang') ?? '';
+  const activeLanguages = new Set<string>(_langParam ? _langParam.split(',').filter(Boolean) : []);
+
+  // Track fetched/fetching weeks to avoid duplicate requests
+  const fetchedWeeks = new Set<string>([currentWeekSlug]);
+  const pendingFetches = new Map<string, Promise<void>>();
+
   const searchInput = document.getElementById('paper-search') as HTMLInputElement | null;
   const langSearchInput = document.getElementById('lang-search') as HTMLInputElement | null;
   const sortSelect = document.getElementById('paper-sort') as HTMLSelectElement | null;
@@ -457,14 +494,189 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   const clearFiltersBtn = document.getElementById('clear-filters-btn') as HTMLButtonElement | null;
   const expandBtn = document.getElementById('chip-expand-btn') as HTMLButtonElement | null;
   const paperList = document.getElementById('paper-list') as HTMLElement | null;
+
   const allChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .chip'));
   const langChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .lang-filter-chip'));
-  const rows = Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row'));
-  let activeLanguage = 'all';
+  let rows = Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row'));
   let chipExpanded = false;
   const chipRow = document.getElementById('language-filters') as HTMLElement | null;
 
-  // ── Collapse helpers ────────────────────────────────────────────────────────
+  // ── URL param helpers ────────────────────────────────────────────────────────
+
+  function updateUrlParams() {
+    const p = new URLSearchParams(location.search);
+    const langs = [...activeLanguages].join(',');
+    if (langs) p.set('lang', langs); else p.delete('lang');
+    const q = searchInput?.value.trim() ?? '';
+    if (q) p.set('q', q); else p.delete('q');
+    const sort = sortSelect?.value ?? 'default';
+    if (sort && sort !== 'default') p.set('sort', sort); else p.delete('sort');
+    const qs = p.toString();
+    history.replaceState(null, '', qs ? `${location.pathname}?${qs}` : location.pathname);
+  }
+
+  // ── Active-period week set ───────────────────────────────────────────────────
+
+  function getActiveWeekSlugs(): string[] {
+    const params = new URLSearchParams(location.search);
+    const periodParam = params.get('period');
+    const fromParam = params.get('from');
+    if (periodParam === 'all') return [...availableWeeks];
+    if (fromParam) {
+      const fromIdx = availableWeeks.indexOf(fromParam);
+      const anchorIdx = availableWeeks.indexOf(currentWeekSlug);
+      if (fromIdx !== -1 && anchorIdx !== -1) {
+        return availableWeeks.slice(Math.min(fromIdx, anchorIdx), Math.max(fromIdx, anchorIdx) + 1);
+      }
+    }
+    return [currentWeekSlug];
+  }
+
+  // ── Multi-week fetch ─────────────────────────────────────────────────────────
+
+  type PaperJSON = {
+    id: string; title: string; authors: string[]; abstract: string;
+    pdf_url: string; arxiv_url: string; published: string; categories: string[];
+    searchText: string;
+    languages: { language: string; borderClass: number; fillColor: string; needsReview: boolean }[];
+    languageNames: string[]; langCount: number; minClass: number; classes: number[];
+  };
+
+  function formatPubDate(iso: string): string {
+    if (!iso) return '';
+    try { return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }); }
+    catch { return iso; }
+  }
+
+  function fmtWeekLabel(slug: string): string {
+    try { return new Date(slug + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }); }
+    catch { return slug; }
+  }
+
+  function createPaperRow(p: PaperJSON, weekStart: string, index: number): HTMLElement {
+    const wrap = document.createElement('div');
+    wrap.className = 'paper-row-wrap';
+    wrap.style.display = 'none';
+
+    const chips = p.languages.map(l => {
+      const span = document.createElement('span');
+      span.className = `lang-chip class-${l.borderClass}${l.needsReview ? ' needs-review' : ''}`;
+      span.style.background = l.fillColor;
+      span.textContent = l.language;
+      if (l.needsReview) {
+        const star = document.createElement('span');
+        star.className = 'review-star';
+        star.setAttribute('aria-hidden', 'true');
+        star.textContent = '★';
+        span.appendChild(star);
+      }
+      return span;
+    });
+
+    const weekBadge = `<span class="week-badge">w/o ${fmtWeekLabel(weekStart)}</span>`;
+    const pubDateStr = formatPubDate(p.published);
+    const catBadges = p.categories.map(c => `<span class="category-badge">${c}</span>`).join('');
+
+    const details = document.createElement('details');
+    details.className = 'paper-row';
+    details.dataset.search = p.searchText;
+    details.dataset.languages = p.languageNames.join('|');
+    details.dataset.langCount = String(p.langCount);
+    details.dataset.minClass = String(p.minClass);
+    details.dataset.classes = p.classes.join(',');
+    details.dataset.title = p.title.toLowerCase();
+    details.dataset.index = String(index);
+    details.dataset.week = weekStart;
+
+    const tagsHtml = chips.map(c => c.outerHTML).join('');
+    details.innerHTML = `
+      <summary class="paper-summary">
+        <div class="paper-main">
+          <div class="paper-title-row">
+            <h3>${p.title}${weekBadge}</h3>
+          </div>
+          <p class="paper-authors">${p.authors.join(', ') || 'Unknown authors'}</p>
+          <div class="paper-tags">${tagsHtml}</div>
+        </div>
+      </summary>
+      <div class="paper-body">
+        ${pubDateStr || catBadges ? `<div class="paper-meta">${pubDateStr ? `<span class="paper-date">Published ${pubDateStr}</span>` : ''}${catBadges ? `<span class="paper-categories">${catBadges}</span>` : ''}</div>` : ''}
+        <strong class="paper-abstract-label">Abstract</strong>
+        <p class="paper-abstract">${p.abstract}</p>
+        <div class="paper-body-footer">
+          <a class="arxiv-link" href="${p.arxiv_url}" target="_blank" rel="noreferrer">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            View on arXiv<span class="sr-only"> (opens in new tab)</span>
+          </a>
+        </div>
+      </div>`;
+
+    const pdfLink = document.createElement('a');
+    pdfLink.className = 'pdf-link';
+    pdfLink.href = p.pdf_url;
+    pdfLink.target = '_blank';
+    pdfLink.rel = 'noreferrer';
+    pdfLink.setAttribute('aria-label', `PDF — ${p.title} (opens in new tab)`);
+    pdfLink.innerHTML = `<svg class="pdf-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7zm0 1.5V8h4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span aria-hidden="true">PDF</span>`;
+
+    wrap.appendChild(details);
+    wrap.appendChild(pdfLink);
+    return wrap;
+  }
+
+  async function fetchWeek(weekSlug: string): Promise<void> {
+    if (fetchedWeeks.has(weekSlug)) return;
+    if (pendingFetches.has(weekSlug)) return pendingFetches.get(weekSlug);
+
+    const promise = (async () => {
+      try {
+        const url = `${baseUrl}/api/weeks/${weekSlug}.json`;
+        const resp = await fetch(url);
+        if (!resp.ok) return;
+        const papers: PaperJSON[] = await resp.json();
+        const existingIds = new Set(rows.map(r => r.dataset.id).filter(Boolean));
+        let idx = rows.length;
+        for (const p of papers) {
+          if (p.id && existingIds.has(p.id)) continue;
+          if (p.id) existingIds.add(p.id);
+          const wrap = createPaperRow(p, weekSlug, idx++);
+          paperList?.appendChild(wrap);
+        }
+        // Refresh rows array to include newly added rows
+        rows = Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row'));
+        fetchedWeeks.add(weekSlug);
+      } catch { /* silently ignore fetch errors */ }
+    })();
+
+    pendingFetches.set(weekSlug, promise);
+    await promise;
+    pendingFetches.delete(weekSlug);
+  }
+
+  // ── Chip counts ──────────────────────────────────────────────────────────────
+
+  function updateChipCounts() {
+    const activeWeekSet = new Set(getActiveWeekSlugs());
+    const counts = new Map<string, number>();
+    for (const row of rows) {
+      const rowWeek = row.dataset.week ?? currentWeekSlug;
+      if (!activeWeekSet.has(rowWeek)) continue;
+      (row.dataset.languages ?? '').split('|').filter(Boolean).forEach(l => {
+        counts.set(l, (counts.get(l) ?? 0) + 1);
+      });
+    }
+    document.querySelectorAll<HTMLElement>('#language-filters .lang-filter-chip').forEach(chip => {
+      const lang = chip.dataset.lang ?? '';
+      const valEl = chip.querySelector<HTMLElement>('.chip-count-val');
+      if (valEl) valEl.textContent = String(counts.get(lang) ?? 0);
+    });
+  }
+
+  // ── Collapse helpers ─────────────────────────────────────────────────────────
 
   function measureFirstRow(): { firstRowChips: HTMLButtonElement[]; overflowChips: HTMLButtonElement[] } {
     const visible = langChips.filter(c => !c.hidden && c.style.display !== 'none');
@@ -481,36 +693,22 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   function applyCollapse() {
     if (!expandBtn || !chipRow) return;
     chipRow.appendChild(expandBtn);
-
-    // All mutations inside the rAF so the browser paints only the final collapsed state —
-    // no intermediate full-width flash.
     requestAnimationFrame(() => {
       langChips.forEach(c => c.style.removeProperty('display'));
       expandBtn!.style.display = 'none';
-
       const { firstRowChips, overflowChips } = measureFirstRow();
       if (overflowChips.length === 0) return;
-      // firstRowChips is empty when the chip area is inside a collapsed <details> —
-      // getBoundingClientRect returns zeros for hidden content. Bail out; the
-      // <details> toggle listener below will re-run applyCollapse when it opens.
       if (firstRowChips.length === 0) return;
-
-      // Capture row position before hiding anything
       const firstTop = firstRowChips[0].getBoundingClientRect().top;
       const chipH    = firstRowChips[0].getBoundingClientRect().height;
-
       const toHide = [...overflowChips];
       if (firstRowChips.length > 0) toHide.push(firstRowChips[firstRowChips.length - 1]);
       toHide.forEach(c => { c.style.display = 'none'; });
-
       let hiddenCount = toHide.length;
       expandBtn!.style.removeProperty('display');
       expandBtn!.setAttribute('aria-expanded', 'false');
       expandBtn!.textContent = `… +${hiddenCount} more`;
       expandBtn!.setAttribute('aria-label', `Show ${hiddenCount} more language filters`);
-
-      // Loop: keep hiding chips until expand button lands on the first row.
-      // getBoundingClientRect forces synchronous reflow so positions are always current.
       for (let i = 0; i < langChips.length; i++) {
         if (chipH === 0) break;
         if (Math.abs(expandBtn!.getBoundingClientRect().top - firstTop) <= chipH * 0.5) break;
@@ -522,38 +720,26 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
         expandBtn!.textContent = `… +${hiddenCount} more`;
         expandBtn!.setAttribute('aria-label', `Show ${hiddenCount} more language filters`);
       }
-
     });
   }
 
   function expandChips() {
     if (!expandBtn || !chipRow) return;
     chipExpanded = true;
-
-    // All work inside a single rAF so the browser paints only the final state.
     requestAnimationFrame(() => {
-      // Show all chips first; keep button hidden so it doesn't affect first-row measurement.
       langChips.forEach(c => { if (!c.hidden) c.style.removeProperty('display'); });
       expandBtn!.style.display = 'none';
-
       const visible = langChips.filter(c => !c.hidden && c.style.display !== 'none');
       if (visible.length > 0) {
         const firstTop = visible[0].getBoundingClientRect().top;
         const chipH    = visible[0].getBoundingClientRect().height;
         const threshold = firstTop + chipH * 0.5;
         const firstRowChips = visible.filter(c => c.getBoundingClientRect().top < threshold);
-
-        // Place button after the last chip on the first row.
-        if (firstRowChips.length > 0) {
-          firstRowChips[firstRowChips.length - 1].insertAdjacentElement('afterend', expandBtn!);
-        }
-
+        if (firstRowChips.length > 0) firstRowChips[firstRowChips.length - 1].insertAdjacentElement('afterend', expandBtn!);
         expandBtn!.style.removeProperty('display');
         expandBtn!.setAttribute('aria-expanded', 'true');
         expandBtn!.textContent = 'Show less';
         expandBtn!.setAttribute('aria-label', 'Show fewer language filters');
-
-        // If the button still wraps (row too narrow), move it one chip earlier per iteration.
         for (let i = 0; i < langChips.length; i++) {
           if (chipH === 0) break;
           if (Math.abs(expandBtn!.getBoundingClientRect().top - firstTop) <= chipH * 0.5) break;
@@ -570,36 +756,34 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
     });
   }
 
-  function collapseChips() {
-    chipExpanded = false;
-    applyCollapse();
-  }
+  function collapseChips() { chipExpanded = false; applyCollapse(); }
 
-  expandBtn?.addEventListener('click', () => {
-    chipExpanded ? collapseChips() : expandChips();
-  });
-
-  window.addEventListener('resize', () => {
-    if (!chipExpanded) applyCollapse();
-  });
-
-  // Re-measure when the enclosing <details> section is opened — chips have
-  // zero dimensions while the section is collapsed so the initial measurement
-  // bails out early and leaves the expand button hidden.
+  expandBtn?.addEventListener('click', () => { chipExpanded ? collapseChips() : expandChips(); });
+  window.addEventListener('resize', () => { if (!chipExpanded) applyCollapse(); });
   document.getElementById('flagged-papers')?.addEventListener('toggle', (e) => {
     if ((e.target as HTMLDetailsElement).open && !chipExpanded) applyCollapse();
   });
 
-  // ── Language chip search ────────────────────────────────────────────────────
+  // ── Language chip search ─────────────────────────────────────────────────────
 
   function filterLangChips(query: string) {
     const q = query.trim().toLowerCase();
     langChips.forEach(chip => {
       chip.hidden = q.length > 0 && !(chip.dataset.lang || '').toLowerCase().includes(q);
     });
-    if (activeLanguage !== 'all') {
-      const activeChip = langChips.find(c => c.dataset.lang === activeLanguage);
-      if (activeChip?.hidden || q.length === 0) { setActiveChip('all'); applyFilters(); }
+    let needsRefilter = false;
+    for (const chip of langChips) {
+      if (chip.hidden && activeLanguages.has(chip.dataset.lang || '')) {
+        activeLanguages.delete(chip.dataset.lang || '');
+        chip.classList.remove('active');
+        needsRefilter = true;
+      }
+    }
+    if (needsRefilter) {
+      const allBtn = allChips.find(c => c.dataset.lang === 'all');
+      if (allBtn) allBtn.classList.toggle('active', activeLanguages.size === 0);
+      updateUrlParams();
+      applyFilters();
     }
     if (chipExpanded) {
       langChips.forEach(c => { if (!c.hidden) c.style.removeProperty('display'); });
@@ -608,14 +792,21 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
     }
   }
 
-  function setActiveChip(lang: string) {
-    allChips.forEach(c => c.classList.remove('active'));
-    const target = allChips.find(c => c.dataset.lang === lang);
-    if (target) target.classList.add('active');
-    activeLanguage = lang;
+  function toggleLanguage(lang: string) {
+    if (lang === 'all') {
+      activeLanguages.clear();
+    } else if (activeLanguages.has(lang)) {
+      activeLanguages.delete(lang);
+    } else {
+      activeLanguages.add(lang);
+    }
+    const allBtn = allChips.find(c => c.dataset.lang === 'all');
+    langChips.forEach(chip => chip.classList.toggle('active', activeLanguages.has(chip.dataset.lang || '')));
+    if (allBtn) allBtn.classList.toggle('active', activeLanguages.size === 0);
+    updateUrlParams();
   }
 
-  // ── Paper filters ───────────────────────────────────────────────────────────
+  // ── Paper filters ────────────────────────────────────────────────────────────
 
   function getClassFilter(): string {
     const v = sortSelect?.value ?? '';
@@ -629,7 +820,7 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
     const tags: string[] = [];
     if (searchTerm) tags.push(`Title: "${searchTerm}"`);
     if (langTerm) tags.push(`Language search: "${langTerm}"`);
-    if (activeLanguage !== 'all') tags.push(`Language: ${activeLanguage}`);
+    if (activeLanguages.size > 0) tags.push(`Languages: ${[...activeLanguages].join(', ')}`);
     if (classFilter !== 'all') tags.push(`Class: ${classFilter}`);
     const active = tags.length > 0;
     if (activeFiltersBar) activeFiltersBar.style.display = active ? '' : 'none';
@@ -637,30 +828,35 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
   }
 
   function applyFilters() {
+    const activeWeekSet = new Set(getActiveWeekSlugs());
     const searchTerm = searchInput?.value.trim().toLowerCase() ?? '';
     const classFilter = getClassFilter();
     let visible = 0;
+    let inPeriodTotal = 0;
     rows.forEach(row => {
+      const rowWeek = row.dataset.week ?? currentWeekSlug;
+      const inPeriod = activeWeekSet.has(rowWeek);
       const rowSearch = row.dataset.search || '';
       const rowLanguages = (row.dataset.languages || '').split('|').filter(Boolean);
       const rowClasses = (row.dataset.classes || '').split(',').filter(Boolean);
-      const matchesLanguage = activeLanguage === 'all' || rowLanguages.includes(activeLanguage);
+      const matchesLanguage = activeLanguages.size === 0 || rowLanguages.some(l => activeLanguages.has(l));
       const matchesSearch = !searchTerm || rowSearch.includes(searchTerm);
       const matchesClass = classFilter === 'all' || rowClasses.includes(classFilter);
-      const show = matchesLanguage && matchesSearch && matchesClass;
-      // Hide the wrapper so the absolutely-positioned PDF link is hidden along with the row
+      const show = inPeriod && matchesLanguage && matchesSearch && matchesClass;
       (row.parentElement as HTMLElement).style.display = show ? '' : 'none';
       if (show) visible++;
+      if (inPeriod) inPeriodTotal++;
     });
     if (resultCount) {
-      resultCount.textContent = visible === rows.length
-        ? `${rows.length} papers`
-        : `${visible} of ${rows.length} papers`;
+      resultCount.textContent = visible === inPeriodTotal
+        ? `${inPeriodTotal} papers`
+        : `${visible} of ${inPeriodTotal} papers`;
     }
     updateFilterBar();
+    updateChipCounts();
   }
 
-  // ── Sort ────────────────────────────────────────────────────────────────────
+  // ── Sort ─────────────────────────────────────────────────────────────────────
 
   function sortPapers(mode: string) {
     if (!paperList) return;
@@ -675,37 +871,62 @@ const paperItems: PaperItem[] = flaggedPapers.map((item, index) => {
         default:             return parseInt(a.dataset.index || '0') - parseInt(b.dataset.index || '0');
       }
     });
-    // Append the wrapper (grid item) so the PDF link moves with its row
     sorted.forEach(row => paperList.appendChild(row.parentElement as HTMLElement));
   }
 
-  // Popovers are now hover/focus driven; no global click-close needed.
-
-  // ── Wire up ─────────────────────────────────────────────────────────────────
+  // ── Wire up ──────────────────────────────────────────────────────────────────
 
   allChips.forEach(chip => {
-    chip.addEventListener('click', () => { setActiveChip(chip.dataset.lang || 'all'); applyFilters(); });
+    chip.addEventListener('click', () => { toggleLanguage(chip.dataset.lang || 'all'); applyFilters(); });
   });
-  searchInput?.addEventListener('input', applyFilters);
+  searchInput?.addEventListener('input', () => { updateUrlParams(); applyFilters(); });
   langSearchInput?.addEventListener('input', e => { filterLangChips((e.target as HTMLInputElement).value); updateFilterBar(); });
   sortSelect?.addEventListener('change', () => {
     const v = sortSelect.value;
     sortPapers(v.startsWith('class-') ? 'default' : v);
+    updateUrlParams();
     applyFilters();
   });
   clearFiltersBtn?.addEventListener('click', () => {
     if (searchInput) searchInput.value = '';
     if (langSearchInput) { langSearchInput.value = ''; filterLangChips(''); }
-    setActiveChip('all');
+    activeLanguages.clear();
+    allChips.forEach(c => c.classList.toggle('active', c.dataset.lang === 'all'));
+    langChips.forEach(c => c.classList.remove('active'));
     if (sortSelect) sortSelect.value = 'default';
     sortPapers('default');
+    updateUrlParams();
     applyFilters();
   });
 
-  // Wait for fonts before measuring chip positions — on a refresh, fonts may not be
-  // loaded yet so getBoundingClientRect returns wrong heights, causing the expand
-  // button to stay hidden until a filter re-triggers the measurement.
-  document.fonts.ready.then(() => {
+  // ── Init ─────────────────────────────────────────────────────────────────────
+
+  // Restore active language chips from URL
+  if (activeLanguages.size > 0) {
+    const allBtn = allChips.find(c => c.dataset.lang === 'all');
+    if (allBtn) allBtn.classList.remove('active');
+    const chipLangs = new Set(langChips.map(c => c.dataset.lang || '').filter(Boolean));
+    for (const l of activeLanguages) { if (!chipLangs.has(l)) activeLanguages.delete(l); }
+    langChips.forEach(chip => { if (activeLanguages.has(chip.dataset.lang || '')) chip.classList.add('active'); });
+    if (activeLanguages.size === 0 && allBtn) allBtn.classList.add('active');
+  }
+
+  // Restore search and sort from URL
+  const _qParam = urlParams.get('q') ?? '';
+  if (_qParam && searchInput) searchInput.value = _qParam;
+  const _sortParam = urlParams.get('sort') ?? '';
+  if (_sortParam && sortSelect) {
+    sortSelect.value = _sortParam;
+    sortPapers(_sortParam.startsWith('class-') ? 'default' : _sortParam);
+  }
+
+  // Fetch any weeks needed by the current URL state (period/all-time mode), then render
+  document.fonts.ready.then(async () => {
+    const activeWeeks = getActiveWeekSlugs();
+    const weeksToFetch = activeWeeks.filter(w => !fetchedWeeks.has(w));
+    if (weeksToFetch.length > 0) {
+      await Promise.all(weeksToFetch.map(fetchWeek));
+    }
     requestAnimationFrame(() => { applyCollapse(); applyFilters(); });
   });
 </script>

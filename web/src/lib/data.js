@@ -199,6 +199,18 @@ export function loadAllWeeksData() {
         return null;
       }
 
+      const fpList = Array.isArray(manifest.flagged_papers) ? manifest.flagged_papers : [];
+      const coverageStats = fpList.reduce(
+        (acc, item) => {
+          const s = item.sources_checked || [];
+          if (s.includes('html')) acc.htmlScanned++;
+          else if (s.includes('pdf')) acc.pdfOnly++;
+          else acc.abstractOnly++;
+          return acc;
+        },
+        { htmlScanned: 0, pdfOnly: 0, abstractOnly: 0 },
+      );
+
       return {
         weekStart,
         weekEnd: manifest.week_end ?? null,
@@ -208,6 +220,7 @@ export function loadAllWeeksData() {
         languageCounts: Array.isArray(manifest.language_counts) ? manifest.language_counts : [],
         classCounts: Array.isArray(manifest.class_counts) ? manifest.class_counts : [],
         dailySeries: Array.isArray(manifest.daily_series) ? manifest.daily_series : [],
+        coverageStats,
       };
     })
     .filter(Boolean)

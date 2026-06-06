@@ -16,6 +16,7 @@ type WeekAggregate = {
   languageCounts: LanguageCount[];
   classCounts: ClassCount[];
   dailySeries: WeekPoint[];
+  coverageStats?: { htmlScanned: number; pdfOnly: number; abstractOnly: number };
 };
 
 type Props = {
@@ -479,7 +480,8 @@ function computeTrendData(granularity: TrendGranularity) {
   const uniqueInnerHeight = uniqueHeight - uniqueMargins.top - uniqueMargins.bottom;
   const uniqueScale = scaleBand().domain(periodLabels).range([0, uniqueInnerWidth]).padding(0.22);
   const uniqueMax = Math.max(1, ...periods.map((p) => p.uniqueLanguages || 0));
-  const uniqueY = scaleLinear().domain([0, uniqueMax]).nice().range([uniqueInnerHeight, 0]);
+  const uniqueYInset = 8;
+  const uniqueY = scaleLinear().domain([0, uniqueMax]).nice().range([uniqueInnerHeight - uniqueYInset, uniqueYInset]);
 
   const endpointRaw = trendSeries.map((series, idx) => {
     const lastPt = series.points[series.points.length - 1];
@@ -834,6 +836,8 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
 
 ---
 <section class="stats-stack">
+  <script type="application/json" id="all-weeks-meta" is:inline set:html={JSON.stringify(allWeeksData.map(w => ({ weekStart: w.weekStart, papers: w.papers, flaggedPapers: w.flaggedPapers, uniqueLanguages: w.uniqueLanguages, languageCounts: w.languageCounts, classCounts: w.classCounts, dailySeries: w.dailySeries, coverageStats: w.coverageStats })))}></script>
+  <script type="application/json" id="lang-classes-meta" is:inline set:html={JSON.stringify(langClasses)}></script>
   <details id="weekly-trends-panel" class="panel chart-panel wide-panel" open>
     <summary class="paper-collapse-summary">
       <div>
@@ -842,18 +846,29 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
       <span class="paper-collapse-hint">Collapse section</span>
     </summary>
 
+    <div id="period-week-switcher" class="period-week-switcher" style="display:none">
+      <label class="picker-label" for="period-stats-week-select">Week stats for:</label>
+      <select id="period-stats-week-select" class="picker-select"></select>
+    </div>
+
     <div class="stat-row">
-      {weeklySummaryCards.map((card) => (
-        <article class="stat-card-mini">
-          <strong>{card.value}</strong>
-          <span>{card.label}</span>
-        </article>
-      ))}
+      <article class="stat-card-mini">
+        <strong id="stat-total-papers">{weeklyPapers}</strong>
+        <span>Total papers scanned</span>
+      </article>
+      <article class="stat-card-mini">
+        <strong id="stat-flagged-papers">{weeklyFlagged}</strong>
+        <span>Papers with language mentions</span>
+      </article>
+      <article class="stat-card-mini">
+        <strong id="stat-unique-langs">{weeklyUniqueLanguages}</strong>
+        <span>Unique languages detected</span>
+      </article>
     </div>
 
     <div class="coverage-summary-panel">
       <div class="coverage-summary-grid">
-        <div class="coverage-summary-card">
+        <div class="coverage-summary-card" id="weekly-coverage-pie-card">
           <div class="chart-subpanel-head">
             <div>
               <h3>Weekly coverage</h3>
@@ -891,7 +906,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
           </svg>
         </div>
 
-        <div class="coverage-summary-card">
+        <div class="coverage-summary-card" id="weekly-source-breakdown-card">
           <div class="chart-subpanel-head">
             <div>
               <h3>Source breakdown</h3>
@@ -937,7 +952,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
           <span><span class="coverage-dot html"></span>Papers with language mentions</span>
         </div>
         {weeklyDailySeries.length > 0 ? (
-          <div class="chart-scroll">
+          <div class="chart-scroll" id="weekly-daily-chart">
             <svg class="chart-svg" style="height:auto" width="100%" viewBox={`0 0 ${weeklyDailyWidth} ${weeklyDailyHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Daily submission activity stacked bar chart">
               <g transform={`translate(${weeklyDailyMargins.left} ${weeklyDailyMargins.top})`}>
                 {/* baseline */}
@@ -992,7 +1007,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
           </div>
         </div>
         <p class="chart-axis-label" style="text-align:center;margin-bottom:8px">Resource availability: Class 0 (lowest) to Class 5 (highest)</p>
-        <div class="class-bar-wrap class-pie-wrap">
+        <div class="class-bar-wrap class-pie-wrap" id="weekly-class-pie-container">
           <svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of resource class breakdown">
             <g>
               {weeklyClassPie.map((slice) => (
@@ -1157,7 +1172,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
           </div>
         </div>
         {weeklyLanguageSeries.length > 0 ? (
-          <div class="chart-scroll" style="max-height:520px;overflow-y:auto;">
+          <div class="chart-scroll" id="weekly-lang-freq" style="max-height:520px;overflow-y:auto;">
             <svg class="chart-svg" style="height:auto" width="100%" viewBox={`0 0 ${weeklyLanguageBarWidth} ${weeklyLanguageBarHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Full language frequency horizontal bar chart">
               <g transform={`translate(${weeklyLanguageBarMargins.left} ${weeklyLanguageBarMargins.top})`}>
                 {weeklyLanguageSeries.map((item, index) => {
@@ -1233,6 +1248,110 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         ) : (
           <p class="placeholder-text">Flow diagram will appear once at least 5 languages are detected.</p>
         )}
+      </article>
+    </div>
+  </details>
+
+  <details id="period-trends-panel" class="panel chart-panel wide-panel" style="display:none" open>
+    <summary class="paper-collapse-summary">
+      <div>
+        <h2 id="period-trend-title">Period trends</h2>
+        <p>Per-week and aggregated language trends for the selected period.</p>
+      </div>
+      <span class="paper-collapse-hint">Collapse section</span>
+    </summary>
+
+    <div class="stat-row">
+      <article class="stat-card-mini">
+        <strong id="period-stat-papers">—</strong>
+        <span>Papers in period</span>
+      </article>
+      <article class="stat-card-mini">
+        <strong id="period-stat-flagged">—</strong>
+        <span>Papers with language mentions</span>
+      </article>
+      <article class="stat-card-mini">
+        <strong id="period-stat-unique">—</strong>
+        <span>Unique languages detected</span>
+      </article>
+    </div>
+
+    <div class="overall-summary-grid" style="margin-bottom:14px">
+      <div class="coverage-summary-card">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Period coverage</h3>
+            <p>Papers scanned across the selected period vs. papers with at least one language mention.</p>
+          </div>
+        </div>
+        <svg class="chart-svg coverage-pie-svg" width="100%" height="260" viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of selected period papers analyzed versus papers with language mentions" id="period-coverage-pie"></svg>
+      </div>
+
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Period scan volume</h3>
+            <p>Total papers scanned in each week of the selected period, split by papers with and without language mentions.</p>
+          </div>
+        </div>
+        <div class="chart-legend-inline" style="justify-content:center">
+          <span><span class="coverage-dot abstract"></span>Other papers</span>
+          <span><span class="coverage-dot html"></span>Papers with language mentions</span>
+        </div>
+        <div class="chart-scroll trend-period-chart-scroll" id="period-scan-volume"></div>
+      </article>
+    </div>
+
+    <div class="overall-trend-grid">
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Resource class mix by week</h3>
+            <p>Proportional share of language mentions per resource-availability tier within the selected period.</p>
+          </div>
+        </div>
+        <div class="class-legend" id="period-class-legend"></div>
+        <div class="chart-scroll" id="period-class-mix"></div>
+      </article>
+
+      <article class="chart-subpanel">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Unique languages per week</h3>
+            <p>How many distinct languages were mentioned in each week of the selected period.</p>
+          </div>
+        </div>
+        <div class="chart-scroll trend-period-chart-scroll" id="period-unique-languages"></div>
+      </article>
+
+      <article class="chart-subpanel chart-subpanel-wide">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Top-language trends</h3>
+            <p>Mention counts for the top 10 languages in the selected period, tracked across all weeks in the range.</p>
+          </div>
+        </div>
+        <div class="trend-line-layout" id="period-top-language-trends"></div>
+      </article>
+
+      <article class="chart-subpanel chart-subpanel-wide">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Language rank trajectory</h3>
+            <p>Rank 1 = most mentions in that week. Tracks the languages that appear in each top 10 across the selected period.</p>
+          </div>
+        </div>
+        <div class="chart-scroll bump-chart-scroll" id="period-rank-trajectory"></div>
+      </article>
+
+      <article class="chart-subpanel chart-subpanel-wide">
+        <div class="chart-subpanel-head">
+          <div>
+            <h3>Top languages in period</h3>
+            <p>Most-mentioned languages across all weeks in the selected period.</p>
+          </div>
+        </div>
+        <div id="period-langs-chart"></div>
       </article>
     </div>
   </details>
@@ -1487,10 +1606,11 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
                     {trendPeriods.map((period) => {
                       const x = (trendUniqueScale(period.label) || 0) + trendUniqueScale.bandwidth() / 2;
                       const y = trendUniqueY(period.uniqueLanguages);
+                      const labelY = Math.max(12, Math.min(y - 10, trendUniqueInnerHeight - 12));
                       return (
                         <g>
                           <circle cx={x} cy={y} r="5" fill="#7c3aed" stroke="white" stroke-width="2"></circle>
-                          <text x={x} y={y - 10} text-anchor="middle" class="chart-value">{period.uniqueLanguages}</text>
+                          <text x={x} y={labelY} text-anchor="middle" class="chart-value">{period.uniqueLanguages}</text>
                           <text x={x} y={trendUniqueInnerHeight + 18} text-anchor="middle" class="chart-label">{period.label}</text>
                         </g>
                       );
@@ -1743,5 +1863,849 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         }
       } catch {}
     });
+
+    // --- Period mode enhancements ---
+    (function() {
+      function fmtPeriodWeekLabel(slug) {
+        var start = new Date(slug + 'T12:00:00');
+        var end = new Date(start); end.setDate(end.getDate() + 6);
+        var sm = start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+        var em = end.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+        return sm + '–' + em;
+      }
+      function fmtShortLabel(slug) {
+        var d = new Date(slug + 'T12:00:00');
+        return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+      }
+
+      function roundedTopRectPath(x, y, w, h, r) {
+        r = Math.min(r, w / 2, Math.max(h / 2, 0));
+        if (h <= 0) return '';
+        return 'M '+(x+r)+','+y+' H '+(x+w-r)+' Q '+(x+w)+','+y+' '+(x+w)+','+(y+r)+' V '+(y+h)+' H '+x+' V '+(y+r)+' Q '+x+','+y+' '+(x+r)+','+y+' Z';
+      }
+
+      function roundedBottomRectPath(x, y, w, h, r) {
+        r = Math.min(r, w / 2, Math.max(h / 2, 0));
+        if (h <= 0) return '';
+        return 'M '+x+','+y+' H '+(x+w)+' V '+(y+h-r)+' Q '+(x+w)+','+(y+h)+' '+(x+w-r)+','+(y+h)+' H '+(x+r)+' Q '+x+','+(y+h)+' '+x+','+(y+h-r)+' Z';
+      }
+
+      function pieSlicePath(cx, cy, radius, startAngle, endAngle) {
+        var start = {
+          x: cx + radius * Math.cos(startAngle),
+          y: cy + radius * Math.sin(startAngle),
+        };
+        var end = {
+          x: cx + radius * Math.cos(endAngle),
+          y: cy + radius * Math.sin(endAngle),
+        };
+        var largeArcFlag = endAngle - startAngle > Math.PI ? 1 : 0;
+        return 'M '+cx+' '+cy+' L '+start.x+' '+start.y+' A '+radius+' '+radius+' 0 '+largeArcFlag+' 1 '+end.x+' '+end.y+' Z';
+      }
+
+      function buildPieSlices(items, centerX, centerY, radius, startOffset, labelOffset) {
+        var total = Math.max(1, items.reduce(function(sum, item) { return sum + Math.max(item.value || 0, 0); }, 0));
+        var angle = startOffset;
+        var slices = [];
+
+        items.forEach(function(item) {
+          if ((item.value || 0) <= 0) {
+            return;
+          }
+
+          var sweep = (item.value / total) * Math.PI * 2;
+          var startAngle = angle;
+          var endAngle = angle + sweep;
+          var midAngle = startAngle + sweep / 2;
+          var side = Math.cos(midAngle) >= 0 ? 'right' : 'left';
+          var calloutStart = {
+            x: centerX + radius * Math.cos(midAngle),
+            y: centerY + radius * Math.sin(midAngle),
+          };
+          var calloutElbow = {
+            x: centerX + (radius + 16) * Math.cos(midAngle),
+            y: centerY + (radius + 16) * Math.sin(midAngle),
+          };
+          var labelX = centerX + (side === 'right' ? radius + labelOffset : -(radius + labelOffset));
+          var labelY = centerY + Math.sin(midAngle) * (radius + 22);
+
+          slices.push({
+            ...item,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            midAngle: midAngle,
+            path: pieSlicePath(centerX, centerY, radius, startAngle, endAngle),
+            calloutPath: 'M '+calloutStart.x+' '+calloutStart.y+' L '+calloutElbow.x+' '+calloutElbow.y+' L '+labelX+' '+labelY,
+            labelX: labelX,
+            labelY: labelY,
+            side: side,
+          });
+          angle = endAngle;
+        });
+
+        var leftSlices = slices.filter(function(slice) { return slice.side === 'left'; }).sort(function(a, b) { return a.labelY - b.labelY; });
+        var rightSlices = slices.filter(function(slice) { return slice.side === 'right'; }).sort(function(a, b) { return a.labelY - b.labelY; });
+
+        function settle(collection) {
+          var previousY = -Infinity;
+          collection.forEach(function(slice) {
+            slice.labelY = Math.max(slice.labelY, previousY + 16);
+            previousY = slice.labelY;
+          });
+        }
+
+        settle(leftSlices);
+        settle(rightSlices);
+        return slices;
+      }
+      function roundedTopRectPath(x, y, w, h, r) {
+        r = Math.min(r, w / 2, Math.max(h / 2, 0));
+        if (h <= 0) return '';
+        return 'M '+(x+r)+','+y+' H '+(x+w-r)+' Q '+(x+w)+','+y+' '+(x+w)+','+(y+r)+' V '+(y+h)+' H '+x+' V '+(y+r)+' Q '+x+','+y+' '+(x+r)+','+y+' Z';
+      }
+      function roundedBottomRectPath(x, y, w, h, r) {
+        r = Math.min(r, w / 2, Math.max(h / 2, 0));
+        if (h <= 0) return '';
+        return 'M '+x+','+y+' H '+(x+w)+' V '+(y+h-r)+' Q '+(x+w)+','+(y+h)+' '+(x+w-r)+','+(y+h)+' H '+(x+r)+' Q '+x+','+(y+h)+' '+x+','+(y+h-r)+' Z';
+      }
+
+      var weekMetaEl = document.getElementById('all-weeks-meta');
+      if (!weekMetaEl) return;
+      var allWeeksMeta;
+      try { allWeeksMeta = JSON.parse(weekMetaEl.textContent || '[]'); } catch(e) { return; }
+      var langClassesMetaEl = document.getElementById('lang-classes-meta');
+      var langClassesMeta = {};
+      try { langClassesMeta = JSON.parse(langClassesMetaEl && langClassesMetaEl.textContent || '{}'); } catch(e) { langClassesMeta = {}; }
+
+      function classIndexForLanguage(language) {
+        for (var classIdStr in langClassesMeta) {
+          if (!Object.prototype.hasOwnProperty.call(langClassesMeta, classIdStr)) continue;
+          var languages = langClassesMeta[classIdStr] || [];
+          if (Array.isArray(languages) && languages.indexOf(language) !== -1) {
+            return Number(classIdStr);
+          }
+        }
+        return 0;
+      }
+
+      function classColorForLanguage(language) {
+        return CLASS_COLORS_JS[classIndexForLanguage(language)] || CLASS_COLORS_JS[0];
+      }
+
+      var anchorPath = location.pathname.replace(/index\.html$/, '').replace(/\/$/, '');
+      var pathParts = anchorPath.split('/');
+      var anchorSlug = pathParts[pathParts.length - 1];
+
+      var _params = new URLSearchParams(location.search);
+      var fromParam = _params.get('from');
+
+      var periodSwitcher = document.getElementById('period-week-switcher');
+      var periodTrendsPanel = document.getElementById('period-trends-panel');
+
+      if (!fromParam) return;
+
+      if (periodSwitcher) periodSwitcher.style.display = '';
+      if (periodTrendsPanel) periodTrendsPanel.style.display = '';
+
+      var sortedSlugs = allWeeksMeta.map(function(w) { return w.weekStart; }).sort();
+      var fromIdx = sortedSlugs.indexOf(fromParam);
+      var toIdx = sortedSlugs.indexOf(anchorSlug);
+      if (fromIdx === -1 || toIdx === -1) return;
+
+      var periodSlugs = sortedSlugs.slice(Math.min(fromIdx, toIdx), Math.max(fromIdx, toIdx) + 1);
+      var periodData = periodSlugs.map(function(slug) {
+        return allWeeksMeta.find(function(w) { return w.weekStart === slug; });
+      }).filter(Boolean);
+
+      // Week switcher: populate and wire change handler
+      // --- Chart re-rendering helpers ---
+      var CLASS_COLORS_JS = ['#cfe8f3','#a2d4ec','#73bfe2','#46abdb','#1696d2','#12719e'];
+      var CLASS_LABELS_JS = ['Class 0','Class 1','Class 2','Class 3','Class 4','Class 5'];
+      var TREND_LINE_COLORS_JS = ['#1696d2','#000000','#d2d2d2','#fdbf11','#55b748','#ec008b','#0a4c6a','#db2b27','#5c5859','#a2d4ec'];
+      var BUMP_RANK_COLORS_JS = ['#1A2E19','#2C5C2D','#347032','#408941','#55B748','#78C26D','#8ABE80','#98CF90','#BCDEB4','#DCEDD9'];
+
+      function sectorPathSVG(cx, cy, r, innerR, startDeg, sweepDeg) {
+        if (sweepDeg >= 360) sweepDeg = 359.99;
+        if (sweepDeg <= 0) return '';
+        var s = (startDeg - 90) * Math.PI / 180;
+        var e = (startDeg + sweepDeg - 90) * Math.PI / 180;
+        var x1o = cx + r*Math.cos(s), y1o = cy + r*Math.sin(s);
+        var x2o = cx + r*Math.cos(e), y2o = cy + r*Math.sin(e);
+        var x1i = cx + innerR*Math.cos(e), y1i = cy + innerR*Math.sin(e);
+        var x2i = cx + innerR*Math.cos(s), y2i = cy + innerR*Math.sin(s);
+        var lg = sweepDeg > 180 ? 1 : 0;
+        return 'M'+x1o+','+y1o+' A'+r+','+r+',0,'+lg+',1,'+x2o+','+y2o+' L'+x1i+','+y1i+' A'+innerR+','+innerR+',0,'+lg+',0,'+x2i+','+y2i+' Z';
+      }
+
+      function buildBumpSegmentPath(start, end) {
+        var midX = (start.x + end.x) / 2;
+        return 'M ' + start.x + ' ' + start.y + ' C ' + midX + ' ' + start.y + ' ' + midX + ' ' + end.y + ' ' + end.x + ' ' + end.y;
+      }
+
+      function markerPathJs(shapeIdx, cx, cy, size) {
+        var s = size;
+        switch (shapeIdx % 10) {
+          case 0: return 'M ' + cx + ',' + (cy - s) + ' A ' + s + ',' + s + ' 0 1 1 ' + (cx - 0.001) + ',' + (cy - s) + ' Z';
+          case 1: return 'M ' + (cx - s) + ',' + (cy - s) + ' H ' + (cx + s) + ' V ' + (cy + s) + ' H ' + (cx - s) + ' Z';
+          case 2: return 'M ' + cx + ',' + (cy - s * 1.3) + ' L ' + (cx + s * 1.3) + ',' + cy + ' L ' + cx + ',' + (cy + s * 1.3) + ' L ' + (cx - s * 1.3) + ',' + cy + ' Z';
+          case 3: return 'M ' + cx + ',' + (cy - s * 1.3) + ' L ' + (cx + s * 1.15) + ',' + (cy + s * 0.75) + ' L ' + (cx - s * 1.15) + ',' + (cy + s * 0.75) + ' Z';
+          case 4: return 'M ' + cx + ',' + (cy + s * 1.3) + ' L ' + (cx + s * 1.15) + ',' + (cy - s * 0.75) + ' L ' + (cx - s * 1.15) + ',' + (cy - s * 0.75) + ' Z';
+          case 5: return 'M ' + (cx - s) + ',' + cy + ' H ' + (cx + s) + ' M ' + cx + ',' + (cy - s) + ' V ' + cx + ',' + (cy + s);
+          case 6: {
+            var pts = Array.from({length: 5}, function(_, i) {
+              var a = (i * 2 * Math.PI / 5) - Math.PI / 2;
+              return (cx + s * 1.2 * Math.cos(a)) + ',' + (cy + s * 1.2 * Math.sin(a));
+            });
+            return 'M ' + pts.join(' L ') + ' Z';
+          }
+          case 7: {
+            var hexPts = Array.from({length: 6}, function(_, i) {
+              var a = (i * Math.PI / 3);
+              return (cx + s * 1.1 * Math.cos(a)) + ',' + (cy + s * 1.1 * Math.sin(a));
+            });
+            return 'M ' + hexPts.join(' L ') + ' Z';
+          }
+          case 8: return 'M ' + (cx - s * 0.4) + ',' + (cy - s * 1.2) + ' H ' + (cx + s * 0.4) + ' V ' + (cy - s * 0.4) + ' H ' + (cx + s * 1.2) + ' V ' + (cy + s * 0.4) + ' H ' + (cx + s * 0.4) + ' V ' + (cy + s * 1.2) + ' H ' + (cx - s * 0.4) + ' V ' + (cy + s * 0.4) + ' H ' + (cx - s * 1.2) + ' V ' + (cy - s * 0.4) + ' H ' + (cx - s * 0.4) + ' Z';
+          default: return 'M ' + (cx - s) + ',' + (cy - s) + ' L ' + (cx + s) + ',' + (cy - s) + ' L ' + cx + ',' + (cy + s) + ' Z';
+        }
+      }
+
+      function renderCoveragePie(papers, flaggedPapers) {
+        var card = document.getElementById('weekly-coverage-pie-card');
+        if (!card) return;
+        var existing = card.querySelector('svg');
+        if (!existing) return;
+        var cx = 228, cy = 110, r = 66, innerR = 36;
+        var notFlagged = Math.max(papers - flaggedPapers, 0);
+        var slices = buildPieSlices([
+          { label: 'Not flagged', value: notFlagged, color: 'rgba(32, 22, 19, 0.16)' },
+          { label: 'Papers with language mentions', value: flaggedPapers, color: '#0f6c5d' },
+        ].sort(function(left, right) { return right.value - left.value; }), cx, cy, r, -Math.PI / 2, 30);
+
+        function coverageSliceLines(label, value) {
+          if (label === 'Papers with language mentions') {
+            return ['Papers with', 'language mentions ('+value+')'];
+          }
+          return [label+' ('+value+')'];
+        }
+
+        existing.outerHTML = '<svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of weekly papers scanned versus papers with language mentions"><g>' +
+          slices.map(function(slice) {
+            var percent = papers > 0 ? ((slice.value / papers) * 100).toFixed(1) + '%' : '0.0%';
+            var labelX = slice.labelX + (slice.side === 'right' ? 8 : -8);
+            var labelAnchor = slice.side === 'right' ? 'start' : 'end';
+            return '<g><path d="'+slice.path+'" fill="'+slice.color+'" stroke="white" stroke-width="1.5"></path>'+
+              '<path d="'+slice.calloutPath+'" fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path>'+
+              '<text x="'+(cx + Math.cos(slice.midAngle) * 51)+'" y="'+(cy + Math.sin(slice.midAngle) * 51 + 4)+'" text-anchor="middle" class="chart-value" style="fill:'+(slice.label === 'Not flagged' ? 'var(--text)' : '#fff')+';font-size:0.5rem;font-weight:800">'+percent+'</text>'+
+              '<text x="'+labelX+'" y="'+(slice.labelY + 4)+'" text-anchor="'+labelAnchor+'" class="chart-axis-label">'+coverageSliceLines(slice.label, slice.value).map(function(line, index) { return '<tspan x="'+labelX+'" dy="'+(index === 0 ? 0 : 14)+'">'+line+'</tspan>'; }).join('')+'</text>'+
+              '</g>';
+          }).join('') +
+          '<circle cx="228" cy="110" r="36" fill="var(--panel)" stroke="var(--line)"></circle>'+
+          '<text x="228" y="102" text-anchor="middle" class="chart-value"><tspan x="228" dy="0">'+papers+'</tspan><tspan x="228" dy="14" class="chart-axis-label">scanned</tspan></text>'+
+          '</g></svg>';
+      }
+
+      function renderSourceBreakdown(coverageStats, total) {
+        var card = document.getElementById('weekly-source-breakdown-card');
+        if (!card) return;
+        var svg = card.querySelector('svg');
+        if (!svg) return;
+        var cs = coverageStats || { htmlScanned:0, pdfOnly:0, abstractOnly:0 };
+        var items = [
+          { label:'HTML + Abstract', value:cs.htmlScanned, color:'#ec008b' },
+          { label:'PDF + Abstract', value:cs.pdfOnly, color:'#d94f2b' },
+          { label:'Abstract only', value:cs.abstractOnly, color:'#7b6c64' }
+        ].sort(function(left, right) { return right.value - left.value; });
+        var totalValue = Math.max(1, items.reduce(function(sum, item) { return sum + item.value; }, 0));
+        var flowHeight = 160;
+        var leftX = 140;
+        var rightX = 360;
+        var nodeW = 18;
+        var barHeight = 90;
+        var rightYBase = 28;
+        var rightGap = 6;
+        var nodes = [];
+        var cursor = rightYBase;
+        items.forEach(function(item) {
+          var height = Math.max(10, (item.value / totalValue) * barHeight);
+          nodes.push({ label: item.label, value: item.value, color: item.color, y: cursor, height: height });
+          cursor += height + rightGap;
+        });
+        var leftLinkTotal = nodes.reduce(function(sum, item) { return sum + item.height; }, 0);
+        var rightSpanTop = nodes[0] ? nodes[0].y : rightYBase;
+        var rightSpanBottom = nodes.length > 0 ? nodes[nodes.length - 1].y + nodes[nodes.length - 1].height : rightYBase;
+        var leftHeight = Math.max(18, leftLinkTotal);
+        var leftNodeY = (rightSpanTop + rightSpanBottom) / 2 - leftHeight / 2;
+        var links = [];
+        var offset = 0;
+        nodes.forEach(function(node) {
+          var linkHeight = Math.max(10, node.height);
+          var srcY = leftNodeY + offset;
+          var tgtY = node.y;
+          offset += linkHeight;
+          links.push('<path d="M '+(leftX + nodeW)+' '+srcY+' C '+(leftX + 112)+' '+srcY+' '+(leftX + 112)+' '+tgtY+' '+rightX+' '+tgtY+' L '+rightX+' '+(tgtY + linkHeight)+' C '+(leftX + 112)+' '+(tgtY + linkHeight)+' '+(leftX + 112)+' '+(srcY + linkHeight)+' '+(leftX + nodeW)+' '+(srcY + linkHeight)+' Z" fill="'+node.color+'" fill-opacity="0.22" stroke="'+node.color+'" stroke-opacity="0.45" stroke-width="0.6"><title>'+node.label+': '+node.value+'</title></path>');
+        });
+        var rects = nodes.map(function(node) {
+          return '<g><rect x="'+rightX+'" y="'+node.y+'" width="'+nodeW+'" height="'+node.height+'" fill="'+node.color+'" rx="3"></rect><text x="'+(rightX + nodeW + 8)+'" y="'+(node.y + node.height / 2 + 4)+'" text-anchor="start" class="chart-axis-label" style="fill:var(--text);font-weight:700">'+node.label+' ('+node.value+')</text></g>';
+        }).join('');
+        svg.setAttribute('width', '100%');
+        svg.setAttribute('height', String(flowHeight));
+        svg.setAttribute('viewBox', '0 0 520 '+flowHeight);
+        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        svg.setAttribute('aria-label', 'Small sankey showing language mentions flowing into source types');
+        svg.innerHTML = '<g>'+links.join('')+
+          '<g><rect x="'+leftX+'" y="'+leftNodeY+'" width="'+nodeW+'" height="'+leftHeight+'" fill="#0f6c5d" rx="3"></rect><text x="'+(leftX - 8)+'" y="'+(leftNodeY + leftHeight / 2)+'" text-anchor="end" class="chart-axis-label" style="fill:var(--text);font-weight:700"><tspan x="'+(leftX - 8)+'" dy="-6">With languages</tspan><tspan x="'+(leftX - 8)+'" dy="13">('+totalValue+')</tspan></text></g>'+rects+'</g>';
+      }
+
+      function renderDailyChart(dailySeries) {
+        var container = document.getElementById('weekly-daily-chart');
+        if (!container || !dailySeries || !dailySeries.length) return;
+        var margin = { top: 24, right: 18, bottom: 52, left: 42 };
+        var width = 760;
+        var height = 420;
+        var innerW = width - margin.left - margin.right;
+        var innerH = height - margin.top - margin.bottom;
+        var bandW = innerW / dailySeries.length;
+        var barW = bandW * 0.56;
+        var maxP = Math.max.apply(null, dailySeries.map(function(d){ return d.papers || 0; })) || 1;
+        var scaleY = function(v){ return innerH - (v / maxP) * innerH; };
+        var ticks = [0,1,2,3,4].map(function(i){ return Math.round(maxP*i/4); });
+        var yAxis = ticks.map(function(t){
+          var y = scaleY(t);
+          return '<g transform="translate(0 '+y+')"><line x1="0" x2="'+innerW+'" y1="0" y2="0" class="chart-grid-line"></line><text x="-10" y="4" text-anchor="end" class="chart-axis-label">'+t+'</text></g>';
+        }).join('');
+        var bars = dailySeries.map(function(pt, i){
+          var total = Math.max(pt.papers||0, 0);
+          var flagged = Math.max(Math.min(pt.flagged||0, total), 0);
+          var other = total - flagged;
+          var x = i * bandW + (bandW - barW) / 2;
+          var tH = total > 0 ? (total / maxP) * innerH : 0;
+          var fH = total > 0 ? tH * (flagged / total) : 0;
+          var oH = Math.max(tH-fH, 0);
+          var yTop = innerH - tH;
+          var d = new Date(pt.date+'T12:00:00');
+          var wd = d.toLocaleDateString(undefined, { weekday:'short' });
+          var ds = pt.date.slice(5);
+          var s = '<g transform="translate('+x+' 0)">';
+          if (oH > 0) s += '<path d="'+roundedTopRectPath(0, yTop, barW, oH, 5)+'" fill="rgba(32, 22, 19, 0.18)"></path>';
+          if (fH > 0) s += '<path d="'+roundedBottomRectPath(0, yTop+oH, barW, fH, 5)+'" fill="#0f6c5d"></path>';
+          if (oH > 14) s += '<text x="'+(barW/2)+'" y="'+(yTop+oH/2+4)+'" text-anchor="middle" class="chart-value">'+other+'</text>';
+          if (fH > 14) s += '<text x="'+(barW/2)+'" y="'+(yTop+oH+fH/2+4)+'" text-anchor="middle" class="chart-value" style="fill:#fff">'+flagged+'</text>';
+          s += '<text x="'+(barW/2)+'" y="'+(innerH+16)+'" text-anchor="middle" class="chart-label">'+wd+'</text>';
+          s += '<text x="'+(barW/2)+'" y="'+(innerH+30)+'" text-anchor="middle" class="chart-label chart-label-subtle">'+ds+'</text>';
+          s += '</g>';
+          return s;
+        }).join('');
+        container.innerHTML = '<svg class="chart-svg" style="height:auto" width="100%" viewBox="0 0 '+width+' '+height+'" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Daily submission activity stacked bar chart"><g transform="translate('+margin.left+' '+margin.top+')"><line x1="0" x2="'+innerW+'" y1="'+innerH+'" y2="'+innerH+'" class="chart-grid-line"></line>'+yAxis+bars+'</g></svg>';
+      }
+
+      function renderClassPie(classCounts) {
+        var container = document.getElementById('weekly-class-pie-container');
+        if (!container || !classCounts || !classCounts.length) return;
+        var cx = 228, cy = 110, r = 66, innerR = 36;
+        var classMap = {};
+        classCounts.forEach(function(cc){ classMap[cc.class_id] = cc.count; });
+        var total = Math.max(1, Object.keys(classMap).reduce(function(s, key){ return s + (classMap[key] || 0); }, 0));
+        var classColors = ['#cfe8f3','#a2d4ec','#73bfe2','#46abdb','#1696d2','#12719e'];
+        var segments = CLASS_LABELS_JS.map(function(label, classId) {
+          return { label: label, classId: classId, value: classMap[classId] || 0, color: classColors[classId] };
+        }).filter(function(item) { return item.value > 0; }).sort(function(a, b) { return b.value - a.value || a.classId - b.classId; });
+        var slices = buildPieSlices(segments, cx, cy, 66, -Math.PI / 2, 30);
+        container.innerHTML = '<svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of resource class breakdown"><g>' + slices.map(function(slice) {
+          return '<g><path d="'+slice.path+'" fill="'+slice.color+'" stroke="white" stroke-width="1.5"></path><path d="'+slice.calloutPath+'" fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path><text x="'+(slice.labelX + (slice.side === 'right' ? 8 : -8))+'" y="'+(slice.labelY + 4)+'" text-anchor="'+(slice.side === 'right' ? 'start' : 'end')+'" class="chart-axis-label" style="fill:var(--text);font-weight:700">'+slice.label+' ('+slice.value+')</text></g>';
+        }).join('') + '<circle cx="228" cy="110" r="36" fill="var(--panel)" stroke="var(--line)"></circle><text x="228" y="104" text-anchor="middle" class="chart-value">'+total+'</text><text x="228" y="119" text-anchor="middle" class="chart-axis-label">classified</text></g></svg>';
+      }
+
+      function renderLangFreqChart(languageCounts) {
+        var container = document.getElementById('weekly-lang-freq');
+        if (!container || !languageCounts || !languageCounts.length) return;
+        var rowH = 28, margin = { top: 18, right: 24, bottom: 20, left: 210 };
+        var width = 920;
+        var innerW = width - margin.left - margin.right;
+        var innerH = languageCounts.length * rowH;
+        var totalH = innerH + margin.top + margin.bottom;
+        var maxC = Math.max(1, ...languageCounts.map(function(item) { return item.count || 0; }));
+        var totalC = languageCounts.reduce(function(s,lc){ return s+lc.count; }, 0);
+        var bars = languageCounts.map(function(lc, i){
+          var bW = (lc.count/maxC)*innerW;
+          var y = i * rowH;
+          var pct = ((lc.count/totalC)*100).toFixed(1)+'%';
+          var inside = bW > innerW - 100;
+          var barColor = classColorForLanguage(lc.language);
+          return '<g transform="translate(0 '+y+')"><text x="-12" y="16" text-anchor="end" class="h-bar-label h-bar-label-name">'+lc.language+'</text><rect x="0" y="3" width="'+bW+'" height="18" rx="4" fill="'+barColor+'" fill-opacity="0.86"></rect>'+
+                 (inside ? '<text x="'+(bW-6)+'" y="16" text-anchor="end" class="h-bar-label h-bar-label-count" style="fill:#fff">'+lc.count+' ('+pct+')</text>' : '<text x="'+(bW+8)+'" y="16" text-anchor="start" class="h-bar-label h-bar-label-count">'+lc.count+' ('+pct+')</text>') + '</g>';
+        }).join('');
+        container.innerHTML = '<svg class="chart-svg" style="height:auto" width="100%" viewBox="0 0 920 '+totalH+'" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Full language frequency horizontal bar chart"><g transform="translate('+margin.left+' '+margin.top+')">'+bars+'</g></svg>';
+      }
+
+      function renderWeekCharts(weekData) {
+        renderCoveragePie(weekData.papers, weekData.flaggedPapers);
+        renderSourceBreakdown(weekData.coverageStats, weekData.flaggedPapers);
+        renderDailyChart(weekData.dailySeries || []);
+        renderClassPie(weekData.classCounts || []);
+        renderLangFreqChart(weekData.languageCounts || []);
+      }
+
+      // --- Week switcher ---
+      var weekSelect = document.getElementById('period-stats-week-select');
+      if (weekSelect) {
+        periodData.slice().reverse().forEach(function(w) {
+          var opt = document.createElement('option');
+          opt.value = w.weekStart;
+          opt.textContent = fmtPeriodWeekLabel(w.weekStart);
+          if (w.weekStart === anchorSlug) opt.selected = true;
+          weekSelect.appendChild(opt);
+        });
+        weekSelect.addEventListener('change', function() {
+          var sel = allWeeksMeta.find(function(w) { return w.weekStart === weekSelect.value; });
+          if (!sel) return;
+          var pEl = document.getElementById('stat-total-papers');
+          var fEl = document.getElementById('stat-flagged-papers');
+          var uEl = document.getElementById('stat-unique-langs');
+          var tEl = document.getElementById('weekly-stat-title');
+          if (pEl) pEl.textContent = sel.papers;
+          if (fEl) fEl.textContent = sel.flaggedPapers;
+          if (uEl) uEl.textContent = sel.uniqueLanguages;
+          if (tEl) tEl.textContent = 'For ' + fmtPeriodWeekLabel(weekSelect.value);
+          renderWeekCharts(sel);
+        });
+      }
+
+      // Period stat summary
+      var totalPapers = periodData.reduce(function(s, w) { return s + w.papers; }, 0);
+      var totalFlagged = periodData.reduce(function(s, w) { return s + w.flaggedPapers; }, 0);
+      var allLangSet = new Set();
+      periodData.forEach(function(w) { (w.languageCounts || []).forEach(function(lc) { allLangSet.add(lc.language); }); });
+
+      var ptitleEl = document.getElementById('period-trend-title');
+      if (ptitleEl) ptitleEl.textContent = 'Period trends: ' + fmtShortLabel(fromParam) + '–' + fmtShortLabel(anchorSlug);
+      var ppEl = document.getElementById('period-stat-papers'); if (ppEl) ppEl.textContent = totalPapers;
+      var pfEl = document.getElementById('period-stat-flagged'); if (pfEl) pfEl.textContent = totalFlagged;
+      var puEl = document.getElementById('period-stat-unique'); if (puEl) puEl.textContent = allLangSet.size;
+
+      function buildLinePath(points) {
+        return points.map(function(point, index) {
+          return (index === 0 ? 'M' : 'L') + point.x + ',' + point.y;
+        }).join(' ');
+      }
+
+      function renderPeriodTrendCharts(selectedPeriodData) {
+        if (!selectedPeriodData || !selectedPeriodData.length) return;
+
+        var periods = selectedPeriodData.map(function(week) {
+          return {
+            weekStart: week.weekStart,
+            label: fmtShortLabel(week.weekStart),
+            papers: week.papers || 0,
+            flaggedPapers: week.flaggedPapers || 0,
+            uniqueLanguages: week.uniqueLanguages || 0,
+            languageCounts: week.languageCounts || [],
+            classCounts: week.classCounts || [],
+          };
+        });
+
+        var totalPapersInPeriod = periods.reduce(function(sum, period) { return sum + period.papers; }, 0);
+        var totalFlaggedInPeriod = periods.reduce(function(sum, period) { return sum + period.flaggedPapers; }, 0);
+        var uniqueLanguageSet = new Set();
+        periods.forEach(function(period) {
+          period.languageCounts.forEach(function(item) { if (item.language) uniqueLanguageSet.add(item.language); });
+        });
+
+        function coverageSliceLines(label, value) {
+          if (label === 'Papers with language mentions') {
+            return ['Papers with', 'language mentions (' + value + ')'];
+          }
+          return [label + ' (' + value + ')'];
+        }
+
+        var coverageSlices = buildPieSlices([
+          { label: 'Not flagged', value: Math.max(totalPapersInPeriod - totalFlaggedInPeriod, 0), color: 'rgba(32, 22, 19, 0.16)' },
+          { label: 'Papers with language mentions', value: totalFlaggedInPeriod, color: '#0f6c5d' },
+        ].sort(function(left, right) { return right.value - left.value; }), 260, 130, 82, -Math.PI / 2, 36);
+        var coverageSvg = '<g>' + coverageSlices.map(function(slice) {
+          var labelX = slice.labelX + (slice.side === 'right' ? 8 : -8);
+          var anchor = slice.side === 'right' ? 'start' : 'end';
+          var percent = totalPapersInPeriod > 0 ? ((slice.value / totalPapersInPeriod) * 100).toFixed(1) + '%' : '0.0%';
+          return '<g><path d="' + slice.path + '" fill="' + slice.color + '" stroke="white" stroke-width="1.5"></path>' +
+            '<path d="' + slice.calloutPath + '" fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path>' +
+            '<text x="' + (260 + Math.cos(slice.midAngle) * 60) + '" y="' + (130 + Math.sin(slice.midAngle) * 60 + 4) + '" text-anchor="middle" class="chart-value" style="fill:' + (slice.label === 'Not flagged' ? 'var(--text)' : '#fff') + ';font-size:0.6rem;font-weight:800">' + percent + '</text>' +
+            '<text x="' + labelX + '" y="' + (slice.labelY + 4) + '" text-anchor="' + anchor + '" class="chart-axis-label">' + coverageSliceLines(slice.label, slice.value).map(function(line, index) { return '<tspan x="' + labelX + '" dy="' + (index === 0 ? 0 : 14) + '">' + line + '</tspan>'; }).join('') + '</text></g>';
+        }).join('') + '<circle cx="260" cy="130" r="44" fill="var(--panel)" stroke="var(--line)"></circle><text x="260" y="122" text-anchor="middle" class="chart-value"><tspan x="260" dy="0">' + totalPapersInPeriod + '</tspan><tspan x="260" dy="14" class="chart-axis-label">papers</tspan></text></g>';
+        var coverageSvgEl = document.getElementById('period-coverage-pie');
+        if (coverageSvgEl) coverageSvgEl.innerHTML = coverageSvg;
+
+        var scanContainer = document.getElementById('period-scan-volume');
+        if (scanContainer) {
+          var scanMargin = { top: 24, right: 44, bottom: 50, left: 42 };
+          var scanHeight = 260;
+          var scanWidth = chartWidthForPeriods(760, scanMargin, periods.length, 5);
+          var scanInnerW = scanWidth - scanMargin.left - scanMargin.right;
+          var scanInnerH = scanHeight - scanMargin.top - scanMargin.bottom;
+          var bandW = scanInnerW / periods.length;
+          var barW = bandW * 0.56;
+          var maxP = Math.max.apply(null, periods.map(function(period) { return period.papers; })) || 1;
+          var yAxis = [0, 1, 2, 3, 4].map(function(i) {
+            var tick = Math.round(maxP * i / 4);
+            var y = scanInnerH - (tick / maxP) * scanInnerH;
+            return '<g transform="translate(0 ' + y + ')"><line x1="0" x2="' + scanInnerW + '" y1="0" y2="0" class="chart-grid-line"></line><text x="-10" y="4" text-anchor="end" class="chart-axis-label">' + tick + '</text></g>';
+          }).join('');
+          var bars = periods.map(function(period, index) {
+            var x = index * bandW + (bandW - barW) / 2;
+            var totalHeight = (period.papers / maxP) * scanInnerH;
+            var flaggedHeight = (period.flaggedPapers / maxP) * scanInnerH;
+            var otherHeight = Math.max(totalHeight - flaggedHeight, 0);
+            var yTop = scanInnerH - totalHeight;
+            var otherCount = Math.max(period.papers - period.flaggedPapers, 0);
+            var svg = '';
+            if (otherHeight > 0) svg += '<path d="' + roundedTopRectPath(x, yTop, barW, otherHeight, 5) + '" fill="rgba(32, 22, 19, 0.18)"></path>';
+            if (flaggedHeight > 0) svg += '<path d="' + roundedBottomRectPath(x, scanInnerH - flaggedHeight, barW, flaggedHeight, 5) + '" fill="#0f6c5d"></path>';
+            if (otherHeight > 14) svg += '<text x="' + (x + barW / 2) + '" y="' + (yTop + otherHeight / 2 + 4) + '" text-anchor="middle" class="chart-value">' + otherCount + '</text>';
+            if (flaggedHeight > 14) svg += '<text x="' + (x + barW / 2) + '" y="' + (scanInnerH - flaggedHeight / 2 + 4) + '" text-anchor="middle" class="chart-value" style="fill:#fff">' + period.flaggedPapers + '</text>';
+            svg += '<text x="' + (x + barW / 2) + '" y="' + (scanInnerH + 18) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>';
+            return svg;
+          }).join('');
+          scanContainer.innerHTML = '<svg class="chart-svg"' + (scanWidth !== 760 ? ' style="width:' + scanWidth + 'px;max-width:none"' : ' width="100%"') + ' viewBox="0 0 ' + scanWidth + ' ' + scanHeight + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Stacked bar chart of selected period scan volume"><g transform="translate(' + scanMargin.left + ' ' + scanMargin.top + ')"><line x1="0" x2="' + scanInnerW + '" y1="' + scanInnerH + '" y2="' + scanInnerH + '" class="chart-grid-line"></line>' + yAxis + bars + '</g></svg>';
+        }
+
+        var classLegend = document.getElementById('period-class-legend');
+        if (classLegend) {
+          classLegend.innerHTML = CLASS_LABELS_JS.map(function(label, classId) {
+            return '<div class="class-legend-item"><span class="trend-legend-swatch" style="background:' + CLASS_COLORS_JS[classId] + '"></span><span>' + label + (classId === 0 ? ' (lowest)' : classId === CLASS_LABELS_JS.length - 1 ? ' (highest)' : '') + '</span></div>';
+          }).join('');
+        }
+
+        var classContainer = document.getElementById('period-class-mix');
+        if (classContainer) {
+          var classHeight = 380;
+          var classMargin = { top: 20, right: 18, bottom: 56, left: 42 };
+          var classWidth = chartWidthForPeriods(700, classMargin, periods.length, 5);
+          var classInnerW = classWidth - classMargin.left - classMargin.right;
+          var classInnerH = classHeight - classMargin.top - classMargin.bottom;
+          var classScale = classInnerW / periods.length;
+          var classRows = periods.map(function(period) {
+            var classMap = new Map(period.classCounts.map(function(item) { return [item.class_id, item.count]; }));
+            var total = Math.max(1, CLASS_LABELS_JS.reduce(function(sum, _label, classId) { return sum + (classMap.get(classId) || 0); }, 0));
+            var offset = 0;
+            return CLASS_LABELS_JS.map(function(label, classId) {
+              var count = classMap.get(classId) || 0;
+              var percentage = count / total;
+              var height = classInnerH * percentage;
+              var segment = { classId: classId, label: label, count: count, y: classInnerH - offset - height, height: height, color: CLASS_COLORS_JS[classId] };
+              offset += height;
+              return segment;
+            });
+          });
+          var classSvg = periods.map(function(period, index) {
+            var x = index * classScale;
+            var barWidth = classScale * 0.55;
+            var segments = classRows[index];
+            return '<g><g transform="translate(' + (x + (classScale - barWidth) / 2) + ' 0)">' + segments.map(function(segment) {
+              return '<rect x="0" y="' + segment.y + '" width="' + barWidth + '" height="' + Math.max(segment.height, 0) + '" fill="' + segment.color + '"><title>' + segment.label + ': ' + segment.count + '</title></rect>';
+            }).join('') + '<text x="' + (barWidth / 2) + '" y="' + (classInnerH + 18) + '" text-anchor="middle" class="chart-label">' + period.label + '</text></g></g>';
+          }).join('');
+          classContainer.innerHTML = '<svg class="chart-svg"' + (classWidth !== 700 ? ' style="width:' + classWidth + 'px;max-width:none"' : ' width="100%"') + ' viewBox="0 0 ' + classWidth + ' ' + classHeight + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="100 percent stacked bar chart of resource class mix by week"><g transform="translate(' + classMargin.left + ' ' + classMargin.top + ')">' + classSvg + '</g></svg>';
+        }
+
+        var uniqueContainer = document.getElementById('period-unique-languages');
+        if (uniqueContainer) {
+          var uniqueHeight = 440;
+          var uniqueMargin = { top: 28, right: 18, bottom: 64, left: 42 };
+          var uniqueWidth = chartWidthForPeriods(700, uniqueMargin, periods.length, 5);
+          var uniqueInnerW = uniqueWidth - uniqueMargin.left - uniqueMargin.right;
+          var uniqueInnerH = uniqueHeight - uniqueMargin.top - uniqueMargin.bottom;
+          var uniqueBand = uniqueInnerW / periods.length;
+          var uniqueRawMax = Math.max.apply(null, periods.map(function(period) { return period.uniqueLanguages; })) || 1;
+          var uniqueYInset = 8;
+          var uniqueTickStep = Math.pow(10, Math.floor(Math.log10(Math.max(uniqueRawMax / 4, 1))));
+          var uniqueMax = Math.ceil(uniqueRawMax / uniqueTickStep) * uniqueTickStep + uniqueTickStep;
+          var uniqueY = function(v) { return uniqueInnerH - uniqueYInset - (v / uniqueMax) * (uniqueInnerH - uniqueYInset * 2); };
+          var uniqueLabelY = function(y) { return Math.max(12, Math.min(y - 10, uniqueInnerH - 12)); };
+          var uniqueTicks = [0, 1, 2, 3, 4].map(function(i) { return Math.round(uniqueMax * i / 4); });
+          var uniqueAxis = uniqueTicks.map(function(tick) {
+            var y = uniqueY(tick);
+            return '<g transform="translate(0 ' + y + ')"><line x1="0" x2="' + uniqueInnerW + '" y1="0" y2="0" class="chart-grid-line"></line><text x="-10" y="4" text-anchor="end" class="chart-axis-label">' + tick + '</text></g>';
+          }).join('');
+          var uniquePts = periods.map(function(period, index) {
+            return { x: index * uniqueBand + uniqueBand / 2, y: uniqueY(period.uniqueLanguages), label: period.label, val: period.uniqueLanguages };
+          });
+          var uniqueLine = buildLinePath(uniquePts);
+          var uniqueDots = uniquePts.map(function(point) {
+            return '<circle cx="' + point.x + '" cy="' + point.y + '" r="5" fill="#7c3aed" stroke="white" stroke-width="2"></circle><text x="' + point.x + '" y="' + uniqueLabelY(point.y) + '" text-anchor="middle" class="chart-value">' + point.val + '</text><text x="' + point.x + '" y="' + (uniqueInnerH + 18) + '" text-anchor="middle" class="chart-label">' + point.label + '</text>';
+          }).join('');
+          uniqueContainer.innerHTML = '<svg class="chart-svg"' + (uniqueWidth !== 700 ? ' style="width:' + uniqueWidth + 'px;max-width:none"' : ' width="100%"') + ' viewBox="0 0 ' + uniqueWidth + ' ' + uniqueHeight + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of unique languages per selected period"><g transform="translate(' + uniqueMargin.left + ' ' + uniqueMargin.top + ')">' + uniqueAxis + '<path d="' + uniqueLine + '" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round"></path>' + uniqueDots + '</g></svg>';
+        }
+
+        var langTotals = new Map();
+        periods.forEach(function(period) {
+          period.languageCounts.forEach(function(item) {
+            if (!item.language) return;
+            langTotals.set(item.language, (langTotals.get(item.language) || 0) + item.count);
+          });
+        });
+        var topLanguages = [...langTotals.entries()]
+          .sort(function(left, right) {
+            var d = right[1] - left[1];
+            return d !== 0 ? d : left[0].localeCompare(right[0]);
+          })
+          .slice(0, 10)
+          .map(function(entry, index) {
+            return { language: entry[0], count: entry[1], color: TREND_LINE_COLORS_JS[index] || CLASS_COLORS_JS[index % CLASS_COLORS_JS.length] };
+          });
+
+        var topTrendsContainer = document.getElementById('period-top-language-trends');
+        if (topTrendsContainer && topLanguages.length) {
+          var trendHeight = 500;
+          var trendMargin = { top: 28, right: 124, bottom: 130, left: 42 };
+          var trendWidth = chartWidthForPeriods(760, trendMargin, periods.length, 5);
+          var trendInnerW = trendWidth - trendMargin.left - trendMargin.right;
+          var trendInnerH = trendHeight - trendMargin.top - trendMargin.bottom;
+          var trendBand = trendInnerW / periods.length;
+          var trendRawMax = Math.max(1, ...topLanguages.flatMap(function(item) {
+            return periods.map(function(period) {
+              var found = period.languageCounts.find(function(lang) { return lang.language === item.language; });
+              return found ? found.count : 0;
+            });
+          }));
+          var trendTickStep = Math.pow(10, Math.floor(Math.log10(Math.max(trendRawMax / 5, 1))));
+          var trendMax = Math.ceil(trendRawMax / trendTickStep) * trendTickStep + trendTickStep;
+          var trendY = function(v) { return trendInnerH - (v / trendMax) * trendInnerH; };
+          var trendSeries = topLanguages.map(function(item) {
+            var points = periods.map(function(period, index) {
+              var found = period.languageCounts.find(function(lang) { return lang.language === item.language; });
+              return { x: index * trendBand + trendBand / 2, y: trendY(found ? found.count : 0), value: found ? found.count : 0 };
+            });
+            return { language: item.language, color: item.color, points: points, path: buildLinePath(points) };
+          });
+          var trendEndpointRaw = trendSeries.map(function(series, idx) {
+            var lastPt = series.points[series.points.length - 1];
+            return { idx: idx, naturalY: lastPt ? lastPt.y : 0 };
+          }).sort(function(a, b) { return a.naturalY - b.naturalY; });
+          var trendEndpointLabelY = new Array(trendSeries.length).fill(0);
+          var trendPrevEndpointY = -Infinity;
+          trendEndpointRaw.forEach(function(item) {
+            var y = Math.max(item.naturalY, trendPrevEndpointY + 14);
+            trendEndpointLabelY[item.idx] = y;
+            trendPrevEndpointY = y;
+          });
+          var trendAxisTicks = [0, 1, 2, 3, 4, 5].map(function(i) { return Math.round(trendMax * i / 5); });
+          var trendAxis = trendAxisTicks.map(function(tick) {
+            var y = trendY(tick);
+            return '<g transform="translate(0 ' + y + ')"><line x1="0" x2="' + trendInnerW + '" y1="0" y2="0" class="chart-grid-line"></line><text x="-10" y="4" text-anchor="end" class="chart-axis-label">' + tick + '</text></g>';
+          }).join('');
+          var trendSvg = trendSeries.map(function(series, index) {
+            var lastPt = series.points[series.points.length - 1];
+            var labelY = trendEndpointLabelY[index];
+            return '<g><path d="' + series.path + '" fill="none" stroke="' + series.color + '" stroke-width="2.5"></path>' +
+              (lastPt && lastPt.value > 0 ? '<g><path d="M ' + (lastPt.x + 14) + ' ' + lastPt.y + ' L ' + (trendInnerW + 10) + ' ' + labelY + '" fill="none" stroke="' + series.color + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="' + (trendInnerW + 14) + '" y="' + (labelY + 4) + '" class="chart-axis-label" style="fill:' + series.color + ';font-weight:700">' + series.language + ' · ' + lastPt.value + '</text></g>' : '') +
+              series.points.map(function(point) { return '<path d="' + markerPathJs(index, point.x, point.y, 4) + '" fill="' + series.color + '" stroke="white" stroke-width="1.2"></path>'; }).join('') +
+              '</g>';
+          }).join('');
+          topTrendsContainer.innerHTML = '<div class="chart-scroll trend-period-chart-scroll"><svg class="chart-svg"' + (trendWidth !== 760 ? ' style="width:' + trendWidth + 'px;max-width:none"' : ' width="100%"') + (trendWidth !== 760 ? ' height="' + trendHeight + '"' : '') + ' viewBox="0 0 ' + trendWidth + ' ' + trendHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across selected period"><g transform="translate(' + trendMargin.left + ' ' + trendMargin.top + ')">' + trendAxis + trendSvg + periods.map(function(period) { return '<text x="' + ((periods.indexOf(period) * trendBand) + trendBand / 2) + '" y="' + (trendInnerH + 18) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>'; }).join('') + '</g></svg></div>';
+        }
+
+        var rankContainer = document.getElementById('period-rank-trajectory');
+        if (rankContainer && periods.length >= 2) {
+          var bumpMaxRank = 10;
+          var bumpHeight = 560;
+          var bumpMargin = { top: 24, right: 230, bottom: 84, left: 200 };
+          var bumpWidth = chartWidthForPeriods(960, bumpMargin, periods.length, 5);
+          var bumpInnerW = bumpWidth - bumpMargin.left - bumpMargin.right;
+          var bumpInnerH = bumpHeight - bumpMargin.top - bumpMargin.bottom;
+          var bumpBand = bumpInnerW / periods.length;
+          var bumpY = function(rank) { return (rank - 1) * (bumpInnerH / Math.max(1, bumpMaxRank - 1)); };
+          var bumpPeriods = periods.map(function(period, index) {
+            var rankedLanguages = [...period.languageCounts]
+              .sort(function(left, right) { return right.count - left.count || left.language.localeCompare(right.language); })
+              .slice(0, bumpMaxRank)
+              .map(function(item, rankIndex) {
+                return { x: index * bumpBand + bumpBand / 2, y: bumpY(rankIndex + 1), rank: rankIndex + 1, language: item.language };
+              });
+            return { label: period.label, rankedLanguages: rankedLanguages, rankMap: new Map(rankedLanguages.map(function(item) { return [item.language, item]; })) };
+          });
+          var bumpLanguageList = [...new Set(bumpPeriods.flatMap(function(item) { return item.rankedLanguages.map(function(lang) { return lang.language; }); }))].sort(function(left, right) {
+            var leftTotal = langTotals.get(left) || 0;
+            var rightTotal = langTotals.get(right) || 0;
+            return rightTotal - leftTotal || left.localeCompare(right);
+          });
+          var bumpSeriesData = bumpLanguageList.map(function(language, seriesIdx) {
+            var points = bumpPeriods.map(function(period) { return period.rankMap.get(language) ?? null; });
+            var segments = [];
+            var previousPoint = null;
+            for (var i = 0; i < points.length; i++) {
+              var point = points[i];
+              if (!point) { previousPoint = null; continue; }
+              if (previousPoint) {
+                segments.push({ d: buildBumpSegmentPath(previousPoint, point), color: BUMP_RANK_COLORS_JS[previousPoint.rank - 1] || BUMP_RANK_COLORS_JS[BUMP_RANK_COLORS_JS.length - 1] });
+              }
+              previousPoint = point;
+            }
+            var firstPt = points.find(function(point) { return point !== null; }) || null;
+            var lastPt = [...points].reverse().find(function(point) { return point !== null; }) || null;
+            var labelColor = TREND_LINE_COLORS_JS[seriesIdx] || CLASS_COLORS_JS[seriesIdx % CLASS_COLORS_JS.length];
+            return { language: language, points: points, segments: segments, firstPt: firstPt, lastPt: lastPt, labelColor: labelColor };
+          });
+          var bumpSegments = bumpSeriesData.flatMap(function(series) { return series.segments; });
+          var bumpLeftLabelRaw = bumpSeriesData.map(function(series, idx) { return { idx: idx, naturalY: series.firstPt ? series.firstPt.y : 0 }; }).sort(function(a, b) { return a.naturalY - b.naturalY; });
+          var bumpRightLabelRaw = bumpSeriesData.map(function(series, idx) { return { idx: idx, naturalY: series.lastPt ? series.lastPt.y : 0 }; }).sort(function(a, b) { return a.naturalY - b.naturalY; });
+          var bumpLeftLabelY = new Array(bumpSeriesData.length).fill(0);
+          var bumpRightLabelY = new Array(bumpSeriesData.length).fill(0);
+          var bumpLeftPrevY = -Infinity;
+          bumpLeftLabelRaw.forEach(function(item) { var y = Math.max(item.naturalY, bumpLeftPrevY + 16); bumpLeftLabelY[item.idx] = y; bumpLeftPrevY = y; });
+          var bumpRightPrevY = -Infinity;
+          bumpRightLabelRaw.forEach(function(item) { var y = Math.max(item.naturalY, bumpRightPrevY + 16); bumpRightLabelY[item.idx] = y; bumpRightPrevY = y; });
+          var bumpAxis = Array.from({ length: bumpMaxRank }, function(_, i) { return i + 1; }).map(function(rank) {
+            return '<line x1="0" x2="' + bumpInnerW + '" y1="' + bumpY(rank) + '" y2="' + bumpY(rank) + '" class="chart-grid-line"></line>';
+          }).join('');
+          var bumpPoints = bumpPeriods.map(function(period, index) {
+            return '<text x="' + (index * bumpBand + bumpBand / 2) + '" y="' + (bumpInnerH + 34) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>';
+          }).join('');
+          var bumpLines = bumpSegments.map(function(segment) { return '<path d="' + segment.d + '" fill="none" stroke="' + segment.color + '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>'; }).join('');
+          var bumpNodes = bumpSeriesData.map(function(series, seriesIdx) {
+            var leftY = bumpLeftLabelY[seriesIdx];
+            var rightY = bumpRightLabelY[seriesIdx];
+            var leftLabel = series.firstPt ? '<g><path d="M ' + (series.firstPt.x - 14) + ' ' + series.firstPt.y + ' L 12 ' + leftY + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="14" y="' + (leftY + 5) + '" text-anchor="start" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
+            var rightLabel = series.lastPt ? '<g><path d="M ' + (series.lastPt.x + 14) + ' ' + series.lastPt.y + ' L ' + (bumpInnerW + 14) + ' ' + rightY + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="' + (bumpInnerW + 16) + '" y="' + (rightY + 5) + '" text-anchor="start" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
+            return '<g>' + leftLabel + rightLabel +
+              series.points.map(function(point) {
+                if (!point) return '';
+                var rankColor = BUMP_RANK_COLORS_JS[point.rank - 1] || BUMP_RANK_COLORS_JS[BUMP_RANK_COLORS_JS.length - 1];
+                var textColor = point.rank >= 6 ? '#000' : '#fff';
+                return '<g><circle cx="' + point.x + '" cy="' + point.y + '" r="14" fill="' + rankColor + '" stroke="#000" stroke-width="1.5"></circle><text x="' + point.x + '" y="' + (point.y + 5) + '" text-anchor="middle" style="fill:' + textColor + ';font-size:0.65rem;font-weight:700">' + point.rank + '</text></g>';
+              }).join('') +
+              '</g>';
+          }).join('');
+          rankContainer.innerHTML = '<svg class="chart-svg"' + (bumpWidth !== 960 ? ' style="width:' + bumpWidth + 'px;max-width:none"' : ' width="100%"') + ' height="' + bumpHeight + '" viewBox="0 0 ' + bumpWidth + ' ' + bumpHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Language rank bump chart across selected period"><g transform="translate(' + bumpMargin.left + ' ' + bumpMargin.top + ')">' + bumpAxis + bumpPoints + bumpLines + bumpNodes + '</g></svg>';
+        }
+
+        var langsContainer = document.getElementById('period-langs-chart');
+        if (langsContainer && topLanguages.length) {
+          var rowH = 28, margin = { top: 18, right: 24, bottom: 20, left: 210 };
+          var width = 920;
+          var innerW = width - margin.left - margin.right;
+          var innerH = topLanguages.length * rowH;
+          var totalH = innerH + margin.top + margin.bottom;
+          var maxC = Math.max.apply(null, topLanguages.map(function(item) { return item.count || 0; })) || 1;
+          var totalC = topLanguages.reduce(function(sum, item) { return sum + item.count; }, 0);
+          var bars = topLanguages.map(function(item, index) {
+            var bW = (item.count / maxC) * innerW;
+            var y = index * rowH;
+            var pct = ((item.count / totalC) * 100).toFixed(1) + '%';
+            var inside = bW > innerW - 100;
+            return '<g transform="translate(0 ' + y + '"><text x="-12" y="16" text-anchor="end" class="h-bar-label h-bar-label-name">' + item.language + '</text><rect x="0" y="3" width="' + bW + '" height="18" rx="4" fill="' + item.color + '" fill-opacity="0.86"></rect>' + (inside ? '<text x="' + (bW - 6) + '" y="16" text-anchor="end" class="h-bar-label h-bar-label-count" style="fill:#fff">' + item.count + ' (' + pct + ')</text>' : '<text x="' + (bW + 8) + '" y="16" text-anchor="start" class="h-bar-label h-bar-label-count">' + item.count + ' (' + pct + ')</text>') + '</g>';
+          }).join('');
+          langsContainer.innerHTML = '<svg class="chart-svg" width="100%" viewBox="0 0 920 ' + totalH + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Top languages in selected period"><g transform="translate(' + margin.left + ' ' + margin.top + ')">' + bars + '</g></svg>';
+        }
+      }
+
+      renderPeriodTrendCharts(periodData);
+
+      function chartWidthForPeriods(baseWidth, margins, periodCount, maxVisible) {
+        if (periodCount <= maxVisible) return baseWidth;
+        var baseInner = baseWidth - margins.left - margins.right;
+        var pxPerPeriod = baseInner / maxVisible;
+        return Math.ceil(periodCount * pxPerPeriod) + margins.left + margins.right;
+      }
+
+      // Papers per week bar chart
+      (function() {
+        var container = document.getElementById('period-papers-chart');
+        if (!container || !periodData.length) return;
+        var margin = { top: 24, right: 44, bottom: 50, left: 42 };
+        var height = 260;
+        var width = chartWidthForPeriods(760, margin, periodData.length, 5);
+        var innerW = width - margin.left - margin.right;
+        var innerH = height - margin.top - margin.bottom;
+        var bandW = innerW / periodData.length;
+        var barW = bandW * 0.56;
+        var maxP = Math.max.apply(null, periodData.map(function(d) { return d.papers || 0; })) || 1;
+        var scaleY = function(v) { return innerH - (v / maxP) * innerH; };
+        var ticks = [0,1,2,3,4].map(function(i) { return Math.round(maxP * i / 4); });
+        var yAxis = ticks.map(function(t) {
+          var y = scaleY(t);
+          return '<g transform="translate(0 '+y+')"><line x1="0" x2="'+innerW+'" y1="0" y2="0" class="chart-grid-line"></line><text x="-10" y="4" text-anchor="end" class="chart-axis-label">'+t+'</text></g>';
+        }).join('');
+        var bars = periodData.map(function(week, i) {
+          var x = i * bandW + (bandW - barW) / 2;
+          var tH = Math.max((week.papers / maxP) * innerH, 0);
+          var fH = Math.max((week.flaggedPapers / maxP) * innerH, 0);
+          var oH = Math.max(tH - fH, 0);
+          var yTop = innerH - tH;
+          var label = fmtShortLabel(week.weekStart);
+          var otherCount = Math.max(week.papers - week.flaggedPapers, 0);
+          var s = '';
+          if (oH > 0) s += '<path d="'+roundedTopRectPath(x, yTop, barW, oH, 5)+'" fill="rgba(32, 22, 19, 0.18)"></path>';
+          if (fH > 0) s += '<path d="'+roundedBottomRectPath(x, innerH - fH, barW, fH, 5)+'" fill="#0f6c5d"></path>';
+          if (oH > 14) s += '<text x="'+(x+barW/2)+'" y="'+(yTop+oH/2+4)+'" text-anchor="middle" class="chart-value">'+otherCount+'</text>';
+          if (fH > 14) s += '<text x="'+(x+barW/2)+'" y="'+(innerH-fH/2+4)+'" text-anchor="middle" class="chart-value" style="fill:#fff">'+week.flaggedPapers+'</text>';
+          s += '<text x="'+(x+barW/2)+'" y="'+(innerH+18)+'" text-anchor="middle" class="chart-label">'+label+'</text>';
+          return s;
+        }).join('');
+        container.innerHTML = '<svg class="chart-svg"'+(width !== 760 ? ' style="width:'+width+'px;max-width:none"' : ' width="100%"')+' viewBox="0 0 '+width+' '+height+'" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Stacked bar chart of selected period scan volume"><g transform="translate('+margin.left+' '+margin.top+')">'+yAxis+bars+'</g></svg>';
+      }());
+
+      // Unique languages per week line chart
+      (function() {
+        var container = document.getElementById('period-unique-chart');
+        if (!container || !periodData.length) return;
+        var margin = { top: 24, right: 18, bottom: 56, left: 42 };
+        var height = 380;
+        var width = chartWidthForPeriods(700, margin, periodData.length, 5);
+        var innerW = width - margin.left - margin.right;
+        var innerH = height - margin.top - margin.bottom;
+        var bandW = innerW / periodData.length;
+        var maxU = Math.max.apply(null, periodData.map(function(d) { return d.uniqueLanguages; })) || 1;
+        // Extend domain above max so the top data point never sits at y=0 (matching d3 .nice() behaviour)
+        var tickStep = Math.pow(10, Math.floor(Math.log10(Math.max(maxU / 4, 1))));
+        var domainMax = Math.ceil(maxU / tickStep) * tickStep + tickStep;
+        var scaleY = function(v) { return innerH - (v / domainMax) * innerH; };
+        var ticks = [0,1,2,3,4].map(function(i) { return Math.round(domainMax * i / 4); });
+        var yAxis = ticks.map(function(t) {
+          var y = scaleY(t);
+          return '<g transform="translate(0 '+y+')"><line x1="0" x2="'+innerW+'" y1="0" y2="0" class="chart-grid-line"></line><text x="-10" y="4" text-anchor="end" class="chart-axis-label">'+t+'</text></g>';
+        }).join('');
+        var pts = periodData.map(function(week, i) {
+          return { x: i * bandW + bandW / 2, y: scaleY(week.uniqueLanguages), label: fmtShortLabel(week.weekStart), val: week.uniqueLanguages };
+        });
+        var linePath = pts.map(function(p, i) { return (i === 0 ? 'M' : 'L') + p.x + ',' + p.y; }).join(' ');
+        var dots = pts.map(function(p) {
+          return '<circle cx="'+p.x+'" cy="'+p.y+'" r="5" fill="#7c3aed" stroke="white" stroke-width="2"></circle>'+
+                 '<text x="'+p.x+'" y="'+Math.max(12, p.y-10)+'" text-anchor="middle" class="chart-value">'+p.val+'</text>'+
+                 '<text x="'+p.x+'" y="'+(innerH+18)+'" text-anchor="middle" class="chart-label">'+p.label+'</text>';
+        }).join('');
+        container.innerHTML = '<svg class="chart-svg"'+(width !== 700 ? ' style="width:'+width+'px;max-width:none"' : ' width="100%"')+' viewBox="0 0 '+width+' '+height+'" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of unique languages per selected period"><g transform="translate('+margin.left+' '+margin.top+')">'+yAxis+'<path d="'+linePath+'" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round"></path>'+dots+'</g></svg>';
+      }());
+
+      // Top 10 languages in period horizontal bar chart
+      (function() {
+        var container = document.getElementById('period-langs-chart');
+        if (!container || !periodData.length) return;
+        var langMap = {};
+        periodData.forEach(function(w) {
+          (w.languageCounts || []).forEach(function(lc) { langMap[lc.language] = (langMap[lc.language] || 0) + lc.count; });
+        });
+        var sorted = Object.keys(langMap).map(function(lang) { return { language: lang, count: langMap[lang] }; })
+          .sort(function(a, b) { return b.count - a.count; }).slice(0, 10);
+        if (!sorted.length) { container.innerHTML = '<p class="placeholder-text">No language data available.</p>'; return; }
+        var maxC = sorted[0].count;
+        var totalC = sorted.reduce(function(s, lc) { return s + lc.count; }, 0);
+        var rowH = 28, margin = { top: 18, right: 24, bottom: 20, left: 210 };
+        var width = 920;
+        var innerW = width - margin.left - margin.right;
+        var innerH = sorted.length * rowH;
+        var totalH = innerH + margin.top + margin.bottom;
+        var bars = sorted.map(function(lc, i) {
+          var barW = (lc.count / maxC) * innerW;
+          var y = i * rowH;
+          var pct = ((lc.count / totalC) * 100).toFixed(1) + '%';
+          var label = lc.count + ' (' + pct + ')';
+          var labelInside = barW > innerW - 100;
+          var barColor = classColorForLanguage(lc.language);
+          return '<g transform="translate(0 '+y+')"><text x="-12" y="16" text-anchor="end" class="h-bar-label h-bar-label-name">'+lc.language+'</text><rect x="0" y="3" width="'+barW+'" height="18" rx="4" fill="'+barColor+'" fill-opacity="0.86"></rect>'+
+                 (labelInside ? '<text x="'+(barW-6)+'" y="16" text-anchor="end" class="h-bar-label h-bar-label-count" style="fill:#fff">'+label+'</text>' : '<text x="'+(barW+8)+'" y="16" text-anchor="start" class="h-bar-label h-bar-label-count">'+label+'</text>') + '</g>';
+        }).join('');
+        container.innerHTML = '<svg class="chart-svg" width="100%" viewBox="0 0 920 '+totalH+'" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Top languages in selected period"><g transform="translate('+margin.left+' '+margin.top+')">'+bars+'</g></svg>';
+      }());
+
+    }());
   </script>
 </section>
