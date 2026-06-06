@@ -6,13 +6,19 @@ import WeekCalendar from '../../components/WeekCalendar.astro';
 import { loadSiteData, getAvailableWeeks, loadAllWeeksData } from '../../lib/data.js';
 
 export function getStaticPaths() {
-  return getAvailableWeeks().map((weekStart) => ({ params: { slug: weekStart } }));
+  return getAvailableWeeks().map((weekStart: string) => ({ params: { slug: weekStart } }));
 }
 
 const { slug } = Astro.params;
 const data = loadSiteData(slug);
 const availableWeeks = getAvailableWeeks();
 const allWeeksData = loadAllWeeksData();
+const allWeeksMetadata = allWeeksData.map((w: { weekStart: string; papers: number; flaggedPapers: number; uniqueLanguages: number }) => ({
+  weekStart: w.weekStart,
+  papers: w.papers,
+  flaggedPapers: w.flaggedPapers,
+  uniqueLanguages: w.uniqueLanguages,
+}));
 ---
 <BaseLayout title={`LangTrend — ${slug}`} description="Automated dashboard for language inclusion in NLP research">
   <section class="hero">
@@ -50,7 +56,13 @@ const allWeeksData = loadAllWeeksData();
       </div>
       <span class="paper-collapse-hint">Collapse section</span>
     </summary>
-    <PaperTable flaggedPapers={data.flaggedPapers} languageData={data.languageData} />
+    <PaperTable
+      flaggedPapers={data.flaggedPapers}
+      languageData={data.languageData}
+      availableWeeks={availableWeeks}
+      currentWeekSlug={slug}
+      allWeeksMetadata={allWeeksMetadata}
+    />
   </details>
 
   <details id="statistics" class="stats-collapse panel" open>

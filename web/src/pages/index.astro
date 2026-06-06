@@ -8,6 +8,13 @@ import { loadSiteData, getAvailableWeeks, loadAllWeeksData } from '../lib/data.j
 const data = loadSiteData();
 const availableWeeks = getAvailableWeeks();
 const allWeeksData = loadAllWeeksData();
+const allWeeksMetadata = allWeeksData.map((w: { weekStart: string; papers: number; flaggedPapers: number; uniqueLanguages: number }) => ({
+  weekStart: w.weekStart,
+  papers: w.papers,
+  flaggedPapers: w.flaggedPapers,
+  uniqueLanguages: w.uniqueLanguages,
+}));
+const currentWeekSlug: string = data.manifest.week_start ?? availableWeeks[availableWeeks.length - 1] ?? '';
 const currentYear = new Date().getFullYear();
 ---
 <BaseLayout title="LangTrend" description="Automated dashboard for language inclusion in NLP research">
@@ -46,7 +53,13 @@ const currentYear = new Date().getFullYear();
       </div>
       <span class="paper-collapse-hint">Collapse section</span>
     </summary>
-    <PaperTable flaggedPapers={data.flaggedPapers} languageData={data.languageData} />
+    <PaperTable
+      flaggedPapers={data.flaggedPapers}
+      languageData={data.languageData}
+      availableWeeks={availableWeeks}
+      currentWeekSlug={currentWeekSlug}
+      allWeeksMetadata={allWeeksMetadata}
+    />
   </details>
 
   <details id="statistics" class="stats-collapse panel" open>

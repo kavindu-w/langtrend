@@ -229,6 +229,14 @@ a { color: inherit; text-decoration: none; }
 }
 .fc .selected-week-bg { padding: 6px 0 !important; }
 
+/* Range weeks (non-anchor weeks in multi-week period) */
+.range-week-bg {
+  background-color: rgba(15,108,93,0.09) !important;
+  border: 4px solid #000 !important;
+  border-radius: 12px !important;
+}
+.fc .range-week-bg { padding: 6px 0 !important; }
+
 /* Toast for lightweight messages */
 .lt-toast {
   position: fixed;
@@ -757,6 +765,115 @@ a { color: inherit; text-decoration: none; }
 .chip.active { background: var(--text); color: #fff; }
 
 .paper-panel { margin-top: 18px; }
+
+/* Calendar view-mode tabs (Week / Period / All papers) */
+.calendar-mode-tabs {
+  display: flex;
+  background: rgba(32,22,19,0.06);
+  border: 1px solid rgba(32,22,19,0.12);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 3px;
+  margin-bottom: 14px;
+}
+.mode-tab {
+  flex: 1;
+  border: none;
+  border-radius: 999px;
+  padding: 9px 10px;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text, #201613);
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.mode-tab:hover:not(.active) { background: rgba(32,22,19,0.08); }
+.mode-tab.active {
+  background: var(--text, #201613);
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.calendar-mode-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted, #6b6b6b);
+  margin: 0 0 6px;
+}
+
+/* Period mode: hide calendar head/widget/hint in all-papers mode */
+.week-calendar-panel[data-mode="all"] #calendar-head,
+.week-calendar-panel[data-mode="all"] #calendar-widget,
+.week-calendar-panel[data-mode="all"] #calendar-hint-text { display: none; }
+
+/* Period From / To pickers */
+.period-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.period-endpoint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.period-endpoint .picker-label { min-width: 2rem; }
+.period-endpoint-selects {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.picker-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted, #6b6b6b);
+  white-space: nowrap;
+}
+.picker-select {
+  border: 1px solid rgba(32,22,19,0.18);
+  border-radius: 6px;
+  padding: 4px 6px;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  background: var(--surface, #fff);
+  color: var(--text);
+  max-width: 160px;
+}
+.picker-select-sm { max-width: 72px; }
+.picker-select-md { max-width: 100px; }
+.picker-arrow { color: var(--muted, #6b6b6b); font-size: 0.85rem; }
+.calendar-month-jump-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+
+/* Period mode hint */
+.period-mode-hint {
+  font-size: 0.8rem;
+  color: var(--muted, #6b6b6b);
+  margin: 0 0 10px;
+  font-style: italic;
+}
+
+/* Week badge shown on papers from other-than-current week */
+.week-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(15,108,93,0.1);
+  color: #0f6c5d;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
 /* Controls bar: both searches side by side + sort + count */
 .paper-controls-bar {
   display: flex;

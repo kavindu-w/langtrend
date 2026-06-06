@@ -843,12 +843,18 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
     </summary>
 
     <div class="stat-row">
-      {weeklySummaryCards.map((card) => (
-        <article class="stat-card-mini">
-          <strong>{card.value}</strong>
-          <span>{card.label}</span>
-        </article>
-      ))}
+      <article class="stat-card-mini">
+        <strong id="stat-total-papers">{weeklyPapers}</strong>
+        <span>Total papers scanned</span>
+      </article>
+      <article class="stat-card-mini">
+        <strong id="stat-flagged-papers">{weeklyFlagged}</strong>
+        <span>Papers with language mentions</span>
+      </article>
+      <article class="stat-card-mini">
+        <strong id="stat-unique-langs">{weeklyUniqueLanguages}</strong>
+        <span>Unique languages detected</span>
+      </article>
     </div>
 
     <div class="coverage-summary-panel">
@@ -1743,5 +1749,7 @@ function markerPath(shapeIdx: number, cx: number, cy: number, size: number): str
         }
       } catch {}
     });
+
+    // Update stat cards when the period selector changes
   </script>
 </section>
