@@ -507,6 +507,10 @@ const languages = [...languageCounts.entries()]
     const p = new URLSearchParams(location.search);
     const langs = [...activeLanguages].join(',');
     if (langs) p.set('lang', langs); else p.delete('lang');
+    const q = searchInput?.value.trim() ?? '';
+    if (q) p.set('q', q); else p.delete('q');
+    const sort = sortSelect?.value ?? 'default';
+    if (sort && sort !== 'default') p.set('sort', sort); else p.delete('sort');
     const qs = p.toString();
     history.replaceState(null, '', qs ? `${location.pathname}?${qs}` : location.pathname);
   }
@@ -875,11 +879,12 @@ const languages = [...languageCounts.entries()]
   allChips.forEach(chip => {
     chip.addEventListener('click', () => { toggleLanguage(chip.dataset.lang || 'all'); applyFilters(); });
   });
-  searchInput?.addEventListener('input', applyFilters);
+  searchInput?.addEventListener('input', () => { updateUrlParams(); applyFilters(); });
   langSearchInput?.addEventListener('input', e => { filterLangChips((e.target as HTMLInputElement).value); updateFilterBar(); });
   sortSelect?.addEventListener('change', () => {
     const v = sortSelect.value;
     sortPapers(v.startsWith('class-') ? 'default' : v);
+    updateUrlParams();
     applyFilters();
   });
   clearFiltersBtn?.addEventListener('click', () => {
@@ -888,9 +893,9 @@ const languages = [...languageCounts.entries()]
     activeLanguages.clear();
     allChips.forEach(c => c.classList.toggle('active', c.dataset.lang === 'all'));
     langChips.forEach(c => c.classList.remove('active'));
-    updateUrlParams();
     if (sortSelect) sortSelect.value = 'default';
     sortPapers('default');
+    updateUrlParams();
     applyFilters();
   });
 
@@ -904,6 +909,15 @@ const languages = [...languageCounts.entries()]
     for (const l of activeLanguages) { if (!chipLangs.has(l)) activeLanguages.delete(l); }
     langChips.forEach(chip => { if (activeLanguages.has(chip.dataset.lang || '')) chip.classList.add('active'); });
     if (activeLanguages.size === 0 && allBtn) allBtn.classList.add('active');
+  }
+
+  // Restore search and sort from URL
+  const _qParam = urlParams.get('q') ?? '';
+  if (_qParam && searchInput) searchInput.value = _qParam;
+  const _sortParam = urlParams.get('sort') ?? '';
+  if (_sortParam && sortSelect) {
+    sortSelect.value = _sortParam;
+    sortPapers(_sortParam.startsWith('class-') ? 'default' : _sortParam);
   }
 
   // Fetch any weeks needed by the current URL state (period/all-time mode), then render

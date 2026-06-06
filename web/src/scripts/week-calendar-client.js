@@ -119,6 +119,8 @@ function getForwardedParams() {
   const lang = p.get('lang'); if (lang) parts.push(`lang=${encodeURIComponent(lang)}`);
   const from = p.get('from'); if (from) parts.push(`from=${encodeURIComponent(from)}`);
   const period = p.get('period'); if (period) parts.push(`period=${encodeURIComponent(period)}`);
+  const q = p.get('q'); if (q) parts.push(`q=${encodeURIComponent(q)}`);
+  const sort = p.get('sort'); if (sort) parts.push(`sort=${encodeURIComponent(sort)}`);
   return parts.length ? '?' + parts.join('&') : '';
 }
 
@@ -244,7 +246,11 @@ function onPeriodSelectChange() {
   let from = fromSelect.value;
   let to = toSelect.value;
   if (from > to) { const tmp = from; from = to; to = tmp; } // ensure from ≤ to
-  navTo(to, { from, period: null });
+  if (from === to) {
+    navTo(to, { from: null, period: null }); // same week → switch to week view
+  } else {
+    navTo(to, { from, period: null });
+  }
 }
 
 // ── Mode management ──────────────────────────────────────────────────────────
@@ -436,12 +442,15 @@ function updateTitle() {
   } else if (viewMode === 'period' && fromParam) {
     const fromDate = new Date(fromParam + 'T12:00:00');
     const anchorEnd = new Date(anchorDate); anchorEnd.setDate(anchorEnd.getDate() + 6);
-    const fromYear = fromDate.getFullYear();
-    const toYear = anchorEnd.getFullYear();
+    // Ensure start ≤ end regardless of which direction the user selected
+    const startDate = fromDate <= anchorDate ? fromDate : anchorDate;
+    const endDate = fromDate <= anchorDate ? anchorEnd : new Date(fromDate.getTime() + 6 * 86400000);
+    const fromYear = startDate.getFullYear();
+    const toYear = endDate.getFullYear();
     if (fromYear === toYear) {
-      text = `${fmtShort(fromDate)} – ${fmtShort(anchorEnd)}, ${toYear}`;
+      text = `${fmtShort(startDate)} – ${fmtShort(endDate)}, ${toYear}`;
     } else {
-      text = `${fmtShort(fromDate)} ${fromYear} – ${fmtShort(anchorEnd)} ${toYear}`;
+      text = `${fmtShort(startDate)} ${fromYear} – ${fmtShort(endDate)} ${toYear}`;
     }
   } else {
     text = fmtTitle(anchorDate);
