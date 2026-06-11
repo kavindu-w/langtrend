@@ -23,7 +23,7 @@ _HTML_DOWNLOAD_TIMEOUT = 120  # wall-clock cap; arXiv keepalives defeat per-chun
 # Honest bot UA — arXiv's access policy asks automated tools to self-identify with contact info.
 # Update the email if you deploy this under a different project.
 ARXIV_USER_AGENT = (
-    "LangTrendBot (automated research tool; "
+    "LangTrendBot (Automated Research Tool); "
     "https://github.com/kavindu-w/langtrend; "
     "akwarnakulasuriya@gmail.com)"
 )

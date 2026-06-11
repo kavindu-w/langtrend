@@ -134,9 +134,11 @@ def main() -> None:
 
     if args.skip_fetch:
         print(f"\nStep 1 [SKIPPED] fetch")
-    elif expected_input.exists():
+    elif expected_input.exists() and expected_input.stat().st_size > 0:
         print(f"\nStep 1 [SKIP] fetch — {expected_input.name} already exists")
     else:
+        if expected_input.exists():
+            print(f"\n{expected_input.name} exists but is empty (0 bytes) — re-fetching")
         timings["fetch"] = _run("Step 1: fetch papers from arXiv", [
             sys.executable,
             str(_SCRIPTS_DIR / "fetch_arxiv_metadata.py"),
