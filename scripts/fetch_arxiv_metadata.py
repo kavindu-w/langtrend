@@ -18,6 +18,7 @@ import argparse
 import json
 import logging
 import re
+import sys
 import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -25,6 +26,10 @@ from xml.etree import ElementTree as ET
 
 import arxiv
 import requests
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from langtrend.html_processor import ARXIV_USER_AGENT
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -36,6 +41,18 @@ log = logging.getLogger(__name__)
 _DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "data/raw/extracted_papers_metadata"
 _OAI_BASE_URL = "https://oaipmh.arxiv.org/oai"
 _OAI_USER_AGENT = "LangTrendBot (automated research tool; https://github.com/kavindu-w/langtrend; akwarnakulasuriya@gmail.com; supports OAI-PMH)"
+_ARXIV_DIRECT_HEADERS = {
+    "User-Agent": ARXIV_USER_AGENT,
+    "Accept": "application/atom+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+_OAI_HEADERS = {
+    "User-Agent": _OAI_USER_AGENT,
+    "Accept": "application/xml,text/xml;q=0.9,*/*;q=0.8",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "en-US,en;q=0.9",
+}
 _ARXIV_DIRECT_BASE_URL = "https://export.arxiv.org/api/query"
 _ARXIV_DIRECT_PAGE_SIZE = 500
 _ARXIV_DIRECT_DELAY_SECONDS = 5.0
@@ -147,7 +164,7 @@ def _fetch_oai_records(category_query: str, end_date: datetime, window_days: int
     log.info("OAI-PMH harvest: %s → %s  set(s)=%s", start_str, end_str,
              [s for s in set_specs if s])
 
-    headers = {"User-Agent": _OAI_USER_AGENT}
+    headers = _OAI_HEADERS
 
     records_by_id: dict[str, dict] = {}
     for set_spec in set_specs:
@@ -245,7 +262,9 @@ def _fetch_arxiv_direct(query: str, max_results: int) -> list[dict]:
             "max_results": page_size,
         }
         log.info("  arXiv direct: start=%d page_size=%d", start, page_size)
-        resp = requests.get(_ARXIV_DIRECT_BASE_URL, params=params, timeout=_ARXIV_DIRECT_TIMEOUT)
+        resp = requests.get(
+            _ARXIV_DIRECT_BASE_URL, params=params, headers=_ARXIV_DIRECT_HEADERS, timeout=_ARXIV_DIRECT_TIMEOUT
+        )
         resp.raise_for_status()
 
         root = ET.fromstring(resp.content)
@@ -373,6 +392,7 @@ def fetch_and_save(
                 delay_seconds=_ARXIV_CLIENT_DELAY_SECONDS,
                 num_retries=_ARXIV_CLIENT_NUM_RETRIES,
             )
+            client._session.headers.update(_ARXIV_DIRECT_HEADERS)
             for attempt in range(1, _FETCH_ATTEMPTS + 1):
                 log.info("arxiv package attempt %d/%d …", attempt, _FETCH_ATTEMPTS)
                 try:
