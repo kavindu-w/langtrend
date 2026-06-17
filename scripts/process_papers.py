@@ -845,10 +845,11 @@ def main() -> None:
             cached_html_ids = {p.stem for p in html_cache_dir.glob("*.json")}
             cached_pdf_ids  = {p.stem for p in pdf_cache_dir.glob("*.json")}
 
-            # Build a map of paper_id → sources_checked for already-detected papers.
-            # This lets us catch the crash-leftover case: a PDF cache was written by a
-            # worker thread but the process died before flushing the record to the JSONL,
-            # leaving the entry in a stale abstract-only state.
+            # Build maps of paper_id → sources_checked for already-processed papers.
+            # detected_sources covers papers WITH language detections (in _detected.jsonl).
+            # no_det_sources covers papers confirmed to have NO detections (in _no_detections.json).
+            # Together they let us skip papers already fully processed and only retry those
+            # that genuinely need another pass (e.g. abstract-only → try HTML/PDF).
             detected_sources: dict[str, list[str]] = {}
             if detected_path.exists():
                 for line in detected_path.read_text(encoding="utf-8").splitlines():
@@ -856,12 +857,31 @@ def main() -> None:
                         rec = json.loads(line)
                         detected_sources[rec.get("paper_id", "")] = rec.get("sources_checked", [])
 
+            no_det_sources: dict[str, list[str]] = {}
+            if no_det_path.exists():
+                try:
+                    for rec in json.loads(no_det_path.read_text(encoding="utf-8")):
+                        no_det_sources[rec.get("paper_id", "")] = rec.get("sources_checked", [])
+                except (json.JSONDecodeError, KeyError):
+                    pass
+
             def _needs_retry(p: dict) -> bool:
                 pid = p["id"]
                 safe_id = pid.split("/")[-1]
-                if pid not in detected_sources:
-                    return True  # never detected
-                sources = detected_sources.get(pid, [])
+
+                sources = detected_sources.get(pid)
+                if sources is None:
+                    nd_sources = no_det_sources.get(pid)
+                    if nd_sources is None:
+                        return True  # never processed at all
+                    # Paper confirmed no detections — skip if html or pdf was
+                    # already tried (the paper genuinely has no programming
+                    # languages; retrying with PDF would just add noise).
+                    if "html" in nd_sources or "pdf" in nd_sources:
+                        return False
+                    return True  # abstract-only → worth retrying with html/pdf
+
+                # Paper has detections — check for crash leftovers / incomplete sources.
                 # PDF cache exists but detection entry never recorded pdf/html — crashed mid-run
                 if safe_id in cached_pdf_ids and "pdf" not in sources and "html" not in sources:
                     return True
