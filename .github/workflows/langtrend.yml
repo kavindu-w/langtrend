@@ -187,6 +187,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+          ref: ${{ github.ref_name }}
 
       # Bump version while the working tree is clean (no data files modified yet).
       # Running this after PDF processing causes autostash conflicts on manifest files.
