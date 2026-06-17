@@ -168,17 +168,16 @@ jobs:
           }
 
 # ---------------------------------------------------------------------------
-# Job 2: PDF retry + build + deploy (~1-4 h, CPU-bound docling)
+# Job 2: PDF retry (~1-4 h, CPU-bound docling)
 # Fresh checkout sees the HTML outputs committed by Job 1.
+# Commits its own outputs so Job 3 can pick them up via a fresh checkout.
 # ---------------------------------------------------------------------------
-  pdf-and-deploy:
+  pdf-retry:
     needs:
       - fetch-and-html
-    if: always() && (needs.fetch-and-html.result == 'success' || needs.fetch-and-html.result == 'skipped')
+    if: always() && needs.fetch-and-html.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+    timeout-minutes: 360
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -255,21 +254,18 @@ jobs:
           }
 
       - name: Set up Python
-        if: github.event_name != 'workflow_dispatch' || !inputs.deploy_only
         uses: actions/setup-python@v5
         with:
           python-version-file: '.python-version'
           cache: 'pip'
 
       - name: Install Python dependencies
-        if: github.event_name != 'workflow_dispatch' || !inputs.deploy_only
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       # PDF retry — only papers with no detection yet; docling is CPU-bound so fewer workers
       - name: Run LangTrend pipeline (PDF retry)
-        if: github.event_name != 'workflow_dispatch' || !inputs.deploy_only
         run: |
           python scripts/run_langtrend_pipeline.py \
             --data-root data \
@@ -279,23 +275,8 @@ jobs:
             --skip-fetch \
             --retry-missing
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.12.0
-          cache: npm
-          cache-dependency-path: web/package-lock.json
-
-      - name: Install frontend dependencies
-        working-directory: web
-        run: npm ci
-
-      - name: Build frontend
-        working-directory: web
-        run: npm run build
-
       - name: Commit final outputs
-        if: always() && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -330,6 +311,45 @@ jobs:
             git rebase -X ours origin/main
             git push origin HEAD:main
           }
+
+# ---------------------------------------------------------------------------
+# Job 3: build frontend + deploy to GitHub Pages (~variable, grows with data)
+# Fresh checkout sees the processed outputs committed by Job 2.
+# ---------------------------------------------------------------------------
+  build-and-deploy:
+    needs:
+      - fetch-and-html
+      - pdf-retry
+    if: always() && needs.fetch-and-html.result != 'cancelled' && needs.pdf-retry.result != 'cancelled'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          ref: ${{ github.ref_name }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: web
+        run: npm run build
 
       - name: Configure Pages
         if: github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_site)
