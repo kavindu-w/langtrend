@@ -47,13 +47,15 @@ concurrency:
 
 # ---------------------------------------------------------------------------
 # Job 1: fetch paper metadata + HTML text extraction (~1-3 h, I/O-bound)
-# Commits its outputs so Job 2 can pick them up via a fresh checkout and
-# only run docling on the ~10 % of papers that truly need PDF.
+# Commits partial results before timeout so Job 2 can continue from where
+# it left off. timeout-minutes: 350 leaves ~10 min inside GitHub's 6 h
+# runner cap for the if: always() commit step to complete reliably.
 # ---------------------------------------------------------------------------
 jobs:
   fetch-and-html:
     runs-on: ubuntu-latest
     if: github.event_name != 'workflow_dispatch' || !inputs.deploy_only
+    timeout-minutes: 350
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -168,16 +170,93 @@ jobs:
           }
 
 # ---------------------------------------------------------------------------
-# Job 2: PDF retry (~1-4 h, CPU-bound docling)
-# Fresh checkout sees the HTML outputs committed by Job 1.
-# Commits its own outputs so Job 3 can pick them up via a fresh checkout.
+# Job 2: HTML continuation — retries papers Job 1 didn't reach before its
+# timeout. Same no-PDF pass; picks up unprocessed papers via --retry-missing.
 # ---------------------------------------------------------------------------
-  pdf-retry:
+  fetch-and-html-2:
     needs:
       - fetch-and-html
     if: always() && needs.fetch-and-html.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 350
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          ref: ${{ github.ref_name }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: '.python-version'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run LangTrend pipeline (HTML continuation)
+        run: |
+          python scripts/run_langtrend_pipeline.py \
+            --data-root data \
+            --window-days 7 \
+            --max-results 1000 \
+            --workers 24 \
+            --skip-fetch \
+            --no-pdf \
+            --retry-missing
+
+      - name: Commit HTML continuation outputs
+        if: always()
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          shopt -s nullglob
+          generated_files=(
+            data/processed/language_screening_warnings.json
+            data/processed/langtrend_manifest_last_7_days.json
+            data/processed/weeks/*/arxiv_papers_*_detected.jsonl
+            data/processed/weeks/*/arxiv_papers_*_no_detections.json
+            data/processed/weeks/*/arxiv_papers_*_warnings.json
+            data/processed/weeks/*/langtrend_manifest.json
+          )
+
+          if [ ${#generated_files[@]} -eq 0 ]; then
+            echo "No generated files matched any pattern."
+            exit 0
+          fi
+
+          git add -f "${generated_files[@]}"
+
+          if git diff --cached --quiet; then
+            echo "No HTML continuation changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update HTML pass outputs (continuation)"
+          git push origin HEAD:main || {
+            git fetch origin main
+            git rebase -X ours origin/main
+            git push origin HEAD:main
+          }
+
+# ---------------------------------------------------------------------------
+# Job 3: PDF retry (~1-4 h, CPU-bound docling)
+# Fresh checkout sees all HTML outputs committed by Jobs 1–2.
+# ---------------------------------------------------------------------------
+  pdf-retry:
+    needs:
+      - fetch-and-html-2
+    if: always() && needs.fetch-and-html-2.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -264,7 +343,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # PDF retry — only papers with no detection yet; docling is CPU-bound so fewer workers
       - name: Run LangTrend pipeline (PDF retry)
         run: |
           python scripts/run_langtrend_pipeline.py \
@@ -275,7 +353,7 @@ jobs:
             --skip-fetch \
             --retry-missing
 
-      - name: Commit final outputs
+      - name: Commit PDF retry outputs
         if: always()
         run: |
           git config user.name "github-actions[bot]"
@@ -299,13 +377,11 @@ jobs:
           git add -f "${generated_files[@]}"
 
           if git diff --cached --quiet; then
-            echo "No final output changes to commit."
+            echo "No PDF retry changes to commit."
             exit 0
           fi
 
           git commit -m "Update processed weekly outputs"
-          # Remote will be ahead (version bump + Job 1 commits). Rebase our outputs
-          # on top; -X ours keeps our PDF-processed manifests over Job 1's HTML-only ones.
           git push origin HEAD:main || {
             git fetch origin main
             git rebase -X ours origin/main
@@ -313,16 +389,91 @@ jobs:
           }
 
 # ---------------------------------------------------------------------------
-# Job 3: build frontend + deploy to GitHub Pages (~variable, grows with data)
-# Fresh checkout sees the processed outputs committed by Job 2.
+# Job 4: PDF continuation — retries any papers Job 3 didn't reach before
+# its timeout. Picks up remaining no_detections via --retry-missing.
+# ---------------------------------------------------------------------------
+  pdf-retry-2:
+    needs:
+      - pdf-retry
+    if: always() && needs.pdf-retry.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          ref: ${{ github.ref_name }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: '.python-version'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run LangTrend pipeline (PDF continuation)
+        run: |
+          python scripts/run_langtrend_pipeline.py \
+            --data-root data \
+            --window-days 7 \
+            --max-results 1000 \
+            --workers 6 \
+            --skip-fetch \
+            --retry-missing
+
+      - name: Commit PDF continuation outputs
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          shopt -s nullglob
+          generated_files=(
+            data/processed/language_screening_warnings.json
+            data/processed/langtrend_manifest_last_7_days.json
+            data/processed/weeks/*/arxiv_papers_*_detected.jsonl
+            data/processed/weeks/*/arxiv_papers_*_no_detections.json
+            data/processed/weeks/*/arxiv_papers_*_warnings.json
+            data/processed/weeks/*/langtrend_manifest.json
+          )
+
+          if [ ${#generated_files[@]} -eq 0 ]; then
+            echo "No generated files matched any pattern."
+            exit 0
+          fi
+
+          git add -f "${generated_files[@]}"
+
+          if git diff --cached --quiet; then
+            echo "No PDF continuation changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update processed weekly outputs (continuation)"
+          git push origin HEAD:main || {
+            git fetch origin main
+            git rebase -X ours origin/main
+            git push origin HEAD:main
+          }
+
+# ---------------------------------------------------------------------------
+# Job 5: build frontend + deploy to GitHub Pages (~variable, grows with data)
+# Fresh checkout sees all outputs committed by Jobs 1–4.
 # ---------------------------------------------------------------------------
   build-and-deploy:
     needs:
-      - fetch-and-html
-      - pdf-retry
-    if: always() && needs.fetch-and-html.result != 'cancelled' && needs.pdf-retry.result != 'cancelled'
+      - pdf-retry-2
+    if: always() && needs.pdf-retry-2.result != 'cancelled'
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 350
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
