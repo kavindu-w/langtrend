@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-17T03:20:07.921289+00:00",
+  "generated_at": "2026-06-17T04:20:50.592468+00:00",
   "window_days": 7,
   "week_start": "2026-06-08",
   "week_end": "2026-06-15",
@@ -144,11 +144,11 @@
       "count": 5
     },
     {
-      "language": "Turkish",
+      "language": "Hungarian",
       "count": 5
     },
     {
-      "language": "Hungarian",
+      "language": "Turkish",
       "count": 5
     },
     {
@@ -276,10 +276,6 @@
       "count": 2
     },
     {
-      "language": "Armenian",
-      "count": 2
-    },
-    {
       "language": "Ami",
       "count": 2
     },
@@ -392,6 +388,10 @@
       "count": 2
     },
     {
+      "language": "Armenian",
+      "count": 2
+    },
+    {
       "language": "Uri",
       "count": 2
     },
@@ -421,14 +421,6 @@
     },
     {
       "language": "Bardi",
-      "count": 1
-    },
-    {
-      "language": "Slavonic",
-      "count": 1
-    },
-    {
-      "language": "Catalan",
       "count": 1
     },
     {
@@ -1005,6 +997,14 @@
     },
     {
       "language": "Wom",
+      "count": 1
+    },
+    {
+      "language": "Catalan",
+      "count": 1
+    },
+    {
+      "language": "Slavonic",
       "count": 1
     }
   ],
@@ -15045,53 +15045,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.15643v1",
-        "title": "Extending Item Response Theory for Efficient and Meaningful Multilingual Evaluation",
-        "abstract": "Multilingual benchmarks are central to evaluating large language models (LLMs) across languages, but they suffer from three issues: exhaustive evaluation scales linearly with the number of languages, automatic translation introduces errors that are easily missed at scale, and some items conflate general and culture-specific knowledge. We address all three with a unified statistical framework, Multilingual-IRT, which extends Item Response Theory with per-language difficulty deviations, split discriminability separating content from language effects, and per-language ability residuals. Fitting Multilingual-IRT on 25 LLMs across 29 languages of MMLU-Pro-X, we show that its fitted parameters support three practical applications: predicting unobserved (item, LLM, language) instances with 11-16% lower binary cross-entropy than the strongest accuracy-based baseline, surfacing candidate translation errors distributed across all 28 non-English languages, whereas accuracy-based baselines concentrate detections in a few languages, and recovering culture-specific items that accuracy-based baselines miss.",
-        "authors": [
-          "Gili Lior",
-          "Tzviel Frostig",
-          "Gabriel Stanovsky",
-          "Matan Eyal"
-        ],
-        "published": "2026-06-14T07:16:03Z",
-        "updated": "2026-06-14T07:16:03Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.15643v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.16011v1",
         "title": "Who Flips? Self- and Cross-Model Counterarguments Reveal Answer Instability in LLMs",
         "abstract": "Standard accuracy benchmarks are designed to test how closely large language models (LLMs) approach correct answers, but are not suitable for testing whether LLMs stick with a correct answer when that answer is challenged by a plausible counter-argument. We introduce a controlled protocol for evaluating answer stability: after a model answers a multiple-choice question correctly, we challenge the model's answer with a coherent argument for an incorrect option and measure whether the model flips. The setup a) isolates argumentative content from overt social pressure and b) varies argument length, self-attribution, and cross-model source. Across seven frontier models and 57 MMLU subjects, flip rates range from 17.5% to 97.3%, revealing large differences in stability that are not captured by accuracy metrics alone. We find that self-attribution consistently increases flip rates (mean +7.1pp, up to +18.7pp). Also, pooling wrong-answer arguments across models and selecting the most effective one per question yields stronger adversarial challenges than relying on any single source model. We further construct MaxFlip, a curated challenge set that amplifies flips by up to +23.6pp over standard self-generated challenges. We release the protocol, challenge records, and MaxFlip to support stability evaluation alongside standard accuracy benchmarks. Materials are available at https://github.com/nafisenik/WhoFlips and https://hf.co/datasets/nafisehNik/WhoFlips.",
@@ -15355,164 +15308,6 @@
             {
               "language": "Una",
               "class": 0
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.15510v1",
-        "title": "AthDGC: An Open Diachronic Greek Treebank with Indo-European Parallels",
-        "abstract": "AthDGC (\"Athens-PROIEL\") is an open, end-to-end workflow and dataset. It is, to the best of our knowledge, the first openly licensed dependency-parsed treebank of Greek that spans eight diachronic periods, namely Archaic, Classical, Koine, Late Antique, Byzantine, Late Byzantine, Early Modern, and Modern Greek, under a single PROIEL XML 2.0 schema, with verse-level cross-alignment of the New Testament to Latin (Vulgate), Gothic (Wulfila), Old Church Slavonic (Marianus), and Classical Armenian. AthDGC builds on the PROIEL Treebank Family (Haug and Johndal 2008; Eckhoff et al. 2018), which established the schema and the Koine-Greek reference set for the project. Annotation uses the Stanford Stanza PROIEL-trained workflow; sentence-level alignment uses LaBSE, a multilingual sentence-embedding model; word-level alignment uses multilingual-BERT attention through the AwesomeAlign procedure. The v0.4 release provides curated samples and the open-source toolkit; the full annotated corpus partitions remain under v0.5 audit on the Greek national HPC. Quantitative scale, per-witness verse counts, and per-period annotated-row counts are reported in the v0.5 release notes, after the audit pass completes. Concept DOI: 10.5281/zenodo.20439182.",
-        "authors": [
-          "Nikolaos Lavidas",
-          "Kiki Nikiforidou",
-          "Dag Haug",
-          "Leonid Kulikov",
-          "Vassiliki Geka",
-          "Vassileios Symeonidis",
-          "Theodoros Michalareas",
-          "Sofia Chionidi",
-          "Anastasia Tsiropina",
-          "Eleni Plakoutsi",
-          "Evangelos Argyropoulos"
-        ],
-        "published": "2026-06-13T23:38:39Z",
-        "updated": "2026-06-13T23:38:39Z",
-        "categories": [
-          "cs.CL",
-          "cs.DL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.15510v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Slavonic",
-          "class": 1,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Greek",
-          "class": 3,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Armenian",
-          "class": 3,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Latin",
-          "class": 3,
-          "needs_review": true,
-          "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Slavonic",
-              "class": 1
-            },
-            {
-              "language": "Greek",
-              "class": 3
-            },
-            {
-              "language": "Armenian",
-              "class": 3
-            },
-            {
-              "language": "Latin",
-              "class": 3,
-              "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.15483v1",
-        "title": "Evaluative Judgement in Teaching AI-based Translation: A Class-room Case Study of AI-Mediated Translation and Post-Editing",
-        "abstract": "Drawing on 23 anonymized student pro-jects from a fourth-year Machine Transla-tion and Post-editing course in a BA-level translation programme, this paper exam-ines how structured comparison of gen-eral-purpose LLMs and online MT sys-tems can elicit evaluative judgement in AI-mediated translation. Students translat-ed short specialised English Wikipedia texts into Catalan or Spanish, generated four system outputs, evaluated them using automatic metrics and human adequa-cy/fluency assessment, selected one output for post-editing, and justified their deci-sion in written reports. Descriptive counts are reported for all 23 projects, while qualitative interpretation is based on the 22 cases accompanied by written reports. Results show that students did not treat automatic metrics as final authority: final post-editing selections often diverged from metric rankings and were justified through adequacy, fluency, terminology, naturalness, and expected post-editing ef-fort. The study therefore does not bench-mark systems under controlled conditions; it analyses how students justified system choice within an authentic classroom as-signment.",
-        "authors": [
-          "Gokhan Dogru"
-        ],
-        "published": "2026-06-13T21:34:50Z",
-        "updated": "2026-06-13T21:34:50Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.15483v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Catalan",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Spanish",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Catalan",
-              "class": 4
-            },
-            {
-              "language": "English",
-              "class": 5
-            },
-            {
-              "language": "Spanish",
-              "class": 5
             }
           ]
         }
@@ -30130,50 +29925,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.14420v1",
-        "title": "Coping in Crisis: Computational Modeling of Coping Styles in Digital Crisis Discourse During the 2023 Turkiye Earthquake",
-        "abstract": "How do people cope when disaster strikes and can we detect it at scale, in real time, from what they write? This study addresses that question using over one million Turkish-language tweets posted in the aftermath of the February 6, 2023 earthquake in Turkiye, which unfolded in a deeply polarized political context just months before a national election. Drawing on Lazarus and Folkman's (1984) coping theory, we develop a multi-label BERTurk classifier to detect three coping styles (problem-focused, emotion-focused, and meaning-making) across four theoretically motivated crisis phases. BERTurk achieves a macro F1 of 0.693, substantially outperforming a zero-shot mDeBERTa baseline (macro F1 = 0.324). Applied to the full corpus, the classifier reveals a clear temporal trajectory: problem-focused coping dominates the urgency phase and declines sharply, emotion-focused coping rises and stabilizes, and meaning-making increases monotonically. Anger correlates most strongly with meaning-making (Spearman r = 0.387), suggesting it functions as a mobilizing force toward blame attribution rather than practical action. These findings demonstrate that coping theory can be reliably operationalized in real-world digital crisis data and that doing so can help humanitarian organizations tailor their responses to where a population actually is.",
-        "authors": [
-          "Şevval Çakıcı"
-        ],
-        "published": "2026-06-12T12:57:13Z",
-        "updated": "2026-06-12T12:57:13Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.14420v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Turkish",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Turkish",
-              "class": 4
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.14885v1",
         "title": "Dr-DCI: Scaling Direct Corpus Interaction via Dynamic Workspace Expansion",
         "abstract": "Agentic search over large corpora relies on retriever-mediated interfaces (e.g., BM25 or ColBERT) for scalable candidate discovery. While effective at ranking relevant documents, these interfaces expose evidence only as ranked results or bounded document views, limiting agents' ability to reorganize material and verify constraints across documents. Direct Corpus Interaction (DCI) addresses this limitation by exposing shell-executable corpus operations for flexible search, filtering, comparison, and verification. However, full-corpus terminal commands become slow and unstable as the corpus grows, degrading performance and efficiency. We introduce DR-DCI, a retriever-steered DCI framework that treats retrieval as an agent-callable action for expanding a local workspace. Rather than operating directly over the full corpus, the agent dynamically pulls relevant documents into an evolving workspace and conducts DCI operations within it. This design combines retriever-level recall with DCI-style precision: retrieval keeps exploration scalable, while DCI preserves the local operations needed for effective evidence resolution. Experiments show that DR-DCI is both effective and efficient across scales. On Browsecomp-Plus, DR-DCI reaches 71.2\\% accuracy, improving over raw DCI and ablated variants by up to 8.3 points while reducing tool usage, wall time, and estimated cost. With workspace-preserving context reset, accuracy further improves to 73.3\\%. In corpus-scaling experiments, DR-DCI remains effective from 100K to 10M documents, whereas raw DCI becomes unstable and BM25 performs substantially worse. DR-DCI also scales to a 20M-scale file-per-document Wiki-18 QA setting, achieving an average score of 63.0 across six benchmarks and outperforming retrieval-based and trained search-agent baselines. Ablation analysis further shows that ranked previews and inter-document DCI are key to performance.",
@@ -34135,65 +33886,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.13991v1",
-        "title": "Fusing Stylometric and Embedding Systems to Estimate Authorship Likelihood Ratios in Japanese",
-        "abstract": "The likelihood ratio framework is widely recognized as the logically and legally sound basis for evidential analysis across forensic sciences, and its importance is increasingly acknowledged in analyses of authorship in textual evidence. To date, however, its application has been confined to English-language texts. Meanwhile, authorship attribution has traditionally relied on a diverse array of stylometric features, even as the rise of pre-trained large language models enables new contextual-embedding approaches. Combining these diverse approaches through fusion promises enhanced performance, yet it has not been applied to integrate stylometric-feature systems with embedding-based systems within the likelihood ratio paradigm. This study is the first to apply likelihood ratio-based forensic text comparison to Japanese digital texts, using ~1,000-character excerpts from blogs, to 1) evaluate system performance and likelihood ratio magnitudes and 2) assess the impact of fusing stylometric-feature systems with embedding-based systems. The results demonstrate that the fused system maintains excellent calibration while 1) increasing consistent-with-fact likelihood ratio magnitudes; 2) decreasing contrary-to-fact likelihood ratio magnitudes and 3) improving overall discriminability. The best-performing fusion achieved a log-likelihood-ratio cost of 0.32484, illustrating both the feasibility of likelihood ratio framework for Japanese and the benefits of fusion across heterogeneous systems.",
-        "authors": [
-          "Praju Ghatpande",
-          "Satoru Tsuge",
-          "Shunichi Ishihara",
-          "Wataru Zaitsu",
-          "Mitsuyuki Inaba"
-        ],
-        "published": "2026-06-12T00:21:30Z",
-        "updated": "2026-06-12T00:21:30Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.13991v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Japanese",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
-              "class": 5
-            },
-            {
-              "language": "Japanese",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.14516v1",
         "title": "Every Eval Ever: A Unifying Schema and Community Repository for AI Evaluation Results",
         "abstract": "AI evaluations are widely used for testing and understanding progress. However, the diverse evaluators bring with them inconsistencies that challenge analysis and comparison. First, results are saved in incompatible formats, scattered across leaderboards, papers, blog posts, evaluation harness logs, and custom repositories. Second, results are created by different evaluation frameworks, which produce divergent scores for nominally identical evaluations and record metadata inconsistently, hindering comparison, cross-community evaluation science, cost reduction, and reuse. We introduce Every Eval Ever, the first shared schema and community-crowdsourced repository for AI evaluation results. The schema standardizes how evaluations are represented in a unified, single JSON document. It is source-agnostic by design, ingesting results from evaluation harnesses and papers alike, and optionally stores per-instance outputs for fine-grained analysis. We contribute: (i) a community-governed metadata schema with a companion instance-level schema, the first standardization effort of its kind; (ii) automatic converters from popular formats, evaluation harnesses, and leaderboards to the unified schema; and (iii) a crowdsourced community database hosted on Hugging Face, currently spanning to date 22,235 models, 2,273 unique benchmarks, and 31 evaluation formats.",
@@ -34600,67 +34292,6 @@
             {
               "language": "Hungarian",
               "class": 4
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.13931v1",
-        "title": "DLawBench: Evaluating LLMs Through Multi-Turn Legal Consultation",
-        "abstract": "Lawyer-client consultation is a critical starting point for legal services. Effective legal assistance hinges on eliciting sufficient and truthful information from clients in order to devise strategies that best protect their interests. This task requires Large Language Models (LLMs) not only to perform robust legal reasoning, but also to strategically elicit material facts through multi-turn interactions and effectively guide clients with diverse personalities. Yet existing legal benchmarks overlook this interactive capability. To fill this gap, we introduce DLawBench, a diagnostic benchmark for real-world legal consultation. Drawing on realistic client behavior, we characterize lawyer-client interactions into four types: Cooperative, Dependent, Withdrawn, and Adversarial. Using dialogues grounded in real cases, DLawBench evaluates whether LLMs can effectively conduct legal consultation under realistic conditions. DLawBench comprises 461 cases from Chinese and U.S. law, 5,532 paired fact entries, 3,411 inquiry rubrics, and 3,348 issue-resolution rubrics, and evaluates 26 representative LLMs. Systematic experiments show substantial headroom: the best-performing model, GPT-5.5, achieves only 0.562 on consultation-grounded legal reasoning. More importantly, DLawBench exposes both sycophancy in legal consultation and a paradox: models perform worse when clients need guidance most.",
-        "authors": [
-          "Li Zhang",
-          "Yuzhen Shi",
-          "Yiran Hu",
-          "Jingwen Zhang",
-          "Wenbo Lv",
-          "Yubo Ma",
-          "Wei Wang",
-          "Rongyao Shi",
-          "Yuanyang Qiu",
-          "Xinran Xu",
-          "Yuemeng Qi",
-          "Linlin Miao",
-          "Jaromir Savelka",
-          "Yun Liu",
-          "Kevin Ashley",
-          "Bing Zhao",
-          "Hu Wei",
-          "Lin Qu"
-        ],
-        "published": "2026-06-11T21:50:44Z",
-        "updated": "2026-06-11T21:50:44Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.13931v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Chinese",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Chinese",
-              "class": 5
             }
           ]
         }
@@ -45477,63 +45108,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.13218v1",
-        "title": "When Similar Means Different: Evaluating LLMs on Arabic--Hebrew Cognates",
-        "abstract": "Arabic and Hebrew, as closely related Semitic languages, share a substantial lexicon of true cognates, misleading false friends, and modern loanwords. This overlap poses a challenge for cross-lingual semantic understanding in large language models (LLMs). To evaluate this capability, we introduce SemCog Bench, a curated benchmark of 1,858 Arabic--Hebrew word pairs with sentence-level annotations for cognate identification and semantic disambiguation. We evaluate open-source and commercial LLMs across multiple input representations (raw, diacritized, Romanized, and phonetic) and reveal a critical gap in cross-lingual reasoning. While models achieve high accuracy on true cognates, performance drops sharply on false friends and loanwords, reflecting a strong reliance on surface-form similarity. Furthermore, sentence-level context yields only modest improvements, suggesting that contextual cues alone are insufficient to overcome misleading form-based signals. These findings reveal a fundamental limitation of current LLMs in resolving cross-lingual form--meaning conflicts and establish SemCog Bench as a rigorous benchmark for multilingual semantic reasoning. Our code and data are publicly available.",
-        "authors": [
-          "Junhong Liang",
-          "Noor Abo Mokh",
-          "Bashar Alhafni"
-        ],
-        "published": "2026-06-11T11:33:09Z",
-        "updated": "2026-06-11T11:33:09Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.13218v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Hebrew",
-          "class": 3,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Hebrew",
-              "class": 3
-            },
-            {
-              "language": "Arabic",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.13464v2",
         "title": "Ontology Memory-Augmented ASR Correction for Long Text-Speech Interleaved Conversations",
         "abstract": "Automatic speech recognition (ASR) correction has traditionally focused on isolated utterances or short local contexts. However, as text and speech become increasingly interleaved in long interactions, ASR correction requires conversation-level contextual evidence. Existing ASR correction methods often rely on the current hypothesis or concatenate raw dialogue history. In such contexts, sparse correction evidence can be difficult to locate amid redundancy and noise. Addressing these challenges, we propose an ontology memory-augmented ASR correction framework for long text-speech interleaved conversations. The framework organizes preceding interaction history into a dynamically updatable ontology memory, where entities, terminology, surface variants, potential ASR confusions, and semantic relations are stored as retrievable nodes for context-grounded correction. To evaluate this setting, we construct RAMC-Corr, a dataset derived from MAGIC-RAMC for long-range ASR correction with grounded context. Experiments on RAMC-Corr show that our method improves over direct correction in 9 out of 10 paired backbone-setting combinations and encourages more selective and evidence-grounded corrections for context-dependent ASR errors.",
@@ -50603,66 +50177,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.12911v1",
-        "title": "PiDA: Phonetically-Informed Data Augmentation for Robust Vietnamese Speech Translation",
-        "abstract": "Cascaded speech translation (ST) systems suffer from error propagation when Automatic Speech Recognition (ASR) outputs incorrect transcripts. We present the first systematic categorization of ASR errors for Vietnamese ST, classifying substitution errors by phonetic cause and quantifying their impact on downstream Neural Machine Translation (NMT) performance using Linear Mixed-Effects Modelling. We confirm that most ASR substitution errors arise from phonetic confusions rather than random noise, and that these phonetic errors significantly degrade ST quality. Motivated by this finding, we propose Phonetically-Informed Data Augmentation (PiDA), which generates ASR-like corruptions by substituting words with phonetically similar alternatives using phonetic word embeddings. Fine-tuning on a PiDA-augmented version of FLEURS Vietnamese-English improves translation of erroneous ASR outputs (up to +2.04 BLEU over standard fine-tuning) while also slightly improving clean-text performance.",
-        "authors": [
-          "Giang Son Nguyen",
-          "Tung X. Nguyen",
-          "Hieu Minh Truong",
-          "Nhu Vo",
-          "Wray Buntine",
-          "Dung D. Le"
-        ],
-        "published": "2026-06-11T05:09:59Z",
-        "updated": "2026-06-11T05:09:59Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.12911v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Vietnamese",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Vietnamese",
-              "class": 4
-            },
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.13142v1",
         "title": "HyPE: Category-Aware Hypergraph Encoding with Persistent Edge Embeddings for Persona-Grounded Dialogue",
         "abstract": "Persona-grounded dialogue systems aim to produce responses consistent with a speaker's persona, yet existing methods treat personas as a flat set of sentences and fail to model the high-order relations among persona attributes-e.g., that several persona sentences share a topical category. We propose HyPE (Hypergraph Persona Encoder), a framework that (i) analyzes each persona-bearing text as a (Core, Expression, Sentiment, Category) quadruple, and (ii) organizes persona elements into a hypergraph whose hyperedges are induced by shared category labels. An HyperGCN hypergraph neural network propagates this structure into a persona summary vector and a soft-memory bank that condition the response generator. We further propose Persistent Edge Embeddings (PEE), lightweight per-category learnable priors fused into the HyperGCN message-passing step. On PersonaChat under greedy decoding, HyPE consistently outperforms sentence-level pooling baselines across GPT-2, LLaMA-3.2-3B, and Qwen2.5-3B backbones by demonstrating that structured hyperedge-level persona encoding provides a transferable advantage across model scales.",
@@ -53169,51 +52683,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.12748v1",
-        "title": "Agent-based models for the evolution of morphological alternation patterns",
-        "abstract": "Why is the past of English \"go\" the apparently unrelated \"went\"? Such alternations are frequent in languages. They neither aid communication nor learnability, yet they can be persistent, surviving over centuries or millennia.\n  We present a multi-agent simulation of the emergence of morphological stem and inflection alternations. Alternate forms arise by phonological changes or, as with \"go/went\", from lexical alternatives associated with a subset of the population. When an agent 'hears' another agent use a novel form for a slot in the paradigm of a word (say, the past tense of go), they will with some probability adopt that form, possibly spreading its use to other slots in the paradigm that shared the same original form. Thus alternative forms can spread through the population and become entrenched as stem or inflectional marker alternants. Unlike many previous computational studies, our system allows for naturalistic lexical forms, realistic phonological rules, lexicons with hundreds or thousands of entries, and agent populations in the tens or hundreds. It supports several network topologies, diffusion patterns and agent adoption policies.\n  One issue with such simulations is evaluation: how realistic is the resulting morphology compared to those of real languages? We introduce the AI Historical Linguist, a novel Large Language Model-driven system that models a debate between two historical linguists. We use this to compare a set of real language morphologies, disguised morphologies, and experimentally evolved morphologies. The results suggest that among the factors that favor more plausible morphologies are scale-free social networks and random Bernoulli adoption of forms.\n  We also present three case studies modeling attested historical changes, allowing us to test what might have happened if history had been different.\n  All code and data are released.",
-        "authors": [
-          "Aravinth Kulanthaivelu",
-          "Richard Sproat"
-        ],
-        "published": "2026-06-10T23:26:44Z",
-        "updated": "2026-06-10T23:26:44Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.12748v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.12837v1",
         "title": "LoHoSearch: Benchmarking Long-Horizon Search Agents Beyond the Human Difficulty Ceiling",
         "abstract": "Search agent benchmarks exemplified by BrowseComp have rapidly saturated over the past year, with the strongest models surpassing 90% accuracy. Since these benchmarks are predominantly human-authored, annotators lack a global perspective on entity statistics and cannot systematically maximize search space size and structural complexity. This creates a difficulty ceiling that is hard to break. To address this, we introduce LoHoSearch (Long-Horizon Search Agents), a challenging benchmark comprising 544 human-verified questions across 11 domains. LoHoSearch is constructed via an automated pipeline built upon a knowledge graph covering over 7 million Wikipedia entities, which selects relations with large search spaces and assembles them into structurally complex questions with KG-verified unique answers. Our evaluation demonstrates that even the strongest model achieves only 34.74% accuracy, and existing context management strategies (best +6.8%) yield far smaller gains than on prior benchmarks. LoHoSearch provides a more demanding standard for evaluating long-horizon reasoning and context management in search agents.",
@@ -53357,53 +52826,6 @@
             {
               "language": "Chinese",
               "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.12599v1",
-        "title": "Constrained Semantic Decompression in LLMs through Persian Proverb-Conditioned Story Generation",
-        "abstract": "Transforming a dense, abstract proverb into an engaging and morally faithful narrative requires deep cultural understanding and robust semantic grounding. We frame this problem as a \\emph{constrained semantic decompression} task and study proverb-conditioned story generation as a testbed for abstraction-to-realization in large language models (LLMs). Focusing on Persian, we introduce the Proverb Aligned Narrative Dataset (PAND), pairing proverbs with human-written stories and explicit meanings. By a hybrid evaluation framework that combines human-calibrated LLM-as-a-Judge with structural metrics, we analyze model behavior across multiple prompting regimes. Our findings reveal a persistent \\emph{decompression gap}: current LLMs often achieve strong surface-level fluency while failing to faithfully instantiate the underlying moral and causal structure encoded in proverbs. We further show that explicit reasoning and iterative refinement can partially mitigate these failures, suggesting that many decompression errors arise from difficulties in translating abstract meaning into narrative form rather than a complete lack of relevant knowledge. Our proposed task naturally extends to other forms of compressed cultural knowledge.",
-        "authors": [
-          "Zahra Habibzadeh",
-          "Paria Khoshtab",
-          "Amir Mesbah",
-          "Yadollah Yaghoobzadeh"
-        ],
-        "published": "2026-06-10T18:54:07Z",
-        "updated": "2026-06-10T18:54:07Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.12599v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Persian",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Persian",
-              "class": 4
             }
           ]
         }
@@ -58886,66 +58308,6 @@
             {
               "language": "Yoruba",
               "class": 2
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.12068v1",
-        "title": "StanceNakba Shared Task: Actor and Topic-Aware Stance Detection in Public Discourse",
-        "abstract": "We present StanceNakba 2026, a shared task on stance detection in polarized social media discourse related to the Palestinian-Israeli conflict, organized as part of Nakba-NLP 2026 at LREC-COLING 2026. The task introduces two subtasks: Subtask A (Actor-Level Stance Detection), which classifies English social media posts as Pro-Palestine, Pro-Israel, or Neutral; and Subtask B (Cross-Topic Stance Detection), which identifies Favor, Against, or Neither stances in Arabic posts toward two conflict-related topics, normalization with Israel and refugee presence in Jordan. The task is grounded in an annotated dataset of 2,606 social media posts. A total of 7 teams participated in Subtask A and 6 teams in Subtask B. Participating systems primarily fine-tuned Arabic and multilingual transformer-based models, including MARBERT, AraBERT, and DeBERTa-v3 variants, with several teams employing cross-validation, ensemble methods, and topic-conditioned architectures. The best-performing systems achieved a Macro F1 of 0.9620 on Subtask A and 0.8724 on Subtask B, demonstrating that transformer-based approaches are highly effective for conflict-domain stance detection while highlighting persistent challenges in cross-topic generalization and neutral class prediction.",
-        "authors": [
-          "Kholoud K. Aldous",
-          "Md Rafiul Biswas",
-          "Mabrouka Bessghaier",
-          "Shimaa Ibrahim",
-          "Kais Attia",
-          "Wajdi Zaghouani"
-        ],
-        "published": "2026-06-10T13:32:10Z",
-        "updated": "2026-06-10T13:32:10Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.12068v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
-              "class": 5
-            },
-            {
-              "language": "Arabic",
-              "class": 5
             }
           ]
         }
@@ -70274,52 +69636,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.11639v1",
-        "title": "Evaluating Bias in Phoneme-Based Automatic Speech Recognition Systems: An Analysis of IPA Transcription Models",
-        "abstract": "The popularization of automatic speech recognition (ASR) systems has increased exploration of the demographic biases related to race, age, gender, and accent, often formed from imbalanced training data. Most of these studies focused on standard grapheme-based ASR systems with comparatively little emphasis on phoneme-based systems, such as models that produce International Phonetic Alphabet (IPA) representations. As ASR systems shift toward multilingual support and low-resource language modeling, IPA-based layers serve as a critical, language-agnostic foundation. In this study, we evaluate the performance of two state-of-the-art open-source ASR systems, WhisperIPA and ZIPA, that generate IPA transcriptions across diverse accents and language sources. Our evaluation includes existing multilingual speech corpora and demographically annotated English-language corpora. We measure model performance by comparing model-generated IPA transcriptions against grapheme-to-phoneme (G2P) systems using both standard phoneme error rate (PER) and a proposed Soft PER metric that tolerates linguistically similar phoneme substitutions. Our analysis examines how performance varies across languages and demographic groups such as gender, accent, ethnicity, and age, revealing persistent disparities even after accounting for acceptable phonemic variation. These findings provide insight into potential sources of bias and inform the development of more inclusive and linguistically robust phoneme-based ASR systems. Our code and data will be made publicly available to the community.",
-        "authors": [
-          "Catherine Bao",
-          "Maneesha Rani Saha",
-          "Neal Patwari"
-        ],
-        "published": "2026-06-10T04:00:44Z",
-        "updated": "2026-06-10T04:00:44Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.11639v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.11817v1",
         "title": "Grammar-Constrained Decoding Can Jailbreak LLMs into Generating Malicious Code",
         "abstract": "Large Language Models (LLMs) are increasingly used for code generation, raising concerns that they may be misused to produce malicious code. Meanwhile, Grammar-Constrained Decoding (GCD) has been widely adopted to improve the reliability of LLM-generated code by enforcing syntactic validity. In this paper, we reveal a counterintuitive risk: this reliability-oriented technique can itself become an attack surface. We uncover a new jailbreak attack, termed CodeSpear, that exploits GCD to induce LLMs into generating malicious code. Our experiments show that simply applying a benign code grammar constraint can effectively jailbreak LLMs.\n  To address this vulnerability, we propose CodeShield, a safety alignment approach that robustly preserves safe behavior even under attacker-controlled grammar constraints. CodeShield aligns the model in the code modality by teaching it to generate honeypot code under GCD. Such code is semantically harmless, so it does not implement the malicious request, and structurally diverse, so it is difficult to suppress through grammar tightening. At the same time, CodeShield still preserves natural-language refusals when natural language is available. Experiments on 10 popular LLMs across 4 benchmarks show that CodeSpear outperforms representative jailbreak baselines and increases the attack success rate by more than 30 percentage points on average. CodeShield also restores safety under CodeSpear while preserving benign utility. Our findings reveal a fundamental risk of GCD and call for greater attention to its potential security implications.",
@@ -74564,87 +73880,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.11316v1",
-        "title": "Schützen: Evaluating LLM Safety in Bulgarian and German Contexts",
-        "abstract": "Large language models are increasingly deployed across professional domains, bringing hard-to-predict risks, including the generation of harmful or disrespectful content. Although substantial progress has been made in developing safety evaluation datasets, existing resources remain overwhelmingly English- and Chinese-centric. This limitation is particularly pronounced when evaluating languages that operate within shared sociocultural, legal, and ethical contexts. To address this gap, we introduce Schützen: a German--Bulgarian safety dataset designed to assess model answerability under risk, covering both a low-resource language (Bulgarian) and a high-resource language (German). Experiments with multilingual and language-specific LLMs reveal pronounced cross-language differences in safety behavior, highlighting the necessity of tailored, region-specific evaluation resources to support the responsible deployment of LLMs in Germany and Bulgaria. Datasets and code are available at https://github.com/xnlp-lab/Schutzen. Warning: this paper contains examples that may be offensive, harmful, or biased.",
-        "authors": [
-          "Kiril Georgiev",
-          "Yuxia Wang",
-          "Dimitar Iliyanov Dimitrov",
-          "Preslav Nakov",
-          "Ivan Koychev"
-        ],
-        "published": "2026-06-09T18:01:19Z",
-        "updated": "2026-06-09T18:01:19Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.11316v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Bulgarian",
-          "class": 3,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Chinese",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "German",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Bulgarian",
-              "class": 3
-            },
-            {
-              "language": "English",
-              "class": 5
-            },
-            {
-              "language": "Chinese",
-              "class": 5
-            },
-            {
-              "language": "German",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.13707v1",
         "title": "Orchestra-o1: Omnimodal Agent Orchestration",
         "abstract": "The recent success of agent swarms has shifted the paradigm of large language model (LLM)-based agents from single-agent workflows to multi-agent systems, highlighting the importance of agent orchestration for task decomposition and collaboration. However, existing orchestration frameworks are limited to a narrow set of modalities and struggle to generalize to more complex settings where heterogeneous modalities coexist and interact. This limitation becomes particularly pronounced in omnimodal scenarios, where tasks require the unified understanding and coordination of diverse inputs such as text, image, audio, and video. In this work, we propose Orchestra-o1, an omnimodal agent orchestration framework designed to support efficient agent collaboration across multiple modalities. Orchestra-o1 introduces a unified orchestration mechanism that enables modality-aware task decomposition, online sub-agent specialization, and parallel sub-task execution. This scalable design allows agent systems to effectively tackle complex real-world tasks involving heterogeneous information sources, surpassing the second-best approach by 10.3% accuracy on the OmniGAIA benchmark. Furthermore, we introduce decision-aligned group relative policy optimization (DA-GRPO), an efficient agentic reinforcement learning approach for training Orchestra-o1-8B, which also achieves state-of-the-art performance against all existing open-source omnimodal agents.",
@@ -75435,62 +74670,6 @@
             {
               "language": "Russian",
               "class": 4
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.11082v1",
-        "title": "The Shibboleth Effect: Auditing the Cross-Lingual Distributional Skew of Large Language Models",
-        "abstract": "This study investigates cross-lingual distributional skew (the Shibboleth Effect) in frontier large language models (LLMs) subjected to sustained adversarial conditions. We develop a multi-agent geopolitical wargame, the Cerulean Sea Crisis, a synthetic maritime territorial dispute designed to mirror the structural dynamics of Eastern Mediterranean conflicts. Six frontier models (GPT-4o, Llama-4, Mistral-Large, Gemini-3.1-Pro, Qwen3.6-Plus, and DeepSeek-R1) participate in a between-groups experiment (N = 10 games per arm, K = 5 rounds per game) in which the sole manipulation is the language of play (English versus Turkish), producing 586 validated statements. A zero-shot classifier assesses behavioral dispositions along two continuous dimensions: Concession Rate and Coercive Rhetoric. The results are heterogeneous. Llama-4 shows a substantial, Holm-corrected increase in coercive rhetoric under Turkish (delta = +0.800, p = .002), whereas Gemini-3.1-Pro displays an equally large decrease (delta = -0.750, p = .005). DeepSeek-R1 exhibits a similar negative shift (delta = -0.860, p = .006) and provides chain-of-thought evidence consistent with a buffering mechanism. GPT-4o shows no detectable effect (delta = +0.130, p = .614). These findings indicate that cross-lingual behavioral skew is contingent on model architecture and training regime rather than a universal property of Western-origin LLMs. We identify two distinct buffering mechanisms, chain-of-thought institutional anchoring and multilingual RLHF alignment, and discuss their implications for integrating LLMs safely into diplomatic and crisis-management settings.",
-        "authors": [
-          "Hakan Mehmetcik"
-        ],
-        "published": "2026-06-09T16:42:00Z",
-        "updated": "2026-06-09T16:42:00Z",
-        "categories": [
-          "cs.CL",
-          "cs.CY"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.11082v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Turkish",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Turkish",
-              "class": 4
-            },
-            {
-              "language": "English",
-              "class": 5
             }
           ]
         }
@@ -78087,53 +77266,6 @@
             },
             {
               "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.10765v1",
-        "title": "ArabiGEE: A Hierarchical Taxonomy for Arabic Grammatical Error Explanation",
-        "abstract": "We introduce ArabiGEE, the first comprehensive Arabic grammatical error explanation (GEE) taxonomy grounded in explicit error types. Unlike existing GEE approaches that treat explanation generation as free-form text, ArabiGEE organizes grammatical explanations through a hierarchical structure spanning orthographic, morphological, syntactic, and lexical dimensions. The taxonomy consists of 27 error types, 140 correction types, and 324 associated explanations. We apply ArabiGEE to manually annotate portions of existing Arabic grammatical error correction corpora and demonstrate how structured grammatical explanations can support automatic evaluation of LLMs on Arabic GEE. Our code and data are publicly available.",
-        "authors": [
-          "Khaled Elhady",
-          "Omar Kallas",
-          "Nizar Habash",
-          "Bashar Alhafni"
-        ],
-        "published": "2026-06-09T12:16:55Z",
-        "updated": "2026-06-09T12:16:55Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.10765v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Arabic",
               "class": 5
             }
           ]
@@ -94069,73 +93201,6 @@
               "class": 0,
               "needs_review": true,
               "flag_reason": "Too short — matches many common words and abbreviations"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.09543v2",
-        "title": "From Genes to Tokens: a GWAS-inspired Approach for Interpretable Stylometric Analysis",
-        "abstract": "This short paper introduces a stylometric interpretation method inspired by genome-wide association studies (GWAS). Each \"gene\" token's association with \"phenotype\" authorship is tested using logistic regression with multiple-comparison correction. Applied to English, German, and Russian corpora, the method detects statistically significant lexical markers distinctive of individual authors.",
-        "authors": [
-          "Dmitry Pronin",
-          "Evgeny Kazartsev"
-        ],
-        "published": "2026-06-08T14:25:30Z",
-        "updated": "2026-06-09T09:56:46Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.09543v2",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Russian",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "German",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Russian",
-              "class": 4
-            },
-            {
-              "language": "English",
-              "class": 5
-            },
-            {
-              "language": "German",
-              "class": 5
             }
           ]
         }
@@ -110705,6 +109770,941 @@
             {
               "language": "Wom",
               "class": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.15643v1",
+        "title": "Extending Item Response Theory for Efficient and Meaningful Multilingual Evaluation",
+        "abstract": "Multilingual benchmarks are central to evaluating large language models (LLMs) across languages, but they suffer from three issues: exhaustive evaluation scales linearly with the number of languages, automatic translation introduces errors that are easily missed at scale, and some items conflate general and culture-specific knowledge. We address all three with a unified statistical framework, Multilingual-IRT, which extends Item Response Theory with per-language difficulty deviations, split discriminability separating content from language effects, and per-language ability residuals. Fitting Multilingual-IRT on 25 LLMs across 29 languages of MMLU-Pro-X, we show that its fitted parameters support three practical applications: predicting unobserved (item, LLM, language) instances with 11-16% lower binary cross-entropy than the strongest accuracy-based baseline, surfacing candidate translation errors distributed across all 28 non-English languages, whereas accuracy-based baselines concentrate detections in a few languages, and recovering culture-specific items that accuracy-based baselines miss.",
+        "authors": [
+          "Gili Lior",
+          "Tzviel Frostig",
+          "Gabriel Stanovsky",
+          "Matan Eyal"
+        ],
+        "published": "2026-06-14T07:16:03Z",
+        "updated": "2026-06-14T07:16:03Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.15643v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.15483v1",
+        "title": "Evaluative Judgement in Teaching AI-based Translation: A Class-room Case Study of AI-Mediated Translation and Post-Editing",
+        "abstract": "Drawing on 23 anonymized student pro-jects from a fourth-year Machine Transla-tion and Post-editing course in a BA-level translation programme, this paper exam-ines how structured comparison of gen-eral-purpose LLMs and online MT sys-tems can elicit evaluative judgement in AI-mediated translation. Students translat-ed short specialised English Wikipedia texts into Catalan or Spanish, generated four system outputs, evaluated them using automatic metrics and human adequa-cy/fluency assessment, selected one output for post-editing, and justified their deci-sion in written reports. Descriptive counts are reported for all 23 projects, while qualitative interpretation is based on the 22 cases accompanied by written reports. Results show that students did not treat automatic metrics as final authority: final post-editing selections often diverged from metric rankings and were justified through adequacy, fluency, terminology, naturalness, and expected post-editing ef-fort. The study therefore does not bench-mark systems under controlled conditions; it analyses how students justified system choice within an authentic classroom as-signment.",
+        "authors": [
+          "Gokhan Dogru"
+        ],
+        "published": "2026-06-13T21:34:50Z",
+        "updated": "2026-06-13T21:34:50Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.15483v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Catalan",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Spanish",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Catalan",
+              "class": 4
+            },
+            {
+              "language": "Spanish",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.15510v1",
+        "title": "AthDGC: An Open Diachronic Greek Treebank with Indo-European Parallels",
+        "abstract": "AthDGC (\"Athens-PROIEL\") is an open, end-to-end workflow and dataset. It is, to the best of our knowledge, the first openly licensed dependency-parsed treebank of Greek that spans eight diachronic periods, namely Archaic, Classical, Koine, Late Antique, Byzantine, Late Byzantine, Early Modern, and Modern Greek, under a single PROIEL XML 2.0 schema, with verse-level cross-alignment of the New Testament to Latin (Vulgate), Gothic (Wulfila), Old Church Slavonic (Marianus), and Classical Armenian. AthDGC builds on the PROIEL Treebank Family (Haug and Johndal 2008; Eckhoff et al. 2018), which established the schema and the Koine-Greek reference set for the project. Annotation uses the Stanford Stanza PROIEL-trained workflow; sentence-level alignment uses LaBSE, a multilingual sentence-embedding model; word-level alignment uses multilingual-BERT attention through the AwesomeAlign procedure. The v0.4 release provides curated samples and the open-source toolkit; the full annotated corpus partitions remain under v0.5 audit on the Greek national HPC. Quantitative scale, per-witness verse counts, and per-period annotated-row counts are reported in the v0.5 release notes, after the audit pass completes. Concept DOI: 10.5281/zenodo.20439182.",
+        "authors": [
+          "Nikolaos Lavidas",
+          "Kiki Nikiforidou",
+          "Dag Haug",
+          "Leonid Kulikov",
+          "Vassiliki Geka",
+          "Vassileios Symeonidis",
+          "Theodoros Michalareas",
+          "Sofia Chionidi",
+          "Anastasia Tsiropina",
+          "Eleni Plakoutsi",
+          "Evangelos Argyropoulos"
+        ],
+        "published": "2026-06-13T23:38:39Z",
+        "updated": "2026-06-13T23:38:39Z",
+        "categories": [
+          "cs.CL",
+          "cs.DL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.15510v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Slavonic",
+          "class": 1,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Armenian",
+          "class": 3,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Latin",
+          "class": 3,
+          "needs_review": true,
+          "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Greek",
+          "class": 3,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Slavonic",
+              "class": 1
+            },
+            {
+              "language": "Armenian",
+              "class": 3
+            },
+            {
+              "language": "Latin",
+              "class": 3,
+              "needs_review": true,
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+            },
+            {
+              "language": "Greek",
+              "class": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.14420v1",
+        "title": "Coping in Crisis: Computational Modeling of Coping Styles in Digital Crisis Discourse During the 2023 Turkiye Earthquake",
+        "abstract": "How do people cope when disaster strikes and can we detect it at scale, in real time, from what they write? This study addresses that question using over one million Turkish-language tweets posted in the aftermath of the February 6, 2023 earthquake in Turkiye, which unfolded in a deeply polarized political context just months before a national election. Drawing on Lazarus and Folkman's (1984) coping theory, we develop a multi-label BERTurk classifier to detect three coping styles (problem-focused, emotion-focused, and meaning-making) across four theoretically motivated crisis phases. BERTurk achieves a macro F1 of 0.693, substantially outperforming a zero-shot mDeBERTa baseline (macro F1 = 0.324). Applied to the full corpus, the classifier reveals a clear temporal trajectory: problem-focused coping dominates the urgency phase and declines sharply, emotion-focused coping rises and stabilizes, and meaning-making increases monotonically. Anger correlates most strongly with meaning-making (Spearman r = 0.387), suggesting it functions as a mobilizing force toward blame attribution rather than practical action. These findings demonstrate that coping theory can be reliably operationalized in real-world digital crisis data and that doing so can help humanitarian organizations tailor their responses to where a population actually is.",
+        "authors": [
+          "Şevval Çakıcı"
+        ],
+        "published": "2026-06-12T12:57:13Z",
+        "updated": "2026-06-12T12:57:13Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.14420v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Turkish",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Turkish",
+              "class": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.13991v1",
+        "title": "Fusing Stylometric and Embedding Systems to Estimate Authorship Likelihood Ratios in Japanese",
+        "abstract": "The likelihood ratio framework is widely recognized as the logically and legally sound basis for evidential analysis across forensic sciences, and its importance is increasingly acknowledged in analyses of authorship in textual evidence. To date, however, its application has been confined to English-language texts. Meanwhile, authorship attribution has traditionally relied on a diverse array of stylometric features, even as the rise of pre-trained large language models enables new contextual-embedding approaches. Combining these diverse approaches through fusion promises enhanced performance, yet it has not been applied to integrate stylometric-feature systems with embedding-based systems within the likelihood ratio paradigm. This study is the first to apply likelihood ratio-based forensic text comparison to Japanese digital texts, using ~1,000-character excerpts from blogs, to 1) evaluate system performance and likelihood ratio magnitudes and 2) assess the impact of fusing stylometric-feature systems with embedding-based systems. The results demonstrate that the fused system maintains excellent calibration while 1) increasing consistent-with-fact likelihood ratio magnitudes; 2) decreasing contrary-to-fact likelihood ratio magnitudes and 3) improving overall discriminability. The best-performing fusion achieved a log-likelihood-ratio cost of 0.32484, illustrating both the feasibility of likelihood ratio framework for Japanese and the benefits of fusion across heterogeneous systems.",
+        "authors": [
+          "Praju Ghatpande",
+          "Satoru Tsuge",
+          "Shunichi Ishihara",
+          "Wataru Zaitsu",
+          "Mitsuyuki Inaba"
+        ],
+        "published": "2026-06-12T00:21:30Z",
+        "updated": "2026-06-12T00:21:30Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.13991v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Japanese",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.13931v1",
+        "title": "DLawBench: Evaluating LLMs Through Multi-Turn Legal Consultation",
+        "abstract": "Lawyer-client consultation is a critical starting point for legal services. Effective legal assistance hinges on eliciting sufficient and truthful information from clients in order to devise strategies that best protect their interests. This task requires Large Language Models (LLMs) not only to perform robust legal reasoning, but also to strategically elicit material facts through multi-turn interactions and effectively guide clients with diverse personalities. Yet existing legal benchmarks overlook this interactive capability. To fill this gap, we introduce DLawBench, a diagnostic benchmark for real-world legal consultation. Drawing on realistic client behavior, we characterize lawyer-client interactions into four types: Cooperative, Dependent, Withdrawn, and Adversarial. Using dialogues grounded in real cases, DLawBench evaluates whether LLMs can effectively conduct legal consultation under realistic conditions. DLawBench comprises 461 cases from Chinese and U.S. law, 5,532 paired fact entries, 3,411 inquiry rubrics, and 3,348 issue-resolution rubrics, and evaluates 26 representative LLMs. Systematic experiments show substantial headroom: the best-performing model, GPT-5.5, achieves only 0.562 on consultation-grounded legal reasoning. More importantly, DLawBench exposes both sycophancy in legal consultation and a paradox: models perform worse when clients need guidance most.",
+        "authors": [
+          "Li Zhang",
+          "Yuzhen Shi",
+          "Yiran Hu",
+          "Jingwen Zhang",
+          "Wenbo Lv",
+          "Yubo Ma",
+          "Wei Wang",
+          "Rongyao Shi",
+          "Yuanyang Qiu",
+          "Xinran Xu",
+          "Yuemeng Qi",
+          "Linlin Miao",
+          "Jaromir Savelka",
+          "Yun Liu",
+          "Kevin Ashley",
+          "Bing Zhao",
+          "Hu Wei",
+          "Lin Qu"
+        ],
+        "published": "2026-06-11T21:50:44Z",
+        "updated": "2026-06-11T21:50:44Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.13931v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Chinese",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Chinese",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.13218v1",
+        "title": "When Similar Means Different: Evaluating LLMs on Arabic--Hebrew Cognates",
+        "abstract": "Arabic and Hebrew, as closely related Semitic languages, share a substantial lexicon of true cognates, misleading false friends, and modern loanwords. This overlap poses a challenge for cross-lingual semantic understanding in large language models (LLMs). To evaluate this capability, we introduce SemCog Bench, a curated benchmark of 1,858 Arabic--Hebrew word pairs with sentence-level annotations for cognate identification and semantic disambiguation. We evaluate open-source and commercial LLMs across multiple input representations (raw, diacritized, Romanized, and phonetic) and reveal a critical gap in cross-lingual reasoning. While models achieve high accuracy on true cognates, performance drops sharply on false friends and loanwords, reflecting a strong reliance on surface-form similarity. Furthermore, sentence-level context yields only modest improvements, suggesting that contextual cues alone are insufficient to overcome misleading form-based signals. These findings reveal a fundamental limitation of current LLMs in resolving cross-lingual form--meaning conflicts and establish SemCog Bench as a rigorous benchmark for multilingual semantic reasoning. Our code and data are publicly available.",
+        "authors": [
+          "Junhong Liang",
+          "Noor Abo Mokh",
+          "Bashar Alhafni"
+        ],
+        "published": "2026-06-11T11:33:09Z",
+        "updated": "2026-06-11T11:33:09Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.13218v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Hebrew",
+          "class": 3,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Hebrew",
+              "class": 3
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.12911v1",
+        "title": "PiDA: Phonetically-Informed Data Augmentation for Robust Vietnamese Speech Translation",
+        "abstract": "Cascaded speech translation (ST) systems suffer from error propagation when Automatic Speech Recognition (ASR) outputs incorrect transcripts. We present the first systematic categorization of ASR errors for Vietnamese ST, classifying substitution errors by phonetic cause and quantifying their impact on downstream Neural Machine Translation (NMT) performance using Linear Mixed-Effects Modelling. We confirm that most ASR substitution errors arise from phonetic confusions rather than random noise, and that these phonetic errors significantly degrade ST quality. Motivated by this finding, we propose Phonetically-Informed Data Augmentation (PiDA), which generates ASR-like corruptions by substituting words with phonetically similar alternatives using phonetic word embeddings. Fine-tuning on a PiDA-augmented version of FLEURS Vietnamese-English improves translation of erroneous ASR outputs (up to +2.04 BLEU over standard fine-tuning) while also slightly improving clean-text performance.",
+        "authors": [
+          "Giang Son Nguyen",
+          "Tung X. Nguyen",
+          "Hieu Minh Truong",
+          "Nhu Vo",
+          "Wray Buntine",
+          "Dung D. Le"
+        ],
+        "published": "2026-06-11T05:09:59Z",
+        "updated": "2026-06-11T05:09:59Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.12911v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Vietnamese",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Vietnamese",
+              "class": 4
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.12748v1",
+        "title": "Agent-based models for the evolution of morphological alternation patterns",
+        "abstract": "Why is the past of English \"go\" the apparently unrelated \"went\"? Such alternations are frequent in languages. They neither aid communication nor learnability, yet they can be persistent, surviving over centuries or millennia.\n  We present a multi-agent simulation of the emergence of morphological stem and inflection alternations. Alternate forms arise by phonological changes or, as with \"go/went\", from lexical alternatives associated with a subset of the population. When an agent 'hears' another agent use a novel form for a slot in the paradigm of a word (say, the past tense of go), they will with some probability adopt that form, possibly spreading its use to other slots in the paradigm that shared the same original form. Thus alternative forms can spread through the population and become entrenched as stem or inflectional marker alternants. Unlike many previous computational studies, our system allows for naturalistic lexical forms, realistic phonological rules, lexicons with hundreds or thousands of entries, and agent populations in the tens or hundreds. It supports several network topologies, diffusion patterns and agent adoption policies.\n  One issue with such simulations is evaluation: how realistic is the resulting morphology compared to those of real languages? We introduce the AI Historical Linguist, a novel Large Language Model-driven system that models a debate between two historical linguists. We use this to compare a set of real language morphologies, disguised morphologies, and experimentally evolved morphologies. The results suggest that among the factors that favor more plausible morphologies are scale-free social networks and random Bernoulli adoption of forms.\n  We also present three case studies modeling attested historical changes, allowing us to test what might have happened if history had been different.\n  All code and data are released.",
+        "authors": [
+          "Aravinth Kulanthaivelu",
+          "Richard Sproat"
+        ],
+        "published": "2026-06-10T23:26:44Z",
+        "updated": "2026-06-10T23:26:44Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.12748v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.12599v1",
+        "title": "Constrained Semantic Decompression in LLMs through Persian Proverb-Conditioned Story Generation",
+        "abstract": "Transforming a dense, abstract proverb into an engaging and morally faithful narrative requires deep cultural understanding and robust semantic grounding. We frame this problem as a \\emph{constrained semantic decompression} task and study proverb-conditioned story generation as a testbed for abstraction-to-realization in large language models (LLMs). Focusing on Persian, we introduce the Proverb Aligned Narrative Dataset (PAND), pairing proverbs with human-written stories and explicit meanings. By a hybrid evaluation framework that combines human-calibrated LLM-as-a-Judge with structural metrics, we analyze model behavior across multiple prompting regimes. Our findings reveal a persistent \\emph{decompression gap}: current LLMs often achieve strong surface-level fluency while failing to faithfully instantiate the underlying moral and causal structure encoded in proverbs. We further show that explicit reasoning and iterative refinement can partially mitigate these failures, suggesting that many decompression errors arise from difficulties in translating abstract meaning into narrative form rather than a complete lack of relevant knowledge. Our proposed task naturally extends to other forms of compressed cultural knowledge.",
+        "authors": [
+          "Zahra Habibzadeh",
+          "Paria Khoshtab",
+          "Amir Mesbah",
+          "Yadollah Yaghoobzadeh"
+        ],
+        "published": "2026-06-10T18:54:07Z",
+        "updated": "2026-06-10T18:54:07Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.12599v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Persian",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Persian",
+              "class": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.12068v1",
+        "title": "StanceNakba Shared Task: Actor and Topic-Aware Stance Detection in Public Discourse",
+        "abstract": "We present StanceNakba 2026, a shared task on stance detection in polarized social media discourse related to the Palestinian-Israeli conflict, organized as part of Nakba-NLP 2026 at LREC-COLING 2026. The task introduces two subtasks: Subtask A (Actor-Level Stance Detection), which classifies English social media posts as Pro-Palestine, Pro-Israel, or Neutral; and Subtask B (Cross-Topic Stance Detection), which identifies Favor, Against, or Neither stances in Arabic posts toward two conflict-related topics, normalization with Israel and refugee presence in Jordan. The task is grounded in an annotated dataset of 2,606 social media posts. A total of 7 teams participated in Subtask A and 6 teams in Subtask B. Participating systems primarily fine-tuned Arabic and multilingual transformer-based models, including MARBERT, AraBERT, and DeBERTa-v3 variants, with several teams employing cross-validation, ensemble methods, and topic-conditioned architectures. The best-performing systems achieved a Macro F1 of 0.9620 on Subtask A and 0.8724 on Subtask B, demonstrating that transformer-based approaches are highly effective for conflict-domain stance detection while highlighting persistent challenges in cross-topic generalization and neutral class prediction.",
+        "authors": [
+          "Kholoud K. Aldous",
+          "Md Rafiul Biswas",
+          "Mabrouka Bessghaier",
+          "Shimaa Ibrahim",
+          "Kais Attia",
+          "Wajdi Zaghouani"
+        ],
+        "published": "2026-06-10T13:32:10Z",
+        "updated": "2026-06-10T13:32:10Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.12068v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.11639v1",
+        "title": "Evaluating Bias in Phoneme-Based Automatic Speech Recognition Systems: An Analysis of IPA Transcription Models",
+        "abstract": "The popularization of automatic speech recognition (ASR) systems has increased exploration of the demographic biases related to race, age, gender, and accent, often formed from imbalanced training data. Most of these studies focused on standard grapheme-based ASR systems with comparatively little emphasis on phoneme-based systems, such as models that produce International Phonetic Alphabet (IPA) representations. As ASR systems shift toward multilingual support and low-resource language modeling, IPA-based layers serve as a critical, language-agnostic foundation. In this study, we evaluate the performance of two state-of-the-art open-source ASR systems, WhisperIPA and ZIPA, that generate IPA transcriptions across diverse accents and language sources. Our evaluation includes existing multilingual speech corpora and demographically annotated English-language corpora. We measure model performance by comparing model-generated IPA transcriptions against grapheme-to-phoneme (G2P) systems using both standard phoneme error rate (PER) and a proposed Soft PER metric that tolerates linguistically similar phoneme substitutions. Our analysis examines how performance varies across languages and demographic groups such as gender, accent, ethnicity, and age, revealing persistent disparities even after accounting for acceptable phonemic variation. These findings provide insight into potential sources of bias and inform the development of more inclusive and linguistically robust phoneme-based ASR systems. Our code and data will be made publicly available to the community.",
+        "authors": [
+          "Catherine Bao",
+          "Maneesha Rani Saha",
+          "Neal Patwari"
+        ],
+        "published": "2026-06-10T04:00:44Z",
+        "updated": "2026-06-10T04:00:44Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.11639v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.11316v1",
+        "title": "Schützen: Evaluating LLM Safety in Bulgarian and German Contexts",
+        "abstract": "Large language models are increasingly deployed across professional domains, bringing hard-to-predict risks, including the generation of harmful or disrespectful content. Although substantial progress has been made in developing safety evaluation datasets, existing resources remain overwhelmingly English- and Chinese-centric. This limitation is particularly pronounced when evaluating languages that operate within shared sociocultural, legal, and ethical contexts. To address this gap, we introduce Schützen: a German--Bulgarian safety dataset designed to assess model answerability under risk, covering both a low-resource language (Bulgarian) and a high-resource language (German). Experiments with multilingual and language-specific LLMs reveal pronounced cross-language differences in safety behavior, highlighting the necessity of tailored, region-specific evaluation resources to support the responsible deployment of LLMs in Germany and Bulgaria. Datasets and code are available at https://github.com/xnlp-lab/Schutzen. Warning: this paper contains examples that may be offensive, harmful, or biased.",
+        "authors": [
+          "Kiril Georgiev",
+          "Yuxia Wang",
+          "Dimitar Iliyanov Dimitrov",
+          "Preslav Nakov",
+          "Ivan Koychev"
+        ],
+        "published": "2026-06-09T18:01:19Z",
+        "updated": "2026-06-09T18:01:19Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.11316v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Bulgarian",
+          "class": 3,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "German",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Chinese",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Bulgarian",
+              "class": 3
+            },
+            {
+              "language": "German",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.11082v1",
+        "title": "The Shibboleth Effect: Auditing the Cross-Lingual Distributional Skew of Large Language Models",
+        "abstract": "This study investigates cross-lingual distributional skew (the Shibboleth Effect) in frontier large language models (LLMs) subjected to sustained adversarial conditions. We develop a multi-agent geopolitical wargame, the Cerulean Sea Crisis, a synthetic maritime territorial dispute designed to mirror the structural dynamics of Eastern Mediterranean conflicts. Six frontier models (GPT-4o, Llama-4, Mistral-Large, Gemini-3.1-Pro, Qwen3.6-Plus, and DeepSeek-R1) participate in a between-groups experiment (N = 10 games per arm, K = 5 rounds per game) in which the sole manipulation is the language of play (English versus Turkish), producing 586 validated statements. A zero-shot classifier assesses behavioral dispositions along two continuous dimensions: Concession Rate and Coercive Rhetoric. The results are heterogeneous. Llama-4 shows a substantial, Holm-corrected increase in coercive rhetoric under Turkish (delta = +0.800, p = .002), whereas Gemini-3.1-Pro displays an equally large decrease (delta = -0.750, p = .005). DeepSeek-R1 exhibits a similar negative shift (delta = -0.860, p = .006) and provides chain-of-thought evidence consistent with a buffering mechanism. GPT-4o shows no detectable effect (delta = +0.130, p = .614). These findings indicate that cross-lingual behavioral skew is contingent on model architecture and training regime rather than a universal property of Western-origin LLMs. We identify two distinct buffering mechanisms, chain-of-thought institutional anchoring and multilingual RLHF alignment, and discuss their implications for integrating LLMs safely into diplomatic and crisis-management settings.",
+        "authors": [
+          "Hakan Mehmetcik"
+        ],
+        "published": "2026-06-09T16:42:00Z",
+        "updated": "2026-06-09T16:42:00Z",
+        "categories": [
+          "cs.CL",
+          "cs.CY"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.11082v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Turkish",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Turkish",
+              "class": 4
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.10765v1",
+        "title": "ArabiGEE: A Hierarchical Taxonomy for Arabic Grammatical Error Explanation",
+        "abstract": "We introduce ArabiGEE, the first comprehensive Arabic grammatical error explanation (GEE) taxonomy grounded in explicit error types. Unlike existing GEE approaches that treat explanation generation as free-form text, ArabiGEE organizes grammatical explanations through a hierarchical structure spanning orthographic, morphological, syntactic, and lexical dimensions. The taxonomy consists of 27 error types, 140 correction types, and 324 associated explanations. We apply ArabiGEE to manually annotate portions of existing Arabic grammatical error correction corpora and demonstrate how structured grammatical explanations can support automatic evaluation of LLMs on Arabic GEE. Our code and data are publicly available.",
+        "authors": [
+          "Khaled Elhady",
+          "Omar Kallas",
+          "Nizar Habash",
+          "Bashar Alhafni"
+        ],
+        "published": "2026-06-09T12:16:55Z",
+        "updated": "2026-06-09T12:16:55Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.10765v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Arabic",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.09543v2",
+        "title": "From Genes to Tokens: a GWAS-inspired Approach for Interpretable Stylometric Analysis",
+        "abstract": "This short paper introduces a stylometric interpretation method inspired by genome-wide association studies (GWAS). Each \"gene\" token's association with \"phenotype\" authorship is tested using logistic regression with multiple-comparison correction. Applied to English, German, and Russian corpora, the method detects statistically significant lexical markers distinctive of individual authors.",
+        "authors": [
+          "Dmitry Pronin",
+          "Evgeny Kazartsev"
+        ],
+        "published": "2026-06-08T14:25:30Z",
+        "updated": "2026-06-09T09:56:46Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.09543v2",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Russian",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "German",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Russian",
+              "class": 4
+            },
+            {
+              "language": "German",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
             }
           ]
         }
