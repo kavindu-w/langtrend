@@ -505,7 +505,6 @@ def reprocess_from_cache(
     output_jsonl.parent.mkdir(parents=True, exist_ok=True)
 
     all_warnings: list[dict] = []
-    results: list[dict] = []
     no_detection_records: list[dict] = []
     stats = {
         "total_papers": len(papers),
@@ -515,6 +514,7 @@ def reprocess_from_cache(
         "sources": {"abstract": 0, "html": 0, "pdf": 0},
     }
 
+    _fp_out = output_jsonl.open("w", encoding="utf-8")
     executor = ThreadPoolExecutor(max_workers=max_workers)
     try:
         futures = {
@@ -547,7 +547,8 @@ def reprocess_from_cache(
                             pid = record.get("paper_id", "unknown")
                             all_warnings.extend({**w, "paper_id": pid} for w in record["warnings"])
                         if record.get("sections"):
-                            results.append(record)
+                            _fp_out.write(json.dumps(record, ensure_ascii=False) + "\n")
+                            _fp_out.flush()
                             stats["papers_with_detections"] += 1
                             for sec in record["sections"].values():
                                 stats["total_detections"] += len(sec.get("detected_languages", []))
@@ -570,20 +571,17 @@ def reprocess_from_cache(
                     pbar.update(1)
     finally:
         executor.shutdown(wait=False)
+        _fp_out.close()
 
-    with output_jsonl.open("w", encoding="utf-8") as fp:
-        for record in results:
-            fp.write(json.dumps(record, ensure_ascii=False) + "\n")
+        if all_warnings:
+            with warnings_file.open("w", encoding="utf-8") as fp:
+                json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
+            print(f"Warnings saved to {warnings_file}")
 
-    if all_warnings:
-        with warnings_file.open("w", encoding="utf-8") as fp:
-            json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
-        print(f"Warnings saved to {warnings_file}")
-
-    _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
-    with _nd_path.open("w", encoding="utf-8") as fp:
-        json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
-    print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
+        _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
+        with _nd_path.open("w", encoding="utf-8") as fp:
+            json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
+        print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
 
     print(f"\nTotal papers:            {stats['total_papers']}")
     print(f"Papers with detections:  {stats['papers_with_detections']}")
@@ -612,13 +610,13 @@ def process_papers(
     no_detections_file: Path | None = None,
     max_workers: int = 4,
     no_pdf: bool = False,
+    append_mode: bool = False,
 ) -> dict:
     for d in [pdf_dir, html_cache_dir, pdf_cache_dir]:
         d.mkdir(parents=True, exist_ok=True)
     output_jsonl.parent.mkdir(parents=True, exist_ok=True)
 
     all_warnings: list[dict] = []
-    results: list[dict] = []
     no_detection_records: list[dict] = []
     stats = {
         "total_papers": len(papers),
@@ -635,6 +633,7 @@ def process_papers(
         from langtrend.pdf_processor import init_docling
         init_docling()
 
+    _fp_out = output_jsonl.open("a" if append_mode else "w", encoding="utf-8")
     executor = ThreadPoolExecutor(max_workers=max_workers)
     try:
         futures = {
@@ -689,7 +688,8 @@ def process_papers(
                             pid = record.get("paper_id", "unknown")
                             all_warnings.extend({**w, "paper_id": pid} for w in record["warnings"])
                         if record.get("sections"):
-                            results.append(record)
+                            _fp_out.write(json.dumps(record, ensure_ascii=False) + "\n")
+                            _fp_out.flush()
                             stats["papers_with_detections"] += 1
                             for sec in record["sections"].values():
                                 stats["total_detections"] += len(sec.get("detected_languages", []))
@@ -713,20 +713,17 @@ def process_papers(
     finally:
         # Don't block on stuck threads — daemon threads will be reaped when the process exits
         executor.shutdown(wait=False)
+        _fp_out.close()
 
-    with output_jsonl.open("w", encoding="utf-8") as fp:
-        for record in results:
-            fp.write(json.dumps(record, ensure_ascii=False) + "\n")
+        if all_warnings:
+            with warnings_file.open("w", encoding="utf-8") as fp:
+                json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
+            print(f"Warnings saved to {warnings_file}")
 
-    if all_warnings:
-        with warnings_file.open("w", encoding="utf-8") as fp:
-            json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
-        print(f"Warnings saved to {warnings_file}")
-
-    _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
-    with _nd_path.open("w", encoding="utf-8") as fp:
-        json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
-    print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
+        _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
+        with _nd_path.open("w", encoding="utf-8") as fp:
+            json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
+        print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
 
     print(f"\nTotal papers:            {stats['total_papers']}")
     print(f"Papers with detections:  {stats['papers_with_detections']}")
@@ -894,9 +891,23 @@ def main() -> None:
             sys.exit(0)
         print(label)
 
+        # Load existing detected records so we can track what changes after the run.
+        existing_lines: list[str] = []
+        existing_by_id: dict[str, int] = {}  # paper_id → line index
+        if detected_path.exists():
+            for i, line in enumerate(detected_path.read_text(encoding="utf-8").splitlines()):
+                if line.strip():
+                    existing_lines.append(line)
+                    existing_by_id[json.loads(line).get("paper_id", "")] = i
+        existing_count = len(existing_lines)
+
+        # Re-initialize detected_path with existing records (clean deduplication),
+        # then process_papers() will append new records directly as each paper completes.
+        with detected_path.open("w", encoding="utf-8") as fp:
+            for line in existing_lines:
+                fp.write(line + "\n")
+
         import tempfile
-        with tempfile.NamedTemporaryFile(suffix=".jsonl", delete=False) as tmp:
-            tmp_detected = Path(tmp.name)
         with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
             tmp_warnings = Path(tmp.name)
         with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
@@ -907,7 +918,7 @@ def main() -> None:
             lang_classes=lang_classes,
             languages_to_ignore=languages_to_ignore,
             possible_false_positive_languages=possible_false_positive_languages,
-            output_jsonl=tmp_detected,
+            output_jsonl=detected_path,
             warnings_file=tmp_warnings,
             pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
             html_cache_dir=html_cache_dir,
@@ -915,39 +926,20 @@ def main() -> None:
             no_detections_file=tmp_no_det,
             max_workers=args.workers,
             no_pdf=args.no_pdf,
+            append_mode=True,
         )
 
-        # Merge detections — append new records; replace stale abstract-only records that
-        # now have better coverage (e.g. PDF cache was written in a crashed prior run).
-        existing_lines: list[str] = []
-        existing_by_id: dict[str, int] = {}  # paper_id → line index
-        if detected_path.exists():
-            for i, line in enumerate(detected_path.read_text(encoding="utf-8").splitlines()):
-                if line.strip():
-                    existing_lines.append(line)
-                    existing_by_id[json.loads(line).get("paper_id", "")] = i
-
-        appended = replaced = 0
-        for line in tmp_detected.read_text(encoding="utf-8").splitlines():
-            if not line.strip():
-                continue
-            rec = json.loads(line)
-            pid = rec.get("paper_id", "")
-            new_sources = rec.get("sources_checked", [])
-            if pid not in existing_by_id:
-                existing_lines.append(line)
-                existing_by_id[pid] = len(existing_lines) - 1
-                appended += 1
-            else:
-                # Replace only if the new record has better coverage (html or pdf vs abstract-only)
-                old_sources = detected_sources.get(pid, [])
-                if ("html" in new_sources or "pdf" in new_sources) and "html" not in old_sources and "pdf" not in old_sources:
-                    existing_lines[existing_by_id[pid]] = line
-                    replaced += 1
-
+        # Deduplicate detected_path: new records were appended after existing ones, so the
+        # last occurrence of each paper_id is always the freshest (upgrade case handled automatically).
+        all_lines = [l for l in detected_path.read_text(encoding="utf-8").splitlines() if l.strip()]
+        last_index: dict[str, int] = {}
+        for i, line in enumerate(all_lines):
+            last_index[json.loads(line).get("paper_id", "")] = i
         with detected_path.open("w", encoding="utf-8") as fp:
-            for line in existing_lines:
-                fp.write(line + "\n")
+            for i in sorted(last_index.values()):
+                fp.write(all_lines[i] + "\n")
+        appended = sum(1 for pid in last_index if pid not in existing_by_id)
+        replaced = sum(1 for pid, idx in last_index.items() if pid in existing_by_id and idx >= existing_count)
         print(f"Merged {appended} new + {replaced} upgraded detection record(s) into {detected_path}")
 
         # Merge warnings
@@ -964,7 +956,7 @@ def main() -> None:
         # Build index of new no-det records so we can upgrade stale ones (e.g. abstract-only → abstract+pdf)
         new_nd_by_id = {r.get("paper_id"): r for r in new_no_det}
         # Papers now in detected must be removed from no-detections
-        now_detected_ids = {json.loads(line).get("paper_id") for line in existing_lines if line.strip()}
+        now_detected_ids = set(last_index.keys())
         merged_no_det = []
         for r in existing_no_det:
             pid = r.get("paper_id")
@@ -981,7 +973,7 @@ def main() -> None:
             json.dump(merged_no_det, fp, ensure_ascii=False, indent=2)
         print(f"No-detections file updated: {len(merged_no_det)} total record(s) → {no_det_path}")
 
-        for tmp_path in (tmp_detected, tmp_warnings, tmp_no_det):
+        for tmp_path in (tmp_warnings, tmp_no_det):
             tmp_path.unlink(missing_ok=True)
     else:
         process_papers(
