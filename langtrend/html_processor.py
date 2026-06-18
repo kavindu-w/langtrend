@@ -16,7 +16,7 @@ from .text_cleaning import clean_paper_text_for_language_screening, detect_langu
 _thread_local = threading.local()
 
 # Cap concurrent arXiv HTML requests regardless of worker count
-_ARXIV_SEMAPHORE = threading.Semaphore(10)
+_ARXIV_SEMAPHORE = threading.Semaphore(1)
 _HTML_MAX_BYTES = 10 * 1024 * 1024  # 10 MB — enough for any paper's HTML
 _HTML_DOWNLOAD_TIMEOUT = 120  # wall-clock cap; arXiv keepalives defeat per-chunk read timeouts
 
@@ -75,44 +75,40 @@ def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str |
     html_url = abs_url.replace("/abs/", "/html/")
     t0 = _time.monotonic()
     try:
-        print(f"    [{abs_url}] waiting for semaphore…", flush=True)
         with _ARXIV_SEMAPHORE:
-            # Small random jitter to avoid simultaneous burst from all workers
-            _time.sleep(random.uniform(0.3, 1.2))
-            t0 = _time.monotonic()
-            print(f"    [{abs_url}] GET started…", flush=True)
-            # connect=5s, read=15s per chunk — short enough to detect arXiv CDN throttling
-            # (arXiv bursts ~768KB then stalls; 15s per-chunk timeout cuts the stall quickly)
-            response = _get_session().get(html_url, timeout=(5, 15), stream=True)
-            response.raise_for_status()
-            chunks = []
-            total = 0
-            is_complete = True
-            _LOG_EVERY = 256 * 1024
-            last_logged = 0
-            try:
-                for chunk in response.iter_content(chunk_size=65536):
-                    chunks.append(chunk)
-                    total += len(chunk)
-                    if total - last_logged >= _LOG_EVERY:
-                        elapsed = _time.monotonic() - t0
-                        print(f"    [{abs_url}] downloading… {total // 1024}KB in {elapsed:.1f}s", flush=True)
-                        last_logged = total
-                    if total >= _HTML_MAX_BYTES:
-                        print(f"    [{abs_url}] HTML truncated at {_HTML_MAX_BYTES // 1024}KB", flush=True)
-                        break
+            _time.sleep(3)
+        t0 = _time.monotonic()
+        print(f"    [{abs_url}] GET started…", flush=True)
+        response = _get_session().get(html_url, timeout=(5, 15), stream=True)
+        response.raise_for_status()
+        chunks = []
+        total = 0
+        is_complete = True
+        _LOG_EVERY = 256 * 1024
+        last_logged = 0
+        try:
+            for chunk in response.iter_content(chunk_size=65536):
+                chunks.append(chunk)
+                total += len(chunk)
+                if total - last_logged >= _LOG_EVERY:
                     elapsed = _time.monotonic() - t0
-                    if elapsed > _HTML_DOWNLOAD_TIMEOUT:
-                        is_complete = False
-                        print(f"    [{abs_url}] HTML wall-clock timeout after {elapsed:.1f}s at {total // 1024}KB — aborting", flush=True)
-                        break
-            except Exception as chunk_err:
+                    print(f"    [{abs_url}] downloading… {total // 1024}KB in {elapsed:.1f}s", flush=True)
+                    last_logged = total
+                if total >= _HTML_MAX_BYTES:
+                    print(f"    [{abs_url}] HTML truncated at {_HTML_MAX_BYTES // 1024}KB", flush=True)
+                    break
                 elapsed = _time.monotonic() - t0
-                is_complete = False
-                print(f"    [{abs_url}] download stalled at {total // 1024}KB after {elapsed:.1f}s ({type(chunk_err).__name__})", flush=True)
-            html_text = b''.join(chunks).decode('utf-8', errors='replace') if chunks else None
+                if elapsed > _HTML_DOWNLOAD_TIMEOUT:
+                    is_complete = False
+                    print(f"    [{abs_url}] HTML wall-clock timeout after {elapsed:.1f}s at {total // 1024}KB — aborting", flush=True)
+                    break
+        except Exception as chunk_err:
             elapsed = _time.monotonic() - t0
-            print(f"    [{abs_url}] response {response.status_code} in {elapsed:.1f}s ({total} bytes, complete={is_complete})", flush=True)
+            is_complete = False
+            print(f"    [{abs_url}] download stalled at {total // 1024}KB after {elapsed:.1f}s ({type(chunk_err).__name__})", flush=True)
+        html_text = b''.join(chunks).decode('utf-8', errors='replace') if chunks else None
+        elapsed = _time.monotonic() - t0
+        print(f"    [{abs_url}] response {response.status_code} in {elapsed:.1f}s ({total} bytes, complete={is_complete})", flush=True)
         return html_text, html_url, is_complete
     except Exception as e:
         elapsed = _time.monotonic() - t0

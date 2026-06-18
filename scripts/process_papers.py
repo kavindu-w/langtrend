@@ -20,6 +20,7 @@ Usage:
 import argparse
 import json
 import os
+import random
 import sys
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 from datetime import datetime
@@ -77,6 +78,7 @@ _PDF_LOG_EVERY = 256 * 1024
 _PDF_DOWNLOAD_RETRIES = 2
 _PDF_RETRY_BACKOFF = 5  # seconds; doubles each attempt
 _PDF_EXTRACT_RETRIES = 2  # re-download and retry if extraction fails (e.g. truncated file)
+_PDF_SEMAPHORE = __import__("threading").Semaphore(1)
 
 def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
     """Download a PDF into a per-paper subdirectory. Returns path or None on failure."""
@@ -92,6 +94,8 @@ def _download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
 
     for attempt in range(1, _PDF_DOWNLOAD_RETRIES + 1):
         tqdm.write(f"    [{paper_id}] PDF GET {pdf_url} (attempt {attempt}/{_PDF_DOWNLOAD_RETRIES})")
+        with _PDF_SEMAPHORE:
+            _time.sleep(3)
         t0 = _time.monotonic()
         try:
             resp = requests.get(pdf_url, stream=True, timeout=(10, 30), headers={
