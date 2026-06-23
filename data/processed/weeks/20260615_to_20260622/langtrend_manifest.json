@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-23T19:00:38.227916+00:00",
+  "generated_at": "2026-06-23T19:13:52.636381+00:00",
   "window_days": 7,
   "week_start": "2026-06-15",
   "week_end": "2026-06-22",
@@ -7,7 +7,7 @@
   "counts": {
     "papers": 490,
     "flagged_papers": 305,
-    "unique_languages": 235,
+    "unique_languages": 236,
     "pdf_failed_no_detection": 0
   },
   "language_counts": [
@@ -416,6 +416,10 @@
       "count": 2
     },
     {
+      "language": "Ale",
+      "count": 2
+    },
+    {
       "language": "Chin",
       "count": 2
     },
@@ -784,10 +788,6 @@
       "count": 1
     },
     {
-      "language": "Ale",
-      "count": 1
-    },
-    {
       "language": "Naxi",
       "count": 1
     },
@@ -950,12 +950,16 @@
     {
       "language": "Kola",
       "count": 1
+    },
+    {
+      "language": "Kala",
+      "count": 1
     }
   ],
   "class_counts": [
     {
       "class_id": 0,
-      "count": 277
+      "count": 279
     },
     {
       "class_id": 1,
@@ -88544,51 +88548,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.17299v1",
-        "title": "Examining the Limits of Word2Vec with Toki Pona",
-        "abstract": "Word2Vec's effectiveness at generating semantic embeddings has been widely validated, yet it has been tested almost exclusively on languages with large vocabulary inventories. This study examines whether Word2Vec can successfully capture semantic relationships within an extremely reduced vocabulary using data from Toki Pona, a constructed language with approximately 130 words. We sourced 1.4 million sentences (7.95 million tokens) from the Toki Pona community for training. Approximately 23% of sentences in the corpus contain non-Toki Pona tokens such as named entities, loanwords, and neologisms. To investigate whether this linguistic noise enhances or hinders performance -- a topic rarely addressed in word embedding literature -- we trained two distinct models: one retaining these incidental tokens and another filtering them out completely. Evaluation was conducted using quantitative methods measuring word proximity to semantic category centroids, automated silhouette scores via agglomerative clustering, and qualitative analysis utilizing representational similarity matrices compared against English. The results indicate that while sparse, non-core tokens do not affect the relative structure of the learned embeddings, they actually draw similar words closer together in the vector space. Importantly, Word2Vec's effectiveness depends more on distributional patterns than lexicon size even at this extreme lower bound.",
-        "authors": [
-          "Daniel Zhenhan Huang",
-          "Hongchen Wu"
-        ],
-        "published": "2026-06-15T21:07:31Z",
-        "updated": "2026-06-15T21:07:31Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.17299v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.18142v2",
         "title": "Your AI Travel Agent Would Book You a Bullfight: An Agentic Benchmark for Implicit Animal Welfare in Frontier AI Models",
         "abstract": "AI agents are moving from advisors to actors, booking travel, planning menus, and running procurement on behalf of users. Existing benchmarks for AI and animal welfare evaluate model text responses to question-answer prompts, leaving open whether the welfare reasoning surfaced in those responses transfers to agentic deployment where the model must take actions with tools. We introduce TAC (Travel Agent Compassion), the first agentic benchmark measuring whether AI agents avoid options involving animal exploitation when acting on behalf of users. TAC presents an AI agent with twelve hand-authored travel booking scenarios across six categories of animal exploitation, augmented to forty-eight samples to control for price, rating, and position confounds. We evaluate seven frontier models from four labs. Every model scores below the chance level of sixty-four percent, with the best performer (Claude Opus 4.7) at fifty-three percent. A single welfare-aware sentence in the system prompt yields gains of forty-seven to sixty-three percentage points in Claude and GPT-5.5, twenty-six points in GPT-5.2, and under twelve points in DeepSeek and Gemini. An auxiliary Inspect Scout audit of 288 base-condition transcripts from the top two performers, using Gemini 2.5 Flash Lite as judge, flags zero transcripts for evaluation awareness, suggesting the below-chance rates do not stem from the models recognising the evaluation. We discuss implications for category-level variation across cultural domains, the limits of text-response welfare benchmarks, and the EU General-Purpose AI Code of Practice systemic risk framework.",
@@ -97360,56 +97319,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.19996v2",
-        "title": "Segment-Level Mandarin Chinese Speech-Based Cognitive Impairment Detection via an Autoencoder with Contrastive Learning",
-        "abstract": "\\noindent\\textbf{Background and Objective:} Speech has emerged as a low-cost and non-invasive digital biomarker with considerable potential for cognitive impairment detection. However, limited labeled data and cross-dataset variability remain major challenges for robust speech-based screening systems.\n  \\par\\noindent\\textbf{Methods:} We developed a segment-level representation learning framework for speech-based cognitive impairment detection. Speech recordings were divided into short segments and converted into spectrogram representations. To improve robustness under limited-data conditions, offline and online augmentation strategies were combined with autoencoder-based representation learning and contrastive objectives to enhance discriminative latent representations.\n  \\par\\noindent\\textbf{Results:} Experiments conducted on four independent Mandarin Chinese speech datasets demonstrated stable and competitive performance in both binary and three-class classification tasks, with particularly notable improvements in the clinically challenging three-class setting. Ablation studies further supported the effectiveness of the proposed framework.\n  \\par\\noindent\\textbf{Conclusions:} The findings suggest that segment-level speech representation learning may provide a scalable and practical approach for cognitive impairment screening in resource-constrained clinical settings.",
-        "authors": [
-          "Yongqi Shao",
-          "Hong Huo",
-          "Flavio Bertini",
-          "Danilo Montesi",
-          "Tao Fang"
-        ],
-        "published": "2026-06-18T09:32:24Z",
-        "updated": "2026-06-22T08:06:56Z",
-        "categories": [
-          "cs.SD",
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.19996v2",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Chinese",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract",
-        "pdf_unavailable"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Chinese",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.20198v1",
         "title": "Pitch Spelling Jazz Lead Sheets, Solo Transcriptions, Classical Piano and Monophonic Scores",
         "abstract": "We present an algorithm for pitch spelling and key estimation. Given an input in MIDI-like format, containing information on note pitches (expressed in semitones relative to the lowest reference note) and bar boundaries, it estimates the appropriate note names, a global Key Signature, and a local scale for each bar. This related information elements are evaluated jointly during two stages of optimisation. During an initial 'modal' stage, a probable scale is proposed for each bar, minimising the number of accidentals to be printed in the printed score with a shortest-path search. Then, during a second stage called 'tonal', these local scales are used to estimate the Key Signature and note names that would result in the best musical notation for the entire piece. We present evaluations conducted on datasets comprising a variety of digital musical scores: jazz lead sheets taken from the Real Book, transcriptions of recordings of jazz soli and bass lines, traditional tunes, as well as classical scores for piano and monophonic instruments. Our procedure was originally designed for use in music transcription, specifically for building digital collections of jazz solos transcribed from audio recordings, for the purposes of music analysis, teaching and the preservation of cultural heritage. This method should also prove useful for other tasks related to the processing of musical notation. Furthermore, to this end, we have defined new distances between various common jazz scales, which may be of some interest to musicological studies.",
@@ -103242,6 +103151,168 @@
             },
             {
               "language": "Chinese",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.19996v2",
+        "title": "Segment-Level Mandarin Chinese Speech-Based Cognitive Impairment Detection via an Autoencoder with Contrastive Learning",
+        "abstract": "\\noindent\\textbf{Background and Objective:} Speech has emerged as a low-cost and non-invasive digital biomarker with considerable potential for cognitive impairment detection. However, limited labeled data and cross-dataset variability remain major challenges for robust speech-based screening systems.\n  \\par\\noindent\\textbf{Methods:} We developed a segment-level representation learning framework for speech-based cognitive impairment detection. Speech recordings were divided into short segments and converted into spectrogram representations. To improve robustness under limited-data conditions, offline and online augmentation strategies were combined with autoencoder-based representation learning and contrastive objectives to enhance discriminative latent representations.\n  \\par\\noindent\\textbf{Results:} Experiments conducted on four independent Mandarin Chinese speech datasets demonstrated stable and competitive performance in both binary and three-class classification tasks, with particularly notable improvements in the clinically challenging three-class setting. Ablation studies further supported the effectiveness of the proposed framework.\n  \\par\\noindent\\textbf{Conclusions:} The findings suggest that segment-level speech representation learning may provide a scalable and practical approach for cognitive impairment screening in resource-constrained clinical settings.",
+        "authors": [
+          "Yongqi Shao",
+          "Hong Huo",
+          "Flavio Bertini",
+          "Danilo Montesi",
+          "Tao Fang"
+        ],
+        "published": "2026-06-18T09:32:24Z",
+        "updated": "2026-06-22T08:06:56Z",
+        "categories": [
+          "cs.SD",
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.19996v2",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Chinese",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract",
+        "pdf_unavailable"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Chinese",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.17299v1",
+        "title": "Examining the Limits of Word2Vec with Toki Pona",
+        "abstract": "Word2Vec's effectiveness at generating semantic embeddings has been widely validated, yet it has been tested almost exclusively on languages with large vocabulary inventories. This study examines whether Word2Vec can successfully capture semantic relationships within an extremely reduced vocabulary using data from Toki Pona, a constructed language with approximately 130 words. We sourced 1.4 million sentences (7.95 million tokens) from the Toki Pona community for training. Approximately 23% of sentences in the corpus contain non-Toki Pona tokens such as named entities, loanwords, and neologisms. To investigate whether this linguistic noise enhances or hinders performance -- a topic rarely addressed in word embedding literature -- we trained two distinct models: one retaining these incidental tokens and another filtering them out completely. Evaluation was conducted using quantitative methods measuring word proximity to semantic category centroids, automated silhouette scores via agglomerative clustering, and qualitative analysis utilizing representational similarity matrices compared against English. The results indicate that while sparse, non-core tokens do not affect the relative structure of the learned embeddings, they actually draw similar words closer together in the vector space. Importantly, Word2Vec's effectiveness depends more on distributional patterns than lexicon size even at this extreme lower bound.",
+        "authors": [
+          "Daniel Zhenhan Huang",
+          "Hongchen Wu"
+        ],
+        "published": "2026-06-15T21:07:31Z",
+        "updated": "2026-06-15T21:07:31Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.17299v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "Kala",
+          "class": 0,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Ale",
+          "class": 0,
+          "sources": [
+            "pdf"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract",
+        "pdf"
+      ],
+      "sections_with_detections": [
+        "abstract",
+        "pdf_full_text"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Kala",
+              "class": 0
+            },
+            {
+              "language": "Ale",
+              "class": 0
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
               "class": 5
             }
           ]
