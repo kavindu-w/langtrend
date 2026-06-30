@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T16:42:49.566440+00:00",
+  "generated_at": "2026-06-30T16:58:38.132274+00:00",
   "window_days": 7,
   "week_start": "2026-06-22",
   "week_end": "2026-06-29",
@@ -128,11 +128,11 @@
       "count": 6
     },
     {
-      "language": "Bengali",
+      "language": "Hungarian",
       "count": 6
     },
     {
-      "language": "Hungarian",
+      "language": "Bengali",
       "count": 6
     },
     {
@@ -540,10 +540,6 @@
       "count": 1
     },
     {
-      "language": "Ake",
-      "count": 1
-    },
-    {
       "language": "Soo",
       "count": 1
     },
@@ -821,6 +817,10 @@
     },
     {
       "language": "Seti",
+      "count": 1
+    },
+    {
+      "language": "Ake",
       "count": 1
     }
   ],
@@ -13839,64 +13839,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.28999v1",
-        "title": "BERTomelo: Your Portuguese Encoder Best Friend",
-        "abstract": "Encoders have become the state of the art for multiple NLP tasks, especially those requiring deep contextual understanding. While multilingual models offer broad coverage, dedicated monolingual encoders are essential for capturing the unique lexical and syntactic nuances of specific languages. For Portuguese, however, existing monolingual options like BERTimbau and Albertina have not kept pace with recent architectural breakthroughs, often lagging behind English benchmarks in scalability and efficiency. This work introduces BERTomelo, a next-generation monolingual encoder pre-trained from scratch and specifically optimized for the Portuguese language. By leveraging the ModernBERT architecture, BERTomelo overcomes the limitations of previous models, offering Base and Large versions with a 1,024-token context window and hardware-level optimizations like FlashAttention and alternating attention mechanisms. The model was trained on ClassiCC-PT, a massive, high-quality Portuguese corpus of 106 million documents, ensuring superior alignment with the language's contemporary usage. The results demonstrate that BERTomelo not only outperforms previous Portuguese encoders but also provides a more robust and efficient alternative to massive multilingual models in downstream tasks such as STS and NER.",
-        "authors": [
-          "Rennê Ruan Alves Oliveira",
-          "Gustavo Cordeiro Galvão Van Erven",
-          "Luís Paulo Faina Garcia"
-        ],
-        "published": "2026-06-27T16:23:17Z",
-        "updated": "2026-06-27T16:23:17Z",
-        "categories": [
-          "cs.CL",
-          "cs.AI"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.28999v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Portuguese",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Portuguese",
-              "class": 4
-            },
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.29441v1",
         "title": "Closing the Activation-Cone Blind Spot: Response-Time Probing and Unified Defense",
         "abstract": "Inference-time safety methods for large language models have proliferated, yet no systematic comparison exists. We evaluate five defense paradigms (no defense, static steering, CAST, AlphaSteer, probe-gated) across seven instruction-tuned models (7-31B) and five attack types (GCG, AutoDAN, DeepInception, prefilling, intent laundering). Our central finding: prompt-time activation defenses are structurally blind to prefilling attacks. AlphaSteer achieves 0% attack success on GCG, AutoDAN, and intent laundering but 50% on prefilling. We prove a corollary: any defense that gates intervention on a single layer's activation alignment with a benign reference (cone, subspace, or null-space) is blind to attacks that craft activations to lie inside that reference, whether checked at prompt time or per token. As its constructive contrapositive we introduce response-time probing: a linear probe on the model's hidden state at the first generated tokens, with AUROC 0.97-1.00 across all seven models. Combined with a halt, it cuts prefilling attack success to 0/40 on every model with 0% benign false positives, outperforming Llama Guard 3. Cross-template generalisation depends on probe depth, so we scope the claim to the canonical prefilling-template family. Composing the response-halt with AlphaSteer's null-space steering gives an orthogonal split (the halt catches prefilling, AlphaSteer catches semantic attacks), reaching defense success 0.983 on Mistral and 0.994 on Llama and dominating both components. We further show MMLU fails to capture steering's true utility cost, which appears as behavioral hedging rather than factual loss, and that diverse negative training sets cut probe false positives from 80-100% to near zero. Code, attacks, per-sample results, and the judge prompt are released.",
@@ -22167,165 +22109,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.28457v1",
-        "title": "Extracting Knowledge from an Arabic-English Machine-Readable Dictionary Using Information Extraction",
-        "abstract": "Natural language processing (NLP) applications need large and rich amount of linguistic knowledge. Furthermore, electronic language sources such as dictionaries, encyclopedia, and corpora became available. So, automatic methods are emerged to extract lexical information from those sources to overcome the knowledge acquisition bottleneck. We presented a method to automatically extract lexical information from a machine-readable version of the Arabic-English Al-Mawrid dictionary. We used n-gram analysis and key-word-in-context (KWIC) analysis to discover lexical patterns that manifest morphologic, syntactic, or semantic information. Then, we used hand-crafted rule-based information extraction to extract that information. Furthermore, we used punctuation marks and some heuristics to extract a set of synonyms in a subentry. This study registered high precision for all types of information, high recall for synonyms, and low recall for the other information. The study also showed that the Al-Mawrid has significant amount of derivations (morphologic information) and synonyms, domain labels, and hyponym/hypernym relations (semantic information).",
-        "authors": [
-          "Diaa M. Fayed",
-          "Aly A. Fahmy",
-          "Mohsen A. Rashwan",
-          "Wafaa K. Fayed"
-        ],
-        "published": "2026-06-26T11:52:27Z",
-        "updated": "2026-06-26T11:52:27Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.28457v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Arabic",
-              "class": 5
-            },
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.27981v1",
-        "title": "ToxiREX: A Dataset on Toxic REasoning in ConteXt",
-        "abstract": "We introduce a new, contextual, multilingual dataset called ToxiREX: Toxic REasoning in ConteXt. The dataset consists of threads of Reddit comments and structured characterizations of what the comments imply, following a systematic toxic reasoning schema developed in a previous paper. Using the schema allows us to capture and explain implicit and context-dependent toxicity, while supporting mappings to existing toxicity taxonomies. The dataset includes comments in six languages (English, Arabic, Turkish, Spanish, German, and Dutch), collected from posts connected to specific major events (e.g. the 2023 Turkey earthquakes; the Russian invasion of Ukraine). We describe the context-preserving preprocessing of the threads. We create a training set of 125 thousand comments which is annotated by a commercially available LLM, and a test set of just under three thousand comments that is annotated by native speakers. We show that apparent disagreements in the test set annotations often reflect defensible alternative interpretations rather than noise. Finally, we provide baseline results by prompting and fine-tuning language models. To produce these results, we develop evaluation strategies for our hierarchical, schema-based predictions. While models perform better than random, there remains a lot of room for improvement, showing the task to be challenging. ToxiREX is the first dataset to simultaneously incorporate multiple languages, conversational context, and implicit toxicity, while using the toxic reasoning schema for rich, structured annotations. Dataset available at: https://github.com/cltl/toxirex",
-        "authors": [
-          "Stefan F. Schouten",
-          "Ilia Markov",
-          "Piek Vossen"
-        ],
-        "published": "2026-06-26T11:30:42Z",
-        "updated": "2026-06-26T11:30:42Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.27981v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Turkish",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Dutch",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "German",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Spanish",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Turkish",
-              "class": 4
-            },
-            {
-              "language": "Dutch",
-              "class": 4
-            },
-            {
-              "language": "Arabic",
-              "class": 5
-            },
-            {
-              "language": "German",
-              "class": 5
-            },
-            {
-              "language": "Spanish",
-              "class": 5
-            },
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.28524v1",
         "title": "Developmental Trajectories of Situation Modeling and Mentalizing in Transformer Language Models",
         "abstract": "Recent work suggests that Large Language Models (LLMs) are sensitive to the belief states of agents described by text, as measured by the false belief task (FBT), yet persistent concerns of construct validity remain. We adopt a **developmental perspective**, tracing the pattern of mental state reasoning behavior -- and likely **preconditions** for this behavior -- across multiple training stages in the Olmo2 and Pythia language model suites. We find that above-chance FBT performance depends both on model size and sufficient training volume, emerges relatively late in pretraining, and is most improved by post-training interventions (SFT, DPO) in the condition most diagnostic of mentalizing (False Belief, Implicit). However, FBT performance is fragile: consistent with past work, the use of non-factive verbs (e.g., thinks) increases false belief attributions even in the True Belief condition. To contextualize these findings, we track the emergence of **situation modeling**: the ability to report on basic factual properties of a described scene. Situation modeling accuracy generally precedes and exceeds FBT accuracy, yet situational representations also prove surprisingly incoherent in certain respects: when asked about the knowledge states of the Antagonist agent -- who always knows the item's true location -- Olmo2 13b is consistently influenced both by the Target agent's knowledge state and the presence of non-factive verbs. Together, these results suggest that larger, sufficiently trained models build partially coherent situation models in a developmentally appropriate sequence, yet display surprising fragility -- highlighting the value of developmental and stress-testing approaches for evaluating LLM capabilities.",
@@ -28378,54 +28161,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.27306v1",
-        "title": "Multilingual Reasoning Cascades Need More Context",
-        "abstract": "Translation cascades for reasoning translate the query from another language to English, reason in English, and translate the answer back to the original language. This is a competitive approach to multilingual reasoning, but structurally lossy, since each stage discards information later stages may need, including cues for cultural grounding, register, and disambiguation. We examine the benefits of a simple and training-free intervention: a context-aware translation cascade, which additionally provides the original question, the English translated question, and the reasoning trace to the context of the final translation module. We evaluate gains across nine multilingual benchmarks including various task types, three backbone models, and 285 high-, mid-, and low-resource languages, and demonstrate strong gains for open-ended generation across models and resource regimes. We show that the original language question carries most of the beneficial context. Our study emphasizes the need to better design information flow in machine translation cascades for mitigating error propagation, and provides a simple and actionable default strategy: preserve the original user question until the end of the pipeline.",
-        "authors": [
-          "Arnav Mazumder",
-          "Dengjia Zhang",
-          "Shuyue Stella Li",
-          "Yulia Tsvetkov",
-          "Niyati Bafna"
-        ],
-        "published": "2026-06-25T17:26:46Z",
-        "updated": "2026-06-25T17:26:46Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.27306v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.27472v1",
         "title": "Supersede: Diagnosing and Training the Memory-Update Gap in LLM Agents",
         "abstract": "Large language model (LLM) agents operate over long, multi-session interactions in which facts change: a user moves, a price updates, a plan is revised. Acting correctly requires using the current value of a fact and discarding values that have been superseded. We isolate this ability on real conversational data and show that it is a distinct, unsolved failure. On the knowledge-update subset of LongMemEval, replacing an agent's full context with a bounded, self-maintained memory drops accuracy from 92% to 77% even on a frontier model (gpt-5.4), a gap that is statistically significant (paired McNemar p<0.005) and persists across model scale while full-context accuracy saturates near 92%. The bottleneck is therefore memory maintenance, not comprehension, and is not closed by a stronger model. We then ask whether this is merely an undersized memory, and find it is not: as the conversation grows 24x, accuracy falls further (from 68% to 28%), and granting the agent proportionally more memory yields no detectable recovery (28% to 28%, n=25). The failure scales with the length of the conversation, not the compression ratio. We release Supersede, an open reinforcement-learning environment (on the verifiers / prime-rl stack) that turns this measurement into a training signal: agents are rewarded for answering from the current value and penalized for stale ones. Finally, we close the loop and show the gap is trainable: GRPO fine-tuning a small open model (Qwen2.5-3B) on this environment nearly doubles its held-out supersession accuracy on real, unseen conversations (9.0% to 16.7%, a single run), along a monotonic checkpoint curve indicating the learned policy, not the harness, carries the gain. To our knowledge this is the first trainable environment whose reward targets temporal fact-currency, and the first evidence the supersession gap can be trained down, not only measured.",
@@ -32501,62 +32236,6 @@
             {
               "language": "English",
               "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.26803v1",
-        "title": "From Vajrayana Tara to Bengali Baul: A Computational Study of Lexical Transmission Across Buddhist, Shakta, and Vaishnava Traditions in Bengal",
-        "abstract": "We present a computational corpus study of vocabulary relationships across eight tradition layers of Bengali and Sanskrit devotional literature spanning the 8th to 19th centuries, encompassing Buddhist Vajrayana, Shakta Tantra, Vaishnava, and Baul traditions. Using a corpus of 75 texts and TF-IDF character n-gram vectorization with cosine similarity analysis, we address the historically argued but previously unquantified claim that Buddhist Vajrayana vocabulary survived the collapse of the Pala monasteries and was absorbed into the Shakta Tantra tradition of Bengal. The central finding is a specificity result: the Gitagovinda (Vaishnava Sanskrit, 12th century) has zero cosine similarity to Shakta Kali texts, while Bridge Tara texts (Buddhist-Shakta transitional, same century, same language) have cosine similarity 0.54 to Shakta Kali. This 8.5-fold contrast between two Sanskrit traditions from the same century demonstrates that the Buddhist-Shakta vocabulary overlap is not a generic property of Sanskrit devotional literature but is specific to the Buddhist-Shakta transmission chain. Three Brihannilatantra Tara texts show Shakta-to-Buddhist vocabulary ratios of 2.0 to 4.0, constituting measurable evidence of lexical transition within that chain. Ramprasad Sen's 18th-century Bengali Kali songs preserve Buddhist vocabulary residue including 56 occurrences of Tara alongside 103 occurrences of Kali. The Vaishnava Bengali tradition contributes a parallel chain to modern Baul vocabulary (similarity 0.29), slightly weaker than the Buddhist Sahajiya chain via Charyapada (0.31). These results provide the first quantitative multi-tradition corroboration of historically argued Buddhist-Shakta syncretism in Bengal.",
-        "authors": [
-          "Joy Bose"
-        ],
-        "published": "2026-06-25T09:40:13Z",
-        "updated": "2026-06-25T09:40:13Z",
-        "categories": [
-          "cs.CL",
-          "cs.IR"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.26803v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Sanskrit",
-          "class": 2,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Bengali",
-          "class": 3,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Sanskrit",
-              "class": 2
-            },
-            {
-              "language": "Bengali",
-              "class": 3
             }
           ]
         }
@@ -37117,55 +36796,6 @@
             {
               "language": "Hungarian",
               "class": 4
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.26485v1",
-        "title": "Utilizing Cognitive Signals Generated during Human Reading to Enhance Keyphrase Extraction from Microblogs",
-        "abstract": "Microblogging platforms generate massive amounts of short, noisy, and dispersed user content, making automatic keyphrase extraction (AKE) an important but challenging task. Prior studies have used eye-tracking signals to improve microblog-based AKE because such signals reflect readers' attention to salient words. However, eye tracking alone is limited by physiological, acquisition, and feature-decoding constraints. To address this issue, we investigate whether electroencephalogram (EEG) signals can complement eye-tracking signals for AKE. Using the ZuCo cognitive language processing corpus, we select 8 EEG features and 17 eye-tracking features and incorporate them into microblog-based AKE models. To reduce possible distortion of cognitive signals by model structures, we inject these features into the input of the soft-attention layer and the query vectors of the self-attention layer. We then evaluate different combinations of cognitive signals across AKE models. The results show that cognitive signals produced during reading consistently improve AKE performance, regardless of feature combinations and model architectures. EEG features bring the largest gains, while combining EEG and eye-tracking features yields performance between the two individual signal types, suggesting partial complementarity but also possible redundancy or noise. These findings indicate that EEG signals provide useful cognitive evidence for microblog-based AKE and that multimodal cognitive signals deserve further investigation.",
-        "authors": [
-          "Xinyi Yan",
-          "Yingyi Zhang",
-          "Chengzhi Zhang"
-        ],
-        "published": "2026-06-25T00:43:12Z",
-        "updated": "2026-06-25T00:43:12Z",
-        "categories": [
-          "cs.CL",
-          "cs.DL",
-          "cs.HC",
-          "cs.IR"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.26485v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Ake",
-          "class": 0,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Ake",
-              "class": 0
             }
           ]
         }
@@ -43997,70 +43627,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.25495v1",
-        "title": "Spam and Sentiment Detection in Arabic Tweets Using MARBERT Model",
-        "abstract": "Saudi Telecom Company (STC) is among the most popular companies in Saudi Arabia, with many customers. Yet, there is still a big room for improvement in users' satisfaction. Social media is the most robust platform to gauge users' satisfaction and determine their sentiments and critics. Twitter is among the most popular social media platform in this regard. STC customers prefer to use Twitter to write their feedback because it's a fast way to get responses due to the STC customer services account. One way to achieve customer demands and improve customer service is using the Sentiment Analysis tool. Sentiment Analysis on Twitter is highly used because of the significant number of tweets and the different opinions. Likewise, Deep learning is the best existing Sentiment Analysis method, and it has diverse models. Bidirectional Encoder Representations from Transformers (BERT) model is one of the deep learning models which have achieved excellent results in Sentiment Analysis for Natural Language Processing (NLP). NLP is mainly investigated in the English language. However, for Arabic, there is a significant gap to be filled. This study trained the proposed model using MARBERT and measured the performance using f1-score, precision, and recall metrics. We trained the model with an Arabic dataset of 24,513 tweets, including 1,437 positive, 13,828 negative, 5,694 neutral, 1,221 sarcasm, and 2,297 indeterminate tweets. The main goal is to analyze the tweets and get the sentiment to improve STC customer service. The proposed scheme is promising in terms of accuracy in contrast to existing techniques in the literature.",
-        "authors": [
-          "Abrar Alotaibi",
-          "Atta-ur Rahman",
-          "Raheel Alhaza",
-          "Wala Alkhalifa",
-          "Narjes Alhajjaj",
-          "Atheer Alharthi",
-          "Dhai Abushoumi",
-          "Maryam Alqahtani",
-          "Dania Alkhulaifi"
-        ],
-        "published": "2026-06-24T07:22:39Z",
-        "updated": "2026-06-24T07:22:39Z",
-        "categories": [
-          "cs.CL",
-          "cs.AI"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.25495v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Arabic",
-              "class": 5
-            },
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.25568v1",
         "title": "Riazi-8B: An Urdu Large Language Model for Mathematical Reasoning",
         "abstract": "Recent LLMs demonstrate strong mathematical reasoning capabilities, but existing gains rely heavily on English-centric training resources and benchmarks. As a result, reasoning performance degrades substantially in low-resource languages such as Urdu, where reasoning-oriented datasets and adapted models remain scarce. Urdu lacks both reasoning-oriented resources and models adapted for multi-step mathematical problem solving, limiting the applicability of recent progress to Urdu-speaking users. We address this gap through Riazi-8B, an Urdu mathematical reasoning model developed through a two-step adaptation process comprising continued pre-training on Urdu Wikipedia and supervised fine-tuning on Urdu Chain-of-Thought data derived from GSM8K. We evaluate Riazi-8B on MGSM-Urdu against existing Urdu instruction-tuned models. Our results show consistent improvements in answer correctness, reasoning quality, response completeness, and Urdu generation. Our findings demonstrate that combining Urdu language adaptation with reasoning-focused fine-tuning is an effective strategy for extending mathematical reasoning capabilities to low-resource languages.",
@@ -47132,51 +46698,6 @@
             },
             {
               "language": "Chinese",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.25372v1",
-        "title": "Three Buddhist Vocabularies: Computational Stylometry of the English Pali Canon across Sutta, Vinaya, and Abhidhamma",
-        "abstract": "We present a computational stylometric analysis of the Tipitaka across all three Pitakas in English translation, extending earlier work on the Sutta Pitaka alone. The corpus spans 134,831 segments from Bhikkhu Sujato's Sutta Pitaka (114,591 segments, CC0), Bhikkhu Brahmali's Vinaya Pitaka (7,923 segments, CC0 2026), I.B. Horner's 1938 Vinaya translation (2,826 segments), three English translations of the Abhidhammattha Sangaha compendium (2,077 segments), and cross-tradition Vinaya texts from the Dharmaguptaka and Mulasarvastivada schools. We compute Zipf rank-frequency distributions with OLS-fitted exponents, Moving Average TTR (MATTR-500), numeral-word density, and vocabulary overlap (Jaccard and Szymkiewicz-Simpson coefficients). Main findings: (1) all corpora show Zipf-consistent distributions (R2 > 0.989); the Vinaya is closest to ideal Zipf slope -1 and the Sangaha corpus deviates most, with 'consciousness' displacing grammatical particles at rank 8; (2) MATTR-500 shows the Sutta and Vinaya Theravada are nearly identical in lexical diversity (0.399 and 0.400), while the Sangaha corpus is genuinely more diverse (0.560), confirmed by size-controlled subsampling; (3) the Sangaha corpus has the highest numeral-word density (3.26%), consistent with its systematic enumeration of mental and material categories; (4) the Mulasarvastivada Vinaya shares 20.0% vocabulary (Jaccard) and 49.1% (overlap coefficient) with the Theravada Vinaya, reflecting shared legal heritage across two millennia; (5) two English translations of the same Vinaya source text share only 24.2% of their vocabulary across 88 years, with 'musing' versus 'absorption' for jhana and 'defeat' versus 'expulsion' for parajika as the most diagnostic shifts. All results are point estimates; no significance testing is conducted. Code and data are released as open-source extensions to the Darshana Graph corpus (arXiv:2606.18222).",
-        "authors": [
-          "Joy Bose"
-        ],
-        "published": "2026-06-24T04:06:23Z",
-        "updated": "2026-06-24T04:06:23Z",
-        "categories": [
-          "cs.CL",
-          "cs.IR"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.25372v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
               "class": 5
             }
           ]
@@ -50421,64 +49942,6 @@
             },
             {
               "language": "Spanish",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.25231v2",
-        "title": "Towards Structuring an Arabic-English Machine-Readable Dictionary Using Parsing Expression Grammars",
-        "abstract": "Dictionaries are rich sources of lexical information about words that is required for many applications of natural language processing and human language technology. However, publishers prepare printed dictionaries for human usage not for machine processing. This paper presented a method to structure partly a machine-readable version of the Arabic-English Al-Mawrid dictionary. The method converted the entries of Al-Mawrid from a stream of words and punctuation marks into hierarchical structures. The hierarchical structure expresses the components of each dictionary entry in explicit format. A dictionary entry is composed of subentries and each subentry consists of defining phrases, domain labels, cross-references, and translation equivalences. We designed the proposed method as cascaded steps where parsing is the main step. We implemented the parser using the parsing expression grammars formalism. In conclusion, although Arabic dictionaries do not have microstructure standardization, this study demonstrated that it is possible to structure them automatically or semi-automatically with plausible accuracy after inducing their microstructure.",
-        "authors": [
-          "Diaa Mohamed Fayed",
-          "Aly A. Fahmy",
-          "Mohsen A. Rashwan",
-          "Wafaa K. Fayed"
-        ],
-        "published": "2026-06-23T23:17:51Z",
-        "updated": "2026-06-26T07:33:42Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.25231v2",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Arabic",
-              "class": 5
-            },
-            {
-              "language": "English",
               "class": 5
             }
           ]
@@ -55344,57 +54807,6 @@
             {
               "language": "Reel",
               "class": 0
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.24758v1",
-        "title": "CANDLE: Character-level Arabic Noise Deduplication using Lightweight Encoder",
-        "abstract": "Handling repeated characters in text can be tricky, since they can represent either the correct spelling of a word or informal character elongation often seen in social media posts. We present CANDLE, a lightweight system for character-level Arabic noise deduplication that addresses this challenge without relying on handcrafted rules, dictionaries, or morphological analyzers. At the heart of CANDLE is a novel application of Connectionist Temporal Classification (CTC) to this task, a formulation not previously explored for character deduplication, which frames normalization as a sequence alignment problem over a character-based encoder. Evaluated on three benchmarks spanning clean newspaper, manually curated ambiguous cases, and real-world social media text, the CTC model achieves a Sentence Error Rate (SER) as low as $5.37\\%$ and consistently outperforms a classification-based baseline by a large margin. To reduce inference overhead, we distill the 6-layer CTC model into a 2-layer student, achieving a $3\\times$ depth reduction with minimal performance degradation. Beyond deduplication accuracy, normalization yields a practical downstream benefit: a relative reduction in tokenizer fertility of up to $12.8\\%$ across a diverse set of Arabic LLM tokenizers, directly lowering inference costs and improving context window utilization. We release all code and models publicly to support reproducibility and advance future research\\footnote{https://github.com/abjadai/candle}.",
-        "authors": [
-          "Faris Alasmary",
-          "Taif Nono",
-          "Orjuwan Zaafarani",
-          "Kholood Al Tabash",
-          "Ahmad Ghannam",
-          "Anas Salamah",
-          "Shouq Sadah",
-          "Lahouari Ghouti"
-        ],
-        "published": "2026-06-23T16:17:24Z",
-        "updated": "2026-06-23T16:17:24Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.24758v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Arabic",
-              "class": 5
             }
           ]
         }
@@ -61088,113 +60500,6 @@
               "class": 0,
               "needs_review": true,
               "flag_reason": "BO = Bayesian Optimization (GP-BO); also could be a common given name appearing in author lists"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.24359v1",
-        "title": "Automatic Part-of-Speech Tagging of Arabic-English Dictionary Senses through WordNet",
-        "abstract": "This paper proposed an algorithm for part-of-speech (POS) tagging senses of a bilingual dictionary. The algorithm is applied on the Al-Mawrid Arabic-English dictionary. The tagging task is accomplished by transferring the POS tags of the English translation equivalences (TEs) to the dictionary senses after dis-ambiguities process. The English POS tags of senses are acquired from the Princeton WordNet. POS tagging of bilingual dictionary senses is prerequisite to link a bilingual dictionary to WordNet and/or standardizing that dictionary into WordNet-LMF format where the synset (set of synonyms), not word, is the basic brick. The registered accuracy is high though the cost is little. Building NLP/HLT tools needs linguistic experts, large investments, and long time. For statistical approach, we need large annotated corpora and for rule-based approach, we need large lexicon that contains rich linguistic and world knowledge. That motivates the appearance of what are called resource-light approaches to develop natural language processing (NLP) tools for poor-resource languages.",
-        "authors": [
-          "Diaa M. Fayed",
-          "Aly A. Fahmy",
-          "Mohsen A. Rashwan",
-          "Wafaa K. Fayed"
-        ],
-        "published": "2026-06-23T09:49:26Z",
-        "updated": "2026-06-23T09:49:26Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.24359v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Arabic",
-              "class": 5
-            },
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.24337v1",
-        "title": "Meet UD_Czech-PDTC: A Large and Genre-Rich Treebank in Universal Dependencies",
-        "abstract": "Czech has been part of Universal Dependencies since its first release in 2015. It has also been one of the best represented languages, with the Prague Dependency Treebank being order of magnitude larger than most other UD treebanks. More recently, three other datasets from the Prague family were added and the annotations thoroughly revisited, forming the \"Prague Dependency Treebank-Consolidated\" (PDT-C). In comparison to the original PDT, PDT-C is more than twice as large, but it is also much more diverse in terms of genres and domains. In this paper, we describe the conversion of the new resource to Universal Dependencies. While the two annotation schemes are relatively similar at the first sight, there are numerous small differences in topology of the dependency structures and in granularity of the POS and relation type inventories. We demonstrate a selection of such differences on examples, discuss the diverging motivations, as well as ways to overcome the differences during conversion. We argue that while PDT is less \"universal\" and more tightly bound to one language, its multi-layer annotation is rich and provides all information needed for basic UD trees, and much more.",
-        "authors": [
-          "Marie Mikulová",
-          "Barbora Štěpánková",
-          "Daniel Zeman",
-          "Jan Štěpánek",
-          "Milan Straka",
-          "Jan Hajič"
-        ],
-        "published": "2026-06-23T09:22:42Z",
-        "updated": "2026-06-23T09:22:42Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.24337v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Czech",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Czech",
-              "class": 4
             }
           ]
         }
@@ -77977,64 +77282,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.23144v1",
-        "title": "Koshur Pixel: a large-scale synthetic ocr dataset for kashmiri",
-        "abstract": "Optical Character Recognition (OCR) for low-resource languages is often constrained by the lack of annotated training data and the complexity of script-specific rendering. Kashmiri, written primarily in the Perso-Arabic Nastaliq script, presents additional challenges due to contextual glyph shaping, dense ligatures, and orthographic variability. We introduce Koshur Pixel, the first large-scale synthetic OCR dataset for Kashmiri, comprising 613,078 image-text pairs generated from the KS-PRET-5M corpus using the SynthOCR-Gen framework. The dataset spans multiple fonts and textual granularities, ranging from individual words to full-page documents, and incorporates more than 25 augmentation strategies that emulate real-world document degradations. Koshur Pixel provides a scalable and cost-effective alternative to manual annotation, establishing a foundational resource for training OCR systems, digitizing Kashmiri textual heritage, and advancing language technologies for a severely under-resourced language.",
-        "authors": [
-          "Haq Nawaz Malik",
-          "Faizan Iqbal",
-          "Nahfid Nissar"
-        ],
-        "published": "2026-06-22T10:42:36Z",
-        "updated": "2026-06-22T10:42:36Z",
-        "categories": [
-          "cs.CV",
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.23144v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Kashmiri",
-          "class": 2,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Kashmiri",
-              "class": 2
-            },
-            {
-              "language": "Arabic",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.24597v1",
         "title": "Qwen-AgentWorld: Language World Models for General Agents",
         "abstract": "A world model predicts environment dynamics based on current observations and actions, serving as a core cognitive mechanism for reasoning and planning. In this work, we investigate how world modeling based on language models can further push the boundaries of general agents. (i) We first focus on building foundation models for agentic environment simulation. We introduce Qwen-AgentWorld-35B-A3B and Qwen-AgentWorld-397B-A17B, the first language world models capable of simulating agentic environments covering 7 domains via long chain-of-thought reasoning. Leveraging more than 10M environment interaction trajectories of 7 domains in real-world environments, we develop Qwen-AgentWorld through a three-stage training pipeline: CPT injects general-purpose world modeling capabilities from the state transition dynamics and augmented professional corpora, SFT activates next-state-prediction reasoning, and RL sharpens simulation fidelity through a tailored framework with hybrid rubric-and-rule rewards. To evaluate language world models, we present AgentWorldBench, a comprehensive benchmark constructed from real-world interactions of 5 frontier models on 9 established benchmarks. Empirical results demonstrate that Qwen-AgentWorld significantly outperforms existing frontier models. (ii) Beyond foundation models, we further investigate two complementary paradigms through which world modeling enhances general agents. First, as a decoupled environment simulator, Qwen-AgentWorld supports scalable and controllable simulation of thousands of real-world environments for agentic RL, yielding gains that surpass real-environment training alone. Second, as a unified agent foundation model, world-model training acts as a highly effective warm-up that improves downstream performance across 7 agentic benchmarks. Code: https://github.com/QwenLM/Qwen-AgentWorld",
@@ -81363,63 +80610,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.23002v1",
-        "title": "Machine Translation and Post-Editing: Comparative Evaluation of Different MT Systems and Post-Editor Groups in Specialised Translation",
-        "abstract": "This article aims to evaluate the quality of machine translation (MT) and post-editing (PE) in the context of specialised translation from English into French. Three MT systems (DeepL, eTranslation and Systran) were compared, and two groups of post-editors -linguists/translators and NLP experts -were asked to perform post-editing. Translation assessment is based on error annotation using an error typology adapted to MT and PE evaluation. The results reveal significant differences between the three MT systems and the two groups of post-editors, particularly in terms of terminological accuracy and fluency. This study highlights the importance of domain knowledge in specialised translation, as well as the limitations and variable performance of MT systems in language for specific purposes (LSP).",
-        "authors": [
-          "Joachim Minder",
-          "Alexandra Mestivier",
-          "Natalie Kübler"
-        ],
-        "published": "2026-06-22T08:17:06Z",
-        "updated": "2026-06-22T08:17:06Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.23002v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "French",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "French",
-              "class": 5
-            },
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.23112v1",
         "title": "Self-Evolution for Multi-Turn Tool-Calling Agents via Divergence-Point Preference Learning",
         "abstract": "Multi-turn tool-using agents must coordinate long-horizon tool sequences while tracking dialogue state and policy constraints. Existing approaches often separate inference-time orchestration from parameter-level learning, leaving tool selection weakly structured and preference updates vulnerable to train--deployment prompt mismatch. For within-benchmark self-improvement, ToolGraph combines schema-derived topology, transition weights estimated from successful rollouts, and history-aware controls for write prerequisites and repeated-search loops. We then construct 161 preference pairs by locating divergence points via state-based matching and prefix-based alignment, filtered through action-correctness annotations, and train DPO under the same ToolGraph context used at inference. Across 375 tau2-bench tasks, ToolGraph raises the weighted average reward from 0.304 to 0.338 (+11.2% relative), while ToolGraph+DPO reaches 0.355 (+16.8% over the baseline), with the DPO gain concentrated in airline and retail. Fine-grained diagnostics further show that roughly half of telecom trajectories exhaust the step budget before action execution and that chosen reward positivity is the most useful checkpoint signal across our 16 evaluated DPO configurations.",
@@ -81804,55 +80994,6 @@
             {
               "language": "Thai",
               "class": 3
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.22886v1",
-        "title": "Explanation-Guided Medical Named Entity Recognition with Stability and Boundary Awareness for Atopic Dermatitis",
-        "abstract": "Objective: This study aims to improve the reliability and robustness of medical named entity recognition (NER) in Chinese atopic dermatitis (AD) clinical texts through explanation-guided learning. Methods: We propose a stability and boundary-aware explanation-guided NER framework. Perturbation-based analysis is used to evaluate explanation stability and entity boundary sensitivity. An adaptive fusion strategy dynamically combines local and global explanation to generate more reliable token-level explanations. The fused explanation signals are further incorporated into model training through stability, boundary-aware, and consistency constraints. Results: Experiments on Chinese AD NER datasets show that the proposed framework improves explanation robustness and achieves consistent performance gains across multiple NER models. The adaptive fusion strategy also provides more stable explanations and stronger boundary perception than individual explanation methods. Conclusion: The proposed method effectively integrates reliable explanation signals into medical NER training, improving both recognition performance and explanation reliability. The framework provides a practical and generalizable solution for explainable medical NER and offers reliable support for downstream clinical decision-making and medical knowledge applications.",
-        "authors": [
-          "Xueguang Li",
-          "Di Lin",
-          "Xue Jiang",
-          "Yanxi Li",
-          "Yugang Chi"
-        ],
-        "published": "2026-06-22T05:56:36Z",
-        "updated": "2026-06-22T05:56:36Z",
-        "categories": [
-          "cs.CL",
-          "cs.AI"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.22886v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Chinese",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Chinese",
-              "class": 5
             }
           ]
         }
@@ -83666,63 +82807,6 @@
             {
               "language": "Italian",
               "class": 4
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2606.22745v1",
-        "title": "Language-Specific Sentiment Polarity Biases in Encoder and Large Language Model Classification of Product Reviews",
-        "abstract": "This study investigates sentiment polarity biases, specifically, differences in how accurately AI models classify positive versus negative reviews across languages and model architectures. Large language models show a negative bias in French and are more accurate on negative reviews, while encoder models exhibit positive bias in Japanese, missing negative reviews that use indirect criticism. These language-specific polarity biases have implications in both social and business domains deploying multilingual sentiment analysis systems.",
-        "authors": [
-          "Advita Rajiv",
-          "Kavitha Kothur",
-          "Gautham Reddy"
-        ],
-        "published": "2026-06-22T01:16:04Z",
-        "updated": "2026-06-22T01:16:04Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.22745v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "French",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Japanese",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "French",
-              "class": 5
-            },
-            {
-              "language": "Japanese",
-              "class": 5
             }
           ]
         }
@@ -91721,6 +90805,922 @@
               "class": 0,
               "needs_review": true,
               "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.28457v1",
+        "title": "Extracting Knowledge from an Arabic-English Machine-Readable Dictionary Using Information Extraction",
+        "abstract": "Natural language processing (NLP) applications need large and rich amount of linguistic knowledge. Furthermore, electronic language sources such as dictionaries, encyclopedia, and corpora became available. So, automatic methods are emerged to extract lexical information from those sources to overcome the knowledge acquisition bottleneck. We presented a method to automatically extract lexical information from a machine-readable version of the Arabic-English Al-Mawrid dictionary. We used n-gram analysis and key-word-in-context (KWIC) analysis to discover lexical patterns that manifest morphologic, syntactic, or semantic information. Then, we used hand-crafted rule-based information extraction to extract that information. Furthermore, we used punctuation marks and some heuristics to extract a set of synonyms in a subentry. This study registered high precision for all types of information, high recall for synonyms, and low recall for the other information. The study also showed that the Al-Mawrid has significant amount of derivations (morphologic information) and synonyms, domain labels, and hyponym/hypernym relations (semantic information).",
+        "authors": [
+          "Diaa M. Fayed",
+          "Aly A. Fahmy",
+          "Mohsen A. Rashwan",
+          "Wafaa K. Fayed"
+        ],
+        "published": "2026-06-26T11:52:27Z",
+        "updated": "2026-06-26T11:52:27Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.28457v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.28999v1",
+        "title": "BERTomelo: Your Portuguese Encoder Best Friend",
+        "abstract": "Encoders have become the state of the art for multiple NLP tasks, especially those requiring deep contextual understanding. While multilingual models offer broad coverage, dedicated monolingual encoders are essential for capturing the unique lexical and syntactic nuances of specific languages. For Portuguese, however, existing monolingual options like BERTimbau and Albertina have not kept pace with recent architectural breakthroughs, often lagging behind English benchmarks in scalability and efficiency. This work introduces BERTomelo, a next-generation monolingual encoder pre-trained from scratch and specifically optimized for the Portuguese language. By leveraging the ModernBERT architecture, BERTomelo overcomes the limitations of previous models, offering Base and Large versions with a 1,024-token context window and hardware-level optimizations like FlashAttention and alternating attention mechanisms. The model was trained on ClassiCC-PT, a massive, high-quality Portuguese corpus of 106 million documents, ensuring superior alignment with the language's contemporary usage. The results demonstrate that BERTomelo not only outperforms previous Portuguese encoders but also provides a more robust and efficient alternative to massive multilingual models in downstream tasks such as STS and NER.",
+        "authors": [
+          "Rennê Ruan Alves Oliveira",
+          "Gustavo Cordeiro Galvão Van Erven",
+          "Luís Paulo Faina Garcia"
+        ],
+        "published": "2026-06-27T16:23:17Z",
+        "updated": "2026-06-27T16:23:17Z",
+        "categories": [
+          "cs.CL",
+          "cs.AI"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.28999v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Portuguese",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Portuguese",
+              "class": 4
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.26803v1",
+        "title": "From Vajrayana Tara to Bengali Baul: A Computational Study of Lexical Transmission Across Buddhist, Shakta, and Vaishnava Traditions in Bengal",
+        "abstract": "We present a computational corpus study of vocabulary relationships across eight tradition layers of Bengali and Sanskrit devotional literature spanning the 8th to 19th centuries, encompassing Buddhist Vajrayana, Shakta Tantra, Vaishnava, and Baul traditions. Using a corpus of 75 texts and TF-IDF character n-gram vectorization with cosine similarity analysis, we address the historically argued but previously unquantified claim that Buddhist Vajrayana vocabulary survived the collapse of the Pala monasteries and was absorbed into the Shakta Tantra tradition of Bengal. The central finding is a specificity result: the Gitagovinda (Vaishnava Sanskrit, 12th century) has zero cosine similarity to Shakta Kali texts, while Bridge Tara texts (Buddhist-Shakta transitional, same century, same language) have cosine similarity 0.54 to Shakta Kali. This 8.5-fold contrast between two Sanskrit traditions from the same century demonstrates that the Buddhist-Shakta vocabulary overlap is not a generic property of Sanskrit devotional literature but is specific to the Buddhist-Shakta transmission chain. Three Brihannilatantra Tara texts show Shakta-to-Buddhist vocabulary ratios of 2.0 to 4.0, constituting measurable evidence of lexical transition within that chain. Ramprasad Sen's 18th-century Bengali Kali songs preserve Buddhist vocabulary residue including 56 occurrences of Tara alongside 103 occurrences of Kali. The Vaishnava Bengali tradition contributes a parallel chain to modern Baul vocabulary (similarity 0.29), slightly weaker than the Buddhist Sahajiya chain via Charyapada (0.31). These results provide the first quantitative multi-tradition corroboration of historically argued Buddhist-Shakta syncretism in Bengal.",
+        "authors": [
+          "Joy Bose"
+        ],
+        "published": "2026-06-25T09:40:13Z",
+        "updated": "2026-06-25T09:40:13Z",
+        "categories": [
+          "cs.CL",
+          "cs.IR"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.26803v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Sanskrit",
+          "class": 2,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Bengali",
+          "class": 3,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Sanskrit",
+              "class": 2
+            },
+            {
+              "language": "Bengali",
+              "class": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.27306v1",
+        "title": "Multilingual Reasoning Cascades Need More Context",
+        "abstract": "Translation cascades for reasoning translate the query from another language to English, reason in English, and translate the answer back to the original language. This is a competitive approach to multilingual reasoning, but structurally lossy, since each stage discards information later stages may need, including cues for cultural grounding, register, and disambiguation. We examine the benefits of a simple and training-free intervention: a context-aware translation cascade, which additionally provides the original question, the English translated question, and the reasoning trace to the context of the final translation module. We evaluate gains across nine multilingual benchmarks including various task types, three backbone models, and 285 high-, mid-, and low-resource languages, and demonstrate strong gains for open-ended generation across models and resource regimes. We show that the original language question carries most of the beneficial context. Our study emphasizes the need to better design information flow in machine translation cascades for mitigating error propagation, and provides a simple and actionable default strategy: preserve the original user question until the end of the pipeline.",
+        "authors": [
+          "Arnav Mazumder",
+          "Dengjia Zhang",
+          "Shuyue Stella Li",
+          "Yulia Tsvetkov",
+          "Niyati Bafna"
+        ],
+        "published": "2026-06-25T17:26:46Z",
+        "updated": "2026-06-25T17:26:46Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.27306v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.27981v1",
+        "title": "ToxiREX: A Dataset on Toxic REasoning in ConteXt",
+        "abstract": "We introduce a new, contextual, multilingual dataset called ToxiREX: Toxic REasoning in ConteXt. The dataset consists of threads of Reddit comments and structured characterizations of what the comments imply, following a systematic toxic reasoning schema developed in a previous paper. Using the schema allows us to capture and explain implicit and context-dependent toxicity, while supporting mappings to existing toxicity taxonomies. The dataset includes comments in six languages (English, Arabic, Turkish, Spanish, German, and Dutch), collected from posts connected to specific major events (e.g. the 2023 Turkey earthquakes; the Russian invasion of Ukraine). We describe the context-preserving preprocessing of the threads. We create a training set of 125 thousand comments which is annotated by a commercially available LLM, and a test set of just under three thousand comments that is annotated by native speakers. We show that apparent disagreements in the test set annotations often reflect defensible alternative interpretations rather than noise. Finally, we provide baseline results by prompting and fine-tuning language models. To produce these results, we develop evaluation strategies for our hierarchical, schema-based predictions. While models perform better than random, there remains a lot of room for improvement, showing the task to be challenging. ToxiREX is the first dataset to simultaneously incorporate multiple languages, conversational context, and implicit toxicity, while using the toxic reasoning schema for rich, structured annotations. Dataset available at: https://github.com/cltl/toxirex",
+        "authors": [
+          "Stefan F. Schouten",
+          "Ilia Markov",
+          "Piek Vossen"
+        ],
+        "published": "2026-06-26T11:30:42Z",
+        "updated": "2026-06-26T11:30:42Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.27981v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Dutch",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Turkish",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Spanish",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "German",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Dutch",
+              "class": 4
+            },
+            {
+              "language": "Turkish",
+              "class": 4
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Spanish",
+              "class": 5
+            },
+            {
+              "language": "German",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.26485v1",
+        "title": "Utilizing Cognitive Signals Generated during Human Reading to Enhance Keyphrase Extraction from Microblogs",
+        "abstract": "Microblogging platforms generate massive amounts of short, noisy, and dispersed user content, making automatic keyphrase extraction (AKE) an important but challenging task. Prior studies have used eye-tracking signals to improve microblog-based AKE because such signals reflect readers' attention to salient words. However, eye tracking alone is limited by physiological, acquisition, and feature-decoding constraints. To address this issue, we investigate whether electroencephalogram (EEG) signals can complement eye-tracking signals for AKE. Using the ZuCo cognitive language processing corpus, we select 8 EEG features and 17 eye-tracking features and incorporate them into microblog-based AKE models. To reduce possible distortion of cognitive signals by model structures, we inject these features into the input of the soft-attention layer and the query vectors of the self-attention layer. We then evaluate different combinations of cognitive signals across AKE models. The results show that cognitive signals produced during reading consistently improve AKE performance, regardless of feature combinations and model architectures. EEG features bring the largest gains, while combining EEG and eye-tracking features yields performance between the two individual signal types, suggesting partial complementarity but also possible redundancy or noise. These findings indicate that EEG signals provide useful cognitive evidence for microblog-based AKE and that multimodal cognitive signals deserve further investigation.",
+        "authors": [
+          "Xinyi Yan",
+          "Yingyi Zhang",
+          "Chengzhi Zhang"
+        ],
+        "published": "2026-06-25T00:43:12Z",
+        "updated": "2026-06-25T00:43:12Z",
+        "categories": [
+          "cs.CL",
+          "cs.DL",
+          "cs.HC",
+          "cs.IR"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.26485v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Ake",
+          "class": 0,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Ake",
+              "class": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.25495v1",
+        "title": "Spam and Sentiment Detection in Arabic Tweets Using MARBERT Model",
+        "abstract": "Saudi Telecom Company (STC) is among the most popular companies in Saudi Arabia, with many customers. Yet, there is still a big room for improvement in users' satisfaction. Social media is the most robust platform to gauge users' satisfaction and determine their sentiments and critics. Twitter is among the most popular social media platform in this regard. STC customers prefer to use Twitter to write their feedback because it's a fast way to get responses due to the STC customer services account. One way to achieve customer demands and improve customer service is using the Sentiment Analysis tool. Sentiment Analysis on Twitter is highly used because of the significant number of tweets and the different opinions. Likewise, Deep learning is the best existing Sentiment Analysis method, and it has diverse models. Bidirectional Encoder Representations from Transformers (BERT) model is one of the deep learning models which have achieved excellent results in Sentiment Analysis for Natural Language Processing (NLP). NLP is mainly investigated in the English language. However, for Arabic, there is a significant gap to be filled. This study trained the proposed model using MARBERT and measured the performance using f1-score, precision, and recall metrics. We trained the model with an Arabic dataset of 24,513 tweets, including 1,437 positive, 13,828 negative, 5,694 neutral, 1,221 sarcasm, and 2,297 indeterminate tweets. The main goal is to analyze the tweets and get the sentiment to improve STC customer service. The proposed scheme is promising in terms of accuracy in contrast to existing techniques in the literature.",
+        "authors": [
+          "Abrar Alotaibi",
+          "Atta-ur Rahman",
+          "Raheel Alhaza",
+          "Wala Alkhalifa",
+          "Narjes Alhajjaj",
+          "Atheer Alharthi",
+          "Dhai Abushoumi",
+          "Maryam Alqahtani",
+          "Dania Alkhulaifi"
+        ],
+        "published": "2026-06-24T07:22:39Z",
+        "updated": "2026-06-24T07:22:39Z",
+        "categories": [
+          "cs.CL",
+          "cs.AI"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.25495v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.25372v1",
+        "title": "Three Buddhist Vocabularies: Computational Stylometry of the English Pali Canon across Sutta, Vinaya, and Abhidhamma",
+        "abstract": "We present a computational stylometric analysis of the Tipitaka across all three Pitakas in English translation, extending earlier work on the Sutta Pitaka alone. The corpus spans 134,831 segments from Bhikkhu Sujato's Sutta Pitaka (114,591 segments, CC0), Bhikkhu Brahmali's Vinaya Pitaka (7,923 segments, CC0 2026), I.B. Horner's 1938 Vinaya translation (2,826 segments), three English translations of the Abhidhammattha Sangaha compendium (2,077 segments), and cross-tradition Vinaya texts from the Dharmaguptaka and Mulasarvastivada schools. We compute Zipf rank-frequency distributions with OLS-fitted exponents, Moving Average TTR (MATTR-500), numeral-word density, and vocabulary overlap (Jaccard and Szymkiewicz-Simpson coefficients). Main findings: (1) all corpora show Zipf-consistent distributions (R2 > 0.989); the Vinaya is closest to ideal Zipf slope -1 and the Sangaha corpus deviates most, with 'consciousness' displacing grammatical particles at rank 8; (2) MATTR-500 shows the Sutta and Vinaya Theravada are nearly identical in lexical diversity (0.399 and 0.400), while the Sangaha corpus is genuinely more diverse (0.560), confirmed by size-controlled subsampling; (3) the Sangaha corpus has the highest numeral-word density (3.26%), consistent with its systematic enumeration of mental and material categories; (4) the Mulasarvastivada Vinaya shares 20.0% vocabulary (Jaccard) and 49.1% (overlap coefficient) with the Theravada Vinaya, reflecting shared legal heritage across two millennia; (5) two English translations of the same Vinaya source text share only 24.2% of their vocabulary across 88 years, with 'musing' versus 'absorption' for jhana and 'defeat' versus 'expulsion' for parajika as the most diagnostic shifts. All results are point estimates; no significance testing is conducted. Code and data are released as open-source extensions to the Darshana Graph corpus (arXiv:2606.18222).",
+        "authors": [
+          "Joy Bose"
+        ],
+        "published": "2026-06-24T04:06:23Z",
+        "updated": "2026-06-24T04:06:23Z",
+        "categories": [
+          "cs.CL",
+          "cs.IR"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.25372v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.25231v2",
+        "title": "Towards Structuring an Arabic-English Machine-Readable Dictionary Using Parsing Expression Grammars",
+        "abstract": "Dictionaries are rich sources of lexical information about words that is required for many applications of natural language processing and human language technology. However, publishers prepare printed dictionaries for human usage not for machine processing. This paper presented a method to structure partly a machine-readable version of the Arabic-English Al-Mawrid dictionary. The method converted the entries of Al-Mawrid from a stream of words and punctuation marks into hierarchical structures. The hierarchical structure expresses the components of each dictionary entry in explicit format. A dictionary entry is composed of subentries and each subentry consists of defining phrases, domain labels, cross-references, and translation equivalences. We designed the proposed method as cascaded steps where parsing is the main step. We implemented the parser using the parsing expression grammars formalism. In conclusion, although Arabic dictionaries do not have microstructure standardization, this study demonstrated that it is possible to structure them automatically or semi-automatically with plausible accuracy after inducing their microstructure.",
+        "authors": [
+          "Diaa Mohamed Fayed",
+          "Aly A. Fahmy",
+          "Mohsen A. Rashwan",
+          "Wafaa K. Fayed"
+        ],
+        "published": "2026-06-23T23:17:51Z",
+        "updated": "2026-06-26T07:33:42Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.25231v2",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.24758v1",
+        "title": "CANDLE: Character-level Arabic Noise Deduplication using Lightweight Encoder",
+        "abstract": "Handling repeated characters in text can be tricky, since they can represent either the correct spelling of a word or informal character elongation often seen in social media posts. We present CANDLE, a lightweight system for character-level Arabic noise deduplication that addresses this challenge without relying on handcrafted rules, dictionaries, or morphological analyzers. At the heart of CANDLE is a novel application of Connectionist Temporal Classification (CTC) to this task, a formulation not previously explored for character deduplication, which frames normalization as a sequence alignment problem over a character-based encoder. Evaluated on three benchmarks spanning clean newspaper, manually curated ambiguous cases, and real-world social media text, the CTC model achieves a Sentence Error Rate (SER) as low as $5.37\\%$ and consistently outperforms a classification-based baseline by a large margin. To reduce inference overhead, we distill the 6-layer CTC model into a 2-layer student, achieving a $3\\times$ depth reduction with minimal performance degradation. Beyond deduplication accuracy, normalization yields a practical downstream benefit: a relative reduction in tokenizer fertility of up to $12.8\\%$ across a diverse set of Arabic LLM tokenizers, directly lowering inference costs and improving context window utilization. We release all code and models publicly to support reproducibility and advance future research\\footnote{https://github.com/abjadai/candle}.",
+        "authors": [
+          "Faris Alasmary",
+          "Taif Nono",
+          "Orjuwan Zaafarani",
+          "Kholood Al Tabash",
+          "Ahmad Ghannam",
+          "Anas Salamah",
+          "Shouq Sadah",
+          "Lahouari Ghouti"
+        ],
+        "published": "2026-06-23T16:17:24Z",
+        "updated": "2026-06-23T16:17:24Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.24758v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Arabic",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.24359v1",
+        "title": "Automatic Part-of-Speech Tagging of Arabic-English Dictionary Senses through WordNet",
+        "abstract": "This paper proposed an algorithm for part-of-speech (POS) tagging senses of a bilingual dictionary. The algorithm is applied on the Al-Mawrid Arabic-English dictionary. The tagging task is accomplished by transferring the POS tags of the English translation equivalences (TEs) to the dictionary senses after dis-ambiguities process. The English POS tags of senses are acquired from the Princeton WordNet. POS tagging of bilingual dictionary senses is prerequisite to link a bilingual dictionary to WordNet and/or standardizing that dictionary into WordNet-LMF format where the synset (set of synonyms), not word, is the basic brick. The registered accuracy is high though the cost is little. Building NLP/HLT tools needs linguistic experts, large investments, and long time. For statistical approach, we need large annotated corpora and for rule-based approach, we need large lexicon that contains rich linguistic and world knowledge. That motivates the appearance of what are called resource-light approaches to develop natural language processing (NLP) tools for poor-resource languages.",
+        "authors": [
+          "Diaa M. Fayed",
+          "Aly A. Fahmy",
+          "Mohsen A. Rashwan",
+          "Wafaa K. Fayed"
+        ],
+        "published": "2026-06-23T09:49:26Z",
+        "updated": "2026-06-23T09:49:26Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.24359v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.24337v1",
+        "title": "Meet UD_Czech-PDTC: A Large and Genre-Rich Treebank in Universal Dependencies",
+        "abstract": "Czech has been part of Universal Dependencies since its first release in 2015. It has also been one of the best represented languages, with the Prague Dependency Treebank being order of magnitude larger than most other UD treebanks. More recently, three other datasets from the Prague family were added and the annotations thoroughly revisited, forming the \"Prague Dependency Treebank-Consolidated\" (PDT-C). In comparison to the original PDT, PDT-C is more than twice as large, but it is also much more diverse in terms of genres and domains. In this paper, we describe the conversion of the new resource to Universal Dependencies. While the two annotation schemes are relatively similar at the first sight, there are numerous small differences in topology of the dependency structures and in granularity of the POS and relation type inventories. We demonstrate a selection of such differences on examples, discuss the diverging motivations, as well as ways to overcome the differences during conversion. We argue that while PDT is less \"universal\" and more tightly bound to one language, its multi-layer annotation is rich and provides all information needed for basic UD trees, and much more.",
+        "authors": [
+          "Marie Mikulová",
+          "Barbora Štěpánková",
+          "Daniel Zeman",
+          "Jan Štěpánek",
+          "Milan Straka",
+          "Jan Hajič"
+        ],
+        "published": "2026-06-23T09:22:42Z",
+        "updated": "2026-06-23T09:22:42Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.24337v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Czech",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Czech",
+              "class": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.23144v1",
+        "title": "Koshur Pixel: a large-scale synthetic ocr dataset for kashmiri",
+        "abstract": "Optical Character Recognition (OCR) for low-resource languages is often constrained by the lack of annotated training data and the complexity of script-specific rendering. Kashmiri, written primarily in the Perso-Arabic Nastaliq script, presents additional challenges due to contextual glyph shaping, dense ligatures, and orthographic variability. We introduce Koshur Pixel, the first large-scale synthetic OCR dataset for Kashmiri, comprising 613,078 image-text pairs generated from the KS-PRET-5M corpus using the SynthOCR-Gen framework. The dataset spans multiple fonts and textual granularities, ranging from individual words to full-page documents, and incorporates more than 25 augmentation strategies that emulate real-world document degradations. Koshur Pixel provides a scalable and cost-effective alternative to manual annotation, establishing a foundational resource for training OCR systems, digitizing Kashmiri textual heritage, and advancing language technologies for a severely under-resourced language.",
+        "authors": [
+          "Haq Nawaz Malik",
+          "Faizan Iqbal",
+          "Nahfid Nissar"
+        ],
+        "published": "2026-06-22T10:42:36Z",
+        "updated": "2026-06-22T10:42:36Z",
+        "categories": [
+          "cs.CV",
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.23144v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Kashmiri",
+          "class": 2,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Kashmiri",
+              "class": 2
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.23002v1",
+        "title": "Machine Translation and Post-Editing: Comparative Evaluation of Different MT Systems and Post-Editor Groups in Specialised Translation",
+        "abstract": "This article aims to evaluate the quality of machine translation (MT) and post-editing (PE) in the context of specialised translation from English into French. Three MT systems (DeepL, eTranslation and Systran) were compared, and two groups of post-editors -linguists/translators and NLP experts -were asked to perform post-editing. Translation assessment is based on error annotation using an error typology adapted to MT and PE evaluation. The results reveal significant differences between the three MT systems and the two groups of post-editors, particularly in terms of terminological accuracy and fluency. This study highlights the importance of domain knowledge in specialised translation, as well as the limitations and variable performance of MT systems in language for specific purposes (LSP).",
+        "authors": [
+          "Joachim Minder",
+          "Alexandra Mestivier",
+          "Natalie Kübler"
+        ],
+        "published": "2026-06-22T08:17:06Z",
+        "updated": "2026-06-22T08:17:06Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.23002v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "French",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.22886v1",
+        "title": "Explanation-Guided Medical Named Entity Recognition with Stability and Boundary Awareness for Atopic Dermatitis",
+        "abstract": "Objective: This study aims to improve the reliability and robustness of medical named entity recognition (NER) in Chinese atopic dermatitis (AD) clinical texts through explanation-guided learning. Methods: We propose a stability and boundary-aware explanation-guided NER framework. Perturbation-based analysis is used to evaluate explanation stability and entity boundary sensitivity. An adaptive fusion strategy dynamically combines local and global explanation to generate more reliable token-level explanations. The fused explanation signals are further incorporated into model training through stability, boundary-aware, and consistency constraints. Results: Experiments on Chinese AD NER datasets show that the proposed framework improves explanation robustness and achieves consistent performance gains across multiple NER models. The adaptive fusion strategy also provides more stable explanations and stronger boundary perception than individual explanation methods. Conclusion: The proposed method effectively integrates reliable explanation signals into medical NER training, improving both recognition performance and explanation reliability. The framework provides a practical and generalizable solution for explainable medical NER and offers reliable support for downstream clinical decision-making and medical knowledge applications.",
+        "authors": [
+          "Xueguang Li",
+          "Di Lin",
+          "Xue Jiang",
+          "Yanxi Li",
+          "Yugang Chi"
+        ],
+        "published": "2026-06-22T05:56:36Z",
+        "updated": "2026-06-22T05:56:36Z",
+        "categories": [
+          "cs.CL",
+          "cs.AI"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.22886v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Chinese",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Chinese",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.22745v1",
+        "title": "Language-Specific Sentiment Polarity Biases in Encoder and Large Language Model Classification of Product Reviews",
+        "abstract": "This study investigates sentiment polarity biases, specifically, differences in how accurately AI models classify positive versus negative reviews across languages and model architectures. Large language models show a negative bias in French and are more accurate on negative reviews, while encoder models exhibit positive bias in Japanese, missing negative reviews that use indirect criticism. These language-specific polarity biases have implications in both social and business domains deploying multilingual sentiment analysis systems.",
+        "authors": [
+          "Advita Rajiv",
+          "Kavitha Kothur",
+          "Gautham Reddy"
+        ],
+        "published": "2026-06-22T01:16:04Z",
+        "updated": "2026-06-22T01:16:04Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.22745v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Japanese",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "French",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
             }
           ]
         }
