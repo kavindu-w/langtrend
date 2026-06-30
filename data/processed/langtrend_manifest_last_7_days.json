@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T18:12:56.996334+00:00",
+  "generated_at": "2026-06-30T18:26:31.861021+00:00",
   "window_days": 7,
   "week_start": "2026-06-22",
   "week_end": "2026-06-29",
@@ -76,16 +76,16 @@
       "count": 10
     },
     {
+      "language": "Sake",
+      "count": 10
+    },
+    {
       "language": "Thai",
       "count": 10
     },
     {
       "language": "Bo",
       "count": 10
-    },
-    {
-      "language": "Sake",
-      "count": 9
     },
     {
       "language": "Telugu",
@@ -224,6 +224,10 @@
       "count": 4
     },
     {
+      "language": "Tal",
+      "count": 4
+    },
+    {
       "language": "Slovak",
       "count": 4
     },
@@ -309,10 +313,6 @@
     },
     {
       "language": "Malay",
-      "count": 3
-    },
-    {
-      "language": "Tal",
       "count": 3
     },
     {
@@ -1195,7 +1195,7 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 301
+      "count": 303
     },
     {
       "class_id": 1,
@@ -91238,63 +91238,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.23002v1",
-        "title": "Machine Translation and Post-Editing: Comparative Evaluation of Different MT Systems and Post-Editor Groups in Specialised Translation",
-        "abstract": "This article aims to evaluate the quality of machine translation (MT) and post-editing (PE) in the context of specialised translation from English into French. Three MT systems (DeepL, eTranslation and Systran) were compared, and two groups of post-editors -linguists/translators and NLP experts -were asked to perform post-editing. Translation assessment is based on error annotation using an error typology adapted to MT and PE evaluation. The results reveal significant differences between the three MT systems and the two groups of post-editors, particularly in terms of terminological accuracy and fluency. This study highlights the importance of domain knowledge in specialised translation, as well as the limitations and variable performance of MT systems in language for specific purposes (LSP).",
-        "authors": [
-          "Joachim Minder",
-          "Alexandra Mestivier",
-          "Natalie Kübler"
-        ],
-        "published": "2026-06-22T08:17:06Z",
-        "updated": "2026-06-22T08:17:06Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.23002v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "French",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
-              "class": 5
-            },
-            {
-              "language": "French",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.22886v1",
         "title": "Explanation-Guided Medical Named Entity Recognition with Stability and Boundary Awareness for Atopic Dermatitis",
         "abstract": "Objective: This study aims to improve the reliability and robustness of medical named entity recognition (NER) in Chinese atopic dermatitis (AD) clinical texts through explanation-guided learning. Methods: We propose a stability and boundary-aware explanation-guided NER framework. Perturbation-based analysis is used to evaluate explanation stability and entity boundary sensitivity. An adaptive fusion strategy dynamically combines local and global explanation to generate more reliable token-level explanations. The fused explanation signals are further incorporated into model training through stability, boundary-aware, and consistency constraints. Results: Experiments on Chinese AD NER datasets show that the proposed framework improves explanation robustness and achieves consistent performance gains across multiple NER models. The adaptive fusion strategy also provides more stable explanations and stronger boundary perception than individual explanation methods. Conclusion: The proposed method effectively integrates reliable explanation signals into medical NER training, improving both recognition performance and explanation reliability. The framework provides a practical and generalizable solution for explainable medical NER and offers reliable support for downstream clinical decision-making and medical knowledge applications.",
@@ -106972,6 +106915,139 @@
             {
               "language": "Polish",
               "class": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.23002v1",
+        "title": "Machine Translation and Post-Editing: Comparative Evaluation of Different MT Systems and Post-Editor Groups in Specialised Translation",
+        "abstract": "This article aims to evaluate the quality of machine translation (MT) and post-editing (PE) in the context of specialised translation from English into French. Three MT systems (DeepL, eTranslation and Systran) were compared, and two groups of post-editors -linguists/translators and NLP experts -were asked to perform post-editing. Translation assessment is based on error annotation using an error typology adapted to MT and PE evaluation. The results reveal significant differences between the three MT systems and the two groups of post-editors, particularly in terms of terminological accuracy and fluency. This study highlights the importance of domain knowledge in specialised translation, as well as the limitations and variable performance of MT systems in language for specific purposes (LSP).",
+        "authors": [
+          "Joachim Minder",
+          "Alexandra Mestivier",
+          "Natalie Kübler"
+        ],
+        "published": "2026-06-22T08:17:06Z",
+        "updated": "2026-06-22T08:17:06Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.23002v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "French",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "Sake",
+          "class": 0,
+          "needs_review": true,
+          "flag_reason": "English word 'sake' in 'for the sake of' — common academic phrase, not a language",
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Tal",
+          "class": 0,
+          "sources": [
+            "pdf"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract",
+        "pdf"
+      ],
+      "sections_with_detections": [
+        "abstract",
+        "pdf_full_text"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Sake",
+              "class": 0,
+              "needs_review": true,
+              "flag_reason": "English word 'sake' in 'for the sake of' — common academic phrase, not a language"
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Tal",
+              "class": 0
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
             }
           ]
         }
