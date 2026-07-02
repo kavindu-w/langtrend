@@ -743,6 +743,58 @@ def process_papers(
 # CLI entry point
 # ---------------------------------------------------------------------------
 
+def _needs_retry(
+    p: dict,
+    detected_sources: dict[str, list[str]],
+    no_det_sources: dict[str, list[str]],
+    cached_html_ids: set[str],
+    cached_pdf_ids: set[str],
+    html_cache_dir: Path,
+) -> bool:
+    """Decide whether a paper needs another --retry-missing pass.
+
+    See the three checks below: never processed, crash leftovers (cache exists
+    but the detection entry never recorded it), and incomplete HTML that a raw
+    PDF might do better on.
+    """
+    pid = p["id"]
+    safe_id = pid.split("/")[-1]
+
+    sources = detected_sources.get(pid)
+    if sources is None:
+        nd_sources = no_det_sources.get(pid)
+        if nd_sources is None:
+            return True  # never processed at all
+        # Paper confirmed no detections — skip if html or pdf was
+        # already tried (the paper genuinely has no programming
+        # languages; retrying with PDF would just add noise).
+        if "html" in nd_sources or "pdf" in nd_sources:
+            return False
+        return True  # abstract-only → worth retrying with html/pdf
+
+    # Paper has detections — check for crash leftovers / incomplete sources.
+    # PDF cache exists but detection entry never recorded pdf/html — crashed mid-run
+    if safe_id in cached_pdf_ids and "pdf" not in sources and "html" not in sources:
+        return True
+    # No cache at all AND only abstract-only detection — HTML/PDF was never
+    # successfully attempted. Skip this check if html/pdf is already in sources:
+    # the cache may simply be absent (e.g. gitignored on a fresh checkout) even
+    # though the paper was already fully processed.
+    if safe_id not in cached_html_ids and safe_id not in cached_pdf_ids:
+        if "html" not in sources and "pdf" not in sources:
+            return True
+    # HTML cache exists but is incomplete (_complete=False) and detection is
+    # abstract-only — the HTML fetch failed so a raw PDF may provide better coverage.
+    if safe_id in cached_html_ids and "html" not in sources:
+        try:
+            cached = json.loads((html_cache_dir / f"{safe_id}.json").read_text(encoding="utf-8"))
+            if not cached.get("_complete", True):
+                return True
+        except Exception:
+            pass
+    return False
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Process papers for language detection (abstract → HTML → PDF fallback)",
@@ -869,45 +921,10 @@ def main() -> None:
                 except (json.JSONDecodeError, KeyError):
                     pass
 
-            def _needs_retry(p: dict) -> bool:
-                pid = p["id"]
-                safe_id = pid.split("/")[-1]
-
-                sources = detected_sources.get(pid)
-                if sources is None:
-                    nd_sources = no_det_sources.get(pid)
-                    if nd_sources is None:
-                        return True  # never processed at all
-                    # Paper confirmed no detections — skip if html or pdf was
-                    # already tried (the paper genuinely has no programming
-                    # languages; retrying with PDF would just add noise).
-                    if "html" in nd_sources or "pdf" in nd_sources:
-                        return False
-                    return True  # abstract-only → worth retrying with html/pdf
-
-                # Paper has detections — check for crash leftovers / incomplete sources.
-                # PDF cache exists but detection entry never recorded pdf/html — crashed mid-run
-                if safe_id in cached_pdf_ids and "pdf" not in sources and "html" not in sources:
-                    return True
-                # No cache at all AND only abstract-only detection — HTML/PDF was never
-                # successfully attempted. Skip this check if html/pdf is already in sources:
-                # the cache may simply be absent (e.g. gitignored on a fresh checkout) even
-                # though the paper was already fully processed.
-                if safe_id not in cached_html_ids and safe_id not in cached_pdf_ids:
-                    if "html" not in sources and "pdf" not in sources:
-                        return True
-                # HTML cache exists but is incomplete (_complete=False) and detection is
-                # abstract-only — the HTML fetch failed so a raw PDF may provide better coverage.
-                if safe_id in cached_html_ids and "html" not in sources:
-                    try:
-                        cached = json.loads((html_cache_dir / f"{safe_id}.json").read_text(encoding="utf-8"))
-                        if not cached.get("_complete", True):
-                            return True
-                    except Exception:
-                        pass
-                return False
-
-            subset = [p for p in papers if _needs_retry(p)]
+            subset = [
+                p for p in papers
+                if _needs_retry(p, detected_sources, no_det_sources, cached_html_ids, cached_pdf_ids, html_cache_dir)
+            ]
             label = f"--retry-missing: {len(subset)} paper(s) not yet detected or missing html/pdf cache"
 
         if not subset:

@@ -91,6 +91,38 @@ describe('loadSiteData (current window)', () => {
     expect(result.classCounts).toEqual([{ class_id: 2, count: 1 }]);
   });
 
+  it('normalizes string/array/invalid language entry shapes and alphabetizes count ties', async () => {
+    writeJson('data/processed/langtrend_manifest_last_7_days.json', {
+      daily_series: [],
+      class_counts: [],
+      flagged_papers: [
+        {
+          paper: { id: 'http://arxiv.org/abs/1', title: 'A' },
+          languages: ['Tamil', ['Sinhala', 2], { notLanguage: true }, null],
+          sources_checked: ['html'],
+          sections: [],
+        },
+        {
+          paper: { id: 'http://arxiv.org/abs/2', title: 'B' },
+          languages: ['Arabic'],
+          sources_checked: ['html'],
+          sections: [],
+        },
+      ],
+    });
+    writeJson('data/processed/language_data.json', { lang_classes: {}, languages_to_ignore: [] });
+
+    const { loadSiteData } = await importDataModule();
+    const result = loadSiteData(undefined, 7);
+
+    // Tamil, Sinhala, and Arabic all end up with count 1 -> alphabetical tie-break.
+    expect(result.languageCounts).toEqual([
+      { language: 'Arabic', count: 1 },
+      { language: 'Sinhala', count: 1 },
+      { language: 'Tamil', count: 1 },
+    ]);
+  });
+
   it('falls back to raw + processed JSONL counts when the manifest file is missing', async () => {
     writeText('data/raw/arxiv_papers_last_7_days.jsonl', '{"id":"1"}\n{"id":"2"}\n');
     writeText('data/processed/papers_with_tracked_langs_last_7_days.jsonl', '{"id":"1"}\n');
@@ -187,5 +219,22 @@ describe('loadAllWeeksData', () => {
   it('returns an empty array when there are no week directories at all', async () => {
     const { loadAllWeeksData } = await importDataModule();
     expect(loadAllWeeksData()).toEqual([]);
+  });
+
+  it('sorts multiple weeks chronologically and counts abstract-only papers', async () => {
+    writeJson('data/processed/weeks/20260525_to_20260601/langtrend_manifest.json', {
+      counts: { papers: 1, flagged_papers: 1, unique_languages: 1 },
+      flagged_papers: [{ sources_checked: ['abstract'] }], // neither html nor pdf
+    });
+    writeJson('data/processed/weeks/20260518_to_20260525/langtrend_manifest.json', {
+      counts: { papers: 1, flagged_papers: 1, unique_languages: 1 },
+      flagged_papers: [{ sources_checked: ['html'] }],
+    });
+
+    const { loadAllWeeksData } = await importDataModule();
+    const result = loadAllWeeksData();
+
+    expect(result.map((w) => w.weekStart)).toEqual(['2026-05-18', '2026-05-25']);
+    expect(result[1].coverageStats).toEqual({ htmlScanned: 0, pdfOnly: 0, abstractOnly: 1 });
   });
 });

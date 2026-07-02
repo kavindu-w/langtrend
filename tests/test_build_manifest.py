@@ -7,6 +7,7 @@ Run with: pytest tests/test_build_manifest.py -v
 import json
 import sys
 from pathlib import Path
+from unittest.mock import patch
 
 import pytest
 
@@ -36,6 +37,30 @@ def languages_to_ignore():
 
 def test_iso_date_converts_compact_to_dashed():
     assert bm._iso_date("20260518") == "2026-05-18"
+
+
+# ---------------------------------------------------------------------------
+# _find_latest_input
+# ---------------------------------------------------------------------------
+
+def test_find_latest_input_returns_none_when_metadata_dir_is_empty(tmp_path):
+    with patch("build_manifest._METADATA_DIR", tmp_path):
+        assert bm._find_latest_input() is None
+
+
+def test_find_latest_input_returns_most_recently_modified_file(tmp_path):
+    import os
+    import time
+
+    older = tmp_path / "arxiv_papers_20260504_to_20260511.jsonl"
+    newer = tmp_path / "arxiv_papers_20260518_to_20260525.jsonl"
+    older.write_text("{}\n", encoding="utf-8")
+    time.sleep(0.01)
+    newer.write_text("{}\n", encoding="utf-8")
+    os.utime(newer, (older.stat().st_mtime + 10, older.stat().st_mtime + 10))
+
+    with patch("build_manifest._METADATA_DIR", tmp_path):
+        assert bm._find_latest_input() == newer
 
 
 # ---------------------------------------------------------------------------
@@ -203,6 +228,14 @@ def test_load_html_detections_skips_sections_with_no_hits(tmp_path, lang_classes
     assert sections == []
 
 
+def test_load_html_detections_returns_none_on_corrupt_cache_file(tmp_path, lang_classes):
+    (tmp_path / "2501.00001.json").write_text("not json", encoding="utf-8")
+    dets, sections, details = bm._load_html_detections("2501.00001", tmp_path, lang_classes, {})
+    assert dets is None
+    assert sections == []
+    assert details == []
+
+
 # ---------------------------------------------------------------------------
 # _scan_abstract (real text-cleaning + detection pipeline)
 # ---------------------------------------------------------------------------
@@ -215,6 +248,12 @@ def test_scan_abstract_detects_languages_in_abstract_text(lang_classes, language
 
 def test_scan_abstract_returns_empty_list_for_missing_abstract(lang_classes, languages_to_ignore):
     assert bm._scan_abstract({"id": "1"}, lang_classes, languages_to_ignore, {}) == []
+
+
+def test_scan_abstract_returns_empty_list_when_cleaning_strips_everything(lang_classes, languages_to_ignore):
+    # A non-empty abstract that's pure inline-math cleans down to zero blocks.
+    paper = {"id": "1", "abstract": "$x_i$"}
+    assert bm._scan_abstract(paper, lang_classes, languages_to_ignore, {}) == []
 
 
 # ---------------------------------------------------------------------------
@@ -300,9 +339,43 @@ def test_flagged_from_detected_jsonl_skips_records_with_no_detections(tmp_path):
     assert bm._flagged_from_detected_jsonl(detected_path) == []
 
 
+def test_flagged_from_detected_jsonl_skips_blank_lines(tmp_path):
+    detected_path = tmp_path / "detected.jsonl"
+    record = {
+        "paper": {"id": "1"},
+        "sources_checked": ["abstract"],
+        "sections": {"abstract": {"source": "abstract", "detected_languages": [{"language": "Arabic", "class": 0}]}},
+    }
+    detected_path.write_text("\n" + json.dumps(record) + "\n\n", encoding="utf-8")
+    flagged = bm._flagged_from_detected_jsonl(detected_path)
+    assert len(flagged) == 1
+
+
 # ---------------------------------------------------------------------------
 # build_and_save (end-to-end)
 # ---------------------------------------------------------------------------
+
+def test_build_and_save_counts_pdf_failed_no_detection_papers(tmp_path, lang_classes, languages_to_ignore):
+    input_path = tmp_path / "arxiv_papers_20260518_to_20260525.jsonl"
+    input_path.write_text(
+        json.dumps({"id": "http://arxiv.org/abs/1", "published": "2026-05-18T00:00:00", "abstract": "no tracked languages"}) + "\n",
+        encoding="utf-8",
+    )
+    lang_data_path = tmp_path / "language_data.json"
+    lang_data_path.write_text(json.dumps({"lang_classes": {}, "languages_to_ignore": []}), encoding="utf-8")
+
+    output_dir = tmp_path / "weeks" / "20260518_to_20260525"
+    output_dir.mkdir(parents=True)
+    no_det_path = output_dir / "arxiv_papers_20260518_to_20260525_no_detections.json"
+    no_det_path.write_text(json.dumps([
+        {"paper_id": "1", "sources_checked": ["abstract", "pdf_unavailable"]},
+        {"paper_id": "2", "sources_checked": ["abstract", "html"]},
+    ]), encoding="utf-8")
+
+    manifest_path = bm.build_and_save(input_path, output_dir, lang_data_path, window_days=7)
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert manifest["counts"]["pdf_failed_no_detection"] == 1
+
 
 def test_build_and_save_assembles_from_caches_when_no_detected_jsonl(tmp_path, lang_classes, languages_to_ignore):
     input_path = tmp_path / "arxiv_papers_20260518_to_20260525.jsonl"

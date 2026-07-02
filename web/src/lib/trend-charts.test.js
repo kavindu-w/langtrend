@@ -8,6 +8,7 @@ import {
   classColorForLanguage,
   coverageSliceLines,
   coverageSliceLinesWithPercent,
+  coverageSlicePercent,
   fillWeekSeries,
   formatCountWithShare,
   formatPercent,
@@ -188,6 +189,18 @@ describe('aggregateTrendPeriods', () => {
     const periods = aggregateTrendPeriods(reversed, 'week');
     expect(periods.map((p) => p.periodKey)).toEqual(['2026-05-04', '2026-05-11']);
   });
+
+  it('skips language-count entries with no language', () => {
+    const weeksWithBlank = [{
+      weekStart: '2026-05-04',
+      papers: 1,
+      flaggedPapers: 1,
+      languageCounts: [{ language: '', count: 5 }, { language: 'Sinhala', count: 2 }],
+      classCounts: [],
+    }];
+    const periods = aggregateTrendPeriods(weeksWithBlank, 'week');
+    expect(periods[0].languageCounts).toEqual([{ language: 'Sinhala', count: 2 }]);
+  });
 });
 
 describe('buildBumpSegmentPath', () => {
@@ -228,6 +241,19 @@ describe('coverageSliceLines / coverageSliceLinesWithPercent', () => {
 
   it('omits the percentage when total is zero', () => {
     expect(coverageSliceLinesWithPercent('Not flagged', 1, 0)).toEqual(['Not flagged (1)']);
+  });
+
+  it('special-cases "Papers with language mentions" with a percentage too', () => {
+    expect(coverageSliceLinesWithPercent('Papers with language mentions', 1, 4)).toEqual([
+      'Papers with',
+      'language mentions (1) (25.0%)',
+    ]);
+  });
+});
+
+describe('coverageSlicePercent', () => {
+  it('delegates to formatPercent', () => {
+    expect(coverageSlicePercent(1, 4)).toBe(formatPercent(1, 4));
   });
 });
 

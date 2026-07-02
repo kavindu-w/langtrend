@@ -170,6 +170,54 @@ describe('buildPaperItem', () => {
     expect(item.coverageBadge).toBeNull();
   });
 
+  it('builds per-section chip lists, sorted by class descending', () => {
+    const item = buildPaperItem(
+      {
+        paper,
+        languages: [],
+        sourcesChecked: ['html'],
+        sections: [
+          { name: 'Intro', source: 'html', detected_languages: [['Sinhala', 2], ['Tamil', 3]] },
+          { name: '', source: 'html', detected_languages: [] }, // no name -> filtered out
+        ],
+        warnings: [],
+      },
+      0,
+      '2026-05-18',
+    );
+
+    expect(item.sections).toHaveLength(1);
+    expect(item.sections[0].label).toBe('Intro');
+    expect(item.sections[0].chips.map((c) => c.language)).toEqual(['Tamil', 'Sinhala']);
+  });
+
+  it('skips language entries that normalize to an empty string when grouping by source', () => {
+    const item = buildPaperItem(
+      { paper, languages: [{ sources: ['pdf'] }], sourcesChecked: ['pdf'], sections: [], warnings: [] },
+      0,
+      '2026-05-18',
+    );
+    expect(item.sourcesGroups).toEqual([]);
+  });
+
+  it('ignores malformed acronym-conflict warnings missing a language or acronym', () => {
+    const item = buildPaperItem(
+      {
+        paper,
+        languages: [],
+        sourcesChecked: ['abstract'],
+        sections: [],
+        warnings: [
+          { step: 'acronym_language_conflict', acronym: 'GAN' }, // no language
+          { step: 'acronym_language_conflict', language: 'Gan' }, // no acronym
+        ],
+      },
+      0,
+      '2026-05-18',
+    );
+    expect(item.suppressedChips).toEqual([]);
+  });
+
   it('collects acronym-conflict warnings into suppressedChips, skipping languages already shown as chips', () => {
     const item = buildPaperItem(
       {

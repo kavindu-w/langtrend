@@ -337,4 +337,90 @@ def test_oai_date_filter_excludes_out_of_window(tmp_path):
 
     records = [json.loads(l) for l in out.read_text().splitlines() if l.strip()]
     assert len(records) == 0
-    assert all(r["title"] != "Old Paper" for r in records)
+
+
+# ---------------------------------------------------------------------------
+# _fetch_arxiv_direct — the primary arXiv Atom API path (unit-level, not via
+# fetch_and_save — all the tests above deliberately disable this path with
+# _direct_fetch_unavailable() to reach the fallback code they're targeting).
+# ---------------------------------------------------------------------------
+
+_ATOM_NS = "http://www.w3.org/2005/Atom"
+_OPENSEARCH_NS = "http://a9.com/-/spec/opensearch/1.1/"
+
+
+def _make_atom_entry(paper_id="2501.00001", title="A Paper"):
+    return f"""
+    <entry>
+      <id>http://arxiv.org/abs/{paper_id}</id>
+      <title>{title}</title>
+      <summary>An abstract.</summary>
+      <author><name>Alice</name></author>
+      <published>2025-01-01T00:00:00Z</published>
+      <updated>2025-01-02T00:00:00Z</updated>
+      <category term="cs.CL"/>
+      <link href="http://arxiv.org/pdf/{paper_id}" type="application/pdf"/>
+    </entry>
+    """
+
+
+def _make_atom_xml(entries_xml, total_results=None):
+    total_xml = (
+        f'<opensearch:totalResults xmlns:opensearch="{_OPENSEARCH_NS}">{total_results}</opensearch:totalResults>'
+        if total_results is not None else ""
+    )
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+    <feed xmlns="{_ATOM_NS}">
+      {total_xml}
+      {entries_xml}
+    </feed>""".encode()
+
+
+def test_fetch_arxiv_direct_parses_entries_into_paper_dicts():
+    xml = _make_atom_xml(_make_atom_entry("2501.00001", "Success Paper"), total_results=1)
+    resp = MagicMock(content=xml)
+
+    with patch("fetch_arxiv_metadata.requests.get", return_value=resp):
+        papers = fam._fetch_arxiv_direct("cat:cs.CL", max_results=100)
+
+    assert len(papers) == 1
+    assert papers[0]["title"] == "Success Paper"
+    assert papers[0]["id"] == "http://arxiv.org/abs/2501.00001"
+    assert papers[0]["_fetch_source"] == "arxiv_direct"
+    assert papers[0]["pdf_url"] == "http://arxiv.org/pdf/2501.00001"
+
+
+def test_fetch_arxiv_direct_stops_when_first_page_returns_no_entries():
+    resp = MagicMock(content=_make_atom_xml(""))
+    with patch("fetch_arxiv_metadata.requests.get", return_value=resp) as mock_get:
+        papers = fam._fetch_arxiv_direct("cat:cs.CL", max_results=100)
+
+    assert papers == []
+    mock_get.assert_called_once()
+
+
+def test_fetch_arxiv_direct_raises_when_response_status_is_an_error():
+    import requests as requests_lib
+    resp = MagicMock()
+    resp.raise_for_status.side_effect = requests_lib.HTTPError("500 server error")
+
+    with patch("fetch_arxiv_metadata.requests.get", return_value=resp):
+        with pytest.raises(requests_lib.HTTPError):
+            fam._fetch_arxiv_direct("cat:cs.CL", max_results=100)
+
+
+def test_fetch_arxiv_direct_paginates_across_multiple_requests(tmp_path):
+    page1 = MagicMock(content=_make_atom_xml(
+        _make_atom_entry("2501.00001", "Page One A") + _make_atom_entry("2501.00002", "Page One B"),
+        total_results=3,
+    ))
+    page2 = MagicMock(content=_make_atom_xml(_make_atom_entry("2501.00003", "Page Two A"), total_results=3))
+
+    with patch("fetch_arxiv_metadata._ARXIV_DIRECT_PAGE_SIZE", 2), \
+         patch("fetch_arxiv_metadata.time.sleep") as mock_sleep, \
+         patch("fetch_arxiv_metadata.requests.get", side_effect=[page1, page2]) as mock_get:
+        papers = fam._fetch_arxiv_direct("cat:cs.CL", max_results=3)
+
+    assert mock_get.call_count == 2
+    assert [p["title"] for p in papers] == ["Page One A", "Page One B", "Page Two A"]
+    mock_sleep.assert_called_once()  # one inter-page delay between the two requests

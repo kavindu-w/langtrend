@@ -5,6 +5,19 @@ These tests use real PDFs already on disk — no network required.
 They exercise the full chain:
     PDFProcessor.extract_text → clean_text → _detect_in_text → _build_detections
 
+CI NOTE: everything below TestCleanTextHyphenation needs a real PDF, sourced by
+scanning data/raw/pdfs/ (gitignored — populated by running the pipeline locally,
+e.g. `make process`). There is no PDF fixture committed to the repo, so on a
+fresh CI checkout data/raw/pdfs/ does not exist and TestPDFProcessorExtraction /
+TestPDFFallbackChain are skipped (not run, not failed) via the pytestmark below.
+This is a deliberate choice, not an oversight: PDF text extraction runs
+through the real docling model, and a real downloaded arXiv paper is a much
+more representative regression fixture than a synthetic minimal PDF would be.
+Practical effect: pdf_processor.py's extract_text() and the PDF branch of
+_process_single_paper/_reprocess_single_paper are only verified locally, not
+in the Tests CI workflow or its coverage numbers — run this file locally
+after `make process` (or similar) before trusting a PDF-path change.
+
 Run with:  pytest tests/test_pdf_fallback.py -v
 """
 
@@ -36,9 +49,9 @@ def _find_valid_pdf() -> Path | None:
 
 _SAMPLE_PDF = _find_valid_pdf()
 
-pytestmark = pytest.mark.skipif(
+_requires_sample_pdf = pytest.mark.skipif(
     _SAMPLE_PDF is None,
-    reason="No valid PDFs found in data/raw/pdfs — download at least one first",
+    reason="No valid PDFs found in data/raw/pdfs — download at least one first (not available in CI, see module docstring)",
 )
 
 
@@ -113,6 +126,7 @@ class TestCleanTextHyphenation:
 # PDFProcessor smoke tests
 # ---------------------------------------------------------------------------
 
+@_requires_sample_pdf
 class TestPDFProcessorExtraction:
     def test_extract_text_returns_nonempty_string(self):
         from langtrend.pdf_processor import PDFProcessor
@@ -146,6 +160,7 @@ class TestPDFProcessorExtraction:
 # Full PDF fallback chain (_process_single_paper with HTML unavailable)
 # ---------------------------------------------------------------------------
 
+@_requires_sample_pdf
 class TestPDFFallbackChain:
     def test_pdf_path_inside_per_paper_subdir(self):
         """The per-paper subdirectory layout must match what _download_pdf creates."""

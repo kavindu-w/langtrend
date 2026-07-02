@@ -5,14 +5,17 @@ Run with:  pytest tests/test_html_processor.py -v
 """
 
 import pytest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 from bs4 import BeautifulSoup
+import requests
 
 from langtrend.html_processor import (
     clean_html_soup,
     extract_sections_from_soup,
     extract_sections_from_html,
     recheck_languages_from_html,
+    fetch_arxiv_html,
+    _HTML_MAX_BYTES,
 )
 
 
@@ -347,3 +350,92 @@ class TestRawHtmlCaching:
             )
         mock_fetch.assert_not_called()
         assert not (tmp_path / "2000.00003.html").exists()
+
+
+# ---------------------------------------------------------------------------
+# fetch_arxiv_html — real network fetch, mocked at the session boundary
+# ---------------------------------------------------------------------------
+
+def _mock_response(status_ok=True):
+    resp = MagicMock()
+    resp.status_code = 200
+    resp.raise_for_status = MagicMock() if status_ok else MagicMock(side_effect=requests.HTTPError("404"))
+    return resp
+
+
+class TestFetchArxivHtml:
+    def test_returns_none_immediately_for_empty_url(self):
+        assert fetch_arxiv_html("") == (None, None, False)
+
+    @patch("time.sleep")
+    def test_fetches_and_decodes_successfully(self, mock_sleep):
+        session = MagicMock()
+        resp = _mock_response()
+        resp.iter_content.return_value = iter([b"<html>", b"hello</html>"])
+        session.get.return_value = resp
+
+        with patch("langtrend.html_processor._get_session", return_value=session):
+            html_text, html_url, is_complete = fetch_arxiv_html("https://arxiv.org/abs/2501.00001")
+
+        assert html_text == "<html>hello</html>"
+        assert html_url == "https://arxiv.org/html/2501.00001"
+        assert is_complete is True
+
+    @patch("time.sleep")
+    def test_returns_incomplete_when_response_status_is_an_error(self, mock_sleep):
+        session = MagicMock()
+        session.get.return_value = _mock_response(status_ok=False)
+
+        with patch("langtrend.html_processor._get_session", return_value=session):
+            html_text, html_url, is_complete = fetch_arxiv_html("https://arxiv.org/abs/1")
+
+        assert html_text is None
+        assert is_complete is False
+        assert html_url == "https://arxiv.org/html/1"
+
+    @patch("time.sleep")
+    def test_returns_incomplete_when_the_get_call_itself_raises(self, mock_sleep):
+        session = MagicMock()
+        session.get.side_effect = requests.ConnectionError("network down")
+
+        with patch("langtrend.html_processor._get_session", return_value=session):
+            html_text, html_url, is_complete = fetch_arxiv_html("https://arxiv.org/abs/1")
+
+        assert html_text is None
+        assert is_complete is False
+        # html_url is computed before the network call, so it's still returned on failure.
+        assert html_url == "https://arxiv.org/html/1"
+
+    @patch("time.sleep")
+    def test_marks_incomplete_but_keeps_partial_content_when_stream_breaks_mid_download(self, mock_sleep):
+        session = MagicMock()
+        resp = _mock_response()
+
+        def _iter_then_break(*a, **kw):
+            yield b"<html>partial"
+            raise ConnectionError("stream broke")
+
+        resp.iter_content.side_effect = _iter_then_break
+        session.get.return_value = resp
+
+        with patch("langtrend.html_processor._get_session", return_value=session):
+            html_text, html_url, is_complete = fetch_arxiv_html("https://arxiv.org/abs/1")
+
+        assert html_text == "<html>partial"
+        assert is_complete is False
+
+    @patch("time.sleep")
+    def test_truncates_at_max_bytes_without_flagging_incomplete(self, mock_sleep):
+        # Current behavior: hitting the size cap breaks the read loop but does NOT
+        # set is_complete=False (only a genuine stall/timeout/error does).
+        session = MagicMock()
+        resp = _mock_response()
+        big_chunk = b"x" * (_HTML_MAX_BYTES + 1)
+        resp.iter_content.return_value = iter([big_chunk])
+        session.get.return_value = resp
+
+        with patch("langtrend.html_processor._get_session", return_value=session):
+            html_text, html_url, is_complete = fetch_arxiv_html("https://arxiv.org/abs/1")
+
+        assert len(html_text) == _HTML_MAX_BYTES + 1
+        assert is_complete is True
