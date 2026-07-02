@@ -271,6 +271,8 @@ jobs:
       # Running this after PDF processing causes autostash conflicts on manifest files.
       - name: Bump product version
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -303,8 +305,14 @@ jobs:
             git push origin HEAD:main
           }
 
+          git tag "v$new_version"
+          git push origin "v$new_version"
+          gh release create "v$new_version" --title "v$new_version" --generate-notes
+
       - name: Bump product version (major)
         if: github.event_name == 'workflow_dispatch' && inputs.publish_site && inputs.major_version_update && !inputs.deploy_only
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -331,6 +339,10 @@ jobs:
             git pull --rebase origin main
             git push origin HEAD:main
           }
+
+          git tag "v$new_version"
+          git push origin "v$new_version"
+          gh release create "v$new_version" --title "v$new_version" --generate-notes
 
       - name: Set up Python
         uses: actions/setup-python@v5
