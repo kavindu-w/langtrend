@@ -15,11 +15,22 @@ from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
 import pytest
+import requests
 
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 import fetch_arxiv_metadata as fam
+
+
+def _direct_fetch_unavailable():
+    """`_fetch_arxiv_direct` is the primary fetch path tried before `arxiv.Client`.
+
+    All `fetch_and_save` tests below target the Client/OAI fallback logic, so this
+    patches it to fail fast with no `.response` (non-transient — no retry sleep),
+    skipping straight past it instead of making a real network call.
+    """
+    return patch("fetch_arxiv_metadata._fetch_arxiv_direct", side_effect=requests.HTTPError("direct API unavailable"))
 
 
 # ---------------------------------------------------------------------------
@@ -150,7 +161,8 @@ def test_fetch_and_save_arxiv_api_success(tmp_path):
     mock_client = MagicMock()
     mock_client.results.return_value = iter([result])
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client):
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client):
         out = fam.fetch_and_save(
             end_date=datetime(2025, 1, 8),
             window_days=7,
@@ -180,7 +192,8 @@ def test_fetch_and_save_retries_on_429_then_succeeds(tmp_path):
         iter([result]),
     ]
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
          patch("fetch_arxiv_metadata.time.sleep"):
         out = fam.fetch_and_save(
             end_date=datetime(2025, 1, 8),
@@ -208,7 +221,8 @@ def test_fetch_and_save_falls_back_to_oai_on_persistent_429(tmp_path):
     mock_response.status_code = 200
     mock_response.content = oai_xml
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
          patch("fetch_arxiv_metadata.time.sleep"), \
          patch("fetch_arxiv_metadata.requests.get", return_value=mock_response):
         out = fam.fetch_and_save(
@@ -245,7 +259,8 @@ def test_oai_429_sleeps_then_retries(tmp_path):
 
     sleep_calls = []
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
          patch("fetch_arxiv_metadata.time.sleep", side_effect=lambda s: sleep_calls.append(s)), \
          patch("fetch_arxiv_metadata.requests.get", side_effect=[rate_limit_response, ok_response]):
         out = fam.fetch_and_save(
@@ -277,7 +292,8 @@ def test_oai_pagination_follows_resumption_token(tmp_path):
     page1_resp = MagicMock(status_code=200, content=page1_xml)
     page2_resp = MagicMock(status_code=200, content=page2_xml)
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
          patch("fetch_arxiv_metadata.time.sleep"), \
          patch("fetch_arxiv_metadata.requests.get", side_effect=[page1_resp, page2_resp]):
         out = fam.fetch_and_save(
@@ -307,7 +323,8 @@ def test_oai_date_filter_excludes_out_of_window(tmp_path):
     oai_xml = _make_oai_xml("2412.00001", "2024-12-01", "Old Paper")
     mock_response = MagicMock(status_code=200, content=oai_xml)
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
          patch("fetch_arxiv_metadata.time.sleep"), \
          patch("fetch_arxiv_metadata.requests.get", return_value=mock_response):
         out = fam.fetch_and_save(
@@ -319,4 +336,91 @@ def test_oai_date_filter_excludes_out_of_window(tmp_path):
         )
 
     records = [json.loads(l) for l in out.read_text().splitlines() if l.strip()]
-    assert all(r["title"] != "Old Paper" for r in records)
+    assert len(records) == 0
+
+
+# ---------------------------------------------------------------------------
+# _fetch_arxiv_direct — the primary arXiv Atom API path (unit-level, not via
+# fetch_and_save — all the tests above deliberately disable this path with
+# _direct_fetch_unavailable() to reach the fallback code they're targeting).
+# ---------------------------------------------------------------------------
+
+_ATOM_NS = "http://www.w3.org/2005/Atom"
+_OPENSEARCH_NS = "http://a9.com/-/spec/opensearch/1.1/"
+
+
+def _make_atom_entry(paper_id="2501.00001", title="A Paper"):
+    return f"""
+    <entry>
+      <id>http://arxiv.org/abs/{paper_id}</id>
+      <title>{title}</title>
+      <summary>An abstract.</summary>
+      <author><name>Alice</name></author>
+      <published>2025-01-01T00:00:00Z</published>
+      <updated>2025-01-02T00:00:00Z</updated>
+      <category term="cs.CL"/>
+      <link href="http://arxiv.org/pdf/{paper_id}" type="application/pdf"/>
+    </entry>
+    """
+
+
+def _make_atom_xml(entries_xml, total_results=None):
+    total_xml = (
+        f'<opensearch:totalResults xmlns:opensearch="{_OPENSEARCH_NS}">{total_results}</opensearch:totalResults>'
+        if total_results is not None else ""
+    )
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+    <feed xmlns="{_ATOM_NS}">
+      {total_xml}
+      {entries_xml}
+    </feed>""".encode()
+
+
+def test_fetch_arxiv_direct_parses_entries_into_paper_dicts():
+    xml = _make_atom_xml(_make_atom_entry("2501.00001", "Success Paper"), total_results=1)
+    resp = MagicMock(content=xml)
+
+    with patch("fetch_arxiv_metadata.requests.get", return_value=resp):
+        papers = fam._fetch_arxiv_direct("cat:cs.CL", max_results=100)
+
+    assert len(papers) == 1
+    assert papers[0]["title"] == "Success Paper"
+    assert papers[0]["id"] == "http://arxiv.org/abs/2501.00001"
+    assert papers[0]["_fetch_source"] == "arxiv_direct"
+    assert papers[0]["pdf_url"] == "http://arxiv.org/pdf/2501.00001"
+
+
+def test_fetch_arxiv_direct_stops_when_first_page_returns_no_entries():
+    resp = MagicMock(content=_make_atom_xml(""))
+    with patch("fetch_arxiv_metadata.requests.get", return_value=resp) as mock_get:
+        papers = fam._fetch_arxiv_direct("cat:cs.CL", max_results=100)
+
+    assert papers == []
+    mock_get.assert_called_once()
+
+
+def test_fetch_arxiv_direct_raises_when_response_status_is_an_error():
+    import requests as requests_lib
+    resp = MagicMock()
+    resp.raise_for_status.side_effect = requests_lib.HTTPError("500 server error")
+
+    with patch("fetch_arxiv_metadata.requests.get", return_value=resp):
+        with pytest.raises(requests_lib.HTTPError):
+            fam._fetch_arxiv_direct("cat:cs.CL", max_results=100)
+
+
+def test_fetch_arxiv_direct_paginates_across_multiple_requests(tmp_path):
+    page1 = MagicMock(content=_make_atom_xml(
+        _make_atom_entry("2501.00001", "Page One A") + _make_atom_entry("2501.00002", "Page One B"),
+        total_results=3,
+    ))
+    page2 = MagicMock(content=_make_atom_xml(_make_atom_entry("2501.00003", "Page Two A"), total_results=3))
+
+    with patch("fetch_arxiv_metadata._ARXIV_DIRECT_PAGE_SIZE", 2), \
+         patch("fetch_arxiv_metadata.time.sleep") as mock_sleep, \
+         patch("fetch_arxiv_metadata.requests.get", side_effect=[page1, page2]) as mock_get:
+        papers = fam._fetch_arxiv_direct("cat:cs.CL", max_results=3)
+
+    assert mock_get.call_count == 2
+    assert [p["title"] for p in papers] == ["Page One A", "Page One B", "Page Two A"]
+    mock_sleep.assert_called_once()  # one inter-page delay between the two requests

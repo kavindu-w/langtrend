@@ -1,0 +1,271 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="LangTrend Pipeline" id="langtrend-pipeline">
+    <mxGraphModel dx="1111" dy="1973" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gha" parent="1" style="swimlane;startSize=45;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=23;fontStyle=1;rounded=1;arcSize=2;spacingTop=5;" value="LangTrend Pipeline" vertex="1">
+          <mxGeometry height="1370" width="1220" x="40" y="-180" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="gha" style="swimlane;startSize=28;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;rounded=1;" value="① FETCH — arXiv Papers" vertex="1">
+          <mxGeometry height="222" width="1160" x="30" y="97" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-direct" parent="s1" style="rounded=1;whiteSpace=wrap;fillColor=light-dark(#B31B1B,#B31B1B);strokeColor=#555555;fontSize=11;fontColor=light-dark(#FFFFFF,#FFFFFF);fontStyle=0;textShadow=0;labelBorderColor=none;" value="① Direct HTTP (primary)&#xa;export.arxiv.org/api/query&#xa;(requests library)&#xa;&#xa;Atom XML · page_size=500&#xa;3.0 s inter-page delay&#xa;3 attempts · 600 s backoff&#xa;transient 429/5xx retried" vertex="1">
+          <mxGeometry height="132" width="210" x="15" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-api" parent="s1" style="rounded=1;whiteSpace=wrap;fillColor=light-dark(#B31B1B,#B31B1B);strokeColor=#555555;fontSize=11;" value="② arxiv Python client (fallback 1)&#xa;arxiv Python package&#xa;&#xa;page_size=100 · 10 s delay&#xa;0 internal retries&#xa;3 outer attempts · 600 s backoff" vertex="1">
+          <mxGeometry height="110" width="210" x="310" y="93" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-oai" parent="s1" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#555555;fontSize=11;" value="③ OAI-PMH Harvest (fallback 2)&#xa;oaipmh.arxiv.org&#xa;&#xa;Resumption token pagination&#xa;±2-day submission window buffer&#xa;Cross-listing filter via ID prefix" vertex="1">
+          <mxGeometry height="105" width="215" x="610" y="117" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-out" parent="s1" style="shape=cylinder3;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalLabelPosition=middle;" value="data/raw/…/arxiv_papers_*.jsonl&#xa;id · title · abstract · authors&#xa;categories · pdf_url · _fetch_source" vertex="1">
+          <mxGeometry height="108" width="280" x="860" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-fb0" edge="1" parent="s1" source="s1-direct" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#B31B1B;fontSize=10;fontStyle=2;" target="s1-api" value="fallback on &#xa;persistent errors">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-fb" edge="1" parent="s1" source="s1-api" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#d6b656;fontSize=10;fontStyle=2;" target="s1-oai" value="fallback on errors">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s1-e0" edge="1" parent="s1" source="s1-direct" style="edgeStyle=orthogonalEdgeStyle;" target="s1-out" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="68" />
+              <mxPoint x="640" y="68" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s1-e1" edge="1" parent="s1" source="s1-api" style="edgeStyle=orthogonalEdgeStyle;" target="s1-out" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="100" />
+              <mxPoint x="640" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s1-e2" edge="1" parent="s1" source="s1-oai" style="edgeStyle=orthogonalEdgeStyle;" target="s1-out" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" parent="gha" style="swimlane;startSize=28;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;rounded=1;" value="② PROCESS — Extraction + Language Detection  (ThreadPoolExecutor · GHA Job 1: HTML-only · 24 I/O threads · GHA Job 2: PDF retry · 6 CPU threads · 600 s per-paper timeout)" vertex="1">
+          <mxGeometry height="320" width="1160" x="30" y="359" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-abs" parent="s2" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" value="Abstract&#xa;(always scanned)&#xa;&#xa;From JSONL metadata" vertex="1">
+          <mxGeometry height="90" width="160" x="20" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-html" parent="s2" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="HTML Extraction (primary)&#xa;arxiv.org/html/{id}&#xa;&#xa;BeautifulSoup + lxml&#xa;Split on h1–h6 headings&#xa;Skip: abstract · refs · bibliography&#xa;related work · lit. review · ack&#xa;funding · ethics (+ non-Latin variants)&#xa;Max 10 MB · 120 s · GHA Job 1: 24 I/O threads" vertex="1">
+          <mxGeometry height="140" width="215" x="210" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-fb1" edge="1" parent="s2" source="s2-html" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#6c8ebf;fontSize=10;fontStyle=2;" target="s2-pdf" value="HTML missing &#xa;or incomplete">
+          <mxGeometry relative="1" x="0.005" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s2-pdf" parent="s2" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="PDF Fallback&#xa;arxiv.org/pdf/{id}&#xa;&#xa;Docling DocumentConverter [4]&#xa;Layout-aware · OCR off&#xa;Body: trim searched from doc midpoint&#xa;(refs · bib · related work · ack · funding · ethics)&#xa;Max 200 MB · 120 s timeout · 2 download retries · 2 extract retries · GHA Job 2: 6 CPU threads" vertex="1">
+          <mxGeometry height="150" width="215" x="520" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-fb2" edge="1" parent="s2" source="s2-pdf" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#b85450;fontSize=10;fontStyle=2;" target="s2-absonly" value="PDF unavailable">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="782" y="170" />
+              <mxPoint x="782" y="243" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s2-absonly" parent="s2" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="Abstract Only&#xa;(final fallback)&#xa;&#xa;sources_checked:&#xa;[&quot;abstract&quot;]" vertex="1">
+          <mxGeometry height="105" width="170" x="830" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-hcache" parent="s2" style="shape=cylinder3;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalLabelPosition=middle;" value="html_cache/{id}.json&#xa;per-section detections" vertex="1">
+          <mxGeometry height="45" width="215" x="210" y="242" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-pcache" parent="s2" style="shape=cylinder3;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalLabelPosition=middle;" value="pdf_cache/{id}.json&#xa;text + detections" vertex="1">
+          <mxGeometry height="45" width="215" x="520" y="242" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-ce1" edge="1" parent="s2" source="s2-html" style="edgeStyle=orthogonalEdgeStyle;" target="s2-hcache" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-ce2" edge="1" parent="s2" source="s2-pdf" style="edgeStyle=orthogonalEdgeStyle;" target="s2-pcache" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-out" parent="s2" style="shape=cylinder3;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalLabelPosition=middle;" value="arxiv_papers_*_detected.jsonl&#xa;paper_id · paper · sources_checked&#xa;sections · warnings" vertex="1">
+          <mxGeometry height="105" width="140" x="1005" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-oe1" edge="1" parent="s2" source="s2-absonly" style="edgeStyle=orthogonalEdgeStyle;" target="s2-out" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s2-oe2" edge="1" parent="s2" source="s2-html" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="95" />
+              <mxPoint x="450" y="73" />
+              <mxPoint x="980" y="73" />
+              <mxPoint x="980" y="85" />
+            </Array>
+            <mxPoint x="435" y="67.94117647058829" as="sourcePoint" />
+            <mxPoint x="1005" y="85" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s2-oe3" edge="1" parent="s2" source="s2-pdf" style="edgeStyle=orthogonalEdgeStyle;" target="s2-out" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="870" y="140" />
+              <mxPoint x="870" y="113" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ob8ZyfS8gxEqK9ZU3Dt3-63" edge="1" parent="s2" source="s2-abs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=classic;" target="s2-out">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="95" />
+              <mxPoint x="190" y="41" />
+              <mxPoint x="1075" y="41" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s3" parent="gha" style="swimlane;startSize=28;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;rounded=1;" value="③ TEXT CLEANING — langtrend/text_cleaning.py  (applied to each extracted text block)" vertex="1">
+          <mxGeometry height="120" width="1160" x="30" y="719" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-1" parent="s3" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#555555;fontSize=10;" value="① Remove citations&#xa;et al. + year patterns" vertex="1">
+          <mxGeometry height="55" width="165" x="10" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-2" parent="s3" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#555555;fontSize=10;" value="② Strip LaTeX math&#xa;$…$ · \[…\] · commands" vertex="1">
+          <mxGeometry height="55" width="165" x="192" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-3" parent="s3" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#555555;fontSize=10;" value="③ Remove code patterns&#xa;(Python defs, col assigns)" vertex="1">
+          <mxGeometry height="55" width="165" x="374" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-4" parent="s3" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#555555;fontSize=10;" value="④ Strip standalone numbers&#xa;&amp; alphanumeric tokens" vertex="1">
+          <mxGeometry height="55" width="165" x="556" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-5" parent="s3" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#555555;fontSize=10;" value="⑤ Normalize whitespace&#xa;&amp; color/LaTeX artifacts" vertex="1">
+          <mxGeometry height="55" width="165" x="738" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-6" parent="s3" style="rounded=1;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;fontStyle=1;" value="⑥ Language name lookup&#xa;+ acronym conflict filter&#xa;(incl. Title-Case and lowercase&#xa;hyphenated defs e.g. LOLO)" vertex="1">
+          <mxGeometry height="65" width="185" x="940" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-a1" edge="1" parent="s3" source="s3-1" style="edgeStyle=orthogonalEdgeStyle;" target="s3-2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-a2" edge="1" parent="s3" source="s3-2" style="edgeStyle=orthogonalEdgeStyle;" target="s3-3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-a3" edge="1" parent="s3" source="s3-3" style="edgeStyle=orthogonalEdgeStyle;" target="s3-4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-a4" edge="1" parent="s3" source="s3-4" style="edgeStyle=orthogonalEdgeStyle;" target="s3-5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-a5" edge="1" parent="s3" source="s3-5" style="edgeStyle=orthogonalEdgeStyle;" target="s3-6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" parent="gha" style="swimlane;startSize=28;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;rounded=1;" value="④ BUILD MANIFEST — scripts/build_manifest.py" vertex="1">
+          <mxGeometry height="230" width="1160" x="30" y="869" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-lang" parent="s4" style="shape=cylinder3;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalLabelPosition=middle;" value="language_data.json&#xa;(language names, class 0–5,&#xa;ignore lists)" vertex="1">
+          <mxGeometry height="85" width="175" x="15" y="87.5" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-merge" parent="s4" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#555555;fontSize=11;" value="Merge detections&#xa;abstract + html_cache + pdf_cache&#xa;Dedup by (language, class)" vertex="1">
+          <mxGeometry height="140" width="220" x="210" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-agg" parent="s4" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#555555;fontSize=11;" value="Aggregate statistics&#xa;language_counts · class_counts&#xa;daily_series · flagged_papers" vertex="1">
+          <mxGeometry height="140" width="215" x="472.5" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-latest" parent="s4" style="shape=cylinder3;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalLabelPosition=middle;" value="langtrend_manifest_last_7_days.json&#xa;(latest week pointer)" vertex="1">
+          <mxGeometry height="90" width="220" x="920" y="33" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-e1" edge="1" parent="s4" source="s4-lang" style="edgeStyle=orthogonalEdgeStyle;" target="s4-merge" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-e2" edge="1" parent="s4" source="s4-merge" style="edgeStyle=orthogonalEdgeStyle;" target="s4-agg" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s4-e4" edge="1" parent="s4" source="s4-agg" style="edgeStyle=orthogonalEdgeStyle;" target="s4-latest" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="80" />
+              <mxPoint x="860" y="80" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="noitTpReyoBFPiBU1WKD-65" edge="1" parent="s4" style="edgeStyle=orthogonalEdgeStyle;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="859.5" y="180" />
+              <mxPoint x="859.5" y="180" />
+            </Array>
+            <mxPoint x="687.5" y="180" as="sourcePoint" />
+            <mxPoint x="919.5" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s4-snap" parent="s4" style="shape=cylinder3;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalLabelPosition=middle;" value="langtrend_manifest.json&#xa;(dated snapshot per week)" vertex="1">
+          <mxGeometry height="90" width="220" x="920" y="131" as="geometry" />
+        </mxCell>
+        <mxCell id="s5" parent="gha" style="swimlane;startSize=28;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;rounded=1;align=center;" value="⑤ FRONTEND — Astro + D3.js  (npm run build → GitHub Pages)" vertex="1">
+          <mxGeometry height="220" width="1160" x="30" y="1129" as="geometry" />
+        </mxCell>
+        <mxCell id="s5-charts" parent="s5" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=12;" value="TrendCharts.astro (D3.js)&#xa;• Coverage pie (flagged / total)&#xa;• Source breakdown Sankey&#xa;• Daily submission stacked bar&#xa;• Language class pie&#xa;• Weekly rank comparison (top-10)&#xa;• Full language frequency comparison&#xa;• Class → Language Sankey&#xa;• Trend: grouped bar / line / stacked bar&#xa;• Trend: rank bump chart · unique count" vertex="1">
+          <mxGeometry height="142" width="225" x="15" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="ob8ZyfS8gxEqK9ZU3Dt3-66" edge="1" parent="s5" source="s5-tiles" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="375" y="201" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s5-tiles" parent="s5" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;fontFamily=Helvetica;fontColor=default;fontStyle=0;verticalAlign=middle;spacingLeft=12;" value="PaperTable.astro&#xa;Collapsible paper tiles:&#xa;• Title + PDF / arXiv links&#xa;• Authors · language chips (class-coloured)&#xa;• Coverage badge (HTML / PDF / abstract)&#xa;• Abstract · per-section breakdown&#xa;• Acronym conflict warnings&#xa;Search · filter by language · sort" vertex="1">
+          <mxGeometry height="142" width="230" x="260" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="noitTpReyoBFPiBU1WKD-60" edge="1" parent="s5" source="s5-stat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="595" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s5-stat" parent="s5" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;fontFamily=Helvetica;fontColor=default;fontStyle=0;verticalAlign=middle;spacingLeft=12;" value="StatCards.astro&#xa;• Total papers scanned&#xa;• Papers with language mentions&#xa;• Unique languages detected" vertex="1">
+          <mxGeometry height="142" width="170" x="510" y="39" as="geometry" />
+        </mxCell>
+        <mxCell id="noitTpReyoBFPiBU1WKD-61" edge="1" parent="s5" source="s5-week" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="772.5384615384614" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s5-week" parent="s5" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;fontFamily=Helvetica;fontColor=default;fontStyle=0;verticalAlign=middle;spacingLeft=12;" value="WeekCalendar.astro&#xa;Navigate historical weeks&#xa;(loads per-week manifests)" vertex="1">
+          <mxGeometry height="142" width="145" x="700" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="s5-pages" parent="s5" style="rounded=1;whiteSpace=wrap;fillColor=#24292e;strokeColor=#555555;fontColor=#ffffff;fontSize=11;fontStyle=1;" value="GitHub Pages&#xa;static deploy" vertex="1">
+          <mxGeometry height="70.5" width="110" x="1030" y="74.75" as="geometry" />
+        </mxCell>
+        <mxCell id="s5-et" edge="1" parent="s5" style="edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="s5-pages" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="200" />
+              <mxPoint x="1085" y="200" />
+            </Array>
+            <mxPoint x="120" y="181" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="noitTpReyoBFPiBU1WKD-63" edge="1" parent="s5" source="noitTpReyoBFPiBU1WKD-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="942.5384615384614" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="noitTpReyoBFPiBU1WKD-58" parent="s5" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;fontFamily=Helvetica;fontColor=default;fontStyle=0;verticalAlign=middle;spacingLeft=12;" value="about.astro&#xa;Full pipeline description&#xa;Language classes composition table&#xa;Limitations&#xa;References." vertex="1">
+          <mxGeometry height="141" width="145" x="870" y="39" as="geometry" />
+        </mxCell>
+        <mxCell id="main-e1" edge="1" parent="gha" source="s1" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="s2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="main-e2" edge="1" parent="gha" source="s2" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="s3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="main-e3" edge="1" parent="gha" source="s3" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="s4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="main-e4" edge="1" parent="gha" source="s4" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="s5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="noitTpReyoBFPiBU1WKD-66" parent="gha" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font&gt;&lt;span style=&quot;font-weight: 700; white-space: nowrap;&quot;&gt;GitHub Actions (langtrend.yml) — Every Tuesday 12:00 UTC — 2 jobs (each with independent 6 h limit)&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;font&gt;&lt;span style=&quot;font-weight: 700; white-space: nowrap;&quot;&gt;Job 1: fetch-and-html &amp;nbsp;→&amp;nbsp; Job 2: pdf-and-deploy  (After arXiv&#39;s Monday announcement window closes)&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="700" x="260" y="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

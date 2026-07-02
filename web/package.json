@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "deploy": "npm run build && gh-pages -d dist",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.20",
@@ -15,6 +17,8 @@
     "d3": "^7.9.0"
   },
   "devDependencies": {
-    "@types/d3": "^7.4.3"
+    "@types/d3": "^7.4.3",
+    "@vitest/coverage-v8": "^4.1.9",
+    "vitest": "^4.1.9"
   }
 }
