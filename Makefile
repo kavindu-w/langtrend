@@ -31,7 +31,7 @@ help:
 	@echo "  make retry-missing    Retry papers with no/incomplete cache (downloads missing PDFs)"
 	@echo "  make manifest         Rebuild manifest from caches (fast, no downloads)"
 	@echo "                          Use INPUT=<path.jsonl> to target a specific week"
-	@echo "  make readme-stats     Regenerate README badges/table from committed manifest data"
+	@echo "  make readme-stats     Regenerate README badges/table + weekly_summary.csv"
 	@echo "  make pipeline         Run fetch + process + manifest in sequence"
 	@echo ""
 	@echo "Multi-week targets (loop over DATES):"

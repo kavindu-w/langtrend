@@ -137,6 +137,103 @@ def test_compute_cumulative_stats_sums_counts_and_dedupes_languages_across_weeks
 
 
 # ---------------------------------------------------------------------------
+# _top_language / _needs_review_counts
+# ---------------------------------------------------------------------------
+
+def test_top_language_picks_highest_count():
+    language_counts = [{"language": "English", "count": 10}, {"language": "Chinese", "count": 15}]
+    assert urs._top_language(language_counts) == ("Chinese", 15)
+
+
+def test_top_language_breaks_ties_alphabetically():
+    language_counts = [{"language": "Turkish", "count": 5}, {"language": "Arabic", "count": 5}]
+    assert urs._top_language(language_counts) == ("Arabic", 5)
+
+
+def test_top_language_with_no_languages_returns_none():
+    assert urs._top_language([]) == (None, 0)
+
+
+def test_needs_review_counts_counts_detections_and_distinct_papers():
+    flagged_papers = [
+        {"languages": [{"language": "Aka", "needs_review": True}, {"language": "English"}]},
+        {"languages": [{"language": "Ami", "needs_review": True}, {"language": "Gan", "needs_review": True}]},
+        {"languages": [{"language": "French"}]},
+    ]
+    detections, papers = urs._needs_review_counts(flagged_papers)
+    assert detections == 3  # Aka + Ami + Gan
+    assert papers == 2  # first two papers each had >=1 flagged detection
+
+
+def test_needs_review_counts_with_no_flagged_papers_is_zero():
+    assert urs._needs_review_counts([]) == (0, 0)
+
+
+# ---------------------------------------------------------------------------
+# build_weekly_summary_rows / write_weekly_summary_csv
+# ---------------------------------------------------------------------------
+
+def test_build_weekly_summary_rows_flattens_counts_and_class_counts():
+    weeks = [
+        {
+            "week_start": "2026-04-27",
+            "week_end": "2026-05-04",
+            "counts": {"papers": 100, "flagged_papers": 60, "unique_languages": 42,
+                       "pdf_failed_no_detection": 3},
+            "class_counts": [{"class_id": 0, "count": 20}, {"class_id": 5, "count": 5}],
+            "language_counts": [{"language": "English", "count": 20}, {"language": "Sinhala", "count": 5}],
+            "flagged_papers": [
+                {"languages": [{"language": "Aka", "needs_review": True}]},
+                {"languages": [{"language": "English"}]},
+            ],
+        },
+    ]
+    rows = urs.build_weekly_summary_rows(weeks)
+    assert rows == [{
+        "week_start": "2026-04-27", "week_end": "2026-05-04",
+        "papers": 100, "flagged_papers": 60, "unique_languages": 42,
+        "total_language_mentions": 25,
+        "top_language": "English", "top_language_count": 20,
+        "needs_review_detections": 1, "needs_review_papers": 1,
+        "pdf_failed_no_detection": 3,
+        "class_0_mentions": 20, "class_1_mentions": 0, "class_2_mentions": 0, "class_3_mentions": 0, "class_4_mentions": 0, "class_5_mentions": 5,
+    }]
+
+
+def test_build_weekly_summary_rows_with_no_weeks_is_empty():
+    assert urs.build_weekly_summary_rows([]) == []
+
+
+def _sample_summary_row() -> dict:
+    return {
+        "week_start": "2026-04-27", "week_end": "2026-05-04",
+        "papers": 100, "flagged_papers": 60, "unique_languages": 42,
+        "total_language_mentions": 25, "top_language": "English", "top_language_count": 20,
+        "needs_review_detections": 1, "needs_review_papers": 1,
+        "class_0_mentions": 20, "class_1_mentions": 0, "class_2_mentions": 0, "class_3_mentions": 0, "class_4_mentions": 0, "class_5_mentions": 5,
+        "pdf_failed_no_detection": 3,
+    }
+
+
+def test_write_weekly_summary_csv_writes_header_and_rows(tmp_path):
+    out_path = urs.write_weekly_summary_csv([_sample_summary_row()], tmp_path / "weekly_summary.csv")
+
+    text = out_path.read_text(encoding="utf-8")
+    lines = text.splitlines()
+    assert lines[0] == ",".join(urs._SUMMARY_FIELDNAMES)
+    assert lines[1] == "2026-04-27,2026-05-04,100,60,42,25,English,20,1,1,20,0,0,0,0,5,3"
+    assert "\r\n" not in text  # fixed line terminator, no OS-dependent newlines
+
+
+def test_write_weekly_summary_csv_is_deterministic(tmp_path):
+    rows = [_sample_summary_row()]
+    first_path = urs.write_weekly_summary_csv(rows, tmp_path / "weekly_summary.csv")
+    first_bytes = first_path.read_bytes()
+    second_path = urs.write_weekly_summary_csv(rows, tmp_path / "weekly_summary.csv")
+    assert first_bytes == second_path.read_bytes()
+
+
+# ---------------------------------------------------------------------------
 # write_badge_files
 # ---------------------------------------------------------------------------
 

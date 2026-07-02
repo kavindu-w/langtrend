@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Regenerate README.md's "Latest Run Summary" table and shields.io badge JSON
-from already-committed manifest data.
+Regenerate README.md's "Latest Run Summary" table, shields.io badge JSON, and the
+flat weekly_summary.csv from already-committed manifest data.
 
 Reads:
   - data/processed/langtrend_manifest_last_7_days.json           — latest-week counts
@@ -10,6 +10,7 @@ Reads:
 Writes:
   - data/processed/badges/papers_badge.json                      — shields.io endpoint badge
   - data/processed/badges/languages_badge.json                   — shields.io endpoint badge
+  - data/processed/weekly_summary.csv                            — one row per week, counts only
   - README.md                                                     — content between
     <!-- LANGTREND_STATS_START --> and <!-- LANGTREND_STATS_END --> markers
 
@@ -21,6 +22,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import re
 import sys
@@ -34,6 +36,15 @@ _PROJECT_ROOT = Path(__file__).parent.parent
 _STATS_START = "<!-- LANGTREND_STATS_START -->"
 _STATS_END = "<!-- LANGTREND_STATS_END -->"
 _WEEK_RE = re.compile(r"^\d{8}_to_\d{8}$")
+_CLASS_IDS = (0, 1, 2, 3, 4, 5)
+_SUMMARY_FIELDNAMES = [
+    "week_start", "week_end", "papers", "flagged_papers", "unique_languages",
+    "total_language_mentions", "top_language", "top_language_count",
+    "needs_review_detections", "needs_review_papers",
+    "class_0_mentions", "class_1_mentions", "class_2_mentions",
+    "class_3_mentions", "class_4_mentions", "class_5_mentions",
+    "pdf_failed_no_detection",
+]
 
 
 def find_week_manifests(weeks_dir: Path) -> list[Path]:
@@ -88,6 +99,79 @@ def compute_cumulative_stats(week_manifests: list[dict]) -> dict:
         "weeks_tracked": len(week_manifests),
         "earliest_week_start": min(week_starts) if week_starts else None,
     }
+
+
+def _top_language(language_counts: list[dict]) -> tuple[str | None, int]:
+    """Most-mentioned language for a week. Ties broken alphabetically for determinism."""
+    if not language_counts:
+        return None, 0
+    ordered = sorted(language_counts, key=lambda item: item.get("language", ""))
+    top = max(ordered, key=lambda item: item.get("count", 0))
+    return top.get("language"), top.get("count", 0)
+
+
+def _needs_review_counts(flagged_papers: list[dict]) -> tuple[int, int]:
+    """Count detections (and distinct papers) flagged needs_review — likely false positives
+    such as short language names that collide with common acronyms (see the root README's
+    "Transparent false-positive handling" bullet)."""
+    detections = 0
+    papers_with_flag = 0
+    for paper in flagged_papers:
+        paper_flagged = False
+        for language in paper.get("languages", []):
+            if language.get("needs_review"):
+                detections += 1
+                paper_flagged = True
+        if paper_flagged:
+            papers_with_flag += 1
+    return detections, papers_with_flag
+
+
+def build_weekly_summary_rows(week_manifests: list[dict]) -> list[dict]:
+    """One flat row per week — counts only, no paper-level data.
+
+    Lets a reader load per-week trends directly (e.g. via pandas.read_csv) without parsing
+    the much larger langtrend_manifest.json for every week.
+
+    class_0_mentions..class_5_mentions count individual language *detections* (papers can
+    contribute one detection per language they mention, so these sum to more than `papers`
+    or `unique_languages`) grouped by the Joshi et al. resource-availability class described
+    in the root README's "Language Classes" table — 0 is the most under-resourced, 5 the most
+    dominant (e.g. English, Chinese). `total_language_mentions` is the sum of all six.
+    """
+    rows = []
+    for manifest in week_manifests:
+        counts = manifest.get("counts", {})
+        class_counts = {c.get("class_id"): c.get("count", 0) for c in manifest.get("class_counts", [])}
+        top_language, top_language_count = _top_language(manifest.get("language_counts", []))
+        needs_review_detections, needs_review_papers = _needs_review_counts(manifest.get("flagged_papers", []))
+
+        row = {
+            "week_start": manifest.get("week_start"),
+            "week_end": manifest.get("week_end"),
+            "papers": counts.get("papers", 0),
+            "flagged_papers": counts.get("flagged_papers", 0),
+            "unique_languages": counts.get("unique_languages", 0),
+            "total_language_mentions": sum(class_counts.values()),
+            "top_language": top_language or "",
+            "top_language_count": top_language_count,
+            "needs_review_detections": needs_review_detections,
+            "needs_review_papers": needs_review_papers,
+            "pdf_failed_no_detection": counts.get("pdf_failed_no_detection", 0),
+        }
+        for class_id in _CLASS_IDS:
+            row[f"class_{class_id}_mentions"] = class_counts.get(class_id, 0)
+        rows.append(row)
+    return rows
+
+
+def write_weekly_summary_csv(rows: list[dict], out_path: Path) -> Path:
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("w", encoding="utf-8", newline="") as fh:
+        writer = csv.DictWriter(fh, fieldnames=_SUMMARY_FIELDNAMES, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+    return out_path
 
 
 def _endpoint_badge(label: str, message: str, color: str) -> dict:
@@ -164,6 +248,8 @@ def main() -> None:
     cumulative = compute_cumulative_stats(week_manifests)
 
     badge_paths = write_badge_files(cumulative, processed_dir / "badges")
+    summary_rows = build_weekly_summary_rows(week_manifests)
+    summary_path = write_weekly_summary_csv(summary_rows, processed_dir / "weekly_summary.csv")
     block = render_stats_block(latest, cumulative)
     changed = update_readme(block, args.readme)
 
@@ -171,6 +257,7 @@ def main() -> None:
     print(f"Cumulative: {cumulative}")
     print(f"README changed: {changed}")
     print(f"Badge files written: {[str(p) for p in badge_paths]}")
+    print(f"Weekly summary CSV: {summary_path} ({len(summary_rows)} rows)")
 
 
 if __name__ == "__main__":
