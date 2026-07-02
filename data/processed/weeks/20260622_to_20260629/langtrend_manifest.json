@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T07:35:41.177266+00:00",
+  "generated_at": "2026-07-02T07:48:40.907925+00:00",
   "window_days": 7,
   "week_start": "2026-06-22",
   "week_end": "2026-06-29",
@@ -17,7 +17,7 @@
     },
     {
       "language": "Chinese",
-      "count": 55
+      "count": 56
     },
     {
       "language": "German",
@@ -65,7 +65,7 @@
     },
     {
       "language": "Korean",
-      "count": 15
+      "count": 16
     },
     {
       "language": "Portuguese",
@@ -1235,11 +1235,11 @@
     },
     {
       "class_id": 4,
-      "count": 174
+      "count": 175
     },
     {
       "class_id": 5,
-      "count": 415
+      "count": 416
     }
   ],
   "daily_series": [
@@ -106915,63 +106915,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.22745v1",
-        "title": "Language-Specific Sentiment Polarity Biases in Encoder and Large Language Model Classification of Product Reviews",
-        "abstract": "This study investigates sentiment polarity biases, specifically, differences in how accurately AI models classify positive versus negative reviews across languages and model architectures. Large language models show a negative bias in French and are more accurate on negative reviews, while encoder models exhibit positive bias in Japanese, missing negative reviews that use indirect criticism. These language-specific polarity biases have implications in both social and business domains deploying multilingual sentiment analysis systems.",
-        "authors": [
-          "Advita Rajiv",
-          "Kavitha Kothur",
-          "Gautham Reddy"
-        ],
-        "published": "2026-06-22T01:16:04Z",
-        "updated": "2026-06-22T01:16:04Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.22745v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "French",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Japanese",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "French",
-              "class": 5
-            },
-            {
-              "language": "Japanese",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.23525v1",
         "title": "Self-Compacting Language Model Agents",
         "abstract": "Long agent traces composed of chains of thought and tool calls accumulate stale content that anchor subsequent generations, and eventually outgrow the context window. Existing scaffolds mitigate it with fixed-interval compaction triggered at a token threshold. Such triggers pay no heed to trajectory structure, risking discard of partial results mid-derivation or mid-search. We propose SelfCompact, a scaffold that allows the model itself to decide when and how to compact. Specifically, it pairs two inference-time elements: (i) a compaction tool the model invokes to summarize the accumulated context, and (ii) a lightweight rubric specifying when to fire (a sub-task has resolved, or the trajectory is converging) and when to suppress (mid-derivation, or when stuck). Both are needed. The tool alone is unevenly used across open-weight models, often invoked at unhelpful moments or not at all; the rubric alone cannot act. Together, they elicit effective adaptive compaction without any fine-tuning or external supervision. We present empirical results on six benchmarks (competitive math and agentic search) and seven models. Our results show that SelfCompact matches or exceeds fixed-interval summarization at a fraction of the token cost, improving over a no-summarization baseline by up to 18.1 points on math and 5-9 points on agentic search at 30-70% lower per-question cost. Our results expose a meta-cognitive gap: although unprompted models cannot reliably tell when their own context is rotting, a lightweight rubric closes this gap, reframing when to compact as a capability that scaffolds can supply without training.",
@@ -107821,6 +107764,243 @@
             },
             {
               "language": "Chinese",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.22745v1",
+        "title": "Language-Specific Sentiment Polarity Biases in Encoder and Large Language Model Classification of Product Reviews",
+        "abstract": "This study investigates sentiment polarity biases, specifically, differences in how accurately AI models classify positive versus negative reviews across languages and model architectures. Large language models show a negative bias in French and are more accurate on negative reviews, while encoder models exhibit positive bias in Japanese, missing negative reviews that use indirect criticism. These language-specific polarity biases have implications in both social and business domains deploying multilingual sentiment analysis systems.",
+        "authors": [
+          "Advita Rajiv",
+          "Kavitha Kothur",
+          "Gautham Reddy"
+        ],
+        "published": "2026-06-22T01:16:04Z",
+        "updated": "2026-06-22T01:16:04Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.22745v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "French",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "Japanese",
+          "class": 5,
+          "sources": [
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "Korean",
+          "class": 4,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Chinese",
+          "class": 5,
+          "sources": [
+            "pdf"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract",
+        "pdf"
+      ],
+      "sections_with_detections": [
+        "abstract",
+        "pdf_full_text"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "Korean",
+              "class": 4
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
+              "class": 5
+            },
+            {
+              "language": "French",
+              "class": 5
+            },
+            {
+              "language": "Japanese",
               "class": 5
             }
           ]
