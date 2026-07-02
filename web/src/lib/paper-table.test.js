@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   buildPaperItem,
+  buildWeekApiPaper,
   chipFromEntry,
   classFromEntry,
   formatDate,
@@ -204,5 +205,64 @@ describe('buildPaperItem', () => {
     );
 
     expect(item.sourcesGroups.map((g) => g.src)).toEqual(['abstract', 'pdf']);
+  });
+});
+
+describe('buildWeekApiPaper', () => {
+  const paper = {
+    id: 'http://arxiv.org/abs/2501.00001',
+    title: 'A Study of Sinhala and Tamil',
+    authors: ['Alice', 'Bob'],
+    abstract: 'abstract text',
+    pdf_url: 'http://arxiv.org/pdf/2501.00001',
+    published: '2026-05-18T00:00:00Z',
+  };
+
+  it('shapes languages, sorts by class desc, and rewrites the arxiv URL to https', () => {
+    const result = buildWeekApiPaper(
+      { paper, languages: [['Sinhala', 2], ['Tamil', 3]] },
+      {},
+    );
+    expect(result.arxiv_url).toBe('https://arxiv.org/abs/2501.00001');
+    expect(result.languages.map((l) => l.language)).toEqual(['Tamil', 'Sinhala']);
+    expect(result.languageNames).toEqual(['Tamil', 'Sinhala']);
+    expect(result.langCount).toBe(2);
+    expect(result.minClass).toBe(2);
+    expect(result.classes).toEqual([3, 2]);
+    expect(result.searchText).toBe('a study of sinhala and tamil alice bob');
+  });
+
+  it('flags a two-letter language code as needing review even without an explicit flag', () => {
+    const result = buildWeekApiPaper({ paper, languages: ['en'] }, {});
+    expect(result.languages[0].needsReview).toBe(true);
+  });
+
+  it('does NOT consult the false-positive-language map (unlike chipFromEntry)', () => {
+    // "Gan" is a well-known false-positive acronym in chipFromEntry's pfpMap, but this
+    // API-route shaper only checks the explicit needs_review flag and 2-letter codes.
+    const result = buildWeekApiPaper({ paper, languages: ['Gan'] }, {});
+    expect(result.languages[0].needsReview).toBe(false);
+  });
+
+  it('respects an explicit needs_review flag on the entry', () => {
+    const result = buildWeekApiPaper(
+      { paper, languages: [{ language: 'Sinhala', needs_review: true }] },
+      {},
+    );
+    expect(result.languages[0].needsReview).toBe(true);
+  });
+
+  it('defaults minClass to 5 and languages to empty when the paper has no languages', () => {
+    const result = buildWeekApiPaper({ paper, languages: [] }, {});
+    expect(result.minClass).toBe(5);
+    expect(result.languages).toEqual([]);
+    expect(result.classes).toEqual([]);
+  });
+
+  it('falls back to the pdf_url as arxiv_url when the paper has no id', () => {
+    const noIdPaper = { ...paper, id: undefined };
+    const result = buildWeekApiPaper({ paper: noIdPaper, languages: [] }, {});
+    expect(result.arxiv_url).toBe(paper.pdf_url);
+    expect(result.id).toBe('');
   });
 });

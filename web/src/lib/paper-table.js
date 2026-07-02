@@ -148,3 +148,41 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
 
   return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts, suppressedChips, weekStart };
 }
+
+/**
+ * Shapes a flagged-paper record for the /api/weeks/[slug].json route.
+ * Note: needsReview here only checks the explicit flag and two-letter codes —
+ * unlike chipFromEntry, it does not also consult the false-positive-language map.
+ * @param {object} item @param {Record<string, unknown[]>} langClasses
+ */
+export function buildWeekApiPaper(item, langClasses = {}) {
+  const paper = item.paper;
+  const languages = [...item.languages].filter(Boolean).map((entry) => {
+    const language = normalizeLanguage(entry);
+    const borderClass = classFromEntry(entry) ?? languageBorderClass(language, langClasses);
+    const needsReview = (!Array.isArray(entry) && typeof entry === 'object' && !!entry?.needs_review)
+      || (typeof language === 'string' && /^[A-Za-z]{2}$/.test(language.trim()));
+    return { language, borderClass, fillColor: languageFillColor(language), needsReview };
+  }).sort((a, b) => b.borderClass - a.borderClass || a.language.localeCompare(b.language));
+
+  const languageNames = languages.map((l) => l.language).filter(Boolean);
+  const minClass = languages.length > 0 ? Math.min(...languages.map((l) => l.borderClass)) : 5;
+  const classes = [...new Set(languages.map((l) => l.borderClass))];
+
+  return {
+    id: paper.id ?? '',
+    title: paper.title,
+    authors: paper.authors,
+    abstract: paper.abstract,
+    pdf_url: paper.pdf_url,
+    arxiv_url: paper.id ? paper.id.replace('http://', 'https://') : paper.pdf_url,
+    published: paper.published ?? '',
+    categories: paper.categories ?? [],
+    searchText: `${paper.title} ${paper.authors.join(' ')}`.toLowerCase(),
+    languages,
+    languageNames,
+    langCount: languageNames.length,
+    minClass,
+    classes,
+  };
+}
