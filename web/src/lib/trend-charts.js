@@ -116,11 +116,6 @@ export function formatSliceLabel(label, value) {
   return `${label} (${value})`;
 }
 
-export function formatCountWithShare(count, total) {
-  if (!total) return `${count}`;
-  return `${count} (${Math.round((count / total) * 100)}%)`;
-}
-
 export function trendPeriodKey(weekStart, granularity) {
   if (granularity === 'week') return weekStart;
   const date = new Date(`${weekStart}T00:00:00`);

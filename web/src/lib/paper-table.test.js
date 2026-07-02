@@ -285,10 +285,13 @@ describe('buildWeekApiPaper', () => {
     expect(result.languages[0].needsReview).toBe(true);
   });
 
-  it('does NOT consult the false-positive-language map (unlike chipFromEntry)', () => {
-    // "Gan" is a well-known false-positive acronym in chipFromEntry's pfpMap, but this
-    // API-route shaper only checks the explicit needs_review flag and 2-letter codes.
-    const result = buildWeekApiPaper({ paper, languages: ['Gan'] }, {});
+  it('flags a language present in the false-positive map, matching chipFromEntry', () => {
+    const result = buildWeekApiPaper({ paper, languages: ['Gan'] }, {}, { Gan: 'very common ML acronym' });
+    expect(result.languages[0].needsReview).toBe(true);
+  });
+
+  it('does not flag a language absent from the false-positive map', () => {
+    const result = buildWeekApiPaper({ paper, languages: ['Sinhala'] }, {}, { Gan: 'very common ML acronym' });
     expect(result.languages[0].needsReview).toBe(false);
   });
 

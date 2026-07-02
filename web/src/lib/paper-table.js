@@ -151,17 +151,18 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
 
 /**
  * Shapes a flagged-paper record for the /api/weeks/[slug].json route.
- * Note: needsReview here only checks the explicit flag and two-letter codes —
- * unlike chipFromEntry, it does not also consult the false-positive-language map.
- * @param {object} item @param {Record<string, unknown[]>} langClasses
+ * needsReview matches chipFromEntry's rule: explicit flag, two-letter code, or a
+ * hit in the false-positive-language map.
+ * @param {object} item @param {Record<string, unknown[]>} langClasses @param {Record<string, string>} pfpMap
  */
-export function buildWeekApiPaper(item, langClasses = {}) {
+export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
   const paper = item.paper;
   const languages = [...item.languages].filter(Boolean).map((entry) => {
     const language = normalizeLanguage(entry);
     const borderClass = classFromEntry(entry) ?? languageBorderClass(language, langClasses);
     const needsReview = (!Array.isArray(entry) && typeof entry === 'object' && !!entry?.needs_review)
-      || (typeof language === 'string' && /^[A-Za-z]{2}$/.test(language.trim()));
+      || (typeof language === 'string' && /^[A-Za-z]{2}$/.test(language.trim()))
+      || (typeof language === 'string' && !!pfpMap[language]);
     return { language, borderClass, fillColor: languageFillColor(language), needsReview };
   }).sort((a, b) => b.borderClass - a.borderClass || a.language.localeCompare(b.language));
 

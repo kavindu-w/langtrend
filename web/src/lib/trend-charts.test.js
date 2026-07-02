@@ -10,7 +10,6 @@ import {
   coverageSliceLinesWithPercent,
   coverageSlicePercent,
   fillWeekSeries,
-  formatCountWithShare,
   formatPercent,
   formatSliceLabel,
   formatWeekLabel,
@@ -117,17 +116,9 @@ describe('buildPieSlices', () => {
   });
 });
 
-describe('formatSliceLabel / formatCountWithShare', () => {
+describe('formatSliceLabel', () => {
   it('formats a slice label with its count', () => {
     expect(formatSliceLabel('English', 5)).toBe('English (5)');
-  });
-
-  it('formats a count with a rounded percentage share', () => {
-    expect(formatCountWithShare(1, 3)).toBe('1 (33%)');
-  });
-
-  it('omits the share when total is zero', () => {
-    expect(formatCountWithShare(5, 0)).toBe('5');
   });
 });
 
