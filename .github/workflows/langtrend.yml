@@ -441,6 +441,11 @@ jobs:
             --skip-fetch \
             --retry-missing
 
+      - name: Update README stats and badges
+        if: always()
+        run: |
+          python scripts/update_readme_stats.py --data-root data
+
       - name: Commit PDF continuation outputs
         if: always()
         run: |
@@ -455,6 +460,9 @@ jobs:
             data/processed/weeks/*/arxiv_papers_*_no_detections.json
             data/processed/weeks/*/arxiv_papers_*_warnings.json
             data/processed/weeks/*/langtrend_manifest.json
+            data/processed/badges/papers_badge.json
+            data/processed/badges/languages_badge.json
+            README.md
           )
 
           if [ ${#generated_files[@]} -eq 0 ]; then

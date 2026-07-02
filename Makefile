@@ -19,7 +19,7 @@ _END_DATE_FLAG = $(if $(END_DATE),--end-date $(END_DATE),)
 _NO_PDF_FLAG   = $(if $(NO_PDF),--no-pdf,)
 
 .PHONY: help setup fetch fetch-all fetch-oai process process-all reprocess reprocess-all \
-        retry-missing retry-missing-all manifest manifest-all pipeline pipeline-all \
+        retry-missing retry-missing-all manifest manifest-all readme-stats pipeline pipeline-all \
         web-install web-dev web-build dev build clean
 
 help:
@@ -31,6 +31,7 @@ help:
 	@echo "  make retry-missing    Retry papers with no/incomplete cache (downloads missing PDFs)"
 	@echo "  make manifest         Rebuild manifest from caches (fast, no downloads)"
 	@echo "                          Use INPUT=<path.jsonl> to target a specific week"
+	@echo "  make readme-stats     Regenerate README badges/table from committed manifest data"
 	@echo "  make pipeline         Run fetch + process + manifest in sequence"
 	@echo ""
 	@echo "Multi-week targets (loop over DATES):"
@@ -114,6 +115,9 @@ manifest:
 	$(PYTHON) scripts/build_manifest.py \
 		--window-days $(WINDOW_DAYS) \
 		$(if $(INPUT),--input $(INPUT),)
+
+readme-stats:
+	$(PYTHON) scripts/update_readme_stats.py --data-root $(DATA_ROOT)
 
 pipeline:
 	$(PYTHON) scripts/run_langtrend_pipeline.py \
