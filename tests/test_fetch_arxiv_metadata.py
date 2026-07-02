@@ -15,11 +15,22 @@ from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
 import pytest
+import requests
 
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 import fetch_arxiv_metadata as fam
+
+
+def _direct_fetch_unavailable():
+    """`_fetch_arxiv_direct` is the primary fetch path tried before `arxiv.Client`.
+
+    All `fetch_and_save` tests below target the Client/OAI fallback logic, so this
+    patches it to fail fast with no `.response` (non-transient — no retry sleep),
+    skipping straight past it instead of making a real network call.
+    """
+    return patch("fetch_arxiv_metadata._fetch_arxiv_direct", side_effect=requests.HTTPError("direct API unavailable"))
 
 
 # ---------------------------------------------------------------------------
@@ -150,7 +161,8 @@ def test_fetch_and_save_arxiv_api_success(tmp_path):
     mock_client = MagicMock()
     mock_client.results.return_value = iter([result])
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client):
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client):
         out = fam.fetch_and_save(
             end_date=datetime(2025, 1, 8),
             window_days=7,
@@ -180,7 +192,8 @@ def test_fetch_and_save_retries_on_429_then_succeeds(tmp_path):
         iter([result]),
     ]
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
          patch("fetch_arxiv_metadata.time.sleep"):
         out = fam.fetch_and_save(
             end_date=datetime(2025, 1, 8),
@@ -208,7 +221,8 @@ def test_fetch_and_save_falls_back_to_oai_on_persistent_429(tmp_path):
     mock_response.status_code = 200
     mock_response.content = oai_xml
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
          patch("fetch_arxiv_metadata.time.sleep"), \
          patch("fetch_arxiv_metadata.requests.get", return_value=mock_response):
         out = fam.fetch_and_save(
@@ -245,7 +259,8 @@ def test_oai_429_sleeps_then_retries(tmp_path):
 
     sleep_calls = []
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
          patch("fetch_arxiv_metadata.time.sleep", side_effect=lambda s: sleep_calls.append(s)), \
          patch("fetch_arxiv_metadata.requests.get", side_effect=[rate_limit_response, ok_response]):
         out = fam.fetch_and_save(
@@ -277,7 +292,8 @@ def test_oai_pagination_follows_resumption_token(tmp_path):
     page1_resp = MagicMock(status_code=200, content=page1_xml)
     page2_resp = MagicMock(status_code=200, content=page2_xml)
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
          patch("fetch_arxiv_metadata.time.sleep"), \
          patch("fetch_arxiv_metadata.requests.get", side_effect=[page1_resp, page2_resp]):
         out = fam.fetch_and_save(
@@ -307,7 +323,8 @@ def test_oai_date_filter_excludes_out_of_window(tmp_path):
     oai_xml = _make_oai_xml("2412.00001", "2024-12-01", "Old Paper")
     mock_response = MagicMock(status_code=200, content=oai_xml)
 
-    with patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
+    with _direct_fetch_unavailable(), \
+         patch("fetch_arxiv_metadata.arxiv.Client", return_value=mock_client), \
          patch("fetch_arxiv_metadata.time.sleep"), \
          patch("fetch_arxiv_metadata.requests.get", return_value=mock_response):
         out = fam.fetch_and_save(
@@ -319,4 +336,5 @@ def test_oai_date_filter_excludes_out_of_window(tmp_path):
         )
 
     records = [json.loads(l) for l in out.read_text().splitlines() if l.strip()]
+    assert len(records) == 0
     assert all(r["title"] != "Old Paper" for r in records)

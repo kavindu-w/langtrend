@@ -1,6 +1,8 @@
 # LangTrend Web
 
-Astro frontend for the LangTrend research dashboard, configured for Vercel SSR.
+[![Built with Astro](https://img.shields.io/badge/Built%20with-Astro-BC52EE.svg?logo=astro&logoColor=white)](https://astro.build)
+
+Astro frontend for the LangTrend research dashboard, statically built and deployed to GitHub Pages.
 
 ## Run
 

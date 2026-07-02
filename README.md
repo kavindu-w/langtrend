@@ -1,5 +1,14 @@
 # LangTrend
 
+[![LangTrend Snapshot](https://github.com/kavindu-w/langtrend/actions/workflows/langtrend.yml/badge.svg)](https://github.com/kavindu-w/langtrend/actions/workflows/langtrend.yml)
+[![Tests](https://github.com/kavindu-w/langtrend/actions/workflows/tests.yml/badge.svg)](https://github.com/kavindu-w/langtrend/actions/workflows/tests.yml)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fkavindu-w.github.io%2Flangtrend&label=live%20site)](https://kavindu-w.github.io/langtrend)
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+[![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/release/python-3133/)
+[![GitHub last commit](https://img.shields.io/github/last-commit/kavindu-w/langtrend)](https://github.com/kavindu-w/langtrend/commits/main)
+[![GitHub issues](https://img.shields.io/github/issues/kavindu-w/langtrend)](https://github.com/kavindu-w/langtrend/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/kavindu-w/langtrend)](https://github.com/kavindu-w/langtrend/pulls)
+
 **LangTrend** is a weekly pipeline that scans arXiv `cs.CL` submissions, detects explicitly mentioned human languages in the text, and publishes an interactive dashboard tracking language representation over time.
 
 Live site: [kavindu-w.github.io/langtrend](https://kavindu-w.github.io/langtrend)
