@@ -99,6 +99,13 @@ def test_build_snapshot_manifest_counts_and_aggregates():
         "flagged_papers": 2,
         "unique_languages": 2,
         "pdf_failed_no_detection": 0,
+        "judge": {
+            "judged_papers": 0,
+            "judged_languages": 0,
+            "studied": 0,
+            "mentioned_only": 0,
+            "false_positive": 0,
+        },
     }
     assert manifest["week_start"] == "2026-05-18"
     assert manifest["week_end"] == "2026-05-25"
@@ -129,6 +136,50 @@ def test_build_snapshot_manifest_reports_pdf_failed_count():
         pdf_failed_no_detection=4,
     )
     assert manifest["counts"]["pdf_failed_no_detection"] == 4
+
+
+def test_build_snapshot_manifest_excludes_judged_false_positives_from_counts():
+    flagged_papers = [
+        {
+            "paper": {"id": "1", "published": "2026-05-18T00:00:00"},
+            "languages": [
+                {"language": "Swahili", "class": 0, "judge_verdict": "studied"},
+                {"language": "Ari", "class": 0, "judge_verdict": "false_positive"},
+                {"language": "French", "class": 5, "judge_verdict": "mentioned_only"},
+            ],
+        },
+        {
+            # every detection judged false positive → kept in flagged_papers
+            # but excluded from flagged counts and the daily series
+            "paper": {"id": "2", "published": "2026-05-19T00:00:00"},
+            "languages": [{"language": "Agi", "class": 0, "judge_verdict": "false_positive"}],
+        },
+        {
+            # unjudged paper — counted exactly as before
+            "paper": {"id": "3", "published": "2026-05-19T00:00:00"},
+            "languages": [{"language": "Tamil", "class": 3}],
+        },
+    ]
+    manifest = build_snapshot_manifest(
+        papers=[], flagged_papers=flagged_papers, window_days=7, category_query="cat:cs.CL"
+    )
+
+    langs = {item["language"] for item in manifest["language_counts"]}
+    assert langs == {"Swahili", "French", "Tamil"}  # no Ari, no Agi
+    assert {"class_id": 0, "count": 1} in manifest["class_counts"]
+
+    assert manifest["counts"]["flagged_papers"] == 2  # paper 2 excluded
+    assert len(manifest["flagged_papers"]) == 3  # …but still present for auditability
+    series_by_date = {item["date"]: item for item in manifest["daily_series"]}
+    assert series_by_date["2026-05-19"]["flagged"] == 1  # only the unjudged paper
+
+    assert manifest["counts"]["judge"] == {
+        "judged_papers": 2,
+        "judged_languages": 4,
+        "studied": 1,
+        "mentioned_only": 1,
+        "false_positive": 2,
+    }
 
 
 # ---------------------------------------------------------------------------

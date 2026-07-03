@@ -12,10 +12,93 @@ Usage:
 
 import argparse
 import re
+import threading
+import time as _time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Optional
 import json
+
+import requests
+from tqdm import tqdm
+
+from langtrend.html_processor import ARXIV_USER_AGENT
+
+# --- PDF download (shared by scripts/process_papers.py and the LLM judge's
+# on-demand re-fetch, so both retry/backoff behavior stay in one place) -----
+
+PDF_MAX_BYTES = 200 * 1024 * 1024  # skip PDFs larger than 200 MB
+PDF_DOWNLOAD_TIMEOUT = 120  # wall-clock cap for entire PDF download
+PDF_LOG_EVERY = 256 * 1024
+PDF_DOWNLOAD_RETRIES = 2
+PDF_RETRY_BACKOFF = 5  # seconds; doubles each attempt
+_PDF_SEMAPHORE = threading.Semaphore(1)
+
+
+def download_pdf(pdf_url: str, pdf_dir: Path, paper_id: str) -> Path | None:
+    """Download a PDF into a per-paper subdirectory. Returns path or None on failure."""
+    safe_id = paper_id.split("/")[-1]
+    paper_pdf_dir = pdf_dir / safe_id
+    paper_pdf_dir.mkdir(parents=True, exist_ok=True)
+    filename = safe_id if safe_id.lower().endswith(".pdf") else f"{safe_id}.pdf"
+    pdf_path = paper_pdf_dir / filename
+    if pdf_path.exists():
+        tqdm.write(f"    [{paper_id}] PDF already on disk ({pdf_path.stat().st_size // 1024}KB)")
+        return pdf_path
+
+    for attempt in range(1, PDF_DOWNLOAD_RETRIES + 1):
+        tqdm.write(f"    [{paper_id}] PDF GET {pdf_url} (attempt {attempt}/{PDF_DOWNLOAD_RETRIES})")
+        with _PDF_SEMAPHORE:
+            _time.sleep(3)
+        t0 = _time.monotonic()
+        try:
+            resp = requests.get(pdf_url, stream=True, timeout=(10, 30), headers={
+                "User-Agent": ARXIV_USER_AGENT,
+                "Accept": "application/pdf",
+                "Accept-Encoding": "gzip, deflate",
+            })
+            resp.raise_for_status()
+            tqdm.write(f"    [{paper_id}] PDF response {resp.status_code}, streaming…")
+            downloaded = 0
+            last_logged = 0
+            with pdf_path.open("wb") as fh:
+                try:
+                    for chunk in resp.iter_content(chunk_size=65536):
+                        if chunk:
+                            downloaded += len(chunk)
+                            fh.write(chunk)
+                            if downloaded - last_logged >= PDF_LOG_EVERY:
+                                elapsed = _time.monotonic() - t0
+                                tqdm.write(f"    [{paper_id}] PDF downloading… {downloaded // 1024}KB in {elapsed:.1f}s")
+                                last_logged = downloaded
+                            if downloaded > PDF_MAX_BYTES:
+                                tqdm.write(f"    [{paper_id}] PDF too large (>{PDF_MAX_BYTES // (1024*1024)}MB) — skipping")
+                                return None
+                        if _time.monotonic() - t0 > PDF_DOWNLOAD_TIMEOUT:
+                            elapsed = _time.monotonic() - t0
+                            tqdm.write(f"    [{paper_id}] PDF download wall-clock timeout after {elapsed:.1f}s at {downloaded // 1024}KB")
+                            pdf_path.unlink(missing_ok=True)
+                            break
+                    else:
+                        elapsed = _time.monotonic() - t0
+                        tqdm.write(f"    [{paper_id}] PDF downloaded {downloaded // 1024}KB in {elapsed:.1f}s → {pdf_path}")
+                        return pdf_path
+                except Exception as chunk_err:
+                    elapsed = _time.monotonic() - t0
+                    tqdm.write(f"    [{paper_id}] PDF chunk error after {elapsed:.1f}s at {downloaded // 1024}KB: {type(chunk_err).__name__}: {chunk_err}")
+                    pdf_path.unlink(missing_ok=True)
+        except Exception as e:
+            elapsed = _time.monotonic() - t0
+            tqdm.write(f"    [{paper_id}] PDF fetch failed after {elapsed:.1f}s: {type(e).__name__}: {e}")
+            pdf_path.unlink(missing_ok=True)
+
+        if attempt < PDF_DOWNLOAD_RETRIES:
+            wait_secs = PDF_RETRY_BACKOFF * (2 ** (attempt - 1))
+            tqdm.write(f"    [{paper_id}] PDF retry in {wait_secs}s…")
+            _time.sleep(wait_secs)
+
+    tqdm.write(f"    [{paper_id}] PDF download failed after {PDF_DOWNLOAD_RETRIES} attempts")
+    return None
 
 
 def _get_docling_converter():

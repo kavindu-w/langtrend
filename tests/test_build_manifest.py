@@ -428,3 +428,53 @@ def test_build_and_save_prefers_precomputed_detected_jsonl_when_present(tmp_path
     # Detected via the precomputed jsonl, not by re-scanning the (irrelevant) abstract text.
     assert manifest["counts"]["flagged_papers"] == 1
     assert manifest["language_counts"] == [{"language": "Arabic", "count": 1}]
+
+def test_build_and_save_merges_judge_cache_verdicts(tmp_path, lang_classes, languages_to_ignore):
+    input_path = tmp_path / "arxiv_papers_20260518_to_20260525.jsonl"
+    input_path.write_text(
+        json.dumps({"id": "http://arxiv.org/abs/2605.00001v1", "published": "2026-05-18T00:00:00", "abstract": "irrelevant"}) + "\n",
+        encoding="utf-8",
+    )
+    lang_data_path = tmp_path / "language_data.json"
+    lang_data_path.write_text(json.dumps({"lang_classes": {}, "languages_to_ignore": []}), encoding="utf-8")
+
+    output_dir = tmp_path / "weeks" / "20260518_to_20260525"
+    output_dir.mkdir(parents=True)
+    detected_path = output_dir / "arxiv_papers_20260518_to_20260525_detected.jsonl"
+    detected_path.write_text(json.dumps({
+        "paper": {"id": "http://arxiv.org/abs/2605.00001v1", "published": "2026-05-18T00:00:00"},
+        "sources_checked": ["abstract"],
+        "sections": {"abstract": {"source": "abstract", "detected_languages": [
+            {"language": "Arabic", "class": 0},
+            {"language": "Agi", "class": 0},
+        ]}},
+    }) + "\n", encoding="utf-8")
+
+    judge_cache_dir = output_dir / "judge_cache"
+    judge_cache_dir.mkdir()
+    (judge_cache_dir / "2605.00001v1.json").write_text(json.dumps({
+        "paper_id": "http://arxiv.org/abs/2605.00001v1",
+        "judge_model": "llama-3.3-70b-versatile",
+        "judged_at": "2026-07-03T00:00:00+00:00",
+        "verdicts": {
+            "Arabic": {"verdict": "studied", "reason": "eval language"},
+            "Agi": {"verdict": "false_positive", "reason": "acronym"},
+        },
+    }), encoding="utf-8")
+
+    manifest_path = bm.build_and_save(input_path, output_dir, lang_data_path, window_days=7)
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+    langs = {l["language"]: l for l in manifest["flagged_papers"][0]["languages"]}
+    assert langs["Arabic"]["judge_verdict"] == "studied"
+    assert langs["Agi"]["judge_verdict"] == "false_positive"
+    assert langs["Agi"]["judge_model"] == "llama-3.3-70b-versatile"
+    assert "judge_evidence" not in langs["Agi"]  # no paper text stored, ever
+    # section-level entries carry verdicts too
+    section_entries = manifest["flagged_papers"][0]["sections"][0]["detected_languages"]
+    assert {e["language"]: e.get("judge_verdict") for e in section_entries} == {
+        "Arabic": "studied", "Agi": "false_positive",
+    }
+    # judged false positives are excluded from the counts but kept in the data
+    assert manifest["language_counts"] == [{"language": "Arabic", "count": 1}]
+    assert manifest["counts"]["judge"]["false_positive"] == 1

@@ -54,6 +54,13 @@ type Props = {
       papers?: number;
       flagged_papers?: number;
       unique_languages?: number;
+      judge?: {
+        judged_papers?: number;
+        judged_languages?: number;
+        studied?: number;
+        mentioned_only?: number;
+        false_positive?: number;
+      };
     };
     papers?: unknown[];
     flagged_papers?: unknown[];
@@ -71,6 +78,14 @@ function pfpWarn(lang: string): string { return pfpWarnings[lang] ?? ''; }
 const weeklyPapers = manifest.counts?.papers ?? (manifest.papers || []).length;
 const weeklyFlagged = manifest.counts?.flagged_papers ?? (manifest.flagged_papers || []).length;
 const weeklyUniqueLanguages = manifest.counts?.unique_languages ?? languageCounts.length;
+const judgeCounts = manifest.counts?.judge && (manifest.counts.judge.judged_papers ?? 0) > 0
+  ? {
+      judged_papers: manifest.counts.judge.judged_papers ?? 0,
+      studied: manifest.counts.judge.studied ?? 0,
+      mentioned_only: manifest.counts.judge.mentioned_only ?? 0,
+      false_positive: manifest.counts.judge.false_positive ?? 0,
+    }
+  : null;
 
 function classColor(language: string) {
   return classColorForLanguage(language, langClasses);
@@ -604,6 +619,12 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <strong id="stat-unique-langs">{weeklyUniqueLanguages}</strong>
         <span>Unique languages detected</span>
       </article>
+      {judgeCounts && judgeCounts.judged_papers > 0 && (
+        <article class="stat-card-mini">
+          <strong id="stat-judged-papers">{judgeCounts.judged_papers}</strong>
+          <span>LLM-verified papers — {judgeCounts.studied} studied · {judgeCounts.mentioned_only} mentioned-only · {judgeCounts.false_positive} excluded</span>
+        </article>
+      )}
     </div>
 
     <div class="coverage-summary-panel">

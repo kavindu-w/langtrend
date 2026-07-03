@@ -60,6 +60,9 @@ def build_snapshot_manifest(
     class_counts: Counter[int] = Counter()
     daily_papers: Counter[str] = Counter()
     daily_flagged: Counter[str] = Counter()
+    judge_counts: Counter[str] = Counter()
+    judged_papers = 0
+    flagged_paper_count = 0
 
     for paper in papers:
         published = str(paper.get("published", ""))[:10]
@@ -69,9 +72,24 @@ def build_snapshot_manifest(
     for flagged in flagged_papers:
         paper = flagged.get("paper", {})
         published = str(paper.get("published", ""))[:10]
-        if published:
-            daily_flagged[published] += 1
-        for detected in flagged.get("languages", []):
+        languages = flagged.get("languages", [])
+        if any("judge_verdict" in detected for detected in languages):
+            judged_papers += 1
+        # A paper whose detections are all judged false positives stays in
+        # flagged_papers (auditable) but is excluded from the counts.
+        all_false_positive = bool(languages) and all(
+            detected.get("judge_verdict") == "false_positive" for detected in languages
+        )
+        if not all_false_positive:
+            flagged_paper_count += 1
+            if published:
+                daily_flagged[published] += 1
+        for detected in languages:
+            verdict = detected.get("judge_verdict")
+            if verdict:
+                judge_counts[verdict] += 1
+            if verdict == "false_positive":
+                continue
             language = detected.get("language")
             class_id = detected.get("class")  # key is "class", not "class_id"
             if language:
@@ -87,9 +105,16 @@ def build_snapshot_manifest(
         "query": category_query,
         "counts": {
             "papers": len(papers),
-            "flagged_papers": len(flagged_papers),
+            "flagged_papers": flagged_paper_count,
             "unique_languages": len(language_counts),
             "pdf_failed_no_detection": pdf_failed_no_detection,
+            "judge": {
+                "judged_papers": judged_papers,
+                "judged_languages": sum(judge_counts.values()),
+                "studied": judge_counts.get("studied", 0),
+                "mentioned_only": judge_counts.get("mentioned_only", 0),
+                "false_positive": judge_counts.get("false_positive", 0),
+            },
         },
         "language_counts": [
             {"language": language, "count": count}

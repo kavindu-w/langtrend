@@ -12,8 +12,9 @@ Writes:
   - data/processed/weeks/YYYYMMDD_to_YYYYMMDD/langtrend_manifest.json  (week archive)
   - data/processed/langtrend_manifest_last_7_days.json                  (latest pointer)
 
-Privacy: only paper metadata, abstracts (public on arXiv), and language detection results
-are written to the manifest. All raw HTML/PDF text content stays in the local caches.
+Privacy: only paper metadata, abstracts (public on arXiv), language detection results,
+and LLM judge verdicts (a verdict label + a one-line model-generated reason) are written to the manifest. Full HTML/PDF text content stays
+in the local caches.
 
 Usage:
     python scripts/build_manifest.py
@@ -31,6 +32,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from langtrend.judge import apply_judge_to_flagged, load_judge_cache
 from langtrend.manifest import build_detections, build_snapshot_manifest, save_json
 from langtrend.text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text
 
@@ -324,6 +326,14 @@ def build_and_save(
             papers, lang_classes, languages_to_ignore, possible_false_positives,
             html_cache_dir, pdf_cache_dir,
         )
+
+    # Fold in LLM judge verdicts when the week has a judge_cache (see
+    # scripts/judge_languages.py). Detections are kept either way — the judge
+    # only annotates entries; counting rules live in build_snapshot_manifest.
+    judge_cache = load_judge_cache(output_dir / "judge_cache")
+    if judge_cache:
+        updated = apply_judge_to_flagged(flagged_papers, judge_cache)
+        print(f"  Judge verdicts  : {updated} language entries across {len(judge_cache)} judged paper(s)")
 
     # Count papers where PDF download failed and nothing was detected — stored as a
     # separate manifest stat, not added to flagged_papers (which means "language detected").

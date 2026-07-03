@@ -19,8 +19,10 @@ import requests
 
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+sys.path.insert(0, str(PROJECT_ROOT))
 
 import process_papers as pp
+from langtrend import pdf_processor
 
 
 @pytest.fixture
@@ -76,7 +78,7 @@ def test_download_pdf_returns_existing_file_without_hitting_network(mock_sleep, 
     existing = paper_pdf_dir / "2501.00001.pdf"
     existing.write_bytes(b"%PDF-existing")
 
-    with patch("process_papers.requests.get") as mock_get:
+    with patch("langtrend.pdf_processor.requests.get") as mock_get:
         result = pp._download_pdf("http://arxiv.org/pdf/2501.00001", pdf_dir, "2501.00001")
 
     assert result == existing
@@ -89,7 +91,7 @@ def test_download_pdf_writes_streamed_chunks_to_disk(mock_sleep, tmp_path):
     pdf_dir = tmp_path / "pdfs"
     resp = _mock_pdf_response([b"chunk1", b"chunk2"])
 
-    with patch("process_papers.requests.get", return_value=resp):
+    with patch("langtrend.pdf_processor.requests.get", return_value=resp):
         result = pp._download_pdf("http://arxiv.org/pdf/1", pdf_dir, "1")
 
     assert result == pdf_dir / "1" / "1.pdf"
@@ -101,7 +103,7 @@ def test_download_pdf_retries_after_a_failed_attempt_then_succeeds(mock_sleep, t
     pdf_dir = tmp_path / "pdfs"
     ok_resp = _mock_pdf_response([b"data"])
 
-    with patch("process_papers.requests.get", side_effect=[requests.ConnectionError("network down"), ok_resp]):
+    with patch("langtrend.pdf_processor.requests.get", side_effect=[requests.ConnectionError("network down"), ok_resp]):
         result = pp._download_pdf("http://arxiv.org/pdf/1", pdf_dir, "1")
 
     assert result is not None
@@ -112,7 +114,7 @@ def test_download_pdf_retries_after_a_failed_attempt_then_succeeds(mock_sleep, t
 def test_download_pdf_returns_none_after_all_retries_fail(mock_sleep, tmp_path):
     pdf_dir = tmp_path / "pdfs"
 
-    with patch("process_papers.requests.get", side_effect=requests.ConnectionError("network down")):
+    with patch("langtrend.pdf_processor.requests.get", side_effect=requests.ConnectionError("network down")):
         result = pp._download_pdf("http://arxiv.org/pdf/1", pdf_dir, "1")
 
     assert result is None
@@ -125,7 +127,7 @@ def test_download_pdf_raises_http_error_treated_as_failed_attempt(mock_sleep, tm
     bad_resp = MagicMock()
     bad_resp.raise_for_status.side_effect = requests.HTTPError("404")
 
-    with patch("process_papers.requests.get", return_value=bad_resp):
+    with patch("langtrend.pdf_processor.requests.get", return_value=bad_resp):
         result = pp._download_pdf("http://arxiv.org/pdf/1", pdf_dir, "1")
 
     assert result is None

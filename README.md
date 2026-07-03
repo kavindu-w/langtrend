@@ -37,6 +37,8 @@ _Latest processed week: **2026-06-22 – 2026-06-29**._
 
 - **Acronym conflict detection** — When a paper defines an acronym that shares its name with a language (such as defining “GAN” in a paper that also mentions the Gan language), the detection is suppressed. In such cases, a warning appears in the dashboard, so users can check the paper themselves. Furthermore, the pipeline performs thorough text cleaning, such as removing mathematical artifacts, to minimize false positives without suppressing valid detections.
 
+- **LLM-as-judge verification** — After regex detection, an LLM judge (Groq free tier by default — open-weight Llama 3.3 70B — or any OpenAI-compatible endpoint including local Ollama) reviews each flagged paper and classifies every detected language as **studied** (part of the paper's experiments or artifacts), **mentioned-only** (a real language, but only referenced), or **false positive** (an acronym, author name, or word coincidence), with a one-line model-generated reason. False positives are excluded from the weekly counts and hidden from the chip row (still auditable in a popover and in the committed `judge_cache/`); mentioned-only languages stay counted but are visually dimmed. Nothing is ever deleted from the data — researchers can inspect every dropped detection.
+
 - **Weekly automated updates** — A GitHub Actions workflow runs every Tuesday, covering the previous week’s cs.CL submissions. Historical snapshots are preserved week over week.
 
 - **Open data** — The manifest JSON for each week is committed to the repository. You can download and analyse the raw detection data without running the pipeline.
@@ -75,7 +77,7 @@ Languages class descriptions are adapted from the resource-availability taxonomy
 
 ## Limitations
 
-- **Detection coverage** — Language detection is based on explicit mentions in titles, abstracts, section text, and cleaned PDF body text. As a result, indirect references, such as citing a multilingual dataset without naming the languages, may be missed. Further, the pipeline may produce false positives, since shorter language names can appear as acronyms, author names, or technical terms. Although text cleaning and acronym filtering reduce these occurrences, users should always verify flagged languages directly in the paper.
+- **Detection coverage** — Language detection is based on explicit mentions in titles, abstracts, section text, and cleaned PDF body text. As a result, indirect references, such as citing a multilingual dataset without naming the languages, may be missed. Further, the regex pass may produce false positives, since shorter language names can appear as acronyms, author names, or technical terms. Text cleaning, acronym filtering, and the LLM judge stage reduce these occurrences (judged false positives are excluded from counts but kept in the data), yet the judge itself can err — its verdict and reason are shown so users can verify flagged languages directly in the paper.
 - **Extraction fallback** — While HTML extraction is preferred for accuracy, the pipeline depends on the availability of arXiv HTML pages. If the HTML version is missing or incomplete, the pipeline instead falls back to the PDF (via Docling). Should the PDF also be unavailable or withdrawn, only the abstract text will be analysed.
 - **cs.CL scope only** — The pipeline covers only papers submitted to the <code>cs.CL</code> arXiv category (It may include multiple categories, which include <code>cs.CL</code>). Multilingual NLP papers appearing in adjacent categories (cs.AI, cs.LG, cs.CV, etc.), which exclude <code>cs.CL</code> are not captured.
 - **No paper version tracking** — Papers are processed at fetch time. If an author updates a paper with new or removed language mentions, these are not reflected unless the pipeline re-runs for the same date window.
@@ -131,9 +133,19 @@ make fetch-oai        # Step 1 — force OAI-PMH harvester instead of arXiv API
 make process          # Step 2 — extract text and detect languages
 make reprocess        # Step 2 — re-run detection on cached text only (no downloads)
 make retry-missing    # Step 2 — fill gaps from a previous run (downloads missing PDFs)
-make manifest         # Step 3 — rebuild manifest JSON from cached results
-make pipeline         # Steps 1–3 — full data run
+make judge            # Step 3 — LLM-verify detections (studied / mentioned-only / false positive)
+make manifest         # Step 4 — rebuild manifest JSON from cached results (folds in judge verdicts)
+make pipeline         # Steps 1, 2, 4 — full data run (judge runs separately)
 ```
+
+**LLM judge setup** — copy `.env.example` to `.env` and set `LLM_JUDGE_API_KEY` (free key from [console.groq.com](https://console.groq.com)). The judge only calls the model for papers that already have regex detections, one request per paper, throttled to the free-tier rate limit; re-runs skip papers with cached verdicts in `data/processed/weeks/<week>/judge_cache/`. For quota-free local testing, point `LLM_JUDGE_BASE_URL` at an Ollama server (see `.env.example`). Test single papers with:
+
+```bash
+python scripts/judge_languages.py --end-date 2026-05-25 --paper-id 2605.17710v1 --dry-run  # prompt preview
+python scripts/judge_languages.py --end-date 2026-05-25 --limit 5                          # small smoke run
+```
+
+or interactively in `notebooks/judge_check.ipynb`. See `.env.example` for other supported backends (Ollama, Gemini).
 
 To target a specific week, set `END_DATE`:
 
@@ -191,9 +203,11 @@ Steps executed by the workflow:
 1. Fetch arXiv `cs.CL` papers for the past 7 days
 2. Extract and clean text (HTML → PDF → abstract fallback)
 3. Detect language mentions and flag acronym conflicts
-4. Build the manifest JSON
-5. Build the Astro site
-6. Deploy to GitHub Pages
+4. LLM-judge this week's detected languages (needs the `LLM_JUDGE_API_KEY` repository secret; skipped cleanly when unset)
+5. Build the manifest JSON (including judge verdicts)
+6. Build the Astro site and deploy to GitHub Pages — **only if every week's papers are fully judged** (a repo-wide check, not just this week)
+
+Since the LLM judge's free-tier quota doesn't always cover a full week in one run (see `judge_languages.py`'s `--sweep-all-weeks`/`--check-only` modes), a second workflow at `.github/workflows/judge-catchup.yml` runs **daily**, retrying whatever's still pending across every week (oldest first) and building/deploying the site once the backlog is fully cleared. It shares the same `deploy` concurrency group as the weekly pipeline, so GitHub Actions queues it behind that pipeline automatically rather than running the two concurrently. `.github/workflows/deploy.yml` is a small reusable workflow shared by both.
 
 ---
 

@@ -54,6 +54,11 @@ function countLanguages(flaggedPapers) {
   const counts = new Map();
   for (const item of flaggedPapers) {
     for (const entry of item.languages || []) {
+      // Detections the LLM judge rejected stay in the data for audit but are
+      // excluded from counts (mirrors build_snapshot_manifest).
+      if (entry && typeof entry === 'object' && !Array.isArray(entry) && entry.judge_verdict === 'false_positive') {
+        continue;
+      }
       const language = normalizeLanguageEntry(entry);
       if (!language) {
         continue;

@@ -9,6 +9,8 @@ data/processed/weeks/
     ├── arxiv_papers_<range>_detected.jsonl         Per-paper detections
     ├── arxiv_papers_<range>_no_detections.json     Papers with no language mentions
     ├── arxiv_papers_<range>_warnings.json          Acronym-conflict warnings
+    ├── arxiv_papers_<range>_judge_warnings.json     LLM judge failures (only when judging hit errors)
+    ├── judge_cache/                                LLM judge verdicts, one file per paper
     ├── html_cache/                                 Raw HTML detections (gitignored)
     └── pdf_cache/                                  Raw PDF detections (gitignored)
 ```
@@ -19,6 +21,8 @@ data/processed/weeks/
 | `arxiv_papers_<range>_detected.jsonl` | Yes | Per-paper detection records (one JSON object per line) for papers with at least one language mention. Input to `scripts/build_manifest.py`. |
 | `arxiv_papers_<range>_no_detections.json` | Yes | Papers with no language mentions found, including which sources were checked (abstract/html/pdf) — used to compute the `pdf_failed_no_detection` count. |
 | `arxiv_papers_<range>_warnings.json` | Yes | Acronym-conflict warnings raised while processing this week (subset later merged into `data/processed/language_screening_warnings.json`). |
+| `judge_cache/` | Yes | LLM judge verdicts (`scripts/judge_languages.py`): per detected language `studied` / `mentioned_only` / `false_positive` with a one-line model-generated reason. Small files; committed so `build_manifest.py` can fold verdicts into the manifest anywhere, including CI. |
+| `arxiv_papers_<range>_judge_warnings.json` | Yes | Papers the judge could not process (timeouts, malformed model replies) — these stay unjudged rather than failing the run. |
 | `html_cache/` | **No** (gitignored) | Raw per-paper HTML section extraction + detections. Contains full paper body text, so it's excluded from the repo (see `.gitignore`) — kept locally to make `--reprocess-cache` reruns fast. |
 | `pdf_cache/` | **No** (gitignored) | Same as `html_cache/` but for the PDF-fallback path (via `langtrend/pdf_processor.py`). |
 

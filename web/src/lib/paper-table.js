@@ -41,6 +41,15 @@ export function formatSectionTitle(sectionName) {
   return compact;
 }
 
+export function judgeVerdictOfEntry(entry) {
+  if (typeof entry === 'string' || Array.isArray(entry)) return '';
+  return typeof entry?.judge_verdict === 'string' ? entry.judge_verdict : '';
+}
+
+export function isJudgedFalsePositive(entry) {
+  return judgeVerdictOfEntry(entry) === 'false_positive';
+}
+
 /** @param {object} entry @param {Record<string, unknown[]>} langClasses @param {Record<string, string>} pfpMap */
 export function chipFromEntry(entry, langClasses, pfpMap = {}) {
   const language = normalizeLanguage(entry);
@@ -48,14 +57,20 @@ export function chipFromEntry(entry, langClasses, pfpMap = {}) {
   const explicitReason = !Array.isArray(entry) && typeof entry === 'object' ? (entry?.flag_reason ?? '') : '';
   const twoLetterCode = typeof language === 'string' && /^[A-Za-z]{2}$/.test(language.trim());
   const pfpReason = typeof language === 'string' && pfpMap[language] ? String(pfpMap[language]) : '';
-  const needsReview = explicitNeeds || twoLetterCode || !!pfpReason;
+  const judgeVerdict = judgeVerdictOfEntry(entry);
+  // A "studied" verdict overrides the heuristic review flags — the judge confirmed the language.
+  const needsReview = judgeVerdict !== 'studied' && (explicitNeeds || twoLetterCode || !!pfpReason);
   const flagReason = explicitReason || pfpReason || (twoLetterCode ? 'Detected as 2-letter language code — confirm mapping/label.' : '');
+  const isObject = !Array.isArray(entry) && typeof entry === 'object' && entry !== null;
   return {
     language,
     borderClass: classFromEntry(entry) ?? languageBorderClass(language, langClasses),
     needsReview,
     flagReason,
     fillColor: languageFillColor(language),
+    judgeVerdict,
+    judgeReason: isObject ? (entry.judge_reason ?? '') : '',
+    mentionedOnly: judgeVerdict === 'mentioned_only',
   };
 }
 
@@ -70,7 +85,10 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
   const paper = item.paper;
   const allAuthors = Array.isArray(paper.authors) && paper.authors.length > 0 ? paper.authors.join(', ') : 'Unknown authors';
 
-  const chipLanguages = [...item.languages].filter(Boolean).sort((l, r) => {
+  // Languages the LLM judge rejected are hidden from the chip row (and from
+  // filtering/counting) but surfaced in their own popover chips for audit.
+  const judgeRejected = [...item.languages].filter(Boolean).filter(isJudgedFalsePositive);
+  const chipLanguages = [...item.languages].filter(Boolean).filter((e) => !isJudgedFalsePositive(e)).sort((l, r) => {
     const lc = classFromEntry(l) ?? languageBorderClass(normalizeLanguage(l), langClasses);
     const rc = classFromEntry(r) ?? languageBorderClass(normalizeLanguage(r), langClasses);
     const d = rc - lc;
@@ -118,6 +136,7 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
       sourceLabel: SOURCE_LABEL[section.source] ?? section.source,
       chips: (section.detected_languages || [])
         .filter(Boolean)
+        .filter((entry) => !isJudgedFalsePositive(entry))
         .map((entry) => chipFromEntry(entry, langClasses, pfpMap))
         .sort((left, right) => {
           const classDelta = right.borderClass - left.borderClass;
@@ -146,7 +165,14 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
   }
   const suppressedChips = [...suppressedByLang.values()];
 
-  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts, suppressedChips, weekStart };
+  const judgeSuppressedChips = judgeRejected.map((entry) => ({
+    language: normalizeLanguage(entry),
+    borderClass: classFromEntry(entry) ?? languageBorderClass(normalizeLanguage(entry), langClasses),
+    reason: entry.judge_reason ?? '',
+    model: entry.judge_model ?? '',
+  }));
+
+  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts, suppressedChips, judgeSuppressedChips, weekStart };
 }
 
 /**
@@ -157,13 +183,16 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
  */
 export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
   const paper = item.paper;
-  const languages = [...item.languages].filter(Boolean).map((entry) => {
+  const languages = [...item.languages].filter(Boolean).filter((entry) => !isJudgedFalsePositive(entry)).map((entry) => {
     const language = normalizeLanguage(entry);
     const borderClass = classFromEntry(entry) ?? languageBorderClass(language, langClasses);
-    const needsReview = (!Array.isArray(entry) && typeof entry === 'object' && !!entry?.needs_review)
+    const judgeVerdict = judgeVerdictOfEntry(entry);
+    const needsReview = judgeVerdict !== 'studied' && (
+      (!Array.isArray(entry) && typeof entry === 'object' && !!entry?.needs_review)
       || (typeof language === 'string' && /^[A-Za-z]{2}$/.test(language.trim()))
-      || (typeof language === 'string' && !!pfpMap[language]);
-    return { language, borderClass, fillColor: languageFillColor(language), needsReview };
+      || (typeof language === 'string' && !!pfpMap[language])
+    );
+    return { language, borderClass, fillColor: languageFillColor(language), needsReview, judgeVerdict };
   }).sort((a, b) => b.borderClass - a.borderClass || a.language.localeCompare(b.language));
 
   const languageNames = languages.map((l) => l.language).filter(Boolean);

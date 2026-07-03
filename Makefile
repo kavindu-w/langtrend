@@ -3,6 +3,7 @@ DATA_ROOT   ?= data
 WINDOW_DAYS ?= 7
 MAX_RESULTS ?= 1000
 WORKERS     ?= 12
+JUDGE_WORKERS ?= 4
 # END_DATE    ?= 2026-05-04
 # END_DATE    ?= 2026-05-11
 # END_DATE    ?= 2026-05-18
@@ -19,8 +20,8 @@ _END_DATE_FLAG = $(if $(END_DATE),--end-date $(END_DATE),)
 _NO_PDF_FLAG   = $(if $(NO_PDF),--no-pdf,)
 
 .PHONY: help setup fetch fetch-all fetch-oai process process-all reprocess reprocess-all \
-        retry-missing retry-missing-all manifest manifest-all readme-stats pipeline pipeline-all \
-        web-install web-dev web-build dev build clean
+        retry-missing retry-missing-all judge judge-all manifest manifest-all readme-stats \
+        pipeline pipeline-all web-install web-dev web-build dev build clean
 
 help:
 	@echo "Single-week targets (controlled by END_DATE):"
@@ -29,6 +30,8 @@ help:
 	@echo "  make process          Detect languages via HTML/PDF (skipped if already done)"
 	@echo "  make reprocess        Re-run cleaning+detection on cached text only (no downloads)"
 	@echo "  make retry-missing    Retry papers with no/incomplete cache (downloads missing PDFs)"
+	@echo "  make judge            LLM-verify detected languages (needs LLM_JUDGE_API_KEY in .env);"
+	@echo "                          run 'make manifest' afterwards to fold verdicts in"
 	@echo "  make manifest         Rebuild manifest from caches (fast, no downloads)"
 	@echo "                          Use INPUT=<path.jsonl> to target a specific week"
 	@echo "  make readme-stats     Regenerate README badges/table + weekly_summary.csv"
@@ -39,6 +42,7 @@ help:
 	@echo "  make process-all      process for each date in DATES"
 	@echo "  make reprocess-all    reprocess for each date in DATES"
 	@echo "  make retry-missing-all  retry-missing for each date in DATES"
+	@echo "  make judge-all        judge for each date in DATES (resumable; reruns skip cached verdicts)"
 	@echo "  make manifest-all     rebuild manifest for every week found in metadata dir"
 	@echo "  make pipeline-all     full pipeline for each date in DATES"
 	@echo ""
@@ -57,6 +61,7 @@ help:
 	@echo "         — space-separated end-dates for *-all targets"
 	@echo "  NO_PDF=1    skip docling PDF processing (safe for parallel terminals)"
 	@echo "  WORKERS=$(WORKERS)  DATA_ROOT=$(DATA_ROOT)  WINDOW_DAYS=$(WINDOW_DAYS)  MAX_RESULTS=$(MAX_RESULTS)"
+	@echo "  JUDGE_WORKERS=$(JUDGE_WORKERS)  (LLM judge config lives in .env — see .env.example)"
 	@echo ""
 	@echo "Parallel multi-week workflow:"
 	@echo "  Terminal 1: make process NO_PDF=1 END_DATE=2026-05-04"
@@ -111,6 +116,12 @@ retry-missing:
 		--skip-fetch \
 		--retry-missing
 
+judge:
+	$(PYTHON) scripts/judge_languages.py \
+		--window-days $(WINDOW_DAYS) \
+		--workers $(JUDGE_WORKERS) \
+		$(_END_DATE_FLAG)
+
 manifest:
 	$(PYTHON) scripts/build_manifest.py \
 		--window-days $(WINDOW_DAYS) \
@@ -160,6 +171,14 @@ retry-missing-all:
 		$(PYTHON) scripts/run_langtrend_pipeline.py \
 			--data-root $(DATA_ROOT) --window-days $(WINDOW_DAYS) --workers $(WORKERS) \
 			--end-date $$d --skip-fetch --retry-missing; \
+	done
+
+judge-all:
+	@for d in $(DATES); do \
+		echo ""; echo "=== judge: $$d ==="; \
+		$(PYTHON) scripts/judge_languages.py \
+			--window-days $(WINDOW_DAYS) --workers $(JUDGE_WORKERS) \
+			--end-date $$d; \
 	done
 
 manifest-all:

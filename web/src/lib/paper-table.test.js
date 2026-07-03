@@ -317,3 +317,91 @@ describe('buildWeekApiPaper', () => {
     expect(result.id).toBe('');
   });
 });
+
+describe('LLM judge fields', () => {
+  const paper = {
+    id: 'http://arxiv.org/abs/2501.00001',
+    title: 'A Study of Sinhala and Tamil',
+    authors: ['Alice', 'Bob'],
+    abstract: 'abstract text',
+    pdf_url: 'http://arxiv.org/pdf/2501.00001',
+    published: '2026-05-18T00:00:00Z',
+  };
+
+  it('chipFromEntry carries judge fields and marks mentioned_only', () => {
+    const chip = chipFromEntry({
+      language: 'Sinhala', class: 2,
+      judge_verdict: 'mentioned_only', judge_reason: 'only in related work',
+    }, {});
+    expect(chip.judgeVerdict).toBe('mentioned_only');
+    expect(chip.judgeReason).toBe('only in related work');
+    expect(chip.mentionedOnly).toBe(true);
+  });
+
+  it('a studied verdict clears the heuristic needs-review flags', () => {
+    const flagged = chipFromEntry({ language: 'Gan', class: 0, needs_review: true, flag_reason: 'GAN acronym' }, {});
+    expect(flagged.needsReview).toBe(true);
+    const confirmed = chipFromEntry(
+      { language: 'Gan', class: 0, needs_review: true, flag_reason: 'GAN acronym', judge_verdict: 'studied' },
+      {},
+    );
+    expect(confirmed.needsReview).toBe(false);
+    expect(confirmed.judgeVerdict).toBe('studied');
+  });
+
+  it('buildPaperItem moves judged false positives out of chips into judgeSuppressedChips', () => {
+    const item = buildPaperItem(
+      {
+        paper,
+        languages: [
+          { language: 'Sinhala', class: 2, sources: ['html'] },
+          { language: 'Ari', class: 0, sources: ['html'], judge_verdict: 'false_positive', judge_reason: 'Adjusted Rand Index', judge_model: 'llama-3.3-70b-versatile' },
+        ],
+        sourcesChecked: ['html'],
+        sections: [
+          { name: 'Intro', source: 'html', detected_languages: [
+            { language: 'Sinhala', class: 2 },
+            { language: 'Ari', class: 0, judge_verdict: 'false_positive' },
+          ] },
+        ],
+        warnings: [],
+      },
+      0,
+      '2026-05-18',
+      {},
+      {},
+    );
+    expect(item.chipLanguageNames).toEqual(['Sinhala']);
+    expect(item.minClass).toBe(2); // rejected class-0 entry no longer drives minClass
+    expect(item.sections[0].chips.map((c) => c.language)).toEqual(['Sinhala']);
+    expect(item.judgeSuppressedChips).toEqual([
+      { language: 'Ari', borderClass: 0, reason: 'Adjusted Rand Index', model: 'llama-3.3-70b-versatile' },
+    ]);
+  });
+
+  it('buildWeekApiPaper excludes judged false positives and carries judgeVerdict', () => {
+    const result = buildWeekApiPaper(
+      {
+        paper,
+        languages: [
+          { language: 'Sinhala', class: 2, judge_verdict: 'studied' },
+          { language: 'Tamil', class: 3, judge_verdict: 'mentioned_only' },
+          { language: 'Ari', class: 0, judge_verdict: 'false_positive' },
+        ],
+      },
+      {},
+    );
+    expect(result.languageNames).toEqual(['Tamil', 'Sinhala']);
+    expect(result.langCount).toBe(2);
+    expect(result.languages.map((l) => l.judgeVerdict)).toEqual(['mentioned_only', 'studied']);
+  });
+
+  it('buildWeekApiPaper suppresses needsReview when the judge confirmed the language', () => {
+    const result = buildWeekApiPaper(
+      { paper, languages: [{ language: 'Gan', class: 0, needs_review: true, judge_verdict: 'studied' }] },
+      {},
+      { Gan: 'very common ML acronym' },
+    );
+    expect(result.languages[0].needsReview).toBe(false);
+  });
+});

@@ -486,20 +486,25 @@ jobs:
           }
 
 # ---------------------------------------------------------------------------
-# Job 5: build frontend + deploy to GitHub Pages (~variable, grows with data)
-# Fresh checkout sees all outputs committed by Jobs 1–4.
+# Job 5: LLM judge — verify this week's detected languages (studied /
+# mentioned_only / false_positive) and fold verdicts into the manifest.
+# Skips cleanly when the LLM_JUDGE_API_KEY secret is unset (forks), leaving
+# detections unjudged. On free-tier rate limits, judge_languages.py stops
+# cleanly (exit 3) rather than failing — the deploy step below only runs once
+# a repo-wide check confirms zero pending papers anywhere; if this run didn't
+# finish, judge-catchup.yml's daily sweep picks up the rest and deploys once
+# it clears the backlog.
 # ---------------------------------------------------------------------------
-  build-and-deploy:
+  judge:
     needs:
       - pdf-retry-2
-    if: always() && needs.pdf-retry-2.result != 'cancelled'
+    if: always() && needs.pdf-retry-2.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
     runs-on: ubuntu-latest
-    timeout-minutes: 350
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+    timeout-minutes: 120
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    outputs:
+      fully_judged: ${{ steps.check.outputs.exit_code == '0' }}
 
     steps:
       - name: Check out repository
@@ -508,41 +513,108 @@ jobs:
           submodules: recursive
           ref: ${{ github.ref_name }}
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          node-version: 22.12.0
-          cache: npm
-          cache-dependency-path: web/package-lock.json
+          python-version-file: '.python-version'
+          cache: 'pip'
 
-      - name: Install frontend dependencies
-        working-directory: web
-        run: npm ci
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Build frontend
-        working-directory: web
-        run: npm run build
+      # Resumable: papers with cached verdicts are skipped, so a re-run after a
+      # rate-limit stop or timeout picks up where it left off. Exit 3 (stopped
+      # early, e.g. daily quota exhausted) is expected and must not fail the
+      # job — only a real error (exit 1) should.
+      - name: Judge this week's detected languages (LLM)
+        env:
+          LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
+        run: |
+          set +e
+          python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured
+          code=$?
+          set -e
+          if [ "$code" != "0" ] && [ "$code" != "3" ]; then
+            exit "$code"
+          fi
 
-      - name: Configure Pages
-        if: github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_site)
-        uses: actions/configure-pages@v5
+      # Repo-wide check (not just this week) — the site should only deploy
+      # once every detected paper, in every week, has a verdict.
+      - name: Check whether every week is fully judged
+        id: check
+        env:
+          LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
+        run: |
+          set +e
+          python scripts/judge_languages.py --sweep-all-weeks --check-only
+          code=$?
+          set -e
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
 
-      - name: Upload Pages artifact
-        if: github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_site)
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: web/dist
+      - name: Rebuild manifest with judge verdicts
+        run: |
+          python scripts/run_langtrend_pipeline.py \
+            --data-root data \
+            --window-days 7 \
+            --skip-fetch \
+            --skip-process
 
-      - name: Deploy to GitHub Pages
-        id: deploy
-        if: github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_site)
-        uses: actions/deploy-pages@v4
+      - name: Update README stats and badges
+        run: |
+          python scripts/update_readme_stats.py --data-root data
 
-      - name: Upload snapshot artifact (for debugging)
-        uses: actions/upload-artifact@v4
-        with:
-          name: langtrend-snapshot-${{ github.run_id }}
-          path: |
+      - name: Commit judge outputs
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          shopt -s nullglob
+          generated_files=(
             data/processed/langtrend_manifest_last_7_days.json
-            data/processed/langtrend_manifest_*_to_*.json
-          retention-days: 30
+            data/processed/weeks/*/judge_cache/*.json
+            data/processed/weeks/*/arxiv_papers_*_judge_warnings.json
+            data/processed/weeks/*/langtrend_manifest.json
+            data/processed/badges/papers_badge.json
+            data/processed/badges/languages_badge.json
+            data/processed/weekly_summary.csv
+            README.md
+          )
+
+          if [ ${#generated_files[@]} -eq 0 ]; then
+            echo "No generated files matched any pattern."
+            exit 0
+          fi
+
+          git add -f "${generated_files[@]}"
+
+          if git diff --cached --quiet; then
+            echo "No judge changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Add LLM judge verdicts and update manifest"
+          git push origin HEAD:main || {
+            git fetch origin main
+            git rebase -X ours origin/main
+            git push origin HEAD:main
+          }
+
+# ---------------------------------------------------------------------------
+# Job 6: build frontend + deploy to GitHub Pages (~variable, grows with data)
+# Fresh checkout sees all outputs committed by Jobs 1–5. Only runs when the
+# judge job's repo-wide check confirmed zero pending papers anywhere.
+# ---------------------------------------------------------------------------
+  deploy:
+    needs:
+      - judge
+    if: always() && needs.judge.result != 'cancelled' && needs.judge.outputs.fully_judged == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy.yml
+    with:
+      should_publish: ${{ github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_site) }}

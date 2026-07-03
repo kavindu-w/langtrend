@@ -1,0 +1,80 @@
+name: Build and deploy site (reusable)
+
+# Called by langtrend.yml (after the weekly judge job) and judge-catchup.yml
+# (after the daily catch-up job), whichever one clears the judging backlog
+# first. Builds the Astro site from whatever data/ state is committed at
+# call time and deploys to GitHub Pages.
+#
+# Note: github.event_name inside a called workflow is always 'workflow_call',
+# not the caller's original trigger — so the caller must tell us explicitly
+# whether this run should actually publish (see the should_publish input).
+
+on:
+  workflow_call:
+    inputs:
+      should_publish:
+        description: 'Actually configure/upload/deploy Pages (false = build only, for manual dry runs)'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          ref: ${{ github.ref_name }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: web
+        run: npm run build
+
+      - name: Configure Pages
+        if: inputs.should_publish
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: inputs.should_publish
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        if: inputs.should_publish
+        uses: actions/deploy-pages@v4
+
+      - name: Upload snapshot artifact (for debugging)
+        uses: actions/upload-artifact@v4
+        with:
+          name: langtrend-snapshot-${{ github.run_id }}
+          path: |
+            data/processed/langtrend_manifest_last_7_days.json
+            data/processed/langtrend_manifest_*_to_*.json
+          retention-days: 30

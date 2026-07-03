@@ -2,7 +2,7 @@
 import { languageBorderClass, languageFillColor } from '../lib/language-colors.js';
 import { buildPaperItem, formatSectionTitle } from '../lib/paper-table.js';
 
-type LanguageEntry = string | [string, number] | { language?: string | null; class?: number; name?: string; needs_review?: boolean; flag_reason?: string; sources?: string[] };
+type LanguageEntry = string | [string, number] | { language?: string | null; class?: number; name?: string; needs_review?: boolean; flag_reason?: string; sources?: string[]; judge_verdict?: string; judge_reason?: string; judge_model?: string };
 type PaperRecord = {
   id?: string;
   title: string;
@@ -52,9 +52,10 @@ const langClasses = languageData?.lang_classes ?? {};
 const pfpMap: Record<string, string> = (languageData as any)?.possible_false_positive_languages ?? {};
 
 type SourceGroup = { src: string; label: string; langs: string[] };
-type ChipEntry = { language: string; borderClass: number; needsReview: boolean; flagReason: string; fillColor: string };
+type ChipEntry = { language: string; borderClass: number; needsReview: boolean; flagReason: string; fillColor: string; judgeVerdict: string; judgeReason: string; mentionedOnly: boolean };
 type SectionItem = { name: string; label: string; source: string; sourceLabel: string; chips: ChipEntry[] };
 type SuppressedChip = { language: string; borderClass: number; acronyms: string[] };
+type JudgeSuppressedChip = { language: string; borderClass: number; reason: string; model: string };
 type PaperItem = {
   index: number;
   paper: PaperRecord;
@@ -73,6 +74,7 @@ type PaperItem = {
   arxivUrl: string;
   acronymConflicts: PaperWarning[];
   suppressedChips: SuppressedChip[];
+  judgeSuppressedChips: JudgeSuppressedChip[];
   weekStart: string;
 };
 
@@ -196,14 +198,24 @@ const languages = [...languageCounts.entries()]
             <p class="paper-authors">{item.allAuthors}</p>
             <div class="paper-tags">
               {item.chips.map((chip, chipIdx) => (
-                chip.needsReview ? (
+                chip.needsReview || chip.mentionedOnly ? (
                   <span class="lang-chip-popover">
-                    <span class={`lang-chip class-${chip.borderClass} needs-review`} style={`background:${chip.fillColor}`} aria-describedby={`chip-tip-${item.index}-${chipIdx}`}>
-                      {chip.language}<span class="review-star" aria-hidden="true">★</span>
+                    <span class={`lang-chip class-${chip.borderClass}${chip.needsReview ? ' needs-review' : ''}${chip.mentionedOnly ? ' mentioned-only' : ''}`} style={`background:${chip.fillColor}`} aria-describedby={`chip-tip-${item.index}-${chipIdx}`}>
+                      {chip.language}{chip.needsReview && <span class="review-star" aria-hidden="true">★</span>}{chip.mentionedOnly && <span class="mentioned-mark" aria-hidden="true">~</span>}
                     </span>
                     <div class="review-popover-body" id={`chip-tip-${item.index}-${chipIdx}`} role="tooltip">
-                      <strong>⚠ Manual verification may be needed</strong>
-                      {chip.flagReason && <p>{chip.flagReason}</p>}
+                      {chip.needsReview && (
+                        <div>
+                          <strong>⚠ Manual verification may be needed</strong>
+                          {chip.flagReason && <p>{chip.flagReason}</p>}
+                        </div>
+                      )}
+                      {chip.mentionedOnly && (
+                        <div>
+                          <strong>LLM judge: mentioned but not studied</strong>
+                          {chip.judgeReason && <p>{chip.judgeReason}</p>}
+                        </div>
+                      )}
                     </div>
                   </span>
                 ) : (
@@ -229,6 +241,17 @@ const languages = [...languageCounts.entries()]
                   <div class="review-popover-body" id={`suppressed-tip-${item.index}-${scIdx}`} role="tooltip">
                     <strong>Potentially suppressed</strong>
                     <p>This paper defines <code>{sc.acronyms.join(', ')}</code> as {sc.acronyms.length === 1 ? 'an acronym' : 'acronyms'} — mentions of <em>{sc.language}</em> may not have been detected.</p>
+                  </div>
+                </span>
+              ))}
+              {(item.judgeSuppressedChips ?? []).map((jc, jcIdx) => (
+                <span class="lang-chip-popover">
+                  <span class={`lang-chip class-${jc.borderClass} suppressed judge-suppressed`} aria-describedby={`judge-suppressed-tip-${item.index}-${jcIdx}`}>
+                    {jc.language}<span class="suppressed-mark" aria-hidden="true">✗</span>
+                  </span>
+                  <div class="review-popover-body" id={`judge-suppressed-tip-${item.index}-${jcIdx}`} role="tooltip">
+                    <strong>Excluded by LLM judge{jc.model ? ` (${jc.model})` : ''}</strong>
+                    {jc.reason && <p>{jc.reason}</p>}
                   </div>
                 </span>
               ))}
@@ -394,7 +417,7 @@ const languages = [...languageCounts.entries()]
     id: string; title: string; authors: string[]; abstract: string;
     pdf_url: string; arxiv_url: string; published: string; categories: string[];
     searchText: string;
-    languages: { language: string; borderClass: number; fillColor: string; needsReview: boolean }[];
+    languages: { language: string; borderClass: number; fillColor: string; needsReview: boolean; judgeVerdict?: string }[];
     languageNames: string[]; langCount: number; minClass: number; classes: number[];
   };
 
@@ -415,8 +438,9 @@ const languages = [...languageCounts.entries()]
     wrap.style.display = 'none';
 
     const chips = p.languages.map(l => {
+      const mentionedOnly = l.judgeVerdict === 'mentioned_only';
       const span = document.createElement('span');
-      span.className = `lang-chip class-${l.borderClass}${l.needsReview ? ' needs-review' : ''}`;
+      span.className = `lang-chip class-${l.borderClass}${l.needsReview ? ' needs-review' : ''}${mentionedOnly ? ' mentioned-only' : ''}`;
       span.style.background = l.fillColor;
       span.textContent = l.language;
       if (l.needsReview) {
@@ -425,6 +449,14 @@ const languages = [...languageCounts.entries()]
         star.setAttribute('aria-hidden', 'true');
         star.textContent = '★';
         span.appendChild(star);
+      }
+      if (mentionedOnly) {
+        const mark = document.createElement('span');
+        mark.className = 'mentioned-mark';
+        mark.setAttribute('aria-hidden', 'true');
+        mark.textContent = '~';
+        span.appendChild(mark);
+        span.title = 'LLM judge: mentioned but not studied';
       }
       return span;
     });
