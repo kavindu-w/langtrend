@@ -34,27 +34,20 @@ _REASON_MAX_CHARS = 200
 
 JUDGE_SYSTEM_PROMPT = """\
 You verify *human language* detections in research papers.
-You will get a paper's title, abstract, a list of candidate languages that a
-regex scanner flagged, and text snippets from the sections where each
-candidate matched.
+You will get a paper's title, abstract, a list of candidate languages that a regex scanner flagged, and text snippets from the sections where each candidate matched.
 
-For EACH candidate language, decide exactly one verdict:
-- "studied": the paper uses, evaluates, collects data for, or builds
-  resources/models for this language (it is part of the paper's experiments
-  or artifacts).
-- "mentioned_only": the name genuinely refers to this human language, but the
-  paper only mentions it (related work, motivation, an example) without
-  working on it.
-- "false_positive": the matched text does not refer to this human language at
-  all (e.g. an acronym, part of an author or person's name or place name, model/dataset name, script
-  name, or a common word coincidence. Also, the instance "Latin" meaning the Latin
-  alphabet/script or "Latin America" rather than the Latin language can be considered a false positive).
+For EACH candidate, first check: does the matched text actually refer to the human language itself, or is it a false positive — an acronym, a person/place/author name, the name of a model, dataset, tool, or library (even one used heavily in the paper's own methodology), a script name, or a common word coincidence?
+Using a tool or model that happens to share a language's name (e.g. running experiments with an embedding model called "Jina") is a false positive, NOT evidence the paper studies or mentions the Jina language — check this before considering the other verdicts.
+The same applies to "Latin" meaning the Latin alphabet/script or "Latin America" rather than the Latin language.
+
+Only if the match genuinely refers to the human language, choose between:
+- "studied": the paper uses, evaluates, collects data for, or builds resources/models FOR this language (it is part of the paper's experiments or artifacts).
+- "mentioned_only": the paper only mentions the language (related work, motivation, an example) without working on it.
+
 Reply with ONLY a JSON object, no markdown, matching this schema:
-{"verdicts": [{"language": "<exact candidate name>",
-               "verdict": "studied" | "mentioned_only" | "false_positive",
-               "reason": "<one line>"}]}
-Include every candidate exactly once. If the snippets are insufficient to be
-sure, prefer "mentioned_only" over "false_positive".
+{"verdicts": [{"language": "<exact candidate name>", "reason": "<one line: first say what the candidate name actually refers to in these snippets, THEN state the verdict it implies>", "verdict": "studied" | "mentioned_only" | "false_positive"}]}
+Write "reason" before "verdict" and make the verdict follow from it — don't pick a verdict first and justify it afterward.
+Include every candidate exactly once. If snippets are insufficient to be sure, prefer "mentioned_only" over "false_positive".
 """
 
 
