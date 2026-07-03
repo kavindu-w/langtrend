@@ -101,6 +101,11 @@ class Snippet:
     end: int
     text: str
     languages: list[str] = field(default_factory=list)
+    # All section names whose window text was identical to this one (arXiv
+    # HTML export sometimes attributes the same paragraph to several sibling
+    # headings). Populated by the dedup pass in assemble_context; always
+    # includes at least `section` itself.
+    sections: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -297,7 +302,15 @@ def assemble_context(
                 windows_by_section.setdefault(section_name, []).append((start, end))
 
     target_names = [t["language"] for t in targets]
-    snippets_by_section: dict[str, list[Snippet]] = {}
+
+    # Flatten to one Snippet per (section, window), deduping snippets whose
+    # text is identical after whitespace normalization. arXiv HTML export
+    # sometimes attributes the same paragraph to several sibling section
+    # headings, which would otherwise burn context budget on verbatim repeats
+    # with zero new evidence. Language coverage is unioned across duplicates
+    # so no candidate loses evidence it would've gotten from either copy —
+    # only exact-text repeats collapse, never distinct mentions.
+    unique_by_text: dict[str, Snippet] = {}
     for section_name, windows in windows_by_section.items():
         text = texts[section_name]
         for start, end in _merge_windows(windows):
@@ -305,21 +318,30 @@ def assemble_context(
             if not snippet_text:
                 continue
             covered = [name for name in target_names if _compiled_pattern(name).search(snippet_text)]
-            snippets_by_section.setdefault(section_name, []).append(
-                Snippet(section=section_name, start=start, end=end, text=snippet_text, languages=covered)
-            )
+            key = " ".join(snippet_text.split())
+            existing = unique_by_text.get(key)
+            if existing is None:
+                unique_by_text[key] = Snippet(
+                    section=section_name,
+                    start=start,
+                    end=end,
+                    text=snippet_text,
+                    languages=covered,
+                    sections=[section_name],
+                )
+            else:
+                existing.sections.append(section_name)
+                for name in covered:
+                    if name not in existing.languages:
+                        existing.languages.append(name)
 
     # Per-language queues of unselected snippets (targets are already
     # class-ascending, so rare languages claim budget first).
-    queues: dict[str, list[Snippet]] = {}
-    for target in targets:
-        name = target["language"]
-        queues[name] = [
-            s
-            for section_name in target["sections"]
-            for s in snippets_by_section.get(section_name, [])
-            if name in s.languages
-        ]
+    queues: dict[str, list[Snippet]] = {name: [] for name in target_names}
+    for snippet in unique_by_text.values():
+        for name in snippet.languages:
+            if name in queues:
+                queues[name].append(snippet)
 
     budget = max_chars - len(head)
     selected: list[Snippet] = []
@@ -357,7 +379,11 @@ def build_messages(context: JudgeContext, targets: list[dict]) -> list[dict]:
         lines += ["", "SNIPPETS:"]
         for snippet in context.snippets:
             candidates = ", ".join(snippet.languages)
-            lines.append(f"[Section: {snippet.section}] (candidates: {candidates})")
+            section_names = snippet.sections or [snippet.section]
+            shown = ", ".join(section_names[:3])
+            if len(section_names) > 3:
+                shown += f" (+{len(section_names) - 3} more)"
+            lines.append(f"[Section: {shown}] (candidates: {candidates})")
             lines.append(f'"{snippet.text}"')
             lines.append("")
     return [
