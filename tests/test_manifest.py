@@ -98,6 +98,7 @@ def test_build_snapshot_manifest_counts_and_aggregates():
         "papers": 3,
         "flagged_papers": 2,
         "unique_languages": 2,
+        "unique_languages_mentioned_only": 0,
         "pdf_failed_no_detection": 0,
         "judge": {
             "judged_papers": 0,
@@ -109,10 +110,12 @@ def test_build_snapshot_manifest_counts_and_aggregates():
     }
     assert manifest["week_start"] == "2026-05-18"
     assert manifest["week_end"] == "2026-05-25"
-    assert {"language": "Sinhala", "count": 2} in manifest["language_counts"]
-    assert {"language": "Tamil", "count": 1} in manifest["language_counts"]
-    assert {"class_id": 2, "count": 2} in manifest["class_counts"]
-    assert {"class_id": 3, "count": 1} in manifest["class_counts"]
+    # Unjudged detections count toward "studied" so counts don't regress for
+    # weeks that haven't run the LLM judge yet.
+    assert {"language": "Sinhala", "count": 2, "studied": 2, "mentioned_only": 0} in manifest["language_counts"]
+    assert {"language": "Tamil", "count": 1, "studied": 1, "mentioned_only": 0} in manifest["language_counts"]
+    assert {"class_id": 2, "count": 2, "studied": 2, "mentioned_only": 0} in manifest["class_counts"]
+    assert {"class_id": 3, "count": 1, "studied": 1, "mentioned_only": 0} in manifest["class_counts"]
     # daily_series covers every date that had either a paper or a flagged paper
     series_by_date = {item["date"]: item for item in manifest["daily_series"]}
     assert series_by_date["2026-05-18"] == {"date": "2026-05-18", "papers": 1, "flagged": 1}
@@ -166,7 +169,17 @@ def test_build_snapshot_manifest_excludes_judged_false_positives_from_counts():
 
     langs = {item["language"] for item in manifest["language_counts"]}
     assert langs == {"Swahili", "French", "Tamil"}  # no Ari, no Agi
-    assert {"class_id": 0, "count": 1} in manifest["class_counts"]
+    assert {"class_id": 0, "count": 1, "studied": 1, "mentioned_only": 0} in manifest["class_counts"]
+
+    # Swahili studied, Tamil unjudged (counts as studied) — French is
+    # mentioned_only and never studied, so it's excluded from the studied
+    # headline but surfaced in the separate mentioned-only count.
+    assert manifest["counts"]["unique_languages"] == 2
+    assert manifest["counts"]["unique_languages_mentioned_only"] == 1
+    by_lang = {item["language"]: item for item in manifest["language_counts"]}
+    assert by_lang["Swahili"] == {"language": "Swahili", "count": 1, "studied": 1, "mentioned_only": 0}
+    assert by_lang["French"] == {"language": "French", "count": 1, "studied": 0, "mentioned_only": 1}
+    assert by_lang["Tamil"] == {"language": "Tamil", "count": 1, "studied": 1, "mentioned_only": 0}
 
     assert manifest["counts"]["flagged_papers"] == 2  # paper 2 excluded
     assert len(manifest["flagged_papers"]) == 3  # …but still present for auditability

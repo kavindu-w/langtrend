@@ -56,8 +56,14 @@ def build_snapshot_manifest(
     week_end: str | None = None,
     pdf_failed_no_detection: int = 0,
 ) -> dict[str, Any]:
-    language_counts: Counter[str] = Counter()
-    class_counts: Counter[int] = Counter()
+    # "studied" bucket also holds not-yet-judged detections (no judge_verdict
+    # at all) so counts don't regress to near-zero for weeks that haven't run
+    # the LLM judge yet — only an explicit "mentioned_only" verdict moves a
+    # detection into the separate, disjoint mentioned-only bucket.
+    language_studied_counts: Counter[str] = Counter()
+    language_mentioned_counts: Counter[str] = Counter()
+    class_studied_counts: Counter[int] = Counter()
+    class_mentioned_counts: Counter[int] = Counter()
     daily_papers: Counter[str] = Counter()
     daily_flagged: Counter[str] = Counter()
     judge_counts: Counter[str] = Counter()
@@ -92,10 +98,21 @@ def build_snapshot_manifest(
                 continue
             language = detected.get("language")
             class_id = detected.get("class")  # key is "class", not "class_id"
+            bucket_lang, bucket_class = (
+                (language_mentioned_counts, class_mentioned_counts)
+                if verdict == "mentioned_only"
+                else (language_studied_counts, class_studied_counts)
+            )
             if language:
-                language_counts[language] += 1
+                bucket_lang[language] += 1
             if class_id is not None:
-                class_counts[int(class_id)] += 1
+                bucket_class[int(class_id)] += 1
+
+    all_languages = sorted(set(language_studied_counts) | set(language_mentioned_counts))
+    all_classes = sorted(set(class_studied_counts) | set(class_mentioned_counts))
+    # Languages seen only via "mentioned_only" (never studied, never unjudged)
+    # — these would otherwise vanish entirely from the studied-only headline.
+    mentioned_only_languages = set(language_mentioned_counts) - set(language_studied_counts)
 
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -106,7 +123,8 @@ def build_snapshot_manifest(
         "counts": {
             "papers": len(papers),
             "flagged_papers": flagged_paper_count,
-            "unique_languages": len(language_counts),
+            "unique_languages": len(language_studied_counts),
+            "unique_languages_mentioned_only": len(mentioned_only_languages),
             "pdf_failed_no_detection": pdf_failed_no_detection,
             "judge": {
                 "judged_papers": judged_papers,
@@ -117,12 +135,26 @@ def build_snapshot_manifest(
             },
         },
         "language_counts": [
-            {"language": language, "count": count}
-            for language, count in language_counts.most_common()
+            {
+                "language": language,
+                "count": language_studied_counts.get(language, 0) + language_mentioned_counts.get(language, 0),
+                "studied": language_studied_counts.get(language, 0),
+                "mentioned_only": language_mentioned_counts.get(language, 0),
+            }
+            for language in sorted(
+                all_languages,
+                key=lambda lang: language_studied_counts.get(lang, 0) + language_mentioned_counts.get(lang, 0),
+                reverse=True,
+            )
         ],
         "class_counts": [
-            {"class_id": class_id, "count": count}
-            for class_id, count in sorted(class_counts.items())
+            {
+                "class_id": class_id,
+                "count": class_studied_counts.get(class_id, 0) + class_mentioned_counts.get(class_id, 0),
+                "studied": class_studied_counts.get(class_id, 0),
+                "mentioned_only": class_mentioned_counts.get(class_id, 0),
+            }
+            for class_id in all_classes
         ],
         "daily_series": [
             {

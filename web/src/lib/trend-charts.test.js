@@ -169,9 +169,10 @@ describe('aggregateTrendPeriods', () => {
     expect(periods[0].flaggedPapers).toBe(4);
     expect(periods[0].uniqueLanguages).toBe(2);
     // Sorted by count desc: Tamil (4+1=5)? no - Tamil only appears once with count 4, Sinhala 2+1=3
+    // No studied/mentioned_only fields on the fixture entries -> treated as fully studied.
     expect(periods[0].languageCounts).toEqual([
-      { language: 'Tamil', count: 4 },
-      { language: 'Sinhala', count: 3 },
+      { language: 'Tamil', count: 4, studied: 4, mentioned_only: 0 },
+      { language: 'Sinhala', count: 3, studied: 3, mentioned_only: 0 },
     ]);
   });
 
@@ -190,7 +191,7 @@ describe('aggregateTrendPeriods', () => {
       classCounts: [],
     }];
     const periods = aggregateTrendPeriods(weeksWithBlank, 'week');
-    expect(periods[0].languageCounts).toEqual([{ language: 'Sinhala', count: 2 }]);
+    expect(periods[0].languageCounts).toEqual([{ language: 'Sinhala', count: 2, studied: 2, mentioned_only: 0 }]);
   });
 });
 

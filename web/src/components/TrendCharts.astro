@@ -54,6 +54,7 @@ type Props = {
       papers?: number;
       flagged_papers?: number;
       unique_languages?: number;
+      unique_languages_mentioned_only?: number;
       judge?: {
         judged_papers?: number;
         judged_languages?: number;
@@ -70,7 +71,36 @@ type Props = {
   languageData: { lang_classes?: Record<string, unknown[]>; possible_false_positive_languages?: Record<string, string> };
 };
 
-const { languageCounts = [], classCounts = [], weekSeries = [], coverageStats, allWeeksData = [], manifest, languageData } = Astro.props as Props;
+const {
+  languageCounts: languageCountsProp = [],
+  classCounts: classCountsProp = [],
+  weekSeries = [],
+  coverageStats,
+  allWeeksData: allWeeksDataProp = [],
+  manifest,
+  languageData,
+} = Astro.props as Props;
+
+// Every chart below plots `.count` as the primary per-language/per-class
+// metric. Remap it here, once, to mean "studied" (not-yet-judged detections
+// count as studied too — mirrors build_snapshot_manifest / countLanguages)
+// so every chart consistently reflects real research activity instead of
+// combined studied+mentioned_only totals, matching the "Unique languages"
+// KPI's meaning. The true combined total and the mentioned-only count stay
+// available via `.studied`/`.mentioned_only` on the same objects for any
+// chart that wants the fuller picture. This single remap covers both the
+// server-rendered charts below AND the client-side inline <script>, which
+// reads the same objects serialized into the all-weeks-meta JSON payload.
+function withStudiedAsCount<T extends { count: number; studied?: number }>(items: T[]): T[] {
+  return items.map((item) => ({ ...item, count: item.studied ?? item.count }));
+}
+const languageCounts = withStudiedAsCount(languageCountsProp);
+const classCounts = withStudiedAsCount(classCountsProp);
+const allWeeksData = allWeeksDataProp.map((week) => ({
+  ...week,
+  languageCounts: withStudiedAsCount(week.languageCounts || []),
+  classCounts: withStudiedAsCount(week.classCounts || []),
+}));
 
 const langClasses = languageData?.lang_classes || {};
 const pfpWarnings: Record<string, string> = languageData?.possible_false_positive_languages ?? {};
@@ -78,6 +108,7 @@ function pfpWarn(lang: string): string { return pfpWarnings[lang] ?? ''; }
 const weeklyPapers = manifest.counts?.papers ?? (manifest.papers || []).length;
 const weeklyFlagged = manifest.counts?.flagged_papers ?? (manifest.flagged_papers || []).length;
 const weeklyUniqueLanguages = manifest.counts?.unique_languages ?? languageCounts.length;
+const weeklyMentionedOnlyLanguages = manifest.counts?.unique_languages_mentioned_only ?? 0;
 const judgeCounts = manifest.counts?.judge && (manifest.counts.judge.judged_papers ?? 0) > 0
   ? {
       judged_papers: manifest.counts.judge.judged_papers ?? 0,
@@ -233,10 +264,14 @@ function computeTrendData(granularity: TrendGranularity) {
   for (const period of periods) {
     for (const item of period.languageCounts || []) {
       if (!item.language) continue;
-      langTotals.set(item.language, (langTotals.get(item.language) || 0) + item.count);
+      // period.languageCounts comes straight from aggregateTrendPeriods, where
+      // .count is deliberately the combined studied+mentioned total — use
+      // .studied here so the trend charts plot real research activity.
+      langTotals.set(item.language, (langTotals.get(item.language) || 0) + (item.studied ?? item.count));
     }
   }
   const topLanguages = [...langTotals.entries()]
+    .filter(([, total]) => total > 0)
     .sort((left, right) => {
       const d = right[1] - left[1];
       return d !== 0 ? d : left[0].localeCompare(right[0]);
@@ -270,15 +305,16 @@ function computeTrendData(granularity: TrendGranularity) {
     1,
     ...topLanguages.flatMap((item) => periods.map((period) => {
       const found = (period.languageCounts || []).find((l) => l.language === item.language);
-      return found?.count || 0;
+      return found?.studied ?? found?.count ?? 0;
     })),
   );
   const topLangY = scaleLinear().domain([0, topLangMax]).nice().range([topLangInnerHeight, 0]);
   const trendSeries = topLanguages.map((item) => {
     const points = periods.map((period) => {
       const found = (period.languageCounts || []).find((l) => l.language === item.language);
+      const value = found?.studied ?? found?.count ?? 0;
       const x = (topLangScale(period.label) || 0) + topLangScale.bandwidth() / 2;
-      return { x, y: topLangY(found?.count || 0), value: found?.count || 0 };
+      return { x, y: topLangY(value), value };
     });
     return { ...item, points, path: buildLinePath(points) };
   });
@@ -291,7 +327,7 @@ function computeTrendData(granularity: TrendGranularity) {
   const classInnerHeight = classHeight - classMargins.top - classMargins.bottom;
   const classScale = scaleBand().domain(periodLabels).range([0, classInnerWidth]).padding(0.45);
   const classBars = periods.map((period) => {
-    const classMap = new Map((period.classCounts || []).map((item) => [item.class_id, item.count]));
+    const classMap = new Map((period.classCounts || []).map((item) => [item.class_id, item.studied ?? item.count]));
     const total = Math.max(1, CLASS_LABELS.reduce((sum, _label, classId) => sum + (classMap.get(classId) || 0), 0));
     let offset = 0;
     return {
@@ -342,7 +378,10 @@ function computeTrendData(granularity: TrendGranularity) {
   const bumpXScale = scaleBand().domain(periodLabels).range([0, bumpInnerWidth]).padding(0.42);
   const bumpPeriods: BumpWeek[] = periods.map((period) => {
     const rankedLanguages = [...(period.languageCounts || [])]
-      .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
+      // Exclude languages that were only ever mentioned_only in this period —
+      // the bump chart ranks studied activity, not raw mentions.
+      .filter((item) => (item.studied ?? item.count) > 0)
+      .sort((left, right) => (right.studied ?? right.count) - (left.studied ?? left.count) || left.language.localeCompare(right.language))
       .slice(0, bumpMaxRank)
       .map((item, index) => {
         const rank = index + 1;
@@ -412,8 +451,13 @@ const trendDataByGranularity = {
 // Mirror ranking chart — independent top-10 lists for prev and current week
 const hasPrevWeek = trendWeeks.length >= 2;
 const prevWeekData = hasPrevWeek ? trendWeeks[trendWeeks.length - 2] : null;
-const currTop10 = [...languageCounts].sort((a, b) => b.count - a.count).slice(0, 10);
-const prevTop10Sorted = prevWeekData ? [...(prevWeekData.languageCounts || [])].sort((a, b) => b.count - a.count).slice(0, 10) : [];
+// Exclude languages that were only ever mentioned_only — this ranks studied
+// activity, so a week with fewer than 10 studied languages shouldn't get
+// padded out with mentioned-only-only entries.
+const currTop10 = [...languageCounts].filter((item) => item.count > 0).sort((a, b) => b.count - a.count).slice(0, 10);
+const prevTop10Sorted = prevWeekData
+  ? [...(prevWeekData.languageCounts || [])].filter((item) => item.count > 0).sort((a, b) => b.count - a.count).slice(0, 10)
+  : [];
 
 const mirrorSvgWidth = 960;
 const mirrorSvgHeight = 420;
@@ -472,6 +516,7 @@ const mirrorNewWithRank = mirrorNew.map(row => {
 
 // Sankey chart
 const sankeyLanguages = [...languageCounts]
+  .filter((item) => item.count > 0)
   .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
   .slice(0, 10);
 const showSankey = sankeyLanguages.length >= 5;
@@ -504,7 +549,7 @@ const sankeyClassGroups: SankeyClassGroup[] = sankeyLeftNodes.map((group) => {
   // Strictly proportional — no inflation from language count
   const proportionalHeight = Math.max(24, (group.total / sankeyGrandTotal) * 720);
   const allLangs = [...languageCounts]
-    .filter((item) => languageBorderClass(item.language, langClasses) === group.classId)
+    .filter((item) => languageBorderClass(item.language, langClasses) === group.classId && item.count > 0)
     .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
     .map((item) => ({
       classId: group.classId,
@@ -581,7 +626,11 @@ const sankeyPaths = sankeyClassGroups.flatMap((group) => {
 
 const trendOverallPapers = trendWeeks.reduce((sum, week) => sum + (week.papers || 0), 0);
 const trendOverallFlagged = trendWeeks.reduce((sum, week) => sum + (week.flaggedPapers || 0), 0);
-const trendOverallUniqueLanguages = new Set(trendWeeks.flatMap((week) => (week.languageCounts || []).map((item) => item.language))).size;
+// .count means "studied" here (remapped above) — exclude languages that
+// were only ever mentioned_only across every week, never actually studied.
+const trendOverallUniqueLanguages = new Set(
+  trendWeeks.flatMap((week) => (week.languageCounts || []).filter((item) => item.count > 0).map((item) => item.language)),
+).size;
 const overallCoveragePieData = [
   { label: 'Not flagged', value: Math.max(trendOverallPapers - trendOverallFlagged, 0), color: 'rgba(32, 22, 19, 0.16)' },
   { label: 'Papers with language mentions', value: trendOverallFlagged, color: '#0f6c5d' },
@@ -617,7 +666,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       </article>
       <article class="stat-card-mini">
         <strong id="stat-unique-langs">{weeklyUniqueLanguages}</strong>
-        <span>Unique languages detected</span>
+        <span>Unique languages detected{weeklyMentionedOnlyLanguages > 0 && ` — +${weeklyMentionedOnlyLanguages} mentioned only`}</span>
       </article>
       {judgeCounts && judgeCounts.judged_papers > 0 && (
         <article class="stat-card-mini">
@@ -2035,8 +2084,11 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       // Period stat summary
       var totalPapers = periodData.reduce(function(s, w) { return s + w.papers; }, 0);
       var totalFlagged = periodData.reduce(function(s, w) { return s + w.flaggedPapers; }, 0);
+      // .count means "studied" here (remapped server-side) — a language with
+      // count 0 was only ever mentioned_only in this window, so it shouldn't
+      // inflate the unique-languages-studied total.
       var allLangSet = new Set();
-      periodData.forEach(function(w) { (w.languageCounts || []).forEach(function(lc) { allLangSet.add(lc.language); }); });
+      periodData.forEach(function(w) { (w.languageCounts || []).forEach(function(lc) { if (lc.language && lc.count > 0) allLangSet.add(lc.language); }); });
 
       var ptitleEl = document.getElementById('period-trend-title');
       if (ptitleEl) ptitleEl.textContent = 'Period trends: ' + fmtShortLabel(fromParam) + '–' + fmtShortLabel(anchorSlug);
@@ -2067,9 +2119,11 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
 
         var totalPapersInPeriod = periods.reduce(function(sum, period) { return sum + period.papers; }, 0);
         var totalFlaggedInPeriod = periods.reduce(function(sum, period) { return sum + period.flaggedPapers; }, 0);
+        // .count means "studied" here (remapped server-side) — exclude
+        // languages that were only ever mentioned_only in this window.
         var uniqueLanguageSet = new Set();
         periods.forEach(function(period) {
-          period.languageCounts.forEach(function(item) { if (item.language) uniqueLanguageSet.add(item.language); });
+          period.languageCounts.forEach(function(item) { if (item.language && item.count > 0) uniqueLanguageSet.add(item.language); });
         });
 
         function coverageSliceLines(label, value) {
@@ -2204,6 +2258,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           });
         });
         var topLanguages = [...langTotals.entries()]
+          .filter(function(entry) { return entry[1] > 0; })
           .sort(function(left, right) {
             var d = right[1] - left[1];
             return d !== 0 ? d : left[0].localeCompare(right[0]);
@@ -2275,7 +2330,10 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           var bumpBand = bumpInnerW / periods.length;
           var bumpY = function(rank) { return (rank - 1) * (bumpInnerH / Math.max(1, bumpMaxRank - 1)); };
           var bumpPeriods = periods.map(function(period, index) {
+            // Exclude languages that were only ever mentioned_only this week —
+            // the bump chart ranks studied activity, not raw mentions.
             var rankedLanguages = [...period.languageCounts]
+              .filter(function(item) { return item.count > 0; })
               .sort(function(left, right) { return right.count - left.count || left.language.localeCompare(right.language); })
               .slice(0, bumpMaxRank)
               .map(function(item, rankIndex) {
@@ -2445,6 +2503,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           (w.languageCounts || []).forEach(function(lc) { langMap[lc.language] = (langMap[lc.language] || 0) + lc.count; });
         });
         var sorted = Object.keys(langMap).map(function(lang) { return { language: lang, count: langMap[lang] }; })
+          .filter(function(item) { return item.count > 0; })
           .sort(function(a, b) { return b.count - a.count; }).slice(0, 10);
         if (!sorted.length) { container.innerHTML = '<p class="placeholder-text">No language data available.</p>'; return; }
         var maxC = sorted[0].count;

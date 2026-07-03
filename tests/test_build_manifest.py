@@ -427,7 +427,7 @@ def test_build_and_save_prefers_precomputed_detected_jsonl_when_present(tmp_path
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     # Detected via the precomputed jsonl, not by re-scanning the (irrelevant) abstract text.
     assert manifest["counts"]["flagged_papers"] == 1
-    assert manifest["language_counts"] == [{"language": "Arabic", "count": 1}]
+    assert manifest["language_counts"] == [{"language": "Arabic", "count": 1, "studied": 1, "mentioned_only": 0}]
 
 def test_build_and_save_merges_judge_cache_verdicts(tmp_path, lang_classes, languages_to_ignore):
     input_path = tmp_path / "arxiv_papers_20260518_to_20260525.jsonl"
@@ -476,5 +476,5 @@ def test_build_and_save_merges_judge_cache_verdicts(tmp_path, lang_classes, lang
         "Arabic": "studied", "Agi": "false_positive",
     }
     # judged false positives are excluded from the counts but kept in the data
-    assert manifest["language_counts"] == [{"language": "Arabic", "count": 1}]
+    assert manifest["language_counts"] == [{"language": "Arabic", "count": 1, "studied": 1, "mentioned_only": 0}]
     assert manifest["counts"]["judge"]["false_positive"] == 1
