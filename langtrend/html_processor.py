@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 from .text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text, extract_paper_acronyms, find_language_acronym_conflicts
 
@@ -231,6 +231,70 @@ def clean_html_soup(html: str, remove_headings: list[str] | None = None, _label:
     return soup
 
 
+_TEXT_TAGS = ["p", "div", "figcaption", "caption"]
+_HEADING_TAGS = {"h1", "h2", "h3", "h4", "h5", "h6"}
+
+
+def _walk_document(element, on_text, on_heading=None, skip_ids=frozenset()) -> None:
+    """Recursively walk `element`'s subtree in document order, calling
+    on_text(str) once per paragraph-text unit found.
+
+    A p/div/figcaption/caption tag becomes its own unit — UNLESS it itself
+    contains a nested p/div/figcaption/caption match anywhere in its
+    subtree, in which case we recurse into it instead of taking its
+    get_text() directly (the nested match becomes its own unit via that
+    recursion, so it isn't duplicated). Any other tag (e.g. <figure>,
+    <table>, <tr>, <td>, <span>, and h1-h6 not in `skip_ids`) is treated as
+    a transparent wrapper and always recursed into, so stray text mixed
+    anywhere among matches — no matter how many non-matching tags deep — is
+    still found and not silently dropped just because a sibling or cousin
+    element happened to contain a match. Loose text between/around matches
+    at the same level is buffered and flushed (in place) right before the
+    next match, preserving document order.
+
+    h1-h6 tags are NOT excluded as a blanket rule: arXiv's LaTeXML export
+    also uses <h6 class="ltx_title_theorem"> for in-body theorem/
+    proposition/definition run-in titles, which are real content, not
+    structural section headings. Only the specific heading instance(s) in
+    `skip_ids` (by `id()`) — the one already used as a section's `title` —
+    are excluded. If `on_heading` is given, any *other* h1-h6 encountered
+    calls on_heading(tag) instead of being descended into (used by the
+    no-<section> fallback to start a new section per heading).
+    """
+    buffer: list[str] = []
+
+    def flush():
+        text = re.sub(r"\s+", " ", "".join(buffer)).strip()
+        buffer.clear()
+        if text:
+            on_text(text)
+
+    def walk(node):
+        for child in node.children:
+            if isinstance(child, Tag):
+                if id(child) in skip_ids:
+                    flush()
+                elif on_heading is not None and child.name in _HEADING_TAGS:
+                    flush()
+                    on_heading(child)
+                elif child.name in _TEXT_TAGS:
+                    if child.find(_TEXT_TAGS):
+                        flush()
+                        walk(child)
+                    else:
+                        flush()
+                        text = re.sub(r"\s+", " ", child.get_text(separator="", strip=False)).strip()
+                        if text:
+                            on_text(text)
+                else:
+                    walk(child)
+            else:
+                buffer.append(str(child))
+
+    walk(element)
+    flush()
+
+
 def extract_sections_from_soup(soup: BeautifulSoup) -> dict[str, str]:
     sections: dict[str, str] = {}
 
@@ -239,11 +303,8 @@ def extract_sections_from_soup(soup: BeautifulSoup) -> dict[str, str]:
         title = heading.get_text(strip=True) if heading else section.get("id") or "section"
 
         paragraphs: list[str] = []
-        for element in section.find_all(["p", "div", "figcaption", "caption"]):
-            text = re.sub(r"\s+", " ", element.get_text(separator="", strip=False)).strip()
-            if not text:
-                continue
-            paragraphs.append(text)
+        skip_ids = {id(heading)} if heading is not None else frozenset()
+        _walk_document(section, on_text=paragraphs.append, skip_ids=skip_ids)
 
         if not paragraphs:
             paragraphs = [section.get_text(separator=" ", strip=True)]
@@ -253,16 +314,15 @@ def extract_sections_from_soup(soup: BeautifulSoup) -> dict[str, str]:
     if not sections:
         current_title = "body"
         current_texts: list[str] = []
-        for node in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "p", "div", "figcaption", "caption"]):
-            if node.name and re.match("^h[1-6]$", node.name):
-                if current_texts:
-                    sections[current_title] = "\n\n".join(current_texts).strip()
-                current_title = node.get_text(strip=True)
-                current_texts = []
-            else:
-                txt = re.sub(r"\s+", " ", node.get_text(separator="", strip=False)).strip()
-                if txt:
-                    current_texts.append(txt)
+
+        def handle_heading(tag):
+            nonlocal current_title
+            if current_texts:
+                sections[current_title] = "\n\n".join(current_texts).strip()
+                current_texts.clear()
+            current_title = tag.get_text(strip=True)
+
+        _walk_document(soup, on_text=current_texts.append, on_heading=handle_heading)
         if current_texts:
             sections[current_title] = "\n\n".join(current_texts).strip()
 

@@ -106,6 +106,65 @@ class TestSectionExtraction:
         assert len(sections) > 0
         assert any("plain text" in v for v in sections.values())
 
+    def test_ltx_para_div_wrapping_p_not_duplicated(self):
+        # arXiv's LaTeXML HTML5 export wraps every <p class="ltx_p"> in a
+        # <div class="ltx_para">. find_all(["p", "div", ...]) matches both
+        # the wrapper and the inner p, so without de-duplication the same
+        # sentence gets appended twice.
+        soup = _soup(
+            '<section><h2>Methods</h2>'
+            '<div class="ltx_para"><p class="ltx_p">'
+            "We use jina-embeddings-v3 as the retrieval model."
+            "</p></div>"
+            "</section>"
+        )
+        text = extract_sections_from_soup(soup)["Methods"]
+        assert text.count("jina-embeddings-v3") == 1
+
+    def test_div_wrapping_two_paragraphs_keeps_both_without_duplication(self):
+        soup = _soup(
+            "<section><h2>S</h2>"
+            '<div class="ltx_para"><p>First sentence about Swahili.</p>'
+            "<p>Second sentence about Arabic.</p></div>"
+            "</section>"
+        )
+        text = extract_sections_from_soup(soup)["S"]
+        assert text.count("Swahili") == 1
+        assert text.count("Arabic") == 1
+
+    def test_stray_text_beside_nested_p_is_kept_not_dropped(self):
+        # A wrapper div that mixes loose text directly inside it alongside a
+        # nested <p> — the wrapper must not be skipped wholesale (that would
+        # silently drop the stray text), and the nested <p> must still be
+        # captured exactly once (not duplicated via the wrapper's get_text).
+        soup = _soup(
+            "<section><h2>S</h2>"
+            '<div class="ltx_para">As shown below in Swahili: '
+            "<p>The Arabic paragraph text.</p></div>"
+            "</section>"
+        )
+        text = extract_sections_from_soup(soup)["S"]
+        assert "Swahili" in text
+        assert text.count("Arabic paragraph text") == 1
+
+    def test_figcaption_buried_inside_non_text_tag_not_duplicated(self):
+        # arXiv's multi-panel figures wrap each subfigure as
+        # <div class="ltx_flex_cell"><figure>...<figcaption>...</figcaption>
+        # </figure></div> — the figcaption is nested two levels deep through
+        # a <figure> tag that isn't itself in _TEXT_TAGS, so a shallow
+        # "is this direct child a match" check misses it and pulls the
+        # caption text into the div's "own text" a second time.
+        soup = _soup(
+            '<section><h2>S</h2>'
+            '<div class="ltx_flex_cell">'
+            '<figure><img src="x.png">'
+            "<figcaption>(a) Relearning leakage rate.</figcaption>"
+            "</figure></div>"
+            "</section>"
+        )
+        text = extract_sections_from_soup(soup)["S"]
+        assert text.count("Relearning leakage rate") == 1
+
 
 # ---------------------------------------------------------------------------
 # clean_html_soup — removes unwanted sections
