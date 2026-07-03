@@ -46,9 +46,9 @@ For EACH candidate language, decide exactly one verdict:
   paper only mentions it (related work, motivation, an example) without
   working on it.
 - "false_positive": the matched text does not refer to this human language at
-  all (e.g. an acronym, author or place name, model/dataset name, script
-  name, or a common word coincidence).
-
+  all (e.g. an acronym, part of an author or person's name or place name, model/dataset name, script
+  name, or a common word coincidence. Also, the instance "Latin" meaning the Latin
+  alphabet/script or "Latin America" rather than the Latin language can be considered a false positive).
 Reply with ONLY a JSON object, no markdown, matching this schema:
 {"verdicts": [{"language": "<exact candidate name>",
                "verdict": "studied" | "mentioned_only" | "false_positive",
