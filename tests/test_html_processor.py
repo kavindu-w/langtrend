@@ -13,6 +13,7 @@ from langtrend.html_processor import (
     clean_html_soup,
     extract_sections_from_soup,
     extract_sections_from_html,
+    is_removable_heading,
     recheck_languages_from_html,
     fetch_arxiv_html,
     _HTML_MAX_BYTES,
@@ -21,6 +22,55 @@ from langtrend.html_processor import (
 
 def _soup(html: str) -> BeautifulSoup:
     return BeautifulSoup(html, "html.parser")
+
+
+# ---------------------------------------------------------------------------
+# is_removable_heading — shared section-exclusion rule (fresh + reprocess)
+# ---------------------------------------------------------------------------
+
+class TestIsRemovableHeading:
+    """The single rule used both at fetch time and by the cache reprocess, so a
+    reprocess drops exactly the sections a fresh fetch does. Substring match
+    catches arXiv's glued numbering and non-leading terms."""
+
+    @pytest.mark.parametrize("title", [
+        "References",
+        "Bibliography",
+        "Related Work",
+        "Related Works",
+        "2Related work",                       # glued numbering
+        "IIRelated Work",                      # Roman numeral, glued
+        "Appendix ARelated Work",              # appendix variant
+        "Appendix AExtended Related Work",
+        "2Background and Related Work",         # combined — also excluded (substring)
+        "IIBackground and Related Work",
+        "Appendix EMethod Comparison and Related Work",
+        "Acknowledgements",
+        "Acknowledgments",
+        "Ethics Statement",
+        "Abstract",
+    ])
+    def test_excluded_headings(self, title):
+        assert is_removable_heading(title) is True
+
+    @pytest.mark.parametrize("title", [
+        "Introduction",
+        "2Methods",
+        "Experiments",
+        "Results",
+        "Appendix AImplementation Details",
+        "Dataset",
+        "Conclusion",
+    ])
+    def test_kept_headings(self, title):
+        assert is_removable_heading(title) is False
+
+    def test_empty_is_not_removable(self):
+        assert is_removable_heading("") is False
+
+    def test_custom_heading_list(self):
+        assert is_removable_heading("Limitations", ["Limitations"]) is True
+        assert is_removable_heading("Methods", ["Limitations"]) is False
 
 
 # ---------------------------------------------------------------------------

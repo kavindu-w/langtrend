@@ -36,7 +36,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from langtrend.manifest import build_detections
 from langtrend.text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text, trim_pdf_text_to_body, extract_paper_acronyms, find_language_acronym_conflicts
-from langtrend.html_processor import recheck_languages_from_html
+from langtrend.html_processor import recheck_languages_from_html, is_removable_heading
 from langtrend.pdf_processor import PDFProcessor, download_pdf as _download_pdf
 
 _DEFAULT_LANG_DATA = Path(__file__).parent.parent / "data/processed/language_data.json"
@@ -345,6 +345,14 @@ def _reprocess_single_paper(
                     updated_cache[section_title] = section_data
                     continue
                 html_sections_with_text += 1
+                # Skip excluded sections (References, Related Work incl. combined/
+                # appendix variants, Acknowledgements, Abstract, …) exactly as a
+                # fresh fetch does in recheck_languages_from_html — otherwise a
+                # cache reprocess would re-detect languages from their raw text
+                # and reintroduce them. Keep the raw text cached; record none.
+                if is_removable_heading(section_title):
+                    updated_cache[section_title] = {"text": text, "cleaned_text": "", "detected": []}
+                    continue
                 cleaned_blocks, _ = clean_paper_text_for_language_screening(text, _label=paper_id, paper_acronyms=paper_acronyms)
                 cleaned_text = "\n\n".join(cleaned_blocks)
                 detected: list[str] = []

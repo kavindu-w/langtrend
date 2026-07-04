@@ -63,6 +63,23 @@ _REMOVE_HEADINGS_DEFAULT = [
 ]
 
 
+def is_removable_heading(title: str, remove_headings: list[str] | None = None) -> bool:
+    """True if a section heading names an excluded section (substring, case-insensitive).
+
+    Single source of truth for the section-exclusion rule. Applied at fetch time
+    in recheck_languages_from_html, and replicated by the cache-reprocess path so
+    a reprocess drops exactly the sections a fresh fetch does — References,
+    Related Work (including combined "Background and Related Work" and appendix
+    variants), Acknowledgements, Abstract, etc. Substring (not startswith) is
+    intentional: it catches arXiv's glued numbering ("IIRelated Work") and
+    headings where the excluded term is not first ("Background and Related Work").
+    """
+    if not title:
+        return False
+    headings = _REMOVE_HEADINGS_DEFAULT if remove_headings is None else remove_headings
+    return re.search("|".join(re.escape(h) for h in headings), title, re.IGNORECASE) is not None
+
+
 def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str | None, bool]:
     """Fetch arXiv HTML for a paper.
 
@@ -424,7 +441,7 @@ def recheck_languages_from_html(
 
     t3 = _time.monotonic()
     for title, text in sections.items():
-        if re.search("|".join(re.escape(h) for h in remove_headings), title, re.IGNORECASE):
+        if is_removable_heading(title, remove_headings):
             continue
 
         cleaned_blocks, _ = clean_paper_text_for_language_screening(text, paper_acronyms=paper_acronyms)

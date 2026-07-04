@@ -152,11 +152,59 @@ def init_docling() -> None:
 
 # Markdown heading prefix (docling output) → strip for plain text
 _MD_HEADING_RE = re.compile(r"^#{1,6}\s+", re.MULTILINE)
-# References / bibliography heading in docling markdown output
-_MD_REFS_RE = re.compile(
-    r"^#{1,6}\s+(?:References|Bibliography|Related [Ww]ork|Related Works|Bibliographical References|Acknowledgement?|Acknowledgements?|Acknowledgments?|Acknowledgment?|Funding|Ethics(?: Statement)?)\s*$",
+# End-matter headings in docling markdown output, split by how trustworthy
+# their *position* is — mirrors the two-tier logic in
+# text_cleaning.trim_pdf_text_to_body (keep the two in sync).
+#
+# Unambiguous: no paper has a mid-document section literally titled
+# "References"/"Bibliography", so trust it wherever it appears (even before the
+# document midpoint, e.g. when the bibliography is unusually long).
+_MD_REFS_UNAMBIGUOUS_RE = re.compile(
+    r"^#{1,6}\s+(?:References|Bibliography|Bibliographical References)\s*$",
     re.MULTILINE,
 )
+# Ambiguous: "Related Work"/"Literature Review" is commonly an early section;
+# "Acknowledgements"/"Ethics"/"Funding" can be front matter in thesis PDFs.
+# Only trusted from the document midpoint onward, and only when no unambiguous
+# References/Bibliography heading was found — otherwise an early "Related Work"
+# would truncate the body.
+_MD_REFS_AMBIGUOUS_RE = re.compile(
+    r"^#{1,6}\s+(?:Related [Ww]ork|Related Works|Literature Review|Acknowledgement?|Acknowledgements?|Acknowledgments?|Acknowledgment?|Funding|Ethics(?: Statement)?)\s*$",
+    re.MULTILINE,
+)
+# Appendix heading in docling markdown — an appendix that follows the
+# References (main body → References → Appendix) must be kept, not discarded
+# with the reference list. Matches "## Appendix", "## Appendix A",
+# "## A Appendix", "## Appendices".
+_MD_APPENDIX_RE = re.compile(
+    r"^#{1,6}\s+(?:[A-Z0-9]\.?\s+)?Appendix(?:es)?\b",
+    re.MULTILINE | re.IGNORECASE,
+)
+
+
+def trim_markdown_end_matter(md: str) -> str:
+    """Excise the end-matter reference list from docling markdown, keeping a
+    trailing appendix.
+
+    Mirrors text_cleaning.trim_pdf_text_to_body but operates on the markdown
+    docling emits (headings still carry their ``#`` prefixes), and only trims
+    the *end* — front matter is left for trim_pdf_text_to_body's Introduction
+    detection downstream. Kept as a standalone function so the boundary logic
+    is unit-testable without invoking docling.
+    """
+    if not md:
+        return md
+    m = _MD_REFS_UNAMBIGUOUS_RE.search(md)
+    if m is None:
+        m = _MD_REFS_AMBIGUOUS_RE.search(md, len(md) // 2)
+    if m is None:
+        return md
+    # Keep an appendix that follows the reference list (main body → References →
+    # Appendix): excise only the citation block between them. Appendix
+    # Experiments/Data can carry language mentions, so dropping it would be an
+    # unrecoverable recall loss.
+    app = _MD_APPENDIX_RE.search(md, m.end())
+    return md[: m.start()] + "\n\n" + md[app.start():] if app else md[: m.start()]
 
 
 class PDFProcessor:
@@ -203,9 +251,10 @@ class PDFProcessor:
     def extract_text(self, pdf_path: Path) -> tuple[str, Dict]:
         """Extract text from PDF using docling (layout-aware, column-correct).
 
-        Returns (plain_text, {}).  The plain text has end-matter sections
-        (References, Acknowledgements, etc.) already stripped — no need to
-        call trim_pdf_text_to_body separately, though it is harmless to do so.
+        Returns (plain_text, {}).  The plain text has the end-matter reference
+        list stripped (a trailing appendix, if any, is kept) — running
+        trim_pdf_text_to_body downstream additionally removes the front matter
+        before the Introduction.
 
         Falls back to pdfplumber if docling fails.
         """
@@ -221,13 +270,7 @@ class PDFProcessor:
                 result = _DOCLING_CONVERTER.convert(pdf_path)
             md = result.document.export_to_markdown()
 
-            # Cut at the first end-matter heading (References, Acknowledgements …)
-            # that appears in the second half of the document. Thesis PDFs have an
-            # Acknowledgements section in the front matter (before the Introduction);
-            # cutting at the first match would discard the entire body.
-            midpoint = len(md) // 2
-            m = _MD_REFS_RE.search(md, midpoint)
-            body_md = md[: m.start()] if m else md
+            body_md = trim_markdown_end_matter(md)
 
             # Strip markdown heading markers to get plain text
             text = _MD_HEADING_RE.sub("", body_md)

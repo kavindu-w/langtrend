@@ -121,6 +121,17 @@ _PDF_INTRO_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Appendix heading. ML/NLP papers commonly place the Appendix *after* the
+# References (main body → References → Appendix A/B/…), so when we cut the
+# reference list we must not also discard a trailing appendix — its Experiments/
+# Data tables can carry language mentions. Matches "Appendix", "APPENDIX",
+# "Appendix A", "A Appendix", "Appendix: …". Kept in the body, consistent with
+# the HTML processor (which never removes appendices).
+_PDF_APPENDIX_RE = re.compile(
+    r"(?m)^[ \t]*(?:\d+\.?\s+)?appendix\b|^[ \t]*appendices\b",
+    re.IGNORECASE,
+)
+
 # Default end-matter headings for PDF trimming.
 # Mirrors html_processor._REMOVE_HEADINGS_DEFAULT (minus Abstract, which is before
 # Introduction and naturally excluded; Appendix is kept so post-body appendices are
@@ -152,6 +163,23 @@ def _build_pdf_end_re(headings: list[str]) -> re.Pattern:
 
 
 _PDF_END_RE = _build_pdf_end_re(PDF_END_HEADINGS_DEFAULT)
+
+# "References"/"Bibliography" are structurally unambiguous — no paper has a
+# mid-document section literally titled "References", so trusting this
+# heading wherever it appears (even well before the document midpoint, e.g.
+# when the bibliography itself is unusually long) is always safe.
+_PDF_END_HEADINGS_UNAMBIGUOUS: list[str] = ["References", "Bibliography"]
+# The rest are structurally ambiguous: "Related Work"/"Literature Review" is
+# commonly an early section (right after the Introduction) at many venues;
+# "Acknowledgements"/"Ethics"/"Funding" can be genuine back matter or, in
+# thesis-style PDFs, front matter before an Introduction heading is even
+# detected. Only trusted once the document is at least half over, and only
+# consulted when no unambiguous References/Bibliography heading was found.
+_PDF_END_HEADINGS_AMBIGUOUS: list[str] = [
+    h for h in PDF_END_HEADINGS_DEFAULT if h not in _PDF_END_HEADINGS_UNAMBIGUOUS
+]
+_PDF_END_RE_UNAMBIGUOUS = _build_pdf_end_re(_PDF_END_HEADINGS_UNAMBIGUOUS)
+_PDF_END_RE_AMBIGUOUS = _build_pdf_end_re(_PDF_END_HEADINGS_AMBIGUOUS)
 
 
 def _language_regex(language_name: str) -> str:
@@ -587,32 +615,61 @@ def trim_pdf_text_to_body(
     """Trim PDF-extracted text to the body of the paper.
 
     Skips everything before the Introduction (title, authors, abstract — the
-    abstract is already scanned from the arXiv API metadata) and stops before
-    References / Bibliography / Related Work / Acknowledgements / Funding / Ethics
-    (matching the same set of headings removed by the HTML processor).
-    Appendix sections are kept, consistent with the HTML processor.
+    abstract is already scanned from the arXiv API metadata) and removes the
+    end-matter reference list (References / Bibliography, or as a fallback
+    Related Work / Acknowledgements / Funding / Ethics), matching the headings
+    the HTML processor removes.
+
+    An Appendix that follows the References is preserved (main body →
+    References → Appendix is the common ML/NLP layout), so only the citation
+    list between them is excised — appendix text is kept, consistent with the
+    HTML processor, which never removes appendices.
 
     Pass ``end_headings`` to override the default heading list.
-    Returns the original text unchanged if neither marker is found.
+    Returns the original text unchanged if no end-matter marker is found.
     """
     if not text:
         return text
 
-    end_re = _build_pdf_end_re(end_headings) if end_headings is not None else _PDF_END_RE
+    if end_headings is not None:
+        unambiguous_re: re.Pattern | None = _build_pdf_end_re(end_headings)
+        ambiguous_re: re.Pattern | None = None
+    else:
+        unambiguous_re = _PDF_END_RE_UNAMBIGUOUS
+        ambiguous_re = _PDF_END_RE_AMBIGUOUS
 
     start = 0
     intro_match = _PDF_INTRO_RE.search(text)
     if intro_match:
         start = intro_match.start()
 
-    end = len(text)
-    # Search for end-matter from whichever is later: the Introduction start or
-    # the document midpoint. This prevents cutting at front-matter Acknowledgements
-    # in thesis PDFs (or any paper without a detectable Introduction heading).
-    end_search_from = max(start, len(text) // 2)
-    end_match = end_re.search(text, end_search_from)
-    if end_match:
-        end = end_match.start()
+    # References/Bibliography is an unambiguous end-of-body marker, so trust it
+    # wherever it appears — including well before the midpoint, which happens
+    # whenever the bibliography itself is unusually long relative to the body.
+    end_match = unambiguous_re.search(text, start)
+    if end_match is None and ambiguous_re is not None:
+        # Fall back to the structurally ambiguous headings (Related Work,
+        # Acknowledgements, Ethics, Funding, Literature Review) only when no
+        # References/Bibliography heading was found at all, and only search
+        # from the document midpoint onward. This prevents mistaking an early
+        # "2. Related Work" section (common at many venues) or a thesis-style
+        # front-matter Acknowledgements for the true end of the body.
+        end_match = ambiguous_re.search(text, max(start, len(text) // 2))
 
-    trimmed = text[start:end].strip()
+    if end_match is None:
+        trimmed = text[start:].strip()
+        return trimmed if trimmed else text
+
+    # Keep an appendix that follows the reference list: excise only the block
+    # from the end-matter heading up to the appendix, then rejoin body +
+    # appendix. Losing appendix text (which can contain Experiments/Data
+    # language mentions) is an unrecoverable recall loss, whereas leaving a
+    # little post-appendix boilerplate in is harmless and judge-mitigated.
+    appendix_match = _PDF_APPENDIX_RE.search(text, end_match.end())
+    if appendix_match:
+        body = text[start:end_match.start()].rstrip()
+        appendix = text[appendix_match.start():].strip()
+        trimmed = f"{body}\n\n{appendix}".strip()
+    else:
+        trimmed = text[start:end_match.start()].strip()
     return trimmed if trimmed else text
