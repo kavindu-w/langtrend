@@ -385,7 +385,11 @@ def recheck_languages_from_html(
     json_path = out_dir / f"{safe_name}.json"
     html_path = out_dir / f"{safe_name}.html"
 
-    # Return cached result if already processed
+    # Return cached result if already processed AND complete. An incomplete
+    # cache (_complete=False, a stalled/partial download) is deliberately NOT
+    # returned early — a fresh fetch may succeed this time, whereas re-serving
+    # the same partial content forever defeats the purpose of retrying it.
+    known_incomplete = False
     if json_path.exists():
         try:
             with json_path.open("r", encoding="utf-8") as fh:
@@ -393,15 +397,21 @@ def recheck_languages_from_html(
             if cached.get("_unavailable"):
                 return {}, False, []  # HTML was tried before and not available — skip
             is_complete = cached.get("_complete", True)  # older caches pre-date this field → assume complete
-            conflicts = cached.get("_acronym_conflicts", [])
-            sections_data = {k: v for k, v in cached.items() if not k.startswith("_")}
-            return {title: data.get("detected", []) for title, data in sections_data.items()}, is_complete, conflicts
+            if is_complete:
+                conflicts = cached.get("_acronym_conflicts", [])
+                sections_data = {k: v for k, v in cached.items() if not k.startswith("_")}
+                return {title: data.get("detected", []) for title, data in sections_data.items()}, is_complete, conflicts
+            known_incomplete = True  # fall through to retry the fetch below
         except Exception:
             pass  # fall through to re-fetch if cache is corrupt
 
     import time as _time
 
-    if html_path.exists():
+    # A cached raw .html file is only trustworthy if we don't already know (from
+    # the json sidecar above) that it's a stalled/partial download — otherwise
+    # this would just re-serve the same incomplete content instead of retrying,
+    # the same bug the json_path check above just guarded against.
+    if html_path.exists() and not known_incomplete:
         html = html_path.read_text(encoding="utf-8")
         is_complete = True
         print(f"  [{paper_id}] loaded HTML from cache ({len(html) // 1024}KB)", flush=True)
