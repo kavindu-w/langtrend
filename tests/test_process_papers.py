@@ -329,6 +329,23 @@ def test_reprocess_single_paper_does_not_count_incomplete_html_as_a_source(lang_
     assert {"step": "reprocess", "error": "HTML cache incomplete, no PDF cache available — skipped"} in record["warnings"]
 
 
+def test_reprocess_single_paper_preserves_unavailable_marker(lang_classes, languages_to_ignore, cache_dirs):
+    # A paper confirmed to have no HTML version at all (_unavailable, written by
+    # recheck_languages_from_html after a 404) must keep that marker through a
+    # reprocess-cache run — otherwise a later --retry-missing would pointlessly
+    # re-attempt a fetch already confirmed to fail.
+    _, html_cache_dir, pdf_cache_dir = cache_dirs
+    paper = {"id": "http://arxiv.org/abs/2501.00010"}
+    (html_cache_dir / "2501.00010.json").write_text(
+        json.dumps({"_complete": False, "_unavailable": True}), encoding="utf-8"
+    )
+
+    pp._reprocess_single_paper(paper, lang_classes, languages_to_ignore, {}, html_cache_dir, pdf_cache_dir)
+
+    updated = json.loads((html_cache_dir / "2501.00010.json").read_text(encoding="utf-8"))
+    assert updated.get("_unavailable") is True
+
+
 def test_reprocess_single_paper_recomputes_detections_from_pdf_cache_text(lang_classes, languages_to_ignore, cache_dirs):
     _, html_cache_dir, pdf_cache_dir = cache_dirs
     paper = {"id": "http://arxiv.org/abs/2501.00007"}

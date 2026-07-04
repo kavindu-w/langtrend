@@ -423,7 +423,7 @@ _MINIMAL_HTML = (
 
 class TestRawHtmlCaching:
     def test_saves_raw_html_on_first_fetch(self, tmp_path):
-        with patch("langtrend.html_processor.fetch_arxiv_html", return_value=(_MINIMAL_HTML, "url", True)) as mock_fetch:
+        with patch("langtrend.html_processor.fetch_arxiv_html", return_value=(_MINIMAL_HTML, "url", True, False)) as mock_fetch:
             recheck_languages_from_html(
                 {"id": "2000.00001"},
                 lang_classes={},
@@ -460,21 +460,119 @@ class TestRawHtmlCaching:
         mock_fetch.assert_not_called()
         assert not (tmp_path / "2000.00003.html").exists()
 
+    def test_incomplete_json_cache_retries_fetch(self, tmp_path):
+        # _complete=False must NOT short-circuit — re-serving the same partial
+        # content forever would defeat the point of ever retrying it.
+        import json
+        json_path = tmp_path / "2000.00004.json"
+        json_path.write_text(json.dumps({"_complete": False, "Introduction": {"text": "old partial"}}), encoding="utf-8")
+        with patch("langtrend.html_processor.fetch_arxiv_html", return_value=(_MINIMAL_HTML, "url", True, False)) as mock_fetch:
+            recheck_languages_from_html(
+                {"id": "2000.00004"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        mock_fetch.assert_called_once()
+
+    def test_incomplete_json_cache_ignores_stale_html_file_too(self, tmp_path):
+        # Regression guard: a stalled download writes its partial bytes to the
+        # .html file too (see fetch_arxiv_html), so an incomplete json cache
+        # must ALSO bypass the raw .html shortcut, not just re-load the same
+        # stale partial content from disk instead of retrying.
+        import json
+        (tmp_path / "2000.00005.json").write_text(
+            json.dumps({"_complete": False, "Introduction": {"text": "old partial"}}), encoding="utf-8"
+        )
+        (tmp_path / "2000.00005.html").write_text("<html>stale partial content</html>", encoding="utf-8")
+        with patch("langtrend.html_processor.fetch_arxiv_html", return_value=(_MINIMAL_HTML, "url", True, False)) as mock_fetch:
+            recheck_languages_from_html(
+                {"id": "2000.00005"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        mock_fetch.assert_called_once()
+        # The stale .html is overwritten with the newly-fetched (complete) content.
+        assert (tmp_path / "2000.00005.html").read_text() == _MINIMAL_HTML
+
+    def test_unavailable_json_cache_still_short_circuits(self, tmp_path):
+        # _unavailable is a permanent "no HTML exists for this paper" marker —
+        # unlike _complete=False, it must NOT trigger a retry every time.
+        import json
+        (tmp_path / "2000.00006.json").write_text(
+            json.dumps({"_complete": False, "_unavailable": True}), encoding="utf-8"
+        )
+        with patch("langtrend.html_processor.fetch_arxiv_html") as mock_fetch:
+            recheck_languages_from_html(
+                {"id": "2000.00006"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        mock_fetch.assert_not_called()
+
+    def test_confirmed_404_writes_unavailable_sentinel(self, tmp_path):
+        with patch("langtrend.html_processor.fetch_arxiv_html", return_value=(None, "url", False, True)):
+            recheck_languages_from_html(
+                {"id": "2000.00007"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        import json
+        cache = json.loads((tmp_path / "2000.00007.json").read_text(encoding="utf-8"))
+        assert cache.get("_unavailable") is True
+
+    def test_transient_failure_does_not_write_any_cache_file(self, tmp_path):
+        # A rate limit / 5xx / timeout must NOT be treated the same as a
+        # confirmed 404 — no sentinel should be written at all, so the paper
+        # stays eligible for a real retry later (e.g. a CI retry job) instead
+        # of being permanently written off based on a one-off hiccup.
+        with patch("langtrend.html_processor.fetch_arxiv_html", return_value=(None, "url", False, False)):
+            detections, is_complete, conflicts = recheck_languages_from_html(
+                {"id": "2000.00008"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        assert detections == {}
+        assert is_complete is False
+        assert not (tmp_path / "2000.00008.json").exists()
+        assert not (tmp_path / "2000.00008.html").exists()
+
+    def test_transient_failure_is_retried_on_next_call(self, tmp_path):
+        # Since no cache file was written, a subsequent call must attempt the
+        # fetch again rather than being short-circuited.
+        with patch("langtrend.html_processor.fetch_arxiv_html", return_value=(None, "url", False, False)) as mock_fetch:
+            recheck_languages_from_html(
+                {"id": "2000.00009"}, lang_classes={}, languages_to_ignore=set(), out_dir=tmp_path,
+            )
+            recheck_languages_from_html(
+                {"id": "2000.00009"}, lang_classes={}, languages_to_ignore=set(), out_dir=tmp_path,
+            )
+        assert mock_fetch.call_count == 2
+
 
 # ---------------------------------------------------------------------------
 # fetch_arxiv_html — real network fetch, mocked at the session boundary
 # ---------------------------------------------------------------------------
 
-def _mock_response(status_ok=True):
+def _mock_response(status_ok=True, error_status=404):
     resp = MagicMock()
-    resp.status_code = 200
-    resp.raise_for_status = MagicMock() if status_ok else MagicMock(side_effect=requests.HTTPError("404"))
+    resp.status_code = 200 if status_ok else error_status
+    if status_ok:
+        resp.raise_for_status = MagicMock()
+    else:
+        http_err = requests.HTTPError(f"{error_status} error")
+        http_err.response = resp
+        resp.raise_for_status = MagicMock(side_effect=http_err)
     return resp
 
 
 class TestFetchArxivHtml:
     def test_returns_none_immediately_for_empty_url(self):
-        assert fetch_arxiv_html("") == (None, None, False)
+        assert fetch_arxiv_html("") == (None, None, False, False)
 
     @patch("time.sleep")
     def test_fetches_and_decodes_successfully(self, mock_sleep):
@@ -484,23 +582,51 @@ class TestFetchArxivHtml:
         session.get.return_value = resp
 
         with patch("langtrend.html_processor._get_session", return_value=session):
-            html_text, html_url, is_complete = fetch_arxiv_html("https://arxiv.org/abs/2501.00001")
+            html_text, html_url, is_complete, confirmed_missing = fetch_arxiv_html("https://arxiv.org/abs/2501.00001")
 
         assert html_text == "<html>hello</html>"
         assert html_url == "https://arxiv.org/html/2501.00001"
         assert is_complete is True
+        assert confirmed_missing is False
 
     @patch("time.sleep")
-    def test_returns_incomplete_when_response_status_is_an_error(self, mock_sleep):
+    def test_confirmed_missing_on_404(self, mock_sleep):
+        # A definitive 404 means arXiv has no HTML for this paper at all.
         session = MagicMock()
-        session.get.return_value = _mock_response(status_ok=False)
+        session.get.return_value = _mock_response(status_ok=False, error_status=404)
 
         with patch("langtrend.html_processor._get_session", return_value=session):
-            html_text, html_url, is_complete = fetch_arxiv_html("https://arxiv.org/abs/1")
+            html_text, html_url, is_complete, confirmed_missing = fetch_arxiv_html("https://arxiv.org/abs/1")
 
         assert html_text is None
         assert is_complete is False
+        assert confirmed_missing is True
         assert html_url == "https://arxiv.org/html/1"
+
+    @patch("time.sleep")
+    def test_rate_limit_is_not_confirmed_missing(self, mock_sleep):
+        # A 429 (or any non-404 HTTP error) is transient — must NOT be treated as
+        # a permanent "no HTML exists", so a retry job gets a real chance later.
+        session = MagicMock()
+        session.get.return_value = _mock_response(status_ok=False, error_status=429)
+
+        with patch("langtrend.html_processor._get_session", return_value=session):
+            html_text, html_url, is_complete, confirmed_missing = fetch_arxiv_html("https://arxiv.org/abs/1")
+
+        assert html_text is None
+        assert is_complete is False
+        assert confirmed_missing is False
+
+    @patch("time.sleep")
+    def test_server_error_is_not_confirmed_missing(self, mock_sleep):
+        session = MagicMock()
+        session.get.return_value = _mock_response(status_ok=False, error_status=503)
+
+        with patch("langtrend.html_processor._get_session", return_value=session):
+            html_text, html_url, is_complete, confirmed_missing = fetch_arxiv_html("https://arxiv.org/abs/1")
+
+        assert html_text is None
+        assert confirmed_missing is False
 
     @patch("time.sleep")
     def test_returns_incomplete_when_the_get_call_itself_raises(self, mock_sleep):
@@ -508,10 +634,11 @@ class TestFetchArxivHtml:
         session.get.side_effect = requests.ConnectionError("network down")
 
         with patch("langtrend.html_processor._get_session", return_value=session):
-            html_text, html_url, is_complete = fetch_arxiv_html("https://arxiv.org/abs/1")
+            html_text, html_url, is_complete, confirmed_missing = fetch_arxiv_html("https://arxiv.org/abs/1")
 
         assert html_text is None
         assert is_complete is False
+        assert confirmed_missing is False
         # html_url is computed before the network call, so it's still returned on failure.
         assert html_url == "https://arxiv.org/html/1"
 
@@ -528,10 +655,11 @@ class TestFetchArxivHtml:
         session.get.return_value = resp
 
         with patch("langtrend.html_processor._get_session", return_value=session):
-            html_text, html_url, is_complete = fetch_arxiv_html("https://arxiv.org/abs/1")
+            html_text, html_url, is_complete, confirmed_missing = fetch_arxiv_html("https://arxiv.org/abs/1")
 
         assert html_text == "<html>partial"
         assert is_complete is False
+        assert confirmed_missing is False
 
     @patch("time.sleep")
     def test_truncates_at_max_bytes_without_flagging_incomplete(self, mock_sleep):
@@ -544,7 +672,7 @@ class TestFetchArxivHtml:
         session.get.return_value = resp
 
         with patch("langtrend.html_processor._get_session", return_value=session):
-            html_text, html_url, is_complete = fetch_arxiv_html("https://arxiv.org/abs/1")
+            html_text, html_url, is_complete, confirmed_missing = fetch_arxiv_html("https://arxiv.org/abs/1")
 
         assert len(html_text) == _HTML_MAX_BYTES + 1
         assert is_complete is True

@@ -316,6 +316,12 @@ def _reprocess_single_paper(
             is_html_complete = html_cached.get("_complete", True)
 
             updated_cache: dict = {"_complete": is_html_complete}
+            if html_cached.get("_unavailable"):
+                # Preserve the permanent "no HTML exists for this paper" marker —
+                # otherwise a reprocess-cache run would silently drop it, and a
+                # later --retry-missing would re-attempt a fetch we already
+                # confirmed 404s, instead of skipping it as recheck_languages_from_html intends.
+                updated_cache["_unavailable"] = True
             # Build paper-level acronym set from all sections so cross-section uses
             # (e.g. "GAN" defined in Introduction, used in Method) are suppressed.
             paper_acronyms = extract_paper_acronyms("\n\n".join(

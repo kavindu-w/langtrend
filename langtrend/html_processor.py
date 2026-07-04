@@ -80,15 +80,19 @@ def is_removable_heading(title: str, remove_headings: list[str] | None = None) -
     return re.search("|".join(re.escape(h) for h in headings), title, re.IGNORECASE) is not None
 
 
-def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str | None, bool]:
+def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str | None, bool, bool]:
     """Fetch arXiv HTML for a paper.
 
-    Returns (html_text, html_url, is_complete).
+    Returns (html_text, html_url, is_complete, confirmed_missing).
     is_complete=False means the download stalled mid-transfer (partial content) or failed entirely.
+    confirmed_missing=True only for a definitive HTTP 404 (arXiv has no HTML for this
+    paper at all) — deliberately NOT set for transient failures (429 rate limit, 5xx
+    server errors, timeouts, connection resets), so a CI retry job gets a real chance
+    to succeed later rather than the paper being wrongly marked permanently unavailable.
     """
     import time as _time
     if not abs_url:
-        return None, None, False
+        return None, None, False, False
     html_url = abs_url.replace("/abs/", "/html/")
     t0 = _time.monotonic()
     try:
@@ -126,11 +130,18 @@ def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str |
         html_text = b''.join(chunks).decode('utf-8', errors='replace') if chunks else None
         elapsed = _time.monotonic() - t0
         print(f"    [{abs_url}] response {response.status_code} in {elapsed:.1f}s ({total} bytes, complete={is_complete})", flush=True)
-        return html_text, html_url, is_complete
+        return html_text, html_url, is_complete, False
+    except requests.HTTPError as e:
+        elapsed = _time.monotonic() - t0
+        status = e.response.status_code if e.response is not None else None
+        confirmed_missing = status == 404
+        note = "confirmed missing" if confirmed_missing else "transient — should be retried"
+        print(f"    [{abs_url}] HTML fetch failed after {elapsed:.1f}s: HTTP {status} ({note})", flush=True)
+        return None, html_url, False, confirmed_missing
     except Exception as e:
         elapsed = _time.monotonic() - t0
         print(f"    [{abs_url}] HTML fetch failed after {elapsed:.1f}s: {type(e).__name__}: {e}", flush=True)
-        return None, html_url, False
+        return None, html_url, False, False
 
 
 def _remove_section_by_heading(soup: BeautifulSoup, heading_texts: list[str]) -> None:
@@ -416,15 +427,20 @@ def recheck_languages_from_html(
         is_complete = True
         print(f"  [{paper_id}] loaded HTML from cache ({len(html) // 1024}KB)", flush=True)
     else:
-        html, _html_url, is_complete = fetch_arxiv_html(str(paper_id))
+        html, _html_url, is_complete, confirmed_missing = fetch_arxiv_html(str(paper_id))
         if not html:
-            # Write a sentinel so retry-missing knows HTML was tried and unavailable,
-            # preventing a redundant re-fetch on every future retry run.
-            try:
-                with json_path.open("w", encoding="utf-8") as fh:
-                    json.dump({"_complete": False, "_unavailable": True}, fh)
-            except Exception:
-                pass
+            if confirmed_missing:
+                # A definitive 404 — arXiv has no HTML for this paper. Write a
+                # permanent sentinel so retry-missing stops wastefully re-fetching it.
+                try:
+                    with json_path.open("w", encoding="utf-8") as fh:
+                        json.dump({"_complete": False, "_unavailable": True}, fh)
+                except Exception:
+                    pass
+            # else: a transient failure (rate limit, 5xx, timeout, connection error) —
+            # deliberately don't write any cache file, so the paper stays eligible
+            # for a real retry (e.g. a CI retry job) instead of being permanently
+            # written off based on a one-off hiccup.
             return {}, False, []
         try:
             html_path.write_text(html, encoding="utf-8")
