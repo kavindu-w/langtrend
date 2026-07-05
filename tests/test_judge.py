@@ -6,6 +6,8 @@ Run with: pytest tests/test_judge.py -v
 
 import json
 import sys
+import threading
+import time
 from pathlib import Path
 from unittest.mock import patch
 
@@ -35,6 +37,7 @@ from langtrend.llm_client import (
     OpenAICompatClient,
     QuotaExhaustedError,
     _looks_like_daily_quota_exhausted,
+    _RpmThrottle,
     extract_json,
 )
 
@@ -141,6 +144,53 @@ class TestClientChatQuotaHandling:
             with pytest.raises(LLMUnavailableError) as exc_info:
                 client.chat([{"role": "user", "content": "hi"}])
         assert not isinstance(exc_info.value, QuotaExhaustedError)
+
+
+# ---------------------------------------------------------------------------
+# _RpmThrottle
+# ---------------------------------------------------------------------------
+
+class TestRpmThrottle:
+    def test_spaces_requests_evenly_not_in_a_burst(self):
+        # Some providers (Cerebras included) reject bursts even when the
+        # total over any 60s window is under the limit — e.g. "60 RPM
+        # enforced as 1 request per second." A counter that lets `rpm`
+        # requests fire back-to-back then goes quiet is compliant with the
+        # aggregate but not with that per-second enforcement; only strict
+        # even spacing (60/rpm seconds between starts) is safe against both.
+        throttle = _RpmThrottle(rpm=60)  # 60/60 = 1s between requests
+        start = time.monotonic()
+        throttle.acquire()  # first call never waits
+        first = time.monotonic() - start
+        throttle.acquire()
+        second = time.monotonic() - start
+        assert first < 0.2
+        assert second >= 0.95  # ~1s later, not immediate
+
+    def test_concurrent_workers_share_the_same_pacing(self):
+        # Several worker threads calling acquire() "simultaneously" must
+        # still be spaced out collectively — the throttle is shared, not
+        # per-thread, so N workers don't each get their own rpm budget.
+        throttle = _RpmThrottle(rpm=60)
+        timestamps = []
+        lock = threading.Lock()
+
+        def worker():
+            throttle.acquire()
+            with lock:
+                timestamps.append(time.monotonic())
+
+        threads = [threading.Thread(target=worker) for _ in range(4)]
+        start = time.monotonic()
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
+        offsets = sorted(ts - start for ts in timestamps)
+        # 4 requests at 1/s minimum spacing must span close to 3 seconds
+        # (not fire in a single burst near t=0).
+        assert offsets[-1] - offsets[0] >= 2.5
 
 
 # ---------------------------------------------------------------------------

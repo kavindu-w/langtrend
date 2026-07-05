@@ -1,8 +1,8 @@
 """Minimal OpenAI-compatible chat client for the LLM judge stage.
 
 Works against any /chat/completions endpoint. Defaults target Cerebras' free
-tier (open-weight gpt-oss-120b) via its OpenAI-compatible endpoint. if DEFAULT_MODEL ever starts 404ing. A local Ollama
-server is a drop-in override for quota-free testing:
+tier (open-weight gpt-oss-120b) via its OpenAI-compatible endpoint — check `GET /v1/models` if DEFAULT_MODEL ever starts 404ing. A local Ollama server is a drop-in
+override for quota-free testing:
 
     LLM_JUDGE_BASE_URL=http://localhost:11434/v1
     LLM_JUDGE_MODEL=qwen3:8b
@@ -16,7 +16,7 @@ Environment variables (all optional except the API key for hosted backends):
     LLM_JUDGE_TEMPERATURE        sampling temperature (default 0)
     LLM_JUDGE_MAX_CONTEXT_CHARS  context assembly budget (default 12000)
     LLM_JUDGE_WORKERS            parallel paper workers (default 4)
-    LLM_JUDGE_RPM                max requests per minute across all workers (default 12)
+    LLM_JUDGE_RPM                max requests per minute across all workers (default 4)
 """
 
 from __future__ import annotations
@@ -25,7 +25,6 @@ import json
 import re
 import threading
 import time
-from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -83,7 +82,7 @@ class LLMClientConfig:
     temperature: float = 0.0
     max_context_chars: int = 12000
     workers: int = 4
-    rpm: int = 20
+    rpm: int = 4
 
     @classmethod
     def from_env(cls) -> "LLMClientConfig":
@@ -103,7 +102,7 @@ class LLMClientConfig:
             temperature=float(os.environ.get("LLM_JUDGE_TEMPERATURE", "0")),
             max_context_chars=int(os.environ.get("LLM_JUDGE_MAX_CONTEXT_CHARS", "12000")),
             workers=int(os.environ.get("LLM_JUDGE_WORKERS", "4")),
-            rpm=int(os.environ.get("LLM_JUDGE_RPM", "20")),
+            rpm=int(os.environ.get("LLM_JUDGE_RPM", "4")),
         )
 
     def is_local(self) -> bool:
@@ -111,24 +110,30 @@ class LLMClientConfig:
 
 
 class _RpmThrottle:
-    """Blocks callers so at most `rpm` requests start in any 60s window."""
+    """Blocks callers so requests start evenly spaced, `60/rpm` seconds apart.
+
+    Not a sliding-window counter: some providers (Cerebras included — see
+    its own docs: "a rate limit of 60 RPM may be enforced as 1 request per
+    second") reject bursts even when the total over any 60s window is under
+    the limit. A counter that lets `rpm` requests fire back-to-back then
+    goes quiet for the rest of the minute is compliant with the aggregate
+    but not with that per-second enforcement — only strict even spacing is
+    safe against both styles.
+    """
 
     def __init__(self, rpm: int):
-        self._rpm = max(1, rpm)
+        self._min_interval = 60.0 / max(1, rpm)
         self._lock = threading.Lock()
-        self._stamps: deque[float] = deque()
+        self._next_allowed = 0.0
 
     def acquire(self) -> None:
-        while True:
-            with self._lock:
-                now = time.monotonic()
-                while self._stamps and now - self._stamps[0] >= 60:
-                    self._stamps.popleft()
-                if len(self._stamps) < self._rpm:
-                    self._stamps.append(now)
-                    return
-                sleep_for = 60 - (now - self._stamps[0]) + 0.05
-            time.sleep(min(max(sleep_for, 0.05), 60))
+        with self._lock:
+            now = time.monotonic()
+            start_at = max(now, self._next_allowed)
+            self._next_allowed = start_at + self._min_interval
+        sleep_for = start_at - now
+        if sleep_for > 0:
+            time.sleep(sleep_for)
 
 
 class OpenAICompatClient:
