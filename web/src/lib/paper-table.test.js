@@ -83,6 +83,21 @@ describe('formatSectionTitle', () => {
   it('leaves a title with no recognizable prefix unchanged', () => {
     expect(formatSectionTitle('Conclusion')).toBe('Conclusion');
   });
+
+  // The extraction-time fix (langtrend/html_processor.py) now inserts a real
+  // space between a heading number and its title, but pre-existing cached
+  // weeks still have the old glued form — this must handle both.
+  it('splits a numbered section prefix that already has a space (fixed extraction)', () => {
+    expect(formatSectionTitle('3.2 Related Work')).toBe('3.2. Related Work');
+  });
+
+  it('prefixes an Appendix letter that already has a space (fixed extraction)', () => {
+    expect(formatSectionTitle('Appendix A Experiments')).toBe('Appendix A. Experiments');
+  });
+
+  it('does not treat a real title starting with a lettered word as a section number', () => {
+    expect(formatSectionTitle('A Survey of Something')).toBe('A Survey of Something');
+  });
 });
 
 describe('chipFromEntry', () => {

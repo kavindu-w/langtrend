@@ -117,6 +117,29 @@ class TestInlineTagTextExtraction:
         assert "Swahili" in text
         assert "Arabic" in text
 
+    def test_heading_number_tag_gets_space_before_title(self):
+        # arXiv's LaTeXML HTML puts the section number in its own
+        # <span class="ltx_tag_section"> with no literal space before the
+        # title text (spacing is CSS margin only) — get_text(strip=True)'s
+        # default separator="" then glues them into "4.1Setup".
+        soup = _soup(
+            '<section><h2><span class="ltx_tag ltx_tag_section">4.1</span>Setup</h2>'
+            "<p>Body text.</p></section>"
+        )
+        sections = extract_sections_from_soup(soup)
+        assert "4.1 Setup" in sections
+        assert "4.1Setup" not in sections
+
+    def test_heading_inline_tag_mid_title_gets_space(self):
+        # Same gluing issue can appear mid-title, not just after the number
+        # (e.g. a model name in its own <span> right after "on").
+        soup = _soup(
+            '<section><h2>Results on<span class="ltx_font_typewriter">OLMo</span></h2>'
+            "<p>Body text.</p></section>"
+        )
+        sections = extract_sections_from_soup(soup)
+        assert "Results on OLMo" in sections
+
 
 # ---------------------------------------------------------------------------
 # extract_sections_from_soup — section structure

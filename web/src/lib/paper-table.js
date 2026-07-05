@@ -24,17 +24,33 @@ export function formatSectionTitle(sectionName) {
   const compact = sectionName.replace(/\s+/g, ' ').trim();
   if (!compact) return 'Untitled section';
 
-  const appendixMatch = compact.match(/^(Appendix\s+[A-Z])(?=[A-Z0-9])/);
+  // "Appendix B" is never mistakable for the start of a real title, so this
+  // one is safe to match whether the source glued the title on directly
+  // (older extraction bug) or already put a space there (fixed extraction).
+  const appendixMatch = compact.match(/^(Appendix\s+[A-Z])(?=\s*[A-Z0-9])/);
   if (appendixMatch) {
     const prefix = appendixMatch[1];
     const suffix = compact.slice(prefix.length).replace(/^[\s.]+/, '');
     return suffix ? `${prefix}. ${suffix}` : prefix;
   }
 
-  const numberedMatch = compact.match(/^((?:[A-Z]\.?\d+(?:\.\d+)*|\d+(?:\.\d+)*|[A-Z]))(?=[A-Z])/);
-  if (numberedMatch) {
-    const prefix = numberedMatch[1].replace(/\.$/, '');
-    const suffix = compact.slice(numberedMatch[1].length).replace(/^[\s.]+/, '');
+  // Numeric/dotted prefixes ("4.1", "B.3") can't be confused with an English
+  // word either, so likewise match with or without a space after them.
+  const numericMatch = compact.match(/^([A-Z]\.?\d+(?:\.\d+)*|\d+(?:\.\d+)*)(?=\s*[A-Z])/);
+  if (numericMatch) {
+    const prefix = numericMatch[1].replace(/\.$/, '');
+    const suffix = compact.slice(numericMatch[1].length).replace(/^[\s.]+/, '');
+    return suffix ? `${prefix}. ${suffix}` : prefix;
+  }
+
+  // A bare single letter ("B") is NOT safe to match with a space allowed —
+  // "A Survey of X" is a common real title, indistinguishable from a
+  // lettered appendix subsection once the number and title both have a
+  // real space between them. Only catch the old no-space glued form here.
+  const letterMatch = compact.match(/^([A-Z])(?=[A-Z])/);
+  if (letterMatch) {
+    const prefix = letterMatch[1];
+    const suffix = compact.slice(prefix.length).replace(/^[\s.]+/, '');
     return suffix ? `${prefix}. ${suffix}` : prefix;
   }
 

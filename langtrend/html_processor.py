@@ -323,12 +323,29 @@ def _walk_document(element, on_text, on_heading=None, skip_ids=frozenset()) -> N
     flush()
 
 
+def _heading_text(tag) -> str:
+    """get_text() for a heading tag, spacing-safe.
+
+    arXiv's LaTeXML HTML puts the section number in its own <span
+    class="ltx_tag_section"> immediately adjacent to the title text, relying
+    on CSS margin (not a literal space character) for visual separation —
+    get_text(strip=True)'s default separator="" then glues them into e.g.
+    "4Experiments" or "B.3Cross-Script...". separator=" " fixes that (it
+    doesn't introduce doubled spaces at tag boundaries — strip=True already
+    trims each fragment before joining). The regex collapse afterward is
+    just a general safety net for whitespace already sloppy in the source
+    (e.g. a literal double space typed within a single text node), not a
+    side effect of this separator choice.
+    """
+    return re.sub(r"\s+", " ", tag.get_text(separator=" ", strip=True)).strip()
+
+
 def extract_sections_from_soup(soup: BeautifulSoup) -> dict[str, str]:
     sections: dict[str, str] = {}
 
     for section in soup.find_all("section"):
         heading = section.find(re.compile("^h[1-6]$"))
-        title = heading.get_text(strip=True) if heading else section.get("id") or "section"
+        title = _heading_text(heading) if heading else section.get("id") or "section"
 
         paragraphs: list[str] = []
         skip_ids = {id(heading)} if heading is not None else frozenset()
@@ -348,7 +365,7 @@ def extract_sections_from_soup(soup: BeautifulSoup) -> dict[str, str]:
             if current_texts:
                 sections[current_title] = "\n\n".join(current_texts).strip()
                 current_texts.clear()
-            current_title = tag.get_text(strip=True)
+            current_title = _heading_text(tag)
 
         _walk_document(soup, on_text=current_texts.append, on_heading=handle_heading)
         if current_texts:
