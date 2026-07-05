@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.27669v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T14:08:09.425778+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8204,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'pin down the two target entities' the word 'pin' is used as a verb meaning to fix, not referring to the Pin language, so false_positive"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "The occurrences refer to 'Arabic numerals' and formatting guidelines, not to the Arabic language itself, so false_positive"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper states that DiscoBench is primarily constructed in Chinese and includes Chinese entities, indicating the work builds resources in Chinese, so studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions an 'English sentence' as an example without building resources or experiments for English, so mentioned_only"
+    }
+  }
+}

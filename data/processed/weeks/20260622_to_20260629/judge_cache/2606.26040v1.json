@@ -1,0 +1,57 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.26040v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T14:37:22.389593+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11693,
+  "verdicts": {
+    "Kara": {
+      "verdict": "false_positive",
+      "reason": "Kara appears only as part of book titles/authors in the dataset, not as a language name"
+    },
+    "Mama": {
+      "verdict": "false_positive",
+      "reason": "Mama occurs within a Japanese book title ('Meitantei no Mama de Ite'), not referring to a language"
+    },
+    "Shua": {
+      "verdict": "false_positive",
+      "reason": "Shua appears as part of an author name or title, not as a language"
+    },
+    "Yuki": {
+      "verdict": "false_positive",
+      "reason": "Yuki is used as a personal name in a title, not as a language"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol is used as a category code label in a table, not as a reference to the Polish language itself"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin is mentioned as the language of a Renaissance text being discussed, but the paper does not build resources or evaluate models for Latin"
+    },
+    "Dutch": {
+      "verdict": "false_positive",
+      "reason": "Dutch describes a Dutch trade publisher, not the Dutch language"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is the source language of many novels and is part of the experimental evaluation, so the paper studies Polish translations"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language of the translations and central to the evaluation, so the paper studies English translations"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is a source language of the novels and is evaluated, so the paper studies French translations"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is a source language of the novels and is evaluated, so the paper studies Japanese translations"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is used as a target language in the multilingual case study and is evaluated, so the paper studies Spanish translations"
+    }
+  }
+}

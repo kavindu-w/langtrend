@@ -1,0 +1,57 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.27981v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T14:23:46.016143+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8026,
+  "verdicts": {
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek appears in a demographic table as the language attribute of a user (\"Greece Greek\"), not as a language the dataset is built for; therefore it is only mentioned."
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is listed in the same demographic table as a user language (\"Iran Persian\"), without being one of the six dataset languages, so it is only mentioned."
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish shows up in narrative examples about Ukrainian refugees in Poland and in discussion of a Polish Pride parade, not as a language the dataset covers; thus it is only mentioned."
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is referenced in demographic rows and in example comments about Russian behavior, but the dataset does not include Russian comments; it is only mentioned."
+    },
+    "Ukrainian": {
+      "verdict": "mentioned_only",
+      "reason": "Ukrainian appears in discussion of Ukrainian refugees and in example annotations, but the paper’s dataset does not contain Ukrainian comments; it is only mentioned."
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is used in a hypothetical example describing a toxic statement about \"Japanese people\", not as a language the dataset covers; therefore it is only mentioned."
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is listed among the six languages of the ToxiREX dataset, appears in tables of sub‑threads per language, and the paper collects and annotates Dutch comments, so it is studied."
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is one of the six languages in the dataset, shown in language tables and described as part of the multilingual collection, thus the paper studies Turkish."
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is included in the six languages of the dataset, mentioned in the language list and tables, and the paper gathers Arabic comments, so it is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the six dataset languages, appears throughout the paper’s description and tables, and English comments are collected and evaluated, so it is studied."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is among the six languages of the dataset, listed in tables and described as part of the multilingual corpus, indicating the paper studies German."
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is one of the six languages in the dataset, shown in language tables and the dataset description, and Spanish comments are processed, so it is studied."
+    }
+  }
+}

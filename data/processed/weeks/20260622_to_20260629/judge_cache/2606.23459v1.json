@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.23459v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T22:24:41.499303+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3240,
+  "verdicts": {
+    "Mochi": {
+      "verdict": "false_positive",
+      "reason": "Mochi is used as a proper name in an example sentence, not referring to the Mochi language → false_positive"
+    },
+    "Thai": {
+      "verdict": "false_positive",
+      "reason": "Thai appears in the phrase 'Thai restaurant', referring to cuisine, not the Thai language → false_positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the language of the benchmark interactions, only mentioned as the medium, not studied as a language resource → mentioned_only"
+    }
+  }
+}

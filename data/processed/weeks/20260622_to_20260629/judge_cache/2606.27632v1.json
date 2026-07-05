@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.27632v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T14:08:58.676198+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10110,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Pinyin substitution' refers to a romanization technique for Chinese text, not the Pinyin language itself, leading to a false positive."
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Here 'Pol.' appears as a column header abbreviation (likely for policy) in a results table, not a language, so false positive."
+    },
+    "Tal": {
+      "verdict": "false_positive",
+      "reason": "The term 'TAL' occurs in benchmark names (e.g., TAL-), serving as a dataset/model identifier rather than referring to a human language, thus false positive."
+    },
+    "Vietnamese": {
+      "verdict": "false_positive",
+      "reason": "The word appears in the query describing a 'Vietnamese professor', referring to a person’s nationality, not the Vietnamese language, so false positive."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is mentioned as a language of evaluation (Chinese language understanding benchmarks, ChineseHarm benchmark) and the model is evaluated on Chinese tasks, indicating the language is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is mentioned as a language of evaluation (English benchmarks, English safety tasks) and the model is evaluated on English tasks, indicating the language is studied."
+    }
+  }
+}

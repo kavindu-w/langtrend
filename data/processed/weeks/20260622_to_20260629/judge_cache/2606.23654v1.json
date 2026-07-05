@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.23654v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T22:22:41.292682+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8372,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to the mean absolute error metric in the experiment table, not the Mae language, so it is a false positive"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is shown as original text excerpts and translations in the appendix examples, only mentioned as part of the benchmark data, not studied or evaluated, so it is mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as the translation label and the paper's writing language, only mentioned for translation purposes, not studied or evaluated, so it is mentioned_only"
+    }
+  }
+}

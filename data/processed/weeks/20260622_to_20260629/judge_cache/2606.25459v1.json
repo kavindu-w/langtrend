@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.25459v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T21:26:39.558329+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5403,
+  "verdicts": {
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'nasal' is used as a phonetic feature descriptor, not as a language name, leading to a false positive."
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'sake' appears in the phrase 'for the sake of', referring to purpose, not a language, thus a false positive."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Chinese language (e.g., Chinese-wav2vec2-base, Chinese linguistic variations), and the paper evaluates models on Mandarin sub-dialects, so the language is studied."
+    }
+  }
+}

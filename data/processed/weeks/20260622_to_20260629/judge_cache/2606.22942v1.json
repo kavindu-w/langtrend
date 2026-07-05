@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.22942v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T23:01:13.219997+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7559,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the 'Tulu 3' dataset and related model experiments, not the Tulu human language; thus it is a false positive."
+    },
+    "Assamese": {
+      "verdict": "studied",
+      "reason": "The snippet describes using the Assamese-English subset of Flores-200 for low-resource translation experiments, indicating the language is used in evaluation, so it is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as part of the translation pair and as the primary language of the instruction dataset used in experiments, indicating the language is used in the study, so it is studied."
+    }
+  }
+}
