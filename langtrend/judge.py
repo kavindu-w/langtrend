@@ -17,6 +17,7 @@ and merged into the manifest by scripts/build_manifest.py.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -114,11 +115,20 @@ class JudgeContext:
         return len(self.head) + sum(len(s.text) for s in self.snippets)
 
 
-def _load_section_texts(record: dict, week_dir: Path) -> tuple[dict[str, str], str]:
-    """Map section name -> raw-ish text for every detected section, from caches.
+def _load_section_texts(record: dict, week_dir: Path) -> tuple[dict[str, str], dict[str, str], str]:
+    """Map section name -> screened text (for matching) and raw-ish text (for
+    display), for every detected section, from caches.
 
-    Returns (texts, coverage). The abstract section is excluded — the full
-    abstract is always in the context head.
+    Returns (texts, raw_texts, coverage). `texts` is what candidates are
+    matched against — unchanged from before, still the most aggressively
+    cleaned tier, since that's what keeps acronym-conflict suppression and
+    word-boundary fixes working. `raw_texts` is the lightly-cleaned tier
+    (body_text for PDF, raw text for HTML) that still has punctuation/digits/
+    version-strings intact — used only to swap in nicer-looking snippet text
+    for windows whose position can be confidently relocated there (see
+    `_relocate_to_raw_text`); matching/selection itself never reads from it.
+    The abstract section is excluded — the full abstract is always in the
+    context head.
     """
     safe_id = safe_paper_id(record.get("paper_id", ""))
     html_data: dict = {}
@@ -137,6 +147,7 @@ def _load_section_texts(record: dict, week_dir: Path) -> tuple[dict[str, str], s
             pdf_data = {}
 
     texts: dict[str, str] = {}
+    raw_texts: dict[str, str] = {}
     used_html = used_pdf = False
     for section_name, section in (record.get("sections") or {}).items():
         source = section.get("source", "")
@@ -149,15 +160,21 @@ def _load_section_texts(record: dict, week_dir: Path) -> tuple[dict[str, str], s
                 if text:
                     texts[section_name] = text
                     used_html = True
+                raw = cached.get("text") or ""
+                if raw:
+                    raw_texts[section_name] = raw
         elif source == "pdf":
             text = pdf_data.get("screened_text") or pdf_data.get("body_text") or ""
             if text:
                 texts[section_name] = text
                 used_pdf = True
+            raw = pdf_data.get("body_text") or ""
+            if raw:
+                raw_texts[section_name] = raw
 
     parts = ["abstract"] + (["html"] if used_html else []) + (["pdf"] if used_pdf else [])
     coverage = "abstract_only" if len(parts) == 1 else "+".join(parts)
-    return texts, coverage
+    return texts, raw_texts, coverage
 
 
 # ---------------------------------------------------------------------------
@@ -263,6 +280,58 @@ def _merge_windows(windows: list[tuple[int, int]]) -> list[tuple[int, int]]:
     return merged
 
 
+_RAW_ANCHOR_WORD_MIN_LEN = 4
+_RAW_ANCHOR_WORD_COUNT = 6
+_RAW_ANCHOR_MAX_GAP = 40  # chars tolerated between consecutive anchor words
+
+
+def _relocate_to_raw_text(snippet_text: str, raw_text: str, radius: int) -> str | None:
+    """Best-effort: find this snippet's corresponding window in less-cleaned
+    raw text, so the judge sees intact punctuation/digits/version-strings
+    instead of the blanks/gaps left by character-level screening (e.g.
+    "embed-english-v3.0" surviving instead of being cut to "embed-english-").
+
+    Anchors on a run of alphabetic words from the middle of the snippet:
+    character-level screening only ever deletes or space-replaces
+    characters, it never invents or reorders surviving letters, so any word
+    intact in the snippet is guaranteed to appear, verbatim, somewhere in
+    raw_text too. A bounded gap between consecutive anchor words bridges
+    digits/punctuation/short tokens (a stripped acronym, a removed citation
+    number) that screening cut out from between them.
+
+    This only ever changes *what text is shown* for a window whose position
+    was already decided by matching against the screened text upstream —
+    it doesn't re-run detection or change which candidates get snippets, so
+    it can't reintroduce the acronym-flood / vanished-match failure modes
+    that come from matching against raw text directly.
+
+    Returns None (caller keeps the already-selected screened text) if the
+    anchor is too short, or doesn't resolve to exactly one confident
+    location — ambiguous (0 or >1 hits) is treated as "don't guess".
+    """
+    words = re.findall(rf"[A-Za-z]{{{_RAW_ANCHOR_WORD_MIN_LEN},}}", snippet_text)
+    if len(words) < _RAW_ANCHOR_WORD_COUNT:
+        return None
+    mid = len(words) // 2
+    half = _RAW_ANCHOR_WORD_COUNT // 2
+    start_idx = max(0, mid - half)
+    anchor_words = words[start_idx : start_idx + _RAW_ANCHOR_WORD_COUNT]
+    if len(anchor_words) < _RAW_ANCHOR_WORD_COUNT:
+        return None
+
+    gap = r".{0,%d}?" % _RAW_ANCHOR_MAX_GAP
+    pattern = gap.join(re.escape(w) for w in anchor_words)
+    matches = list(re.finditer(pattern, raw_text, re.DOTALL))
+    if len(matches) != 1:
+        return None
+
+    m = matches[0]
+    center = (m.start() + m.end()) // 2
+    start, end = _snap_window(raw_text, max(0, center - radius), min(len(raw_text), center + radius))
+    relocated = raw_text[start:end].strip()
+    return relocated or None
+
+
 def assemble_context(
     record: dict,
     week_dir: Path,
@@ -276,7 +345,7 @@ def assemble_context(
     """
     paper = record.get("paper", {})
     head = f"TITLE: {paper.get('title', '')}\n\nABSTRACT: {paper.get('abstract', '')}"
-    texts, coverage = _load_section_texts(record, week_dir)
+    texts, raw_texts, coverage = _load_section_texts(record, week_dir)
 
     # Candidate windows per (section, language), merged into per-section snippets.
     windows_by_section: dict[str, list[tuple[int, int]]] = {}
@@ -351,6 +420,30 @@ def assemble_context(
                     container.languages.append(name)
         else:
             deduped.append(snippet)
+
+    # Swap in the raw-text equivalent of each window where it can be
+    # confidently relocated (see _relocate_to_raw_text) — matching/dedup
+    # above is already finished, so this only changes display text, never
+    # which candidates got a window or where it's centered. Re-derive
+    # language coverage from the relocated text rather than trusting the
+    # screened-text coverage list, and only commit the swap if that
+    # recomputed coverage is non-empty — a relocation that would silently
+    # orphan a candidate from every queue is worse than showing the
+    # (still perfectly usable) screened text instead.
+    for snippet in deduped:
+        for section_name in [snippet.section, *snippet.sections]:
+            raw_text = raw_texts.get(section_name)
+            if not raw_text:
+                continue
+            relocated = _relocate_to_raw_text(snippet.text, raw_text, _SNIPPET_RADIUS)
+            if not relocated:
+                continue
+            recovered = [name for name in target_names if _compiled_pattern(name).search(relocated)]
+            if not recovered:
+                continue
+            snippet.text = relocated
+            snippet.languages = recovered
+            break
 
     # Per-language queues of unselected snippets (targets are already
     # class-ascending, so rare languages claim budget first).

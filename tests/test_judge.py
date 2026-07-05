@@ -26,6 +26,7 @@ from langtrend.judge import (
     safe_paper_id,
     save_judge_record,
     validate_verdicts,
+    _relocate_to_raw_text,
 )
 from langtrend.llm_client import (
     JSONParseError,
@@ -254,6 +255,79 @@ class TestAssembleContext:
         user = messages[1]["content"]
         for target in targets:
             assert target["language"] in user
+
+    def test_pdf_snippet_prefers_raw_text_over_screened(self, tmp_path):
+        # screened_text has the numbered-list marker's digit blanked out by
+        # character-level screening ("(2)" -> "( )"); body_text still has it.
+        # The snippet shown to the judge should come from body_text.
+        record = {
+            "paper_id": "http://arxiv.org/abs/2606.00002v1",
+            "paper": {"id": "http://arxiv.org/abs/2606.00002v1", "title": "T", "abstract": "A"},
+            "sources_checked": ["abstract", "pdf"],
+            "sections": {
+                "abstract": {"source": "abstract", "detected_languages": []},
+                "pdf_full_text": {
+                    "source": "pdf",
+                    "detected_languages": [{"language": "Swahili", "class": 0}],
+                },
+            },
+        }
+        body_text = (
+            "some filler text before the marker. "
+            "(2) we evaluate on Swahili speech data collected from radio broadcasts. "
+            "more filler text follows after this point to pad the window out nicely."
+        )
+        screened_text = body_text.replace("(2)", "( )")
+        pdf_cache = tmp_path / "pdf_cache"
+        pdf_cache.mkdir()
+        (pdf_cache / "2606.00002v1.json").write_text(
+            json.dumps({"body_text": body_text, "screened_text": screened_text}),
+            encoding="utf-8",
+        )
+
+        targets = collect_target_languages(record)
+        context = assemble_context(record, tmp_path, targets, max_chars=12000)
+        assert context.snippets, "expected at least one snippet"
+        snippet = context.snippets[0]
+        assert "(2)" in snippet.text
+        assert "( )" not in snippet.text
+        assert "Swahili" in snippet.languages
+
+
+# ---------------------------------------------------------------------------
+# _relocate_to_raw_text
+# ---------------------------------------------------------------------------
+
+class TestRelocateToRawText:
+    def test_relocates_bridging_a_stripped_digit(self):
+        screened = (
+            "results were strong overall ( ) analyzing the details of this "
+            "experiment further reveals interesting patterns worth noting"
+        )
+        raw = (
+            "results were strong overall (4) analyzing the details of this "
+            "experiment further reveals interesting patterns worth noting"
+        )
+        relocated = _relocate_to_raw_text(screened, raw, radius=200)
+        assert relocated is not None
+        assert "(4)" in relocated
+
+    def test_returns_none_when_anchor_too_short(self):
+        assert _relocate_to_raw_text("too short", "anything at all here", radius=50) is None
+
+    def test_returns_none_when_ambiguous(self):
+        # Same anchor phrase appears twice in raw_text — don't guess which.
+        screened = "alpha bravo charlie delta echo foxtrot golf hotel"
+        raw = (
+            "alpha bravo charlie delta echo foxtrot golf hotel india "
+            "alpha bravo charlie delta echo foxtrot golf hotel juliet"
+        )
+        assert _relocate_to_raw_text(screened, raw, radius=50) is None
+
+    def test_returns_none_when_anchor_words_absent_from_raw(self):
+        screened = "alpha bravo charlie delta echo foxtrot golf hotel"
+        raw = "nothing in common with the anchor words at all here today"
+        assert _relocate_to_raw_text(screened, raw, radius=50) is None
 
 
 # ---------------------------------------------------------------------------
