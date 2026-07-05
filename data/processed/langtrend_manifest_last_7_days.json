@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-05T23:10:01.469898+00:00",
+  "generated_at": "2026-07-05T23:28:12.964248+00:00",
   "window_days": 7,
   "week_start": "2026-06-22",
   "week_end": "2026-06-29",
@@ -12,8 +12,8 @@
     "pdf_failed_no_detection": 0,
     "judge": {
       "judged_papers": 300,
-      "judged_languages": 1056,
-      "studied": 379,
+      "judged_languages": 1057,
+      "studied": 380,
       "mentioned_only": 362,
       "false_positive": 315
     }
@@ -93583,9 +93583,9 @@
             "html"
           ],
           "judge_verdict": "false_positive",
-          "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+          "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "English",
@@ -93596,7 +93596,7 @@
           "judge_verdict": "mentioned_only",
           "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "German",
@@ -93607,7 +93607,7 @@
           "judge_verdict": "studied",
           "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Swahili",
@@ -93616,16 +93616,20 @@
             "html"
           ],
           "judge_verdict": "studied",
-          "judge_reason": "Swahili (swh) is mentioned as a language lacking a treebank but included in additional intrinsic metrics, indicating it is evaluated → studied",
+          "judge_reason": "Swahili is discussed as a language lacking a treebank but included in additional intrinsic metrics, so it was evaluated",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Bengali",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+          "judge_model": "gpt-oss-120b",
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Tamil",
@@ -93634,9 +93638,9 @@
             "html"
           ],
           "judge_verdict": "studied",
-          "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+          "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Thai",
@@ -93645,9 +93649,9 @@
             "html"
           ],
           "judge_verdict": "studied",
-          "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+          "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Hindi",
@@ -93656,9 +93660,9 @@
             "html"
           ],
           "judge_verdict": "studied",
-          "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+          "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Turkish",
@@ -93669,7 +93673,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Finnish",
@@ -93680,7 +93684,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Hungarian",
@@ -93691,7 +93695,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Arabic",
@@ -93702,7 +93706,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Afrikaans",
@@ -93711,9 +93715,9 @@
             "html"
           ],
           "judge_verdict": "studied",
-          "judge_reason": "The snippets list Afrikaans (afr) among languages evaluated for tokenization and morphological alignment, indicating the paper evaluates this language → studied",
+          "judge_reason": "Afrikaans appears in per-language result tables and typological analysis, indicating it was evaluated in the experiments",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Tagalog",
@@ -93722,9 +93726,9 @@
             "html"
           ],
           "judge_verdict": "studied",
-          "judge_reason": "Tagalog (fil) is repeatedly mentioned in per‑language breakdowns and tables of results, meaning the paper evaluates tokenizers on this language → studied",
+          "judge_reason": "Tagalog is mentioned alongside other languages in result tables and typological trends, indicating it was evaluated",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Catalan",
@@ -93735,7 +93739,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Catalan (cat) is mentioned in multiple evaluation tables and typological analyses as a language tested with LangMAP, indicating it is studied",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Italian",
@@ -93746,7 +93750,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Italian (ita) is listed in the experimental tables and discussed as a language with results, so the paper studies Italian",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Albanian",
@@ -93755,9 +93759,9 @@
             "html"
           ],
           "judge_verdict": "studied",
-          "judge_reason": "Albanian (als) appears in tables of languages for which LangMAP performance is reported, showing it is part of the experiments → studied",
+          "judge_reason": "Albanian is listed in the MorphScore language tables with Δ values, showing it was part of the evaluation set",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Uzbek",
@@ -93768,7 +93772,7 @@
           "judge_verdict": "studied",
           "judge_reason": "The snippets list Uzbek (uzn) in tables of intrinsic tokenization results and language‑specific evaluations, indicating the paper evaluates tokenizers on the Uzbek language",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Danish",
@@ -93777,9 +93781,9 @@
             "html"
           ],
           "judge_verdict": "studied",
-          "judge_reason": "Danish (dan) is included in the language tables reporting ΔRecall, ΔPrecision, etc., indicating it is evaluated in the study → studied",
+          "judge_reason": "Danish appears in the tables of language‑specific Δ scores, demonstrating it was included in the experiments",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Galician",
@@ -93788,9 +93792,9 @@
             "html"
           ],
           "judge_verdict": "studied",
-          "judge_reason": "Galician (glg) appears in result tables as a language for which LangMAP improvements are measured, so the paper studies it → studied",
+          "judge_reason": "Galician is listed in the per‑language breakdown tables, indicating it was evaluated",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Latvian",
@@ -93799,9 +93803,9 @@
             "html"
           ],
           "judge_verdict": "studied",
-          "judge_reason": "Latvian (lvs) is listed in the language performance tables, showing it is part of the experimental evaluation → studied",
+          "judge_reason": "Latvian appears in the result tables of language‑specific scores, showing it was part of the evaluation",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Welsh",
@@ -93812,7 +93816,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Welsh (cym) appears in result tables and convergence analyses as a language on which LangMAP is evaluated, showing the paper studies Welsh",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Swedish",
@@ -93823,7 +93827,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Swedish (swe) appears in the same per-language result tables, indicating evaluation of tokenizers on Swedish, thus the language is studied.",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Norwegian",
@@ -93834,7 +93838,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Norwegian (nob) is included in the language tables and convergence experiments, indicating the paper evaluates tokenizers on Norwegian",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Indonesian",
@@ -93845,7 +93849,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Indonesian (ind) appears in the per‑language breakdowns and intrinsic tokenization results, showing the paper evaluates on the Indonesian language",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Romanian",
@@ -93856,7 +93860,7 @@
           "judge_verdict": "studied",
           "judge_reason": "The snippets list Romanian (ron) in per-language result tables for MorphScore, showing that tokenizers were evaluated on Romanian data, so the paper studies this language.",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Portuguese",
@@ -93867,7 +93871,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Portuguese (por) appears in the intrinsic evaluation tables and performance analyses, meaning the paper studies Portuguese",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Azerbaijani",
@@ -93878,7 +93882,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Azerbaijani (azj) is included in tables of per‑language performance and convergence, meaning the paper conducts experiments on the Azerbaijani language",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Russian",
@@ -93889,7 +93893,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Russian is mentioned among the 12 languages evaluated for MorphScore (\"Basque, Korean, Russian\"), implying it was part of the experimental evaluation, so the paper studies it.",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Korean",
@@ -93900,7 +93904,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Korean is included in the set of 12 languages evaluated for MorphScore and label‑free routing, indicating the paper studies Korean",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         },
         {
           "language": "Basque",
@@ -93911,7 +93915,7 @@
           "judge_verdict": "studied",
           "judge_reason": "Basque is listed among the 12 languages evaluated for MorphScore and label‑free routing, showing the paper conducts experiments on Basque",
           "judge_model": "gpt-oss-120b",
-          "judged_at": "2026-07-05T22:52:01.597888+00:00"
+          "judged_at": "2026-07-05T23:28:12.750213+00:00"
         }
       ],
       "sources_checked": [
@@ -93947,9 +93951,9 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "English",
@@ -93957,7 +93961,7 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "English",
@@ -93965,7 +93969,7 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -93973,7 +93977,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -93985,9 +93989,9 @@
               "language": "Swahili",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Swahili (swh) is mentioned as a language lacking a treebank but included in additional intrinsic metrics, indicating it is evaluated → studied",
+              "judge_reason": "Swahili is discussed as a language lacking a treebank but included in additional intrinsic metrics, so it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -93995,37 +93999,41 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -94033,7 +94041,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -94041,7 +94049,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -94049,7 +94057,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94057,7 +94065,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -94065,7 +94073,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -94073,7 +94081,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -94081,7 +94089,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -94089,35 +94097,39 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -94125,7 +94137,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -94133,7 +94145,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -94141,7 +94153,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94149,7 +94161,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -94157,7 +94169,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -94165,37 +94177,41 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -94203,7 +94219,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -94215,9 +94231,9 @@
               "language": "Swahili",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Swahili (swh) is mentioned as a language lacking a treebank but included in additional intrinsic metrics, indicating it is evaluated → studied",
+              "judge_reason": "Swahili is discussed as a language lacking a treebank but included in additional intrinsic metrics, so it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -94225,37 +94241,41 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -94263,7 +94283,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -94271,7 +94291,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -94279,7 +94299,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94287,7 +94307,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -94295,7 +94315,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -94307,9 +94327,9 @@
               "language": "Swahili",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Swahili (swh) is mentioned as a language lacking a treebank but included in additional intrinsic metrics, indicating it is evaluated → studied",
+              "judge_reason": "Swahili is discussed as a language lacking a treebank but included in additional intrinsic metrics, so it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -94317,37 +94337,41 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -94355,7 +94379,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -94363,7 +94387,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -94371,7 +94395,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94379,7 +94403,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -94387,7 +94411,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -94401,7 +94425,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -94409,7 +94433,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -94417,35 +94441,39 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -94453,7 +94481,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -94461,7 +94489,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -94469,7 +94497,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94477,7 +94505,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -94485,7 +94513,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -94493,37 +94521,41 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -94531,7 +94563,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -94541,31 +94573,35 @@
           "detected_languages": [
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -94573,7 +94609,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -94581,7 +94617,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -94589,7 +94625,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94597,7 +94633,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -94605,7 +94641,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -94613,37 +94649,41 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -94651,7 +94691,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -94665,37 +94705,41 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "English",
@@ -94703,7 +94747,7 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94711,7 +94755,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -94719,7 +94763,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -94727,7 +94771,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -94735,7 +94779,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -94743,7 +94787,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -94757,37 +94801,41 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "English",
@@ -94795,7 +94843,7 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94803,7 +94851,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -94811,7 +94859,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -94825,7 +94873,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -94833,7 +94881,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -94841,7 +94889,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -94855,17 +94903,17 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94873,7 +94921,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -94881,9 +94929,9 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "English",
@@ -94891,7 +94939,7 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -94899,9 +94947,9 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "English",
@@ -94909,7 +94957,7 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94917,7 +94965,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "English",
@@ -94925,7 +94973,7 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94933,23 +94981,23 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Swahili",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Swahili (swh) is mentioned as a language lacking a treebank but included in additional intrinsic metrics, indicating it is evaluated → studied",
+              "judge_reason": "Swahili is discussed as a language lacking a treebank but included in additional intrinsic metrics, so it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -94957,7 +95005,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -94965,7 +95013,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -94973,7 +95021,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -94981,31 +95029,31 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Swahili",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Swahili (swh) is mentioned as a language lacking a treebank but included in additional intrinsic metrics, indicating it is evaluated → studied",
+              "judge_reason": "Swahili is discussed as a language lacking a treebank but included in additional intrinsic metrics, so it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Swahili",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Swahili (swh) is mentioned as a language lacking a treebank but included in additional intrinsic metrics, indicating it is evaluated → studied",
+              "judge_reason": "Swahili is discussed as a language lacking a treebank but included in additional intrinsic metrics, so it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -95013,7 +95061,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -95021,7 +95069,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -95029,7 +95077,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95037,7 +95085,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "English",
@@ -95045,23 +95093,23 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Afrikaans",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "The snippets list Afrikaans (afr) among languages evaluated for tokenization and morphological alignment, indicating the paper evaluates this language → studied",
+              "judge_reason": "Afrikaans appears in per-language result tables and typological analysis, indicating it was evaluated in the experiments",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tagalog",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Tagalog (fil) is repeatedly mentioned in per‑language breakdowns and tables of results, meaning the paper evaluates tokenizers on this language → studied",
+              "judge_reason": "Tagalog is mentioned alongside other languages in result tables and typological trends, indicating it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Catalan",
@@ -95069,7 +95117,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Catalan (cat) is mentioned in multiple evaluation tables and typological analyses as a language tested with LangMAP, indicating it is studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95077,7 +95125,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Italian",
@@ -95085,7 +95133,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Italian (ita) is listed in the experimental tables and discussed as a language with results, so the paper studies Italian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -95093,33 +95141,33 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Albanian",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Albanian (als) appears in tables of languages for which LangMAP performance is reported, showing it is part of the experiments → studied",
+              "judge_reason": "Albanian is listed in the MorphScore language tables with Δ values, showing it was part of the evaluation set",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Afrikaans",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "The snippets list Afrikaans (afr) among languages evaluated for tokenization and morphological alignment, indicating the paper evaluates this language → studied",
+              "judge_reason": "Afrikaans appears in per-language result tables and typological analysis, indicating it was evaluated in the experiments",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tagalog",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Tagalog (fil) is repeatedly mentioned in per‑language breakdowns and tables of results, meaning the paper evaluates tokenizers on this language → studied",
+              "judge_reason": "Tagalog is mentioned alongside other languages in result tables and typological trends, indicating it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Uzbek",
@@ -95127,31 +95175,31 @@
               "judge_verdict": "studied",
               "judge_reason": "The snippets list Uzbek (uzn) in tables of intrinsic tokenization results and language‑specific evaluations, indicating the paper evaluates tokenizers on the Uzbek language",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Danish",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Danish (dan) is included in the language tables reporting ΔRecall, ΔPrecision, etc., indicating it is evaluated in the study → studied",
+              "judge_reason": "Danish appears in the tables of language‑specific Δ scores, demonstrating it was included in the experiments",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Galician",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Galician (glg) appears in result tables as a language for which LangMAP improvements are measured, so the paper studies it → studied",
+              "judge_reason": "Galician is listed in the per‑language breakdown tables, indicating it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latvian",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Latvian (lvs) is listed in the language performance tables, showing it is part of the experimental evaluation → studied",
+              "judge_reason": "Latvian appears in the result tables of language‑specific scores, showing it was part of the evaluation",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Welsh",
@@ -95159,7 +95207,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Welsh (cym) appears in result tables and convergence analyses as a language on which LangMAP is evaluated, showing the paper studies Welsh",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Swedish",
@@ -95167,7 +95215,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Swedish (swe) appears in the same per-language result tables, indicating evaluation of tokenizers on Swedish, thus the language is studied.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Norwegian",
@@ -95175,7 +95223,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Norwegian (nob) is included in the language tables and convergence experiments, indicating the paper evaluates tokenizers on Norwegian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Indonesian",
@@ -95183,7 +95231,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Indonesian (ind) appears in the per‑language breakdowns and intrinsic tokenization results, showing the paper evaluates on the Indonesian language",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Romanian",
@@ -95191,7 +95239,7 @@
               "judge_verdict": "studied",
               "judge_reason": "The snippets list Romanian (ron) in per-language result tables for MorphScore, showing that tokenizers were evaluated on Romanian data, so the paper studies this language.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Catalan",
@@ -95199,7 +95247,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Catalan (cat) is mentioned in multiple evaluation tables and typological analyses as a language tested with LangMAP, indicating it is studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -95207,7 +95255,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -95215,7 +95263,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Portuguese",
@@ -95223,7 +95271,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Portuguese (por) appears in the intrinsic evaluation tables and performance analyses, meaning the paper studies Portuguese",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Italian",
@@ -95231,7 +95279,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Italian (ita) is listed in the experimental tables and discussed as a language with results, so the paper studies Italian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Azerbaijani",
@@ -95239,7 +95287,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Azerbaijani (azj) is included in tables of per‑language performance and convergence, meaning the paper conducts experiments on the Azerbaijani language",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95247,7 +95295,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -95255,7 +95303,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -95263,7 +95311,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95271,7 +95319,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -95279,7 +95327,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -95287,7 +95335,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95295,7 +95343,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -95303,37 +95351,41 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Russian",
@@ -95341,7 +95393,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Russian is mentioned among the 12 languages evaluated for MorphScore (\"Basque, Korean, Russian\"), implying it was part of the experimental evaluation, so the paper studies it.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -95349,7 +95401,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -95357,7 +95409,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Korean",
@@ -95365,7 +95417,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Korean is included in the set of 12 languages evaluated for MorphScore and label‑free routing, indicating the paper studies Korean",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -95373,7 +95425,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Basque",
@@ -95381,7 +95433,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Basque is listed among the 12 languages evaluated for MorphScore and label‑free routing, showing the paper conducts experiments on Basque",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95389,7 +95441,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -95397,7 +95449,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -95405,9 +95457,9 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -95415,9 +95467,9 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -95431,17 +95483,17 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95449,7 +95501,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -95457,9 +95509,9 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "English",
@@ -95467,7 +95519,7 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -95475,9 +95527,9 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "English",
@@ -95485,7 +95537,7 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95493,7 +95545,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "English",
@@ -95501,7 +95553,7 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95509,7 +95561,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -95521,17 +95573,17 @@
               "language": "Swahili",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Swahili (swh) is mentioned as a language lacking a treebank but included in additional intrinsic metrics, indicating it is evaluated → studied",
+              "judge_reason": "Swahili is discussed as a language lacking a treebank but included in additional intrinsic metrics, so it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -95539,7 +95591,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -95547,7 +95599,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -95555,7 +95607,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95563,31 +95615,31 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Swahili",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Swahili (swh) is mentioned as a language lacking a treebank but included in additional intrinsic metrics, indicating it is evaluated → studied",
+              "judge_reason": "Swahili is discussed as a language lacking a treebank but included in additional intrinsic metrics, so it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Swahili",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Swahili (swh) is mentioned as a language lacking a treebank but included in additional intrinsic metrics, indicating it is evaluated → studied",
+              "judge_reason": "Swahili is discussed as a language lacking a treebank but included in additional intrinsic metrics, so it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -95595,7 +95647,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -95603,7 +95655,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -95611,7 +95663,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95619,7 +95671,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -95633,23 +95685,23 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Afrikaans",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "The snippets list Afrikaans (afr) among languages evaluated for tokenization and morphological alignment, indicating the paper evaluates this language → studied",
+              "judge_reason": "Afrikaans appears in per-language result tables and typological analysis, indicating it was evaluated in the experiments",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tagalog",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Tagalog (fil) is repeatedly mentioned in per‑language breakdowns and tables of results, meaning the paper evaluates tokenizers on this language → studied",
+              "judge_reason": "Tagalog is mentioned alongside other languages in result tables and typological trends, indicating it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Catalan",
@@ -95657,7 +95709,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Catalan (cat) is mentioned in multiple evaluation tables and typological analyses as a language tested with LangMAP, indicating it is studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95665,7 +95717,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Italian",
@@ -95673,7 +95725,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Italian (ita) is listed in the experimental tables and discussed as a language with results, so the paper studies Italian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -95681,33 +95733,33 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Albanian",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Albanian (als) appears in tables of languages for which LangMAP performance is reported, showing it is part of the experiments → studied",
+              "judge_reason": "Albanian is listed in the MorphScore language tables with Δ values, showing it was part of the evaluation set",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Afrikaans",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "The snippets list Afrikaans (afr) among languages evaluated for tokenization and morphological alignment, indicating the paper evaluates this language → studied",
+              "judge_reason": "Afrikaans appears in per-language result tables and typological analysis, indicating it was evaluated in the experiments",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tagalog",
               "class": 2,
               "judge_verdict": "studied",
-              "judge_reason": "Tagalog (fil) is repeatedly mentioned in per‑language breakdowns and tables of results, meaning the paper evaluates tokenizers on this language → studied",
+              "judge_reason": "Tagalog is mentioned alongside other languages in result tables and typological trends, indicating it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Uzbek",
@@ -95715,31 +95767,31 @@
               "judge_verdict": "studied",
               "judge_reason": "The snippets list Uzbek (uzn) in tables of intrinsic tokenization results and language‑specific evaluations, indicating the paper evaluates tokenizers on the Uzbek language",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Danish",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Danish (dan) is included in the language tables reporting ΔRecall, ΔPrecision, etc., indicating it is evaluated in the study → studied",
+              "judge_reason": "Danish appears in the tables of language‑specific Δ scores, demonstrating it was included in the experiments",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Galician",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Galician (glg) appears in result tables as a language for which LangMAP improvements are measured, so the paper studies it → studied",
+              "judge_reason": "Galician is listed in the per‑language breakdown tables, indicating it was evaluated",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latvian",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Latvian (lvs) is listed in the language performance tables, showing it is part of the experimental evaluation → studied",
+              "judge_reason": "Latvian appears in the result tables of language‑specific scores, showing it was part of the evaluation",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Welsh",
@@ -95747,7 +95799,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Welsh (cym) appears in result tables and convergence analyses as a language on which LangMAP is evaluated, showing the paper studies Welsh",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Swedish",
@@ -95755,7 +95807,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Swedish (swe) appears in the same per-language result tables, indicating evaluation of tokenizers on Swedish, thus the language is studied.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Norwegian",
@@ -95763,7 +95815,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Norwegian (nob) is included in the language tables and convergence experiments, indicating the paper evaluates tokenizers on Norwegian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Indonesian",
@@ -95771,7 +95823,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Indonesian (ind) appears in the per‑language breakdowns and intrinsic tokenization results, showing the paper evaluates on the Indonesian language",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Romanian",
@@ -95779,7 +95831,7 @@
               "judge_verdict": "studied",
               "judge_reason": "The snippets list Romanian (ron) in per-language result tables for MorphScore, showing that tokenizers were evaluated on Romanian data, so the paper studies this language.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Catalan",
@@ -95787,7 +95839,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Catalan (cat) is mentioned in multiple evaluation tables and typological analyses as a language tested with LangMAP, indicating it is studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -95795,7 +95847,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -95803,7 +95855,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Portuguese",
@@ -95811,7 +95863,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Portuguese (por) appears in the intrinsic evaluation tables and performance analyses, meaning the paper studies Portuguese",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Italian",
@@ -95819,7 +95871,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Italian (ita) is listed in the experimental tables and discussed as a language with results, so the paper studies Italian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Azerbaijani",
@@ -95827,7 +95879,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Azerbaijani (azj) is included in tables of per‑language performance and convergence, meaning the paper conducts experiments on the Azerbaijani language",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95835,7 +95887,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -95849,7 +95901,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -95857,7 +95909,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95865,7 +95917,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -95873,7 +95925,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -95881,7 +95933,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95889,7 +95941,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -95897,37 +95949,41 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Russian",
@@ -95935,7 +95991,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Russian is mentioned among the 12 languages evaluated for MorphScore (\"Basque, Korean, Russian\"), implying it was part of the experimental evaluation, so the paper studies it.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -95943,7 +95999,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -95951,7 +96007,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Korean",
@@ -95959,7 +96015,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Korean is included in the set of 12 languages evaluated for MorphScore and label‑free routing, indicating the paper studies Korean",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -95967,7 +96023,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Basque",
@@ -95975,7 +96031,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Basque is listed among the 12 languages evaluated for MorphScore and label‑free routing, showing the paper conducts experiments on Basque",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -95983,7 +96039,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -95991,7 +96047,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -95999,9 +96055,9 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -96009,9 +96065,9 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -96025,37 +96081,41 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali is among the nine natural languages with UD treebanks and appears in extrinsic evaluation tables, indicating it was studied",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Tamil",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Tamil is listed among the languages with UD treebanks used for morphological alignment experiments, showing it is evaluated → studied",
+              "judge_reason": "Tamil is part of the nine natural languages evaluated and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Thai",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Thai appears in the language list for intrinsic and extrinsic evaluations, indicating the paper evaluates tokenization on this language → studied",
+              "judge_reason": "Thai is listed among the evaluated languages and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hindi",
               "class": 3,
               "judge_verdict": "studied",
-              "judge_reason": "Hindi is repeatedly referenced in tables of tokenization results and discussed in the analysis of Devanagari coverage, so it is part of the experiments → studied",
+              "judge_reason": "Hindi is among the evaluated languages with UD treebanks and appears in result tables, indicating it was studied",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Russian",
@@ -96063,7 +96123,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Russian is mentioned among the 12 languages evaluated for MorphScore (\"Basque, Korean, Russian\"), implying it was part of the experimental evaluation, so the paper studies it.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Turkish",
@@ -96071,7 +96131,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Turkish is listed among the nine natural languages in the experimental setup and appears in multiple result tables, indicating it is used in experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Finnish",
@@ -96079,7 +96139,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Finnish (fin) is repeatedly referenced in intrinsic and extrinsic evaluation tables and selected for fine‑tuning experiments, demonstrating the paper studies Finnish",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Korean",
@@ -96087,7 +96147,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Korean is included in the set of 12 languages evaluated for MorphScore and label‑free routing, indicating the paper studies Korean",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Hungarian",
@@ -96095,7 +96155,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Hungarian (hun) appears in multiple evaluation tables, intrinsic metrics, and fine‑tuning experiments, showing the paper studies Hungarian",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Basque",
@@ -96103,7 +96163,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Basque is listed among the 12 languages evaluated for MorphScore and label‑free routing, showing the paper conducts experiments on Basque",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "German",
@@ -96111,7 +96171,7 @@
               "judge_verdict": "studied",
               "judge_reason": "German (deu) is repeatedly listed in experimental setup, tables of results, and intrinsic metrics, indicating it is a language on which the tokenizers were evaluated.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Arabic",
@@ -96119,7 +96179,7 @@
               "judge_verdict": "studied",
               "judge_reason": "Arabic is included in the nine natural languages described in the setup and appears in result tables, showing it is part of the experiments.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -96127,9 +96187,9 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             },
             {
               "language": "Latin",
@@ -96137,9 +96197,9 @@
               "needs_review": true,
               "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
               "judge_verdict": "false_positive",
-              "judge_reason": "The snippets refer to Latin script or Latin‑script languages (e.g., \"Latin‑script languages\"), not the Latin language itself → false_positive",
+              "judge_reason": "Latin is used to refer to Latin script (e.g., \"all Latin script\") rather than the Latin language, so this is a false positive",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         },
@@ -96153,7 +96213,7 @@
               "judge_verdict": "mentioned_only",
               "judge_reason": "English is referenced only as the base/English‑centric tokenizer language and not included in the evaluated natural‑language set, so it is merely mentioned.",
               "judge_model": "gpt-oss-120b",
-              "judged_at": "2026-07-05T22:52:01.597888+00:00"
+              "judged_at": "2026-07-05T23:28:12.750213+00:00"
             }
           ]
         }
