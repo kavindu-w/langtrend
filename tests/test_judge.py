@@ -356,6 +356,56 @@ class TestAssembleContext:
         assert "( )" not in snippet.text
         assert "Swahili" in snippet.languages
 
+    def test_raw_relocation_rejected_when_it_would_drop_languages(self, tmp_path):
+        # A merged window (several matches close enough together to union
+        # into one span — see _merge_windows) can span far more than a
+        # single match+radius window. _relocate_to_raw_text anchors on the
+        # *middle* of the snippet, so on a wide merged span the anchor can
+        # resolve to a real, unique location that covers only the language
+        # nearest that midpoint — reconstructing a same-radius window there
+        # silently drops every other language the original merged window
+        # covered. This must be rejected (screened text kept, all three
+        # languages retained) rather than silently shrunk to one.
+        filler = "wordpad " * 55
+        section_text = (
+            "intro words here to begin the section nicely. "
+            "Swahili speakers were recruited for this study. "
+            + filler
+            + "French speakers also participated in the evaluation. "
+            + filler
+            + "Ari clustering metric was reported at the end."
+        )
+        record = {
+            "paper_id": "http://arxiv.org/abs/2606.00003v1",
+            "paper": {"id": "http://arxiv.org/abs/2606.00003v1", "title": "T", "abstract": "A"},
+            "sources_checked": ["abstract", "html"],
+            "sections": {
+                "abstract": {"source": "abstract", "detected_languages": []},
+                "3Method": {
+                    "source": "html",
+                    "detected_languages": [
+                        {"language": "Swahili", "class": 0},
+                        {"language": "French", "class": 5},
+                        {"language": "Ari", "class": 0},
+                    ],
+                },
+            },
+        }
+        html_cache = tmp_path / "html_cache"
+        html_cache.mkdir()
+        (html_cache / "2606.00003v1.json").write_text(
+            json.dumps({
+                "_complete": True,
+                "3Method": {"text": section_text, "cleaned_text": section_text},
+            }),
+            encoding="utf-8",
+        )
+
+        targets = collect_target_languages(record)
+        context = assemble_context(record, tmp_path, targets, max_chars=12000)
+        covered = {lang for s in context.snippets for lang in s.languages}
+        assert {"Swahili", "French", "Ari"} <= covered
+
 
 # ---------------------------------------------------------------------------
 # _relocate_to_raw_text

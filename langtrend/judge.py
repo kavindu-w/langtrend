@@ -427,9 +427,18 @@ def assemble_context(
     # which candidates got a window or where it's centered. Re-derive
     # language coverage from the relocated text rather than trusting the
     # screened-text coverage list, and only commit the swap if that
-    # recomputed coverage is non-empty — a relocation that would silently
-    # orphan a candidate from every queue is worse than showing the
-    # (still perfectly usable) screened text instead.
+    # recomputed coverage is a superset of what the snippet covered before:
+    # the anchor is taken from the *middle* of the snippet, so for a large
+    # merged window (many nearby matches unioned into one span — see
+    # _merge_windows) the anchor can resolve to a real, unique location that
+    # is nonetheless just one corner of the original span. A same-radius
+    # window rebuilt around that corner is real text but covers far less
+    # than the original merge did — e.g. observed 2026-07-05: a merged
+    # window covering {Naga, Meitei, Tibetan, Latin, Chinese, English,
+    # German} relocated to a sub-window covering only {Meitei}, silently
+    # dropping the other six from context even though they still had
+    # findable evidence. Requiring the recovered set to be a superset (not
+    # just non-empty) rejects that shrinkage and keeps the screened text.
     for snippet in deduped:
         for section_name in [snippet.section, *snippet.sections]:
             raw_text = raw_texts.get(section_name)
@@ -439,7 +448,7 @@ def assemble_context(
             if not relocated:
                 continue
             recovered = [name for name in target_names if _compiled_pattern(name).search(relocated)]
-            if not recovered:
+            if not set(snippet.languages) <= set(recovered):
                 continue
             snippet.text = relocated
             snippet.languages = recovered
