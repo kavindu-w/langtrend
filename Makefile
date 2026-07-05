@@ -7,12 +7,13 @@ JUDGE_WORKERS ?= 4
 # END_DATE    ?= 2026-05-04
 # END_DATE    ?= 2026-05-11
 # END_DATE    ?= 2026-05-18
-END_DATE    ?= 2026-05-25
+# END_DATE    ?= 2026-05-25
+END_DATE    ?= 2026-06-29
 # NO_PDF      ?= 1
 
 # List of end-dates for *-all targets. Override on the command line:
 #   make reprocess-all DATES="2026-05-18 2026-05-25"
-DATES ?= 2026-05-04 2026-05-11 2026-05-18 2026-05-25
+# DATES ?= 2026-05-04 2026-05-11 2026-05-18 2026-05-25
 
 # Pass --end-date only when END_DATE is set
 _END_DATE_FLAG = $(if $(END_DATE),--end-date $(END_DATE),)
@@ -75,6 +76,7 @@ setup:
 # --- Individual pipeline steps (single week) ---------------------------------
 
 fetch:
+	scripts/run_logged.sh fetch \
 	$(PYTHON) scripts/run_langtrend_pipeline.py \
 		--data-root $(DATA_ROOT) \
 		--window-days $(WINDOW_DAYS) \
@@ -83,6 +85,7 @@ fetch:
 		--skip-process
 
 fetch-oai:
+	scripts/run_logged.sh fetch-oai \
 	$(PYTHON) scripts/fetch_arxiv_metadata.py \
 		--window-days $(WINDOW_DAYS) \
 		--max-results $(MAX_RESULTS) \
@@ -90,6 +93,7 @@ fetch-oai:
 		--oai-only
 
 process:
+	scripts/run_logged.sh process \
 	$(PYTHON) scripts/run_langtrend_pipeline.py \
 		--data-root $(DATA_ROOT) \
 		--window-days $(WINDOW_DAYS) \
@@ -99,6 +103,7 @@ process:
 		--skip-fetch
 
 reprocess:
+	scripts/run_logged.sh reprocess \
 	$(PYTHON) scripts/run_langtrend_pipeline.py \
 		--data-root $(DATA_ROOT) \
 		--window-days $(WINDOW_DAYS) \
@@ -108,6 +113,7 @@ reprocess:
 		--reprocess-cache
 
 retry-missing:
+	scripts/run_logged.sh retry-missing \
 	$(PYTHON) scripts/run_langtrend_pipeline.py \
 		--data-root $(DATA_ROOT) \
 		--window-days $(WINDOW_DAYS) \
@@ -117,20 +123,24 @@ retry-missing:
 		--retry-missing
 
 judge:
+	scripts/run_logged.sh judge \
 	$(PYTHON) scripts/judge_languages.py \
 		--window-days $(WINDOW_DAYS) \
 		--workers $(JUDGE_WORKERS) \
 		$(_END_DATE_FLAG)
 
 manifest:
+	scripts/run_logged.sh manifest \
 	$(PYTHON) scripts/build_manifest.py \
 		--window-days $(WINDOW_DAYS) \
 		$(if $(INPUT),--input $(INPUT),)
 
 readme-stats:
+	scripts/run_logged.sh readme-stats \
 	$(PYTHON) scripts/update_readme_stats.py --data-root $(DATA_ROOT)
 
 pipeline:
+	scripts/run_logged.sh pipeline \
 	$(PYTHON) scripts/run_langtrend_pipeline.py \
 		--data-root $(DATA_ROOT) \
 		--window-days $(WINDOW_DAYS) \
@@ -143,6 +153,7 @@ pipeline:
 fetch-all:
 	@for d in $(DATES); do \
 		echo ""; echo "=== fetch: $$d ==="; \
+		scripts/run_logged.sh fetch-all-$$d \
 		$(PYTHON) scripts/run_langtrend_pipeline.py \
 			--data-root $(DATA_ROOT) --window-days $(WINDOW_DAYS) \
 			--max-results $(MAX_RESULTS) --workers $(WORKERS) \
@@ -152,6 +163,7 @@ fetch-all:
 process-all:
 	@for d in $(DATES); do \
 		echo ""; echo "=== process: $$d ==="; \
+		scripts/run_logged.sh process-all-$$d \
 		$(PYTHON) scripts/run_langtrend_pipeline.py \
 			--data-root $(DATA_ROOT) --window-days $(WINDOW_DAYS) --workers $(WORKERS) \
 			--end-date $$d --skip-fetch $(_NO_PDF_FLAG); \
@@ -160,6 +172,7 @@ process-all:
 reprocess-all:
 	@for d in $(DATES); do \
 		echo ""; echo "=== reprocess: $$d ==="; \
+		scripts/run_logged.sh reprocess-all-$$d \
 		$(PYTHON) scripts/run_langtrend_pipeline.py \
 			--data-root $(DATA_ROOT) --window-days $(WINDOW_DAYS) --workers $(WORKERS) \
 			--end-date $$d --skip-fetch --reprocess-cache; \
@@ -168,6 +181,7 @@ reprocess-all:
 retry-missing-all:
 	@for d in $(DATES); do \
 		echo ""; echo "=== retry-missing: $$d ==="; \
+		scripts/run_logged.sh retry-missing-all-$$d \
 		$(PYTHON) scripts/run_langtrend_pipeline.py \
 			--data-root $(DATA_ROOT) --window-days $(WINDOW_DAYS) --workers $(WORKERS) \
 			--end-date $$d --skip-fetch --retry-missing; \
@@ -176,6 +190,7 @@ retry-missing-all:
 judge-all:
 	@for d in $(DATES); do \
 		echo ""; echo "=== judge: $$d ==="; \
+		scripts/run_logged.sh judge-all-$$d \
 		$(PYTHON) scripts/judge_languages.py \
 			--window-days $(WINDOW_DAYS) --workers $(JUDGE_WORKERS) \
 			--end-date $$d; \
@@ -184,6 +199,7 @@ judge-all:
 manifest-all:
 	@for f in $(DATA_ROOT)/raw/extracted_papers_metadata/arxiv_papers_*.jsonl; do \
 		echo ""; echo "=== manifest: $$f ==="; \
+		scripts/run_logged.sh manifest-all-$$(basename $$f .jsonl) \
 		$(PYTHON) scripts/build_manifest.py \
 			--input $$f --window-days $(WINDOW_DAYS); \
 	done
@@ -191,6 +207,7 @@ manifest-all:
 pipeline-all:
 	@for d in $(DATES); do \
 		echo ""; echo "=== pipeline: $$d ==="; \
+		scripts/run_logged.sh pipeline-all-$$d \
 		$(PYTHON) scripts/run_langtrend_pipeline.py \
 			--data-root $(DATA_ROOT) --window-days $(WINDOW_DAYS) \
 			--max-results $(MAX_RESULTS) --workers $(WORKERS) \
@@ -206,7 +223,7 @@ web-dev: web-install
 	cd web && npm run dev
 
 web-build: web-install
-	cd web && npm run build
+	scripts/run_logged.sh web-build bash -c "cd web && npm run build"
 
 dev: web-dev
 
