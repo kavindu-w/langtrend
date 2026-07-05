@@ -39,6 +39,7 @@ You will get a paper's title, abstract, a list of candidate languages that a reg
 For EACH candidate, first check: does the matched text actually refer to the human language itself, or is it a false positive — an acronym, a person/place/author name, the name of a model, dataset, tool, or library (even one used heavily in the paper's own methodology), a script name, or a common word coincidence?
 Using a tool or model that happens to share a language's name (e.g. running experiments with an embedding model called "Jina") is a false positive, NOT evidence the paper studies or mentions the Jina language — check this before considering the other verdicts.
 The same applies to "Latin" meaning the Latin alphabet/script or "Latin America" rather than the Latin language.
+Each candidate is tagged with a resource class from 0 (lowest-resourced language) to 5 (highest-resourced, e.g. English, Spanish, French, German, Chinese).
 
 Only if the match genuinely refers to the human language, choose between:
 - "studied": the paper uses, evaluates, collects data for, or builds resources/models FOR this language (it is part of the paper's experiments or artifacts).
@@ -329,10 +330,32 @@ def assemble_context(
                     if name not in existing.languages:
                         existing.languages.append(name)
 
+    # Second pass: collapse near-duplicates where one snippet's text is fully
+    # contained in another's. Nested arXiv headings (e.g. "4Experiments" ⊇
+    # "4.1Setup" ⊇ "Languages and training data.") store a parent heading's
+    # text as everything under it, subsections included verbatim — so the
+    # same physical sentence gets windowed independently under each nested
+    # section name, landing on slightly different boundaries (different
+    # surrounding text to snap to) and evading the exact-text dedup above.
+    # Longest-first containment check merges these the same way: coverage
+    # unions, nothing distinct is dropped.
+    deduped: list[Snippet] = []
+    for snippet in sorted(unique_by_text.values(), key=lambda s: len(s.text), reverse=True):
+        container = next((s for s in deduped if snippet.text in s.text), None)
+        if container is not None:
+            for section_name in snippet.sections:
+                if section_name not in container.sections:
+                    container.sections.append(section_name)
+            for name in snippet.languages:
+                if name not in container.languages:
+                    container.languages.append(name)
+        else:
+            deduped.append(snippet)
+
     # Per-language queues of unselected snippets (targets are already
     # class-ascending, so rare languages claim budget first).
     queues: dict[str, list[Snippet]] = {name: [] for name in target_names}
-    for snippet in unique_by_text.values():
+    for snippet in deduped:
         for name in snippet.languages:
             if name in queues:
                 queues[name].append(snippet)
@@ -365,10 +388,25 @@ def assemble_context(
 # ---------------------------------------------------------------------------
 
 def build_messages(context: JudgeContext, targets: list[dict]) -> list[dict]:
-    lines = [context.head, "", "CANDIDATE LANGUAGES:"]
+    # Group every candidate by its exact sections list into one line — arXiv
+    # papers commonly list the same appendix/section for dozens of
+    # low-resource languages verbatim, which otherwise burns most of the
+    # context budget on repeated text with no new evidence per repetition.
+    # Resource class stays per-language (not folded into the grouping key)
+    # since it's a signal in its own right — see JUDGE_SYSTEM_PROMPT.
+    groups: dict[tuple[str, ...], list[tuple[str, int]]] = {}
     for target in targets:
-        sections = ", ".join(target["sections"]) or "abstract"
-        lines.append(f"- {target['language']} (resource class {target['class']}) — detected in: {sections}")
+        sections = tuple(target["sections"]) or ("abstract",)
+        groups.setdefault(sections, []).append((target["language"], target["class"]))
+
+    lines = [
+        context.head,
+        "",
+        "CANDIDATE LANGUAGES:"
+    ]
+    for sections, langs in groups.items():
+        names = ", ".join(f"{lang} (class {cls})" for lang, cls in langs)
+        lines.append(f"- {names} — detected in: {', '.join(sections)}")
     if context.snippets:
         lines += ["", "SNIPPETS:"]
         for snippet in context.snippets:
