@@ -588,6 +588,24 @@ def judge_paper(
         messages = build_messages(context, batch)
         verdicts.update(_chat_for_verdicts(client, messages, batch))
 
+        # A valid JSON reply can still just omit a requested language (models
+        # asked for N keys in one object sometimes drop one) — that's not a
+        # parse failure so the retry in _chat_for_verdicts never fires for
+        # it. One retry scoped to only the still-missing languages, same
+        # idea as the JSON-repair round-trip: cheap when nothing's missing
+        # (the common case), and stops the paper from being permanently
+        # stuck pending on a single dropped key.
+        missing = [t for t in batch if t["language"] not in verdicts]
+        if missing:
+            missing_names = {t["language"] for t in missing}
+            retry_context = JudgeContext(
+                head=context.head,
+                coverage=context.coverage,
+                snippets=[s for s in context.snippets if missing_names & set(s.languages)],
+            )
+            retry_messages = build_messages(retry_context, missing)
+            verdicts.update(_chat_for_verdicts(client, retry_messages, missing))
+
     return {
         "paper_id": record.get("paper_id", ""),
         "judge_model": config.model,

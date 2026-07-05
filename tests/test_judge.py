@@ -522,7 +522,10 @@ class TestJudgePaper:
         assert len(client.calls) == 1
 
     def test_repair_round_trip(self, record, week_dir):
-        client = FakeClient(["sorry, here you go:", _reply_for({"Swahili": "studied"})])
+        client = FakeClient([
+            "sorry, here you go:",
+            _reply_for({"Swahili": "studied", "Ari": "false_positive", "French": "mentioned_only"}),
+        ])
         judge_record = judge_paper(record, week_dir, client, LLMClientConfig())
         assert judge_record["verdicts"]["Swahili"]["verdict"] == "studied"
         assert len(client.calls) == 2
@@ -552,6 +555,92 @@ class TestJudgePaper:
         judge_record = judge_paper(record, week_dir, client, LLMClientConfig())
         assert len(client.calls) == 2
         assert len(judge_record["verdicts"]) == 15
+
+    def test_dropped_language_in_valid_json_gets_one_retry(self, week_dir):
+        # Valid JSON that just omits one of the 12 requested languages isn't
+        # a parse failure, so the JSON-repair round-trip never fires for it
+        # — this must be caught separately and retried once, scoped to only
+        # the missing language(s).
+        record = {
+            "paper_id": "http://arxiv.org/abs/2606.00003v1",
+            "paper": {"title": "t", "abstract": "a"},
+            "sections": {"abstract": {"source": "abstract", "detected_languages": [
+                {"language": f"Lang{i}", "class": 0} for i in range(12)
+            ]}},
+        }
+        first_reply = _reply_for({f"Lang{i}": "mentioned_only" for i in range(12) if i != 5})
+        retry_reply = _reply_for({"Lang5": "studied"})
+        client = FakeClient([first_reply, retry_reply])
+        judge_record = judge_paper(record, week_dir, client, LLMClientConfig())
+        assert len(client.calls) == 2
+        assert len(judge_record["verdicts"]) == 12
+        assert judge_record["verdicts"]["Lang5"]["verdict"] == "studied"
+        retry_user_content = client.calls[1][1]["content"]
+        assert "Lang5" in retry_user_content
+        assert "Lang0" not in retry_user_content  # retry scoped to only the gap
+
+    def test_dropped_language_retry_only_includes_its_own_snippet(self, tmp_path):
+        # The retry for a missing language shouldn't resend every snippet
+        # from the original batch — only the one(s) that actually cover the
+        # missing language, to avoid burning tokens re-showing evidence for
+        # languages that were already judged fine.
+        filler = "wordpad " * 60  # far enough apart that windows don't merge
+        section_text = (
+            "Aaa speakers were recruited for this study. "
+            + filler
+            + "Bbb clustering metric was reported at the end."
+        )
+        record = {
+            "paper_id": "http://arxiv.org/abs/2606.00005v1",
+            "paper": {"id": "http://arxiv.org/abs/2606.00005v1", "title": "T", "abstract": "A"},
+            "sources_checked": ["abstract", "html"],
+            "sections": {
+                "abstract": {"source": "abstract", "detected_languages": []},
+                "3Method": {
+                    "source": "html",
+                    "detected_languages": [
+                        {"language": "Aaa", "class": 0},
+                        {"language": "Bbb", "class": 0},
+                    ],
+                },
+            },
+        }
+        html_cache = tmp_path / "html_cache"
+        html_cache.mkdir()
+        (html_cache / "2606.00005v1.json").write_text(
+            json.dumps({"_complete": True, "3Method": {"text": section_text, "cleaned_text": section_text}}),
+            encoding="utf-8",
+        )
+
+        first_reply = _reply_for({"Aaa": "studied"})  # Bbb dropped
+        retry_reply = _reply_for({"Bbb": "false_positive"})
+        client = FakeClient([first_reply, retry_reply])
+        judge_record = judge_paper(record, tmp_path, client, LLMClientConfig())
+
+        assert len(client.calls) == 2
+        assert judge_record["verdicts"]["Bbb"]["verdict"] == "false_positive"
+        retry_user_content = client.calls[1][1]["content"]
+        assert "Bbb clustering metric" in retry_user_content
+        assert "Aaa speakers" not in retry_user_content
+
+    def test_dropped_language_still_missing_after_retry_gives_up(self, week_dir):
+        # The retry is a single attempt, not a loop — if the model drops the
+        # same language twice, the paper stays pending for it rather than
+        # retrying forever.
+        record = {
+            "paper_id": "http://arxiv.org/abs/2606.00004v1",
+            "paper": {"title": "t", "abstract": "a"},
+            "sections": {"abstract": {"source": "abstract", "detected_languages": [
+                {"language": f"Lang{i}", "class": 0} for i in range(12)
+            ]}},
+        }
+        first_reply = _reply_for({f"Lang{i}": "mentioned_only" for i in range(12) if i != 5})
+        retry_reply = _reply_for({})  # still missing Lang5
+        client = FakeClient([first_reply, retry_reply])
+        judge_record = judge_paper(record, week_dir, client, LLMClientConfig())
+        assert len(client.calls) == 2
+        assert "Lang5" not in judge_record["verdicts"]
+        assert len(judge_record["verdicts"]) == 11
 
 
 # ---------------------------------------------------------------------------
