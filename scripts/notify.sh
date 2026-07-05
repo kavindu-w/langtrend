@@ -2,8 +2,13 @@
 # Fires a notification when a `make` target (wrapped by run_logged.sh) finishes.
 # Configure via .env (see .env.example):
 #   NOTIFY_METHOD=macos|webhook|none   (default: macos)
-#   NOTIFY_WEBHOOK_URL=<url>           (required for webhook; POSTs {"text": ...},
-#                                        compatible with Slack/Discord/ntfy.sh)
+#   NOTIFY_WEBHOOK_URL=<url>           (required for webhook; must be a full URL
+#                                        with scheme, e.g. https://ntfy.sh/<topic>
+#                                        — a bare topic name silently fails, curl
+#                                        can't resolve it as a host. ntfy.sh URLs
+#                                        get ntfy's native plain-text+Title-header
+#                                        format; anything else gets Slack/Discord-
+#                                        style {"text": ...} JSON.)
 #   NOTIFY_ON=always|failure           (default: always)
 #
 # Usage: scripts/notify.sh <name> <exit_code> <logfile>
@@ -38,9 +43,21 @@ case "$method" in
     ;;
   webhook)
     if [ -n "${NOTIFY_WEBHOOK_URL:-}" ]; then
-      curl -fsS -X POST -H 'Content-Type: application/json' \
-        -d "{\"text\": \"${title} — ${body}\"}" \
-        "$NOTIFY_WEBHOOK_URL" >/dev/null 2>&1 || true
+      case "$NOTIFY_WEBHOOK_URL" in
+        *ntfy.sh*)
+          # ntfy doesn't recognize a generic {"text": ...} body — it just
+          # dumps the raw JSON as the message. Native format: plain-text
+          # body is the message, Title header sets the title.
+          curl -fsS -X POST -H "Title: ${title}" \
+            -d "$body" \
+            "$NOTIFY_WEBHOOK_URL" >/dev/null 2>&1 || true
+          ;;
+        *)
+          curl -fsS -X POST -H 'Content-Type: application/json' \
+            -d "{\"text\": \"${title} — ${body}\"}" \
+            "$NOTIFY_WEBHOOK_URL" >/dev/null 2>&1 || true
+          ;;
+      esac
     fi
     ;;
   macos|*)
