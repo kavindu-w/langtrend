@@ -343,7 +343,8 @@ def main() -> None:
         sys.exit(EXIT_ERROR)
 
     print(f"Judge: {config.model} @ {config.base_url} "
-          f"(workers={config.workers}, rpm={config.rpm}, context≤{config.max_context_chars} chars)")
+          f"(workers={config.workers}, rpm={config.rpm}, rph={config.rph}, "
+          f"context≤{config.max_context_chars} chars)")
 
     total_judged = total_failed = total_cached = total_no_target = 0
     stopped_early = False

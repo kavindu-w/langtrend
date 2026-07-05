@@ -17,6 +17,7 @@ Environment variables (all optional except the API key for hosted backends):
     LLM_JUDGE_MAX_CONTEXT_CHARS  context assembly budget (default 12000)
     LLM_JUDGE_WORKERS            parallel paper workers (default 4)
     LLM_JUDGE_RPM                max requests per minute across all workers (default 4)
+    LLM_JUDGE_RPH                max requests per hour across all workers (default 150)
 """
 
 from __future__ import annotations
@@ -83,6 +84,7 @@ class LLMClientConfig:
     max_context_chars: int = 12000
     workers: int = 4
     rpm: int = 4
+    rph: int = 150
 
     @classmethod
     def from_env(cls) -> "LLMClientConfig":
@@ -103,6 +105,7 @@ class LLMClientConfig:
             max_context_chars=int(os.environ.get("LLM_JUDGE_MAX_CONTEXT_CHARS", "12000")),
             workers=int(os.environ.get("LLM_JUDGE_WORKERS", "4")),
             rpm=int(os.environ.get("LLM_JUDGE_RPM", "4")),
+            rph=int(os.environ.get("LLM_JUDGE_RPH", "150")),
         )
 
     def is_local(self) -> bool:
@@ -110,7 +113,7 @@ class LLMClientConfig:
 
 
 class _RpmThrottle:
-    """Blocks callers so requests start evenly spaced, `60/rpm` seconds apart.
+    """Blocks callers so requests start evenly spaced apart.
 
     Not a sliding-window counter: some providers (Cerebras included — see
     its own docs: "a rate limit of 60 RPM may be enforced as 1 request per
@@ -119,10 +122,21 @@ class _RpmThrottle:
     goes quiet for the rest of the minute is compliant with the aggregate
     but not with that per-second enforcement — only strict even spacing is
     safe against both styles.
+
+    The spacing is the max of the per-minute and per-hour intervals, not
+    just `60/rpm`: a provider's RPH cap can be tighter than its RPM cap
+    implies (e.g. an account with rpm=4 but rph=150 — 4/min sustained is
+    240/hour, well over 150, so pacing on RPM alone runs fast for ~37
+    minutes then hard-stops on a 429 for the rest of the hour). Pacing to
+    the slower of the two keeps a long run under both caps continuously
+    instead of bursting into a wall.
     """
 
-    def __init__(self, rpm: int):
-        self._min_interval = 60.0 / max(1, rpm)
+    def __init__(self, rpm: int, rph: int | None = None):
+        interval = 60.0 / max(1, rpm)
+        if rph:
+            interval = max(interval, 3600.0 / max(1, rph))
+        self._min_interval = interval
         self._lock = threading.Lock()
         self._next_allowed = 0.0
 
@@ -139,7 +153,7 @@ class _RpmThrottle:
 class OpenAICompatClient:
     def __init__(self, config: LLMClientConfig):
         self.config = config
-        self._throttle = _RpmThrottle(config.rpm)
+        self._throttle = _RpmThrottle(config.rpm, config.rph)
         self._local = threading.local()
 
     def _session(self) -> requests.Session:

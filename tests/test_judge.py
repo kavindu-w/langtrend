@@ -192,6 +192,19 @@ class TestRpmThrottle:
         # (not fire in a single burst near t=0).
         assert offsets[-1] - offsets[0] >= 2.5
 
+    def test_rph_paces_slower_when_it_is_the_tighter_constraint(self):
+        # An RPM budget can imply a higher hourly rate than the account's
+        # actual RPH cap allows (e.g. rpm=4 implies 240/hour, but the real
+        # cap might be rph=150 — 24s/req is the binding interval, not the
+        # 15s/req that rpm=4 alone implies). The throttle must pace to
+        # whichever interval is slower.
+        throttle = _RpmThrottle(rpm=60, rph=72)  # rph implies 3600/72 = 50s/req
+        assert throttle._min_interval == pytest.approx(50.0)
+
+    def test_rph_none_falls_back_to_rpm_only(self):
+        throttle = _RpmThrottle(rpm=60, rph=None)
+        assert throttle._min_interval == pytest.approx(1.0)
+
 
 # ---------------------------------------------------------------------------
 # Fixtures: a detected.jsonl-style record plus caches in a tmp week dir
