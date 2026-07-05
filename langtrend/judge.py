@@ -47,6 +47,7 @@ Only if the match genuinely refers to the human language, choose between:
 Reply with ONLY a JSON object, no markdown, matching this schema:
 {"verdicts": [{"language": "<exact candidate name>", "reason": "<one line: first say what the candidate name actually refers to in these snippets, THEN state the verdict it implies>", "verdict": "studied" | "mentioned_only" | "false_positive"}]}
 Write "reason" before "verdict" and make the verdict follow from it — don't pick a verdict first and justify it afterward.
+Base the reason only on what the snippets actually show. Do not guess what an abbreviated or truncated candidate "usually" means elsewhere — if the snippets don't make its referent clear, say the snippets are insufficient rather than inventing a plausible-sounding one.
 Include every candidate exactly once. If snippets are insufficient to be sure, prefer "mentioned_only" over "false_positive".
 """
 
