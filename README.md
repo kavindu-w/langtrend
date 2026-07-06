@@ -51,7 +51,7 @@ _Latest processed week: **2026-06-22 – 2026-06-29**._
 
 ## Pipeline
 
-![LangTrend pipeline diagram](web/public/images/langtrend-pipeline.png)
+![LangTrend pipeline diagram](web/public/images/langtrend-pipeline.svg)
 
 The pipeline is cache-aware at every step: existing JSONL, `html_cache/`, and `pdf_cache/` files are reused unless explicitly cleared.
 
