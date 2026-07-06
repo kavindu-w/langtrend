@@ -47,7 +47,7 @@ help:
 	@echo "  make pipeline         Run fetch + process + manifest in sequence"
 	@echo ""
 	@echo "Try it on your own paper:"
-	@echo "  make test-paper ARXIV_ID=2606.16047   Run one arXiv paper through the detection pipeline"
+	@echo "  make test-paper ARXIV_ID=1111.11111   Run one arXiv paper through the detection pipeline"
 	@echo "  make test-paper PDF_PATH=paper.pdf    ...or a PDF already on disk (not on arXiv), PDF-only detection"
 	@echo "                                          (writes to data/sandbox/, never touches weekly data)"
 	@echo "                                          Add JUDGE=1 to also run the LLM judge stage"
@@ -179,7 +179,7 @@ ifdef PDF_PATH
 else ifdef ARXIV_ID
 	$(PYTHON) scripts/test_single_paper.py --arxiv-id "$(ARXIV_ID)" $(_NO_PDF_FLAG) $(_JUDGE_FLAG)
 else
-	$(error Usage: make test-paper ARXIV_ID=2606.16047  (bare id, versioned id, or full arxiv.org URL) \
+	$(error Usage: make test-paper ARXIV_ID=1111.11111  (bare id, versioned id, or full arxiv.org URL) \
 	    or: make test-paper PDF_PATH=~/Downloads/some_paper.pdf  (a PDF already on disk, e.g. not on arXiv))
 endif
 

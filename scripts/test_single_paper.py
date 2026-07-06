@@ -16,10 +16,10 @@ written under data/sandbox/<paper-id>/ so this never touches the real weekly
 data.
 
 Usage:
-    python scripts/test_single_paper.py --arxiv-id 2606.16047
-    python scripts/test_single_paper.py --arxiv-id https://arxiv.org/abs/2606.16047v1
-    python scripts/test_single_paper.py --arxiv-id 2606.16047 --no-pdf
-    python scripts/test_single_paper.py --arxiv-id 2606.16047 --judge
+    python scripts/test_single_paper.py --arxiv-id 1111.11111
+    python scripts/test_single_paper.py --arxiv-id https://arxiv.org/abs/1111.11111v1
+    python scripts/test_single_paper.py --arxiv-id 1111.11111 --no-pdf
+    python scripts/test_single_paper.py --arxiv-id 1111.11111 --judge
     python scripts/test_single_paper.py --pdf-path ~/Downloads/some_paper.pdf
     python scripts/test_single_paper.py --pdf-path ~/Downloads/some_paper.pdf --title "Some Paper" --judge
 """
@@ -48,7 +48,7 @@ _ARXIV_ID_RE = re.compile(r"(\d{4}\.\d{4,5}(v\d+)?)")
 
 
 def normalize_arxiv_id(raw: str) -> str:
-    """Accept a bare id, versioned id, or full arxiv.org URL; return e.g. '2606.16047v1'."""
+    """Accept a bare id, versioned id, or full arxiv.org URL; return e.g. '1111.11111v1'."""
     match = _ARXIV_ID_RE.search(raw)
     if not match:
         raise ValueError(f"Could not find an arXiv id in '{raw}'")

@@ -25,7 +25,7 @@ Usage:
     python scripts/judge_languages.py --end-date 2026-05-25
     python scripts/judge_languages.py --input data/raw/extracted_papers_metadata/arxiv_papers_20260518_to_20260525.jsonl
     python scripts/judge_languages.py --end-date 2026-05-25 --limit 5
-    python scripts/judge_languages.py --end-date 2026-05-25 --paper-id 2605.17710v1 --dry-run
+    python scripts/judge_languages.py --end-date 2026-05-25 --paper-id 1111.11111v1 --dry-run
     python scripts/judge_languages.py --sweep-all-weeks   # daily catch-up: any week with gaps, newest first
 """
 
@@ -267,7 +267,7 @@ def main() -> None:
     parser.add_argument("--pdf-dir", type=Path, default=_DEFAULT_PDF_DIR,
                         help=f"Directory for on-demand PDF downloads (default: {_DEFAULT_PDF_DIR})")
     parser.add_argument("--paper-id", type=str, default=None,
-                        help="Single-paper mode: judge one paper (bare id like 2605.17710v1) and print the prompt")
+                        help="Single-paper mode: judge one paper (bare id like 1111.11111v1) and print the prompt")
     parser.add_argument("--dry-run", action="store_true",
                         help="With --paper-id: print the assembled prompt without calling the model")
     parser.add_argument("--save", action="store_true",
