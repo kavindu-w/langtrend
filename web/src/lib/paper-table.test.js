@@ -8,6 +8,7 @@ import {
   formatSectionTitle,
   normalizeLanguage,
   sourcesOfEntry,
+  verdictsPresent,
 } from './paper-table.js';
 
 describe('normalizeLanguage', () => {
@@ -401,7 +402,7 @@ describe('LLM judge fields', () => {
         languages: [
           { language: 'Sinhala', class: 2, judge_verdict: 'studied' },
           { language: 'Tamil', class: 3, judge_verdict: 'mentioned_only' },
-          { language: 'Ari', class: 0, judge_verdict: 'false_positive' },
+          { language: 'Ari', class: 0, judge_verdict: 'false_positive', judge_reason: 'Adjusted Rand Index', judge_model: 'llama-3.3-70b-versatile' },
         ],
       },
       {},
@@ -409,6 +410,10 @@ describe('LLM judge fields', () => {
     expect(result.languageNames).toEqual(['Tamil', 'Sinhala']);
     expect(result.langCount).toBe(2);
     expect(result.languages.map((l) => l.judgeVerdict)).toEqual(['mentioned_only', 'studied']);
+    expect(result.judgeSuppressedChips).toEqual([
+      { language: 'Ari', borderClass: 0, reason: 'Adjusted Rand Index', model: 'llama-3.3-70b-versatile' },
+    ]);
+    expect(result.verdicts.sort()).toEqual(['false_positive', 'mentioned_only', 'studied']);
   });
 
   it('buildWeekApiPaper suppresses needsReview when the judge confirmed the language', () => {
@@ -418,5 +423,23 @@ describe('LLM judge fields', () => {
       { Gan: 'very common ML acronym' },
     );
     expect(result.languages[0].needsReview).toBe(false);
+  });
+});
+
+describe('verdictsPresent', () => {
+  it('treats an unjudged chip (no judge_verdict) as studied', () => {
+    const chip = chipFromEntry({ language: 'Sinhala', class: 2 }, {});
+    expect(verdictsPresent([chip], [])).toEqual(['studied']);
+  });
+
+  it('includes mentioned_only and false_positive when present', () => {
+    const studied = chipFromEntry({ language: 'Sinhala', class: 2, judge_verdict: 'studied' }, {});
+    const mentioned = chipFromEntry({ language: 'Tamil', class: 3, judge_verdict: 'mentioned_only' }, {});
+    const fp = [{ language: 'Ari', borderClass: 0, reason: 'Adjusted Rand Index', model: 'm' }];
+    expect(verdictsPresent([studied, mentioned], fp).sort()).toEqual(['false_positive', 'mentioned_only', 'studied']);
+  });
+
+  it('returns an empty array for a paper with no detections', () => {
+    expect(verdictsPresent([], [])).toEqual([]);
   });
 });

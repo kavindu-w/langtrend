@@ -188,7 +188,16 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
     model: entry.judge_model ?? '',
   }));
 
-  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts, suppressedChips, judgeSuppressedChips, weekStart };
+  const verdicts = verdictsPresent(chips, judgeSuppressedChips);
+
+  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts, suppressedChips, judgeSuppressedChips, verdicts, weekStart };
+}
+
+/** Distinct effective verdicts present on a paper — an unjudged (no judge_verdict) chip counts as 'studied'. */
+export function verdictsPresent(chips, judgeSuppressedChips) {
+  const set = new Set(chips.map((c) => (c.mentionedOnly ? 'mentioned_only' : 'studied')));
+  if (judgeSuppressedChips.length > 0) set.add('false_positive');
+  return [...set];
 }
 
 /**
@@ -199,6 +208,7 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
  */
 export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
   const paper = item.paper;
+  const judgeRejected = [...item.languages].filter(Boolean).filter(isJudgedFalsePositive);
   const languages = [...item.languages].filter(Boolean).filter((entry) => !isJudgedFalsePositive(entry)).map((entry) => {
     const language = normalizeLanguage(entry);
     const borderClass = classFromEntry(entry) ?? languageBorderClass(language, langClasses);
@@ -211,9 +221,20 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
     return { language, borderClass, fillColor: languageFillColor(language), needsReview, judgeVerdict };
   }).sort((a, b) => b.borderClass - a.borderClass || a.language.localeCompare(b.language));
 
+  const judgeSuppressedChips = judgeRejected.map((entry) => ({
+    language: normalizeLanguage(entry),
+    borderClass: classFromEntry(entry) ?? languageBorderClass(normalizeLanguage(entry), langClasses),
+    reason: entry.judge_reason ?? '',
+    model: entry.judge_model ?? '',
+  }));
+
   const languageNames = languages.map((l) => l.language).filter(Boolean);
   const minClass = languages.length > 0 ? Math.min(...languages.map((l) => l.borderClass)) : 5;
   const classes = [...new Set(languages.map((l) => l.borderClass))];
+  const verdicts = verdictsPresent(
+    languages.map((l) => ({ mentionedOnly: l.judgeVerdict === 'mentioned_only' })),
+    judgeSuppressedChips,
+  );
 
   return {
     id: paper.id ?? '',
@@ -230,5 +251,7 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
     langCount: languageNames.length,
     minClass,
     classes,
+    judgeSuppressedChips,
+    verdicts,
   };
 }
