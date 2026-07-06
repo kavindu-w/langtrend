@@ -1,16 +1,23 @@
 name: LangTrend Judge Catch-up
 
-# Groq's free tier is bounded by a daily token quota (resets at midnight UTC),
-# which is comfortably enough for one week's worth of papers but not always
-# enough to also clear an existing backlog same-day. This workflow retries
-# whatever judge_languages.py left pending (any week, oldest first) once a
-# day. It shares the "deploy" concurrency group with langtrend.yml, so
-# GitHub Actions queues it behind the weekly pipeline automatically if they'd
-# otherwise overlap — no need to guess how long that pipeline will run.
+# The configured LLM provider's free tier is bounded by a daily quota (resets
+# at midnight UTC), which is comfortably enough for one week's worth of papers
+# but not always enough to also clear an existing backlog same-day. This
+# workflow retries whatever judge_languages.py left pending (any week, newest
+# first so the current week is prioritized over older backlog) once a day. It
+# shares the "deploy" concurrency group with langtrend.yml, so GitHub Actions
+# queues it behind the weekly pipeline automatically if they'd otherwise
+# overlap — no need to guess how long that pipeline will run.
 #
 # Fires every day (including the same day as the weekly pipeline); this is
 # intentionally not special-cased around Tuesday, since judge_languages.py's
 # gap detection makes a run with nothing pending a fast no-op.
+#
+# Deploy only requires the current/latest week to be fully judged (same gate
+# as langtrend.yml) — it does not wait for the entire historical backlog.
+# Each run that finishes more of the backlog redeploys the site, so older
+# weeks' pages get progressively more accurate "studied" counts over time
+# without blocking on the whole backfill completing first.
 
 on:
   schedule:
@@ -67,13 +74,15 @@ jobs:
             exit "$code"
           fi
 
-      - name: Check whether every week is fully judged
+      # Same per-week gate as langtrend.yml's judge job — deploy shouldn't
+      # wait for the full repo-wide backlog, just the current week.
+      - name: Check whether the latest week is fully judged
         id: check
         env:
           LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
         run: |
           set +e
-          python scripts/judge_languages.py --sweep-all-weeks --check-only
+          python scripts/judge_languages.py --window-days 7 --check-only
           code=$?
           set -e
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
@@ -126,8 +135,9 @@ jobs:
             git push origin HEAD:main
           }
 
-  # Only deploys once judge-catchup's repo-wide check confirms zero pending
-  # papers anywhere — if a backlog remains, tomorrow's scheduled run tries again.
+  # Only deploys once the current/latest week has zero pending papers — if
+  # that week isn't judged yet, tomorrow's scheduled run tries again. Older
+  # weeks keep backfilling in the background across runs regardless.
   deploy:
     needs:
       - judge-catchup

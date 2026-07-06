@@ -71,7 +71,7 @@ class TestSweepDiscovery:
             (week_dir / f"arxiv_papers_{slug}_detected.jsonl").write_text("", encoding="utf-8")
         return week_dir
 
-    def test_finds_weeks_with_detected_jsonl_sorted_oldest_first(self, tmp_path, monkeypatch):
+    def test_finds_weeks_with_detected_jsonl_sorted_newest_first(self, tmp_path, monkeypatch):
         monkeypatch.setattr(jl, "_PROCESSED_DIR", tmp_path)
         weeks_dir = tmp_path / "weeks"
         self._make_week(weeks_dir, "20260525_to_20260601")
@@ -79,7 +79,7 @@ class TestSweepDiscovery:
         self._make_week(weeks_dir, "20260511_to_20260518")
 
         assert jl._find_all_week_slugs() == [
-            "20260427_to_20260504", "20260511_to_20260518", "20260525_to_20260601",
+            "20260525_to_20260601", "20260511_to_20260518", "20260427_to_20260504",
         ]
 
     def test_skips_weeks_without_detected_jsonl(self, tmp_path, monkeypatch):

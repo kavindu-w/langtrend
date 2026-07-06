@@ -540,15 +540,17 @@ jobs:
             exit "$code"
           fi
 
-      # Repo-wide check (not just this week) — the site should only deploy
-      # once every detected paper, in every week, has a verdict.
-      - name: Check whether every week is fully judged
+      # Only the current/latest week gates the deploy — older weeks backfill
+      # in the background via judge-catchup.yml and redeploy on their own
+      # once they catch up, so we don't hold the whole site hostage to a
+      # multi-day backlog just to publish this week's numbers.
+      - name: Check whether the latest week is fully judged
         id: check
         env:
           LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
         run: |
           set +e
-          python scripts/judge_languages.py --sweep-all-weeks --check-only
+          python scripts/judge_languages.py --window-days 7 --check-only
           code=$?
           set -e
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
@@ -605,7 +607,9 @@ jobs:
 # ---------------------------------------------------------------------------
 # Job 6: build frontend + deploy to GitHub Pages (~variable, grows with data)
 # Fresh checkout sees all outputs committed by Jobs 1–5. Only runs when the
-# judge job's repo-wide check confirmed zero pending papers anywhere.
+# judge job confirmed the current/latest week has zero pending papers — older
+# weeks may still have a backlog, cleared in the background by
+# judge-catchup.yml, which redeploys on its own once each week catches up.
 # ---------------------------------------------------------------------------
   deploy:
     needs:

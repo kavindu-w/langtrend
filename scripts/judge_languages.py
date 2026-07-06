@@ -11,9 +11,9 @@ per paper to <week_dir>/judge_cache/<safe_id>.json and folded into the
 manifest on the next build_manifest run.
 
 Configuration comes from LLM_JUDGE_* environment variables (see
-langtrend/llm_client.py or .env.example). Defaults target Groq's free tier
-(open-weight Llama 3.3 70B). A local Ollama server works as a drop-in
-override.
+langtrend/llm_client.py or .env.example). Defaults target Cerebras's free
+tier (open-weight gpt-oss-120b). Groq and a local Ollama server both work as
+drop-in overrides.
 
 Exit codes: 0 = nothing left pending (either there was nothing to do, or
 every targeted paper got judged this run); 1 = hard error (bad config,
@@ -26,7 +26,7 @@ Usage:
     python scripts/judge_languages.py --input data/raw/extracted_papers_metadata/arxiv_papers_20260518_to_20260525.jsonl
     python scripts/judge_languages.py --end-date 2026-05-25 --limit 5
     python scripts/judge_languages.py --end-date 2026-05-25 --paper-id 2605.17710v1 --dry-run
-    python scripts/judge_languages.py --sweep-all-weeks   # daily catch-up: any week with gaps, oldest first
+    python scripts/judge_languages.py --sweep-all-weeks   # daily catch-up: any week with gaps, newest first
 """
 
 from __future__ import annotations
@@ -133,13 +133,19 @@ def _parse_classes(raw: str | None) -> set[int] | None:
 
 
 def _find_all_week_slugs() -> list[str]:
-    """Every week subdirectory with a detected.jsonl, sorted oldest-first."""
+    """Every week subdirectory with a detected.jsonl, sorted newest-first.
+
+    Newest-first so a quota-limited sweep (--sweep-all-weeks) prioritizes the
+    current/most-recent week — the one the site's "latest" pointer and the
+    deploy gate care about — before spending budget backfilling older weeks.
+    """
     weeks_dir = _PROCESSED_DIR / "weeks"
     if not weeks_dir.is_dir():
         return []
     return sorted(
-        p.name for p in weeks_dir.iterdir()
-        if p.is_dir() and _WEEK_RE.match(p.name) and any(p.glob("arxiv_papers_*_detected.jsonl"))
+        (p.name for p in weeks_dir.iterdir()
+         if p.is_dir() and _WEEK_RE.match(p.name) and any(p.glob("arxiv_papers_*_detected.jsonl"))),
+        reverse=True,
     )
 
 
@@ -237,12 +243,15 @@ def main() -> None:
     parser.add_argument("--window-days", type=int, default=7)
     parser.add_argument("--sweep-all-weeks", action="store_true",
                         help="Daily catch-up mode: judge pending papers across every week with a "
-                             "detected.jsonl (oldest first), not just the week derived from "
-                             "--end-date/--input. Stops cleanly on quota exhaustion; re-run to continue.")
+                             "detected.jsonl (newest first, so the current week finishes before older "
+                             "backlog), not just the week derived from --end-date/--input. Stops "
+                             "cleanly on quota exhaustion; re-run to continue.")
     parser.add_argument("--check-only", action="store_true",
                         help="Don't judge anything — just report whether any targeted week still has "
-                             "pending papers (exit 0 if fully judged, exit 3 if gaps remain). Combine "
-                             "with --sweep-all-weeks for a repo-wide check; used to gate CI deploys.")
+                             "pending papers (exit 0 if fully judged, exit 3 if gaps remain). Without "
+                             "--sweep-all-weeks, checks only the single week derived from "
+                             "--end-date/--input (the current week by default) — this is what gates the "
+                             "CI deploy. Combine with --sweep-all-weeks for a repo-wide report.")
     parser.add_argument("--workers", type=int, default=None,
                         help="Parallel worker threads (default: LLM_JUDGE_WORKERS env)")
     parser.add_argument("--force", action="store_true", help="Re-judge papers with existing cache files")
@@ -294,7 +303,7 @@ def main() -> None:
         if not week_slugs:
             print("No weeks with detected.jsonl found — nothing to sweep.")
             sys.exit(EXIT_OK)
-        print(f"Sweeping {len(week_slugs)} week(s), oldest first: {', '.join(week_slugs)}")
+        print(f"Sweeping {len(week_slugs)} week(s), newest first: {', '.join(week_slugs)}")
         weeks = [(slug, _detected_path_for_week(slug), _week_dir_for_slug(slug)) for slug in week_slugs]
     else:
         input_path = _resolve_input(args)
