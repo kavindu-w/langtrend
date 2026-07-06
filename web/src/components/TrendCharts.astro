@@ -450,8 +450,12 @@ const trendDataByGranularity = {
 };
 
 // Mirror ranking chart — independent top-10 lists for prev and current week
-const hasPrevWeek = trendWeeks.length >= 2;
-const prevWeekData = hasPrevWeek ? trendWeeks[trendWeeks.length - 2] : null;
+// "Current" is whichever week this page is showing (not necessarily the
+// latest week overall), so look up its neighbor by date rather than assuming
+// this is always the last entry in trendWeeks.
+const currentWeekIndex = trendWeeks.findIndex((week) => week.weekStart === manifest.week_start);
+const prevWeekData = currentWeekIndex > 0 ? trendWeeks[currentWeekIndex - 1] : null;
+const hasPrevWeek = prevWeekData !== null;
 // Exclude languages that were only ever mentioned_only — this ranks studied
 // activity, so a week with fewer than 10 studied languages shouldn't get
 // padded out with mentioned-only-only entries.
@@ -2404,25 +2408,6 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           }).join('');
           rankContainer.innerHTML = '<svg class="chart-svg"' + (bumpWidth !== 960 ? ' style="width:' + bumpWidth + 'px;max-width:none"' : ' width="100%"') + ' height="' + bumpHeight + '" viewBox="0 0 ' + bumpWidth + ' ' + bumpHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Language rank bump chart across selected period"><g transform="translate(' + bumpMargin.left + ' ' + bumpMargin.top + ')">' + bumpAxis + bumpPoints + bumpLines + bumpNodes + '</g></svg>';
         }
-
-        var langsContainer = document.getElementById('period-langs-chart');
-        if (langsContainer && topLanguages.length) {
-          var rowH = 28, margin = { top: 18, right: 24, bottom: 20, left: 210 };
-          var width = 920;
-          var innerW = width - margin.left - margin.right;
-          var innerH = topLanguages.length * rowH;
-          var totalH = innerH + margin.top + margin.bottom;
-          var maxC = Math.max.apply(null, topLanguages.map(function(item) { return item.count || 0; })) || 1;
-          var totalC = topLanguages.reduce(function(sum, item) { return sum + item.count; }, 0);
-          var bars = topLanguages.map(function(item, index) {
-            var bW = (item.count / maxC) * innerW;
-            var y = index * rowH;
-            var pct = ((item.count / totalC) * 100).toFixed(1) + '%';
-            var inside = bW > innerW - 100;
-            return '<g transform="translate(0 ' + y + '"><text x="-12" y="16" text-anchor="end" class="h-bar-label h-bar-label-name">' + item.language + '</text><rect x="0" y="3" width="' + bW + '" height="18" rx="4" fill="' + item.color + '" fill-opacity="0.86"></rect>' + (inside ? '<text x="' + (bW - 6) + '" y="16" text-anchor="end" class="h-bar-label h-bar-label-count" style="fill:#fff">' + item.count + ' (' + pct + ')</text>' : '<text x="' + (bW + 8) + '" y="16" text-anchor="start" class="h-bar-label h-bar-label-count">' + item.count + ' (' + pct + ')</text>') + '</g>';
-          }).join('');
-          langsContainer.innerHTML = '<svg class="chart-svg" width="100%" viewBox="0 0 920 ' + totalH + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Top languages in selected period"><g transform="translate(' + margin.left + ' ' + margin.top + ')">' + bars + '</g></svg>';
-        }
       }
 
       renderPeriodTrendCharts(periodData);
@@ -2433,75 +2418,6 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         var pxPerPeriod = baseInner / maxVisible;
         return Math.ceil(periodCount * pxPerPeriod) + margins.left + margins.right;
       }
-
-      // Papers per week bar chart
-      (function() {
-        var container = document.getElementById('period-papers-chart');
-        if (!container || !periodData.length) return;
-        var margin = { top: 24, right: 44, bottom: 50, left: 42 };
-        var height = 260;
-        var width = chartWidthForPeriods(760, margin, periodData.length, 5);
-        var innerW = width - margin.left - margin.right;
-        var innerH = height - margin.top - margin.bottom;
-        var bandW = innerW / periodData.length;
-        var barW = bandW * 0.56;
-        var maxP = Math.max.apply(null, periodData.map(function(d) { return d.papers || 0; })) || 1;
-        var scaleY = function(v) { return innerH - (v / maxP) * innerH; };
-        var ticks = [0,1,2,3,4].map(function(i) { return Math.round(maxP * i / 4); });
-        var yAxis = ticks.map(function(t) {
-          var y = scaleY(t);
-          return '<g transform="translate(0 '+y+')"><line x1="0" x2="'+innerW+'" y1="0" y2="0" class="chart-grid-line"></line><text x="-10" y="4" text-anchor="end" class="chart-axis-label">'+t+'</text></g>';
-        }).join('');
-        var bars = periodData.map(function(week, i) {
-          var x = i * bandW + (bandW - barW) / 2;
-          var tH = Math.max((week.papers / maxP) * innerH, 0);
-          var fH = Math.max((week.flaggedPapers / maxP) * innerH, 0);
-          var oH = Math.max(tH - fH, 0);
-          var yTop = innerH - tH;
-          var label = fmtShortLabel(week.weekStart);
-          var otherCount = Math.max(week.papers - week.flaggedPapers, 0);
-          var s = '';
-          if (oH > 0) s += '<path d="'+roundedTopRectPath(x, yTop, barW, oH, 5)+'" fill="rgba(32, 22, 19, 0.18)"></path>';
-          if (fH > 0) s += '<path d="'+roundedBottomRectPath(x, innerH - fH, barW, fH, 5)+'" fill="#0f6c5d"></path>';
-          if (oH > 14) s += '<text x="'+(x+barW/2)+'" y="'+(yTop+oH/2+4)+'" text-anchor="middle" class="chart-value">'+otherCount+'</text>';
-          if (fH > 14) s += '<text x="'+(x+barW/2)+'" y="'+(innerH-fH/2+4)+'" text-anchor="middle" class="chart-value" style="fill:#fff">'+week.flaggedPapers+'</text>';
-          s += '<text x="'+(x+barW/2)+'" y="'+(innerH+18)+'" text-anchor="middle" class="chart-label">'+label+'</text>';
-          return s;
-        }).join('');
-        container.innerHTML = '<svg class="chart-svg"'+(width !== 760 ? ' style="width:'+width+'px;max-width:none"' : ' width="100%"')+' viewBox="0 0 '+width+' '+height+'" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Stacked bar chart of selected period scan volume"><g transform="translate('+margin.left+' '+margin.top+')">'+yAxis+bars+'</g></svg>';
-      }());
-
-      // Unique languages per week line chart
-      (function() {
-        var container = document.getElementById('period-unique-chart');
-        if (!container || !periodData.length) return;
-        var margin = { top: 24, right: 18, bottom: 56, left: 42 };
-        var height = 380;
-        var width = chartWidthForPeriods(700, margin, periodData.length, 5);
-        var innerW = width - margin.left - margin.right;
-        var innerH = height - margin.top - margin.bottom;
-        var bandW = innerW / periodData.length;
-        var maxU = Math.max.apply(null, periodData.map(function(d) { return d.uniqueLanguages; })) || 1;
-        // Extend domain above max so the top data point never sits at y=0 (matching d3 .nice() behaviour)
-        var tickStep = Math.pow(10, Math.floor(Math.log10(Math.max(maxU / 4, 1))));
-        var domainMax = Math.ceil(maxU / tickStep) * tickStep + tickStep;
-        var scaleY = function(v) { return innerH - (v / domainMax) * innerH; };
-        var ticks = [0,1,2,3,4].map(function(i) { return Math.round(domainMax * i / 4); });
-        var yAxis = ticks.map(function(t) {
-          var y = scaleY(t);
-          return '<g transform="translate(0 '+y+')"><line x1="0" x2="'+innerW+'" y1="0" y2="0" class="chart-grid-line"></line><text x="-10" y="4" text-anchor="end" class="chart-axis-label">'+t+'</text></g>';
-        }).join('');
-        var pts = periodData.map(function(week, i) {
-          return { x: i * bandW + bandW / 2, y: scaleY(week.uniqueLanguages), label: fmtShortLabel(week.weekStart), val: week.uniqueLanguages };
-        });
-        var linePath = pts.map(function(p, i) { return (i === 0 ? 'M' : 'L') + p.x + ',' + p.y; }).join(' ');
-        var dots = pts.map(function(p) {
-          return '<circle cx="'+p.x+'" cy="'+p.y+'" r="5" fill="#7c3aed" stroke="white" stroke-width="2"></circle>'+
-                 '<text x="'+p.x+'" y="'+Math.max(12, p.y-10)+'" text-anchor="middle" class="chart-value">'+p.val+'</text>'+
-                 '<text x="'+p.x+'" y="'+(innerH+18)+'" text-anchor="middle" class="chart-label">'+p.label+'</text>';
-        }).join('');
-        container.innerHTML = '<svg class="chart-svg"'+(width !== 700 ? ' style="width:'+width+'px;max-width:none"' : ' width="100%"')+' viewBox="0 0 '+width+' '+height+'" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of unique languages per selected period"><g transform="translate('+margin.left+' '+margin.top+')">'+yAxis+'<path d="'+linePath+'" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round"></path>'+dots+'</g></svg>';
-      }());
 
       // Top 10 languages in period horizontal bar chart
       (function() {
