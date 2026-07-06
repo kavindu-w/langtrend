@@ -650,10 +650,6 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
 <section class="stats-stack">
   <script type="application/json" id="all-weeks-meta" is:inline set:html={JSON.stringify(allWeeksData.map(w => ({ weekStart: w.weekStart, papers: w.papers, flaggedPapers: w.flaggedPapers, uniqueLanguages: w.uniqueLanguages, languageCounts: w.languageCounts, classCounts: w.classCounts, dailySeries: w.dailySeries, coverageStats: w.coverageStats })))}></script>
   <script type="application/json" id="lang-classes-meta" is:inline set:html={JSON.stringify(langClasses)}></script>
-  <div class="stats-glossary">
-    <span class="stats-glossary-icon" aria-hidden="true">ⓘ</span>
-    <p><strong>How these numbers are counted:</strong> a paper is <strong>flagged</strong> when the pipeline's regex detects a candidate language. Each flagged detection is then judged by an LLM as <strong>studied</strong> (real research use), <strong>mentioned-only</strong> (referenced in passing, not studied), or a <strong>false positive</strong> (not actually that language). <strong>Detected</strong> — used throughout this page — means studied + mentioned-only combined; false positives are always excluded.</p>
-  </div>
   <details id="weekly-trends-panel" class="panel chart-panel wide-panel" open>
     <summary class="paper-collapse-summary">
       <div>

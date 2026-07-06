@@ -113,6 +113,10 @@ for (const it of paperItems) {
   data-weeks-meta={JSON.stringify(allWeeksMetadata)}
   data-base-url={import.meta.env.BASE_URL}
 >
+  <div class="glossary-note">
+    <span class="glossary-note-icon" aria-hidden="true">ⓘ</span>
+    <p><strong>How these labels work:</strong> a paper is <strong>flagged</strong> when the pipeline's regex detects a candidate language. Each flagged detection is then judged by an LLM as <strong>studied</strong> (real research use), <strong>mentioned-only</strong> (referenced in passing, not studied), or a <strong>false positive</strong> (not actually that language). By default this list shows studied and mentioned-only papers — together called <strong>detected</strong> — while false positives stay hidden unless you enable them with the Show filter below. The same definitions apply to the Statistics section further down this page.</p>
+  </div>
   <div id="active-filters-bar" class="active-filters-bar" style="display:none">
     <button id="clear-filters-btn" class="clear-filters-btn" type="button">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
