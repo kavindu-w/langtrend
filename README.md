@@ -147,6 +147,20 @@ make pipeline         # Steps 1, 2, 4 — full data run (judge runs separately)
 
 Every `make` target's output is also logged to `logs/<target>_<timestamp>.log` and fires a desktop/webhook notification on completion (see `scripts/notify.sh`; configure `NOTIFY_METHOD`/`NOTIFY_WEBHOOK_URL` in `.env`) — handy for long-running steps like `judge` or `process` over a full week.
 
+### Try it on your own paper
+
+Want to see what the pipeline does with a specific paper, without fetching a whole week? `make test-paper` fetches just that one paper's metadata and runs it through the same abstract → HTML → PDF detection cascade as the real pipeline:
+
+```bash
+make test-paper ARXIV_ID=2606.16047                     # bare id, versioned id, or full arxiv.org URL all work
+make test-paper ARXIV_ID=2606.16047 NO_PDF=1            # skip the slow docling PDF fallback
+make test-paper ARXIV_ID=2606.16047 JUDGE=1             # also run the LLM judge stage (needs LLM_JUDGE_API_KEY, see below)
+make test-paper PDF_PATH=~/Downloads/paper.pdf          # a paper not on arXiv (or already downloaded) — PDF-only detection
+make test-paper PDF_PATH=~/Downloads/paper.pdf JUDGE=1 TITLE="My Paper"
+```
+
+This prints a report of which languages were detected in which section, plus any acronym-conflict warnings, and writes the cached HTML/PDF text and full result JSON to `data/sandbox/<paper-id>/` — a gitignored scratch directory, kept completely separate from the committed weekly data. `JUDGE=1` works with either `ARXIV_ID` or `PDF_PATH`. Equivalent to running `python scripts/test_single_paper.py --arxiv-id 2606.16047` (or `--pdf-path ...`) directly. For interactively poking at intermediate results (cleaned section text, the assembled judge prompt, etc.), use `notebooks/single_paper_check.ipynb`.
+
 **LLM judge setup** — copy `.env.example` to `.env` and set `LLM_JUDGE_API_KEY` (free key from [cloud.cerebras.ai](https://cloud.cerebras.ai) by default; Groq is a drop-in OpenAI-compatible alternative — see `.env.example`). The judge only calls the model for papers that already have regex detections, one request per paper, throttled to the configured rate limit (`LLM_JUDGE_RPM`/`LLM_JUDGE_RPH`, tuned to the provider's free tier); re-runs skip papers with cached verdicts in `data/processed/weeks/<week>/judge_cache/`. For quota-free local testing, point `LLM_JUDGE_BASE_URL` at an Ollama server (see `.env.example`). Test single papers with:
 
 ```bash
@@ -186,6 +200,14 @@ make retry-missing-all DATES="2026-05-04 2026-05-11"
 ```
 
 `NO_PDF=1` skips the docling PDF step so multiple terminals don't compete for the same GPU/CPU resources. `retry-missing` then handles any papers that needed PDF and were skipped.
+
+### Running tests
+
+```bash
+make test       # full suite: pytest (Python) + vitest (web frontend)
+make test-py    # Python only
+make test-web   # web frontend only
+```
 
 ---
 

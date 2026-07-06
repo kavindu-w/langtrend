@@ -993,5 +993,10 @@ if __name__ == "__main__":
     # DocumentConverter singleton that owns PyTorch C++ thread pools; their
     # C++ destructors reliably SIGSEGV (-11) when the Python runtime is already
     # partially torn down.  All output files are written per-paper before this
-    # point, so hard-exiting is safe.
+    # point, so hard-exiting is safe.  stdout/stderr are fully buffered (not
+    # line-buffered) whenever they're not a TTY — e.g. piped through
+    # run_logged.sh's `tee` — so os._exit would otherwise silently drop the
+    # summary printed at the end of main().
+    sys.stdout.flush()
+    sys.stderr.flush()
     os._exit(0)
