@@ -309,41 +309,6 @@ jobs:
           git push origin "v$new_version"
           gh release create "v$new_version" --title "v$new_version" --generate-notes
 
-      - name: Bump product version (major)
-        if: github.event_name == 'workflow_dispatch' && inputs.publish_site && inputs.major_version_update && !inputs.deploy_only
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
-
-          current_version=$(tr -d '[:space:]' < VERSION)
-          major=${current_version%%.*}
-          minor_patch=${current_version#*.}
-          minor=${minor_patch%%.*}
-          patch=${current_version##*.}
-
-          if [[ -z "$major" || -z "$minor" || -z "$patch" ]]; then
-            echo "VERSION must use semantic versioning like 0.1.0"
-            exit 1
-          fi
-
-          major=$((major + 1))
-          new_version="$major.0.0"
-
-          printf '%s\n' "$new_version" > VERSION
-          git add VERSION
-          git commit -m "Bump version to $new_version"
-          git push origin HEAD:main || {
-            git pull --rebase origin main
-            git push origin HEAD:main
-          }
-
-          git tag "v$new_version"
-          git push origin "v$new_version"
-          gh release create "v$new_version" --title "v$new_version" --generate-notes
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -702,6 +667,49 @@ jobs:
 # older weeks may still have a backlog, cleared in the background by
 # judge-catchup.yml, which redeploys on its own once each week catches up.
 # ---------------------------------------------------------------------------
+  version-bump:
+    if: github.event_name == 'workflow_dispatch' && inputs.publish_site && inputs.major_version_update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Bump product version (major)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+
+          current_version=$(tr -d '[:space:]' < VERSION)
+          major=${current_version%%.*}
+          minor_patch=${current_version#*.}
+          minor=${minor_patch%%.*}
+          patch=${current_version##*.}
+
+          if [[ -z "$major" || -z "$minor" || -z "$patch" ]]; then
+            echo "VERSION must use semantic versioning like 0.1.0"
+            exit 1
+          fi
+
+          major=$((major + 1))
+          new_version="$major.0.0"
+
+          printf '%s\n' "$new_version" > VERSION
+          git add VERSION
+          git commit -m "Bump version to $new_version"
+          git push origin HEAD:main || {
+            git pull --rebase origin main
+            git push origin HEAD:main
+          }
+
+          git tag "v$new_version"
+          git push origin "v$new_version"
+          gh release create "v$new_version" --title "v$new_version" --generate-notes
+
   deploy:
     needs:
       - judge-retry
