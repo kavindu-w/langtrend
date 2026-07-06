@@ -1,25 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.29118v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-05T14:00:33.416252+00:00",
-  "context_coverage": "abstract+pdf",
-  "context_chars": 5064,
+  "judged_at": "2026-07-06T03:40:48.561931+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5007,
   "verdicts": {
-    "Ik": {
-      "verdict": "false_positive",
-      "reason": "In the snippet, \"ik\" appears as a subscript variable (e.g., ˆ e ik) rather than referring to the Ik language; thus it is a false positive."
-    },
     "Pin": {
       "verdict": "false_positive",
-      "reason": "Here \"pin\" is used as a verb in the phrase \"pin down the information-theoretic content\", not as the name of the Pin language; therefore it is a false positive."
+      "reason": "In the snippet 'pin down' is used as a verb phrase, not referring to the Pin language, leading to a false positive."
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The text explicitly states that the corpora are \"English-language\" and discusses generalization beyond English, but the paper does not build resources or conduct experiments specifically for English; "
+      "reason": "The snippets refer to 'English-language text' describing the language of the corpora, but the paper does not build resources or evaluate methods specifically for English, so it is only mentioned."
     },
     "German": {
       "verdict": "false_positive",
-      "reason": "\"German\" refers to the surname of cited authors (e.g., \"German et al.\") rather than the German language, so this is a false positive."
+      "reason": "Occurrences of 'German' are part of author citations ('German et al.') and not about the German language, making it a false positive."
     }
   }
 }
