@@ -14,11 +14,16 @@ on:
         required: false
         default: false
         type: boolean
-      major_version_update:
-        description: 'Use a major version bump instead of a patch bump'
+      version_bump:
+        description: 'Version bump type for this deploy'
         required: false
-        default: false
-        type: boolean
+        default: 'none'
+        type: choice
+        options:
+          - none
+          - patch
+          - minor
+          - major
       deploy_only:
         description: 'Skip paper processing — build and deploy frontend only'
         required: false
@@ -619,14 +624,14 @@ jobs:
           }
 
 # ---------------------------------------------------------------------------
-# Job: bump VERSION — every non-bot push (patch, or major with [major] in the
-# commit message), or a manual major_version_update dispatch. Standalone (no
-# needs) so deploy_only / [deploy-only] never skip it.
+# Job: bump VERSION — every non-bot push (patch by default, minor/major with
+# [minor]/[major] in the commit message), or a manual version_bump dispatch
+# choice. Standalone (no needs) so deploy_only / [deploy-only] never skip it.
 # ---------------------------------------------------------------------------
   version-bump:
     if: |
       (github.event_name == 'push' && github.actor != 'github-actions[bot]') ||
-      (github.event_name == 'workflow_dispatch' && inputs.publish_site && inputs.major_version_update)
+      (github.event_name == 'workflow_dispatch' && inputs.publish_site && inputs.version_bump != 'none')
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -655,13 +660,30 @@ jobs:
             exit 1
           fi
 
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] || echo "${{ github.event.head_commit.message }}" | grep -qF '[major]'; then
-            major=$((major + 1))
-            new_version="$major.0.0"
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            bump_type="${{ inputs.version_bump }}"
+          elif echo "${{ github.event.head_commit.message }}" | grep -qF '[major]'; then
+            bump_type="major"
+          elif echo "${{ github.event.head_commit.message }}" | grep -qF '[minor]'; then
+            bump_type="minor"
           else
-            patch=$((patch + 1))
-            new_version="$major.$minor.$patch"
+            bump_type="patch"
           fi
+
+          case "$bump_type" in
+            major)
+              major=$((major + 1))
+              new_version="$major.0.0"
+              ;;
+            minor)
+              minor=$((minor + 1))
+              new_version="$major.$minor.0"
+              ;;
+            *)
+              patch=$((patch + 1))
+              new_version="$major.$minor.$patch"
+              ;;
+          esac
 
           printf '%s\n' "$new_version" > VERSION
           git add VERSION
