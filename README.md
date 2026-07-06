@@ -212,11 +212,11 @@ Steps executed by the workflow:
 1. Fetch arXiv `cs.CL` papers for the past 7 days
 2. Extract and clean text (HTML → PDF → abstract fallback)
 3. Detect language mentions and flag acronym conflicts
-4. LLM-judge this week's detected languages (needs the `LLM_JUDGE_API_KEY` repository secret; skipped cleanly when unset)
+4. LLM-judge this week's detected languages, in two same-day passes (needs the `LLM_JUDGE_API_KEY` repository secret; skipped cleanly when unset) — a second pass exists because the judge step is bounded by the provider's rate limit, not GitHub's 6-hour cap, so one 120-minute pass may not clear a large week
 5. Build the manifest JSON (including judge verdicts)
 6. Build the Astro site and deploy to GitHub Pages — **only if the current/latest week's papers are fully judged** (older weeks aren't required, so a historical backlog never blocks this week's publish)
 
-Since the LLM judge's free-tier quota doesn't always cover a full week in one run (see `judge_languages.py`'s `--sweep-all-weeks`/`--check-only` modes), a second workflow at `.github/workflows/judge-catchup.yml` runs **daily**, retrying whatever's still pending across every week (newest first, so the current week finishes before older backlog) and redeploying as soon as the current week is judged — it doesn't wait for the whole backlog either. Each day's run that clears more of the backlog redeploys the site, so older weeks' counts firm up incrementally rather than all at once. It shares the same `deploy` concurrency group as the weekly pipeline, so GitHub Actions queues it behind that pipeline automatically rather than running the two concurrently. `.github/workflows/deploy.yml` is a small reusable workflow shared by both.
+Since the LLM judge's free-tier quota doesn't always cover a full week in one run (see `judge_languages.py`'s `--sweep-all-weeks`/`--check-only` modes), a second workflow at `.github/workflows/judge-catchup.yml` runs **daily**, retrying whatever's still pending across every week (newest first, so the current week finishes before older backlog) and redeploying as soon as the current week is judged — it doesn't wait for the whole backlog either. This only matters once both same-day judge passes in the weekly pipeline still haven't cleared the current week (typically because the provider's actual daily quota, not just runner time, is spent). Each day's run that clears more of the backlog redeploys the site, so older weeks' counts firm up incrementally rather than all at once. It shares the same `deploy` concurrency group as the weekly pipeline, so GitHub Actions queues it behind that pipeline automatically rather than running the two concurrently. `.github/workflows/deploy.yml` is a small reusable workflow shared by both.
 
 ---
 

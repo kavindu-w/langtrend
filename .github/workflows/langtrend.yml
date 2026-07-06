@@ -490,10 +490,10 @@ jobs:
 # mentioned_only / false_positive) and fold verdicts into the manifest.
 # Skips cleanly when the LLM_JUDGE_API_KEY secret is unset (forks), leaving
 # detections unjudged. On free-tier rate limits, judge_languages.py stops
-# cleanly (exit 3) rather than failing — the deploy step below only runs once
-# a repo-wide check confirms zero pending papers anywhere; if this run didn't
-# finish, judge-catchup.yml's daily sweep picks up the rest and deploys once
-# it clears the backlog.
+# cleanly (exit 3) rather than failing. Bounded by the provider's RPM/RPH, not
+# GitHub's 6 h cap, so a first pass alone may not clear a big week — Job 6
+# continues it the same day before falling back to judge-catchup.yml's daily
+# sweep, which only matters once the provider's actual daily quota is spent.
 # ---------------------------------------------------------------------------
   judge:
     needs:
@@ -503,8 +503,6 @@ jobs:
     timeout-minutes: 120
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    outputs:
-      fully_judged: ${{ steps.check.outputs.exit_code == '0' }}
 
     steps:
       - name: Check out repository
@@ -540,10 +538,103 @@ jobs:
             exit "$code"
           fi
 
-      # Only the current/latest week gates the deploy — older weeks backfill
-      # in the background via judge-catchup.yml and redeploy on their own
-      # once they catch up, so we don't hold the whole site hostage to a
-      # multi-day backlog just to publish this week's numbers.
+      # Fold whatever verdicts landed this pass into the manifest so partial
+      # progress is visible even if Job 6 doesn't finish the rest.
+      - name: Rebuild manifest with judge verdicts
+        run: |
+          python scripts/run_langtrend_pipeline.py \
+            --data-root data \
+            --window-days 7 \
+            --skip-fetch \
+            --skip-process
+
+      - name: Commit judge outputs
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          shopt -s nullglob
+          generated_files=(
+            data/processed/langtrend_manifest_last_7_days.json
+            data/processed/weeks/*/judge_cache/*.json
+            data/processed/weeks/*/arxiv_papers_*_judge_warnings.json
+            data/processed/weeks/*/langtrend_manifest.json
+          )
+
+          if [ ${#generated_files[@]} -eq 0 ]; then
+            echo "No generated files matched any pattern."
+            exit 0
+          fi
+
+          git add -f "${generated_files[@]}"
+
+          if git diff --cached --quiet; then
+            echo "No judge changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Add LLM judge verdicts and update manifest"
+          git push origin HEAD:main || {
+            git fetch origin main
+            git rebase -X ours origin/main
+            git push origin HEAD:main
+          }
+
+# ---------------------------------------------------------------------------
+# Job 6: judge continuation — same RPM/RPH-throttled pass again, picking up
+# wherever Job 5's own 120 min budget left off (cached verdicts are skipped).
+# This is the pair's "finishing" job: it also runs the repo's per-week deploy
+# check, rebuilds the manifest once more, and updates README stats/badges —
+# mirroring how pdf-retry-2 finalizes after pdf-retry's first pass. Only the
+# current/latest week gates the deploy below — older weeks backfill in the
+# background via judge-catchup.yml and redeploy on their own once they catch
+# up, so we don't hold the whole site hostage to a multi-day backlog just to
+# publish this week's numbers. If even two passes don't clear this week (e.g.
+# the provider's actual daily quota, not just GitHub's runner time, is spent),
+# judge-catchup.yml tries again once the quota resets.
+# ---------------------------------------------------------------------------
+  judge-retry:
+    needs:
+      - judge
+    if: always() && needs.judge.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    outputs:
+      fully_judged: ${{ steps.check.outputs.exit_code == '0' }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          ref: ${{ github.ref_name }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: '.python-version'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Judge this week's detected languages (LLM continuation)
+        env:
+          LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
+        run: |
+          set +e
+          python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured
+          code=$?
+          set -e
+          if [ "$code" != "0" ] && [ "$code" != "3" ]; then
+            exit "$code"
+          fi
+
       - name: Check whether the latest week is fully judged
         id: check
         env:
@@ -567,7 +658,7 @@ jobs:
         run: |
           python scripts/update_readme_stats.py --data-root data
 
-      - name: Commit judge outputs
+      - name: Commit judge continuation outputs
         if: always()
         run: |
           git config user.name "github-actions[bot]"
@@ -593,11 +684,11 @@ jobs:
           git add -f "${generated_files[@]}"
 
           if git diff --cached --quiet; then
-            echo "No judge changes to commit."
+            echo "No judge continuation changes to commit."
             exit 0
           fi
 
-          git commit -m "Add LLM judge verdicts and update manifest"
+          git commit -m "Add LLM judge verdicts and update manifest (continuation)"
           git push origin HEAD:main || {
             git fetch origin main
             git rebase -X ours origin/main
@@ -605,16 +696,16 @@ jobs:
           }
 
 # ---------------------------------------------------------------------------
-# Job 6: build frontend + deploy to GitHub Pages (~variable, grows with data)
-# Fresh checkout sees all outputs committed by Jobs 1–5. Only runs when the
-# judge job confirmed the current/latest week has zero pending papers — older
-# weeks may still have a backlog, cleared in the background by
+# Job 7: build frontend + deploy to GitHub Pages (~variable, grows with data)
+# Fresh checkout sees all outputs committed by Jobs 1–6. Only runs when the
+# judge-retry job confirmed the current/latest week has zero pending papers —
+# older weeks may still have a backlog, cleared in the background by
 # judge-catchup.yml, which redeploys on its own once each week catches up.
 # ---------------------------------------------------------------------------
   deploy:
     needs:
-      - judge
-    if: always() && needs.judge.result != 'cancelled' && needs.judge.outputs.fully_judged == 'true'
+      - judge-retry
+    if: always() && needs.judge-retry.result != 'cancelled' && needs.judge-retry.outputs.fully_judged == 'true'
     permissions:
       contents: read
       pages: write

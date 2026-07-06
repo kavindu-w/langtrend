@@ -158,7 +158,7 @@
                 <mxCell id="s3-a5" value="" style="edgeStyle=orthogonalEdgeStyle;" parent="s3" source="s3-5" target="s3-6" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="s3j" value="④ LLM JUDGE — langtrend/judge.py, scripts/judge_languages.py  (separate step, run after ② PROCESS; verdicts folded in by ⑤ BUILD MANIFEST)" style="swimlane;startSize=28;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;rounded=1;" parent="gha" vertex="1">
+                <mxCell id="s3j" value="④ LLM JUDGE — langtrend/judge.py, scripts/judge_languages.py  (two same-day CI passes: judge + judge-retry; verdicts folded in by ⑤ BUILD MANIFEST)" style="swimlane;startSize=28;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;rounded=1;" parent="gha" vertex="1">
                     <mxGeometry x="30" y="869" width="1160" height="190" as="geometry"/>
                 </mxCell>
                 <mxCell id="s3j-1" value="① Assemble bounded context&#xa;judge.assemble_context()&#xa;&#xa;Title + abstract, then rarest-&#xa;language-first round-robin&#xa;snippets around each match" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#555555;fontSize=10;" parent="s3j" vertex="1">
@@ -301,8 +301,8 @@
                 <mxCell id="main-e4" value="" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="gha" source="s4" target="s5" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="noitTpReyoBFPiBU1WKD-66" value="&lt;font&gt;&lt;span style=&quot;font-weight: 700; white-space: nowrap;&quot;&gt;GitHub Actions (langtrend.yml) — Every Tuesday 12:00 UTC — 6 chained jobs, each committing its own outputs (resumable across GitHub&#39;s 6 h runner limit)&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;font&gt;&lt;span style=&quot;font-weight: 700; white-space: nowrap;&quot;&gt;fetch-and-html → fetch-and-html-2 → pdf-retry → pdf-retry-2 → judge → deploy &amp;nbsp;·&amp;nbsp; judge-catchup.yml runs daily to clear any backlog&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="gha" vertex="1">
-                    <mxGeometry x="160" y="50" width="900" height="44" as="geometry"/>
+                <mxCell id="noitTpReyoBFPiBU1WKD-66" value="&lt;font&gt;&lt;span style=&quot;font-weight: 700; white-space: nowrap;&quot;&gt;GitHub Actions (langtrend.yml) — Every Tuesday 12:00 UTC — 7 chained jobs, each committing its own outputs (resumable across GitHub&#39;s 6 h runner limit)&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;font&gt;&lt;span style=&quot;font-weight: 700; white-space: nowrap;&quot;&gt;fetch-and-html → fetch-and-html-2 → pdf-retry → pdf-retry-2 → judge → judge-retry → deploy &amp;nbsp;·&amp;nbsp; judge-catchup.yml runs daily to clear any backlog&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="gha" vertex="1">
+                    <mxGeometry x="70" y="50" width="1080" height="44" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
