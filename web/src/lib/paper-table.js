@@ -103,8 +103,17 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
 
   // Languages the LLM judge rejected are hidden from the chip row (and from
   // filtering/counting) but surfaced in their own popover chips for audit.
-  const judgeRejected = [...item.languages].filter(Boolean).filter(isJudgedFalsePositive);
+  const judgeRejected = [...item.languages].filter(Boolean).filter(isJudgedFalsePositive)
+    .sort((l, r) => {
+      const lc = classFromEntry(l) ?? languageBorderClass(normalizeLanguage(l), langClasses);
+      const rc = classFromEntry(r) ?? languageBorderClass(normalizeLanguage(r), langClasses);
+      const d = rc - lc;
+      return d !== 0 ? d : normalizeLanguage(l).localeCompare(normalizeLanguage(r));
+    });
   const chipLanguages = [...item.languages].filter(Boolean).filter((e) => !isJudgedFalsePositive(e)).sort((l, r) => {
+    const lMentioned = judgeVerdictOfEntry(l) === 'mentioned_only';
+    const rMentioned = judgeVerdictOfEntry(r) === 'mentioned_only';
+    if (lMentioned !== rMentioned) return lMentioned ? 1 : -1;
     const lc = classFromEntry(l) ?? languageBorderClass(normalizeLanguage(l), langClasses);
     const rc = classFromEntry(r) ?? languageBorderClass(normalizeLanguage(r), langClasses);
     const d = rc - lc;
@@ -155,6 +164,7 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
         .filter((entry) => !isJudgedFalsePositive(entry))
         .map((entry) => chipFromEntry(entry, langClasses, pfpMap))
         .sort((left, right) => {
+          if (left.mentionedOnly !== right.mentionedOnly) return left.mentionedOnly ? 1 : -1;
           const classDelta = right.borderClass - left.borderClass;
           return classDelta !== 0 ? classDelta : left.language.localeCompare(right.language);
         }),
@@ -219,14 +229,19 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
       || (typeof language === 'string' && !!pfpMap[language])
     );
     return { language, borderClass, fillColor: languageFillColor(language), needsReview, judgeVerdict };
-  }).sort((a, b) => b.borderClass - a.borderClass || a.language.localeCompare(b.language));
+  }).sort((a, b) => {
+    const aMentioned = a.judgeVerdict === 'mentioned_only';
+    const bMentioned = b.judgeVerdict === 'mentioned_only';
+    if (aMentioned !== bMentioned) return aMentioned ? 1 : -1;
+    return b.borderClass - a.borderClass || a.language.localeCompare(b.language);
+  });
 
   const judgeSuppressedChips = judgeRejected.map((entry) => ({
     language: normalizeLanguage(entry),
     borderClass: classFromEntry(entry) ?? languageBorderClass(normalizeLanguage(entry), langClasses),
     reason: entry.judge_reason ?? '',
     model: entry.judge_model ?? '',
-  }));
+  })).sort((a, b) => b.borderClass - a.borderClass || a.language.localeCompare(b.language));
 
   const languageNames = languages.map((l) => l.language).filter(Boolean);
   const minClass = languages.length > 0 ? Math.min(...languages.map((l) => l.borderClass)) : 5;

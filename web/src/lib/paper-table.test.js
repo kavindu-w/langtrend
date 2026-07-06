@@ -365,6 +365,26 @@ describe('LLM judge fields', () => {
     expect(confirmed.judgeVerdict).toBe('studied');
   });
 
+  it('buildPaperItem sorts studied chips before mentioned_only chips, even when mentioned_only has a higher class', () => {
+    const item = buildPaperItem(
+      {
+        paper,
+        languages: [
+          { language: 'Tamil', class: 5, judge_verdict: 'mentioned_only' },
+          { language: 'Sinhala', class: 0, judge_verdict: 'studied' },
+        ],
+        sourcesChecked: ['abstract'],
+        sections: [],
+        warnings: [],
+      },
+      0,
+      '2026-05-18',
+      {},
+      {},
+    );
+    expect(item.chipLanguageNames).toEqual(['Sinhala', 'Tamil']);
+  });
+
   it('buildPaperItem moves judged false positives out of chips into judgeSuppressedChips', () => {
     const item = buildPaperItem(
       {
@@ -395,7 +415,7 @@ describe('LLM judge fields', () => {
     ]);
   });
 
-  it('buildWeekApiPaper excludes judged false positives and carries judgeVerdict', () => {
+  it('buildWeekApiPaper excludes judged false positives, carries judgeVerdict, and sorts studied before mentioned_only despite a lower class', () => {
     const result = buildWeekApiPaper(
       {
         paper,
@@ -407,9 +427,9 @@ describe('LLM judge fields', () => {
       },
       {},
     );
-    expect(result.languageNames).toEqual(['Tamil', 'Sinhala']);
+    expect(result.languageNames).toEqual(['Sinhala', 'Tamil']);
     expect(result.langCount).toBe(2);
-    expect(result.languages.map((l) => l.judgeVerdict)).toEqual(['mentioned_only', 'studied']);
+    expect(result.languages.map((l) => l.judgeVerdict)).toEqual(['studied', 'mentioned_only']);
     expect(result.judgeSuppressedChips).toEqual([
       { language: 'Ari', borderClass: 0, reason: 'Adjusted Rand Index', model: 'llama-3.3-70b-versatile' },
     ]);
