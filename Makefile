@@ -29,7 +29,7 @@ _NO_PDF_FLAG   = $(if $(NO_PDF),--no-pdf,)
 
 .PHONY: help setup fetch fetch-all fetch-oai process process-all reprocess reprocess-all \
         retry-missing retry-missing-all judge judge-all manifest manifest-all readme-stats \
-        pipeline pipeline-all web-install web-dev web-build dev build clean
+        pipeline pipeline-all web-install web-dev web-build dev build pipeline-diagram clean
 
 help:
 	@echo "Single-week targets (controlled by END_DATE):"
@@ -61,6 +61,8 @@ help:
 	@echo ""
 	@echo "Other:"
 	@echo "  make setup            Install Python and Node dependencies"
+	@echo "  make pipeline-diagram Re-export the pipeline diagram PNG from the .drawio source"
+	@echo "                          (needs the drawio desktop CLI: brew install --cask drawio)"
 	@echo "  make clean            Remove build artefacts (web/dist)"
 	@echo ""
 	@echo "Variables:"
@@ -235,6 +237,13 @@ web-build: web-install
 dev: web-dev
 
 build: pipeline web-build
+
+# --- Docs ---------------------------------------------------------------------
+
+pipeline-diagram:
+	drawio --export --format png --scale 4 \
+		-o web/public/images/langtrend-pipeline.png \
+		docs/diagrams/langtrend_pipeline.drawio
 
 # --- Housekeeping -----------------------------------------------------------
 
