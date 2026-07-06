@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.26522v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T14:28:58.349922+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9656,
+  "verdicts": {
+    "Ito": {
+      "verdict": "false_positive",
+      "reason": "Ito refers to the author surname in citations, not a language, leading to false_positive"
+    },
+    "Finnish": {
+      "verdict": "false_positive",
+      "reason": "Finnish is used as an adjective describing Finnish listed companies (nationality), not the Finnish language, leading to false_positive"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Hungarian refers to the Hungarian algorithm, a computational method, not the language, leading to false_positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as a possible target language for applying the framework but no English data or resources are used, so it is mentioned_only"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese denotes the language of the corporate disclosures analyzed and the language-specific NLP tools, thus it is studied"
+    }
+  }
+}

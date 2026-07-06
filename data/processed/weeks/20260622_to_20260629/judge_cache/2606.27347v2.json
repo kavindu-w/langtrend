@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.27347v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T14:13:45.617679+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11622,
+  "verdicts": {
+    "Danish": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a 'Danish entity' (an entity from Denmark), not the Danish language, leading to a false positive."
+    },
+    "Slovene": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions a 'Slovene-language mislink', referring to the Slovene language tag only as an example of a mislink, so it is mentioned only."
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "The snippet talks about an 'Italian subsidiary', which is a company, not the Italian language, thus a false positive."
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "The snippets discuss processing Polish news articles, a Polish morphological analyser, and a Polish-language gold standard, indicating the paper builds and evaluates resources for Polish, so it is stu"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English-language gold and evaluation, using English as a baseline rather than a focus of study, so it is mentioned only."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippets describe evaluation against a German-language gold standard for NER, showing the paper evaluates models on German text, thus it is studied."
+    }
+  }
+}

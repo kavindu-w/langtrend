@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.25495v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T21:26:15.494858+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5269,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'for sake of uniformity', 'sake' is used as a common English noun, not referring to the Sake language, so false_positive"
+    },
+    "Malay": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets list Malay as a language in prior work and in a comparative study, but the paper does not conduct experiments on Malay data, so mentioned_only"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites a study on Russian sentiment-analysis systems, mentioning Russian only in related work, not used in the authors' experiments, so mentioned_only"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets describe using Arabic tweets, an Arabic dataset, and Arabic-specific models (MARBERT, AraBERT), indicating the paper studies Arabic language, so studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as a language of prior work and as a baseline, but no English data or models are evaluated, so mentioned_only"
+    }
+  }
+}

@@ -12,6 +12,8 @@ coverage.xml
 **/*.log
 
 # Per-week caches contain full paper body text — never publish
+# (judge_cache/ is NOT ignored: it holds only verdicts + short quotes and is
+# needed for manifest rebuilds in CI)
 data/processed/weeks/*/html_cache/
 data/processed/weeks/*/pdf_cache/
 
@@ -22,3 +24,4 @@ data/raw/pdfs/
 
 .vercel
 .env*
+!.env.example

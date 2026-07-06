@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.23375v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T22:48:01.274568+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11364,
+  "verdicts": {
+    "Alta": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'Alta' only as part of a placeholder or unrelated token in system prompts, not referring to a human language; it appears to be a false match."
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'Sie' occurs within German sentences ('Sie sind ein Assistent...'), serving as a pronoun rather than a language name, indicating a false positive."
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The term 'Una' appears as an Italian word within the prompt text, not as the name of a language, so it is a false positive."
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The paper repeatedly mentions Italian as one of the four official languages of the Swiss Federal Supreme Court and uses it in benchmark construction, data translation, and evaluation, thus the languag"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is cited as one of the benchmark languages and is used throughout the experiments and evaluation, indicating the paper studies resources/models for English."
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is listed as an official language of the court, appears in the benchmark, and is part of the experimental evaluation, so the paper studies French."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is included as a core language of the benchmark and is used in the experiments and analysis, showing the paper studies German."
+    }
+  }
+}

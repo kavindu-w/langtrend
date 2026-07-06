@@ -196,6 +196,7 @@ def test_build_weekly_summary_rows_flattens_counts_and_class_counts():
         "top_language": "English", "top_language_count": 20,
         "needs_review_detections": 1, "needs_review_papers": 1,
         "pdf_failed_no_detection": 3,
+        "judged_papers": 0, "judge_studied": 0, "judge_mentioned_only": 0, "judge_false_positive": 0,
         "class_0_mentions": 20, "class_1_mentions": 0, "class_2_mentions": 0, "class_3_mentions": 0, "class_4_mentions": 0, "class_5_mentions": 5,
     }]
 
@@ -212,6 +213,7 @@ def _sample_summary_row() -> dict:
         "needs_review_detections": 1, "needs_review_papers": 1,
         "class_0_mentions": 20, "class_1_mentions": 0, "class_2_mentions": 0, "class_3_mentions": 0, "class_4_mentions": 0, "class_5_mentions": 5,
         "pdf_failed_no_detection": 3,
+        "judged_papers": 2, "judge_studied": 4, "judge_mentioned_only": 1, "judge_false_positive": 3,
     }
 
 
@@ -221,7 +223,7 @@ def test_write_weekly_summary_csv_writes_header_and_rows(tmp_path):
     text = out_path.read_text(encoding="utf-8")
     lines = text.splitlines()
     assert lines[0] == ",".join(urs._SUMMARY_FIELDNAMES)
-    assert lines[1] == "2026-04-27,2026-05-04,100,60,42,25,English,20,1,1,20,0,0,0,0,5,3"
+    assert lines[1] == "2026-04-27,2026-05-04,100,60,42,25,English,20,1,1,20,0,0,0,0,5,3,2,4,1,3"
     assert "\r\n" not in text  # fixed line terminator, no OS-dependent newlines
 
 

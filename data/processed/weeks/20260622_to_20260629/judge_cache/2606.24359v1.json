@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.24359v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T21:53:03.646928+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3252,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Latin' refers to 'Latin languages' as a script-based language group, not the Latin language itself, so it is a false positive."
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions the Italian language in related work (a multilingual database for Italian), but the paper does not conduct experiments or build resources for Italian, so it is only mentioned."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists French among resource‑rich languages (English, French, Japanese) without any further work on French, so it is only mentioned."
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Japanese among resource‑rich languages (English, French, Japanese) without any further work on Japanese, so it is only mentioned."
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippet discusses the Arabic side of the Al‑Mawrid Arabic‑English dictionary and focuses on POS tagging for Arabic, indicating the paper studies Arabic."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to English as the source side of the bilingual dictionary and as the source of POS tags from WordNet, but the paper does not build resources or models for English, so it is only men"
+    }
+  }
+}

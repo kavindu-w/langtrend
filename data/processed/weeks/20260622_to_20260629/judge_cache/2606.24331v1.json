@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.24331v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T21:38:15.396003+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2659,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'sentinel' refers to special placeholder tokens used in the T5 model, not a human language."
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is cited only as the target language in a translation example ('translate English to German'), with no experiments or resources built for it."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the source language in a translation example and in a discussion of bias, but the paper does not study or build resources for English specifically."
+    }
+  }
+}

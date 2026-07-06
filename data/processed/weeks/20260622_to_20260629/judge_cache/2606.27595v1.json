@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.27595v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T14:10:09.545920+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11778,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "In the snippets 'carrier' refers to low-cost airline carriers and task descriptions, not the Carrier language, so this is a false positive"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'pin' appears in the verb phrase 'pin down' describing difficulty, not as a language name, so this is a false positive"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Here 'sentinel' is used as a marker for genuinely-absent cells in tables, not as a language, so this is a false positive"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The paper constructs a Korean benchmark, uses Korean web sources, Korean prompts, and evaluates Korean-specialized models, indicating the language is studied"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is only mentioned as a sibling benchmark (BrowseComp-ZH) and not used in experiments or resources, so it is mentioned only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the language of prompts and as a high-resource baseline, but no English-specific resources or experiments are built, so it is mentioned only"
+    }
+  }
+}

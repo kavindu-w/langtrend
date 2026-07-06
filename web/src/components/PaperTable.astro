@@ -2,7 +2,7 @@
 import { languageBorderClass, languageFillColor } from '../lib/language-colors.js';
 import { buildPaperItem, formatSectionTitle } from '../lib/paper-table.js';
 
-type LanguageEntry = string | [string, number] | { language?: string | null; class?: number; name?: string; needs_review?: boolean; flag_reason?: string; sources?: string[] };
+type LanguageEntry = string | [string, number] | { language?: string | null; class?: number; name?: string; needs_review?: boolean; flag_reason?: string; sources?: string[]; judge_verdict?: string; judge_reason?: string; judge_model?: string };
 type PaperRecord = {
   id?: string;
   title: string;
@@ -52,9 +52,10 @@ const langClasses = languageData?.lang_classes ?? {};
 const pfpMap: Record<string, string> = (languageData as any)?.possible_false_positive_languages ?? {};
 
 type SourceGroup = { src: string; label: string; langs: string[] };
-type ChipEntry = { language: string; borderClass: number; needsReview: boolean; flagReason: string; fillColor: string };
+type ChipEntry = { language: string; borderClass: number; needsReview: boolean; flagReason: string; fillColor: string; judgeVerdict: string; judgeReason: string; mentionedOnly: boolean };
 type SectionItem = { name: string; label: string; source: string; sourceLabel: string; chips: ChipEntry[] };
 type SuppressedChip = { language: string; borderClass: number; acronyms: string[] };
+type JudgeSuppressedChip = { language: string; borderClass: number; reason: string; model: string };
 type PaperItem = {
   index: number;
   paper: PaperRecord;
@@ -73,6 +74,8 @@ type PaperItem = {
   arxivUrl: string;
   acronymConflicts: PaperWarning[];
   suppressedChips: SuppressedChip[];
+  judgeSuppressedChips: JudgeSuppressedChip[];
+  verdicts: string[];
   weekStart: string;
 };
 
@@ -95,6 +98,12 @@ const languages = [...languageCounts.entries()]
   .sort((l, r) => { const d = r[1] - l[1]; return d !== 0 ? d : l[0].localeCompare(r[0]); })
   .map(([language]) => language);
 
+const verdictCounts = { studied: 0, mentioned_only: 0, false_positive: 0 };
+for (const it of paperItems) {
+  for (const v of it.verdicts) {
+    if (v in verdictCounts) verdictCounts[v as keyof typeof verdictCounts]++;
+  }
+}
 ---
 <section
   class="panel paper-panel"
@@ -104,6 +113,10 @@ const languages = [...languageCounts.entries()]
   data-weeks-meta={JSON.stringify(allWeeksMetadata)}
   data-base-url={import.meta.env.BASE_URL}
 >
+  <div class="glossary-note">
+    <span class="glossary-note-icon" aria-hidden="true">ⓘ</span>
+    <p><strong>How these labels work:</strong> a paper is <strong>flagged</strong> when the pipeline's regex detects a candidate language. Each flagged detection is then judged by an LLM as <strong>studied</strong> (real research use), <strong>mentioned-only</strong> (referenced in passing, not studied), or a <strong>false positive</strong> (not actually that language). By default this list shows studied and mentioned-only papers — together called <strong>detected</strong> — while false positives stay hidden unless you enable them with the Show filter below. The same definitions apply to the Statistics section further down this page.</p>
+  </div>
   <div id="active-filters-bar" class="active-filters-bar" style="display:none">
     <button id="clear-filters-btn" class="clear-filters-btn" type="button">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -156,6 +169,18 @@ const languages = [...languageCounts.entries()]
   </div>
 
   <div class="chip-area" id="chip-area">
+    <div class="chip-row verdict-row" id="verdict-filters" role="group" aria-label="Filter by judge verdict">
+      <span class="verdict-row-label">Show:</span>
+      <button class="chip verdict-chip active" type="button" data-verdict="studied">
+        Studied <span class="chip-count">(<span class="chip-count-val">{verdictCounts.studied}</span>)</span>
+      </button>
+      <button class="chip verdict-chip active" type="button" data-verdict="mentioned_only">
+        Mentioned-only <span class="chip-count">(<span class="chip-count-val">{verdictCounts.mentioned_only}</span>)</span>
+      </button>
+      <button class="chip verdict-chip" type="button" data-verdict="false_positive">
+        False positives <span class="chip-count">(<span class="chip-count-val">{verdictCounts.false_positive}</span>)</span>
+      </button>
+    </div>
     <div class="chip-row-wrapper" id="chip-row-wrapper">
       <div class="chip-row" id="language-filters">
         <button class="chip active" type="button" data-lang="all">All</button>
@@ -187,6 +212,7 @@ const languages = [...languageCounts.entries()]
           data-title={item.paper.title.toLowerCase()}
           data-index={item.index}
           data-week={item.weekStart}
+          data-verdicts={item.verdicts.join(',')}
         >
           <summary class="paper-summary">
             <div class="paper-main">
@@ -196,18 +222,28 @@ const languages = [...languageCounts.entries()]
             <p class="paper-authors">{item.allAuthors}</p>
             <div class="paper-tags">
               {item.chips.map((chip, chipIdx) => (
-                chip.needsReview ? (
+                chip.needsReview || chip.mentionedOnly ? (
                   <span class="lang-chip-popover">
-                    <span class={`lang-chip class-${chip.borderClass} needs-review`} style={`background:${chip.fillColor}`} aria-describedby={`chip-tip-${item.index}-${chipIdx}`}>
-                      {chip.language}<span class="review-star" aria-hidden="true">★</span>
+                    <span class={`lang-chip class-${chip.borderClass}${chip.needsReview ? ' needs-review' : ''}${chip.mentionedOnly ? ' mentioned-only' : ''}`} style={`background:${chip.fillColor}`} aria-describedby={`chip-tip-${item.index}-${chipIdx}`} data-verdict={chip.mentionedOnly ? 'mentioned_only' : 'studied'}>
+                      {chip.language}{chip.needsReview && <span class="review-star" aria-hidden="true">★</span>}{chip.mentionedOnly && <span class="mentioned-mark" aria-hidden="true">~</span>}
                     </span>
                     <div class="review-popover-body" id={`chip-tip-${item.index}-${chipIdx}`} role="tooltip">
-                      <strong>⚠ Manual verification may be needed</strong>
-                      {chip.flagReason && <p>{chip.flagReason}</p>}
+                      {chip.mentionedOnly && (
+                        <div>
+                          <strong>LLM judge: mentioned but not studied</strong>
+                          {chip.judgeReason && <p>{chip.judgeReason}</p>}
+                        </div>
+                      )}
+                      {chip.needsReview && (
+                        <div>
+                          <strong>⚠ Manual verification may be needed</strong>
+                          {chip.flagReason && <p>{chip.flagReason}</p>}
+                        </div>
+                      )}
                     </div>
                   </span>
                 ) : (
-                  <span class={`lang-chip class-${chip.borderClass}`} style={`background:${chip.fillColor}`}>{chip.language}</span>
+                  <span class={`lang-chip class-${chip.borderClass}`} style={`background:${chip.fillColor}`} data-verdict="studied">{chip.language}</span>
                 )
               ))}
               {item.coverageBadge && (
@@ -229,6 +265,17 @@ const languages = [...languageCounts.entries()]
                   <div class="review-popover-body" id={`suppressed-tip-${item.index}-${scIdx}`} role="tooltip">
                     <strong>Potentially suppressed</strong>
                     <p>This paper defines <code>{sc.acronyms.join(', ')}</code> as {sc.acronyms.length === 1 ? 'an acronym' : 'acronyms'} — mentions of <em>{sc.language}</em> may not have been detected.</p>
+                  </div>
+                </span>
+              ))}
+              {(item.judgeSuppressedChips ?? []).map((jc, jcIdx) => (
+                <span class="lang-chip-popover">
+                  <span class={`lang-chip class-${jc.borderClass} suppressed judge-suppressed`} aria-describedby={`judge-suppressed-tip-${item.index}-${jcIdx}`} data-verdict="false_positive">
+                    {jc.language}<span class="suppressed-mark" aria-hidden="true">✗</span>
+                  </span>
+                  <div class="review-popover-body" id={`judge-suppressed-tip-${item.index}-${jcIdx}`} role="tooltip">
+                    <strong>Excluded by LLM judge{jc.model ? ` (${jc.model})` : ''}</strong>
+                    {jc.reason && <p>{jc.reason}</p>}
                   </div>
                 </span>
               ))}
@@ -326,6 +373,8 @@ const languages = [...languageCounts.entries()]
 </section>
 
 <script>
+  import { foldSearchText } from '../lib/paper-table.js';
+
   // ── State ────────────────────────────────────────────────────────────────────
 
   const root = document.getElementById('paper-table-root') as HTMLElement;
@@ -336,6 +385,10 @@ const languages = [...languageCounts.entries()]
   const urlParams = new URLSearchParams(location.search);
   const _langParam = urlParams.get('lang') ?? '';
   const activeLanguages = new Set<string>(_langParam ? _langParam.split(',').filter(Boolean) : []);
+
+  const DEFAULT_VERDICTS = ['studied', 'mentioned_only'];
+  const _verdictParam = urlParams.get('verdict');
+  const enabledVerdicts = new Set<string>(_verdictParam !== null ? _verdictParam.split(',').filter(Boolean) : DEFAULT_VERDICTS);
 
   // Track fetched/fetching weeks to avoid duplicate requests
   const fetchedWeeks = new Set<string>([currentWeekSlug]);
@@ -351,6 +404,7 @@ const languages = [...languageCounts.entries()]
   const expandBtn = document.getElementById('chip-expand-btn') as HTMLButtonElement | null;
   const paperList = document.getElementById('paper-list') as HTMLElement | null;
 
+  const verdictChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#verdict-filters .verdict-chip'));
   const allChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .chip'));
   const langChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .lang-filter-chip'));
   let rows = Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row'));
@@ -367,6 +421,7 @@ const languages = [...languageCounts.entries()]
     if (q) p.set('q', q); else p.delete('q');
     const sort = sortSelect?.value ?? 'default';
     if (sort && sort !== 'default') p.set('sort', sort); else p.delete('sort');
+    if (!isDefaultVerdicts()) p.set('verdict', [...enabledVerdicts].join(',')); else p.delete('verdict');
     const qs = p.toString();
     history.replaceState(null, '', qs ? `${location.pathname}?${qs}` : location.pathname);
   }
@@ -394,8 +449,10 @@ const languages = [...languageCounts.entries()]
     id: string; title: string; authors: string[]; abstract: string;
     pdf_url: string; arxiv_url: string; published: string; categories: string[];
     searchText: string;
-    languages: { language: string; borderClass: number; fillColor: string; needsReview: boolean }[];
+    languages: { language: string; borderClass: number; fillColor: string; needsReview: boolean; judgeVerdict?: string }[];
     languageNames: string[]; langCount: number; minClass: number; classes: number[];
+    judgeSuppressedChips: { language: string; borderClass: number; reason: string; model: string }[];
+    verdicts: string[];
   };
 
   function formatPubDate(iso: string): string {
@@ -415,8 +472,10 @@ const languages = [...languageCounts.entries()]
     wrap.style.display = 'none';
 
     const chips = p.languages.map(l => {
+      const mentionedOnly = l.judgeVerdict === 'mentioned_only';
       const span = document.createElement('span');
-      span.className = `lang-chip class-${l.borderClass}${l.needsReview ? ' needs-review' : ''}`;
+      span.className = `lang-chip class-${l.borderClass}${l.needsReview ? ' needs-review' : ''}${mentionedOnly ? ' mentioned-only' : ''}`;
+      span.dataset.verdict = mentionedOnly ? 'mentioned_only' : 'studied';
       span.style.background = l.fillColor;
       span.textContent = l.language;
       if (l.needsReview) {
@@ -426,6 +485,28 @@ const languages = [...languageCounts.entries()]
         star.textContent = '★';
         span.appendChild(star);
       }
+      if (mentionedOnly) {
+        const mark = document.createElement('span');
+        mark.className = 'mentioned-mark';
+        mark.setAttribute('aria-hidden', 'true');
+        mark.textContent = '~';
+        span.appendChild(mark);
+        span.title = 'LLM judge: mentioned but not studied';
+      }
+      return span;
+    });
+
+    const suppressedChips = (p.judgeSuppressedChips || []).map(sc => {
+      const span = document.createElement('span');
+      span.className = `lang-chip class-${sc.borderClass} suppressed judge-suppressed`;
+      span.dataset.verdict = 'false_positive';
+      span.textContent = sc.language;
+      const mark = document.createElement('span');
+      mark.className = 'suppressed-mark';
+      mark.setAttribute('aria-hidden', 'true');
+      mark.textContent = '✗';
+      span.appendChild(mark);
+      span.title = `Excluded by LLM judge${sc.model ? ` (${sc.model})` : ''}${sc.reason ? `: ${sc.reason}` : ''}`;
       return span;
     });
 
@@ -443,8 +524,9 @@ const languages = [...languageCounts.entries()]
     details.dataset.title = p.title.toLowerCase();
     details.dataset.index = String(index);
     details.dataset.week = weekStart;
+    details.dataset.verdicts = p.verdicts.join(',');
 
-    const tagsHtml = chips.map(c => c.outerHTML).join('');
+    const tagsHtml = [...chips, ...suppressedChips].map(c => c.outerHTML).join('');
     details.innerHTML = `
       <summary class="paper-summary">
         <div class="paper-main">
@@ -529,6 +611,23 @@ const languages = [...languageCounts.entries()]
       const lang = chip.dataset.lang ?? '';
       const valEl = chip.querySelector<HTMLElement>('.chip-count-val');
       if (valEl) valEl.textContent = String(counts.get(lang) ?? 0);
+    });
+  }
+
+  function updateVerdictCounts() {
+    const activeWeekSet = new Set(getActiveWeekSlugs());
+    const counts = new Map<string, number>();
+    for (const row of rows) {
+      const rowWeek = row.dataset.week ?? currentWeekSlug;
+      if (!activeWeekSet.has(rowWeek)) continue;
+      (row.dataset.verdicts ?? '').split(',').filter(Boolean).forEach(v => {
+        counts.set(v, (counts.get(v) ?? 0) + 1);
+      });
+    }
+    verdictChips.forEach(chip => {
+      const verdict = chip.dataset.verdict ?? '';
+      const valEl = chip.querySelector<HTMLElement>('.chip-count-val');
+      if (valEl) valEl.textContent = String(counts.get(verdict) ?? 0);
     });
   }
 
@@ -623,9 +722,9 @@ const languages = [...languageCounts.entries()]
   // ── Language chip search ─────────────────────────────────────────────────────
 
   function filterLangChips(query: string) {
-    const q = query.trim().toLowerCase();
+    const q = foldSearchText(query.trim());
     langChips.forEach(chip => {
-      chip.hidden = q.length > 0 && !(chip.dataset.lang || '').toLowerCase().includes(q);
+      chip.hidden = q.length > 0 && !foldSearchText(chip.dataset.lang || '').includes(q);
     });
     let needsRefilter = false;
     for (const chip of langChips) {
@@ -669,6 +768,12 @@ const languages = [...languageCounts.entries()]
     return v.startsWith('class-') ? v.slice(6) : 'all';
   }
 
+  const VERDICT_LABEL: Record<string, string> = { studied: 'Studied', mentioned_only: 'Mentioned-only', false_positive: 'False positives' };
+
+  function isDefaultVerdicts(): boolean {
+    return enabledVerdicts.size === DEFAULT_VERDICTS.length && DEFAULT_VERDICTS.every(v => enabledVerdicts.has(v));
+  }
+
   function updateFilterBar() {
     const searchTerm = searchInput?.value.trim() ?? '';
     const langTerm = langSearchInput?.value.trim() ?? '';
@@ -678,38 +783,54 @@ const languages = [...languageCounts.entries()]
     if (langTerm) tags.push(`Language search: "${langTerm}"`);
     if (activeLanguages.size > 0) tags.push(`Languages: ${[...activeLanguages].join(', ')}`);
     if (classFilter !== 'all') tags.push(`Class: ${classFilter}`);
+    if (!isDefaultVerdicts()) {
+      const label = [...enabledVerdicts].map(v => VERDICT_LABEL[v] ?? v).join(', ') || 'None';
+      tags.push(`Show: ${label}`);
+    }
     const active = tags.length > 0;
     if (activeFiltersBar) activeFiltersBar.style.display = active ? '' : 'none';
     if (activeFilterTags) activeFilterTags.textContent = tags.join(' · ');
   }
 
+  function applyChipVerdictVisibility(row: HTMLElement) {
+    row.querySelectorAll<HTMLElement>('[data-verdict]').forEach(chip => {
+      const target = (chip.closest('.lang-chip-popover') as HTMLElement | null) ?? chip;
+      target.style.display = enabledVerdicts.has(chip.dataset.verdict || '') ? '' : 'none';
+    });
+  }
+
   function applyFilters() {
     const activeWeekSet = new Set(getActiveWeekSlugs());
-    const searchTerm = searchInput?.value.trim().toLowerCase() ?? '';
+    const searchTerm = foldSearchText(searchInput?.value.trim() ?? '');
     const classFilter = getClassFilter();
     let visible = 0;
-    let inPeriodTotal = 0;
+    let inScopeTotal = 0;
     rows.forEach(row => {
       const rowWeek = row.dataset.week ?? currentWeekSlug;
       const inPeriod = activeWeekSet.has(rowWeek);
       const rowSearch = row.dataset.search || '';
       const rowLanguages = (row.dataset.languages || '').split('|').filter(Boolean);
       const rowClasses = (row.dataset.classes || '').split(',').filter(Boolean);
+      const rowVerdicts = (row.dataset.verdicts || '').split(',').filter(Boolean);
+      const matchesVerdict = rowVerdicts.some(v => enabledVerdicts.has(v));
+      const inScope = inPeriod && matchesVerdict;
       const matchesLanguage = activeLanguages.size === 0 || rowLanguages.some(l => activeLanguages.has(l));
       const matchesSearch = !searchTerm || rowSearch.includes(searchTerm);
       const matchesClass = classFilter === 'all' || rowClasses.includes(classFilter);
-      const show = inPeriod && matchesLanguage && matchesSearch && matchesClass;
+      const show = inScope && matchesLanguage && matchesSearch && matchesClass;
       (row.parentElement as HTMLElement).style.display = show ? '' : 'none';
+      if (show) applyChipVerdictVisibility(row);
       if (show) visible++;
-      if (inPeriod) inPeriodTotal++;
+      if (inScope) inScopeTotal++;
     });
     if (resultCount) {
-      resultCount.textContent = visible === inPeriodTotal
-        ? `${inPeriodTotal} papers`
-        : `${visible} of ${inPeriodTotal} papers`;
+      resultCount.textContent = visible === inScopeTotal
+        ? `${inScopeTotal} papers`
+        : `${visible} of ${inScopeTotal} papers`;
     }
     updateFilterBar();
     updateChipCounts();
+    updateVerdictCounts();
   }
 
   // ── Sort ─────────────────────────────────────────────────────────────────────
@@ -743,6 +864,15 @@ const languages = [...languageCounts.entries()]
     updateUrlParams();
     applyFilters();
   });
+  verdictChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const v = chip.dataset.verdict || '';
+      if (enabledVerdicts.has(v)) enabledVerdicts.delete(v); else enabledVerdicts.add(v);
+      chip.classList.toggle('active', enabledVerdicts.has(v));
+      updateUrlParams();
+      applyFilters();
+    });
+  });
   clearFiltersBtn?.addEventListener('click', () => {
     if (searchInput) searchInput.value = '';
     if (langSearchInput) { langSearchInput.value = ''; filterLangChips(''); }
@@ -751,6 +881,9 @@ const languages = [...languageCounts.entries()]
     langChips.forEach(c => c.classList.remove('active'));
     if (sortSelect) sortSelect.value = 'default';
     sortPapers('default');
+    enabledVerdicts.clear();
+    DEFAULT_VERDICTS.forEach(v => enabledVerdicts.add(v));
+    verdictChips.forEach(c => c.classList.toggle('active', enabledVerdicts.has(c.dataset.verdict || '')));
     updateUrlParams();
     applyFilters();
   });
@@ -766,6 +899,9 @@ const languages = [...languageCounts.entries()]
     langChips.forEach(chip => { if (activeLanguages.has(chip.dataset.lang || '')) chip.classList.add('active'); });
     if (activeLanguages.size === 0 && allBtn) allBtn.classList.add('active');
   }
+
+  // Restore verdict chip active state from URL (or default)
+  verdictChips.forEach(chip => chip.classList.toggle('active', enabledVerdicts.has(chip.dataset.verdict || '')));
 
   // Restore search and sort from URL
   const _qParam = urlParams.get('q') ?? '';

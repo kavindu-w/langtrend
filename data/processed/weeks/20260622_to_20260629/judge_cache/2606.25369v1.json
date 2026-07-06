@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.25369v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T21:20:39.814279+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11742,
+  "verdicts": {
+    "Kare": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'kare' is a Japanese pronoun meaning 'he', not a language name, leading to a false positive."
+    },
+    "Nama": {
+      "verdict": "false_positive",
+      "reason": "Here 'nama' is presented as a kanji reading (pronunciation) rather than a language, so it is a false positive."
+    },
+    "Sou": {
+      "verdict": "false_positive",
+      "reason": "The term 'sou' appears as a kanji reading in the error analysis, not as a language, thus a false positive."
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "'GAN' refers to the HiFi-GAN generative adversarial network model, not a human language, making it a false positive."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only as a high‑resource language used for comparison; the paper does not build resources or evaluate models for Chinese."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is cited as a high‑resource language and part of the multilingual training data, but the work does not develop or evaluate English‑specific resources, so it is only mentioned."
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is the central focus: the paper collects large Japanese speech data, creates a Japanese benchmark, and evaluates Japanese TTS performance, indicating it is studied."
+    }
+  }
+}

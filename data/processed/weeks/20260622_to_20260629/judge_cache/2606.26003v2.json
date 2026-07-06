@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.26003v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T21:08:15.723095+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8202,
+  "verdicts": {
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "Gan appears as part of the HiFi-GAN neural vocoder name, not the Gan language; thus false_positive"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script (Arabizi) and text normalization, not the Latin language; thus false_positive"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the Arabic language and its Algerian dialect, with data collection, model fine‑tuning, and evaluation; thus studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as an example of high‑resource language bias, with no experiments on it; thus mentioned_only"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned as a code‑switching language and in dataset description, but no resources or models are built for French; thus mentioned_only"
+    }
+  }
+}

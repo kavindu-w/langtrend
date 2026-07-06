@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.29068v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T03:40:24.495736+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6573,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to Jina Embeddings (a model/library) in the snippets, not the Jina language → false_positive"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "sake is used in the phrase 'for the sake of readability', a common English word, not a language name → false_positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English denotes the language of the corpora used, but the paper only mentions it without building or evaluating resources specifically for English → mentioned_only"
+    }
+  }
+}

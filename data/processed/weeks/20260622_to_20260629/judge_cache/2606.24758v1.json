@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.24758v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T21:40:15.328907+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3611,
+  "verdicts": {
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'IK' as part of tokenization symbols, not referring to the Ik language; thus false positive."
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Persian as part of informal expressions examples, not used in experiments; thus mentioned_only."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet uses an English speaker as an illustrative example, not as a focus of the study; thus mentioned_only."
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The paper centers on Arabic character-level noise deduplication, evaluating models on Arabic data; thus studied."
+    }
+  }
+}

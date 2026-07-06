@@ -427,3 +427,134 @@ class TestTrimPdfTextToBody:
 
     def test_empty_string_returns_empty(self):
         assert trim_pdf_text_to_body("") == ""
+
+    # --- Thesis front-matter Acknowledgements (regression guard for 63622af) ---
+
+    def test_thesis_front_matter_acknowledgements_skipped_when_intro_detected(self):
+        # Thesis layout: Title -> Acknowledgements -> ToC -> Introduction -> body.
+        # The front-matter Acknowledgements (before the Introduction) must be
+        # dropped along with the rest of the front matter, and the real body
+        # after the Introduction must be kept in full — not cut at that early
+        # Acknowledgements heading.
+        text = (
+            "Thesis Title\n\nBy Jane Doe\n\n"
+            "Acknowledgements\n\nThanks to my family and to reviewers of Swahili corpora.\n\n"
+            "Table of Contents\n...\n\n"
+            "1. Introduction\n\nThis thesis studies Hindi and Arabic NLP systems.\n\n"
+            "2. Methods\n\nWe use transformer models on Tamil data.\n\n"
+            "References\n[1] Smith 2020."
+        )
+        result = trim_pdf_text_to_body(text)
+        assert "Thanks to my family" not in result  # front-matter ack dropped
+        assert "Hindi" in result and "Arabic" in result  # intro body kept
+        assert "Tamil" in result  # methods body kept
+        assert "Smith 2020" not in result  # references cut
+
+    def test_thesis_front_matter_acknowledgements_no_intro_does_not_truncate_body(self):
+        # Worst case: no detectable Introduction heading AND no References
+        # heading, so the midpoint-guarded ambiguous-heading fallback is the
+        # only thing standing between an early front-matter Acknowledgements
+        # and the body. The critical guarantee (the reason 63622af exists) is
+        # that the early Acknowledgements must NOT be used as the cut point and
+        # truncate the whole body. Body chapters must survive; only the genuine
+        # late back-matter (Ethics Statement) is cut. Note: without an
+        # Introduction to anchor on, the front matter itself is retained — that
+        # is the intended high-recall behavior (keeping a little front matter is
+        # safer than guessing where the body starts and risking real content).
+        front = (
+            "Thesis Title\n\nBy Jane Doe\n\n"
+            "Acknowledgements\n\nThanks to my family.\n\n"
+        )
+        body = "".join(
+            f"Chapter {i}\n\nThis chapter discusses Swahili and Hindi resources. "
+            + ("Body sentence discussing methodology and results. " * 20)
+            + "\n\n"
+            for i in range(1, 8)
+        )
+        back = "Ethics Statement\n\nThis research received IRB approval.\n"
+        result = trim_pdf_text_to_body(front + body + back)
+        assert "Chapter 1" in result and "Chapter 7" in result  # full body kept
+        assert "IRB approval" not in result  # late back-matter cut
+
+    # --- References/Bibliography priority (the recall fix) ---
+
+    def test_references_before_midpoint_still_cut(self):
+        # A paper with a very long bibliography relative to its body: the
+        # References heading falls well before the document midpoint. It must
+        # still be recognized as the end of the body (References is an
+        # unambiguous end marker, trusted at any position), not left in scope.
+        body = "1. Introduction\nWe study Igbo and Yoruba.\n\n"
+        long_refs = "References\n" + "".join(
+            f"[{i}] Author {i}. 2020. A paper about something. Journal of NLP.\n"
+            for i in range(1, 200)
+        )
+        result = trim_pdf_text_to_body(body + long_refs)
+        assert "Igbo" in result and "Yoruba" in result  # body kept
+        assert "Journal of NLP" not in result  # long bibliography cut
+
+    def test_early_related_work_kept_when_references_present(self):
+        # "Related Work" as an early section (Section 2, before the body) must
+        # NOT be used as the cut point when a real References heading exists
+        # later — otherwise the entire Methods/Results body after an early
+        # Related Work would be wrongly discarded. High-recall: keep the body.
+        text = (
+            "1. Introduction\nWe study Swahili.\n\n"
+            "2. Related Work\nPrior work by others covered Hausa.\n\n"
+            "3. Methods\nWe evaluate on Zulu and Xhosa corpora.\n\n"
+            "4. Results\nStrong gains on Amharic.\n\n"
+            "References\n[1] Jones 2020."
+        )
+        result = trim_pdf_text_to_body(text)
+        assert "Zulu" in result and "Xhosa" in result  # methods body kept
+        assert "Amharic" in result  # results body kept
+        assert "Jones 2020" not in result  # references cut
+
+    def test_related_work_used_as_cut_only_without_references(self):
+        # When there is NO References/Bibliography heading at all, the
+        # ambiguous-heading fallback still applies (midpoint-guarded), so a
+        # late Related Work section is used as the end marker.
+        text = (
+            "1. Introduction\nWe study Swahili and Hindi in depth here. "
+            + ("Body text elaborating on the approach. " * 20)
+            + "\n\nRelated Work\nOthers studied Klingon.\n"
+        )
+        result = trim_pdf_text_to_body(text)
+        assert "Swahili" in result  # body kept
+        assert "Klingon" not in result  # late related work cut
+
+    # --- Appendix AFTER references must be kept, citation list excised ---
+
+    def test_appendix_after_references_is_kept(self):
+        # Standard ML/NLP layout: body -> References -> Appendix. The citation
+        # list must be excised, but the appendix (which can carry Experiments/
+        # Data language mentions) must survive — dropping it is an
+        # unrecoverable recall loss.
+        text = (
+            "1. Introduction\nWe study Swahili.\n\n"
+            "2. Methods\nExperiments on Zulu.\n\n"
+            "References\n"
+            "[1] Smith 2020. A study of Amharic morphology. Journal of NLP.\n"
+            "[2] Jones 2021. Yoruba parsing. Proc. ACL.\n\n"
+            "Appendix\nA. Additional results on Tamil and Telugu corpora.\n"
+        )
+        result = trim_pdf_text_to_body(text)
+        assert "Zulu" in result  # body kept
+        assert "Tamil" in result and "Telugu" in result  # appendix kept
+        assert "Smith 2020" not in result  # citation list excised
+        assert "Journal of NLP" not in result
+        assert "Jones 2021" not in result
+
+    def test_references_before_midpoint_with_trailing_appendix(self):
+        # Long bibliography pushes References before the midpoint AND there is a
+        # sizeable appendix after it. References must be recognized (unambiguous,
+        # any position) and excised, while the appendix is preserved.
+        body = "1. Introduction\nWe study Igbo.\n\n"
+        long_refs = "References\n" + "".join(
+            f"[{i}] Author {i}. 2020. Some cited paper title. Journal.\n"
+            for i in range(1, 120)
+        )
+        appendix = "\n\nAppendix\nA. Extended evaluation on Hausa and Wolof data.\n"
+        result = trim_pdf_text_to_body(body + long_refs + appendix)
+        assert "Igbo" in result  # body kept
+        assert "Hausa" in result and "Wolof" in result  # appendix kept
+        assert "cited paper title" not in result  # bibliography excised

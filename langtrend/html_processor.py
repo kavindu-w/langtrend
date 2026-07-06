@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 
 from .text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text, extract_paper_acronyms, find_language_acronym_conflicts
 
@@ -63,15 +63,36 @@ _REMOVE_HEADINGS_DEFAULT = [
 ]
 
 
-def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str | None, bool]:
+def is_removable_heading(title: str, remove_headings: list[str] | None = None) -> bool:
+    """True if a section heading names an excluded section (substring, case-insensitive).
+
+    Single source of truth for the section-exclusion rule. Applied at fetch time
+    in recheck_languages_from_html, and replicated by the cache-reprocess path so
+    a reprocess drops exactly the sections a fresh fetch does — References,
+    Related Work (including combined "Background and Related Work" and appendix
+    variants), Acknowledgements, Abstract, etc. Substring (not startswith) is
+    intentional: it catches arXiv's glued numbering ("IIRelated Work") and
+    headings where the excluded term is not first ("Background and Related Work").
+    """
+    if not title:
+        return False
+    headings = _REMOVE_HEADINGS_DEFAULT if remove_headings is None else remove_headings
+    return re.search("|".join(re.escape(h) for h in headings), title, re.IGNORECASE) is not None
+
+
+def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str | None, bool, bool]:
     """Fetch arXiv HTML for a paper.
 
-    Returns (html_text, html_url, is_complete).
+    Returns (html_text, html_url, is_complete, confirmed_missing).
     is_complete=False means the download stalled mid-transfer (partial content) or failed entirely.
+    confirmed_missing=True only for a definitive HTTP 404 (arXiv has no HTML for this
+    paper at all) — deliberately NOT set for transient failures (429 rate limit, 5xx
+    server errors, timeouts, connection resets), so a CI retry job gets a real chance
+    to succeed later rather than the paper being wrongly marked permanently unavailable.
     """
     import time as _time
     if not abs_url:
-        return None, None, False
+        return None, None, False, False
     html_url = abs_url.replace("/abs/", "/html/")
     t0 = _time.monotonic()
     try:
@@ -109,11 +130,18 @@ def fetch_arxiv_html(abs_url: str, timeout: int = 30) -> tuple[str | None, str |
         html_text = b''.join(chunks).decode('utf-8', errors='replace') if chunks else None
         elapsed = _time.monotonic() - t0
         print(f"    [{abs_url}] response {response.status_code} in {elapsed:.1f}s ({total} bytes, complete={is_complete})", flush=True)
-        return html_text, html_url, is_complete
+        return html_text, html_url, is_complete, False
+    except requests.HTTPError as e:
+        elapsed = _time.monotonic() - t0
+        status = e.response.status_code if e.response is not None else None
+        confirmed_missing = status == 404
+        note = "confirmed missing" if confirmed_missing else "transient — should be retried"
+        print(f"    [{abs_url}] HTML fetch failed after {elapsed:.1f}s: HTTP {status} ({note})", flush=True)
+        return None, html_url, False, confirmed_missing
     except Exception as e:
         elapsed = _time.monotonic() - t0
         print(f"    [{abs_url}] HTML fetch failed after {elapsed:.1f}s: {type(e).__name__}: {e}", flush=True)
-        return None, html_url, False
+        return None, html_url, False, False
 
 
 def _remove_section_by_heading(soup: BeautifulSoup, heading_texts: list[str]) -> None:
@@ -231,19 +259,97 @@ def clean_html_soup(html: str, remove_headings: list[str] | None = None, _label:
     return soup
 
 
+_TEXT_TAGS = ["p", "div", "figcaption", "caption"]
+_HEADING_TAGS = {"h1", "h2", "h3", "h4", "h5", "h6"}
+
+
+def _walk_document(element, on_text, on_heading=None, skip_ids=frozenset()) -> None:
+    """Recursively walk `element`'s subtree in document order, calling
+    on_text(str) once per paragraph-text unit found.
+
+    A p/div/figcaption/caption tag becomes its own unit — UNLESS it itself
+    contains a nested p/div/figcaption/caption match anywhere in its
+    subtree, in which case we recurse into it instead of taking its
+    get_text() directly (the nested match becomes its own unit via that
+    recursion, so it isn't duplicated). Any other tag (e.g. <figure>,
+    <table>, <tr>, <td>, <span>, and h1-h6 not in `skip_ids`) is treated as
+    a transparent wrapper and always recursed into, so stray text mixed
+    anywhere among matches — no matter how many non-matching tags deep — is
+    still found and not silently dropped just because a sibling or cousin
+    element happened to contain a match. Loose text between/around matches
+    at the same level is buffered and flushed (in place) right before the
+    next match, preserving document order.
+
+    h1-h6 tags are NOT excluded as a blanket rule: arXiv's LaTeXML export
+    also uses <h6 class="ltx_title_theorem"> for in-body theorem/
+    proposition/definition run-in titles, which are real content, not
+    structural section headings. Only the specific heading instance(s) in
+    `skip_ids` (by `id()`) — the one already used as a section's `title` —
+    are excluded. If `on_heading` is given, any *other* h1-h6 encountered
+    calls on_heading(tag) instead of being descended into (used by the
+    no-<section> fallback to start a new section per heading).
+    """
+    buffer: list[str] = []
+
+    def flush():
+        text = re.sub(r"\s+", " ", "".join(buffer)).strip()
+        buffer.clear()
+        if text:
+            on_text(text)
+
+    def walk(node):
+        for child in node.children:
+            if isinstance(child, Tag):
+                if id(child) in skip_ids:
+                    flush()
+                elif on_heading is not None and child.name in _HEADING_TAGS:
+                    flush()
+                    on_heading(child)
+                elif child.name in _TEXT_TAGS:
+                    if child.find(_TEXT_TAGS):
+                        flush()
+                        walk(child)
+                    else:
+                        flush()
+                        text = re.sub(r"\s+", " ", child.get_text(separator="", strip=False)).strip()
+                        if text:
+                            on_text(text)
+                else:
+                    walk(child)
+            else:
+                buffer.append(str(child))
+
+    walk(element)
+    flush()
+
+
+def _heading_text(tag) -> str:
+    """get_text() for a heading tag, spacing-safe.
+
+    arXiv's LaTeXML HTML puts the section number in its own <span
+    class="ltx_tag_section"> immediately adjacent to the title text, relying
+    on CSS margin (not a literal space character) for visual separation —
+    get_text(strip=True)'s default separator="" then glues them into e.g.
+    "4Experiments" or "B.3Cross-Script...". separator=" " fixes that (it
+    doesn't introduce doubled spaces at tag boundaries — strip=True already
+    trims each fragment before joining). The regex collapse afterward is
+    just a general safety net for whitespace already sloppy in the source
+    (e.g. a literal double space typed within a single text node), not a
+    side effect of this separator choice.
+    """
+    return re.sub(r"\s+", " ", tag.get_text(separator=" ", strip=True)).strip()
+
+
 def extract_sections_from_soup(soup: BeautifulSoup) -> dict[str, str]:
     sections: dict[str, str] = {}
 
     for section in soup.find_all("section"):
         heading = section.find(re.compile("^h[1-6]$"))
-        title = heading.get_text(strip=True) if heading else section.get("id") or "section"
+        title = _heading_text(heading) if heading else section.get("id") or "section"
 
         paragraphs: list[str] = []
-        for element in section.find_all(["p", "div", "figcaption", "caption"]):
-            text = re.sub(r"\s+", " ", element.get_text(separator="", strip=False)).strip()
-            if not text:
-                continue
-            paragraphs.append(text)
+        skip_ids = {id(heading)} if heading is not None else frozenset()
+        _walk_document(section, on_text=paragraphs.append, skip_ids=skip_ids)
 
         if not paragraphs:
             paragraphs = [section.get_text(separator=" ", strip=True)]
@@ -253,16 +359,15 @@ def extract_sections_from_soup(soup: BeautifulSoup) -> dict[str, str]:
     if not sections:
         current_title = "body"
         current_texts: list[str] = []
-        for node in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "p", "div", "figcaption", "caption"]):
-            if node.name and re.match("^h[1-6]$", node.name):
-                if current_texts:
-                    sections[current_title] = "\n\n".join(current_texts).strip()
-                current_title = node.get_text(strip=True)
-                current_texts = []
-            else:
-                txt = re.sub(r"\s+", " ", node.get_text(separator="", strip=False)).strip()
-                if txt:
-                    current_texts.append(txt)
+
+        def handle_heading(tag):
+            nonlocal current_title
+            if current_texts:
+                sections[current_title] = "\n\n".join(current_texts).strip()
+                current_texts.clear()
+            current_title = _heading_text(tag)
+
+        _walk_document(soup, on_text=current_texts.append, on_heading=handle_heading)
         if current_texts:
             sections[current_title] = "\n\n".join(current_texts).strip()
 
@@ -308,7 +413,11 @@ def recheck_languages_from_html(
     json_path = out_dir / f"{safe_name}.json"
     html_path = out_dir / f"{safe_name}.html"
 
-    # Return cached result if already processed
+    # Return cached result if already processed AND complete. An incomplete
+    # cache (_complete=False, a stalled/partial download) is deliberately NOT
+    # returned early — a fresh fetch may succeed this time, whereas re-serving
+    # the same partial content forever defeats the purpose of retrying it.
+    known_incomplete = False
     if json_path.exists():
         try:
             with json_path.open("r", encoding="utf-8") as fh:
@@ -316,28 +425,39 @@ def recheck_languages_from_html(
             if cached.get("_unavailable"):
                 return {}, False, []  # HTML was tried before and not available — skip
             is_complete = cached.get("_complete", True)  # older caches pre-date this field → assume complete
-            conflicts = cached.get("_acronym_conflicts", [])
-            sections_data = {k: v for k, v in cached.items() if not k.startswith("_")}
-            return {title: data.get("detected", []) for title, data in sections_data.items()}, is_complete, conflicts
+            if is_complete:
+                conflicts = cached.get("_acronym_conflicts", [])
+                sections_data = {k: v for k, v in cached.items() if not k.startswith("_")}
+                return {title: data.get("detected", []) for title, data in sections_data.items()}, is_complete, conflicts
+            known_incomplete = True  # fall through to retry the fetch below
         except Exception:
             pass  # fall through to re-fetch if cache is corrupt
 
     import time as _time
 
-    if html_path.exists():
+    # A cached raw .html file is only trustworthy if we don't already know (from
+    # the json sidecar above) that it's a stalled/partial download — otherwise
+    # this would just re-serve the same incomplete content instead of retrying,
+    # the same bug the json_path check above just guarded against.
+    if html_path.exists() and not known_incomplete:
         html = html_path.read_text(encoding="utf-8")
         is_complete = True
         print(f"  [{paper_id}] loaded HTML from cache ({len(html) // 1024}KB)", flush=True)
     else:
-        html, _html_url, is_complete = fetch_arxiv_html(str(paper_id))
+        html, _html_url, is_complete, confirmed_missing = fetch_arxiv_html(str(paper_id))
         if not html:
-            # Write a sentinel so retry-missing knows HTML was tried and unavailable,
-            # preventing a redundant re-fetch on every future retry run.
-            try:
-                with json_path.open("w", encoding="utf-8") as fh:
-                    json.dump({"_complete": False, "_unavailable": True}, fh)
-            except Exception:
-                pass
+            if confirmed_missing:
+                # A definitive 404 — arXiv has no HTML for this paper. Write a
+                # permanent sentinel so retry-missing stops wastefully re-fetching it.
+                try:
+                    with json_path.open("w", encoding="utf-8") as fh:
+                        json.dump({"_complete": False, "_unavailable": True}, fh)
+                except Exception:
+                    pass
+            # else: a transient failure (rate limit, 5xx, timeout, connection error) —
+            # deliberately don't write any cache file, so the paper stays eligible
+            # for a real retry (e.g. a CI retry job) instead of being permanently
+            # written off based on a one-off hiccup.
             return {}, False, []
         try:
             html_path.write_text(html, encoding="utf-8")
@@ -364,7 +484,7 @@ def recheck_languages_from_html(
 
     t3 = _time.monotonic()
     for title, text in sections.items():
-        if re.search("|".join(re.escape(h) for h in remove_headings), title, re.IGNORECASE):
+        if is_removable_heading(title, remove_headings):
             continue
 
         cleaned_blocks, _ = clean_paper_text_for_language_screening(text, paper_acronyms=paper_acronyms)

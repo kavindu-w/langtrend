@@ -169,9 +169,10 @@ describe('aggregateTrendPeriods', () => {
     expect(periods[0].flaggedPapers).toBe(4);
     expect(periods[0].uniqueLanguages).toBe(2);
     // Sorted by count desc: Tamil (4+1=5)? no - Tamil only appears once with count 4, Sinhala 2+1=3
+    // No studied/mentioned_only fields on the fixture entries -> treated as fully studied.
     expect(periods[0].languageCounts).toEqual([
-      { language: 'Tamil', count: 4 },
-      { language: 'Sinhala', count: 3 },
+      { language: 'Tamil', count: 4, studied: 4, mentioned_only: 0 },
+      { language: 'Sinhala', count: 3, studied: 3, mentioned_only: 0 },
     ]);
   });
 
@@ -190,7 +191,7 @@ describe('aggregateTrendPeriods', () => {
       classCounts: [],
     }];
     const periods = aggregateTrendPeriods(weeksWithBlank, 'week');
-    expect(periods[0].languageCounts).toEqual([{ language: 'Sinhala', count: 2 }]);
+    expect(periods[0].languageCounts).toEqual([{ language: 'Sinhala', count: 2, studied: 2, mentioned_only: 0 }]);
   });
 });
 
@@ -215,10 +216,10 @@ describe('scrollableChartWidth', () => {
 });
 
 describe('coverageSliceLines / coverageSliceLinesWithPercent', () => {
-  it('special-cases the "Papers with language mentions" label onto two lines', () => {
-    expect(coverageSliceLines('Papers with language mentions', 7)).toEqual([
+  it('special-cases the "Papers with detected languages" label onto two lines', () => {
+    expect(coverageSliceLines('Papers with detected languages', 7)).toEqual([
       'Papers with',
-      'language mentions (7)',
+      'detected languages (7)',
     ]);
   });
 
@@ -234,10 +235,10 @@ describe('coverageSliceLines / coverageSliceLinesWithPercent', () => {
     expect(coverageSliceLinesWithPercent('Not flagged', 1, 0)).toEqual(['Not flagged (1)']);
   });
 
-  it('special-cases "Papers with language mentions" with a percentage too', () => {
-    expect(coverageSliceLinesWithPercent('Papers with language mentions', 1, 4)).toEqual([
+  it('special-cases "Papers with detected languages" with a percentage too', () => {
+    expect(coverageSliceLinesWithPercent('Papers with detected languages', 1, 4)).toEqual([
       'Papers with',
-      'language mentions (1) (25.0%)',
+      'detected languages (1) (25.0%)',
     ]);
   });
 });

@@ -44,6 +44,7 @@ _SUMMARY_FIELDNAMES = [
     "class_0_mentions", "class_1_mentions", "class_2_mentions",
     "class_3_mentions", "class_4_mentions", "class_5_mentions",
     "pdf_failed_no_detection",
+    "judged_papers", "judge_studied", "judge_mentioned_only", "judge_false_positive",
 ]
 
 
@@ -158,6 +159,11 @@ def build_weekly_summary_rows(week_manifests: list[dict]) -> list[dict]:
             "needs_review_detections": needs_review_detections,
             "needs_review_papers": needs_review_papers,
             "pdf_failed_no_detection": counts.get("pdf_failed_no_detection", 0),
+            # LLM judge verdict counts (0 for weeks that predate the judge stage)
+            "judged_papers": counts.get("judge", {}).get("judged_papers", 0),
+            "judge_studied": counts.get("judge", {}).get("studied", 0),
+            "judge_mentioned_only": counts.get("judge", {}).get("mentioned_only", 0),
+            "judge_false_positive": counts.get("judge", {}).get("false_positive", 0),
         }
         for class_id in _CLASS_IDS:
             row[f"class_{class_id}_mentions"] = class_counts.get(class_id, 0)

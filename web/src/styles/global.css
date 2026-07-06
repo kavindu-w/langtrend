@@ -408,6 +408,7 @@ a { color: inherit; text-decoration: none; }
 }
 .stat-card-mini strong { font-size: 1.7rem; color: var(--text); }
 .stat-card-mini span { color: var(--muted); font-size: 0.9rem; line-height: 1.35; }
+.stat-card-wide { grid-column: 1 / -1; }
 
 .coverage-badges {
   display: flex;
@@ -746,9 +747,16 @@ a { color: inherit; text-decoration: none; }
 .review-star { margin-left: 3px; font-size: 0.7em; vertical-align: super; opacity: 0.75; }
 .lang-chip.suppressed { border-style: dashed; opacity: 0.45; }
 .suppressed-mark { margin-left: 3px; font-size: 0.75em; vertical-align: super; opacity: 0.9; }
+.lang-chip.mentioned-only { border-style: dotted; opacity: 0.6; }
+.mentioned-mark { margin-left: 3px; font-size: 0.8em; vertical-align: super; opacity: 0.75; }
+.lang-chip.judge-suppressed { opacity: 0.35; text-decoration: line-through; }
 .acronym-conflict-notice { display: flex; align-items: flex-start; gap: 8px; margin: 10px 0 6px; padding: 8px 12px; border-radius: 7px; background: rgba(244,192,54,0.12); border: 1px solid rgba(244,192,54,0.45); color: #7a5c00; font-size: 0.82em; line-height: 1.45; }
 .acronym-conflict-notice svg { flex-shrink: 0; margin-top: 2px; color: #c8900a; }
 .acronym-conflict-notice code { font-family: monospace; background: rgba(0,0,0,0.07); padding: 1px 4px; border-radius: 3px; }
+.glossary-note { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 16px; padding: 12px 16px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent); font-size: 0.88rem; line-height: 1.5; }
+.glossary-note-icon { flex-shrink: 0; color: var(--accent); font-size: 1.05em; margin-top: 1px; }
+.glossary-note p { margin: 0; color: var(--muted); }
+.glossary-note strong { color: var(--text); }
 .coverage-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 99px; font-size: 0.68em; font-family: inherit; border: 1px solid; vertical-align: middle; position: relative; cursor: pointer; }
 .coverage-badge::before { content: 'ⓘ'; font-size: 0.9em; }
 .coverage-badge.pdf-only { background: rgba(244,192,54,0.15); border-color: rgba(244,192,54,0.5); color: #8a6a00; }
@@ -780,6 +788,11 @@ a { color: inherit; text-decoration: none; }
 .lang-filter-chip.active { background: var(--text) !important; color: #fff; }
 .chip-count { font-size: 0.86em; opacity: 0.9; }
 .chip.active { background: var(--text); color: #fff; }
+
+.verdict-row { align-items: center; margin-bottom: 10px; }
+.verdict-row-label { font-size: 0.86em; font-weight: 600; color: var(--muted); margin-right: 2px; }
+.verdict-chip { font-size: 0.9em; opacity: 0.55; }
+.verdict-chip.active { opacity: 1; }
 
 .paper-panel { margin-top: 18px; }
 

@@ -19,8 +19,10 @@ import requests
 
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+sys.path.insert(0, str(PROJECT_ROOT))
 
 import process_papers as pp
+from langtrend import pdf_processor
 
 
 @pytest.fixture
@@ -76,7 +78,7 @@ def test_download_pdf_returns_existing_file_without_hitting_network(mock_sleep, 
     existing = paper_pdf_dir / "2501.00001.pdf"
     existing.write_bytes(b"%PDF-existing")
 
-    with patch("process_papers.requests.get") as mock_get:
+    with patch("langtrend.pdf_processor.requests.get") as mock_get:
         result = pp._download_pdf("http://arxiv.org/pdf/2501.00001", pdf_dir, "2501.00001")
 
     assert result == existing
@@ -89,7 +91,7 @@ def test_download_pdf_writes_streamed_chunks_to_disk(mock_sleep, tmp_path):
     pdf_dir = tmp_path / "pdfs"
     resp = _mock_pdf_response([b"chunk1", b"chunk2"])
 
-    with patch("process_papers.requests.get", return_value=resp):
+    with patch("langtrend.pdf_processor.requests.get", return_value=resp):
         result = pp._download_pdf("http://arxiv.org/pdf/1", pdf_dir, "1")
 
     assert result == pdf_dir / "1" / "1.pdf"
@@ -101,7 +103,7 @@ def test_download_pdf_retries_after_a_failed_attempt_then_succeeds(mock_sleep, t
     pdf_dir = tmp_path / "pdfs"
     ok_resp = _mock_pdf_response([b"data"])
 
-    with patch("process_papers.requests.get", side_effect=[requests.ConnectionError("network down"), ok_resp]):
+    with patch("langtrend.pdf_processor.requests.get", side_effect=[requests.ConnectionError("network down"), ok_resp]):
         result = pp._download_pdf("http://arxiv.org/pdf/1", pdf_dir, "1")
 
     assert result is not None
@@ -112,7 +114,7 @@ def test_download_pdf_retries_after_a_failed_attempt_then_succeeds(mock_sleep, t
 def test_download_pdf_returns_none_after_all_retries_fail(mock_sleep, tmp_path):
     pdf_dir = tmp_path / "pdfs"
 
-    with patch("process_papers.requests.get", side_effect=requests.ConnectionError("network down")):
+    with patch("langtrend.pdf_processor.requests.get", side_effect=requests.ConnectionError("network down")):
         result = pp._download_pdf("http://arxiv.org/pdf/1", pdf_dir, "1")
 
     assert result is None
@@ -125,7 +127,7 @@ def test_download_pdf_raises_http_error_treated_as_failed_attempt(mock_sleep, tm
     bad_resp = MagicMock()
     bad_resp.raise_for_status.side_effect = requests.HTTPError("404")
 
-    with patch("process_papers.requests.get", return_value=bad_resp):
+    with patch("langtrend.pdf_processor.requests.get", return_value=bad_resp):
         result = pp._download_pdf("http://arxiv.org/pdf/1", pdf_dir, "1")
 
     assert result is None
@@ -327,6 +329,23 @@ def test_reprocess_single_paper_does_not_count_incomplete_html_as_a_source(lang_
     assert {"step": "reprocess", "error": "HTML cache incomplete, no PDF cache available — skipped"} in record["warnings"]
 
 
+def test_reprocess_single_paper_preserves_unavailable_marker(lang_classes, languages_to_ignore, cache_dirs):
+    # A paper confirmed to have no HTML version at all (_unavailable, written by
+    # recheck_languages_from_html after a 404) must keep that marker through a
+    # reprocess-cache run — otherwise a later --retry-missing would pointlessly
+    # re-attempt a fetch already confirmed to fail.
+    _, html_cache_dir, pdf_cache_dir = cache_dirs
+    paper = {"id": "http://arxiv.org/abs/2501.00010"}
+    (html_cache_dir / "2501.00010.json").write_text(
+        json.dumps({"_complete": False, "_unavailable": True}), encoding="utf-8"
+    )
+
+    pp._reprocess_single_paper(paper, lang_classes, languages_to_ignore, {}, html_cache_dir, pdf_cache_dir)
+
+    updated = json.loads((html_cache_dir / "2501.00010.json").read_text(encoding="utf-8"))
+    assert updated.get("_unavailable") is True
+
+
 def test_reprocess_single_paper_recomputes_detections_from_pdf_cache_text(lang_classes, languages_to_ignore, cache_dirs):
     _, html_cache_dir, pdf_cache_dir = cache_dirs
     paper = {"id": "http://arxiv.org/abs/2501.00007"}
@@ -480,6 +499,21 @@ def test_needs_retry_true_when_no_detections_was_abstract_only():
     assert pp._needs_retry(paper, {}, no_det_sources, set(), set(), Path("/nonexistent")) is True
 
 
+def test_needs_retry_true_when_no_detections_pdf_only_and_no_html_cache():
+    # Same gap as the detected-paper branch: a "no detections" verdict from
+    # pdf alone doesn't mean html ever got a real attempt — a transient
+    # failure leaves no cache file at all.
+    paper = {"id": "1"}
+    no_det_sources = {"1": ["abstract", "pdf"]}
+    assert pp._needs_retry(paper, {}, no_det_sources, set(), set(), Path("/nonexistent")) is True
+
+
+def test_needs_retry_false_when_no_detections_pdf_only_but_html_cache_exists():
+    paper = {"id": "1"}
+    no_det_sources = {"1": ["abstract", "pdf"]}
+    assert pp._needs_retry(paper, {}, no_det_sources, {"1"}, set(), Path("/nonexistent")) is False
+
+
 def test_needs_retry_true_when_pdf_cache_exists_but_detection_never_recorded_it():
     # Looks like a crash mid-run: pdf_cache/<id>.json exists, but the detected
     # record's sources_checked never got "pdf" (or "html") added.
@@ -520,3 +554,21 @@ def test_needs_retry_false_when_html_already_recorded():
     paper = {"id": "1"}
     detected_sources = {"1": ["abstract", "html"]}
     assert pp._needs_retry(paper, detected_sources, {}, {"1"}, {"1"}, Path("/nonexistent")) is False
+
+
+def test_needs_retry_false_for_confirmed_404_unavailable_sentinel(tmp_path):
+    # _unavailable is a permanent "arXiv has no HTML for this paper" marker —
+    # retrying would just waste a request re-confirming the same 404.
+    (tmp_path / "1.json").write_text(json.dumps({"_complete": False, "_unavailable": True}), encoding="utf-8")
+    paper = {"id": "1"}
+    detected_sources = {"1": ["abstract", "pdf"]}
+    assert pp._needs_retry(paper, detected_sources, {}, {"1"}, {"1"}, tmp_path) is False
+
+
+def test_needs_retry_true_when_pdf_succeeded_but_html_never_cached():
+    # A transient failure (429/5xx/timeout) deliberately leaves no HTML cache
+    # file at all (see fetch_arxiv_html) — PDF succeeding as a fallback
+    # shouldn't permanently block HTML from ever getting a real retry.
+    paper = {"id": "1"}
+    detected_sources = {"1": ["abstract", "pdf"]}
+    assert pp._needs_retry(paper, detected_sources, {}, set(), {"1"}, Path("/nonexistent")) is True

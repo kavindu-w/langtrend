@@ -123,6 +123,65 @@ class TestCleanTextHyphenation:
 
 
 # ---------------------------------------------------------------------------
+# trim_markdown_end_matter — no PDF/docling required (operates on markdown str)
+# ---------------------------------------------------------------------------
+
+class TestTrimMarkdownEndMatter:
+    """extract_text's end-matter boundary logic on docling markdown.
+
+    Mirrors the two-tier + appendix-aware logic in
+    text_cleaning.trim_pdf_text_to_body; kept in sync with it.
+    """
+
+    def _trim(self, md):
+        from langtrend.pdf_processor import trim_markdown_end_matter
+        return trim_markdown_end_matter(md)
+
+    def test_cuts_at_references(self):
+        md = "## 1 Introduction\n\nWe study Swahili.\n\n## References\n\n- Smith 2020.\n"
+        result = self._trim(md)
+        assert "Swahili" in result
+        assert "Smith 2020" not in result
+
+    def test_references_before_midpoint_still_cut(self):
+        # Long bibliography puts References before the midpoint — must still cut.
+        md = "## 1 Introduction\n\nWe study Igbo.\n\n## References\n\n" + "".join(
+            f"- Author {i}. 2020. Cited title.\n" for i in range(1, 120)
+        )
+        result = self._trim(md)
+        assert "Igbo" in result
+        assert "Cited title" not in result
+
+    def test_early_related_work_not_used_when_references_present(self):
+        md = (
+            "## 1 Introduction\n\nWe study Swahili.\n\n"
+            "## 2 Related Work\n\nPrior work on Hausa.\n\n"
+            "## 3 Methods\n\nWe evaluate Zulu.\n\n"
+            "## References\n\n- Jones 2020.\n"
+        )
+        result = self._trim(md)
+        assert "Zulu" in result  # body after early Related Work kept
+        assert "Jones 2020" not in result
+
+    def test_appendix_after_references_is_kept(self):
+        md = (
+            "## 1 Introduction\n\nWe study Swahili.\n\n"
+            "## References\n\n- Smith 2020. Amharic study.\n- Jones 2021.\n\n"
+            "## Appendix\n\n### A Extra results on Tamil and Telugu.\n"
+        )
+        result = self._trim(md)
+        assert "Tamil" in result and "Telugu" in result  # appendix kept
+        assert "Smith 2020" not in result  # citation list excised
+
+    def test_no_end_matter_returns_unchanged(self):
+        md = "## 1 Introduction\n\nWe study Arabic.\n\n## Conclusion\n\nDone.\n"
+        assert self._trim(md) == md
+
+    def test_empty_returns_empty(self):
+        assert self._trim("") == ""
+
+
+# ---------------------------------------------------------------------------
 # PDFProcessor smoke tests
 # ---------------------------------------------------------------------------
 

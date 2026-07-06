@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.25568v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T21:13:27.670761+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7865,
+  "verdicts": {
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "the snippets refer to the Urdu language (Urdu script, Urdu generation, Urdu datasets) and the paper builds and evaluates a model specifically for Urdu, so it is studied"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "the snippet uses 'Arabic' only as part of the term 'Perso-Arabic script', referring to a script rather than the Arabic language, so it is a false positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "the snippet mentions English as a language the model previously learned, but the paper does not develop resources or experiments for English, so it is only mentioned"
+    }
+  }
+}

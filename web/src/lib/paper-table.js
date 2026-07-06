@@ -3,6 +3,18 @@ import { languageBorderClass, languageFillColor } from './language-colors.js';
 const SOURCE_LABEL = { abstract: 'Abstract', html: 'Full Text (HTML)', pdf: 'Full Text (PDF)' };
 const SOURCE_ORDER = ['abstract', 'html', 'pdf'];
 
+// Author and language names routinely carry diacritics or typographic
+// apostrophes (e.g. "é", "N'ko") that a user won't type on a
+// plain keyboard -- fold both sides of a search match through this so
+// an ASCII-only query still hits.
+export function foldSearchText(s) {
+  return s
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[‘’ʼ]/g, "'")
+    .toLowerCase();
+}
+
 export function normalizeLanguage(entry) {
   if (typeof entry === 'string') return entry;
   if (Array.isArray(entry)) return entry[0] ?? '';
@@ -24,21 +36,46 @@ export function formatSectionTitle(sectionName) {
   const compact = sectionName.replace(/\s+/g, ' ').trim();
   if (!compact) return 'Untitled section';
 
-  const appendixMatch = compact.match(/^(Appendix\s+[A-Z])(?=[A-Z0-9])/);
+  // "Appendix B" is never mistakable for the start of a real title, so this
+  // one is safe to match whether the source glued the title on directly
+  // (older extraction bug) or already put a space there (fixed extraction).
+  const appendixMatch = compact.match(/^(Appendix\s+[A-Z])(?=\s*[A-Z0-9])/);
   if (appendixMatch) {
     const prefix = appendixMatch[1];
     const suffix = compact.slice(prefix.length).replace(/^[\s.]+/, '');
     return suffix ? `${prefix}. ${suffix}` : prefix;
   }
 
-  const numberedMatch = compact.match(/^((?:[A-Z]\.?\d+(?:\.\d+)*|\d+(?:\.\d+)*|[A-Z]))(?=[A-Z])/);
-  if (numberedMatch) {
-    const prefix = numberedMatch[1].replace(/\.$/, '');
-    const suffix = compact.slice(numberedMatch[1].length).replace(/^[\s.]+/, '');
+  // Numeric/dotted prefixes ("4.1", "B.3") can't be confused with an English
+  // word either, so likewise match with or without a space after them.
+  const numericMatch = compact.match(/^([A-Z]\.?\d+(?:\.\d+)*|\d+(?:\.\d+)*)(?=\s*[A-Z])/);
+  if (numericMatch) {
+    const prefix = numericMatch[1].replace(/\.$/, '');
+    const suffix = compact.slice(numericMatch[1].length).replace(/^[\s.]+/, '');
+    return suffix ? `${prefix}. ${suffix}` : prefix;
+  }
+
+  // A bare single letter ("B") is NOT safe to match with a space allowed —
+  // "A Survey of X" is a common real title, indistinguishable from a
+  // lettered appendix subsection once the number and title both have a
+  // real space between them. Only catch the old no-space glued form here.
+  const letterMatch = compact.match(/^([A-Z])(?=[A-Z])/);
+  if (letterMatch) {
+    const prefix = letterMatch[1];
+    const suffix = compact.slice(prefix.length).replace(/^[\s.]+/, '');
     return suffix ? `${prefix}. ${suffix}` : prefix;
   }
 
   return compact;
+}
+
+export function judgeVerdictOfEntry(entry) {
+  if (typeof entry === 'string' || Array.isArray(entry)) return '';
+  return typeof entry?.judge_verdict === 'string' ? entry.judge_verdict : '';
+}
+
+export function isJudgedFalsePositive(entry) {
+  return judgeVerdictOfEntry(entry) === 'false_positive';
 }
 
 /** @param {object} entry @param {Record<string, unknown[]>} langClasses @param {Record<string, string>} pfpMap */
@@ -48,14 +85,20 @@ export function chipFromEntry(entry, langClasses, pfpMap = {}) {
   const explicitReason = !Array.isArray(entry) && typeof entry === 'object' ? (entry?.flag_reason ?? '') : '';
   const twoLetterCode = typeof language === 'string' && /^[A-Za-z]{2}$/.test(language.trim());
   const pfpReason = typeof language === 'string' && pfpMap[language] ? String(pfpMap[language]) : '';
-  const needsReview = explicitNeeds || twoLetterCode || !!pfpReason;
+  const judgeVerdict = judgeVerdictOfEntry(entry);
+  // A "studied" verdict overrides the heuristic review flags — the judge confirmed the language.
+  const needsReview = judgeVerdict !== 'studied' && (explicitNeeds || twoLetterCode || !!pfpReason);
   const flagReason = explicitReason || pfpReason || (twoLetterCode ? 'Detected as 2-letter language code — confirm mapping/label.' : '');
+  const isObject = !Array.isArray(entry) && typeof entry === 'object' && entry !== null;
   return {
     language,
     borderClass: classFromEntry(entry) ?? languageBorderClass(language, langClasses),
     needsReview,
     flagReason,
     fillColor: languageFillColor(language),
+    judgeVerdict,
+    judgeReason: isObject ? (entry.judge_reason ?? '') : '',
+    mentionedOnly: judgeVerdict === 'mentioned_only',
   };
 }
 
@@ -70,7 +113,19 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
   const paper = item.paper;
   const allAuthors = Array.isArray(paper.authors) && paper.authors.length > 0 ? paper.authors.join(', ') : 'Unknown authors';
 
-  const chipLanguages = [...item.languages].filter(Boolean).sort((l, r) => {
+  // Languages the LLM judge rejected are hidden from the chip row (and from
+  // filtering/counting) but surfaced in their own popover chips for audit.
+  const judgeRejected = [...item.languages].filter(Boolean).filter(isJudgedFalsePositive)
+    .sort((l, r) => {
+      const lc = classFromEntry(l) ?? languageBorderClass(normalizeLanguage(l), langClasses);
+      const rc = classFromEntry(r) ?? languageBorderClass(normalizeLanguage(r), langClasses);
+      const d = rc - lc;
+      return d !== 0 ? d : normalizeLanguage(l).localeCompare(normalizeLanguage(r));
+    });
+  const chipLanguages = [...item.languages].filter(Boolean).filter((e) => !isJudgedFalsePositive(e)).sort((l, r) => {
+    const lMentioned = judgeVerdictOfEntry(l) === 'mentioned_only';
+    const rMentioned = judgeVerdictOfEntry(r) === 'mentioned_only';
+    if (lMentioned !== rMentioned) return lMentioned ? 1 : -1;
     const lc = classFromEntry(l) ?? languageBorderClass(normalizeLanguage(l), langClasses);
     const rc = classFromEntry(r) ?? languageBorderClass(normalizeLanguage(r), langClasses);
     const d = rc - lc;
@@ -90,7 +145,7 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
         : { label: 'Abstract only', title: 'HTML and PDF versions could not be extracted — analysis done with abstract only' })
     : null;
 
-  const searchText = `${paper.title} ${paper.authors.join(' ')}`.toLowerCase();
+  const searchText = foldSearchText(`${paper.title} ${paper.authors.join(' ')}`);
 
   const sourcesMap = new Map();
   for (const entry of chipLanguages) {
@@ -118,8 +173,10 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
       sourceLabel: SOURCE_LABEL[section.source] ?? section.source,
       chips: (section.detected_languages || [])
         .filter(Boolean)
+        .filter((entry) => !isJudgedFalsePositive(entry))
         .map((entry) => chipFromEntry(entry, langClasses, pfpMap))
         .sort((left, right) => {
+          if (left.mentionedOnly !== right.mentionedOnly) return left.mentionedOnly ? 1 : -1;
           const classDelta = right.borderClass - left.borderClass;
           return classDelta !== 0 ? classDelta : left.language.localeCompare(right.language);
         }),
@@ -146,7 +203,23 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
   }
   const suppressedChips = [...suppressedByLang.values()];
 
-  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts, suppressedChips, weekStart };
+  const judgeSuppressedChips = judgeRejected.map((entry) => ({
+    language: normalizeLanguage(entry),
+    borderClass: classFromEntry(entry) ?? languageBorderClass(normalizeLanguage(entry), langClasses),
+    reason: entry.judge_reason ?? '',
+    model: entry.judge_model ?? '',
+  }));
+
+  const verdicts = verdictsPresent(chips, judgeSuppressedChips);
+
+  return { index, paper, allAuthors, chips, chipLanguageNames, minClass, hasPdf, coverageBadge, searchText, sourcesGroups, sections, pubDateStr, updDateStr, showUpdated, arxivUrl, acronymConflicts, suppressedChips, judgeSuppressedChips, verdicts, weekStart };
+}
+
+/** Distinct effective verdicts present on a paper — an unjudged (no judge_verdict) chip counts as 'studied'. */
+export function verdictsPresent(chips, judgeSuppressedChips) {
+  const set = new Set(chips.map((c) => (c.mentionedOnly ? 'mentioned_only' : 'studied')));
+  if (judgeSuppressedChips.length > 0) set.add('false_positive');
+  return [...set];
 }
 
 /**
@@ -157,18 +230,38 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
  */
 export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
   const paper = item.paper;
-  const languages = [...item.languages].filter(Boolean).map((entry) => {
+  const judgeRejected = [...item.languages].filter(Boolean).filter(isJudgedFalsePositive);
+  const languages = [...item.languages].filter(Boolean).filter((entry) => !isJudgedFalsePositive(entry)).map((entry) => {
     const language = normalizeLanguage(entry);
     const borderClass = classFromEntry(entry) ?? languageBorderClass(language, langClasses);
-    const needsReview = (!Array.isArray(entry) && typeof entry === 'object' && !!entry?.needs_review)
+    const judgeVerdict = judgeVerdictOfEntry(entry);
+    const needsReview = judgeVerdict !== 'studied' && (
+      (!Array.isArray(entry) && typeof entry === 'object' && !!entry?.needs_review)
       || (typeof language === 'string' && /^[A-Za-z]{2}$/.test(language.trim()))
-      || (typeof language === 'string' && !!pfpMap[language]);
-    return { language, borderClass, fillColor: languageFillColor(language), needsReview };
-  }).sort((a, b) => b.borderClass - a.borderClass || a.language.localeCompare(b.language));
+      || (typeof language === 'string' && !!pfpMap[language])
+    );
+    return { language, borderClass, fillColor: languageFillColor(language), needsReview, judgeVerdict };
+  }).sort((a, b) => {
+    const aMentioned = a.judgeVerdict === 'mentioned_only';
+    const bMentioned = b.judgeVerdict === 'mentioned_only';
+    if (aMentioned !== bMentioned) return aMentioned ? 1 : -1;
+    return b.borderClass - a.borderClass || a.language.localeCompare(b.language);
+  });
+
+  const judgeSuppressedChips = judgeRejected.map((entry) => ({
+    language: normalizeLanguage(entry),
+    borderClass: classFromEntry(entry) ?? languageBorderClass(normalizeLanguage(entry), langClasses),
+    reason: entry.judge_reason ?? '',
+    model: entry.judge_model ?? '',
+  })).sort((a, b) => b.borderClass - a.borderClass || a.language.localeCompare(b.language));
 
   const languageNames = languages.map((l) => l.language).filter(Boolean);
   const minClass = languages.length > 0 ? Math.min(...languages.map((l) => l.borderClass)) : 5;
   const classes = [...new Set(languages.map((l) => l.borderClass))];
+  const verdicts = verdictsPresent(
+    languages.map((l) => ({ mentionedOnly: l.judgeVerdict === 'mentioned_only' })),
+    judgeSuppressedChips,
+  );
 
   return {
     id: paper.id ?? '',
@@ -179,11 +272,13 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
     arxiv_url: paper.id ? paper.id.replace('http://', 'https://') : paper.pdf_url,
     published: paper.published ?? '',
     categories: paper.categories ?? [],
-    searchText: `${paper.title} ${paper.authors.join(' ')}`.toLowerCase(),
+    searchText: foldSearchText(`${paper.title} ${paper.authors.join(' ')}`),
     languages,
     languageNames,
     langCount: languageNames.length,
     minClass,
     classes,
+    judgeSuppressedChips,
+    verdicts,
   };
 }

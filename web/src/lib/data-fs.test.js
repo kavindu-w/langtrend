@@ -85,7 +85,11 @@ describe('loadSiteData (current window)', () => {
     const result = loadSiteData(undefined, 7);
 
     expect(result.coverageStats).toEqual({ htmlScanned: 1, pdfOnly: 1, abstractOnly: 1 });
-    expect(result.languageCounts).toEqual([{ language: 'Sinhala', count: 2 }, { language: 'Tamil', count: 1 }]);
+    // No judge_verdict on these entries -> unjudged, counted as "studied" (mirrors build_snapshot_manifest).
+    expect(result.languageCounts).toEqual([
+      { language: 'Sinhala', count: 2, studied: 2, mentioned_only: 0 },
+      { language: 'Tamil', count: 1, studied: 1, mentioned_only: 0 },
+    ]);
     expect(result.topLanguages[0]).toMatchObject({ language: 'Sinhala', count: 2 });
     expect(result.weekSeries).toEqual([{ date: '2026-05-18', papers: 3, flagged: 1 }]);
     expect(result.classCounts).toEqual([{ class_id: 2, count: 1 }]);
@@ -117,9 +121,9 @@ describe('loadSiteData (current window)', () => {
 
     // Tamil, Sinhala, and Arabic all end up with count 1 -> alphabetical tie-break.
     expect(result.languageCounts).toEqual([
-      { language: 'Arabic', count: 1 },
-      { language: 'Sinhala', count: 1 },
-      { language: 'Tamil', count: 1 },
+      { language: 'Arabic', count: 1, studied: 1, mentioned_only: 0 },
+      { language: 'Sinhala', count: 1, studied: 1, mentioned_only: 0 },
+      { language: 'Tamil', count: 1, studied: 1, mentioned_only: 0 },
     ]);
   });
 

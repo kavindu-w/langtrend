@@ -4,11 +4,27 @@ import {
   buildWeekApiPaper,
   chipFromEntry,
   classFromEntry,
+  foldSearchText,
   formatDate,
   formatSectionTitle,
   normalizeLanguage,
   sourcesOfEntry,
+  verdictsPresent,
 } from './paper-table.js';
+
+describe('foldSearchText', () => {
+  it('lowercases', () => {
+    expect(foldSearchText('Sinhala')).toBe('sinhala');
+  });
+
+  it('strips diacritics so an unaccented query matches an accented name', () => {
+    expect(foldSearchText('é')).toBe('e');
+  });
+
+  it('normalizes typographic apostrophes to a plain one', () => {
+    expect(foldSearchText('N’ko')).toBe("n'ko");
+  });
+});
 
 describe('normalizeLanguage', () => {
   it('returns string entries as-is', () => {
@@ -82,6 +98,21 @@ describe('formatSectionTitle', () => {
 
   it('leaves a title with no recognizable prefix unchanged', () => {
     expect(formatSectionTitle('Conclusion')).toBe('Conclusion');
+  });
+
+  // The extraction-time fix (langtrend/html_processor.py) now inserts a real
+  // space between a heading number and its title, but pre-existing cached
+  // weeks still have the old glued form — this must handle both.
+  it('splits a numbered section prefix that already has a space (fixed extraction)', () => {
+    expect(formatSectionTitle('3.2 Related Work')).toBe('3.2. Related Work');
+  });
+
+  it('prefixes an Appendix letter that already has a space (fixed extraction)', () => {
+    expect(formatSectionTitle('Appendix A Experiments')).toBe('Appendix A. Experiments');
+  });
+
+  it('does not treat a real title starting with a lettered word as a section number', () => {
+    expect(formatSectionTitle('A Survey of Something')).toBe('A Survey of Something');
   });
 });
 
@@ -159,6 +190,24 @@ describe('buildPaperItem', () => {
     });
     expect(item.searchText).toBe('a study of sinhala and tamil alice bob');
     expect(item.arxivUrl).toBe('https://arxiv.org/abs/2501.00001');
+  });
+
+  it('folds diacritics out of author names in search text', () => {
+    const item = buildPaperItem(
+      {
+        paper: { ...paper, authors: ['é'] },
+        languages: [],
+        sourcesChecked: ['abstract'],
+        sections: [],
+        warnings: [],
+      },
+      0,
+      '2026-05-18',
+      {},
+      {},
+    );
+
+    expect(item.searchText).toContain('e');
   });
 
   it('has no coverage badge when the HTML source was scanned', () => {
@@ -315,5 +364,135 @@ describe('buildWeekApiPaper', () => {
     const result = buildWeekApiPaper({ paper: noIdPaper, languages: [] }, {});
     expect(result.arxiv_url).toBe(paper.pdf_url);
     expect(result.id).toBe('');
+  });
+});
+
+describe('LLM judge fields', () => {
+  const paper = {
+    id: 'http://arxiv.org/abs/2501.00001',
+    title: 'A Study of Sinhala and Tamil',
+    authors: ['Alice', 'Bob'],
+    abstract: 'abstract text',
+    pdf_url: 'http://arxiv.org/pdf/2501.00001',
+    published: '2026-05-18T00:00:00Z',
+  };
+
+  it('chipFromEntry carries judge fields and marks mentioned_only', () => {
+    const chip = chipFromEntry({
+      language: 'Sinhala', class: 2,
+      judge_verdict: 'mentioned_only', judge_reason: 'only in related work',
+    }, {});
+    expect(chip.judgeVerdict).toBe('mentioned_only');
+    expect(chip.judgeReason).toBe('only in related work');
+    expect(chip.mentionedOnly).toBe(true);
+  });
+
+  it('a studied verdict clears the heuristic needs-review flags', () => {
+    const flagged = chipFromEntry({ language: 'Gan', class: 0, needs_review: true, flag_reason: 'GAN acronym' }, {});
+    expect(flagged.needsReview).toBe(true);
+    const confirmed = chipFromEntry(
+      { language: 'Gan', class: 0, needs_review: true, flag_reason: 'GAN acronym', judge_verdict: 'studied' },
+      {},
+    );
+    expect(confirmed.needsReview).toBe(false);
+    expect(confirmed.judgeVerdict).toBe('studied');
+  });
+
+  it('buildPaperItem sorts studied chips before mentioned_only chips, even when mentioned_only has a higher class', () => {
+    const item = buildPaperItem(
+      {
+        paper,
+        languages: [
+          { language: 'Tamil', class: 5, judge_verdict: 'mentioned_only' },
+          { language: 'Sinhala', class: 0, judge_verdict: 'studied' },
+        ],
+        sourcesChecked: ['abstract'],
+        sections: [],
+        warnings: [],
+      },
+      0,
+      '2026-05-18',
+      {},
+      {},
+    );
+    expect(item.chipLanguageNames).toEqual(['Sinhala', 'Tamil']);
+  });
+
+  it('buildPaperItem moves judged false positives out of chips into judgeSuppressedChips', () => {
+    const item = buildPaperItem(
+      {
+        paper,
+        languages: [
+          { language: 'Sinhala', class: 2, sources: ['html'] },
+          { language: 'Ari', class: 0, sources: ['html'], judge_verdict: 'false_positive', judge_reason: 'Adjusted Rand Index', judge_model: 'llama-3.3-70b-versatile' },
+        ],
+        sourcesChecked: ['html'],
+        sections: [
+          { name: 'Intro', source: 'html', detected_languages: [
+            { language: 'Sinhala', class: 2 },
+            { language: 'Ari', class: 0, judge_verdict: 'false_positive' },
+          ] },
+        ],
+        warnings: [],
+      },
+      0,
+      '2026-05-18',
+      {},
+      {},
+    );
+    expect(item.chipLanguageNames).toEqual(['Sinhala']);
+    expect(item.minClass).toBe(2); // rejected class-0 entry no longer drives minClass
+    expect(item.sections[0].chips.map((c) => c.language)).toEqual(['Sinhala']);
+    expect(item.judgeSuppressedChips).toEqual([
+      { language: 'Ari', borderClass: 0, reason: 'Adjusted Rand Index', model: 'llama-3.3-70b-versatile' },
+    ]);
+  });
+
+  it('buildWeekApiPaper excludes judged false positives, carries judgeVerdict, and sorts studied before mentioned_only despite a lower class', () => {
+    const result = buildWeekApiPaper(
+      {
+        paper,
+        languages: [
+          { language: 'Sinhala', class: 2, judge_verdict: 'studied' },
+          { language: 'Tamil', class: 3, judge_verdict: 'mentioned_only' },
+          { language: 'Ari', class: 0, judge_verdict: 'false_positive', judge_reason: 'Adjusted Rand Index', judge_model: 'llama-3.3-70b-versatile' },
+        ],
+      },
+      {},
+    );
+    expect(result.languageNames).toEqual(['Sinhala', 'Tamil']);
+    expect(result.langCount).toBe(2);
+    expect(result.languages.map((l) => l.judgeVerdict)).toEqual(['studied', 'mentioned_only']);
+    expect(result.judgeSuppressedChips).toEqual([
+      { language: 'Ari', borderClass: 0, reason: 'Adjusted Rand Index', model: 'llama-3.3-70b-versatile' },
+    ]);
+    expect(result.verdicts.sort()).toEqual(['false_positive', 'mentioned_only', 'studied']);
+  });
+
+  it('buildWeekApiPaper suppresses needsReview when the judge confirmed the language', () => {
+    const result = buildWeekApiPaper(
+      { paper, languages: [{ language: 'Gan', class: 0, needs_review: true, judge_verdict: 'studied' }] },
+      {},
+      { Gan: 'very common ML acronym' },
+    );
+    expect(result.languages[0].needsReview).toBe(false);
+  });
+});
+
+describe('verdictsPresent', () => {
+  it('treats an unjudged chip (no judge_verdict) as studied', () => {
+    const chip = chipFromEntry({ language: 'Sinhala', class: 2 }, {});
+    expect(verdictsPresent([chip], [])).toEqual(['studied']);
+  });
+
+  it('includes mentioned_only and false_positive when present', () => {
+    const studied = chipFromEntry({ language: 'Sinhala', class: 2, judge_verdict: 'studied' }, {});
+    const mentioned = chipFromEntry({ language: 'Tamil', class: 3, judge_verdict: 'mentioned_only' }, {});
+    const fp = [{ language: 'Ari', borderClass: 0, reason: 'Adjusted Rand Index', model: 'm' }];
+    expect(verdictsPresent([studied, mentioned], fp).sort()).toEqual(['false_positive', 'mentioned_only', 'studied']);
+  });
+
+  it('returns an empty array for a paper with no detections', () => {
+    expect(verdictsPresent([], [])).toEqual([]);
   });
 });

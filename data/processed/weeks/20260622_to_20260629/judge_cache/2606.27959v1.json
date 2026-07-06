@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.27959v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-05T14:25:21.187484+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4441,
+  "verdicts": {
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic refers to Arabic numerals (numeric characters), not the Arabic language; therefore it is a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only in the context of drafting English sentences and as a comparison language, without any experiments or resources built for English; thus it is mentioned only."
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the Japanese language (Japanese correction articles, Japanese version of TruthfulQA, Japanese numeral units, Japanese NER models) and is used in the paper's experiments and analysis"
+    }
+  }
+}

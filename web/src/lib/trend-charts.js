@@ -146,9 +146,14 @@ export function aggregateTrendPeriods(weeks, granularity) {
       sortKey: week.weekStart,
       papers: 0,
       flaggedPapers: 0,
-      uniqueLanguages: new Set(),
-      languageCounts: new Map(),
-      classCounts: new Map(),
+      // Summed per language/class across weeks in this period; "studied" also
+      // absorbs not-yet-judged counts (item.studied already reflects that
+      // rule from build_snapshot_manifest / countLanguages), "mentioned"
+      // tracks confirmed mentioned_only-only sightings.
+      languageStudied: new Map(),
+      languageMentioned: new Map(),
+      classStudied: new Map(),
+      classMentioned: new Map(),
     };
 
     existing.sortKey = existing.sortKey < week.weekStart ? existing.sortKey : week.weekStart;
@@ -156,31 +161,57 @@ export function aggregateTrendPeriods(weeks, granularity) {
     existing.flaggedPapers += week.flaggedPapers || 0;
     for (const item of week.languageCounts || []) {
       if (!item.language) continue;
-      existing.uniqueLanguages.add(item.language);
-      existing.languageCounts.set(item.language, (existing.languageCounts.get(item.language) || 0) + item.count);
+      const studied = item.studied ?? item.count ?? 0;
+      const mentioned = item.mentioned_only ?? 0;
+      if (studied) existing.languageStudied.set(item.language, (existing.languageStudied.get(item.language) || 0) + studied);
+      if (mentioned) existing.languageMentioned.set(item.language, (existing.languageMentioned.get(item.language) || 0) + mentioned);
     }
     for (const item of week.classCounts || []) {
-      existing.classCounts.set(item.class_id, (existing.classCounts.get(item.class_id) || 0) + item.count);
+      const studied = item.studied ?? item.count ?? 0;
+      const mentioned = item.mentioned_only ?? 0;
+      if (studied) existing.classStudied.set(item.class_id, (existing.classStudied.get(item.class_id) || 0) + studied);
+      if (mentioned) existing.classMentioned.set(item.class_id, (existing.classMentioned.get(item.class_id) || 0) + mentioned);
     }
     groups.set(periodKey, existing);
   }
 
   return [...groups.values()]
     .sort((left, right) => left.sortKey.localeCompare(right.sortKey))
-    .map((group) => ({
-      periodKey: group.periodKey,
-      label: group.label,
-      sortKey: group.sortKey,
-      papers: group.papers,
-      flaggedPapers: group.flaggedPapers,
-      uniqueLanguages: group.uniqueLanguages.size,
-      languageCounts: [...group.languageCounts.entries()]
-        .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
-        .map(([language, count]) => ({ language, count })),
-      classCounts: [...group.classCounts.entries()]
-        .sort((left, right) => right[1] - left[1] || left[0] - right[0])
-        .map(([class_id, count]) => ({ class_id, count })),
-    }));
+    .map((group) => {
+      const allLanguages = new Set([...group.languageStudied.keys(), ...group.languageMentioned.keys()]);
+      const languageCounts = [...allLanguages]
+        .map((language) => {
+          const studied = group.languageStudied.get(language) || 0;
+          const mentioned_only = group.languageMentioned.get(language) || 0;
+          return { language, count: studied + mentioned_only, studied, mentioned_only };
+        })
+        .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language));
+      const allClasses = new Set([...group.classStudied.keys(), ...group.classMentioned.keys()]);
+      const classCounts = [...allClasses]
+        .map((class_id) => {
+          const studied = group.classStudied.get(class_id) || 0;
+          const mentioned_only = group.classMentioned.get(class_id) || 0;
+          return { class_id, count: studied + mentioned_only, studied, mentioned_only };
+        })
+        .sort((left, right) => right.count - left.count || left.class_id - right.class_id);
+      // A language counts toward the studied headline if it has any studied
+      // (or not-yet-judged) mentions anywhere in the period; mentioned-only
+      // is the complementary set that's never studied in the period at all.
+      const uniqueLanguages = languageCounts.filter((item) => item.studied > 0).length;
+      const uniqueLanguagesMentionedOnly = languageCounts.filter((item) => item.studied === 0 && item.mentioned_only > 0).length;
+
+      return {
+        periodKey: group.periodKey,
+        label: group.label,
+        sortKey: group.sortKey,
+        papers: group.papers,
+        flaggedPapers: group.flaggedPapers,
+        uniqueLanguages,
+        uniqueLanguagesMentionedOnly,
+        languageCounts,
+        classCounts,
+      };
+    });
 }
 
 export function buildBumpSegmentPath(start, end) {
@@ -196,16 +227,16 @@ export function scrollableChartWidth(baseWidth, margins, periodCount, maxVisible
 }
 
 export function coverageSliceLines(label, value) {
-  if (label === 'Papers with language mentions') {
-    return ['Papers with', `language mentions (${value})`];
+  if (label === 'Papers with detected languages') {
+    return ['Papers with', `detected languages (${value})`];
   }
   return [`${label} (${value})`];
 }
 
 export function coverageSliceLinesWithPercent(label, value, total) {
   const percentLabel = total > 0 ? ` (${formatPercent(value, total)})` : '';
-  if (label === 'Papers with language mentions') {
-    return ['Papers with', `language mentions (${value})${percentLabel}`];
+  if (label === 'Papers with detected languages') {
+    return ['Papers with', `detected languages (${value})${percentLabel}`];
   }
   return [`${label} (${value})${percentLabel}`];
 }

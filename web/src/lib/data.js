@@ -51,19 +51,37 @@ function normalizeLanguageEntry(entry) {
 }
 
 function countLanguages(flaggedPapers) {
-  const counts = new Map();
+  // "studied" bucket also holds not-yet-judged detections (no judge_verdict
+  // at all) so counts don't regress for weeks that haven't run the LLM judge
+  // yet — only an explicit "mentioned_only" verdict moves a detection into
+  // the separate, disjoint mentioned-only bucket. Mirrors build_snapshot_manifest.
+  const studied = new Map();
+  const mentionedOnly = new Map();
   for (const item of flaggedPapers) {
     for (const entry of item.languages || []) {
+      const isObject = entry && typeof entry === 'object' && !Array.isArray(entry);
+      const verdict = isObject ? entry.judge_verdict : undefined;
+      // Detections the LLM judge rejected stay in the data for audit but are
+      // excluded from counts (mirrors build_snapshot_manifest).
+      if (verdict === 'false_positive') {
+        continue;
+      }
       const language = normalizeLanguageEntry(entry);
       if (!language) {
         continue;
       }
-      counts.set(language, (counts.get(language) || 0) + 1);
+      const bucket = verdict === 'mentioned_only' ? mentionedOnly : studied;
+      bucket.set(language, (bucket.get(language) || 0) + 1);
     }
   }
 
-  return [...counts.entries()]
-    .map(([language, count]) => ({ language, count }))
+  const allLanguages = new Set([...studied.keys(), ...mentionedOnly.keys()]);
+  return [...allLanguages]
+    .map((language) => {
+      const studiedCount = studied.get(language) || 0;
+      const mentionedCount = mentionedOnly.get(language) || 0;
+      return { language, count: studiedCount + mentionedCount, studied: studiedCount, mentioned_only: mentionedCount };
+    })
     .sort((left, right) => {
       const countDelta = right.count - left.count;
       if (countDelta !== 0) {
@@ -86,6 +104,7 @@ function fallbackManifest(windowDays = 7) {
       papers: papers.length,
       flagged_papers: flagged.length,
       unique_languages: 0,
+      unique_languages_mentioned_only: 0,
     },
     language_counts: [],
     class_counts: [],
@@ -217,6 +236,7 @@ export function loadAllWeeksData() {
         papers: manifest.counts?.papers ?? 0,
         flaggedPapers: manifest.counts?.flagged_papers ?? 0,
         uniqueLanguages: manifest.counts?.unique_languages ?? 0,
+        uniqueLanguagesMentionedOnly: manifest.counts?.unique_languages_mentioned_only ?? 0,
         languageCounts: Array.isArray(manifest.language_counts) ? manifest.language_counts : [],
         classCounts: Array.isArray(manifest.class_counts) ? manifest.class_counts : [],
         dailySeries: Array.isArray(manifest.daily_series) ? manifest.daily_series : [],
