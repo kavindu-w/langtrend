@@ -19,8 +19,8 @@ _Latest processed week: **2026-06-22 – 2026-06-29**._
 | Metric | This week | All-time |
 |--------|----------:|---------:|
 | Papers scanned | 475 | 5,400 |
-| Papers with language mentions | 293 | 3,274 |
-| Unique languages detected | 301 | 894 |
+| Papers with language mentions | 217 | 3,349 |
+| Unique languages detected | 85 | 829 |
 | Weeks tracked | — | 9 (since 2026-04-27) |
 
 <!-- LANGTREND_STATS_END -->

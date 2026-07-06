@@ -2,18 +2,25 @@ PYTHON      ?= ./venv/bin/python
 DATA_ROOT   ?= data
 WINDOW_DAYS ?= 7
 MAX_RESULTS ?= 1000
-WORKERS     ?= 12
+WORKERS     ?= 16
 JUDGE_WORKERS ?= 4
 # END_DATE    ?= 2026-05-04
 # END_DATE    ?= 2026-05-11
 # END_DATE    ?= 2026-05-18
 # END_DATE    ?= 2026-05-25
-END_DATE    ?= 2026-06-29
+# END_DATE    ?= 2026-06-01
+# END_DATE    ?= 2026-06-08
+# END_DATE    ?= 2026-06-15
+# END_DATE    ?= 2026-06-22
+# END_DATE    ?= 2026-06-29
 # NO_PDF      ?= 1
 
 # List of end-dates for *-all targets. Override on the command line:
 #   make reprocess-all DATES="2026-05-18 2026-05-25"
-# DATES ?= 2026-05-04 2026-05-11 2026-05-18 2026-05-25
+# DATES ?= 2026-05-04 2026-05-11
+# DATES ?= 2026-05-18 2026-05-25
+# DATES ?= 2026-06-01 2026-06-08
+DATES ?= 2026-06-15 2026-06-22
 
 # Pass --end-date only when END_DATE is set
 _END_DATE_FLAG = $(if $(END_DATE),--end-date $(END_DATE),)
