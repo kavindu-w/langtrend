@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.22478v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T16:27:47.725756+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11926,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'bo' appears within the word 'bohot' as a sub-word token, not referring to the Bo language"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'wa' is a sub-word component of the token 'Karwayein', not a reference to a language named Wa"
+    },
+    "Punjabi": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Punjabi as a language present in code‑mixed datasets, but the paper does not conduct experiments or build resources for Punjabi"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Urdu as the source language (native script) and discuss Roman Urdu, but the study’s experiments and resources target Roman Urdu, not Urdu itself"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as part of a lexicon filter to remove English comments; the paper does not study or build resources for English"
+    }
+  }
+}

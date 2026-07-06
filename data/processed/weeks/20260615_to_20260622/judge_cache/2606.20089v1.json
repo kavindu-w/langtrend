@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.20089v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T17:45:10.295455+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4368,
+  "verdicts": {
+    "Parsi": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Parsi' appears only as part of dataset names (e.g., ParsiNLU-RC, ParsT wiNER) and not as a reference to the language itself, so it is a false positive."
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Korean only as the language of the KrBERT model in related work, without any experiments on Korean, so it is mentioned only."
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is referenced solely as the language of the HerBERT model in the related‑work discussion, with no study of Polish itself, so it is mentioned only."
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese appears only as the language of the BERTimbau model cited in related work, not studied in the paper, so it is mentioned only."
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is cited only as the language of the AraBERT model in the related‑work section, with no Arabic experiments, so it is mentioned only."
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is referenced only as the language of the GottBERT model in the related‑work discussion, without any German‑specific work, so it is mentioned only."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as part of a Persian‑English bilingual dataset and is not a focus of the study, so it is mentioned only."
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "Persian is the primary language of the paper, with the model trained on Persian corpora and evaluated on Persian benchmarks, so it is studied."
+    }
+  }
+}

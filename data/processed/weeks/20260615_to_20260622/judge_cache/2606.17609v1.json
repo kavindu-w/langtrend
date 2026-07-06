@@ -1,0 +1,45 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.17609v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T18:08:22.329506+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8984,
+  "verdicts": {
+    "Wanda": {
+      "verdict": "false_positive",
+      "reason": "Wanda refers to a high‑sparsity pruning method, not a human language; therefore false_positive"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is referenced as a target language whose QA performance is measured before and after pruning; studied"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu is mentioned as a target language whose answer rank is analyzed after pruning; studied"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is cited as a language whose recovery rates are reported, indicating it is part of the experimental evaluation; studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears in the context of ‘non‑Latin scripts’, referring to script type rather than the Latin language; false_positive"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is discussed as a language with no whitespace boundaries for tokenization, and is included in the evaluation setup; studied"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is listed as a language with accuracy and recoverability metrics, showing it is evaluated in the experiments; studied"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is presented with prune‑gap and recovery numbers, indicating it is a language evaluated in the study; studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the baseline language and template for prompts, and its performance is reported, so it is studied"
+    }
+  }
+}

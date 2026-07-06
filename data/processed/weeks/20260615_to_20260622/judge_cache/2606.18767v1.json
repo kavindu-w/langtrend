@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.18767v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T17:43:34.182263+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3620,
+  "verdicts": {
+    "Musi": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'British musi', which is part of the word 'music', not a reference to the Musi language; therefore it's a false positive."
+    },
+    "Hungarian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'a Hungarian was born at Buda', referring to a person of Hungarian nationality, not the Hungarian language; thus it is only mentioned."
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet includes 'the Persian Sibyl', using Persian as an adjective for a mythological figure, not discussing the Persian language; therefore it is only mentioned."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet discusses NLTK’s English stopword list, referring to the English language for tokenization purposes, but does not study or build resources for English; thus it is only mentioned."
+    }
+  }
+}

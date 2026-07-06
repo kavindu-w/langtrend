@@ -1,0 +1,97 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.18466v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T17:53:34.877493+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11879,
+  "verdicts": {
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'nasal' is used as a phonetic manner category, not referring to a language"
+    },
+    "Hausa": {
+      "verdict": "mentioned_only",
+      "reason": "Hausa appears in a table listing languages for which pretrained models exist, but the paper does not evaluate or build resources for Hausa"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "Swahili appears in a table of supported languages/dialects, without any experimental evaluation or resource creation for Swahili"
+    },
+    "Bulgarian": {
+      "verdict": "mentioned_only",
+      "reason": "Bulgarian is listed among languages in the pretrained‑model table, but the paper provides no specific study or evaluation of Bulgarian"
+    },
+    "Croatian": {
+      "verdict": "mentioned_only",
+      "reason": "Croatian (as part of Serbo‑Croatian) is mentioned in the language table, yet no experiments or resources are built for it"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin occurs only as part of the term 'Latin‑America', referring to a region, not the Latin language"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is included in the table of supported languages/dialects, but the paper does not conduct any study or evaluation on Polish"
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "Thai is mentioned in the language table and as a tokenization option, yet no Thai data are evaluated or resources created"
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "Czech appears in the table of languages and in the description of noisy training datasets, but the paper does not evaluate alignment on Czech"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is cited as a language used in noisy training datasets, without any dedicated evaluation or resource development for Russian"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is evaluated on the Seoul Corpus, with a dedicated pretrained model and adaptation experiments, so the paper studies Korean alignment performance"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is listed among languages and dialects (Brazilian and European) in the training data table, but no specific experiments or resources are presented for Portuguese"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Swedish appears in the table of pretrained model languages, indicating MFA includes a Swedish pronunciation dictionary and model, which the paper builds as part of its resources"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is listed among the languages with pretrained models and dialects in the MFA coverage table, showing the paper provides resources for Turkish"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is included in the list of languages for which MFA provides pretrained models/dictionaries, indicating the paper builds resources for Ukrainian"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese appears in the table of pretrained model languages, demonstrating that the paper supplies a Vietnamese dictionary/model as part of MFA"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is mentioned as a language with a pronunciation dictionary sourced from GlobalPhone and as a supported language in MFA, meaning the paper builds resources for French"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is cited as one of the core languages with a pronunciation dictionary and pretrained model in MFA, indicating the paper provides resources for German"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced in the language‑specific tokenization support (e.g., spacy‑pkuseg) showing the paper includes resources for Chinese"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is repeatedly used for evaluation datasets, pretrained models, and adaptation experiments, so the paper both uses and builds resources for English"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is evaluated (CSJ dataset), has a dedicated pretrained model, and is used in cross‑language remapping experiments, indicating the paper studies Japanese"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish appears in the table of pretrained model languages and dialect coverage, showing the paper provides a Spanish dictionary/model as part of MFA"
+    }
+  }
+}

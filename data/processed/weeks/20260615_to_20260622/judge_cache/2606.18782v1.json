@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.18782v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T18:12:22.218429+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 10591,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "The snippet consists of random cryptographic strings and key blocks; 'Bo' appears only as part of a token, not referring to the Bo language."
+    },
+    "Iban": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists 'iban' as a bank account identifier field, which is the International Bank Account Number, not the Iban language."
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'pin' as a personal identification number field and as a verb ('pin transformers'), not as a reference to the Pin language."
+    },
+    "Pom": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'pom xml' (Maven Project Object Model) and other file types, not the Pom language."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to an 'English subset' of the benchmark and English-language models, indicating the paper works with English data, so the language is studied."
+    }
+  }
+}

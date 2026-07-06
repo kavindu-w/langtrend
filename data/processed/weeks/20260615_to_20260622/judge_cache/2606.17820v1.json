@@ -1,0 +1,97 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.17820v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T18:05:34.682054+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8969,
+  "verdicts": {
+    "Mak": {
+      "verdict": "false_positive",
+      "reason": "Mak refers to an author surname in a citation, not a language => false_positive"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi refers to the Hindi language as an example of a low-resource language, but the paper does not evaluate or build resources for it => mentioned_only"
+    },
+    "Punjabi": {
+      "verdict": "mentioned_only",
+      "reason": "Punjabi refers to the Punjabi language as an example of a low-resource language, but the paper does not evaluate or build resources for it => mentioned_only"
+    },
+    "Frisian": {
+      "verdict": "studied",
+      "reason": "Frisian refers to the Frisian language, which is a target language in the bilingual fine‑tuning experiments and results discussion => studied"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "Malayalam refers to the Malayalam language, which is a target language in the experiments (Malayalam–Tamil pair) and discussed in results => studied"
+    },
+    "Belarusian": {
+      "verdict": "studied",
+      "reason": "Belarusian refers to the Belarusian language, part of the Ukrainian–Belarusian language pair evaluated in the study => studied"
+    },
+    "Estonian": {
+      "verdict": "studied",
+      "reason": "Estonian refers to the Estonian language, used as a donor language in the Finnish–Estonian pair evaluated in the experiments => studied"
+    },
+    "Galician": {
+      "verdict": "studied",
+      "reason": "Galician refers to the Galician language, a target language in the Galician–Italian pair evaluated in the experiments => studied"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "Bulgarian refers to the Bulgarian language, part of the Serbian–Bulgarian language pair listed in the data section and evaluated => studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin alphabet/script, not the Latin language, in the context of describing writing systems => false_positive"
+    },
+    "Slovak": {
+      "verdict": "studied",
+      "reason": "Slovak refers to the Slovak language, part of the Slovak–Czech language pair described in the data section and evaluated => studied"
+    },
+    "Danish": {
+      "verdict": "studied",
+      "reason": "Danish refers to the Danish language, a target language in the Danish–Swedish pair evaluated in the experiments and discussed in results => studied"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Tamil as the donor language in the Malayalam–Tamil pair used in experiments, showing its role in improving ASR performance; therefore it is studied."
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "The snippets mention Finnish as the target language in the Finnish–Estonian pair evaluated in the results, indicating it is part of the experimental setup; therefore it is studied."
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian appears as the donor language for the Galician–Italian pair described in the data and results sections, meaning it is used in the experiments; therefore it is studied."
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is listed as the target language in the Slovenian–Polish pair and discussed in the results, showing it is part of the experimental evaluation; therefore it is studied."
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech is referenced as part of the Slovak–Czech language pair in the data description and results, indicating it is used in the experiments; therefore it is studied."
+    },
+    "Serbian": {
+      "verdict": "studied",
+      "reason": "Serbian is mentioned as part of the Serbian–Bulgarian pair in the data and results sections, showing it is included in the experimental evaluation; therefore it is studied."
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian appears as one side of the Ukrainian–Belarusian pair in the data and results, indicating it is used in the experiments; therefore it is studied."
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is described as the donor language for the Frisian–Dutch pair and appears in the experimental results, meaning it is part of the study; therefore it is studied."
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Swedish is identified as the donor language in the Danish–Swedish pair and discussed in the results, showing it is used in the experiments; therefore it is studied."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is only mentioned in the introduction as an example of a high-resource language and is not part of any experimental language pair; therefore it is mentioned_only."
+    }
+  }
+}

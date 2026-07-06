@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.17542v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T18:09:10.473811+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6820,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'Ami' appears as part of 'AMI corpus' referring to a meeting corpus, not the Ami language; thus it's a false positive."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as the language spoken by participants and used in the AMI meeting corpus; the paper conducts experiments on English meeting data, so the language is studied."
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Japanese only when comparing prior work on Japanese three‑party conversations; the paper itself does not work on Japanese data, so it is only mentioned."
+    }
+  }
+}

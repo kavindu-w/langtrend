@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.18649v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T17:47:10.294868+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11897,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'carrier' refers to the name as a carrier of gender information, not the Carrier language, so false_positive"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "Here 'nasal' describes the moraic nasal sound, not the Nasal language, so false_positive"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The term 'Chinese' describes the origin of a model and Chinese characters used in Japanese writing, not the Chinese language itself, so false_positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention English as the language of prior work and provide English translations, but the paper does not conduct experiments on English, so mentioned_only"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The paper uses Japanese for prompts, resumes, and evaluation, and investigates bias in Japanese-language contexts, thus the language is studied, so studied"
+    }
+  }
+}

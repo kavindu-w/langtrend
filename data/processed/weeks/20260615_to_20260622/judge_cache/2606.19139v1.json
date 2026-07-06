@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.19139v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T17:34:26.267416+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9819,
+  "verdicts": {
+    "Deccan": {
+      "verdict": "false_positive",
+      "reason": "Deccan refers to the historical region where Urdu literature began, not a language; thus false_positive"
+    },
+    "Pashto": {
+      "verdict": "mentioned_only",
+      "reason": "Pashto is listed as another cursive script language but the paper does not work on it; therefore mentioned_only"
+    },
+    "Tay": {
+      "verdict": "false_positive",
+      "reason": "Tay is used as the name of a character shape in the Urdu script, not a language; false_positive"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu is the primary focus, with a dedicated dataset and models trained/evaluated on Urdu text; studied"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is mentioned as a related script and appears in the mixed-language subset, but the paper does not build resources or evaluate specifically for Persian; mentioned_only"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is referenced as the source script and appears in the mixed-language subset, but no dedicated Arabic resources or evaluation are presented; mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is noted as one of the languages in the mixed subset, without dedicated study or resources; mentioned_only"
+    }
+  }
+}

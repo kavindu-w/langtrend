@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.18788v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T17:42:00.038294+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4696,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "the term 'Latin' is used to refer to the Latin script (alphabet) rather than the Latin language"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned as a script/language in the discussion of limitations, but the paper does not conduct experiments or build resources for it"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referred to as the Chinese script/language, and the paper conducts experiments on Chinese handwriting datasets, evaluating performance, thus studying the language"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referred to as the English script/language, and the paper includes experiments on English handwriting (IAM dataset), thus studying the language"
+    }
+  }
+}

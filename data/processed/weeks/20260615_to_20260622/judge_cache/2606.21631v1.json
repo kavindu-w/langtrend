@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.21631v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T16:59:23.173713+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3857,
+  "verdicts": {
+    "Iban": {
+      "verdict": "false_positive",
+      "reason": "IBAN_CODE refers to a banking identifier, not the Iban language, so false positive."
+    },
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "URI refers to a Uniform Resource Identifier, not the Uri language, so false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language used in model configuration, but the paper only mentions it, not studying it, so mentioned_only."
+    }
+  }
+}

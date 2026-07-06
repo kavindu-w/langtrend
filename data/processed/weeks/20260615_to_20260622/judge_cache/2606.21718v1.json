@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.21718v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T16:48:35.844726+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3571,
+  "verdicts": {
+    "Ila": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Ila\" as part of example user text (\"... Ila AnyWay\"), not referring to the Ila language"
+    },
+    "Kua": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"Kua\" only as a word in example text, with no indication it denotes the Kua language"
+    },
+    "Pol": {
+      "verdict": "studied",
+      "reason": "\"pol\" appears as a language code in a table of languages evaluated, indicating the paper evaluates the Polish language"
+    },
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "The paper reports a performance score for Amharic (\"in Amharic (amh), we achieved a score...\"), showing evaluation of that language"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is mentioned alongside performance results (\"surpassing our model in English and Italian...\"), indicating it is evaluated"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a target language for evaluation and model optimization (\"optimized for English...\"), showing it is evaluated"
+    }
+  }
+}

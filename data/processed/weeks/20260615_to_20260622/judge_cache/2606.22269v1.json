@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.22269v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T16:32:12.747114+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11890,
+  "verdicts": {
+    "Lü": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'xī lü' as part of a Chinese pinyin phrase, not referring to the Lü language; thus false_positive"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is cited as the wrong language in a contamination example, not a focus of the study; therefore mentioned_only"
+    },
+    "Hausa": {
+      "verdict": "studied",
+      "reason": "Hausa is the target language for translation evaluation, with test data, human evaluation, and metric analysis; thus studied"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned only as a source of loanwords into Hausa, with no experiments on Arabic; therefore mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is the source language for translation pairs and is referenced throughout, but the paper does not develop resources for English; thus mentioned_only"
+    }
+  }
+}

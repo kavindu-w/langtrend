@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.21460v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T17:23:23.425224+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 2939,
+  "verdicts": {
+    "Mand": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows a table of model names and sources; 'Mand' appears as part of model or source text, not as a reference to a human language."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet reports that some model outputs contained reasoning traces in Chinese, mentioning the Chinese language only as an observed output language."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet compares the availability of Arabic resources to those for English, mentioning English solely as a reference point."
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet notes that some outputs contained Japanese text, referring to the Japanese language only in passing."
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The abstract and body describe evaluating models on Arabic tasks and creating an Arabic benchmark, indicating the paper studies Arabic language processing."
+    }
+  }
+}

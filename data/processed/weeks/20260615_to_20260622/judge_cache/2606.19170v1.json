@@ -1,0 +1,57 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.19170v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T17:33:34.815391+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 12000,
+  "verdicts": {
+    "Nii": {
+      "verdict": "false_positive",
+      "reason": "refers to the domain 'nii.ac.jp' (National Institute of Informatics), not a human language"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "mentioned as a non‑CJK script filtered out; only a brief mention of the Arabic language"
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "appears in a table ranking languages by structural similarity to Japanese; only mentioned for comparison"
+    },
+    "Malay": {
+      "verdict": "mentioned_only",
+      "reason": "listed in the same similarity table as a comparison language; not a focus of the study"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "included in the similarity comparison table; only mentioned, not studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "refers to Latin letters/script in filter descriptions, not the Latin language itself"
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "used in similarity and divergence discussions as a language compared to Japanese; not a target of experiments"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "cited as a comparison language for structural similarity and baseline models; not directly studied"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "mentioned as a language filtered out and as a baseline; no direct experiments on Russian"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "referenced as part of CJK scripts and baseline models; not a language the paper studies"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "the target L2 language; the paper trains, fine‑tunes, and evaluates English generation and proficiency"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "the L1 language; the paper pretrains on Japanese data and evaluates Japanese proficiency"
+    }
+  }
+}

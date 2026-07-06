@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.17354v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T18:13:10.495980+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11781,
+  "verdicts": {
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "Una appears only as the Spanish article 'una' in example sentences, not as the language name, so it is a false positive."
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa appears only as part of the Japanese particle 'ni‑wa' and not as a language name, so it is a false positive."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced in examples and discussion, but the dataset’s Chinese component is postponed, so the paper only mentions the language."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language for generated translations and is evaluated throughout the experiments, so the paper studies English."
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese sentences are used as source language and the paper evaluates translation strategies for Japanese, indicating it is studied."
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish sentences are a primary source language and the paper builds and evaluates a dataset for Spanish, indicating it is studied."
+    }
+  }
+}

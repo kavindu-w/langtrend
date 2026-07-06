@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.19626v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T17:28:22.286272+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8924,
+  "verdicts": {
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek refers to Greek letters in the character set, not the Greek language, so false positive"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin letters (alphabet) used for ordinals, not the Latin language, so false positive"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese refers to the Brazilian Portuguese language, which is the focus of the tokenization framework and evaluation, so studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language only as a comparison/mention, not as a target of study, so mentioned_only"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.17905v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T18:01:34.219302+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11824,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "\"Col\" appears in table labels such as \"Ch-Col\" to denote colloquial Chinese, not a distinct human language; false_positive"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "\"Pinyin\" is used to indicate the romanization of Chinese strings, not a separate language; false_positive"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "\"Chinese\" refers to the Chinese language, which is the primary focus of the benchmark and is used in data construction and model evaluation; studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "\"English\" refers to the English language, used as the reference side of the bilingual benchmark and evaluated in experiments; studied"
+    }
+  }
+}

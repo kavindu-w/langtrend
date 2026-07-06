@@ -1,0 +1,53 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.20770v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-06T17:36:46.780217+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 7551,
+  "verdicts": {
+    "Rom": {
+      "verdict": "false_positive",
+      "reason": "Rom appears as a column label representing the Roman script, not the Rom language"
+    },
+    "Sindhi": {
+      "verdict": "mentioned_only",
+      "reason": "Sindhi is listed among multiscript languages but no experiments or resources for Sindhi are presented"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "Swahili is cited as an example language in another benchmark (MaRVL) and not studied here"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is used to denote the Latin script (e.g., Roman transliteration) rather than the Latin language"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "Tamil is mentioned as a language represented in a prior benchmark, without any study or data for Tamil in this paper"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic appears only as part of the term Perso‑Arabic describing a script, not as the Arabic language itself"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced as an example of a logographic system (traditional/simplified) and not investigated"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is mentioned for comparison (e.g., low-resource vs Punjabi) but no Hindi-specific experiments are conducted"
+    },
+    "Punjabi": {
+      "verdict": "studied",
+      "reason": "Punjabi is the focus of the benchmark, with data, experiments, and analysis across its three scripts"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "Urdu is mentioned alongside Hindi as a related language for comparison, without dedicated experiments"
+    },
+    "Serbian": {
+      "verdict": "mentioned_only",
+      "reason": "Serbian is used as an example of a digraphic language (Cyrillic/Latin) and not directly studied"
+    }
+  }
+}
