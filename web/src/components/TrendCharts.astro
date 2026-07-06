@@ -142,7 +142,7 @@ const weeklySummaryCards = [
 ];
 
 const weeklyCoveragePieData = [
-  { label: 'Not flagged', value: Math.max(weeklyPapers - weeklyFlagged, 0), color: 'rgba(32, 22, 19, 0.16)' },
+  { label: 'Not detected', value: Math.max(weeklyPapers - weeklyFlagged, 0), color: 'rgba(32, 22, 19, 0.16)' },
   { label: 'Papers with detected languages', value: weeklyFlagged, color: '#0f6c5d' },
 ];
 const weeklyCoveragePie = buildPieSlices([...weeklyCoveragePieData].sort((left, right) => right.value - left.value), 228, 110, 66, -Math.PI / 2, 30);
@@ -632,7 +632,7 @@ const trendOverallUniqueLanguages = new Set(
   trendWeeks.flatMap((week) => (week.languageCounts || []).filter((item) => item.count > 0).map((item) => item.language)),
 ).size;
 const overallCoveragePieData = [
-  { label: 'Not flagged', value: Math.max(trendOverallPapers - trendOverallFlagged, 0), color: 'rgba(32, 22, 19, 0.16)' },
+  { label: 'Not detected', value: Math.max(trendOverallPapers - trendOverallFlagged, 0), color: 'rgba(32, 22, 19, 0.16)' },
   { label: 'Papers with detected languages', value: trendOverallFlagged, color: '#0f6c5d' },
 ];
 const overallCoveragePie = buildPieSlices([...overallCoveragePieData].sort((left, right) => right.value - left.value), 260, 130, 82, -Math.PI / 2, 36);
@@ -696,7 +696,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
                     y={110 + Math.sin(slice.midAngle) * 51 + 4}
                     text-anchor="middle"
                     class="chart-value"
-                    style={`fill:${slice.label === 'Not flagged' ? 'var(--text)' : '#fff'};font-size:0.5rem;font-weight:800`}
+                    style={`fill:${slice.label === 'Not detected' ? 'var(--text)' : '#fff'};font-size:0.5rem;font-weight:800`}
                   >
                     {coverageSlicePercent(slice.value, weeklyPapers)}
                   </text>
@@ -1274,7 +1274,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
                 y={130 + Math.sin(slice.midAngle) * 60 + 4}
                 text-anchor="middle"
                 class="chart-value"
-                style={`fill:${slice.label === 'Not flagged' ? 'var(--text)' : '#fff'};font-size:0.6rem;font-weight:800`}
+                style={`fill:${slice.label === 'Not detected' ? 'var(--text)' : '#fff'};font-size:0.6rem;font-weight:800`}
               >
                 {coverageSlicePercent(slice.value, trendOverallPapers)}
               </text>
@@ -1888,7 +1888,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         var cx = 228, cy = 110, r = 66, innerR = 36;
         var notFlagged = Math.max(papers - flaggedPapers, 0);
         var slices = buildPieSlices([
-          { label: 'Not flagged', value: notFlagged, color: 'rgba(32, 22, 19, 0.16)' },
+          { label: 'Not detected', value: notFlagged, color: 'rgba(32, 22, 19, 0.16)' },
           { label: 'Papers with detected languages', value: flaggedPapers, color: '#0f6c5d' },
         ].sort(function(left, right) { return right.value - left.value; }), cx, cy, r, -Math.PI / 2, 30);
 
@@ -1906,7 +1906,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             var labelAnchor = slice.side === 'right' ? 'start' : 'end';
             return '<g><path d="'+slice.path+'" fill="'+slice.color+'" stroke="white" stroke-width="1.5"></path>'+
               '<path d="'+slice.calloutPath+'" fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path>'+
-              '<text x="'+(cx + Math.cos(slice.midAngle) * 51)+'" y="'+(cy + Math.sin(slice.midAngle) * 51 + 4)+'" text-anchor="middle" class="chart-value" style="fill:'+(slice.label === 'Not flagged' ? 'var(--text)' : '#fff')+';font-size:0.5rem;font-weight:800">'+percent+'</text>'+
+              '<text x="'+(cx + Math.cos(slice.midAngle) * 51)+'" y="'+(cy + Math.sin(slice.midAngle) * 51 + 4)+'" text-anchor="middle" class="chart-value" style="fill:'+(slice.label === 'Not detected' ? 'var(--text)' : '#fff')+';font-size:0.5rem;font-weight:800">'+percent+'</text>'+
               '<text x="'+labelX+'" y="'+(slice.labelY + 4)+'" text-anchor="'+labelAnchor+'" class="chart-axis-label">'+coverageSliceLines(slice.label, slice.value).map(function(line, index) { return '<tspan x="'+labelX+'" dy="'+(index === 0 ? 0 : 14)+'">'+line+'</tspan>'; }).join('')+'</text>'+
               '</g>';
           }).join('') +
@@ -2134,7 +2134,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         }
 
         var coverageSlices = buildPieSlices([
-          { label: 'Not flagged', value: Math.max(totalPapersInPeriod - totalFlaggedInPeriod, 0), color: 'rgba(32, 22, 19, 0.16)' },
+          { label: 'Not detected', value: Math.max(totalPapersInPeriod - totalFlaggedInPeriod, 0), color: 'rgba(32, 22, 19, 0.16)' },
           { label: 'Papers with detected languages', value: totalFlaggedInPeriod, color: '#0f6c5d' },
         ].sort(function(left, right) { return right.value - left.value; }), 260, 130, 82, -Math.PI / 2, 36);
         var coverageSvg = '<g>' + coverageSlices.map(function(slice) {
@@ -2143,7 +2143,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           var percent = totalPapersInPeriod > 0 ? ((slice.value / totalPapersInPeriod) * 100).toFixed(1) + '%' : '0.0%';
           return '<g><path d="' + slice.path + '" fill="' + slice.color + '" stroke="white" stroke-width="1.5"></path>' +
             '<path d="' + slice.calloutPath + '" fill="none" stroke="var(--text)" stroke-dasharray="3 4" stroke-width="1"></path>' +
-            '<text x="' + (260 + Math.cos(slice.midAngle) * 60) + '" y="' + (130 + Math.sin(slice.midAngle) * 60 + 4) + '" text-anchor="middle" class="chart-value" style="fill:' + (slice.label === 'Not flagged' ? 'var(--text)' : '#fff') + ';font-size:0.6rem;font-weight:800">' + percent + '</text>' +
+            '<text x="' + (260 + Math.cos(slice.midAngle) * 60) + '" y="' + (130 + Math.sin(slice.midAngle) * 60 + 4) + '" text-anchor="middle" class="chart-value" style="fill:' + (slice.label === 'Not detected' ? 'var(--text)' : '#fff') + ';font-size:0.6rem;font-weight:800">' + percent + '</text>' +
             '<text x="' + labelX + '" y="' + (slice.labelY + 4) + '" text-anchor="' + anchor + '" class="chart-axis-label">' + coverageSliceLines(slice.label, slice.value).map(function(line, index) { return '<tspan x="' + labelX + '" dy="' + (index === 0 ? 0 : 14) + '">' + line + '</tspan>'; }).join('') + '</text></g>';
         }).join('') + '<circle cx="260" cy="130" r="44" fill="var(--panel)" stroke="var(--line)"></circle><text x="260" y="122" text-anchor="middle" class="chart-value"><tspan x="260" dy="0">' + totalPapersInPeriod + '</tspan><tspan x="260" dy="14" class="chart-axis-label">papers</tspan></text></g>';
         var coverageSvgEl = document.getElementById('period-coverage-pie');
