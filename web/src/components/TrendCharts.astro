@@ -150,7 +150,7 @@ const weeklyCoverageSources = [
   { label: 'HTML + Abstract', value: coverageStats?.htmlScanned ?? 0, color: '#ec008b' },
   { label: 'PDF + Abstract', value: coverageStats?.pdfOnly ?? 0, color: '#d94f2b' },
   { label: 'Abstract only', value: coverageStats?.abstractOnly ?? 0, color: '#7b6c64' },
-].sort((a, b) => b.value - a.value);
+].filter((item) => item.value > 0).sort((a, b) => b.value - a.value);
 const weeklyCoverageSourceTotal = Math.max(1, weeklyCoverageSources.reduce((sum, item) => sum + item.value, 0));
 const weeklyCoverageFlowHeight = 160;
 const weeklyCoverageFlowLeftX = 140;
@@ -1925,7 +1925,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           { label:'HTML + Abstract', value:cs.htmlScanned, color:'#ec008b' },
           { label:'PDF + Abstract', value:cs.pdfOnly, color:'#d94f2b' },
           { label:'Abstract only', value:cs.abstractOnly, color:'#7b6c64' }
-        ].sort(function(left, right) { return right.value - left.value; });
+        ].filter(function(item) { return item.value > 0; }).sort(function(left, right) { return right.value - left.value; });
         var totalValue = Math.max(1, items.reduce(function(sum, item) { return sum + item.value; }, 0));
         var flowHeight = 160;
         var leftX = 140;
