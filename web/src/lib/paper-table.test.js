@@ -4,12 +4,27 @@ import {
   buildWeekApiPaper,
   chipFromEntry,
   classFromEntry,
+  foldSearchText,
   formatDate,
   formatSectionTitle,
   normalizeLanguage,
   sourcesOfEntry,
   verdictsPresent,
 } from './paper-table.js';
+
+describe('foldSearchText', () => {
+  it('lowercases', () => {
+    expect(foldSearchText('Sinhala')).toBe('sinhala');
+  });
+
+  it('strips diacritics so an unaccented query matches an accented name', () => {
+    expect(foldSearchText('é')).toBe('e');
+  });
+
+  it('normalizes typographic apostrophes to a plain one', () => {
+    expect(foldSearchText('N’ko')).toBe("n'ko");
+  });
+});
 
 describe('normalizeLanguage', () => {
   it('returns string entries as-is', () => {
@@ -175,6 +190,24 @@ describe('buildPaperItem', () => {
     });
     expect(item.searchText).toBe('a study of sinhala and tamil alice bob');
     expect(item.arxivUrl).toBe('https://arxiv.org/abs/2501.00001');
+  });
+
+  it('folds diacritics out of author names in search text', () => {
+    const item = buildPaperItem(
+      {
+        paper: { ...paper, authors: ['é'] },
+        languages: [],
+        sourcesChecked: ['abstract'],
+        sections: [],
+        warnings: [],
+      },
+      0,
+      '2026-05-18',
+      {},
+      {},
+    );
+
+    expect(item.searchText).toContain('e');
   });
 
   it('has no coverage badge when the HTML source was scanned', () => {

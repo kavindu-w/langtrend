@@ -373,6 +373,8 @@ for (const it of paperItems) {
 </section>
 
 <script>
+  import { foldSearchText } from '../lib/paper-table.js';
+
   // ── State ────────────────────────────────────────────────────────────────────
 
   const root = document.getElementById('paper-table-root') as HTMLElement;
@@ -720,9 +722,9 @@ for (const it of paperItems) {
   // ── Language chip search ─────────────────────────────────────────────────────
 
   function filterLangChips(query: string) {
-    const q = query.trim().toLowerCase();
+    const q = foldSearchText(query.trim());
     langChips.forEach(chip => {
-      chip.hidden = q.length > 0 && !(chip.dataset.lang || '').toLowerCase().includes(q);
+      chip.hidden = q.length > 0 && !foldSearchText(chip.dataset.lang || '').includes(q);
     });
     let needsRefilter = false;
     for (const chip of langChips) {
@@ -799,7 +801,7 @@ for (const it of paperItems) {
 
   function applyFilters() {
     const activeWeekSet = new Set(getActiveWeekSlugs());
-    const searchTerm = searchInput?.value.trim().toLowerCase() ?? '';
+    const searchTerm = foldSearchText(searchInput?.value.trim() ?? '');
     const classFilter = getClassFilter();
     let visible = 0;
     let inScopeTotal = 0;

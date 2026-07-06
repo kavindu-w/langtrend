@@ -3,6 +3,18 @@ import { languageBorderClass, languageFillColor } from './language-colors.js';
 const SOURCE_LABEL = { abstract: 'Abstract', html: 'Full Text (HTML)', pdf: 'Full Text (PDF)' };
 const SOURCE_ORDER = ['abstract', 'html', 'pdf'];
 
+// Author and language names routinely carry diacritics or typographic
+// apostrophes (e.g. "é", "N'ko") that a user won't type on a
+// plain keyboard -- fold both sides of a search match through this so
+// an ASCII-only query still hits.
+export function foldSearchText(s) {
+  return s
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[‘’ʼ]/g, "'")
+    .toLowerCase();
+}
+
 export function normalizeLanguage(entry) {
   if (typeof entry === 'string') return entry;
   if (Array.isArray(entry)) return entry[0] ?? '';
@@ -133,7 +145,7 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
         : { label: 'Abstract only', title: 'HTML and PDF versions could not be extracted — analysis done with abstract only' })
     : null;
 
-  const searchText = `${paper.title} ${paper.authors.join(' ')}`.toLowerCase();
+  const searchText = foldSearchText(`${paper.title} ${paper.authors.join(' ')}`);
 
   const sourcesMap = new Map();
   for (const entry of chipLanguages) {
@@ -260,7 +272,7 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
     arxiv_url: paper.id ? paper.id.replace('http://', 'https://') : paper.pdf_url,
     published: paper.published ?? '',
     categories: paper.categories ?? [],
-    searchText: `${paper.title} ${paper.authors.join(' ')}`.toLowerCase(),
+    searchText: foldSearchText(`${paper.title} ${paper.authors.join(' ')}`),
     languages,
     languageNames,
     langCount: languageNames.length,
