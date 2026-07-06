@@ -669,9 +669,9 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <span>Unique languages studied{weeklyMentionedOnlyLanguages > 0 && ` — plus ${weeklyMentionedOnlyLanguages} more mentioned-only languages`}</span>
       </article>
       {judgeCounts && judgeCounts.judged_papers > 0 && (
-        <article class="stat-card-mini">
+        <article class="stat-card-mini stat-card-wide">
           <strong id="stat-judged-papers">{judgeCounts.judged_papers}</strong>
-          <span>LLM-verified papers — {judgeCounts.studied} studied · {judgeCounts.mentioned_only} mentioned-only · {judgeCounts.false_positive} excluded</span>
+          <span>Papers judged by an LLM — <b>{judgeCounts.studied}</b> language detections are studied · <b>{judgeCounts.mentioned_only}</b> are mentioned-only · <b>{judgeCounts.false_positive}</b> are false positives</span>
         </article>
       )}
     </div>
