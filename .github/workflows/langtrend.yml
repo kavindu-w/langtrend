@@ -705,7 +705,7 @@ jobs:
   deploy:
     needs:
       - judge-retry
-    if: always() && needs.judge-retry.result != 'cancelled' && needs.judge-retry.outputs.fully_judged == 'true'
+    if: always() && needs.judge-retry.result != 'cancelled' && (needs.judge-retry.outputs.fully_judged == 'true' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only))
     permissions:
       contents: read
       pages: write
