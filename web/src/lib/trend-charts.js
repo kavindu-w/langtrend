@@ -227,16 +227,16 @@ export function scrollableChartWidth(baseWidth, margins, periodCount, maxVisible
 }
 
 export function coverageSliceLines(label, value) {
-  if (label === 'Papers with language mentions') {
-    return ['Papers with', `language mentions (${value})`];
+  if (label === 'Papers with detected languages') {
+    return ['Papers with', `detected languages (${value})`];
   }
   return [`${label} (${value})`];
 }
 
 export function coverageSliceLinesWithPercent(label, value, total) {
   const percentLabel = total > 0 ? ` (${formatPercent(value, total)})` : '';
-  if (label === 'Papers with language mentions') {
-    return ['Papers with', `language mentions (${value})${percentLabel}`];
+  if (label === 'Papers with detected languages') {
+    return ['Papers with', `detected languages (${value})${percentLabel}`];
   }
   return [`${label} (${value})${percentLabel}`];
 }

@@ -137,13 +137,13 @@ type PieSlice = PieItem & {
 const weekLabel = formatWeekRange(weekSeries, manifest.week_start, manifest.week_end);
 const weeklySummaryCards = [
   { label: 'Total papers scanned', value: weeklyPapers },
-  { label: 'Papers with language mentions', value: weeklyFlagged },
+  { label: 'Papers with detected languages', value: weeklyFlagged },
   { label: 'Unique languages detected', value: weeklyUniqueLanguages },
 ];
 
 const weeklyCoveragePieData = [
   { label: 'Not flagged', value: Math.max(weeklyPapers - weeklyFlagged, 0), color: 'rgba(32, 22, 19, 0.16)' },
-  { label: 'Papers with language mentions', value: weeklyFlagged, color: '#0f6c5d' },
+  { label: 'Papers with detected languages', value: weeklyFlagged, color: '#0f6c5d' },
 ];
 const weeklyCoveragePie = buildPieSlices([...weeklyCoveragePieData].sort((left, right) => right.value - left.value), 228, 110, 66, -Math.PI / 2, 30);
 const weeklyCoverageSources = [
@@ -633,7 +633,7 @@ const trendOverallUniqueLanguages = new Set(
 ).size;
 const overallCoveragePieData = [
   { label: 'Not flagged', value: Math.max(trendOverallPapers - trendOverallFlagged, 0), color: 'rgba(32, 22, 19, 0.16)' },
-  { label: 'Papers with language mentions', value: trendOverallFlagged, color: '#0f6c5d' },
+  { label: 'Papers with detected languages', value: trendOverallFlagged, color: '#0f6c5d' },
 ];
 const overallCoveragePie = buildPieSlices([...overallCoveragePieData].sort((left, right) => right.value - left.value), 260, 130, 82, -Math.PI / 2, 36);
 const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
@@ -662,7 +662,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       </article>
       <article class="stat-card-mini">
         <strong id="stat-flagged-papers">{weeklyFlagged}</strong>
-        <span>Papers with language mentions</span>
+        <span>Papers with detected languages</span>
       </article>
       <article class="stat-card-mini">
         <strong id="stat-unique-langs">{weeklyUniqueLanguages}</strong>
@@ -682,10 +682,10 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           <div class="chart-subpanel-head">
             <div>
               <h3>Weekly coverage</h3>
-              <p>Papers scanned this week vs. papers with at least one language mention.</p>
+              <p>Papers scanned this week vs. papers with at least one detected language.</p>
             </div>
           </div>
-          <svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of weekly papers scanned versus papers with language mentions">
+          <svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of weekly papers scanned versus papers with detected languages">
             <g>
               {weeklyCoveragePie.map((slice) => (
                 <g>
@@ -720,10 +720,10 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           <div class="chart-subpanel-head">
             <div>
               <h3>Source breakdown</h3>
-              <p>How papers with language mentions were accessed — HTML full-text, PDF, or abstract only.</p>
+              <p>How papers with detected languages were accessed — HTML full-text, PDF, or abstract only.</p>
             </div>
           </div>
-          <svg class="chart-svg coverage-flow-svg" width="100%" height={weeklyCoverageFlowHeight} viewBox={`0 0 520 ${weeklyCoverageFlowHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Small sankey showing language mentions flowing into source types">
+          <svg class="chart-svg coverage-flow-svg" width="100%" height={weeklyCoverageFlowHeight} viewBox={`0 0 520 ${weeklyCoverageFlowHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Small sankey showing detected languages flowing into source types">
             <g>
               {weeklyCoverageFlowLinks.map((link) => (
                 <path d={link.path} fill={link.color} fill-opacity="0.22" stroke={link.color} stroke-opacity="0.45" stroke-width="0.6">
@@ -754,12 +754,12 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Daily submission activity</h3>
-            <p>Papers submitted each day of the week, split by whether they contained a language mention.</p>
+            <p>Papers submitted each day of the week, split by whether they contained a detected language.</p>
           </div>
         </div>
         <div class="chart-legend-inline" style="justify-content:center">
           <span><span class="coverage-dot abstract"></span>Other papers</span>
-          <span><span class="coverage-dot html"></span>Papers with language mentions</span>
+          <span><span class="coverage-dot html"></span>Papers with detected languages</span>
         </div>
         {weeklyDailySeries.length > 0 ? (
           <div class="chart-scroll" id="weekly-daily-chart">
@@ -1014,7 +1014,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             </svg>
           </div>
         ) : (
-          <p class="placeholder-text">Top languages will appear here once language mentions are available.</p>
+          <p class="placeholder-text">Top languages will appear here once detected languages are available.</p>
         )}
       </article>
 
@@ -1022,12 +1022,12 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Mention flow by language class</h3>
-            <p>Bands show how this week's language mentions flow from each class to up to its top 10 languages, with band width proportional to mention count.</p>
+            <p>Bands show how this week's detected languages flow from each class to up to its top 10 languages, with band width proportional to mention count.</p>
           </div>
         </div>
         {showSankey ? (
           <div class="chart-scroll sankey-scroll" style={`max-height:${sankeyVisibleHeight}px;overflow-y:auto;`}>
-            <svg class="chart-svg" style="height:auto" width="100%" viewBox={`0 0 ${sankeySvgWidth} ${sankeySvgHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Sankey diagram of language class to language mention flow">
+            <svg class="chart-svg" style="height:auto" width="100%" viewBox={`0 0 ${sankeySvgWidth} ${sankeySvgHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="Sankey diagram of language class to detected language flow">
               <g transform="translate(0 0)">
                 {sankeyPaths.map(link => (
                   <path d={link.d} fill={link.color} fill-opacity="0.3" stroke={link.color} stroke-width="0.5" stroke-opacity="0.4">
@@ -1078,7 +1078,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       </article>
       <article class="stat-card-mini">
         <strong id="period-stat-flagged">—</strong>
-        <span>Papers with language mentions</span>
+        <span>Papers with detected languages</span>
       </article>
       <article class="stat-card-mini">
         <strong id="period-stat-unique">—</strong>
@@ -1091,22 +1091,22 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Period coverage</h3>
-            <p>Papers scanned across the selected period vs. papers with at least one language mention.</p>
+            <p>Papers scanned across the selected period vs. papers with at least one detected language.</p>
           </div>
         </div>
-        <svg class="chart-svg coverage-pie-svg" width="100%" height="260" viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of selected period papers analyzed versus papers with language mentions" id="period-coverage-pie"></svg>
+        <svg class="chart-svg coverage-pie-svg" width="100%" height="260" viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of selected period papers analyzed versus papers with detected languages" id="period-coverage-pie"></svg>
       </div>
 
       <article class="chart-subpanel">
         <div class="chart-subpanel-head">
           <div>
             <h3>Period scan volume</h3>
-            <p>Total papers scanned in each week of the selected period, split by papers with and without language mentions.</p>
+            <p>Total papers scanned in each week of the selected period, split by papers with and without detected languages.</p>
           </div>
         </div>
         <div class="chart-legend-inline" style="justify-content:center">
           <span><span class="coverage-dot abstract"></span>Other papers</span>
-          <span><span class="coverage-dot html"></span>Papers with language mentions</span>
+          <span><span class="coverage-dot html"></span>Papers with detected languages</span>
         </div>
         <div class="chart-scroll trend-period-chart-scroll" id="period-scan-volume"></div>
       </article>
@@ -1117,7 +1117,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Resource class mix by week</h3>
-            <p>Proportional share of language mentions per resource-availability tier within the selected period.</p>
+            <p>Proportional share of detected languages per resource-availability tier within the selected period.</p>
           </div>
         </div>
         <div class="class-legend" id="period-class-legend"></div>
@@ -1182,7 +1182,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       </article>
       <article class="stat-card-mini">
         <strong>{trendOverallFlagged}</strong>
-        <span>Papers with language mentions</span>
+        <span>Papers with detected languages</span>
       </article>
       <article class="stat-card-mini">
         <strong>{overallCoverageUniqueText}</strong>
@@ -1260,10 +1260,10 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
             <div>
               <h3>Overall coverage</h3>
-              <p>Papers scanned all time vs. papers with at least one language mention.</p>
+              <p>Papers scanned all time vs. papers with at least one detected language.</p>
             </div>
           </div>
-      <svg class="chart-svg coverage-pie-svg" width="100%" height="260" viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of total papers analyzed versus papers with language mentions across all weeks">
+      <svg class="chart-svg coverage-pie-svg" width="100%" height="260" viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of total papers analyzed versus papers with detected languages across all weeks">
         <g>
           {overallCoveragePie.map((slice) => (
             <g>
@@ -1297,12 +1297,12 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             <div class="chart-subpanel-head">
               <div>
                 <h3>{trendGranularityLabel} scan volume</h3>
-                <p>Total papers scanned in each {trendGranularity} period, split by papers with and without language mentions.</p>
+                <p>Total papers scanned in each {trendGranularity} period, split by papers with and without detected languages.</p>
               </div>
             </div>
             <div class="chart-legend-inline" style="justify-content:center">
               <span><span class="coverage-dot abstract"></span>Other papers</span>
-              <span><span class="coverage-dot html"></span>Papers with language mentions</span>
+              <span><span class="coverage-dot html"></span>Papers with detected languages</span>
             </div>
             {trendPeriods.length > 0 ? (
               <div class="chart-scroll trend-period-chart-scroll">
@@ -1350,7 +1350,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             <div class="chart-subpanel-head">
               <div>
                 <h3>Resource class mix by {trendGranularity}</h3>
-                <p>Proportional share of language mentions per resource-availability tier each {trendGranularity}.</p>
+                <p>Proportional share of detected languages per resource-availability tier each {trendGranularity}.</p>
               </div>
             </div>
             <div class="class-legend">
@@ -1889,17 +1889,17 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         var notFlagged = Math.max(papers - flaggedPapers, 0);
         var slices = buildPieSlices([
           { label: 'Not flagged', value: notFlagged, color: 'rgba(32, 22, 19, 0.16)' },
-          { label: 'Papers with language mentions', value: flaggedPapers, color: '#0f6c5d' },
+          { label: 'Papers with detected languages', value: flaggedPapers, color: '#0f6c5d' },
         ].sort(function(left, right) { return right.value - left.value; }), cx, cy, r, -Math.PI / 2, 30);
 
         function coverageSliceLines(label, value) {
-          if (label === 'Papers with language mentions') {
-            return ['Papers with', 'language mentions ('+value+')'];
+          if (label === 'Papers with detected languages') {
+            return ['Papers with', 'detected languages ('+value+')'];
           }
           return [label+' ('+value+')'];
         }
 
-        existing.outerHTML = '<svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of weekly papers scanned versus papers with language mentions"><g>' +
+        existing.outerHTML = '<svg class="chart-svg coverage-pie-svg" width="100%" height="220" viewBox="0 0 460 220" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pie chart of weekly papers scanned versus papers with detected languages"><g>' +
           slices.map(function(slice) {
             var percent = papers > 0 ? ((slice.value / papers) * 100).toFixed(1) + '%' : '0.0%';
             var labelX = slice.labelX + (slice.side === 'right' ? 8 : -8);
@@ -1962,7 +1962,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         svg.setAttribute('height', String(flowHeight));
         svg.setAttribute('viewBox', '0 0 520 '+flowHeight);
         svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-        svg.setAttribute('aria-label', 'Small sankey showing language mentions flowing into source types');
+        svg.setAttribute('aria-label', 'Small sankey showing detected languages flowing into source types');
         svg.innerHTML = '<g>'+links.join('')+
           '<g><rect x="'+leftX+'" y="'+leftNodeY+'" width="'+nodeW+'" height="'+leftHeight+'" fill="#0f6c5d" rx="3"></rect><text x="'+(leftX - 8)+'" y="'+(leftNodeY + leftHeight / 2)+'" text-anchor="end" class="chart-axis-label" style="fill:var(--text);font-weight:700"><tspan x="'+(leftX - 8)+'" dy="-6">With languages</tspan><tspan x="'+(leftX - 8)+'" dy="13">('+totalValue+')</tspan></text></g>'+rects+'</g>';
       }
@@ -2127,15 +2127,15 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         });
 
         function coverageSliceLines(label, value) {
-          if (label === 'Papers with language mentions') {
-            return ['Papers with', 'language mentions (' + value + ')'];
+          if (label === 'Papers with detected languages') {
+            return ['Papers with', 'detected languages (' + value + ')'];
           }
           return [label + ' (' + value + ')'];
         }
 
         var coverageSlices = buildPieSlices([
           { label: 'Not flagged', value: Math.max(totalPapersInPeriod - totalFlaggedInPeriod, 0), color: 'rgba(32, 22, 19, 0.16)' },
-          { label: 'Papers with language mentions', value: totalFlaggedInPeriod, color: '#0f6c5d' },
+          { label: 'Papers with detected languages', value: totalFlaggedInPeriod, color: '#0f6c5d' },
         ].sort(function(left, right) { return right.value - left.value; }), 260, 130, 82, -Math.PI / 2, 36);
         var coverageSvg = '<g>' + coverageSlices.map(function(slice) {
           var labelX = slice.labelX + (slice.side === 'right' ? 8 : -8);

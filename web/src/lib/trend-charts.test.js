@@ -216,10 +216,10 @@ describe('scrollableChartWidth', () => {
 });
 
 describe('coverageSliceLines / coverageSliceLinesWithPercent', () => {
-  it('special-cases the "Papers with language mentions" label onto two lines', () => {
-    expect(coverageSliceLines('Papers with language mentions', 7)).toEqual([
+  it('special-cases the "Papers with detected languages" label onto two lines', () => {
+    expect(coverageSliceLines('Papers with detected languages', 7)).toEqual([
       'Papers with',
-      'language mentions (7)',
+      'detected languages (7)',
     ]);
   });
 
@@ -235,10 +235,10 @@ describe('coverageSliceLines / coverageSliceLinesWithPercent', () => {
     expect(coverageSliceLinesWithPercent('Not flagged', 1, 0)).toEqual(['Not flagged (1)']);
   });
 
-  it('special-cases "Papers with language mentions" with a percentage too', () => {
-    expect(coverageSliceLinesWithPercent('Papers with language mentions', 1, 4)).toEqual([
+  it('special-cases "Papers with detected languages" with a percentage too', () => {
+    expect(coverageSliceLinesWithPercent('Papers with detected languages', 1, 4)).toEqual([
       'Papers with',
-      'language mentions (1) (25.0%)',
+      'detected languages (1) (25.0%)',
     ]);
   });
 });
