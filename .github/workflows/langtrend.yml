@@ -54,7 +54,7 @@ concurrency:
 jobs:
   fetch-and-html:
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_dispatch' || !inputs.deploy_only
+    if: (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
     timeout-minutes: 350
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -176,7 +176,7 @@ jobs:
   fetch-and-html-2:
     needs:
       - fetch-and-html
-    if: always() && needs.fetch-and-html.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
+    if: always() && needs.fetch-and-html.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
@@ -254,7 +254,7 @@ jobs:
   pdf-retry:
     needs:
       - fetch-and-html-2
-    if: always() && needs.fetch-and-html-2.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
+    if: always() && needs.fetch-and-html-2.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
@@ -266,48 +266,6 @@ jobs:
         with:
           submodules: recursive
           ref: ${{ github.ref_name }}
-
-      # Bump version while the working tree is clean (no data files modified yet).
-      # Running this after PDF processing causes autostash conflicts on manifest files.
-      - name: Bump product version
-        if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
-
-          current_version=$(tr -d '[:space:]' < VERSION)
-          major=${current_version%%.*}
-          minor_patch=${current_version#*.}
-          minor=${minor_patch%%.*}
-          patch=${current_version##*.}
-
-          if [[ -z "$major" || -z "$minor" || -z "$patch" ]]; then
-            echo "VERSION must use semantic versioning like 0.1.0"
-            exit 1
-          fi
-
-          if echo "${{ github.event.head_commit.message }}" | grep -qF '[major]'; then
-            major=$((major + 1))
-            new_version="$major.0.0"
-          else
-            patch=$((patch + 1))
-            new_version="$major.$minor.$patch"
-          fi
-
-          printf '%s\n' "$new_version" > VERSION
-          git add VERSION
-          git commit -m "Bump version to $new_version"
-          git push origin HEAD:main || {
-            git pull --rebase origin main
-            git push origin HEAD:main
-          }
-
-          git tag "v$new_version"
-          git push origin "v$new_version"
-          gh release create "v$new_version" --title "v$new_version" --generate-notes
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -372,7 +330,7 @@ jobs:
   pdf-retry-2:
     needs:
       - pdf-retry
-    if: always() && needs.pdf-retry.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
+    if: always() && needs.pdf-retry.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
@@ -463,7 +421,7 @@ jobs:
   judge:
     needs:
       - pdf-retry-2
-    if: always() && needs.pdf-retry-2.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
+    if: always() && needs.pdf-retry-2.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
@@ -562,7 +520,7 @@ jobs:
   judge-retry:
     needs:
       - judge
-    if: always() && needs.judge.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only)
+    if: always() && needs.judge.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
@@ -661,14 +619,14 @@ jobs:
           }
 
 # ---------------------------------------------------------------------------
-# Job 7: build frontend + deploy to GitHub Pages (~variable, grows with data)
-# Fresh checkout sees all outputs committed by Jobs 1–6. Only runs when the
-# judge-retry job confirmed the current/latest week has zero pending papers —
-# older weeks may still have a backlog, cleared in the background by
-# judge-catchup.yml, which redeploys on its own once each week catches up.
+# Job: bump VERSION — every non-bot push (patch, or major with [major] in the
+# commit message), or a manual major_version_update dispatch. Standalone (no
+# needs) so deploy_only / [deploy-only] never skip it.
 # ---------------------------------------------------------------------------
   version-bump:
-    if: github.event_name == 'workflow_dispatch' && inputs.publish_site && inputs.major_version_update
+    if: |
+      (github.event_name == 'push' && github.actor != 'github-actions[bot]') ||
+      (github.event_name == 'workflow_dispatch' && inputs.publish_site && inputs.major_version_update)
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -676,7 +634,9 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
 
-      - name: Bump product version (major)
+      # Standalone job (no needs) so it always runs regardless of deploy_only /
+      # [deploy-only], which skip paper processing but should not skip this.
+      - name: Bump product version
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -695,8 +655,13 @@ jobs:
             exit 1
           fi
 
-          major=$((major + 1))
-          new_version="$major.0.0"
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] || echo "${{ github.event.head_commit.message }}" | grep -qF '[major]'; then
+            major=$((major + 1))
+            new_version="$major.0.0"
+          else
+            patch=$((patch + 1))
+            new_version="$major.$minor.$patch"
+          fi
 
           printf '%s\n' "$new_version" > VERSION
           git add VERSION
@@ -710,10 +675,18 @@ jobs:
           git push origin "v$new_version"
           gh release create "v$new_version" --title "v$new_version" --generate-notes
 
+# ---------------------------------------------------------------------------
+# Job 7: build frontend + deploy to GitHub Pages (~variable, grows with data)
+# Fresh checkout sees all outputs committed by Jobs 1–6. Runs when judge-retry
+# confirmed the current/latest week has zero pending papers, or when this run
+# skipped paper processing entirely (deploy_only / [deploy-only]) — older
+# weeks may still have a backlog, cleared in the background by
+# judge-catchup.yml, which redeploys on its own once each week catches up.
+# ---------------------------------------------------------------------------
   deploy:
     needs:
       - judge-retry
-    if: always() && needs.judge-retry.result != 'cancelled' && (needs.judge-retry.outputs.fully_judged == 'true' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only))
+    if: always() && needs.judge-retry.result != 'cancelled' && (needs.judge-retry.outputs.fully_judged == 'true' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]')))
     permissions:
       contents: read
       pages: write
