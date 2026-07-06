@@ -10,4 +10,4 @@ docs/
 
 | Path | Contents |
 |------|----------|
-| `diagrams/langtrend_pipeline.drawio` | Editable [draw.io](https://app.diagrams.net/) source for the pipeline diagram shown in the root README (`web/public/images/langtrend-pipeline.png`). Edit the `.drawio` file, then re-export the PNG to `web/public/images/langtrend-pipeline.png` when the pipeline changes. |
+| `diagrams/langtrend_pipeline.drawio` | Editable [draw.io](https://app.diagrams.net/) source for the pipeline diagram shown in the root README and the site's About page (`web/public/images/langtrend-pipeline.svg`). Edit the `.drawio` file, then run `scripts/export_pipeline_diagram.sh` to re-export the SVG when the pipeline changes. |

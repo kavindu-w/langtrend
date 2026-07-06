@@ -29,7 +29,8 @@ _NO_PDF_FLAG   = $(if $(NO_PDF),--no-pdf,)
 
 .PHONY: help setup fetch fetch-all fetch-oai process process-all reprocess reprocess-all \
         retry-missing retry-missing-all judge judge-all manifest manifest-all readme-stats \
-        pipeline pipeline-all web-install web-dev web-build dev build pipeline-diagram clean
+        pipeline pipeline-all test-paper test test-py test-web \
+        web-install web-dev web-build dev build pipeline-diagram clean
 
 help:
 	@echo "Single-week targets (controlled by END_DATE):"
@@ -44,6 +45,13 @@ help:
 	@echo "                          Use INPUT=<path.jsonl> to target a specific week"
 	@echo "  make readme-stats     Regenerate README badges/table + weekly_summary.csv"
 	@echo "  make pipeline         Run fetch + process + manifest in sequence"
+	@echo ""
+	@echo "Try it on your own paper:"
+	@echo "  make test-paper ARXIV_ID=1111.11111   Run one arXiv paper through the detection pipeline"
+	@echo "  make test-paper PDF_PATH=paper.pdf    ...or a PDF already on disk (not on arXiv), PDF-only detection"
+	@echo "                                          (writes to data/sandbox/, never touches weekly data)"
+	@echo "                                          Add JUDGE=1 to also run the LLM judge stage"
+	@echo "                                          (PDF_PATH also takes TITLE=\"...\" for the report)"
 	@echo ""
 	@echo "Multi-week targets (loop over DATES):"
 	@echo "  make fetch-all        fetch for each date in DATES"
@@ -61,7 +69,8 @@ help:
 	@echo ""
 	@echo "Other:"
 	@echo "  make setup            Install Python and Node dependencies"
-	@echo "  make pipeline-diagram Re-export the pipeline diagram PNG from the .drawio source"
+	@echo "  make test             Run the full test suite (pytest + vitest)"
+	@echo "  make pipeline-diagram Re-export the pipeline diagram SVG from the .drawio source"
 	@echo "                          (needs the drawio desktop CLI: brew install --cask drawio)"
 	@echo "  make clean            Remove build artefacts (web/dist)"
 	@echo ""
@@ -157,6 +166,23 @@ pipeline:
 		--workers $(WORKERS) \
 		$(_END_DATE_FLAG)
 
+# --- Try it on your own paper -------------------------------------------------
+
+# Pass --judge only when JUDGE=1 (needs LLM_JUDGE_API_KEY in .env)
+_JUDGE_FLAG = $(if $(JUDGE),--judge,)
+# Pass --title only when TITLE is set (only used with PDF_PATH)
+_TITLE_FLAG = $(if $(TITLE),--title "$(TITLE)",)
+
+test-paper:
+ifdef PDF_PATH
+	$(PYTHON) scripts/test_single_paper.py --pdf-path "$(PDF_PATH)" $(_TITLE_FLAG) $(_JUDGE_FLAG)
+else ifdef ARXIV_ID
+	$(PYTHON) scripts/test_single_paper.py --arxiv-id "$(ARXIV_ID)" $(_NO_PDF_FLAG) $(_JUDGE_FLAG)
+else
+	$(error Usage: make test-paper ARXIV_ID=1111.11111  (bare id, versioned id, or full arxiv.org URL) \
+	    or: make test-paper PDF_PATH=~/Downloads/some_paper.pdf  (a PDF already on disk, e.g. not on arXiv))
+endif
+
 # --- Multi-week targets (loop over DATES) ------------------------------------
 
 fetch-all:
@@ -238,12 +264,20 @@ dev: web-dev
 
 build: pipeline web-build
 
+# --- Tests --------------------------------------------------------------------
+
+test-py:
+	$(PYTHON) -m pytest tests/ -v
+
+test-web: web-install
+	cd web && npm test
+
+test: test-py test-web
+
 # --- Docs ---------------------------------------------------------------------
 
 pipeline-diagram:
-	drawio --export --format png --scale 4 \
-		-o web/public/images/langtrend-pipeline.png \
-		docs/diagrams/langtrend_pipeline.drawio
+	scripts/export_pipeline_diagram.sh
 
 # --- Housekeeping -----------------------------------------------------------
 
