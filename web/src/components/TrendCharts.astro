@@ -138,7 +138,7 @@ const weekLabel = formatWeekRange(weekSeries, manifest.week_start, manifest.week
 const weeklySummaryCards = [
   { label: 'Total papers scanned', value: weeklyPapers },
   { label: 'Papers with detected languages', value: weeklyFlagged },
-  { label: 'Unique languages detected', value: weeklyUniqueLanguages },
+  { label: 'Unique languages studied', value: weeklyUniqueLanguages },
 ];
 
 const weeklyCoveragePieData = [
@@ -220,6 +220,7 @@ const weeklyClassPieData = [...weeklyClassSeries]
 const weeklyClassPie = buildPieSlices(weeklyClassPieData, 228, 110, 66);
 
 const weeklyLanguageSeries = [...languageCounts]
+  .filter((item) => item.count > 0)
   .sort((left, right) => {
     const countDelta = right.count - left.count;
     return countDelta !== 0 ? countDelta : left.language.localeCompare(right.language);
@@ -520,7 +521,7 @@ const sankeyLanguages = [...languageCounts]
   .sort((left, right) => right.count - left.count || left.language.localeCompare(right.language))
   .slice(0, 10);
 const showSankey = sankeyLanguages.length >= 5;
-const sankeySvgWidth = 1120;
+const sankeySvgWidthMin = 1120;
 const sankeyNodeWidth = 18;
 const sankeyPad = 8;
 const sankeyGroupGap = 0;
@@ -602,6 +603,13 @@ for (const group of sankeyClassGroups) {
 }
 const sankeySvgHeight = sankeyCursor + 20;
 const sankeyRightNodes = sankeyClassGroups.flatMap((group) => group.languages);
+// Right-node labels (including the synthetic "N more languages not shown"
+// row) can be longer than the space the fixed-width viewBox assumed, which
+// clipped them at the SVG's own boundary regardless of container size —
+// widen the viewBox to fit the longest label rather than just the typical case.
+const sankeyLongestLabelChars = Math.max(0, ...sankeyRightNodes.map((node) => `${node.language} (${node.count})`.length));
+const sankeyRightLabelSpace = sankeyRightNodeX + sankeyNodeWidth + 8 + sankeyLongestLabelChars * 7.2 + 24;
+const sankeySvgWidth = Math.max(sankeySvgWidthMin, Math.ceil(sankeyRightLabelSpace));
 const sankeyVisibleClassCount = 3;
 const sankeyVisibleHeight = sankeyClassGroups[sankeyVisibleClassCount - 1]
   ? sankeyClassGroups[sankeyVisibleClassCount - 1].y + sankeyClassGroups[sankeyVisibleClassCount - 1].height + 20
@@ -642,6 +650,10 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
 <section class="stats-stack">
   <script type="application/json" id="all-weeks-meta" is:inline set:html={JSON.stringify(allWeeksData.map(w => ({ weekStart: w.weekStart, papers: w.papers, flaggedPapers: w.flaggedPapers, uniqueLanguages: w.uniqueLanguages, languageCounts: w.languageCounts, classCounts: w.classCounts, dailySeries: w.dailySeries, coverageStats: w.coverageStats })))}></script>
   <script type="application/json" id="lang-classes-meta" is:inline set:html={JSON.stringify(langClasses)}></script>
+  <div class="stats-glossary">
+    <span class="stats-glossary-icon" aria-hidden="true">ⓘ</span>
+    <p><strong>How these numbers are counted:</strong> a paper is <strong>flagged</strong> when the pipeline's regex detects a candidate language. Each flagged detection is then judged by an LLM as <strong>studied</strong> (real research use), <strong>mentioned-only</strong> (referenced in passing, not studied), or a <strong>false positive</strong> (not actually that language). <strong>Detected</strong> — used throughout this page — means studied + mentioned-only combined; false positives are always excluded.</p>
+  </div>
   <details id="weekly-trends-panel" class="panel chart-panel wide-panel" open>
     <summary class="paper-collapse-summary">
       <div>
@@ -662,7 +674,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       </article>
       <article class="stat-card-mini">
         <strong id="stat-flagged-papers">{weeklyFlagged}</strong>
-        <span>Papers with detected languages</span>
+        <span>Papers with detected languages (studied or mentioned-only)</span>
       </article>
       <article class="stat-card-mini">
         <strong id="stat-unique-langs">{weeklyUniqueLanguages}</strong>
@@ -671,7 +683,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       {judgeCounts && judgeCounts.judged_papers > 0 && (
         <article class="stat-card-mini stat-card-wide">
           <strong id="stat-judged-papers">{judgeCounts.judged_papers}</strong>
-          <span>Papers judged by an LLM — <b>{judgeCounts.studied}</b> language detections are studied · <b>{judgeCounts.mentioned_only}</b> are mentioned-only · <b>{judgeCounts.false_positive}</b> are false positives</span>
+          <span>Flagged papers judged by an LLM — <b>{judgeCounts.studied}</b> language detections are studied · <b>{judgeCounts.mentioned_only}</b> are mentioned-only · <b>{judgeCounts.false_positive}</b> are false positives</span>
         </article>
       )}
     </div>
@@ -720,10 +732,10 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           <div class="chart-subpanel-head">
             <div>
               <h3>Source breakdown</h3>
-              <p>How papers with detected languages were accessed — HTML full-text, PDF, or abstract only.</p>
+              <p>How flagged papers were accessed — HTML full-text, PDF, or abstract only.</p>
             </div>
           </div>
-          <svg class="chart-svg coverage-flow-svg" width="100%" height={weeklyCoverageFlowHeight} viewBox={`0 0 520 ${weeklyCoverageFlowHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Small sankey showing detected languages flowing into source types">
+          <svg class="chart-svg coverage-flow-svg" width="100%" height={weeklyCoverageFlowHeight} viewBox={`0 0 520 ${weeklyCoverageFlowHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Small sankey showing flagged papers flowing into source types">
             <g>
               {weeklyCoverageFlowLinks.map((link) => (
                 <path d={link.path} fill={link.color} fill-opacity="0.22" stroke={link.color} stroke-opacity="0.45" stroke-width="0.6">
@@ -733,7 +745,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
               <g>
                 <rect x={weeklyCoverageFlowLeftX} y={weeklyCoverageFlowLeftNodeY} width={weeklyCoverageFlowNodeWidth} height={weeklyCoverageFlowLeftHeight} fill="#0f6c5d" rx="3"></rect>
                 <text x={weeklyCoverageFlowLeftX - 8} y={weeklyCoverageFlowLeftNodeY + weeklyCoverageFlowLeftHeight / 2} text-anchor="end" class="chart-axis-label" style="fill:var(--text);font-weight:700">
-                  <tspan x={weeklyCoverageFlowLeftX - 8} dy="-6">With languages</tspan>
+                  <tspan x={weeklyCoverageFlowLeftX - 8} dy="-6">Flagged papers</tspan>
                   <tspan x={weeklyCoverageFlowLeftX - 8} dy="13">({weeklyCoverageSourceTotal})</tspan>
                 </text>
               </g>
@@ -813,7 +825,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Language class distribution</h3>
-            <p>Total language detections this week grouped by class type. Each language occurrence in a paper is counted — a paper mentioning multiple language classes contributes to each.</p>
+            <p>Languages studied this week grouped by class type. Each studied language occurrence in a paper is counted — a paper studying multiple language classes contributes to each.</p>
           </div>
         </div>
         <p class="chart-axis-label" style="text-align:center;margin-bottom:8px">Resource availability: Class 0 (lowest) to Class 5 (highest)</p>
@@ -841,7 +853,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Weekly rank comparison</h3>
-            <p>Top-10 languages this week vs. last week — each side ranked independently, lines connect matched languages.</p>
+            <p>Top 10 studied languages this week vs. last week, ranked by studied frequency (mentioned-only sightings excluded) — each side ranked independently, lines connect matched languages.</p>
           </div>
         </div>
         {hasPrevWeek && (mirrorPrevRows.length > 0 || mirrorCurrRows.length > 0) ? (
@@ -978,7 +990,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Full language frequency</h3>
-            <p>All languages by mention count this week.</p>
+            <p>Languages studied this week, ranked by frequency (excludes mentioned-only sightings).</p>
           </div>
         </div>
         {weeklyLanguageSeries.length > 0 ? (
@@ -1014,7 +1026,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             </svg>
           </div>
         ) : (
-          <p class="placeholder-text">Top languages will appear here once detected languages are available.</p>
+          <p class="placeholder-text">Top languages will appear here once studied languages are available.</p>
         )}
       </article>
 
@@ -1022,7 +1034,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Mention flow by language class</h3>
-            <p>Bands show how this week's detected languages flow from each class to up to its top 10 languages, with band width proportional to mention count.</p>
+            <p>Bands show how this week's studied languages flow from each class to up to its top 10 languages, with band width proportional to studied frequency (excludes mentioned-only sightings).</p>
           </div>
         </div>
         {showSankey ? (
@@ -1056,7 +1068,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             </svg>
           </div>
         ) : (
-          <p class="placeholder-text">Flow diagram will appear once at least 5 languages are detected.</p>
+          <p class="placeholder-text">Flow diagram will appear once at least 5 languages have been studied.</p>
         )}
       </article>
     </div>
@@ -1078,11 +1090,11 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       </article>
       <article class="stat-card-mini">
         <strong id="period-stat-flagged">—</strong>
-        <span>Papers with detected languages</span>
+        <span>Papers with detected languages (studied or mentioned-only)</span>
       </article>
       <article class="stat-card-mini">
         <strong id="period-stat-unique">—</strong>
-        <span>Unique languages detected</span>
+        <span>Unique languages studied</span>
       </article>
     </div>
 
@@ -1117,7 +1129,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Resource class mix by week</h3>
-            <p>Proportional share of detected languages per resource-availability tier within the selected period.</p>
+            <p>Proportional share of studied languages per resource-availability tier within the selected period.</p>
           </div>
         </div>
         <div class="class-legend" id="period-class-legend"></div>
@@ -1128,7 +1140,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Unique languages per week</h3>
-            <p>How many distinct languages were mentioned in each week of the selected period.</p>
+            <p>How many distinct languages were studied in each week of the selected period (mentioned-only sightings excluded).</p>
           </div>
         </div>
         <div class="chart-scroll trend-period-chart-scroll" id="period-unique-languages"></div>
@@ -1138,7 +1150,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Top-language trends</h3>
-            <p>Mention counts for the top 10 languages in the selected period, tracked across all weeks in the range.</p>
+            <p>Top 10 studied languages in the selected period, tracked across all weeks in the range (mentioned-only sightings excluded).</p>
           </div>
         </div>
         <div class="trend-line-layout" id="period-top-language-trends"></div>
@@ -1148,7 +1160,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Language rank trajectory</h3>
-            <p>Rank 1 = most mentions in that week. Tracks the languages that appear in each top 10 across the selected period.</p>
+            <p>Rank 1 = most studied that week (mentioned-only sightings excluded). Tracks the languages that appear in each top 10 across the selected period.</p>
           </div>
         </div>
         <div class="chart-scroll bump-chart-scroll" id="period-rank-trajectory"></div>
@@ -1158,7 +1170,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Top languages in period</h3>
-            <p>Most-mentioned languages across all weeks in the selected period.</p>
+            <p>Most-studied languages across all weeks in the selected period (mentioned-only sightings excluded).</p>
           </div>
         </div>
         <div id="period-langs-chart"></div>
@@ -1182,11 +1194,11 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       </article>
       <article class="stat-card-mini">
         <strong>{trendOverallFlagged}</strong>
-        <span>Papers with detected languages</span>
+        <span>Papers with detected languages (studied or mentioned-only)</span>
       </article>
       <article class="stat-card-mini">
         <strong>{overallCoverageUniqueText}</strong>
-        <span>Unique languages across weeks</span>
+        <span>Unique languages studied across weeks</span>
       </article>
     </div>
 
@@ -1350,7 +1362,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             <div class="chart-subpanel-head">
               <div>
                 <h3>Resource class mix by {trendGranularity}</h3>
-                <p>Proportional share of detected languages per resource-availability tier each {trendGranularity}.</p>
+                <p>Proportional share of studied languages per resource-availability tier each {trendGranularity}.</p>
               </div>
             </div>
             <div class="class-legend">
@@ -1392,7 +1404,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             <div class="chart-subpanel-head">
               <div>
                 <h3>Unique languages per {trendGranularity}</h3>
-                <p>How many distinct languages were mentioned in each {trendGranularity} period — a measure of breadth.</p>
+                <p>How many distinct languages were studied in each {trendGranularity} period — a measure of breadth (mentioned-only sightings excluded).</p>
               </div>
             </div>
             {trendPeriods.length > 0 ? (
@@ -1437,7 +1449,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             <div class="chart-subpanel-head">
               <div>
                 <h3>Top-language trends</h3>
-                <p>Mention counts for the top 10 languages in the selected {trendGranularity} view, tracked across all available periods.</p>
+                <p>Top 10 studied languages in the selected {trendGranularity} view, tracked across all available periods (mentioned-only sightings excluded).</p>
               </div>
             </div>
             {trendPeriods.length > 0 && topTrendLanguages.length > 0 ? (
@@ -1494,7 +1506,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             <div class="chart-subpanel-head">
               <div>
                 <h3>Language rank trajectory</h3>
-                <p>Rank 1 = most mentions in that period. Tracks the languages that appear in each top 10 across the selected {trendGranularity} view.</p>
+                <p>Rank 1 = most studied that period (mentioned-only sightings excluded). Tracks the languages that appear in each top 10 across the selected {trendGranularity} view.</p>
               </div>
             </div>
             {trendPeriods.length >= 2 && bumpSeriesData.length > 0 ? (
@@ -1964,7 +1976,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
         svg.setAttribute('aria-label', 'Small sankey showing detected languages flowing into source types');
         svg.innerHTML = '<g>'+links.join('')+
-          '<g><rect x="'+leftX+'" y="'+leftNodeY+'" width="'+nodeW+'" height="'+leftHeight+'" fill="#0f6c5d" rx="3"></rect><text x="'+(leftX - 8)+'" y="'+(leftNodeY + leftHeight / 2)+'" text-anchor="end" class="chart-axis-label" style="fill:var(--text);font-weight:700"><tspan x="'+(leftX - 8)+'" dy="-6">With languages</tspan><tspan x="'+(leftX - 8)+'" dy="13">('+totalValue+')</tspan></text></g>'+rects+'</g>';
+          '<g><rect x="'+leftX+'" y="'+leftNodeY+'" width="'+nodeW+'" height="'+leftHeight+'" fill="#0f6c5d" rx="3"></rect><text x="'+(leftX - 8)+'" y="'+(leftNodeY + leftHeight / 2)+'" text-anchor="end" class="chart-axis-label" style="fill:var(--text);font-weight:700"><tspan x="'+(leftX - 8)+'" dy="-6">Flagged papers</tspan><tspan x="'+(leftX - 8)+'" dy="13">('+totalValue+')</tspan></text></g>'+rects+'</g>';
       }
 
       function renderDailyChart(dailySeries) {
@@ -2028,7 +2040,8 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
 
       function renderLangFreqChart(languageCounts) {
         var container = document.getElementById('weekly-lang-freq');
-        if (!container || !languageCounts || !languageCounts.length) return;
+        languageCounts = (languageCounts || []).filter(function(item) { return item.count > 0; });
+        if (!container || !languageCounts.length) return;
         var rowH = 28, margin = { top: 18, right: 24, bottom: 20, left: 210 };
         var width = 920;
         var innerW = width - margin.left - margin.right;
@@ -2198,7 +2211,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           var classInnerH = classHeight - classMargin.top - classMargin.bottom;
           var classScale = classInnerW / periods.length;
           var classRows = periods.map(function(period) {
-            var classMap = new Map(period.classCounts.map(function(item) { return [item.class_id, item.count]; }));
+            var classMap = new Map(period.classCounts.map(function(item) { return [item.class_id, item.studied ?? item.count]; }));
             var total = Math.max(1, CLASS_LABELS_JS.reduce(function(sum, _label, classId) { return sum + (classMap.get(classId) || 0); }, 0));
             var offset = 0;
             return CLASS_LABELS_JS.map(function(label, classId) {
