@@ -127,11 +127,30 @@ for (const row of classRows) {
           Language detection is based on explicit mentions in titles, abstracts,
           section text, and cleaned PDF body text, so indirect references (e.g.,
           citing a multilingual dataset without naming the languages) can be
-          missed. Furthermore, the pipeline may produce false positives (shorter
-          language names in particular can appear as acronyms, author names, or
-          technical terms). While text cleaning and acronym filtering are
-          applied to reduce these, users should always verify flagged languages
-          directly in the paper.
+          missed. Furthermore, the regex pass may produce false positives
+          (shorter language names in particular can appear as acronyms, author
+          names, or technical terms). Text cleaning and acronym filtering
+          reduce these, but don't eliminate them entirely.
+        </li>
+
+        <li>
+          Detected languages are also checked by an LLM judge, which classifies
+          each one as studied, mentioned-only, or a false positive with a
+          one-line reason. The judge is not infallible — like any LLM, it can
+          hallucinate a plausible-sounding reason, misread context, or judge
+          near-identical cases inconsistently across different papers, and it
+          only sees a bounded context (the title, abstract, and snippets around
+          each match) rather than the full paper. Every verdict is shown with
+          its reason so it can be checked against the source paper, and nothing
+          it flags is ever deleted — a judged false positive or mentioned-only
+          detection stays visible, just excluded from (or dimmed in) the counts.
+        </li>
+
+        <li>
+          LLM verification is being rolled out gradually: the most recently
+          processed week is judged first, and older weeks are backfilled in the
+          background over time. Until a week has been judged, its detected
+          languages are counted as provisionally studied.
         </li>
 
         <li>
