@@ -692,9 +692,11 @@ def _needs_retry(
 ) -> bool:
     """Decide whether a paper needs another --retry-missing pass.
 
-    See the three checks below: never processed, crash leftovers (cache exists
-    but the detection entry never recorded it), and incomplete HTML that a raw
-    PDF might do better on.
+    See the checks below: never processed, crash leftovers (cache exists but
+    the detection entry never recorded it), incomplete HTML that a raw PDF
+    might do better on, and HTML that was never cached at all (a transient
+    failure — 429/5xx/timeout/connection error — deliberately leaves no cache
+    file, see fetch_arxiv_html) even though PDF already succeeded.
     """
     pid = p["id"]
     safe_id = pid.split("/")[-1]
@@ -704,11 +706,16 @@ def _needs_retry(
         nd_sources = no_det_sources.get(pid)
         if nd_sources is None:
             return True  # never processed at all
-        # Paper confirmed no detections — skip if html or pdf was
-        # already tried (the paper genuinely has no programming
-        # languages; retrying with PDF would just add noise).
-        if "html" in nd_sources or "pdf" in nd_sources:
+        # Paper confirmed no detections — skip if html actually succeeded
+        # (found nothing, trust it) or pdf succeeded AND html got a real
+        # cached attempt (confirmed 404, or a partial download not worth
+        # retrying again). Same gap as the detected-paper branch below: pdf
+        # succeeding alone doesn't mean html was ever actually attempted —
+        # a transient failure leaves no cache file at all (fetch_arxiv_html).
+        if "html" in nd_sources:
             return False
+        if "pdf" in nd_sources:
+            return safe_id not in cached_html_ids
         return True  # abstract-only → worth retrying with html/pdf
 
     # Paper has detections — check for crash leftovers / incomplete sources.
@@ -722,15 +729,23 @@ def _needs_retry(
     if safe_id not in cached_html_ids and safe_id not in cached_pdf_ids:
         if "html" not in sources and "pdf" not in sources:
             return True
-    # HTML cache exists but is incomplete (_complete=False) and detection is
-    # abstract-only — the HTML fetch failed so a raw PDF may provide better coverage.
+    # HTML cache exists but is incomplete (_complete=False) — a stalled/partial
+    # download that's worth retrying, UNLESS it's the permanent "_unavailable"
+    # (confirmed 404) sentinel, which retrying would just waste a request on.
     if safe_id in cached_html_ids and "html" not in sources:
         try:
             cached = json.loads((html_cache_dir / f"{safe_id}.json").read_text(encoding="utf-8"))
-            if not cached.get("_complete", True):
+            if not cached.get("_complete", True) and not cached.get("_unavailable"):
                 return True
         except Exception:
             pass
+        return False
+    # No HTML cache file at all, but PDF already succeeded — the HTML fetch
+    # never got far enough to write anything (a transient failure before or
+    # during the download, see fetch_arxiv_html), so it's never been given a
+    # real shot. Worth retrying since HTML is the richer source when it works.
+    if safe_id not in cached_html_ids and "html" not in sources and "pdf" in sources:
+        return True
     return False
 
 

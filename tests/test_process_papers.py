@@ -499,6 +499,21 @@ def test_needs_retry_true_when_no_detections_was_abstract_only():
     assert pp._needs_retry(paper, {}, no_det_sources, set(), set(), Path("/nonexistent")) is True
 
 
+def test_needs_retry_true_when_no_detections_pdf_only_and_no_html_cache():
+    # Same gap as the detected-paper branch: a "no detections" verdict from
+    # pdf alone doesn't mean html ever got a real attempt — a transient
+    # failure leaves no cache file at all.
+    paper = {"id": "1"}
+    no_det_sources = {"1": ["abstract", "pdf"]}
+    assert pp._needs_retry(paper, {}, no_det_sources, set(), set(), Path("/nonexistent")) is True
+
+
+def test_needs_retry_false_when_no_detections_pdf_only_but_html_cache_exists():
+    paper = {"id": "1"}
+    no_det_sources = {"1": ["abstract", "pdf"]}
+    assert pp._needs_retry(paper, {}, no_det_sources, {"1"}, set(), Path("/nonexistent")) is False
+
+
 def test_needs_retry_true_when_pdf_cache_exists_but_detection_never_recorded_it():
     # Looks like a crash mid-run: pdf_cache/<id>.json exists, but the detected
     # record's sources_checked never got "pdf" (or "html") added.
@@ -539,3 +554,21 @@ def test_needs_retry_false_when_html_already_recorded():
     paper = {"id": "1"}
     detected_sources = {"1": ["abstract", "html"]}
     assert pp._needs_retry(paper, detected_sources, {}, {"1"}, {"1"}, Path("/nonexistent")) is False
+
+
+def test_needs_retry_false_for_confirmed_404_unavailable_sentinel(tmp_path):
+    # _unavailable is a permanent "arXiv has no HTML for this paper" marker —
+    # retrying would just waste a request re-confirming the same 404.
+    (tmp_path / "1.json").write_text(json.dumps({"_complete": False, "_unavailable": True}), encoding="utf-8")
+    paper = {"id": "1"}
+    detected_sources = {"1": ["abstract", "pdf"]}
+    assert pp._needs_retry(paper, detected_sources, {}, {"1"}, {"1"}, tmp_path) is False
+
+
+def test_needs_retry_true_when_pdf_succeeded_but_html_never_cached():
+    # A transient failure (429/5xx/timeout) deliberately leaves no HTML cache
+    # file at all (see fetch_arxiv_html) — PDF succeeding as a fallback
+    # shouldn't permanently block HTML from ever getting a real retry.
+    paper = {"id": "1"}
+    detected_sources = {"1": ["abstract", "pdf"]}
+    assert pp._needs_retry(paper, detected_sources, {}, set(), {"1"}, Path("/nonexistent")) is True
