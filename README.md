@@ -16,14 +16,14 @@ Live site: [kavindu-w.github.io/langtrend](https://kavindu-w.github.io/langtrend
 
 ## Latest Run Summary
 
-_Latest processed week: **2026-06-22 – 2026-06-29**._
+_Latest processed week: **2026-06-29 – 2026-07-06**._
 
 | Metric | This week | All-time |
 |--------|----------:|---------:|
-| Papers scanned | 475 | 5,400 |
-| Papers with language mentions | 217 | 3,272 |
-| Unique languages detected | 85 | 806 |
-| Weeks tracked | — | 9 (since 2026-04-27) |
+| Papers scanned | 440 | 5,840 |
+| Papers with language mentions | 276 | 3,548 |
+| Unique languages detected | 262 | 827 |
+| Weeks tracked | — | 10 (since 2026-04-27) |
 
 <!-- LANGTREND_STATS_END -->
 
