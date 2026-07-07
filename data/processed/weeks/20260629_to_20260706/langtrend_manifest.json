@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-07T16:10:05.535924+00:00",
+  "generated_at": "2026-07-07T16:15:41.983097+00:00",
   "window_days": 7,
   "week_start": "2026-06-29",
   "week_end": "2026-07-06",
@@ -13720,51 +13720,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2607.03681v1",
-        "title": "Annotating Korean adnominal ending constructions in corpus data: Beyond relative-clause identification",
-        "abstract": "The Korean adnominal ending \\texttt{ETM} occurs in diverse noun-modifying constructions, including relative-clause-like modifiers, adjectival and copular forms, bound-noun constructions, and lexicalized expressions. This paper argues that \\texttt{ETM} is not a direct marker of relative-clause structure, but a morphological exponent shared by several adnominal constructions. We propose a corpus-based typology that distinguishes these constructions using predicate type, auxiliary structure, argument-structural compatibility, head-noun restriction, and lexicalized patterns. We operationalize the typology as a construction-sensitive annotation layer for the KLUE dependency treebank, implemented through an ordered rule-based procedure and evaluated by manual validation. Productive relative-clause-like uses account for 39.4\\% of the analyzed instances; the remainder consists mainly of adjectival, copular, bound-nominal, modal, temporal, and collocational constructions. The findings show that Korean relative-clause-like modification cannot be identified from adnominal morphology alone.",
-        "authors": [
-          "Jungyeul Park",
-          "Chulwoo Park"
-        ],
-        "published": "2026-07-04T03:21:50Z",
-        "updated": "2026-07-04T03:21:50Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2607.03681v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Korean",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Korean",
-              "class": 4
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2607.04302v1",
         "title": "HiFA4: Training-Free 4-bit FlashAttention on Ascend HIF4 NPUs for LLM Inference",
         "abstract": "We present HiFA4, a post-training operator-level design that executes both QK^T and PV in FlashAttention as 4-bit HIF4 Cube GEMMs for LLM inference on Ascend NPUs, while maintaining the online softmax state in FP16. To our knowledge, HiFA4 is the first Ascend-HIF4-targeted design of this kind evaluated on standard NLP benchmarks.\n  HiFA4 combines two mechanisms. Smooth-QK applies a calibration-static per-channel equivalent rescaling to Q and K after RoPE, transferring quantization difficulty from K to Q without per-tile online reduction at inference. P-Reordering accumulates the softmax normalizer from the same quantized attention weights P_hat used in the PV GEMM, rather than from a higher-precision reconstruction. We show that this inconsistent formulation introduces a coherent output-scaling error, and validate the effect on a Qwen3-8B Layer-0 MMLU trace, where all 3.6M measured attention tiles exhibit net probability-mass loss with median epsilon_bar = -0.064. P-Reordering also allows the normalizer to be fused into the PV Cube GEMM.\n  Across five LLMs, HiFA4 reduces quantization-induced decision drift. On Qwen3-8B, it recovers 37.5% of the accuracy gap introduced by direct HIF4 quantization, narrows the sample-weighted accuracy loss from 1.12 pp to 0.70 pp, reduces BF16-inconsistent MMLU predictions from 16.3% to 8.2%, and cuts MMLU accuracy regressions by 57% (1071 to 465). On Gemma2-9B, mild smoothing keeps HiFA4 within 0.7 pp of BF16 while reducing MMLU regressions by 27%. On LLaMA3.1-8B, Mistral-7B, and Phi-4B, where Smooth-QK is disabled, P-Reordering with the adopted Q-Mean auxiliary still reduces full-set MMLU regressions by 41-52%. A preliminary instruction-scheduling analysis projects a 35.4% critical-path latency reduction relative to BF16 by fusing the softmax normalizer into the PV Cube GEMM; on-hardware validation is left to future work.",
@@ -13892,54 +13847,6 @@
               "class": 1,
               "needs_review": true,
               "flag_reason": "Picard = text-to-SQL semantic parsing model (ICLR 2022) — common in NL-to-SQL papers"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2607.03540v1",
-        "title": "Mental Health Disorder Detection Beyond Social Media: A Systematic Review of Available Datasets",
-        "abstract": "Detecting mental health disorders in a timely manner is an important societal challenge. NLP and machine learning (ML) methods used to assist with detection rely on data collected primarily from social media. However, such datasets often have sampling biases and inherent ethical and privacy issues. One avenue to overcome these limitations is non-social media data. We present the first comprehensive review of non-social media, free-text datasets for mental health research. We use the PRISMA methodology to conduct our survey and we review datasets available in multiple languages. We find that non-social media free-text based datasets are predominantly focused on English and on detecting depression. These datasets also vary in demographics, platforms, data types, annotation techniques, and methodologies. This systematic review also reveals key gaps and highlights opportunities to develop more diverse, reliable and clinically-relevant resources.",
-        "authors": [
-          "Sadiya Sayara Chowdhury Puspo",
-          "Ana-Maria Bucur",
-          "Stevie Chancellor",
-          "Özlem Uzuner",
-          "Marcos Zampieri"
-        ],
-        "published": "2026-07-03T18:00:17Z",
-        "updated": "2026-07-03T18:00:17Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2607.03540v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
-              "class": 5
             }
           ]
         }
@@ -16184,63 +16091,6 @@
             {
               "language": "Nii",
               "class": 0
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2607.03160v1",
-        "title": "The Role of Prompt Language and Translation-Theory-Driven Prompts in Large Language Models: A Case Study on Spanish-Chinese Journalistic Translation",
-        "abstract": "This study examines how prompt language and translation theory-driven prompt design influence the quality of Spanish-Chinese journalistic translations generated by GPT-5.2. A parallel corpus of four editorials from El Pais was translated under 48 experimental conditions (4 prompt types, 3 prompt languages, and 4 articles). Translation quality was assessed using BLEU and BERTScore-F1 for automated evaluation, alongside human evaluation based on the Multidimensional Quality Metrics (MQM) framework. Automated metrics identified the baseline prompt (BASE) as the best-performing condition, whereas human evaluation ranked the brief-oriented prompt (BRIEF) highest (MQM: 8.66 vs. 7.84), a reversal likely attributable to the single-reference constraint inherent in automated measures. Sub-error type analysis revealed that translation theory-driven prompts selectively reduced Awkward style errors, while Unidiomatic style errors persisted across conditions. Prompt language had a negligible impact under both evaluation paradigms. These results indicate that translation theory-driven prompts can yield measurable quality gains under expert evaluation of journalistic translations, although their pedagogical implications for language learners remain suggestive and require validation through user-based studies.",
-        "authors": [
-          "Haohong Lai",
-          "Weijia Li"
-        ],
-        "published": "2026-07-03T09:59:36Z",
-        "updated": "2026-07-03T09:59:36Z",
-        "categories": [
-          "cs.CL",
-          "cs.AI"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2607.03160v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Spanish",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Chinese",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Spanish",
-              "class": 5
-            },
-            {
-              "language": "Chinese",
-              "class": 5
             }
           ]
         }
@@ -38155,50 +38005,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2607.00970v3",
-        "title": "Svarna: An Open Corpus Workbench for Modern Greek",
-        "abstract": "This paper introduces Svarna, a free, open-source, web-based corpus workbench for modern Greek. Svarna integrates five databases covering various registers, institutional, literary, dialectal, social media, and historical, to provide a total of more than 507 million words and around 29 million sentences. This platform addresses the chronic gaps in Greek language technology. Although various corpus resources exist, they are scattered across different platforms, and in many cases, institutional access is restricted or they are no longer available online. Svarna integrates these resources into a single interface that can be used without logging in, installation, or specialized training. This system provides a concordancer with KWIC marking capabilities, frequency analysis including register-by-register normalization, collocation extraction using mutual information, a dictionary of 93 Greek discourse markers providing distribution profiles, text-level analysis tools including n-grams, variants, and collocation networks, register comparison using log-ratio, regular expression search, and an optional LLM layer for pragmatic annotation and free research mode. This platform is built upon SQLite FTS5 full-text indexes provided via a FastAPI backend, deployed as Docker containers on Azure, and released under the MIT license. Source code, build scripts, and deployment configurations are publicly available on GitHub. Users can add their own corpora and deploy their own instances. This document describes the system design, corpus structure, and use cases demonstrating the various queries supported by the platform. Svarna serves as the first step in exploring available data and is expected to lay the foundation for more comprehensive research in the future.",
-        "authors": [
-          "Stergios Chatzikyriakidis"
-        ],
-        "published": "2026-07-01T14:05:02Z",
-        "updated": "2026-07-03T15:11:01Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2607.00970v3",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Greek",
-          "class": 3,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Greek",
-              "class": 3
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2607.01233v1",
         "title": "Measuring the Gap Between Human and LLM Research Ideas",
         "abstract": "LLMs are increasingly used to brainstorm research ideas, but existing evaluations mostly judge individual ideas by novelty, feasibility, or expert preference. We instead ask: how far are current LLM-generated ideas from human researchers? To characterize this gap, we build a large-scale evaluation framework for ideation from high-quality human research papers. For each paper, we reverse-engineer a small set of closely related prior works that likely inspired its core idea. LLMs are then prompted to generate a new idea from the set of paper titles and summaries. We introduce a two-axis research-taste taxonomy to profile each idea by its opportunity pattern and research paradigm, and use it to quantify the divergence between human and LLM ideas. Across idea sets generated by different LLMs, we observe a consistent distributional gap: LLM ideas are disproportionately concentrated around bridge-like opportunities and synthesis methods, whereas the human paper reference distribution spreads more broadly across ways of framing gaps and constructing contributions. This result suggests that strong LLMs can produce a range of reasonable ideas, but that range remains narrower than, and systematically shifted relative to, human research taste.",
@@ -40130,58 +39936,6 @@
               "class": 0,
               "needs_review": true,
               "flag_reason": "Fur is a Nilo-Saharan language, but can also matches with 'hair' or matches 'further', 'furniture', etc."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2607.00724v2",
-        "title": "MSQA: A Natively Sourced Multilingual and Multicultural SimpleQA Benchmark",
-        "abstract": "Multilingual fluency often invites a stronger assumption: a model that can speak a user's language must also understand the culture encoded by that language. We call this the Illusion of Cultural Alignment. To test this assumption directly, we introduce MSQA, a benchmark of 1,064 natively sourced questions across 11 language groups, five cultural dimensions, and three difficulty tiers. Unlike translated benchmarks, MSQA targets locally grounded knowledge and reduces shortcuts from English-centric cross-lingual transfer. Evaluating 18 LLMs, we find substantial cultural degradation and a pronounced Locality Effect: cultural competence tracks pre-training exposure more closely than general reasoning ability. We further show that common inference-time remedies do not dissolve the illusion. Models remain overconfident on unfamiliar cultural questions, repeated sampling yields unstable rather than reliable correctness, and retrieval augmentation helps unevenly on long-tail facts. These findings indicate that cultural alignment cannot be inferred from multilingual ability alone and requires deeper intervention than calibration, sampling, or retrieval at inference time",
-        "authors": [
-          "Xianru Chen",
-          "Yukai Huang",
-          "Mingxiang Chen",
-          "Xinping Lei",
-          "Fangbing Deng",
-          "Jin Chen",
-          "Ge Zhang",
-          "Wenhao Huang",
-          "Jiaheng Liu"
-        ],
-        "published": "2026-07-01T10:12:03Z",
-        "updated": "2026-07-02T08:49:19Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2607.00724v2",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
-              "class": 5
             }
           ]
         }
@@ -45234,55 +44988,6 @@
               "class": 0,
               "needs_review": true,
               "flag_reason": "English word 'sake' in 'for the sake of' — common academic phrase, not a language"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2607.00171v1",
-        "title": "ALEE: Any-Language Evaluation of Embeddings via English-Centric Minimal Pairs",
-        "abstract": "Text embeddings are standard for semantic similarity tasks, yet their evaluation remains an open challenge. Current benchmarks are static, cover only a limited set of languages, are often domain-specific, susceptible to overfitting, and poorly representative of low-resource languages. To address these limitations, we introduce ALEE, a framework that extends Sentence Smith (Li et al., 2025) to the cross-lingual and paragraph level. ALEE uses Abstract Meaning Representations (AMR) to generate English minimal pairs with controlled, fine-grained semantic shifts, which are paired with translations in target languages. This approach enables targeted diagnostics for models in any language with English parallel data. We conduct a large-scale empirical study across a diverse set of embedding models and 275+ languages spanning three parallel datasets. On ALEE, performance varies substantially across languages, text lengths, and linguistic phenomena, exposing persistent gaps in cross-lingual semantic representation that track language prevalence in training resources and subword tokenization. We release ALEE at https://github.com/Andrian0s/any-lang-embed-eval",
-        "authors": [
-          "Andrianos Michail",
-          "Stylianos Psychias",
-          "Michelle Wastl",
-          "Simon Clematide",
-          "Rico Sennrich",
-          "Juri Opitz"
-        ],
-        "published": "2026-06-30T20:45:17Z",
-        "updated": "2026-06-30T20:45:17Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2607.00171v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "English",
-              "class": 5
             }
           ]
         }
@@ -57665,84 +57370,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.30259v1",
-        "title": "Multi-Agentic System Leveraging Open-Source LLMs to Mitigate Disinformation Threats",
-        "abstract": "In contemporary societies, the threat of disinformation has reached alarming levels, exacerbated by the proliferation of electronic communication, social media, and advancements in artificial intelligence. As a result, there is an urgent need to develop effective countermeasures to mitigate this menace. However, the sheer scale of the problem renders manual fact-checking and human-based verification inadequate, underscoring the necessity for automated methods to detect and debunk disinformation. This article proposes a novel approach based on a multi-agent system that emulates the decision-making processes of human annotators engaged in disinformation detection tasks. By incorporating a consensus mechanism, diversity in cognition and diversity in knowledge, and also hierarchical structure, inspired by human annotators' behavior, the proposed method achieves superior results compared to individual Large Language Models (LLMs), including GPT 4 and GPT 3.5. The system leverages open models (e.g., LLaMA, Kimi, Qwen, Deepseek and LLaMA-Nemotron) to ensure greater transparency. The evaluation of the proposed method encompasses datasets in languages with varying resource availability, including English (high-resource), Polish (medium-resource), Slovak (low-resource) and Bulgarian (low-resource). Experiments were conducted on tasks such as direct disinformation detection, identification of texts worthy of verification, and detection of texts containing verifiable factual claims.",
-        "authors": [
-          "Sebastian Kula",
-          "Martin Tamajka"
-        ],
-        "published": "2026-06-29T13:07:41Z",
-        "updated": "2026-06-29T13:07:41Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.30259v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Bulgarian",
-          "class": 3,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Slovak",
-          "class": 3,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "Polish",
-          "class": 4,
-          "sources": [
-            "abstract"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Bulgarian",
-              "class": 3
-            },
-            {
-              "language": "Slovak",
-              "class": 3
-            },
-            {
-              "language": "Polish",
-              "class": 4
-            },
-            {
-              "language": "English",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.30852v2",
         "title": "When Does Learning to Stop Help? A Cost-Aware Study of Early Exits in Reasoning Models",
         "abstract": "Reasoning models spend test-time compute unevenly across instances, and a growing family of early-exit rules -- confidence thresholds, entropy monitors, answer-stability checks, and learned stoppers -- promises to reclaim the waste. These rules, however, are evaluated under heterogeneous protocols that leave the deployment question unanswered: at a fixed tolerance for losing correct answers, which policy saves more compute, and does the saving survive probe overhead? We answer this question with a controlled study across 18 task-model settings spanning GSM8K, MATH-500, MMLU-Pro, AIME-90, and GPQA on Qwen3 and DeepSeek-R1-distilled models, using LearnStop, a hidden-state-free logistic stopper over prefix-observable features, as the learned policy instrument. Under matched lost-correct risk at $α$ = 0.15, with the scalar competitor selected on calibration data from confidence, entropy, confidence-leap, and run-stability exits, the answer forms three regimes. Learned stopping wins on all four primary Qwen3 free-form math settings (+3.2 to +21.2 pp additional total-token saving); calibrated scalar exits win on multiple-choice MMLU-Pro; and small hard benchmarks (AIME-90, GPQA) admit no certifiable aggressive policy at all. A trajectory decomposition predicts the regime: learning pays where answers oscillate and correctness evidence is spread across complementary signals, while a single confidence threshold suffices where most instances are already solved at the first checkpoint. Cost accounting sharpens the picture further -- the same policy that saves 32% of tokens under KV-cache forking costs 121% extra under black-box repeated prefilling. Together, these results replace the single-method race with a decision procedure for choosing a stopping rule from the trajectory structure and serving regime of the target workload.",
@@ -65337,54 +64964,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2606.29872v1",
-        "title": "Unveiling Novelty Evolution in the field of Library and Information Science in China",
-        "abstract": "This study analyzes the novelty distribution of scholarly papers in the field of Library and Information Science (LIS) in China, with a focus on differences across journals, research topics, and time periods. Articles published in Chinese LIS journals indexed by the Chinese Social Sciences Citation Index (CSSCI) from 2000 to 2022 were collected as the research sample. BERTopic was applied to paper abstracts to identify research topics, and novelty scores were calculated based on the combinatorial innovation theory of reference pairs cited by focal papers. The study then examined the novelty of papers under different topics and further analyzed author collaboration patterns to explain how collaboration may be associated with paper novelty. The results show that archival research topics generally have lower novelty, whereas topics related to journal evaluation and patent technology display higher novelty in Chinese LIS research. Overall, the novelty of papers in this field has gradually increased over time. Papers with different topics and novelty levels also show distinct collaboration patterns: low-novelty topics are more often associated with solo authorship, while high-novelty topics tend to involve a higher proportion of inter-institutional collaboration. This study reveals the topic-level characteristics and temporal trends of novelty in Chinese LIS research and provides a new perspective for understanding how research topics and collaboration patterns influence scholarly innovation.",
-        "authors": [
-          "Chen Yang",
-          "Yuzhuo Wang",
-          "Chengzhi Zhang"
-        ],
-        "published": "2026-06-29T07:10:13Z",
-        "updated": "2026-06-29T07:10:13Z",
-        "categories": [
-          "cs.DL",
-          "cs.CL",
-          "cs.CY"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2606.29872v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Chinese",
-          "class": 5,
-          "sources": [
-            "abstract"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract"
-      ],
-      "sections_with_detections": [
-        "abstract"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Chinese",
-              "class": 5
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2606.29938v1",
         "title": "LatentRevise: Learning from Zero-Hit Reasoning",
         "abstract": "Reinforcement learning with verifiable rewards (RLVR) is bottlenecked by hard prompts on which correct trajectories have low probability, so sampling misses them within a practical budget and leaves the policy update with little useful signal. We frame such zero-hit prompts as RLVR's sampling frontier, where new reasoning behavior is most valuable yet least likely to be sampled. Importantly, failed rollouts can be informative: they expose where the model's reasoning went wrong. We introduce LatentRevise, a first-order latent revision method that recovers training signal for this zero-hit regime. Given a failed rollout and the gold answer as an anchor, LatentRevise optimizes the input embeddings of its reasoning prefix under two complementary gradients, moving the prefix away from the failed continuation and toward the gold answer. The optimization is constrained to the convex hull of the model's vocabulary embeddings, so each update moves the latent toward a real token embedding rather than an arbitrary feature direction. We find that continuations from the revised prefix lengthen, exhibit self-reflection, and reach correct answers missed by the original rollouts. Used as training data, these trajectories improve SFT and RLVR on math benchmarks over standard baselines.",
@@ -68937,6 +68516,427 @@
             {
               "language": "Anal",
               "class": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2607.03160v1",
+        "title": "The Role of Prompt Language and Translation-Theory-Driven Prompts in Large Language Models: A Case Study on Spanish-Chinese Journalistic Translation",
+        "abstract": "This study examines how prompt language and translation theory-driven prompt design influence the quality of Spanish-Chinese journalistic translations generated by GPT-5.2. A parallel corpus of four editorials from El Pais was translated under 48 experimental conditions (4 prompt types, 3 prompt languages, and 4 articles). Translation quality was assessed using BLEU and BERTScore-F1 for automated evaluation, alongside human evaluation based on the Multidimensional Quality Metrics (MQM) framework. Automated metrics identified the baseline prompt (BASE) as the best-performing condition, whereas human evaluation ranked the brief-oriented prompt (BRIEF) highest (MQM: 8.66 vs. 7.84), a reversal likely attributable to the single-reference constraint inherent in automated measures. Sub-error type analysis revealed that translation theory-driven prompts selectively reduced Awkward style errors, while Unidiomatic style errors persisted across conditions. Prompt language had a negligible impact under both evaluation paradigms. These results indicate that translation theory-driven prompts can yield measurable quality gains under expert evaluation of journalistic translations, although their pedagogical implications for language learners remain suggestive and require validation through user-based studies.",
+        "authors": [
+          "Haohong Lai",
+          "Weijia Li"
+        ],
+        "published": "2026-07-03T09:59:36Z",
+        "updated": "2026-07-03T09:59:36Z",
+        "categories": [
+          "cs.CL",
+          "cs.AI"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2607.03160v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Spanish",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Chinese",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Spanish",
+              "class": 5
+            },
+            {
+              "language": "Chinese",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2607.03681v1",
+        "title": "Annotating Korean adnominal ending constructions in corpus data: Beyond relative-clause identification",
+        "abstract": "The Korean adnominal ending \\texttt{ETM} occurs in diverse noun-modifying constructions, including relative-clause-like modifiers, adjectival and copular forms, bound-noun constructions, and lexicalized expressions. This paper argues that \\texttt{ETM} is not a direct marker of relative-clause structure, but a morphological exponent shared by several adnominal constructions. We propose a corpus-based typology that distinguishes these constructions using predicate type, auxiliary structure, argument-structural compatibility, head-noun restriction, and lexicalized patterns. We operationalize the typology as a construction-sensitive annotation layer for the KLUE dependency treebank, implemented through an ordered rule-based procedure and evaluated by manual validation. Productive relative-clause-like uses account for 39.4\\% of the analyzed instances; the remainder consists mainly of adjectival, copular, bound-nominal, modal, temporal, and collocational constructions. The findings show that Korean relative-clause-like modification cannot be identified from adnominal morphology alone.",
+        "authors": [
+          "Jungyeul Park",
+          "Chulwoo Park"
+        ],
+        "published": "2026-07-04T03:21:50Z",
+        "updated": "2026-07-04T03:21:50Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2607.03681v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Korean",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Korean",
+              "class": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2607.03540v1",
+        "title": "Mental Health Disorder Detection Beyond Social Media: A Systematic Review of Available Datasets",
+        "abstract": "Detecting mental health disorders in a timely manner is an important societal challenge. NLP and machine learning (ML) methods used to assist with detection rely on data collected primarily from social media. However, such datasets often have sampling biases and inherent ethical and privacy issues. One avenue to overcome these limitations is non-social media data. We present the first comprehensive review of non-social media, free-text datasets for mental health research. We use the PRISMA methodology to conduct our survey and we review datasets available in multiple languages. We find that non-social media free-text based datasets are predominantly focused on English and on detecting depression. These datasets also vary in demographics, platforms, data types, annotation techniques, and methodologies. This systematic review also reveals key gaps and highlights opportunities to develop more diverse, reliable and clinically-relevant resources.",
+        "authors": [
+          "Sadiya Sayara Chowdhury Puspo",
+          "Ana-Maria Bucur",
+          "Stevie Chancellor",
+          "Özlem Uzuner",
+          "Marcos Zampieri"
+        ],
+        "published": "2026-07-03T18:00:17Z",
+        "updated": "2026-07-03T18:00:17Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2607.03540v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2607.00724v2",
+        "title": "MSQA: A Natively Sourced Multilingual and Multicultural SimpleQA Benchmark",
+        "abstract": "Multilingual fluency often invites a stronger assumption: a model that can speak a user's language must also understand the culture encoded by that language. We call this the Illusion of Cultural Alignment. To test this assumption directly, we introduce MSQA, a benchmark of 1,064 natively sourced questions across 11 language groups, five cultural dimensions, and three difficulty tiers. Unlike translated benchmarks, MSQA targets locally grounded knowledge and reduces shortcuts from English-centric cross-lingual transfer. Evaluating 18 LLMs, we find substantial cultural degradation and a pronounced Locality Effect: cultural competence tracks pre-training exposure more closely than general reasoning ability. We further show that common inference-time remedies do not dissolve the illusion. Models remain overconfident on unfamiliar cultural questions, repeated sampling yields unstable rather than reliable correctness, and retrieval augmentation helps unevenly on long-tail facts. These findings indicate that cultural alignment cannot be inferred from multilingual ability alone and requires deeper intervention than calibration, sampling, or retrieval at inference time",
+        "authors": [
+          "Xianru Chen",
+          "Yukai Huang",
+          "Mingxiang Chen",
+          "Xinping Lei",
+          "Fangbing Deng",
+          "Jin Chen",
+          "Ge Zhang",
+          "Wenhao Huang",
+          "Jiaheng Liu"
+        ],
+        "published": "2026-07-01T10:12:03Z",
+        "updated": "2026-07-02T08:49:19Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2607.00724v2",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2607.00970v3",
+        "title": "Svarna: An Open Corpus Workbench for Modern Greek",
+        "abstract": "This paper introduces Svarna, a free, open-source, web-based corpus workbench for modern Greek. Svarna integrates five databases covering various registers, institutional, literary, dialectal, social media, and historical, to provide a total of more than 507 million words and around 29 million sentences. This platform addresses the chronic gaps in Greek language technology. Although various corpus resources exist, they are scattered across different platforms, and in many cases, institutional access is restricted or they are no longer available online. Svarna integrates these resources into a single interface that can be used without logging in, installation, or specialized training. This system provides a concordancer with KWIC marking capabilities, frequency analysis including register-by-register normalization, collocation extraction using mutual information, a dictionary of 93 Greek discourse markers providing distribution profiles, text-level analysis tools including n-grams, variants, and collocation networks, register comparison using log-ratio, regular expression search, and an optional LLM layer for pragmatic annotation and free research mode. This platform is built upon SQLite FTS5 full-text indexes provided via a FastAPI backend, deployed as Docker containers on Azure, and released under the MIT license. Source code, build scripts, and deployment configurations are publicly available on GitHub. Users can add their own corpora and deploy their own instances. This document describes the system design, corpus structure, and use cases demonstrating the various queries supported by the platform. Svarna serves as the first step in exploring available data and is expected to lay the foundation for more comprehensive research in the future.",
+        "authors": [
+          "Stergios Chatzikyriakidis"
+        ],
+        "published": "2026-07-01T14:05:02Z",
+        "updated": "2026-07-03T15:11:01Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2607.00970v3",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Greek",
+          "class": 3,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Greek",
+              "class": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2607.00171v1",
+        "title": "ALEE: Any-Language Evaluation of Embeddings via English-Centric Minimal Pairs",
+        "abstract": "Text embeddings are standard for semantic similarity tasks, yet their evaluation remains an open challenge. Current benchmarks are static, cover only a limited set of languages, are often domain-specific, susceptible to overfitting, and poorly representative of low-resource languages. To address these limitations, we introduce ALEE, a framework that extends Sentence Smith (Li et al., 2025) to the cross-lingual and paragraph level. ALEE uses Abstract Meaning Representations (AMR) to generate English minimal pairs with controlled, fine-grained semantic shifts, which are paired with translations in target languages. This approach enables targeted diagnostics for models in any language with English parallel data. We conduct a large-scale empirical study across a diverse set of embedding models and 275+ languages spanning three parallel datasets. On ALEE, performance varies substantially across languages, text lengths, and linguistic phenomena, exposing persistent gaps in cross-lingual semantic representation that track language prevalence in training resources and subword tokenization. We release ALEE at https://github.com/Andrian0s/any-lang-embed-eval",
+        "authors": [
+          "Andrianos Michail",
+          "Stylianos Psychias",
+          "Michelle Wastl",
+          "Simon Clematide",
+          "Rico Sennrich",
+          "Juri Opitz"
+        ],
+        "published": "2026-06-30T20:45:17Z",
+        "updated": "2026-06-30T20:45:17Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2607.00171v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.30259v1",
+        "title": "Multi-Agentic System Leveraging Open-Source LLMs to Mitigate Disinformation Threats",
+        "abstract": "In contemporary societies, the threat of disinformation has reached alarming levels, exacerbated by the proliferation of electronic communication, social media, and advancements in artificial intelligence. As a result, there is an urgent need to develop effective countermeasures to mitigate this menace. However, the sheer scale of the problem renders manual fact-checking and human-based verification inadequate, underscoring the necessity for automated methods to detect and debunk disinformation. This article proposes a novel approach based on a multi-agent system that emulates the decision-making processes of human annotators engaged in disinformation detection tasks. By incorporating a consensus mechanism, diversity in cognition and diversity in knowledge, and also hierarchical structure, inspired by human annotators' behavior, the proposed method achieves superior results compared to individual Large Language Models (LLMs), including GPT 4 and GPT 3.5. The system leverages open models (e.g., LLaMA, Kimi, Qwen, Deepseek and LLaMA-Nemotron) to ensure greater transparency. The evaluation of the proposed method encompasses datasets in languages with varying resource availability, including English (high-resource), Polish (medium-resource), Slovak (low-resource) and Bulgarian (low-resource). Experiments were conducted on tasks such as direct disinformation detection, identification of texts worthy of verification, and detection of texts containing verifiable factual claims.",
+        "authors": [
+          "Sebastian Kula",
+          "Martin Tamajka"
+        ],
+        "published": "2026-06-29T13:07:41Z",
+        "updated": "2026-06-29T13:07:41Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.30259v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Bulgarian",
+          "class": 3,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Slovak",
+          "class": 3,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "Polish",
+          "class": 4,
+          "sources": [
+            "abstract"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Bulgarian",
+              "class": 3
+            },
+            {
+              "language": "Slovak",
+              "class": 3
+            },
+            {
+              "language": "Polish",
+              "class": 4
+            },
+            {
+              "language": "English",
+              "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2606.29872v1",
+        "title": "Unveiling Novelty Evolution in the field of Library and Information Science in China",
+        "abstract": "This study analyzes the novelty distribution of scholarly papers in the field of Library and Information Science (LIS) in China, with a focus on differences across journals, research topics, and time periods. Articles published in Chinese LIS journals indexed by the Chinese Social Sciences Citation Index (CSSCI) from 2000 to 2022 were collected as the research sample. BERTopic was applied to paper abstracts to identify research topics, and novelty scores were calculated based on the combinatorial innovation theory of reference pairs cited by focal papers. The study then examined the novelty of papers under different topics and further analyzed author collaboration patterns to explain how collaboration may be associated with paper novelty. The results show that archival research topics generally have lower novelty, whereas topics related to journal evaluation and patent technology display higher novelty in Chinese LIS research. Overall, the novelty of papers in this field has gradually increased over time. Papers with different topics and novelty levels also show distinct collaboration patterns: low-novelty topics are more often associated with solo authorship, while high-novelty topics tend to involve a higher proportion of inter-institutional collaboration. This study reveals the topic-level characteristics and temporal trends of novelty in Chinese LIS research and provides a new perspective for understanding how research topics and collaboration patterns influence scholarly innovation.",
+        "authors": [
+          "Chen Yang",
+          "Yuzhuo Wang",
+          "Chengzhi Zhang"
+        ],
+        "published": "2026-06-29T07:10:13Z",
+        "updated": "2026-06-29T07:10:13Z",
+        "categories": [
+          "cs.DL",
+          "cs.CL",
+          "cs.CY"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2606.29872v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Chinese",
+          "class": 5,
+          "sources": [
+            "abstract"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract"
+      ],
+      "sections_with_detections": [
+        "abstract"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Chinese",
+              "class": 5
             }
           ]
         }
