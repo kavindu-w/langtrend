@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.00143v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T18:40:59.943721+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11965,
+  "verdicts": {
+    "Roma": {
+      "verdict": "mentioned_only",
+      "reason": "refers to the Roma ethnic group mentioned as a target of hate speech, not the language"
+    },
+    "Yine": {
+      "verdict": "false_positive",
+      "reason": "refers to the Turkish word 'yine' meaning 'again', not a language"
+    },
+    "Danish": {
+      "verdict": "false_positive",
+      "reason": "refers to Danish nationality/people in an example phrase, not the Danish language"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "refers to Greek people/anti-Greek sentiment, not the Greek language"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "refers to the Turkish language, with datasets and BERTurk models built for Turkish hate speech detection"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "refers to the Arabic language, with datasets and AraBERT models built for Arabic hate speech detection"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "refers to the English language only in related work discussion, not studied in the paper"
+    }
+  }
+}

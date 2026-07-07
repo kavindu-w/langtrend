@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.03836v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T17:36:36.528227+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11622,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "In the snippet the token 'mo' appears as part of a translation output (e.g., 'alt aures mo') and does not denote a human language; false_positive"
+    },
+    "Romam": {
+      "verdict": "false_positive",
+      "reason": "The word 'romam' is used in a Latin sentence referring to the city of Rome, not to a language; false_positive"
+    },
+    "Seneca": {
+      "verdict": "false_positive",
+      "reason": "Seneca is mentioned as a proper name (philosopher) in the examples, not as a language; false_positive"
+    },
+    "Tem": {
+      "verdict": "false_positive",
+      "reason": "The string 'tem' occurs within a Latin word ('tem̾ariꝰ') and is not a language name; false_positive"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "Latin is the primary source language of the medieval manuscripts; the paper constructs a Latin transcription dataset, evaluates OCR and translation pipelines for Latin, and thus studies the language"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language of the translations, with English ground‑truth provided and translation quality evaluated into English, so the paper studies English as part of its experiments"
+    }
+  }
+}

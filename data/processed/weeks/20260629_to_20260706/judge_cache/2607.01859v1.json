@@ -1,0 +1,57 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.01859v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T18:08:12.349516+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5371,
+  "verdicts": {
+    "Javanese": {
+      "verdict": "studied",
+      "reason": "The snippet lists Javanese as a target language for translation in the STEER attack, i.e., the paper uses Javanese translations, so it is studied"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is enumerated among languages translated into during the attack, indicating the paper works with Swahili data, so it is studied"
+    },
+    "Tagalog": {
+      "verdict": "studied",
+      "reason": "Tagalog appears in the list of languages used for code‑switching translations, meaning the paper evaluates Tagalog, so it is studied"
+    },
+    "Yoruba": {
+      "verdict": "studied",
+      "reason": "Yoruba is included as a translation target in the STEER algorithm, showing the paper uses Yoruba, so it is studied"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is listed among the languages translated into to reduce refusal scores, indicating the paper experiments with Hindi, so it is studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'non‑Latin scripts' (Thai, Korean, Hindi, Arabic) and does not mention the Latin language itself, making this a false positive"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian is part of the language pool used for iterative code‑switching translations, so the paper studies Indonesian"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is included as a translation target in the attack and as a non‑Latin script, indicating the paper works with Korean, so it is studied"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese appears in the list of languages translated into during the STEER attack, meaning the paper evaluates Vietnamese, so it is studied"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is listed among the target languages for translation in the attack, showing the paper uses Arabic, so it is studied"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is used in the language‑pool ablation table and as a translation target, indicating the paper evaluates Thai, so it is studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is discussed as the primary language of safety alignment and is used throughout the experiments, so it is studied"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.04281v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T17:33:00.087216+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4006,
+  "verdicts": {
+    "Dakota": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"South Dakota\" (a U.S. state) in an entity-swap test, not the Dakota language."
+    },
+    "Czech": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to \"Czech football champion\" (i.e., the Czech Republic), not the Czech language."
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The paper explicitly uses Korean queries in its multilingual benchmark and evaluates performance on them, indicating the language is part of the study."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English queries are used throughout the methodology and benchmark, and performance on English is evaluated, so the language is studied."
+    }
+  }
+}

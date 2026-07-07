@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.02757v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T17:45:48.203996+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5754,
+  "verdicts": {
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is listed as an unsupported language pair (Hindi‑English) and not used in experiments, so only mentioned."
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is noted as a mislabeled pair and excluded from evaluation, thus only mentioned."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to non‑Latin‑script samples and Latin‑script pairs, i.e., script categories, not the Latin language, so false positive."
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic appears in the Arabic‑English pair evaluated for script contamination and performance, indicating the paper studies Arabic."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is part of the Chinese‑English pair evaluated in the introduction and experiments, showing the paper studies Chinese."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the primary language in multiple language pairs (e.g., English‑Hindi, English‑Spanish, etc.) and is central to the experiments, so the paper studies English."
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is included in Japanese‑English pairs evaluated for script contamination, indicating the paper studies Japanese."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.03936v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T17:37:00.207099+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11670,
+  "verdicts": {
+    "Ale": {
+      "verdict": "false_positive",
+      "reason": "Ale appears as part of model names (e.g., ALLaM‑Instruct ALE) rather than referring to a human language"
+    },
+    "Mor": {
+      "verdict": "studied",
+      "reason": "Mor is used as an abbreviation for Moroccan Arabic (e.g., 'MOR denotes Moroccan Arabic') and the paper conducts experiments on this dialect"
+    },
+    "moroccan Arabic": {
+      "verdict": "studied",
+      "reason": "moroccan Arabic is explicitly the target dialect in multiple experiments and steering methods"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "Egyptian Arabic is explicitly used as a target dialect in experiments and evaluations"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the overall language being analyzed (representations, dialects, neuron studies), which the paper investigates"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as the source language for cross‑lingual prompts, without any study or resource building"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.02504v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T17:56:12.763791+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5293,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"AMI\" to refer to the AMI meeting corpus, not the Ami language, so this is a false positive."
+    },
+    "Dura": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"dura\" as an abbreviation for duration, not the Dura language, so this is a false positive."
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions the \"Hungarian algorithm\" (a matching algorithm), not the Hungarian language, so this is a false positive."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Chinese-language dramas, Chinese subsets, and require output in Chinese text format, indicating the paper works with the Chinese language in its experiments, so it is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English-language dramas, English subsets, and English parentheses, showing the paper evaluates on English data, so it is studied."
+    }
+  }
+}

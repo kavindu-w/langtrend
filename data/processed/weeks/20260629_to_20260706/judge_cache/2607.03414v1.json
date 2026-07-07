@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.03414v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T17:41:48.413269+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7923,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "In the prompt examples, 'sake' appears as part of a menu item ('sake list') referring to the Japanese drink, not the Sake language, so false_positive"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The term 'Japanese' is used to describe a restaurant ('Japanese restaurant') rather than the Japanese language, so false_positive"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippets discuss the 'Russian language' track, data augmentation for Russian, and experiments on Russian data, indicating the paper works on Russian language resources, so studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the 'English track' and use English language data for experiments, indicating the paper works on English language resources, so studied"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.00250v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T18:40:12.049140+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11639,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to 'sentinel pairs' used as markers in the pipeline, not a human language; therefore false_positive"
+    },
+    "Amharic": {
+      "verdict": "mentioned_only",
+      "reason": "Amharic is mentioned as the language of a cited OCR failure mode, but no experiments or resources are built for it; therefore mentioned_only"
+    },
+    "Luxembourgish": {
+      "verdict": "studied",
+      "reason": "Luxembourgish is used in cross‑language transfer experiments with reported CER results, indicating the paper builds and evaluates OCR for it; therefore studied"
+    },
+    "Hungarian": {
+      "verdict": "studied",
+      "reason": "Hungarian is evaluated in cross‑language transfer runs with reported performance, showing the paper studies OCR for this language; therefore studied"
+    },
+    "Maltese": {
+      "verdict": "studied",
+      "reason": "Maltese is the primary focus of the OCR system, with dedicated data, models, and evaluation; therefore studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script/alphabet used as a base character set, not the Latin language itself; therefore false_positive"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is mentioned only as part of multilingual training streams (Maltese+Italian) and not evaluated as a target language; therefore mentioned_only"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is cited as another language in the multilingual training streams but no French OCR experiments are presented; therefore mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as a code‑switch source and as a language tag for stratification, without dedicated OCR experiments; therefore mentioned_only"
+    }
+  }
+}

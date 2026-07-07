@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.01960v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T18:08:36.196535+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8790,
+  "verdicts": {
+    "Karen": {
+      "verdict": "false_positive",
+      "reason": "Karen appears as a personal name (e.g., Karen Fences) in the author list, not as the Karen language."
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "Sie is used as the German pronoun in a question prompt, not referring to a language named Sie."
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is referenced as a target language for speech translation and SQA, and performance on Italian is evaluated, indicating the paper studies this language."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as a target language for speech translation and SQA, with evaluation on Chinese, indicating the paper studies this language."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is referenced as a target language for speech translation and SQA, with evaluation on German, indicating the paper studies this language."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the source language for ASR and as the language of questions, but the paper does not build resources or models specifically for English; it is only used as input."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned only as an example of a language the system could generalize to, without any experiments on French."
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned only as an example of a language the system could generalize to, without any experiments on Spanish."
+    }
+  }
+}

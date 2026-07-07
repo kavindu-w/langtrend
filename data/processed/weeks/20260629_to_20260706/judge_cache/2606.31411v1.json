@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.31411v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T18:46:59.742046+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2914,
+  "verdicts": {
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "The token 'dao' appears in the phrase 'dao asvspoof' and does not denote the Dao language; it is a false positive."
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "'polish' is used as a verb meaning to improve the manuscript, not as a reference to the Polish language; it is a false positive."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English subset of Common Voice and English-language datasets used for training the teacher model and for evaluation, indicating the paper builds and evaluates models for English."
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.02381v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T17:53:01.489419+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11759,
+  "verdicts": {
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "Mer refers to the MER-TRANS shared task name, not a human language; therefore it is a false positive."
+    },
+    "Sari": {
+      "verdict": "false_positive",
+      "reason": "Sari refers to the SARI simplification evaluation metric, not a human language; therefore it is a false positive."
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic refers to the Arabic sentence difficulty classification dataset, i.e., the Arabic language is mentioned but the paper does not work on or evaluate Arabic; thus it is mentioned only."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the language of text edited with AI tools in the declaration, only mentioned and not studied; thus it is mentioned only."
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is the target language for the Easy-to-Read generation and the experiments, resources, and evaluations are conducted on Spanish data; thus it is studied."
+    }
+  }
+}

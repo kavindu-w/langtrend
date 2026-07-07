@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.30790v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T19:01:48.929489+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11998,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain no reference to the Ami language; the term appears only as a regex match, likely a false detection."
+    },
+    "Gujarati": {
+      "verdict": "studied",
+      "reason": "Gujarati is listed as one of the four Indic languages for which Romanized code‑mixed instances are created, annotated, and evaluated, indicating the paper studies Gujarati."
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is one of the four Indic languages used to generate Romanized code‑mixed data and is evaluated in the benchmark, so the paper studies Bengali."
+    },
+    "Kannada": {
+      "verdict": "mentioned_only",
+      "reason": "Kannada is mentioned only in the Limitations as a language not covered by the benchmark, with no data or experiments on it."
+    },
+    "Marathi": {
+      "verdict": "mentioned_only",
+      "reason": "Marathi is mentioned only in the Limitations as a language omitted from the benchmark, with no further work on it."
+    },
+    "Telugu": {
+      "verdict": "mentioned_only",
+      "reason": "Telugu is mentioned only in the Limitations as a language omitted from the benchmark, with no further work on it."
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is used to create Romanized code‑mixed instances and is evaluated across tasks, so the paper studies Hindi."
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is used to create Romanized code‑mixed instances and is evaluated across tasks, so the paper studies Tamil."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin alphabet/script used for Romanization, not the Latin language itself."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language for translation and the baseline evaluated, thus the paper studies English."
+    }
+  }
+}

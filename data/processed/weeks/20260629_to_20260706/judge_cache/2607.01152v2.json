@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.01152v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-07T18:21:47.996505+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5572,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "Agi appears as part of the model provider name 'nex-agi', not a language name."
+    },
+    "Dani": {
+      "verdict": "false_positive",
+      "reason": "Dani is a character name in a narrative prompt, not a language."
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb ('pin down') describing scoring function precision, not a language."
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel is used as a placeholder term for missing-data sentinel, not a language."
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic appears in 'Arabic-language story benchmarks', referring to the Arabic language used in benchmark datasets; the paper includes Arabic-language tasks, thus the language is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the prompts and noted as the dominant language of the benchmark, indicating the paper uses English data, thus the language is studied."
+    }
+  }
+}
