@@ -4,8 +4,12 @@ import { CLASS_LABELS, colorForIndex } from '../lib/data.js';
 import { languageBorderClass } from '../lib/language-colors.js';
 import {
   aggregateTrendPeriods,
+  assignBumpLaneOffsets,
+  buildBumpEdgeLeaderPath,
+  buildBumpFlyoverLeaderPath,
   buildBumpSegmentPath,
   buildLinePath,
+  computeBumpFlyoverLaneY,
   buildPieSlices,
   classColorForId,
   classColorForLanguage,
@@ -375,6 +379,7 @@ function computeTrendData(granularity: TrendGranularity) {
   const bumpSvgWidth = bumpScrollPx ?? 960;
   const bumpInnerWidth = bumpSvgWidth - bumpMargins.left - bumpMargins.right;
   const bumpInnerHeight = bumpSvgHeight - bumpMargins.top - bumpMargins.bottom;
+  const bumpRowSpacing = bumpInnerHeight / (bumpMaxRank - 1);
   const bumpYScale = scaleLinear().domain([1, bumpMaxRank]).range([0, bumpInnerHeight]);
   const bumpXScale = scaleBand().domain(periodLabels).range([0, bumpInnerWidth]).padding(0.42);
   const bumpPeriods: BumpWeek[] = periods.map((period) => {
@@ -410,10 +415,14 @@ function computeTrendData(granularity: TrendGranularity) {
       }
       previousPoint = point;
     }
-    const firstPt = points.find((point): point is BumpPoint => point !== null) ?? null;
-    const lastPt = [...points].reverse().find((point): point is BumpPoint => point !== null) ?? null;
+    const firstIdx = points.findIndex((point) => point !== null);
+    const lastIdx = points.length - 1 - [...points].reverse().findIndex((point) => point !== null);
+    const firstPt = firstIdx === -1 ? null : points[firstIdx];
+    const lastPt = firstIdx === -1 ? null : points[lastIdx];
+    const firstIsEdge = firstIdx === 0;
+    const lastIsEdge = lastIdx === points.length - 1;
     const labelColor = langColorMap.get(language) || TREND_LINE_COLORS[seriesIdx] || colorForIndex(seriesIdx);
-    return { language, points, segments, firstPt, lastPt, labelColor };
+    return { language, points, segments, firstPt, lastPt, firstIsEdge, lastIsEdge, labelColor };
   });
   const bumpSegments = bumpSeriesData.flatMap((series) => series.segments);
   const bumpLeftLabelRaw = bumpSeriesData.map((series, idx) => ({ idx, naturalY: series.firstPt?.y ?? 0 }));
@@ -432,6 +441,21 @@ function computeTrendData(granularity: TrendGranularity) {
     bumpRightLabelY[item.idx] = y;
     bumpRightPrevY = y;
   }
+  const bumpLeftLaneY = bumpSeriesData.map((series, idx) =>
+    series.firstPt && !series.firstIsEdge
+      ? computeBumpFlyoverLaneY(series.firstPt.y, bumpLeftLabelY[idx], bumpRowSpacing, bumpInnerHeight)
+      : null
+  );
+  const bumpRightLaneY = bumpSeriesData.map((series, idx) =>
+    series.lastPt && !series.lastIsEdge
+      ? computeBumpFlyoverLaneY(series.lastPt.y, bumpRightLabelY[idx], bumpRowSpacing, bumpInnerHeight)
+      : null
+  );
+  // Left- and right-heading leaders can share the same lane (both travel its
+  // full width), so deconflict them together rather than per side.
+  const bumpCombinedLaneOffsets = assignBumpLaneOffsets([...bumpLeftLaneY, ...bumpRightLaneY]);
+  const bumpLeftLaneOffsets = bumpCombinedLaneOffsets.slice(0, bumpSeriesData.length);
+  const bumpRightLaneOffsets = bumpCombinedLaneOffsets.slice(bumpSeriesData.length);
 
   return {
     granularity, granularityLabel, periods, periodLabels, topLanguages, langColorMap, trendSeries, endpointLabelY,
@@ -439,7 +463,7 @@ function computeTrendData(granularity: TrendGranularity) {
     topLangHeight, topLangMargins, topLangScrollPx, topLangWidth, topLangInnerWidth, topLangInnerHeight, topLangScale, topLangMax, topLangY,
     classHeight, classMargins, classScrollPx, classWidth, classInnerWidth, classInnerHeight, classScale, classBars,
     uniqueHeight, uniqueMargins, uniqueScrollPx, uniqueWidth, uniqueInnerWidth, uniqueInnerHeight, uniqueScale, uniqueMax, uniqueY,
-    bumpMaxRank, bumpSvgHeight, bumpMargins, bumpScrollPx, bumpSvgWidth, bumpInnerWidth, bumpInnerHeight, bumpYScale, bumpXScale, bumpPeriods, bumpSeriesData, bumpSegments, bumpLeftLabelY, bumpRightLabelY,
+    bumpMaxRank, bumpSvgHeight, bumpMargins, bumpScrollPx, bumpSvgWidth, bumpInnerWidth, bumpInnerHeight, bumpRowSpacing, bumpYScale, bumpXScale, bumpPeriods, bumpSeriesData, bumpSegments, bumpLeftLabelY, bumpRightLabelY, bumpLeftLaneY, bumpLeftLaneOffsets, bumpRightLaneY, bumpRightLaneOffsets,
   };
 }
 
@@ -1252,12 +1276,17 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         bumpSvgWidth,
         bumpInnerWidth,
         bumpInnerHeight,
+        bumpRowSpacing,
         bumpYScale,
         bumpXScale,
         bumpSeriesData,
         bumpSegments,
         bumpLeftLabelY,
         bumpRightLabelY,
+        bumpLeftLaneY,
+        bumpLeftLaneOffsets,
+        bumpRightLaneY,
+        bumpRightLaneOffsets,
       } = trendDataByGranularity[gran];
       return (
         <div class="trend-granularity-pane" data-granularity={gran} style={gran !== 'week' ? 'display:none' : ''}>
@@ -1526,7 +1555,9 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
                       <g>
                         {series.firstPt && (
                           <g>
-                            <path d={`M ${series.firstPt.x - 14} ${series.firstPt.y} L ${-14} ${bumpLeftLabelY[seriesIdx]}`} fill="none" stroke={series.labelColor} stroke-dasharray="3 4" stroke-width="1"></path>
+                            <path d={series.firstIsEdge
+                              ? buildBumpEdgeLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, bumpLeftLabelY[seriesIdx])
+                              : buildBumpFlyoverLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, bumpLeftLabelY[seriesIdx], (bumpLeftLaneY[seriesIdx] ?? 0) + bumpLeftLaneOffsets[seriesIdx])} fill="none" stroke={series.labelColor} stroke-dasharray="3 4" stroke-width="1"></path>
                             {pfpWarn(series.language) ? (
                               <g class="chart-warn-label" data-pfp-reason={pfpWarn(series.language)}>
                                 <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${series.labelColor};font-weight:700`}>{series.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan></text>
@@ -1538,7 +1569,9 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
                         )}
                         {series.lastPt && (
                           <g>
-                            <path d={`M ${series.lastPt.x + 14} ${series.lastPt.y} L ${bumpInnerWidth + 14} ${bumpRightLabelY[seriesIdx]}`} fill="none" stroke={series.labelColor} stroke-dasharray="3 4" stroke-width="1"></path>
+                            <path d={series.lastIsEdge
+                              ? buildBumpEdgeLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerWidth + 14, bumpRightLabelY[seriesIdx])
+                              : buildBumpFlyoverLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerWidth + 14, bumpRightLabelY[seriesIdx], (bumpRightLaneY[seriesIdx] ?? 0) + bumpRightLaneOffsets[seriesIdx])} fill="none" stroke={series.labelColor} stroke-dasharray="3 4" stroke-width="1"></path>
                             {pfpWarn(series.language) ? (
                               <g class="chart-warn-label" data-pfp-reason={pfpWarn(series.language)}>
                                 <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${series.labelColor};font-weight:700`}>{series.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan></text>
@@ -1852,6 +1885,50 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       function buildBumpSegmentPath(start, end) {
         var midX = (start.x + end.x) / 2;
         return 'M ' + start.x + ' ' + start.y + ' C ' + midX + ' ' + start.y + ' ' + midX + ' ' + end.y + ' ' + end.x + ' ' + end.y;
+      }
+
+      function buildBumpEdgeLeaderPath(x1, y1, x2, y2) {
+        var midX = (x1 + x2) / 2;
+        var bow = 5;
+        return 'M ' + x1 + ' ' + y1 + ' C ' + midX + ' ' + (y1 - bow) + ' ' + midX + ' ' + (y2 - bow) + ' ' + x2 + ' ' + y2;
+      }
+
+      function computeBumpFlyoverLaneY(y1, y2, rowSpacing, plotHeight) {
+        var halfGap = rowSpacing / 2;
+        var canGoAbove = y1 - halfGap > 0.01;
+        var canGoBelow = y1 + halfGap < plotHeight - 0.01;
+        var goAbove = canGoAbove && (!canGoBelow || y2 <= y1);
+        return goAbove ? y1 - halfGap : y1 + halfGap;
+      }
+
+      function assignBumpLaneOffsets(laneYs, step) {
+        step = step || 7;
+        var groups = new Map();
+        laneYs.forEach(function(y, idx) {
+          if (y == null) return;
+          var key = Math.round(y);
+          if (!groups.has(key)) groups.set(key, []);
+          groups.get(key).push(idx);
+        });
+        var offsets = new Array(laneYs.length).fill(0);
+        groups.forEach(function(idxs) {
+          var n = idxs.length;
+          idxs.forEach(function(idx, i) { offsets[idx] = (i - (n - 1) / 2) * step; });
+        });
+        return offsets;
+      }
+
+      function buildBumpFlyoverLeaderPath(x1, y1, x2, y2, laneY) {
+        var r = Math.min(8, Math.abs(laneY - y1) / 2, Math.abs(x2 - x1) / 2);
+        var dx = x2 >= x1 ? 1 : -1;
+        var dy1 = laneY >= y1 ? 1 : -1;
+        var dy2 = y2 >= laneY ? 1 : -1;
+        return 'M ' + x1 + ' ' + y1 +
+          ' L ' + x1 + ' ' + (laneY - dy1 * r) +
+          ' Q ' + x1 + ' ' + laneY + ' ' + (x1 + dx * r) + ' ' + laneY +
+          ' L ' + (x2 - dx * r) + ' ' + laneY +
+          ' Q ' + x2 + ' ' + laneY + ' ' + x2 + ' ' + (laneY + dy2 * r) +
+          ' L ' + x2 + ' ' + y2;
       }
 
       function markerPathJs(shapeIdx, cx, cy, size) {
@@ -2331,7 +2408,8 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           var bumpInnerW = bumpWidth - bumpMargin.left - bumpMargin.right;
           var bumpInnerH = bumpHeight - bumpMargin.top - bumpMargin.bottom;
           var bumpBand = bumpInnerW / periods.length;
-          var bumpY = function(rank) { return (rank - 1) * (bumpInnerH / Math.max(1, bumpMaxRank - 1)); };
+          var bumpRowSpacing = bumpInnerH / Math.max(1, bumpMaxRank - 1);
+          var bumpY = function(rank) { return (rank - 1) * bumpRowSpacing; };
           var bumpPeriods = periods.map(function(period, index) {
             // Exclude languages that were only ever mentioned_only this week —
             // the bump chart ranks studied activity, not raw mentions.
@@ -2361,10 +2439,14 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
               }
               previousPoint = point;
             }
-            var firstPt = points.find(function(point) { return point !== null; }) || null;
-            var lastPt = [...points].reverse().find(function(point) { return point !== null; }) || null;
+            var firstIdx = points.findIndex(function(point) { return point !== null; });
+            var lastIdx = points.length - 1 - [...points].reverse().findIndex(function(point) { return point !== null; });
+            var firstPt = firstIdx === -1 ? null : points[firstIdx];
+            var lastPt = firstIdx === -1 ? null : points[lastIdx];
+            var firstIsEdge = firstIdx === 0;
+            var lastIsEdge = lastIdx === points.length - 1;
             var labelColor = TREND_LINE_COLORS_JS[seriesIdx] || CLASS_COLORS_JS[seriesIdx % CLASS_COLORS_JS.length];
-            return { language: language, points: points, segments: segments, firstPt: firstPt, lastPt: lastPt, labelColor: labelColor };
+            return { language: language, points: points, segments: segments, firstPt: firstPt, lastPt: lastPt, firstIsEdge: firstIsEdge, lastIsEdge: lastIsEdge, labelColor: labelColor };
           });
           var bumpSegments = bumpSeriesData.flatMap(function(series) { return series.segments; });
           var bumpLeftLabelRaw = bumpSeriesData.map(function(series, idx) { return { idx: idx, naturalY: series.firstPt ? series.firstPt.y : 0 }; }).sort(function(a, b) { return a.naturalY - b.naturalY; });
@@ -2375,6 +2457,21 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           bumpLeftLabelRaw.forEach(function(item) { var y = Math.max(item.naturalY, bumpLeftPrevY + 16); bumpLeftLabelY[item.idx] = y; bumpLeftPrevY = y; });
           var bumpRightPrevY = -Infinity;
           bumpRightLabelRaw.forEach(function(item) { var y = Math.max(item.naturalY, bumpRightPrevY + 16); bumpRightLabelY[item.idx] = y; bumpRightPrevY = y; });
+          var bumpLeftLaneY = bumpSeriesData.map(function(series, idx) {
+            return series.firstPt && !series.firstIsEdge
+              ? computeBumpFlyoverLaneY(series.firstPt.y, bumpLeftLabelY[idx], bumpRowSpacing, bumpInnerH)
+              : null;
+          });
+          var bumpRightLaneY = bumpSeriesData.map(function(series, idx) {
+            return series.lastPt && !series.lastIsEdge
+              ? computeBumpFlyoverLaneY(series.lastPt.y, bumpRightLabelY[idx], bumpRowSpacing, bumpInnerH)
+              : null;
+          });
+          // Left- and right-heading leaders can share the same lane (both travel its
+          // full width), so deconflict them together rather than per side.
+          var bumpCombinedLaneOffsets = assignBumpLaneOffsets(bumpLeftLaneY.concat(bumpRightLaneY));
+          var bumpLeftLaneOffsets = bumpCombinedLaneOffsets.slice(0, bumpSeriesData.length);
+          var bumpRightLaneOffsets = bumpCombinedLaneOffsets.slice(bumpSeriesData.length);
           var bumpAxis = Array.from({ length: bumpMaxRank }, function(_, i) { return i + 1; }).map(function(rank) {
             return '<line x1="0" x2="' + bumpInnerW + '" y1="' + bumpY(rank) + '" y2="' + bumpY(rank) + '" class="chart-grid-line"></line>';
           }).join('');
@@ -2385,8 +2482,14 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           var bumpNodes = bumpSeriesData.map(function(series, seriesIdx) {
             var leftY = bumpLeftLabelY[seriesIdx];
             var rightY = bumpRightLabelY[seriesIdx];
-            var leftLabel = series.firstPt ? '<g><path d="M ' + (series.firstPt.x - 14) + ' ' + series.firstPt.y + ' L 12 ' + leftY + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="14" y="' + (leftY + 5) + '" text-anchor="start" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
-            var rightLabel = series.lastPt ? '<g><path d="M ' + (series.lastPt.x + 14) + ' ' + series.lastPt.y + ' L ' + (bumpInnerW + 14) + ' ' + rightY + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="' + (bumpInnerW + 16) + '" y="' + (rightY + 5) + '" text-anchor="start" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
+            var leftLeaderD = series.firstPt ? (series.firstIsEdge
+              ? buildBumpEdgeLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, leftY)
+              : buildBumpFlyoverLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, leftY, (bumpLeftLaneY[seriesIdx] ?? 0) + bumpLeftLaneOffsets[seriesIdx])) : '';
+            var leftLabel = series.firstPt ? '<g><path d="' + leftLeaderD + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="-16" y="' + (leftY + 5) + '" text-anchor="end" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
+            var rightLeaderD = series.lastPt ? (series.lastIsEdge
+              ? buildBumpEdgeLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerW + 14, rightY)
+              : buildBumpFlyoverLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerW + 14, rightY, (bumpRightLaneY[seriesIdx] ?? 0) + bumpRightLaneOffsets[seriesIdx])) : '';
+            var rightLabel = series.lastPt ? '<g><path d="' + rightLeaderD + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="' + (bumpInnerW + 16) + '" y="' + (rightY + 5) + '" text-anchor="start" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
             return '<g>' + leftLabel + rightLabel +
               series.points.map(function(point) {
                 if (!point) return '';
