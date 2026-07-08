@@ -1157,7 +1157,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           </div>
         </div>
         <div class="class-legend" id="period-class-legend"></div>
-        <div class="chart-scroll" id="period-class-mix"></div>
+        <div class="chart-scroll trend-period-chart-scroll" id="period-class-mix"></div>
       </article>
 
       <article class="chart-subpanel">
@@ -1403,7 +1403,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
               ))}
             </div>
             {trendPeriods.length > 0 ? (
-              <div class="chart-scroll">
+              <div class="chart-scroll trend-period-chart-scroll">
                 <svg class="chart-svg" width={trendClassScrollPx === null ? "100%" : undefined} style={trendClassScrollPx !== null ? `width:${trendClassScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendClassWidth} ${trendClassHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`100 percent stacked bar chart of resource class mix by ${trendGranularity}`}>
                   <g transform={`translate(${trendClassMargins.left} ${trendClassMargins.top})`}>
                     {trendPeriods.map((period, index) => {
@@ -1616,6 +1616,20 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
     const trendScrollStorageKey = 'langtrend:overall-trend-scroll-y';
     const trendModeStorageKey = 'langtrend:trend-mode';
 
+    // Horizontally scrollable per-period charts (scan volume, class mix,
+    // unique languages, top-language trends, rank trajectory) default to
+    // showing the earliest period on the left — scroll them to the right
+    // edge so the latest period is visible without the user having to
+    // scroll manually. Safe to call on non-overflowing charts (scrollLeft
+    // is a no-op when scrollWidth === clientWidth) and on hidden panes
+    // (scrollWidth reads 0 while display:none, so it's a harmless no-op
+    // there too — callers re-invoke this once a pane becomes visible).
+    function scrollChartsToEnd(root) {
+      (root || document).querySelectorAll('.trend-period-chart-scroll, .bump-chart-scroll').forEach(function(el) {
+        el.scrollLeft = el.scrollWidth;
+      });
+    }
+
     function switchTrendPane(mode) {
       document.querySelectorAll('.trend-granularity-pane').forEach(function(pane) {
         pane.style.display = pane.dataset.granularity === mode ? '' : 'none';
@@ -1627,12 +1641,15 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       });
       try { history.replaceState(null, '', '?trend=' + mode); } catch {}
       try { sessionStorage.setItem(trendModeStorageKey, mode); } catch {}
+      var activePane = document.querySelector('.trend-granularity-pane[data-granularity="' + mode + '"]');
+      requestAnimationFrame(function() { scrollChartsToEnd(activePane); });
     }
 
     // Restore trend mode from URL param or session storage
     try {
       var _trendMode = new URLSearchParams(location.search).get('trend') || sessionStorage.getItem(trendModeStorageKey) || 'week';
       if (_trendMode !== 'week') switchTrendPane(_trendMode);
+      else requestAnimationFrame(function() { scrollChartsToEnd(); });
     } catch {}
 
     try { window.history.scrollRestoration = 'manual'; } catch {}
@@ -2501,6 +2518,8 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           }).join('');
           rankContainer.innerHTML = '<svg class="chart-svg"' + (bumpWidth !== 960 ? ' style="width:' + bumpWidth + 'px;max-width:none"' : ' width="100%"') + ' height="' + bumpHeight + '" viewBox="0 0 ' + bumpWidth + ' ' + bumpHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Language rank bump chart across selected period"><g transform="translate(' + bumpMargin.left + ' ' + bumpMargin.top + ')">' + bumpAxis + bumpPoints + bumpLines + bumpNodes + '</g></svg>';
         }
+
+        requestAnimationFrame(function() { scrollChartsToEnd(document.getElementById('period-trends-panel')); });
       }
 
       renderPeriodTrendCharts(periodData);
