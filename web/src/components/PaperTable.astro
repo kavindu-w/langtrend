@@ -636,7 +636,7 @@ for (const it of paperItems) {
 
   // ── Chip counts ──────────────────────────────────────────────────────────────
 
-  function updateChipCounts() {
+  function updateChipCounts(): Map<string, number> {
     const activeWeekSet = new Set(getActiveWeekSlugs());
     const counts = new Map<string, number>();
     for (const row of rows) {
@@ -651,6 +651,7 @@ for (const it of paperItems) {
       const valEl = chip.querySelector<HTMLElement>('.chip-count-val');
       if (valEl) valEl.textContent = String(counts.get(lang) ?? 0);
     });
+    return counts;
   }
 
   function updateVerdictCounts() {
@@ -788,26 +789,53 @@ for (const it of paperItems) {
     } else {
       applyCollapse();
     }
-    updateLangChipEmptyState(query);
+    updateUnmatchedQueryNotice(query);
   }
 
-  // Distinguishes "a real language, just absent from the current view" from
-  // "not a recognized language at all", using the full taxonomy rather than
-  // just the languages that happen to have a chip this week.
-  function updateLangChipEmptyState(query: string) {
+  // Two independent notices share the one status line below the chip row:
+  // - unmatchedQueryNotice: the text currently typed in the search box doesn't
+  //   exactly match any *visible* chip — could be a real language with 0
+  //   occurrences, or just not a recognized name at all.
+  // - zeroActiveLanguageNotice: any already-*activated* language filter(s)
+  //   with 0 papers in the current view. Tracked separately from the search
+  //   box so that e.g. picking "Xhosa" (has results) and later "Sa" (doesn't)
+  //   still flags the zero one, instead of the presence of Xhosa's visible
+  //   chip masking Sa's absence.
+  let unmatchedQueryNotice = '';
+  let zeroActiveLanguageNotice = '';
+
+  function renderLangChipNotice() {
     if (!langChipEmpty) return;
+    const parts = [zeroActiveLanguageNotice, unmatchedQueryNotice].filter(Boolean);
+    langChipEmpty.textContent = parts.join(' · ');
+    langChipEmpty.style.display = parts.length > 0 ? '' : 'none';
+  }
+
+  function updateUnmatchedQueryNotice(query: string) {
     const q = query.trim();
-    if (!q || langChips.some(c => !c.hidden)) {
-      langChipEmpty.style.display = 'none';
-      langChipEmpty.textContent = '';
-      return;
-    }
+    if (!q) { unmatchedQueryNotice = ''; renderLangChipNotice(); return; }
     const foldedQuery = foldSearchText(q);
+    const exactVisibleChip = langChips.some(c => !c.hidden && foldSearchText(c.dataset.lang || '') === foldedQuery);
+    if (exactVisibleChip) { unmatchedQueryNotice = ''; renderLangChipNotice(); return; }
+    // If this exact language is already an active filter, the zero-active-language
+    // notice below owns reporting its status — don't say the same thing twice.
+    const alreadyActive = [...activeLanguages].some(l => foldSearchText(l) === foldedQuery);
+    if (alreadyActive) { unmatchedQueryNotice = ''; renderLangChipNotice(); return; }
     const known = foldedLanguageNames.find(({ folded }) => folded === foldedQuery);
-    langChipEmpty.textContent = known
-      ? `"${known.name}" is a recognized language, but has 0 occurrences in the current view.`
+    unmatchedQueryNotice = known
+      ? `"${known.name}" is a recognized language, but has 0 papers in the current view.`
       : `No language matches "${q}".`;
-    langChipEmpty.style.display = '';
+    renderLangChipNotice();
+  }
+
+  function updateZeroActiveLanguageNotice(counts: Map<string, number>) {
+    const zero = [...activeLanguages].filter(l => (counts.get(l) ?? 0) === 0);
+    zeroActiveLanguageNotice = zero.length === 0
+      ? ''
+      : zero.length === 1
+        ? `"${zero[0]}" has 0 papers in the current view.`
+        : `${zero.map(l => `"${l}"`).join(', ')} have 0 papers in the current view.`;
+    renderLangChipNotice();
   }
 
   // ── Language search typeahead ────────────────────────────────────────────────
@@ -854,8 +882,10 @@ for (const it of paperItems) {
   function selectSuggestion(name: string) {
     if (langSearchInput) langSearchInput.value = name;
     closeSuggestions();
-    filterLangChips(name);
+    // Activate first so filterLangChips's "already active" check (which reads
+    // activeLanguages) sees this language and doesn't also raise its own notice.
     toggleLanguage(name);
+    filterLangChips(name);
     applyFilters();
     langSearchInput?.focus();
   }
@@ -959,8 +989,9 @@ for (const it of paperItems) {
         : `${visible} of ${inScopeTotal} papers`;
     }
     updateFilterBar();
-    updateChipCounts();
+    const counts = updateChipCounts();
     updateVerdictCounts();
+    updateZeroActiveLanguageNotice(counts);
   }
 
   // ── Sort ─────────────────────────────────────────────────────────────────────
@@ -1065,7 +1096,11 @@ for (const it of paperItems) {
     const allBtn = allChips.find(c => c.dataset.lang === 'all');
     if (allBtn) allBtn.classList.remove('active');
     const chipLangs = new Set(langChips.map(c => c.dataset.lang || '').filter(Boolean));
-    for (const l of activeLanguages) { if (!chipLangs.has(l)) activeLanguages.delete(l); }
+    const validLanguageNames = new Set(allLanguageNames);
+    // Only drop params that aren't even real taxonomy languages (garbage/typo'd
+    // URLs) — a real language with 0 occurrences this week should stay active;
+    // it just won't have a chip to highlight, which the zero-count notice covers.
+    for (const l of activeLanguages) { if (!chipLangs.has(l) && !validLanguageNames.has(l)) activeLanguages.delete(l); }
     langChips.forEach(chip => { if (activeLanguages.has(chip.dataset.lang || '')) chip.classList.add('active'); });
     if (activeLanguages.size === 0 && allBtn) allBtn.classList.add('active');
   }
