@@ -695,8 +695,12 @@ for (const it of paperItems) {
       if (firstRowChips.length === 0) return;
       const firstTop = firstRowChips[0].getBoundingClientRect().top;
       const chipH    = firstRowChips[0].getBoundingClientRect().height;
-      const toHide = [...overflowChips];
-      if (firstRowChips.length > 0) toHide.push(firstRowChips[firstRowChips.length - 1]);
+      // An active filter chip is kept visible even if it would otherwise land in
+      // the collapsed "+N more" bucket — hiding it made an applied filter look
+      // like it had silently reset when really it just wasn't in this week's top row.
+      const candidates = [...overflowChips];
+      if (firstRowChips.length > 0) candidates.push(firstRowChips[firstRowChips.length - 1]);
+      const toHide = candidates.filter(c => !c.classList.contains('active'));
       toHide.forEach(c => { c.style.display = 'none'; });
       let hiddenCount = toHide.length;
       expandBtn!.style.removeProperty('display');
@@ -707,7 +711,7 @@ for (const it of paperItems) {
         if (chipH === 0) break;
         if (Math.abs(expandBtn!.getBoundingClientRect().top - firstTop) <= chipH * 0.5) break;
         const stillVisible = langChips.filter(c => !c.hidden && c.style.display !== 'none');
-        const extra = stillVisible[stillVisible.length - 1];
+        const extra = [...stillVisible].reverse().find(c => !c.classList.contains('active'));
         if (!extra) break;
         extra.style.display = 'none';
         hiddenCount++;
