@@ -246,17 +246,6 @@ for (const it of paperItems) {
                   <span class={`lang-chip class-${chip.borderClass}`} style={`background:${chip.fillColor}`} data-verdict="studied">{chip.language}</span>
                 )
               ))}
-              {item.coverageBadge && (
-                <span class="lang-chip-popover">
-                  <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} aria-describedby={`coverage-tip-${item.index}`}>
-                    {item.coverageBadge.label}
-                  </span>
-                  <div class="review-popover-body" id={`coverage-tip-${item.index}`} role="tooltip">
-                    <strong>⚠ {item.coverageBadge.label}</strong>
-                    <p>{item.coverageBadge.title}</p>
-                  </div>
-                </span>
-              )}
               {item.suppressedChips.map((sc, scIdx) => (
                 <span class="lang-chip-popover">
                   <span class={`lang-chip class-${sc.borderClass} suppressed`} aria-describedby={`suppressed-tip-${item.index}-${scIdx}`}>
@@ -279,6 +268,17 @@ for (const it of paperItems) {
                   </div>
                 </span>
               ))}
+              {item.coverageBadge && (
+                <span class="lang-chip-popover">
+                  <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} aria-describedby={`coverage-tip-${item.index}`}>
+                    {item.coverageBadge.label}
+                  </span>
+                  <div class="review-popover-body" id={`coverage-tip-${item.index}`} role="tooltip">
+                    <strong>⚠ {item.coverageBadge.label}</strong>
+                    <p>{item.coverageBadge.title}</p>
+                  </div>
+                </span>
+              )}
             </div>
           </div>
         </summary>
