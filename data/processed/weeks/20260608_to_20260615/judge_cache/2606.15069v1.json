@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.15069v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T05:56:39.282544+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10363,
+  "verdicts": {
+    "Tem": {
+      "verdict": "false_positive",
+      "reason": "The term 'TEM-8' refers to a benchmark dataset (perturbed test set) rather than the Tem language, so the match is a false positive."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper evaluates CoCoGEC on the Chinese VisCGEC benchmark, indicating that Chinese is used as an experimental language, thus it is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper repeatedly references English as the target language for GEC prompts and experiments, showing that English is the language being processed, thus it is studied."
+    }
+  }
+}

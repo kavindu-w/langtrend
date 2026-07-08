@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.13610v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T06:20:39.293785+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11795,
+  "verdicts": {
+    "Gala": {
+      "verdict": "false_positive",
+      "reason": "the snippets refer to the CCTV Consumer Rights Day Gala (a TV event), not a human language, so this is a false positive"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "the snippets mention Latin-token tails in regex patterns, i.e., Latin characters, not the Latin language itself, so this is a false positive"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "the snippets describe Chinese-language content, Chinese tokenizer usage, Chinese brand names, and experiments conducted in Chinese, indicating the paper studies the Chinese language"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "the snippets show English prompts, product lists, and cross‑lingual replication experiments, indicating the paper studies the English language"
+    }
+  }
+}

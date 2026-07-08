@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.09334v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T07:59:51.413066+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11964,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain no occurrence of 'Bo' referring to a human language; the term is absent or part of model identifiers, so it is a false positive."
+    },
+    "Mama": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'mama → mamo' the word 'mama' is a Ukrainian noun meaning 'mother', not a language name, thus a false positive."
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "The paper repeatedly discusses Ukrainian as the target language for grammatical error correction, evaluates models on Ukrainian data, and designs Ukrainian‑specific prompts, indicating the language is"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as the language of prompts and for comparison; the work does not build resources or evaluate models for English GEC, so it is mentioned only."
+    }
+  }
+}

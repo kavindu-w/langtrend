@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.10610v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T07:27:51.457324+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3401,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Abu' appears as part of the author name 'Abu Farha et al.' and does not refer to a human language; therefore it is a false positive."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The term 'Latin' is used to describe Latin characters being replaced with Cyrillic characters, not the Latin language itself; therefore it is a false positive."
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "The snippet discusses training on 270 samples of Egyptian Arabic and evaluating cross‑dialect sentiment classification, indicating the paper uses this dialect in its experiments; thus it is studied."
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippet mentions Arabic dialect sentiment classification and low‑resource Arabic dialect experiments, showing the paper works with Arabic data; thus it is studied."
+    }
+  }
+}

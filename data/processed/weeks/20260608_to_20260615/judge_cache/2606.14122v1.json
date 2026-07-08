@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.14122v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T06:12:39.122506+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9061,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, \"MAE\" stands for Mean Absolute Error, a performance metric, not the Mae language."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The term is used to describe non-Latin alphabets (i.e., scripts other than the Latin script), not the Latin language."
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippets discuss Korean characters, tokenization, and byte-fallback rates, indicating the Korean language is part of the experimental corpus and evaluation."
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese characters (Kana) and language-specific statistics are analyzed throughout the paper, showing it is a target language in the experiments."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese characters and language-specific byte-fallback rates are examined, confirming Chinese is a language studied in the experiments."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is included in the multilingual training corpus and its tokenization behavior is reported, indicating it is a language studied in the work."
+    }
+  }
+}
