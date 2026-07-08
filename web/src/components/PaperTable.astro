@@ -765,25 +765,16 @@ for (const it of paperItems) {
 
   // ── Language chip search ─────────────────────────────────────────────────────
 
+  // Narrows which chip *buttons* are shown — purely visual. It must never
+  // touch activeLanguages: search text is also how multiple picks get stacked
+  // (search A, Enter, search B, Enter), so clearing an active filter just
+  // because its chip momentarily scrolled out of the text-matched set would
+  // silently undo the previous pick before the user gets to their second one.
   function filterLangChips(query: string) {
     const q = foldSearchText(query.trim());
     langChips.forEach(chip => {
       chip.hidden = q.length > 0 && !foldSearchText(chip.dataset.lang || '').includes(q);
     });
-    let needsRefilter = false;
-    for (const chip of langChips) {
-      if (chip.hidden && activeLanguages.has(chip.dataset.lang || '')) {
-        activeLanguages.delete(chip.dataset.lang || '');
-        chip.classList.remove('active');
-        needsRefilter = true;
-      }
-    }
-    if (needsRefilter) {
-      const allBtn = allChips.find(c => c.dataset.lang === 'all');
-      if (allBtn) allBtn.classList.toggle('active', activeLanguages.size === 0);
-      updateUrlParams();
-      applyFilters();
-    }
     if (chipExpanded) {
       langChips.forEach(c => { if (!c.hidden) c.style.removeProperty('display'); });
     } else {
