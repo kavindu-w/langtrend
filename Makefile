@@ -10,9 +10,10 @@ JUDGE_WORKERS ?= 4
 # END_DATE    ?= 2026-05-25
 # END_DATE    ?= 2026-06-01
 # END_DATE    ?= 2026-06-08
-END_DATE    ?= 2026-06-15
+# END_DATE    ?= 2026-06-15
 # END_DATE    ?= 2026-06-22
 # END_DATE    ?= 2026-06-29
+# END_DATE    ?= 2026-07-06
 # NO_PDF      ?= 1
 
 # List of end-dates for *-all targets. Override on the command line:
@@ -20,7 +21,8 @@ END_DATE    ?= 2026-06-15
 # DATES ?= 2026-05-04 2026-05-11
 # DATES ?= 2026-05-18 2026-05-25
 # DATES ?= 2026-06-01 2026-06-08
-DATES ?= 2026-06-15 2026-06-22
+# DATES ?= 2026-06-15 2026-06-22
+DATES ?= 2026-06-15 2026-06-22 2026-06-29 2026-07-06
 
 # Pass --end-date only when END_DATE is set
 _END_DATE_FLAG = $(if $(END_DATE),--end-date $(END_DATE),)
@@ -57,13 +59,14 @@ help:
 	@echo "                                          Add JUDGE=1 to also run the LLM judge stage"
 	@echo "                                          (PDF_PATH also takes TITLE=\"...\" for the report)"
 	@echo ""
-	@echo "Multi-week targets (loop over DATES):"
+	@echo "Multi-week targets (loop over DATES, except manifest-all):"
 	@echo "  make fetch-all        fetch for each date in DATES"
 	@echo "  make process-all      process for each date in DATES"
 	@echo "  make reprocess-all    reprocess for each date in DATES"
 	@echo "  make retry-missing-all  retry-missing for each date in DATES"
 	@echo "  make judge-all        judge for each date in DATES (resumable; reruns skip cached verdicts)"
-	@echo "  make manifest-all     rebuild manifest for every week found in metadata dir"
+	@echo "  make manifest-all     rebuild manifest for EVERY week found in metadata dir (ignores DATES"
+	@echo "                          on purpose — fast/local, so it's cheapest to just resync everything)"
 	@echo "  make pipeline-all     full pipeline for each date in DATES"
 	@echo ""
 	@echo "Web targets:"
