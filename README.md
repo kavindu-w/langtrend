@@ -27,7 +27,7 @@ _Latest processed week: **2026-06-29 – 2026-07-06**._
 
 <!-- LANGTREND_STATS_END -->
 
-> **LLM judge coverage:** Only few latests weeks have been through LLM-as-judge verification so far. Earlier weeks are still regex-detection only — their language counts include unverified detections (shown as provisionally **studied**) — and will be backfilled automatically, newest week first, by the daily judge catch-up workflow. The site deploys as soon as the latest week is judged; it doesn't wait for the older backlog, which fills in and redeploys incrementally in the background.
+> **LLM judge coverage:** Only few latest weeks have been through LLM-as-judge verification so far. Earlier weeks are still regex-detection only — their language counts include unverified detections (shown as provisionally **studied**) — and will be backfilled automatically, newest week first, by the daily judge catch-up workflow. The site deploys as soon as the latest week is judged; it doesn't wait for the older backlog, which fills in and redeploys incrementally in the background.
 
 ---
 
