@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.11931v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T06:54:15.216398+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5331,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to the Mean Absolute Error metric in the abstract, not the Mae language, so false_positive"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script for OCR tuning, not the Latin language, so false_positive"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is cited as an example of a resource‑rich language in the introduction, only mentioned, not studied"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is cited as an example of a resource‑rich language in the introduction, only mentioned, not studied"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is cited as an example of a resource‑rich language in the introduction, only mentioned, not studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a target language in the bilingual dataset, feedback generation, and experimental evaluation, so the paper studies English"
+    }
+  }
+}

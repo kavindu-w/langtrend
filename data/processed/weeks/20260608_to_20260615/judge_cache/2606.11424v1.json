@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.11424v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T07:11:27.058969+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7350,
+  "verdicts": {
+    "Beaver": {
+      "verdict": "false_positive",
+      "reason": "The snippets use BEAVER as the name of an Oracle‑dialect NL2SQL benchmark/dataset, not the Beaver human language; thus it is a false positive."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Chinese as a natural language in the Archer‑dev benchmark (English and Chinese), and the paper runs experiments on Chinese NL2SQL data, so the language is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as a natural language in the Archer‑dev benchmark, and the paper evaluates its method on English NL2SQL data, so the language is studied."
+    }
+  }
+}

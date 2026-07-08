@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-07T19:37:12.410203+00:00",
+  "generated_at": "2026-07-08T08:37:01.214878+00:00",
   "window_days": 7,
   "week_start": "2026-06-15",
   "week_end": "2026-06-22",
@@ -7,23 +7,23 @@
   "counts": {
     "papers": 490,
     "flagged_papers": 226,
-    "unique_languages": 79,
+    "unique_languages": 78,
     "unique_languages_mentioned_only": 15,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 314,
-      "judged_languages": 1098,
+      "judged_papers": 315,
+      "judged_languages": 1101,
       "studied": 408,
-      "mentioned_only": 338,
-      "false_positive": 352
+      "mentioned_only": 340,
+      "false_positive": 353
     }
   },
   "language_counts": [
     {
       "language": "English",
       "count": 205,
-      "studied": 77,
-      "mentioned_only": 128
+      "studied": 76,
+      "mentioned_only": 129
     },
     {
       "language": "Chinese",
@@ -112,8 +112,8 @@
     {
       "language": "Czech",
       "count": 8,
-      "studied": 6,
-      "mentioned_only": 2
+      "studied": 5,
+      "mentioned_only": 3
     },
     {
       "language": "Dutch",
@@ -542,12 +542,6 @@
       "mentioned_only": 1
     },
     {
-      "language": "Sentinel",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Shan",
       "count": 1,
       "studied": 1,
@@ -587,8 +581,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 16,
-      "studied": 9,
+      "count": 15,
+      "studied": 8,
       "mentioned_only": 7
     },
     {
@@ -612,14 +606,14 @@
     {
       "class_id": 4,
       "count": 147,
-      "studied": 93,
-      "mentioned_only": 54
+      "studied": 92,
+      "mentioned_only": 55
     },
     {
       "class_id": 5,
       "count": 413,
-      "studied": 191,
-      "mentioned_only": 222
+      "studied": 190,
+      "mentioned_only": 223
     }
   ],
   "daily_series": [
@@ -123886,7 +123880,11 @@
           "class": 4,
           "sources": [
             "pdf"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "Czech refers to the Czech language used as a source/target in ASR and translation experiments, but the paper does not build resources or evaluate specifically for Czech.",
+          "judge_model": "gpt-oss-120b",
+          "judged_at": "2026-07-08T08:36:37.358401+00:00"
         },
         {
           "language": "Sentinel",
@@ -123895,14 +123893,22 @@
           "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
           "sources": [
             "pdf"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "In the snippets, 'sentinel' refers to a special token used in the MT component, not a human language.",
+          "judge_model": "gpt-oss-120b",
+          "judged_at": "2026-07-08T08:36:37.358401+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "pdf"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "English refers to the English language used for ASR and policy exploration, but the paper does not study English specifically.",
+          "judge_model": "gpt-oss-120b",
+          "judged_at": "2026-07-08T08:36:37.358401+00:00"
         }
       ],
       "sources_checked": [
@@ -123919,21 +123925,37 @@
           "detected_languages": [
             {
               "language": "Czech",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Czech refers to the Czech language used as a source/target in ASR and translation experiments, but the paper does not build resources or evaluate specifically for Czech.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T08:36:37.358401+00:00"
             },
             {
               "language": "Sentinel",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens"
+              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the snippets, 'sentinel' refers to a special token used in the MT component, not a human language.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T08:36:37.358401+00:00"
             },
             {
               "language": "Czech",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Czech refers to the Czech language used as a source/target in ASR and translation experiments, but the paper does not build resources or evaluate specifically for Czech.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T08:36:37.358401+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English refers to the English language used for ASR and policy exploration, but the paper does not study English specifically.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T08:36:37.358401+00:00"
             }
           ]
         }

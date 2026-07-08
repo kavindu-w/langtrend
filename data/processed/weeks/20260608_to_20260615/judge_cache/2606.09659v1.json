@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.09659v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T07:46:39.481891+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9342,
+  "verdicts": {
+    "Fwe": {
+      "verdict": "false_positive",
+      "reason": "In the tables 'cwe fwe' are column headings, not a reference to the Fwe language; therefore it's a false positive."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Appears in headings like 'LongBench Chinese' indicating the paper evaluates on Chinese benchmark tasks, so the language is used in experiments."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "Appears in headings like 'LongBench English' indicating the paper evaluates on English benchmark tasks, so the language is used in experiments."
+    },
+    "Tulu": {
+      "verdict": "studied",
+      "reason": "Mentioned as the 'Tulu-3 mixture' dataset incorporated for instruction tuning, implying the paper uses Tulu language data."
+    }
+  }
+}

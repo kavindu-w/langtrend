@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.13111v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T06:33:03.673783+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11844,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the jina-embeddings-v2-base-de embedding model used for similarity scoring, not a human language."
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "Sie is the German second-person pronoun in the prompt ('Sie sind ein Berater'), not a language name."
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian appears as one of the languages of the Swiss court decision dataset, mentioned only as part of multilingual data without being a focus of the study."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears as one of the languages of the Swiss court decision dataset, mentioned only as part of multilingual data without being a focus of the study."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to Chinese-language models evaluated in the benchmark; the paper mentions these models but does not develop resources or experiments for the Chinese language itself."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the language of existing benchmarks and datasets; the paper does not conduct experiments on English-language tasks, so it is only mentioned."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is the primary language of the benchmark, with German datasets, tasks, and evaluation; the paper studies and builds resources for German language generation."
+    }
+  }
+}

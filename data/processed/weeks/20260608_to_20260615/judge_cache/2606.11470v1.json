@@ -1,0 +1,53 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.11470v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T07:10:15.502334+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9590,
+  "verdicts": {
+    "Nora": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"NoRa\" as the name of a testbed, not referring to a human language, leading to a false positive."
+    },
+    "Suri": {
+      "verdict": "false_positive",
+      "reason": "\"Suri et al\" appears as an author citation, not a language name, so this is a false positive."
+    },
+    "Pali": {
+      "verdict": "false_positive",
+      "reason": "The occurrence is within a dataset/model name (e.g., ChartPA) and does not denote the Pali language, thus a false positive."
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "\"TAT-QA\" is a dataset name, not a reference to the Tat language, so this is a false positive."
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "\"Gan et al.\" is an author citation, not a language reference, resulting in a false positive."
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions \"Bengali-English\" code‑mixed queries, referring to the Bengali language only as an example, not as a focus of study."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The phrase \"non‑Latin scripts\" uses Latin to describe a script type, not the Latin language itself, so this is a false positive."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is cited as one of many languages in multilingual reasoning discussions, without dedicated study or resources, thus mentioned only."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the primary language of the surveyed work and datasets, but the paper does not build resources for it, so it is mentioned only."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears as a target language in multilingual dataset descriptions, not as a language studied in depth, so mentioned only."
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is listed alongside other languages in dataset benchmarks, without dedicated study, thus mentioned only."
+    }
+  }
+}

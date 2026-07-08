@@ -1,0 +1,45 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.13647v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T06:18:39.787952+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11925,
+  "verdicts": {
+    "Ale": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Ale' is a Slovak conjunction meaning 'but', not a language name"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'Jina' refers to the Jina embedding model/brand, not a human language"
+    },
+    "Slovak": {
+      "verdict": "studied",
+      "reason": "The paper builds a benchmark, creates Slovak-specific models, and evaluates on Slovak datasets, indicating the language is studied"
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "Czech is mentioned as a partner language for cross‑lingual tasks (e.g., Slovak‑Czech bitext mining) but no Czech‑specific resources are built"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch appears only in reference to a comparison (MTEB‑NL) and prior work on Dutch embeddings, without developing Dutch resources"
+    },
+    "Hungarian": {
+      "verdict": "mentioned_only",
+      "reason": "Hungarian is cited only because a Hungarian sentence was found and removed during dataset cleaning; the language is not a focus"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is mentioned as an example of another language with its own benchmark, not as a target of the study"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced as a high‑resource language in the introduction, not as a language studied in the work"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a high‑resource language and as source language in bitext mining, but the paper does not develop English‑specific resources"
+    }
+  }
+}

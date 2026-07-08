@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.17255v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T08:36:37.358401+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3461,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'sentinel' refers to a special token used in the MT component, not a human language."
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "Czech refers to the Czech language used as a source/target in ASR and translation experiments, but the paper does not build resources or evaluate specifically for Czech."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language used for ASR and policy exploration, but the paper does not study English specifically."
+    }
+  }
+}

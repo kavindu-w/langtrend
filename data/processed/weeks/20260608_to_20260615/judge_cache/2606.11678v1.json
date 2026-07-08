@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.11678v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T07:02:39.472017+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11989,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to the mean absolute error metric, not a human language, so false_positive"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu appears only as part of model and variant names (e.g., Llama-3.1-Tulu) rather than the Tulu language, so false_positive"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is used only in the phrase 'Latin American' referring to a region, not the Latin language, so false_positive"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese denotes the Chinese language in scenario sets and training data, and the paper evaluates models on Chinese-language tasks, so studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English denotes the English language in planning documentation and scenario sets used for evaluation, so studied"
+    }
+  }
+}

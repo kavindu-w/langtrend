@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.09767v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T07:42:15.218283+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7628,
+  "verdicts": {
+    "Ahom": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, \"ahom\" is a noun within a sample translation sentence, not a reference to the Ahom language itself; it is a lexical token, so this is a false positive."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The term \"Latin\" is used to describe the orthography (Latin‑based script) of Q’eqchi’, not the Latin language, making this a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as a high‑resource source/target language and as part of the pre‑trained latent space for the NMT model, but the paper does not build resources or evaluate English itself; it is o"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is referenced as a high‑resource language used for pre‑training, tokenization, and evaluation contexts, without any dedicated study or resource creation for Spanish; thus it is only mentioned."
+    }
+  }
+}

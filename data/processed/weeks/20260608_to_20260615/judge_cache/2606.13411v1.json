@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.13411v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T06:25:27.362052+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11613,
+  "verdicts": {
+    "Tamazight": {
+      "verdict": "mentioned_only",
+      "reason": "Tamazight refers to the Berber language mentioned as part of code-switching, but the paper does not build resources or evaluate models for it → mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the high-resource language cited in related work, not used in experiments → mentioned_only"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French refers to the language mentioned as part of code-switching, not studied in the paper → mentioned_only"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin alphabet/script used for Arabizi, not the Latin language → false_positive"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the Arabic language (including Modern Standard Arabic and Algerian dialect) that the paper builds datasets for and evaluates models on → studied"
+    }
+  }
+}

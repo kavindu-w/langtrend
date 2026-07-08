@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.15883v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T05:42:39.579732+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10381,
+  "verdicts": {
+    "Dera": {
+      "verdict": "false_positive",
+      "reason": "The term 'Dera' appears only as part of the metric abbreviation 'DER' (Diacritic Error Rate), not referring to a language, leading to a false positive."
+    },
+    "Kashmiri": {
+      "verdict": "studied",
+      "reason": "Kashmiri is the primary language of the study, with a dedicated dataset, model, and evaluation, so it is studied."
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "Hebrew is cited only as an example of prior diacritic restoration work, not used in the paper's experiments, so it is mentioned only."
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Vietnamese is mentioned solely as an example of languages previously studied for diacritic restoration, not part of the paper's work, so it is mentioned only."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to 'non‑Latin scripts' in a discussion of script types, not to the Latin language itself, making it a false positive."
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "Urdu is listed as another Perso‑Arabic script language for context, without any experimental focus, so it is mentioned only."
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is mentioned as an example of a Perso‑Arabic script language, but the paper does not study it, so it is mentioned only."
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is referenced for background (e.g., existing corpora and models) but not as a target language of the study, so it is mentioned only."
+    }
+  }
+}

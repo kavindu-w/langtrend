@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.15191v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T05:53:03.543498+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11793,
+  "verdicts": {
+    "Kannada": {
+      "verdict": "mentioned_only",
+      "reason": "Kannada refers to Kannada speakers in bias example sentences, not a language evaluated or resource built, so it is only mentioned"
+    },
+    "Konkani": {
+      "verdict": "studied",
+      "reason": "Konkani is the focal low-resource language of the dataset, with data collection, translation, tokenisation and bias evaluation performed on it, so it is studied"
+    },
+    "Marathi": {
+      "verdict": "mentioned_only",
+      "reason": "Marathi is cited only as a related language for transfer learning and tokenisation context, without any data or experiments on Marathi itself, so it is only mentioned"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is referenced as a language used in prior datasets and for tokenisation considerations, but no Hindi-specific data or experiments are presented, so it is only mentioned"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese appears in a list of languages and in bias example sentences about Portuguese speakers, without any Portuguese-focused resources or evaluation, so it is only mentioned"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned in discussion of existing bias benchmarks translated into Arabic, not as a language studied in this work, so it is only mentioned"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned alongside Arabic as a target language of other bias benchmarks, with no French-specific work in this paper, so it is only mentioned"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the two languages of the parallel bias dataset and is used for evaluation of bias scores, making it a studied language"
+    }
+  }
+}

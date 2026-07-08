@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.13310v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T06:26:15.289524+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11887,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "In the snippets Sentinel is the name of an AI superhero character (and its disguise), not a human language, leading to a false positive."
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "In the snippets Una appears as an Italian indefinite article within prompts, not as a language name, so it is a false positive."
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is explicitly the language of the pilot study, interface, data collection and analysis, indicating the paper works with and evaluates this language."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as a translation of interface elements and example text, without being used in the study's experiments, so it is mentioned only."
+    }
+  }
+}

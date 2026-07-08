@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.10657v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T07:27:03.501317+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11819,
+  "verdicts": {
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The token 'una' is the Spanish indefinite article in the snippet, not a language name; therefore false_positive"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is cited as an example (e.g., Brazilian Portuguese) and in tokenizer discussion, but no Portuguese models or resources are built; therefore mentioned_only"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the models and experiments, with English models trained, evaluated, and analyzed; therefore studied"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is only mentioned in the context of tokenizer efficiency comparisons, without any French models or resources; therefore mentioned_only"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish denotes the language of monolingual models that are trained, evaluated, and compared throughout the paper; therefore studied"
+    }
+  }
+}

@@ -1,19 +1,11 @@
 import { languageBorderClass, languageFillColor } from './language-colors.js';
+import { renderAbstractHtml } from './abstract-math.js';
+import { foldSearchText } from './text-utils.js';
+
+export { foldSearchText };
 
 const SOURCE_LABEL = { abstract: 'Abstract', html: 'Full Text (HTML)', pdf: 'Full Text (PDF)' };
 const SOURCE_ORDER = ['abstract', 'html', 'pdf'];
-
-// Author and language names routinely carry diacritics or typographic
-// apostrophes (e.g. "é", "N'ko") that a user won't type on a
-// plain keyboard -- fold both sides of a search match through this so
-// an ASCII-only query still hits.
-export function foldSearchText(s) {
-  return s
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[‘’ʼ]/g, "'")
-    .toLowerCase();
-}
 
 export function normalizeLanguage(entry) {
   if (typeof entry === 'string') return entry;
@@ -110,7 +102,7 @@ export function formatDate(iso) {
 
 /** @param {object} item @param {number} index @param {string} weekStart @param {Record<string, unknown[]>} langClasses @param {Record<string, string>} pfpMap */
 export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap = {}) {
-  const paper = item.paper;
+  const paper = { ...item.paper, abstractHtml: renderAbstractHtml(item.paper.abstract) };
   const allAuthors = Array.isArray(paper.authors) && paper.authors.length > 0 ? paper.authors.join(', ') : 'Unknown authors';
 
   // Languages the LLM judge rejected are hidden from the chip row (and from
@@ -268,6 +260,7 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
     title: paper.title,
     authors: paper.authors,
     abstract: paper.abstract,
+    abstractHtml: renderAbstractHtml(paper.abstract),
     pdf_url: paper.pdf_url,
     arxiv_url: paper.id ? paper.id.replace('http://', 'https://') : paper.pdf_url,
     published: paper.published ?? '',
