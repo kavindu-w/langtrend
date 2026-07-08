@@ -121,6 +121,8 @@ function getForwardedParams() {
   const period = p.get('period'); if (period) parts.push(`period=${encodeURIComponent(period)}`);
   const q = p.get('q'); if (q) parts.push(`q=${encodeURIComponent(q)}`);
   const sort = p.get('sort'); if (sort) parts.push(`sort=${encodeURIComponent(sort)}`);
+  const verdict = p.get('verdict'); if (verdict) parts.push(`verdict=${encodeURIComponent(verdict)}`);
+  const trend = p.get('trend'); if (trend) parts.push(`trend=${encodeURIComponent(trend)}`);
   return parts.length ? '?' + parts.join('&') : '';
 }
 

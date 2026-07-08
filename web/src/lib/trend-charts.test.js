@@ -289,4 +289,14 @@ describe('markerPath', () => {
     expect(new Set(shapes).size).toBe(10);
     expect(markerPath(0, 0, 0, 5)).toBe(markerPath(10, 0, 0, 5)); // wraps every 10
   });
+
+  it('every V/H command takes a single coordinate (no stray x in vertical line)', () => {
+    // A V command with two comma-separated values (e.g. "V 300,44") draws a
+    // spurious segment to y=cx before the intended point — the case-5 marker bug.
+    for (let i = 0; i < 10; i++) {
+      const d = markerPath(i, 300, 44, 4);
+      const strayVertical = /[VH]\s*-?\d[\d.]*,-?\d/.test(d);
+      expect(strayVertical, `shape ${i}: "${d}"`).toBe(false);
+    }
+  });
 });

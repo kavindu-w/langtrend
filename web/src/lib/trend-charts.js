@@ -288,7 +288,7 @@ export function markerPath(shapeIdx, cx, cy, size) {
     case 2: return `M ${cx},${cy - s * 1.3} L ${cx + s * 1.3},${cy} L ${cx},${cy + s * 1.3} L ${cx - s * 1.3},${cy} Z`; // diamond
     case 3: return `M ${cx},${cy - s * 1.3} L ${cx + s * 1.15},${cy + s * 0.75} L ${cx - s * 1.15},${cy + s * 0.75} Z`; // triangle up
     case 4: return `M ${cx},${cy + s * 1.3} L ${cx + s * 1.15},${cy - s * 0.75} L ${cx - s * 1.15},${cy - s * 0.75} Z`; // triangle down
-    case 5: return `M ${cx - s},${cy} H ${cx + s} M ${cx},${cy - s} V ${cx},${cy + s}`.replace(`${cx},`, `${cx} `); // cross (workaround)
+    case 5: return `M ${cx - s},${cy} H ${cx + s} M ${cx},${cy - s} V ${cy + s}`; // plus/cross
     case 6: { // pentagon
       const pts = Array.from({length: 5}, (_, i) => {
         const a = (i * 2 * Math.PI / 5) - Math.PI / 2;
