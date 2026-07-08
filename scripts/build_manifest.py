@@ -56,6 +56,25 @@ def _find_latest_input() -> Path | None:
     return candidates[-1] if candidates else None
 
 
+def _is_latest_week(output_dir: Path, week_end: str | None) -> bool:
+    """True unless a sibling week directory has a later week_end than this one.
+
+    Guards against a manual `--input`/`--end-date` run for an older week overwriting the
+    "last N days" pointer the site actually reads (see langtrend_manifest_last_7_days.json).
+    """
+    weeks_dir = output_dir.parent
+    if weeks_dir.name != "weeks" or week_end is None:
+        return True  # non-standard layout (e.g. sandbox) — nothing to compare against
+    this_end = week_end.replace("-", "")
+    for sibling in weeks_dir.iterdir():
+        if not sibling.is_dir() or sibling.name == output_dir.name:
+            continue
+        m = _WEEK_RE.match(sibling.name)
+        if m and m.group(2) > this_end:
+            return False
+    return True
+
+
 def _load_papers(jsonl_path: Path) -> list[dict]:
     papers = []
     with jsonl_path.open("r", encoding="utf-8") as fh:
@@ -376,8 +395,11 @@ def build_and_save(
     # "Latest" pointer lives at the top of processed/ regardless of output_dir depth
     processed_root = output_dir.parent.parent if output_dir.parent.name == "weeks" else output_dir
     latest_path = processed_root / f"langtrend_manifest_last_{window_days}_days.json"
-    save_json(manifest, latest_path)
-    print(f"Saved: {latest_path}")
+    if _is_latest_week(output_dir, week_end):
+        save_json(manifest, latest_path)
+        print(f"Saved: {latest_path}")
+    else:
+        print(f"Skipped: {latest_path} (week {week_start}–{week_end} is not the latest known week)")
 
     return week_manifest_path
 
