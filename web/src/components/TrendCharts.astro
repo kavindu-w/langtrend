@@ -1346,7 +1346,15 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
               <span><span class="coverage-dot html"></span>Papers with detected languages</span>
             </div>
             {trendPeriods.length > 0 ? (
-              <div class="chart-scroll trend-period-chart-scroll">
+              <div class={`chart-scroll trend-period-chart-scroll${trendGroupedScrollPx !== null ? ' chart-scroll-frozen' : ''}`}>
+                {trendGroupedScrollPx !== null && (
+                  <svg class="chart-axis-overlay" width={trendGroupedMargins.left} height={trendGroupedHeight} viewBox={`0 0 ${trendGroupedMargins.left} ${trendGroupedHeight}`} aria-hidden="true">
+                    <rect x="0" y="0" width={trendGroupedMargins.left} height={trendGroupedHeight} class="chart-axis-overlay-bg"></rect>
+                    {trendGroupedY.ticks(4).map((tick) => (
+                      <text x={trendGroupedMargins.left - 10} y={trendGroupedMargins.top + trendGroupedY(tick) + 4} text-anchor="end" class="chart-axis-label">{tick}</text>
+                    ))}
+                  </svg>
+                )}
                 <svg class="chart-svg" width={trendGroupedScrollPx === null ? "100%" : undefined} style={trendGroupedScrollPx !== null ? `width:${trendGroupedScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendGroupedWidth} ${trendGroupedHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`Stacked bar chart of ${trendGranularity} scan volume`}>
                   <g transform={`translate(${trendGroupedMargins.left} ${trendGroupedMargins.top})`}>
                     {trendGroupedY.ticks(4).map((tick) => (
@@ -1437,7 +1445,15 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
               </div>
             </div>
             {trendPeriods.length > 0 ? (
-              <div class="chart-scroll trend-period-chart-scroll">
+              <div class={`chart-scroll trend-period-chart-scroll${trendUniqueScrollPx !== null ? ' chart-scroll-frozen' : ''}`}>
+                {trendUniqueScrollPx !== null && (
+                  <svg class="chart-axis-overlay" width={trendUniqueMargins.left} height={trendUniqueHeight} viewBox={`0 0 ${trendUniqueMargins.left} ${trendUniqueHeight}`} aria-hidden="true">
+                    <rect x="0" y="0" width={trendUniqueMargins.left} height={trendUniqueHeight} class="chart-axis-overlay-bg"></rect>
+                    {trendUniqueY.ticks(4).map((tick) => (
+                      <text x={trendUniqueMargins.left - 10} y={trendUniqueMargins.top + trendUniqueY(tick) + 4} text-anchor="end" class="chart-axis-label">{tick}</text>
+                    ))}
+                  </svg>
+                )}
                 <svg class="chart-svg" width={trendUniqueScrollPx === null ? "100%" : undefined} style={trendUniqueScrollPx !== null ? `width:${trendUniqueScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendUniqueWidth} ${trendUniqueHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`Line chart of unique languages per ${trendGranularity}`}>
                   <g transform={`translate(${trendUniqueMargins.left} ${trendUniqueMargins.top})`}>
                     {trendUniqueY.ticks(4).map((tick) => (
@@ -1483,7 +1499,15 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             </div>
             {trendPeriods.length > 0 && topTrendLanguages.length > 0 ? (
               <div class="trend-line-layout">
-                <div class="chart-scroll trend-period-chart-scroll">
+                <div class={`chart-scroll trend-period-chart-scroll${trendTopLanguageScrollPx !== null ? ' chart-scroll-frozen' : ''}`}>
+                  {trendTopLanguageScrollPx !== null && (
+                    <svg class="chart-axis-overlay" width={trendTopLanguageMargins.left} height={trendTopLanguageHeight} viewBox={`0 0 ${trendTopLanguageMargins.left} ${trendTopLanguageHeight}`} aria-hidden="true">
+                      <rect x="0" y="0" width={trendTopLanguageMargins.left} height={trendTopLanguageHeight} class="chart-axis-overlay-bg"></rect>
+                      {trendTopLanguageY.ticks(6).map((tick) => (
+                        <text x={trendTopLanguageMargins.left - 10} y={trendTopLanguageMargins.top + trendTopLanguageY(tick) + 4} text-anchor="end" class="chart-axis-label">{tick}</text>
+                      ))}
+                    </svg>
+                  )}
                   <svg class="chart-svg" width={trendTopLanguageScrollPx === null ? "100%" : undefined} style={trendTopLanguageScrollPx !== null ? `width:${trendTopLanguageScrollPx}px;max-width:none` : undefined} height={trendTopLanguageScrollPx !== null ? trendTopLanguageHeight : undefined} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Line chart of top-language trends across ${trendGranularity}s`}>
                     <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
                       {trendTopLanguageY.ticks(6).map((tick) => (
@@ -1760,6 +1784,21 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         r = Math.min(r, w / 2, Math.max(h / 2, 0));
         if (h <= 0) return '';
         return 'M '+x+','+y+' H '+(x+w)+' V '+(y+h-r)+' Q '+(x+w)+','+(y+h)+' '+(x+w-r)+','+(y+h)+' H '+(x+r)+' Q '+x+','+(y+h)+' '+x+','+(y+h-r)+' Z';
+      }
+
+      // A small "frozen column" y-axis overlay for horizontally scrollable
+      // per-period charts (many weeks/months/years): without it, the axis
+      // labels scroll away with the plot and the user has to scroll all the
+      // way back to the start to see what the numbers mean. tickEntries is
+      // an array of { y, label } where y is already in inner-plot
+      // coordinates (0 at the top of the plot area, matching the main
+      // chart's own tick positions).
+      function axisOverlaySvg(marginLeft, marginTop, height, tickEntries) {
+        var bg = '<rect x="0" y="0" width="' + marginLeft + '" height="' + height + '" class="chart-axis-overlay-bg"></rect>';
+        var labels = tickEntries.map(function(t) {
+          return '<text x="' + (marginLeft - 10) + '" y="' + (marginTop + t.y + 4) + '" text-anchor="end" class="chart-axis-label">' + t.label + '</text>';
+        }).join('');
+        return '<svg class="chart-axis-overlay" width="' + marginLeft + '" height="' + height + '" viewBox="0 0 ' + marginLeft + ' ' + height + '" aria-hidden="true">' + bg + labels + '</svg>';
       }
 
       function pieSlicePath(cx, cy, radius, startAngle, endAngle) {
@@ -2276,7 +2315,13 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             svg += '<text x="' + (x + barW / 2) + '" y="' + (scanInnerH + 18) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>';
             return svg;
           }).join('');
-          scanContainer.innerHTML = '<svg class="chart-svg"' + (scanWidth !== 760 ? ' style="width:' + scanWidth + 'px;max-width:none"' : ' width="100%"') + ' viewBox="0 0 ' + scanWidth + ' ' + scanHeight + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Stacked bar chart of selected period scan volume"><g transform="translate(' + scanMargin.left + ' ' + scanMargin.top + ')"><line x1="0" x2="' + scanInnerW + '" y1="' + scanInnerH + '" y2="' + scanInnerH + '" class="chart-grid-line"></line>' + yAxis + bars + '</g></svg>';
+          var scanIsScrollable = scanWidth !== 760;
+          scanContainer.classList.toggle('chart-scroll-frozen', scanIsScrollable);
+          var scanOverlay = scanIsScrollable ? axisOverlaySvg(scanMargin.left, scanMargin.top, scanHeight, [0, 1, 2, 3, 4].map(function(i) {
+            var tick = Math.round(maxP * i / 4);
+            return { y: scanInnerH - (tick / maxP) * scanInnerH, label: tick };
+          })) : '';
+          scanContainer.innerHTML = scanOverlay + '<svg class="chart-svg"' + (scanWidth !== 760 ? ' style="width:' + scanWidth + 'px;max-width:none"' : ' width="100%"') + ' viewBox="0 0 ' + scanWidth + ' ' + scanHeight + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Stacked bar chart of selected period scan volume"><g transform="translate(' + scanMargin.left + ' ' + scanMargin.top + ')"><line x1="0" x2="' + scanInnerW + '" y1="' + scanInnerH + '" y2="' + scanInnerH + '" class="chart-grid-line"></line>' + yAxis + bars + '</g></svg>';
         }
 
         var classLegend = document.getElementById('period-class-legend');
@@ -2344,7 +2389,12 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           var uniqueDots = uniquePts.map(function(point) {
             return '<circle cx="' + point.x + '" cy="' + point.y + '" r="5" fill="#7c3aed" stroke="white" stroke-width="2"></circle><text x="' + point.x + '" y="' + uniqueLabelY(point.y) + '" text-anchor="middle" class="chart-value">' + point.val + '</text><text x="' + point.x + '" y="' + (uniqueInnerH + 18) + '" text-anchor="middle" class="chart-label">' + point.label + '</text>';
           }).join('');
-          uniqueContainer.innerHTML = '<svg class="chart-svg"' + (uniqueWidth !== 700 ? ' style="width:' + uniqueWidth + 'px;max-width:none"' : ' width="100%"') + ' viewBox="0 0 ' + uniqueWidth + ' ' + uniqueHeight + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of unique languages per selected period"><g transform="translate(' + uniqueMargin.left + ' ' + uniqueMargin.top + ')">' + uniqueAxis + '<path d="' + uniqueLine + '" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round"></path>' + uniqueDots + '</g></svg>';
+          var uniqueIsScrollable = uniqueWidth !== 700;
+          uniqueContainer.classList.toggle('chart-scroll-frozen', uniqueIsScrollable);
+          var uniqueOverlay = uniqueIsScrollable ? axisOverlaySvg(uniqueMargin.left, uniqueMargin.top, uniqueHeight, uniqueTicks.map(function(tick) {
+            return { y: uniqueY(tick), label: tick };
+          })) : '';
+          uniqueContainer.innerHTML = uniqueOverlay + '<svg class="chart-svg"' + (uniqueWidth !== 700 ? ' style="width:' + uniqueWidth + 'px;max-width:none"' : ' width="100%"') + ' viewBox="0 0 ' + uniqueWidth + ' ' + uniqueHeight + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of unique languages per selected period"><g transform="translate(' + uniqueMargin.left + ' ' + uniqueMargin.top + ')">' + uniqueAxis + '<path d="' + uniqueLine + '" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round"></path>' + uniqueDots + '</g></svg>';
         }
 
         var langTotals = new Map();
@@ -2413,7 +2463,11 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
               series.points.map(function(point) { return '<path d="' + markerPathJs(index, point.x, point.y, 4) + '" fill="' + series.color + '" stroke="white" stroke-width="1.2"></path>'; }).join('') +
               '</g>';
           }).join('');
-          topTrendsContainer.innerHTML = '<div class="chart-scroll trend-period-chart-scroll"><svg class="chart-svg"' + (trendWidth !== 760 ? ' style="width:' + trendWidth + 'px;max-width:none"' : ' width="100%"') + (trendWidth !== 760 ? ' height="' + trendHeight + '"' : '') + ' viewBox="0 0 ' + trendWidth + ' ' + trendHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across selected period"><g transform="translate(' + trendMargin.left + ' ' + trendMargin.top + ')">' + trendAxis + trendSvg + periods.map(function(period) { return '<text x="' + ((periods.indexOf(period) * trendBand) + trendBand / 2) + '" y="' + (trendInnerH + 18) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>'; }).join('') + '</g></svg></div>';
+          var trendIsScrollable = trendWidth !== 760;
+          var trendOverlay = trendIsScrollable ? axisOverlaySvg(trendMargin.left, trendMargin.top, trendHeight, trendAxisTicks.map(function(tick) {
+            return { y: trendY(tick), label: tick };
+          })) : '';
+          topTrendsContainer.innerHTML = '<div class="chart-scroll trend-period-chart-scroll' + (trendIsScrollable ? ' chart-scroll-frozen' : '') + '">' + trendOverlay + '<svg class="chart-svg"' + (trendWidth !== 760 ? ' style="width:' + trendWidth + 'px;max-width:none"' : ' width="100%"') + (trendWidth !== 760 ? ' height="' + trendHeight + '"' : '') + ' viewBox="0 0 ' + trendWidth + ' ' + trendHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across selected period"><g transform="translate(' + trendMargin.left + ' ' + trendMargin.top + ')">' + trendAxis + trendSvg + periods.map(function(period) { return '<text x="' + ((periods.indexOf(period) * trendBand) + trendBand / 2) + '" y="' + (trendInnerH + 18) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>'; }).join('') + '</g></svg></div>';
         }
 
         var rankContainer = document.getElementById('period-rank-trajectory');
