@@ -84,11 +84,18 @@ def compute_cumulative_stats(week_manifests: list[dict]) -> dict:
     total_papers = sum(m.get("counts", {}).get("papers", 0) for m in week_manifests)
     total_flagged_papers = sum(m.get("counts", {}).get("flagged_papers", 0) for m in week_manifests)
 
+    # Union of *studied* languages only, matching the site's headline "unique
+    # languages" (manifest counts.unique_languages = len(language_studied_counts),
+    # and TrendCharts' aggregateTrendPeriods counts languages with studied > 0).
+    # A language that is only ever "mentioned_only" across every week is excluded
+    # here too. `studied ?? count` falls back for pre-judge manifests whose
+    # language_counts entries carry only a bare `count`.
     all_languages: set[str] = set()
     for m in week_manifests:
         for entry in m.get("language_counts", []):
             language = entry.get("language")
-            if language:
+            studied = entry.get("studied", entry.get("count", 0))
+            if language and studied > 0:
                 all_languages.add(language)
 
     week_starts = [m["week_start"] for m in week_manifests if m.get("week_start")]
@@ -114,13 +121,26 @@ def _top_language(language_counts: list[dict]) -> tuple[str | None, int]:
 def _needs_review_counts(flagged_papers: list[dict]) -> tuple[int, int]:
     """Count detections (and distinct papers) flagged needs_review — likely false positives
     such as short language names that collide with common acronyms (see the root README's
-    "Transparent false-positive handling" bullet)."""
+    "Transparent false-positive handling" bullet).
+
+    Mirrors the site's rule in web/src/lib/paper-table.js (chipFromEntry): a detection
+    needs review when it is NOT judged "studied" AND (the manifest set needs_review — which
+    already covers the possible-false-positive map — OR the name is a bare two-letter code).
+    An explicit "studied" verdict from the LLM judge clears the flag, so keep this in step
+    with the site rather than counting the raw needs_review field.
+    """
     detections = 0
     papers_with_flag = 0
     for paper in flagged_papers:
         paper_flagged = False
         for language in paper.get("languages", []):
-            if language.get("needs_review"):
+            if language.get("judge_verdict") == "studied":
+                continue  # judge confirmed the language — site clears the review flag
+            name = str(language.get("language", "")).strip()
+            # ASCII-only, exactly like the site's /^[A-Za-z]{2}$/ (str.isalpha()
+            # would also match 2-letter non-ASCII names — a needless divergence).
+            two_letter_code = re.fullmatch(r"[A-Za-z]{2}", name) is not None
+            if language.get("needs_review") or two_letter_code:
                 detections += 1
                 paper_flagged = True
         if paper_flagged:

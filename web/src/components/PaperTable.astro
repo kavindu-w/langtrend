@@ -466,6 +466,19 @@ for (const it of paperItems) {
     catch { return slug; }
   }
 
+  // arXiv titles/abstracts routinely contain <, >, & (math, literal tags like
+  // "<think>", entities). The server-rendered rows are auto-escaped by Astro;
+  // these dynamically-built rows go through innerHTML, so escape to match —
+  // otherwise the browser parses the markup (breaking the text, and allowing
+  // injection) only in period/all-papers mode.
+  function escapeHtml(s: unknown): string {
+    return String(s ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
   function createPaperRow(p: PaperJSON, weekStart: string, index: number): HTMLElement {
     const wrap = document.createElement('div');
     wrap.className = 'paper-row-wrap';
@@ -512,10 +525,11 @@ for (const it of paperItems) {
 
     const weekBadge = `<span class="week-badge">w/o ${fmtWeekLabel(weekStart)}</span>`;
     const pubDateStr = formatPubDate(p.published);
-    const catBadges = p.categories.map(c => `<span class="category-badge">${c}</span>`).join('');
+    const catBadges = p.categories.map(c => `<span class="category-badge">${escapeHtml(c)}</span>`).join('');
 
     const details = document.createElement('details');
     details.className = 'paper-row';
+    details.dataset.id = p.id;
     details.dataset.search = p.searchText;
     details.dataset.languages = p.languageNames.join('|');
     details.dataset.langCount = String(p.langCount);
@@ -531,18 +545,18 @@ for (const it of paperItems) {
       <summary class="paper-summary">
         <div class="paper-main">
           <div class="paper-title-row">
-            <h3>${p.title}${weekBadge}</h3>
+            <h3>${escapeHtml(p.title)}${weekBadge}</h3>
           </div>
-          <p class="paper-authors">${p.authors.join(', ') || 'Unknown authors'}</p>
+          <p class="paper-authors">${escapeHtml(p.authors.join(', ')) || 'Unknown authors'}</p>
           <div class="paper-tags">${tagsHtml}</div>
         </div>
       </summary>
       <div class="paper-body">
         ${pubDateStr || catBadges ? `<div class="paper-meta">${pubDateStr ? `<span class="paper-date">Published ${pubDateStr}</span>` : ''}${catBadges ? `<span class="paper-categories">${catBadges}</span>` : ''}</div>` : ''}
         <strong class="paper-abstract-label">Abstract</strong>
-        <p class="paper-abstract">${p.abstract}</p>
+        <p class="paper-abstract">${escapeHtml(p.abstract)}</p>
         <div class="paper-body-footer">
-          <a class="arxiv-link" href="${p.arxiv_url}" target="_blank" rel="noreferrer">
+          <a class="arxiv-link" href="${escapeHtml(p.arxiv_url)}" target="_blank" rel="noreferrer">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
               <polyline points="15 3 21 3 21 9"/>
@@ -792,13 +806,6 @@ for (const it of paperItems) {
     if (activeFilterTags) activeFilterTags.textContent = tags.join(' · ');
   }
 
-  function applyChipVerdictVisibility(row: HTMLElement) {
-    row.querySelectorAll<HTMLElement>('[data-verdict]').forEach(chip => {
-      const target = (chip.closest('.lang-chip-popover') as HTMLElement | null) ?? chip;
-      target.style.display = enabledVerdicts.has(chip.dataset.verdict || '') ? '' : 'none';
-    });
-  }
-
   function applyFilters() {
     const activeWeekSet = new Set(getActiveWeekSlugs());
     const searchTerm = foldSearchText(searchInput?.value.trim() ?? '');
@@ -819,7 +826,6 @@ for (const it of paperItems) {
       const matchesClass = classFilter === 'all' || rowClasses.includes(classFilter);
       const show = inScope && matchesLanguage && matchesSearch && matchesClass;
       (row.parentElement as HTMLElement).style.display = show ? '' : 'none';
-      if (show) applyChipVerdictVisibility(row);
       if (show) visible++;
       if (inScope) inScopeTotal++;
     });

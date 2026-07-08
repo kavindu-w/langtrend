@@ -22,12 +22,12 @@ _Latest processed week: **2026-06-29 – 2026-07-06**._
 |--------|----------:|---------:|
 | Papers scanned | 440 | 5,840 |
 | Papers with language mentions | 178 | 3,438 |
-| Unique languages detected | 146 | 816 |
+| Unique languages detected | 146 | 801 |
 | Weeks tracked | — | 10 (since 2026-04-27) |
 
 <!-- LANGTREND_STATS_END -->
 
-> **LLM judge coverage:** only the latest week (**2026-06-22 – 2026-06-29**) has been through LLM-as-judge verification so far. Weeks from **2026-04-27 through 2026-06-15** are still regex-detection only — their language counts include unverified detections (shown as provisionally **studied**) — and will be backfilled automatically, newest week first, by the daily judge catch-up workflow. The site deploys as soon as the latest week is judged; it doesn't wait for the older backlog, which fills in and redeploys incrementally in the background.
+> **LLM judge coverage:** Only few latest weeks have been through LLM-as-judge verification so far. Earlier weeks are still regex-detection only — their language counts include unverified detections (shown as provisionally **studied**) — and will be backfilled automatically, newest week first, by the daily judge catch-up workflow. The site deploys as soon as the latest week is judged; it doesn't wait for the older backlog, which fills in and redeploys incrementally in the background.
 
 ---
 

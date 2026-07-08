@@ -6,7 +6,13 @@ on:
   # fully index before we harvest via OAI-PMH.
   schedule:
     - cron: '0 12 * * 2'
-  # Also trigger on manual dispatch and on pushes to main for code changes
+  # Also trigger on manual dispatch and on pushes to main for code changes.
+  # Two commit-message tags (push only) mirror the equivalent dispatch inputs:
+  #   [deploy-only]  skip fetch/process AND judge — just rebuild + redeploy
+  #                  the frontend from whatever's already committed
+  #   [no-process]   skip fetch/process only — jump straight to judge, for
+  #                  when a previous run already got fetch..pdf-retry-2 done
+  #                  and only judging (or a redeploy after it) is left
   workflow_dispatch:
     inputs:
       publish_site:
@@ -25,7 +31,12 @@ on:
           - minor
           - major
       deploy_only:
-        description: 'Skip paper processing — build and deploy frontend only'
+        description: 'Skip paper processing AND judging — build and deploy frontend only'
+        required: false
+        default: false
+        type: boolean
+      skip_process:
+        description: 'Skip fetch/HTML/PDF processing — jump straight to judging already-processed papers'
         required: false
         default: false
         type: boolean
@@ -59,7 +70,7 @@ concurrency:
 jobs:
   fetch-and-html:
     runs-on: ubuntu-latest
-    if: (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
+    if: (github.event_name != 'workflow_dispatch' || (!inputs.deploy_only && !inputs.skip_process)) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]')) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[no-process]'))
     timeout-minutes: 350
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -181,7 +192,7 @@ jobs:
   fetch-and-html-2:
     needs:
       - fetch-and-html
-    if: always() && needs.fetch-and-html.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
+    if: always() && needs.fetch-and-html.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || (!inputs.deploy_only && !inputs.skip_process)) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]')) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[no-process]'))
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
@@ -259,7 +270,7 @@ jobs:
   pdf-retry:
     needs:
       - fetch-and-html-2
-    if: always() && needs.fetch-and-html-2.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
+    if: always() && needs.fetch-and-html-2.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || (!inputs.deploy_only && !inputs.skip_process)) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]')) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[no-process]'))
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:
@@ -335,7 +346,7 @@ jobs:
   pdf-retry-2:
     needs:
       - pdf-retry
-    if: always() && needs.pdf-retry.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
+    if: always() && needs.pdf-retry.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || (!inputs.deploy_only && !inputs.skip_process)) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]')) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[no-process]'))
     runs-on: ubuntu-latest
     timeout-minutes: 350
     env:

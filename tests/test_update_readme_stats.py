@@ -136,6 +136,38 @@ def test_compute_cumulative_stats_sums_counts_and_dedupes_languages_across_weeks
     }
 
 
+def test_compute_cumulative_stats_excludes_mentioned_only_languages():
+    # Matches the site's headline "unique languages" (studied > 0). A language
+    # that is only ever mentioned-only across all weeks is not a tracked language.
+    weeks = [
+        {
+            "week_start": "2026-04-27",
+            "counts": {"papers": 100, "flagged_papers": 60},
+            "language_counts": [
+                {"language": "English", "count": 10, "studied": 10, "mentioned_only": 0},
+                {"language": "Latin", "count": 3, "studied": 0, "mentioned_only": 3},
+            ],
+        },
+    ]
+    result = urs.compute_cumulative_stats(weeks)
+    assert result["total_unique_languages"] == 1  # English only; Latin is mentioned-only
+
+
+def test_compute_cumulative_stats_counts_studied_in_any_week():
+    # A language mentioned-only one week but studied another still counts once.
+    weeks = [
+        {
+            "week_start": "2026-04-27", "counts": {"papers": 1, "flagged_papers": 1},
+            "language_counts": [{"language": "Tamil", "count": 2, "studied": 0, "mentioned_only": 2}],
+        },
+        {
+            "week_start": "2026-05-04", "counts": {"papers": 1, "flagged_papers": 1},
+            "language_counts": [{"language": "Tamil", "count": 1, "studied": 1, "mentioned_only": 0}],
+        },
+    ]
+    assert urs.compute_cumulative_stats(weeks)["total_unique_languages"] == 1
+
+
 # ---------------------------------------------------------------------------
 # _top_language / _needs_review_counts
 # ---------------------------------------------------------------------------
@@ -167,6 +199,29 @@ def test_needs_review_counts_counts_detections_and_distinct_papers():
 
 def test_needs_review_counts_with_no_flagged_papers_is_zero():
     assert urs._needs_review_counts([]) == (0, 0)
+
+
+def test_needs_review_counts_studied_verdict_clears_flag():
+    # An explicit "studied" verdict overrides the heuristic flag — same as the
+    # site's chipFromEntry rule — so it must not be counted as needs-review.
+    flagged_papers = [
+        {"languages": [
+            {"language": "Gan", "needs_review": True, "judge_verdict": "studied"},
+            {"language": "Aka", "needs_review": True, "judge_verdict": "mentioned_only"},
+        ]},
+    ]
+    detections, papers = urs._needs_review_counts(flagged_papers)
+    assert detections == 1  # Aka only; Gan cleared by the studied verdict
+    assert papers == 1
+
+
+def test_needs_review_counts_flags_bare_two_letter_code():
+    # A two-letter code counts as needs-review even without an explicit flag,
+    # matching the site; a longer confirmed name does not.
+    flagged_papers = [
+        {"languages": [{"language": "Ab"}, {"language": "English"}]},
+    ]
+    assert urs._needs_review_counts(flagged_papers) == (1, 1)
 
 
 # ---------------------------------------------------------------------------
