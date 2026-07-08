@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.03160v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T03:18:27.059124+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 7570,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'abu- sos' is part of the Spanish word 'abuso', not a language name; thus false positive."
+    },
+    "Biao": {
+      "verdict": "false_positive",
+      "reason": "Appears as author name 'Biao Zhang', not a language; false positive."
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not contain a clear reference to a language; 'Mo' appears only within other words, so false positive."
+    },
+    "Hausa": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as an example of low‑resource languages in a discussion, not used in the experiments; mentioned_only."
+    },
+    "Kinyarwanda": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as an example of low‑resource languages in a discussion, not used in the experiments; mentioned_only."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a prompt language and evaluated for its impact on translation quality, indicating the paper studies English; studied."
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German appears only as an example of translation pairs in related discussion, not central to the experiments; mentioned_only."
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is cited in reference to prior work (Gu 2025) and not part of the paper's experiments; mentioned_only."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is the target language of the Spanish‑Chinese translation experiments, central to the study; studied."
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is the source language of the translation experiments, central to the study; studied."
+    }
+  }
+}
