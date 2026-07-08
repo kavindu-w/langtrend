@@ -10,7 +10,7 @@ JUDGE_WORKERS ?= 4
 # END_DATE    ?= 2026-05-25
 # END_DATE    ?= 2026-06-01
 # END_DATE    ?= 2026-06-08
-# END_DATE    ?= 2026-06-15
+END_DATE    ?= 2026-06-15
 # END_DATE    ?= 2026-06-22
 # END_DATE    ?= 2026-06-29
 # NO_PDF      ?= 1
@@ -26,6 +26,10 @@ DATES ?= 2026-06-15 2026-06-22
 _END_DATE_FLAG = $(if $(END_DATE),--end-date $(END_DATE),)
 # Pass --no-pdf only when NO_PDF=1 (skips docling; safe to run in multiple terminals)
 _NO_PDF_FLAG   = $(if $(NO_PDF),--no-pdf,)
+# manifest has no --end-date flag of its own; when INPUT isn't given explicitly,
+# derive the metadata filename from END_DATE/WINDOW_DAYS the same way
+# fetch_arxiv_metadata.py names it (arxiv_papers_<start>_to_<end>.jsonl).
+_MANIFEST_INPUT = $(if $(INPUT),$(INPUT),$(if $(END_DATE),$(DATA_ROOT)/raw/extracted_papers_metadata/$(shell $(PYTHON) -c "from datetime import datetime, timedelta; e = datetime.strptime('$(END_DATE)', '%Y-%m-%d'); s = e - timedelta(days=$(WINDOW_DAYS)); print(f'arxiv_papers_{s:%Y%m%d}_to_{e:%Y%m%d}.jsonl')"),))
 
 .PHONY: help setup fetch fetch-all fetch-oai process process-all reprocess reprocess-all \
         retry-missing retry-missing-all judge judge-all manifest manifest-all readme-stats \
@@ -41,8 +45,8 @@ help:
 	@echo "  make retry-missing    Retry papers with no/incomplete cache (downloads missing PDFs)"
 	@echo "  make judge            LLM-verify detected languages (needs LLM_JUDGE_API_KEY in .env);"
 	@echo "                          run 'make manifest' afterwards to fold verdicts in"
-	@echo "  make manifest         Rebuild manifest from caches (fast, no downloads)"
-	@echo "                          Use INPUT=<path.jsonl> to target a specific week"
+	@echo "  make manifest         Rebuild manifest from caches (fast, no downloads);"
+	@echo "                          targets END_DATE's week by default, or INPUT=<path.jsonl>"
 	@echo "  make readme-stats     Regenerate README badges/table + weekly_summary.csv"
 	@echo "  make pipeline         Run fetch + process + manifest in sequence"
 	@echo ""
@@ -151,7 +155,7 @@ manifest:
 	scripts/run_logged.sh manifest \
 	$(PYTHON) scripts/build_manifest.py \
 		--window-days $(WINDOW_DAYS) \
-		$(if $(INPUT),--input $(INPUT),)
+		$(if $(_MANIFEST_INPUT),--input $(_MANIFEST_INPUT),)
 
 readme-stats:
 	scripts/run_logged.sh readme-stats \
