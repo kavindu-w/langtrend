@@ -8,6 +8,7 @@ type PaperRecord = {
   title: string;
   authors: string[];
   abstract: string;
+  abstractHtml?: string;
   pdf_url: string;
   published?: string;
   updated?: string;
@@ -316,7 +317,7 @@ for (const it of paperItems) {
             </div>
           )}
           <strong class="paper-abstract-label">Abstract</strong>
-          <p class="paper-abstract">{item.paper.abstract}</p>
+          <p class="paper-abstract" set:html={item.paper.abstractHtml} />
           {item.acronymConflicts.length > 0 && (
             <div class="acronym-conflict-notice">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -391,7 +392,7 @@ for (const it of paperItems) {
 </section>
 
 <script>
-  import { foldSearchText } from '../lib/paper-table.js';
+  import { foldSearchText } from '../lib/text-utils.js';
 
   // ── State ────────────────────────────────────────────────────────────────────
 
@@ -471,7 +472,7 @@ for (const it of paperItems) {
   // ── Multi-week fetch ─────────────────────────────────────────────────────────
 
   type PaperJSON = {
-    id: string; title: string; authors: string[]; abstract: string;
+    id: string; title: string; authors: string[]; abstract: string; abstractHtml: string;
     pdf_url: string; arxiv_url: string; published: string; categories: string[];
     searchText: string;
     languages: { language: string; borderClass: number; fillColor: string; needsReview: boolean; judgeVerdict?: string }[];
@@ -579,7 +580,9 @@ for (const it of paperItems) {
       <div class="paper-body">
         ${pubDateStr || catBadges ? `<div class="paper-meta">${pubDateStr ? `<span class="paper-date">Published ${pubDateStr}</span>` : ''}${catBadges ? `<span class="paper-categories">${catBadges}</span>` : ''}</div>` : ''}
         <strong class="paper-abstract-label">Abstract</strong>
-        <p class="paper-abstract">${escapeHtml(p.abstract)}</p>
+        <!-- abstractHtml is pre-rendered server-side (renderAbstractHtml) — already
+             HTML-escaped except for trusted KaTeX math markup, so not re-escaped here. -->
+        <p class="paper-abstract">${p.abstractHtml}</p>
         <div class="paper-body-footer">
           <a class="arxiv-link" href="${escapeHtml(p.arxiv_url)}" target="_blank" rel="noreferrer">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
