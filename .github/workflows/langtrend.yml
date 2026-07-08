@@ -418,17 +418,18 @@ jobs:
 # mentioned_only / false_positive) and fold verdicts into the manifest.
 # Skips cleanly when the LLM_JUDGE_API_KEY secret is unset (forks), leaving
 # detections unjudged. On free-tier rate limits, judge_languages.py stops
-# cleanly (exit 3) rather than failing. Bounded by the provider's RPM/RPH, not
-# GitHub's 6 h cap, so a first pass alone may not clear a big week — Job 6
-# continues it the same day before falling back to judge-catchup.yml's daily
-# sweep, which only matters once the provider's actual daily quota is spent.
+# cleanly (exit 3) rather than failing — the only thing that legitimately cuts
+# a run short. No explicit timeout-minutes: this only falls back to GitHub's
+# 360 min per-job ceiling, since the sole real stop condition is the
+# provider's daily quota, not a self-imposed one. Job 6 (judge-retry) still
+# exists as a second pass for whatever that ceiling doesn't cover, before
+# falling back to judge-catchup.yml's daily sweep.
 # ---------------------------------------------------------------------------
   judge:
     needs:
       - pdf-retry-2
     if: always() && needs.pdf-retry-2.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
     runs-on: ubuntu-latest
-    timeout-minutes: 120
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -467,8 +468,13 @@ jobs:
           fi
 
       # Fold whatever verdicts landed this pass into the manifest so partial
-      # progress is visible even if Job 6 doesn't finish the rest.
+      # progress is visible even if Job 6 doesn't finish the rest. if: always()
+      # because "Commit judge outputs" below unconditionally commits whatever
+      # judge_cache/*.json exists on disk — without this also running
+      # unconditionally, a cancelled/timed-out judge step above would commit
+      # verdicts that never make it into the manifest's counts.
       - name: Rebuild manifest with judge verdicts
+        if: always()
         run: |
           python scripts/run_langtrend_pipeline.py \
             --data-root data \
@@ -525,9 +531,14 @@ jobs:
   judge-retry:
     needs:
       - judge
-    if: always() && needs.judge.result != 'cancelled' && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
+    # Deliberately no "needs.judge.result != 'cancelled'" guard: a cancelled
+    # judge (e.g. it hit GitHub's 6 h per-job ceiling) is exactly the case
+    # this continuation exists for, not a reason to skip it. GitHub Actions
+    # can't distinguish "job hit its own limit" from "a human clicked cancel"
+    # in needs.judge.result — both report 'cancelled' — so gating on it here
+    # would also skip the continuation after a genuine timeout.
+    if: always() && (github.event_name != 'workflow_dispatch' || !inputs.deploy_only) && !(github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]'))
     runs-on: ubuntu-latest
-    timeout-minutes: 120
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     outputs:
@@ -563,8 +574,13 @@ jobs:
             exit "$code"
           fi
 
+      # if: always() on this and the two steps below — if the judge step above
+      # gets cancelled (e.g. this job's own 120 min budget runs out), whatever
+      # verdicts it produced before that should still be checked/folded in and
+      # committed, not silently dropped because an earlier step didn't finish.
       - name: Check whether the latest week is fully judged
         id: check
+        if: always()
         env:
           LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
         run: |
@@ -575,6 +591,7 @@ jobs:
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
 
       - name: Rebuild manifest with judge verdicts
+        if: always()
         run: |
           python scripts/run_langtrend_pipeline.py \
             --data-root data \
@@ -583,6 +600,7 @@ jobs:
             --skip-process
 
       - name: Update README stats and badges
+        if: always()
         run: |
           python scripts/update_readme_stats.py --data-root data
 
@@ -708,7 +726,11 @@ jobs:
   deploy:
     needs:
       - judge-retry
-    if: always() && needs.judge-retry.result != 'cancelled' && (needs.judge-retry.outputs.fully_judged == 'true' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]')))
+    # No "needs.judge-retry.result != 'cancelled'" guard here either — see the
+    # comment on judge-retry's own if: condition above. fully_judged already
+    # comes from a step with if: always(), so it's correctly false whenever
+    # judging isn't actually done — that alone is sufficient gating.
+    if: always() && (needs.judge-retry.outputs.fully_judged == 'true' || (github.event_name == 'workflow_dispatch' && inputs.deploy_only) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[deploy-only]')))
     permissions:
       contents: read
       pages: write

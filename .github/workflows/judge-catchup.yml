@@ -36,17 +36,23 @@ concurrency:
 jobs:
   judge-catchup:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     outputs:
       fully_judged: ${{ steps.check.outputs.exit_code == '0' }}
 
     steps:
+      # ref: explicit branch name, not the default github.sha — this job waits
+      # in the shared "deploy" concurrency queue behind langtrend.yml (often
+      # for hours on a Tuesday), and github.sha for a schedule/dispatch event
+      # is pinned at trigger time. Without this, checkout would still land on
+      # whatever main looked like when this run was queued, missing everything
+      # the weekly pipeline committed while this was waiting its turn.
       - name: Check out repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
+          ref: ${{ github.ref_name }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -75,9 +81,13 @@ jobs:
           fi
 
       # Same per-week gate as langtrend.yml's judge job — deploy shouldn't
-      # wait for the full repo-wide backlog, just the current week.
+      # wait for the full repo-wide backlog, just the current week. if: always()
+      # on this and the two steps below: if the sweep above gets cancelled
+      # (this job's 180 min budget), whatever verdicts it produced before that
+      # should still be checked/folded in and committed, not silently dropped.
       - name: Check whether the latest week is fully judged
         id: check
+        if: always()
         env:
           LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
         run: |
@@ -88,6 +98,7 @@ jobs:
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
 
       - name: Rebuild manifests for every week
+        if: always()
         run: |
           shopt -s nullglob
           for f in data/raw/extracted_papers_metadata/arxiv_papers_*.jsonl; do
@@ -95,6 +106,7 @@ jobs:
           done
 
       - name: Update README stats and badges
+        if: always()
         run: |
           python scripts/update_readme_stats.py --data-root data
 
@@ -137,11 +149,14 @@ jobs:
 
   # Only deploys once the current/latest week has zero pending papers — if
   # that week isn't judged yet, tomorrow's scheduled run tries again. Older
-  # weeks keep backfilling in the background across runs regardless.
+  # weeks keep backfilling in the background across runs regardless. No
+  # "result != 'cancelled'" guard — see the equivalent comment in
+  # langtrend.yml; fully_judged already comes from an if: always() step, so
+  # it alone is sufficient and correctly false whenever judging isn't done.
   deploy:
     needs:
       - judge-catchup
-    if: always() && needs.judge-catchup.result != 'cancelled' && needs.judge-catchup.outputs.fully_judged == 'true'
+    if: always() && needs.judge-catchup.outputs.fully_judged == 'true'
     permissions:
       contents: read
       pages: write

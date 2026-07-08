@@ -239,7 +239,7 @@ Steps executed by the workflow:
 1. Fetch arXiv `cs.CL` papers for the past 7 days
 2. Extract and clean text (HTML → PDF → abstract fallback)
 3. Detect language mentions and flag acronym conflicts
-4. LLM-judge this week's detected languages, in two same-day passes (needs the `LLM_JUDGE_API_KEY` repository secret; skipped cleanly when unset) — a second pass exists because the judge step is bounded by the provider's rate limit, not GitHub's 6-hour cap, so one 120-minute pass may not clear a large week
+4. LLM-judge this week's detected languages (needs the `LLM_JUDGE_API_KEY` repository secret; skipped cleanly when unset) — the judge step has no self-imposed timeout, only GitHub's 6-hour per-job ceiling, since the provider's daily quota is the only condition it treats as an expected stop; a same-day continuation pass exists as backup for the rare week that doesn't finish within that ceiling
 5. Build the manifest JSON (including judge verdicts)
 6. Build the Astro site and deploy to GitHub Pages — **only if the current/latest week's papers are fully judged** (older weeks aren't required, so a historical backlog never blocks this week's publish)
 
