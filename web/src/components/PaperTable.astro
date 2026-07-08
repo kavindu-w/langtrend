@@ -1,5 +1,5 @@
 ---
-import { languageBorderClass, languageFillColor } from '../lib/language-colors.js';
+import { languageBorderClass, languageFillColor, buildLanguageClassLookup } from '../lib/language-colors.js';
 import { buildPaperItem, formatSectionTitle } from '../lib/paper-table.js';
 
 type LanguageEntry = string | [string, number] | { language?: string | null; class?: number; name?: string; needs_review?: boolean; flag_reason?: string; sources?: string[]; judge_verdict?: string; judge_reason?: string; judge_model?: string };
@@ -50,6 +50,10 @@ const {
 
 const langClasses = languageData?.lang_classes ?? {};
 const pfpMap: Record<string, string> = (languageData as any)?.possible_false_positive_languages ?? {};
+
+// Full taxonomy of ~6k language names (not just ones detected this week) — powers
+// the language-search typeahead and lets it tell "0 papers" apart from "not a language".
+const allLanguageNames = Object.keys(buildLanguageClassLookup(langClasses)).sort((a, b) => a.localeCompare(b));
 
 type SourceGroup = { src: string; label: string; langs: string[] };
 type ChipEntry = { language: string; borderClass: number; needsReview: boolean; flagReason: string; fillColor: string; judgeVerdict: string; judgeReason: string; mentionedOnly: boolean };
@@ -136,7 +140,19 @@ for (const it of paperItems) {
       <svg class="input-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
       </svg>
-      <input id="lang-search" class="search-input lang-search-input" type="search" placeholder="Search languages…" aria-label="Filter language chips" />
+      <input
+        id="lang-search"
+        class="search-input lang-search-input"
+        type="search"
+        placeholder="Search languages…"
+        aria-label="Filter language chips"
+        autocomplete="off"
+        role="combobox"
+        aria-expanded="false"
+        aria-controls="lang-suggest-list"
+        aria-autocomplete="list"
+      />
+      <ul id="lang-suggest-list" class="lang-suggest-list" role="listbox" hidden></ul>
     </div>
     <div class="paper-controls-right">
       <div class="sort-wrapper">
@@ -196,8 +212,10 @@ for (const it of paperItems) {
         ))}
         <button id="chip-expand-btn" class="chip-expand-btn" type="button" aria-expanded="false" aria-label="Show more language filters" style="display:none">… +0 more</button>
       </div>
+      <p id="lang-chip-empty" class="lang-chip-empty" role="status" style="display:none"></p>
     </div>
   </div>
+  <script type="application/json" id="all-languages-data" set:html={JSON.stringify(allLanguageNames)} is:inline />
 
   <div class="paper-list" id="paper-list">
     {paperItems.map((item) => (
@@ -246,17 +264,6 @@ for (const it of paperItems) {
                   <span class={`lang-chip class-${chip.borderClass}`} style={`background:${chip.fillColor}`} data-verdict="studied">{chip.language}</span>
                 )
               ))}
-              {item.coverageBadge && (
-                <span class="lang-chip-popover">
-                  <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} aria-describedby={`coverage-tip-${item.index}`}>
-                    {item.coverageBadge.label}
-                  </span>
-                  <div class="review-popover-body" id={`coverage-tip-${item.index}`} role="tooltip">
-                    <strong>⚠ {item.coverageBadge.label}</strong>
-                    <p>{item.coverageBadge.title}</p>
-                  </div>
-                </span>
-              )}
               {item.suppressedChips.map((sc, scIdx) => (
                 <span class="lang-chip-popover">
                   <span class={`lang-chip class-${sc.borderClass} suppressed`} aria-describedby={`suppressed-tip-${item.index}-${scIdx}`}>
@@ -279,6 +286,17 @@ for (const it of paperItems) {
                   </div>
                 </span>
               ))}
+              {item.coverageBadge && (
+                <span class="lang-chip-popover">
+                  <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} aria-describedby={`coverage-tip-${item.index}`}>
+                    {item.coverageBadge.label}
+                  </span>
+                  <div class="review-popover-body" id={`coverage-tip-${item.index}`} role="tooltip">
+                    <strong>⚠ {item.coverageBadge.label}</strong>
+                    <p>{item.coverageBadge.title}</p>
+                  </div>
+                </span>
+              )}
             </div>
           </div>
         </summary>
@@ -403,6 +421,8 @@ for (const it of paperItems) {
   const clearFiltersBtn = document.getElementById('clear-filters-btn') as HTMLButtonElement | null;
   const expandBtn = document.getElementById('chip-expand-btn') as HTMLButtonElement | null;
   const paperList = document.getElementById('paper-list') as HTMLElement | null;
+  const langSuggestList = document.getElementById('lang-suggest-list') as HTMLUListElement | null;
+  const langChipEmpty = document.getElementById('lang-chip-empty') as HTMLElement | null;
 
   const verdictChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#verdict-filters .verdict-chip'));
   const allChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .chip'));
@@ -410,6 +430,11 @@ for (const it of paperItems) {
   let rows = Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row'));
   let chipExpanded = false;
   const chipRow = document.getElementById('language-filters') as HTMLElement | null;
+
+  // Full taxonomy (~6k names), used for the search typeahead and to tell a
+  // known-but-absent language apart from an unrecognized/misspelled one.
+  const allLanguageNames: string[] = JSON.parse(document.getElementById('all-languages-data')?.textContent || '[]');
+  const foldedLanguageNames = allLanguageNames.map(name => ({ name, folded: foldSearchText(name) }));
 
   // ── URL param helpers ────────────────────────────────────────────────────────
 
@@ -759,6 +784,101 @@ for (const it of paperItems) {
     } else {
       applyCollapse();
     }
+    updateLangChipEmptyState(query);
+  }
+
+  // Distinguishes "a real language, just absent from the current view" from
+  // "not a recognized language at all", using the full taxonomy rather than
+  // just the languages that happen to have a chip this week.
+  function updateLangChipEmptyState(query: string) {
+    if (!langChipEmpty) return;
+    const q = query.trim();
+    if (!q || langChips.some(c => !c.hidden)) {
+      langChipEmpty.style.display = 'none';
+      langChipEmpty.textContent = '';
+      return;
+    }
+    const foldedQuery = foldSearchText(q);
+    const known = foldedLanguageNames.find(({ folded }) => folded === foldedQuery);
+    langChipEmpty.textContent = known
+      ? `"${known.name}" is a recognized language, but has 0 occurrences in the current view.`
+      : `No language matches "${q}".`;
+    langChipEmpty.style.display = '';
+  }
+
+  // ── Language search typeahead ────────────────────────────────────────────────
+
+  let suggestionItems: HTMLLIElement[] = [];
+  let activeSuggestionIndex = -1;
+
+  function getSuggestions(query: string): string[] {
+    const q = foldSearchText(query.trim());
+    if (!q) return [];
+    const prefixMatches: string[] = [];
+    const substringMatches: string[] = [];
+    for (const { name, folded } of foldedLanguageNames) {
+      if (folded.startsWith(q)) prefixMatches.push(name);
+      else if (folded.includes(q)) substringMatches.push(name);
+    }
+    return [...prefixMatches, ...substringMatches];
+  }
+
+  function closeSuggestions() {
+    if (langSuggestList) langSuggestList.hidden = true;
+    suggestionItems = [];
+    activeSuggestionIndex = -1;
+    langSearchInput?.setAttribute('aria-expanded', 'false');
+    langSearchInput?.removeAttribute('aria-activedescendant');
+  }
+
+  function setActiveSuggestion(index: number) {
+    suggestionItems.forEach(item => { item.classList.remove('active'); item.removeAttribute('aria-selected'); });
+    activeSuggestionIndex = index;
+    if (index < 0 || index >= suggestionItems.length) {
+      langSearchInput?.removeAttribute('aria-activedescendant');
+      return;
+    }
+    const item = suggestionItems[index];
+    item.classList.add('active');
+    item.setAttribute('aria-selected', 'true');
+    item.scrollIntoView({ block: 'nearest' });
+    langSearchInput?.setAttribute('aria-activedescendant', item.id);
+  }
+
+  // Picking a suggestion (click or Enter) both narrows the chip row to it and
+  // activates it as a filter — same end state as clicking its chip directly.
+  function selectSuggestion(name: string) {
+    if (langSearchInput) langSearchInput.value = name;
+    closeSuggestions();
+    filterLangChips(name);
+    toggleLanguage(name);
+    applyFilters();
+    langSearchInput?.focus();
+  }
+
+  function renderSuggestions(names: string[]) {
+    if (!langSuggestList) return;
+    langSuggestList.replaceChildren();
+    suggestionItems = [];
+    activeSuggestionIndex = -1;
+    if (names.length === 0) {
+      closeSuggestions();
+      return;
+    }
+    names.forEach((name, i) => {
+      const li = document.createElement('li');
+      li.className = 'lang-suggest-item';
+      li.id = `lang-suggest-opt-${i}`;
+      li.setAttribute('role', 'option');
+      li.textContent = name;
+      // mousedown (not click) fires before the input's blur, so preventing its
+      // default here keeps focus on the input instead of dismissing the list first.
+      li.addEventListener('mousedown', (e) => { e.preventDefault(); selectSuggestion(name); });
+      langSuggestList.appendChild(li);
+      suggestionItems.push(li);
+    });
+    langSuggestList.hidden = false;
+    langSearchInput?.setAttribute('aria-expanded', 'true');
   }
 
   function toggleLanguage(lang: string) {
@@ -863,7 +983,47 @@ for (const it of paperItems) {
     chip.addEventListener('click', () => { toggleLanguage(chip.dataset.lang || 'all'); applyFilters(); });
   });
   searchInput?.addEventListener('input', () => { updateUrlParams(); applyFilters(); });
-  langSearchInput?.addEventListener('input', e => { filterLangChips((e.target as HTMLInputElement).value); updateFilterBar(); });
+  langSearchInput?.addEventListener('input', e => {
+    const value = (e.target as HTMLInputElement).value;
+    filterLangChips(value);
+    updateFilterBar();
+    renderSuggestions(getSuggestions(value));
+  });
+  langSearchInput?.addEventListener('keydown', (e) => {
+    if (!langSuggestList || langSuggestList.hidden) {
+      if (e.key === 'ArrowDown' && langSearchInput.value.trim()) {
+        e.preventDefault();
+        renderSuggestions(getSuggestions(langSearchInput.value));
+      }
+      return;
+    }
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setActiveSuggestion(activeSuggestionIndex < suggestionItems.length - 1 ? activeSuggestionIndex + 1 : 0);
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setActiveSuggestion(activeSuggestionIndex > 0 ? activeSuggestionIndex - 1 : suggestionItems.length - 1);
+        break;
+      case 'Enter': {
+        // No arrow-key highlight yet — Enter still commits to the top match.
+        const idx = activeSuggestionIndex >= 0 ? activeSuggestionIndex : 0;
+        if (suggestionItems[idx]) {
+          e.preventDefault();
+          selectSuggestion(suggestionItems[idx].textContent || '');
+        }
+        break;
+      }
+      case 'Escape':
+        closeSuggestions();
+        break;
+    }
+  });
+  langSearchInput?.addEventListener('focus', () => {
+    if (langSearchInput.value.trim()) renderSuggestions(getSuggestions(langSearchInput.value));
+  });
+  langSearchInput?.addEventListener('blur', () => { closeSuggestions(); });
   sortSelect?.addEventListener('change', () => {
     const v = sortSelect.value;
     sortPapers(v.startsWith('class-') ? 'default' : v);
@@ -881,7 +1041,7 @@ for (const it of paperItems) {
   });
   clearFiltersBtn?.addEventListener('click', () => {
     if (searchInput) searchInput.value = '';
-    if (langSearchInput) { langSearchInput.value = ''; filterLangChips(''); }
+    if (langSearchInput) { langSearchInput.value = ''; filterLangChips(''); closeSuggestions(); }
     activeLanguages.clear();
     allChips.forEach(c => c.classList.toggle('active', c.dataset.lang === 'all'));
     langChips.forEach(c => c.classList.remove('active'));

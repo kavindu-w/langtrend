@@ -959,6 +959,40 @@ a { color: inherit; text-decoration: none; }
 .lang-search-input {
   font-size: 0.85rem;
 }
+.lang-suggest-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--surface, #fff);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  max-height: 260px;
+  overflow-y: auto;
+}
+.lang-suggest-item {
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-size: 0.86rem;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lang-suggest-item:hover,
+.lang-suggest-item.active {
+  background: rgba(32,22,19,0.08);
+}
+.lang-chip-empty {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
 .sort-select {
   border-radius: 999px;
   border: 1px solid var(--line);
