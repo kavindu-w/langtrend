@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.07688v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T16:18:19.290286+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7806,
+  "verdicts": {
+    "Mor": {
+      "verdict": "false_positive",
+      "reason": "In the snippets MOR appears as a model/backbone identifier (e.g., MOR Original, MOR LETTER) rather than referring to the Mor language, so it is a false positive."
+    },
+    "Reel": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"Reel\" as part of a product name (\"Learning Resources New Sprouts Reel it\"), not as a reference to a human language, thus a false positive."
+    },
+    "Tee": {
+      "verdict": "false_positive",
+      "reason": "The term \"Tee\" occurs in the context of a pipe fitting (\"Brass Hose Fitting, Tee\"), not as a language name, so it is a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The paper states that experiments are conducted on English-language Amazon product review datasets, mentioning English only as the dataset language without building resources or models specifically fo"
+    }
+  }
+}

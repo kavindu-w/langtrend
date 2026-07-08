@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.06985v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T16:12:19.476624+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3116,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin is used here as a romanization system for Mandarin tokens, not as a human language, so it is a false positive."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script used for English tokens, not the Latin language, so it is a false positive."
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese denotes the Vietnamese language tokens processed and evaluated in the code‑switching experiments, so the paper studies this language."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English denotes the English language components of the Mandarin‑English and Vietnamese‑English code‑switching datasets used in experiments, so the paper studies this language."
+    },
+    "Tay": {
+      "verdict": "false_positive",
+      "reason": "Tay appears only as part of a Vietnamese word ('tây') and not as a reference to the Tay language, making it a false positive."
+    }
+  }
+}

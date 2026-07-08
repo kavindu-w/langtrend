@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.07219v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T16:05:08.049833+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3342,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is mentioned as a writing system/script, not as the Latin language"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is referenced as a language of Reddit subreddits (r portugal, r brasil) included in the multilingual dataset, indicating the paper uses Portuguese data"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic is mentioned as a writing system/script, not as the Arabic language"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is referenced as a language of Reddit subreddits (r es, r chile) included in the multilingual dataset, indicating the paper uses Spanish data"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is mentioned in the results as a language where lower accuracy is observed, implying evaluation on Chinese data"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is mentioned as the language of the training data and of many subreddits, indicating the paper uses English data"
+    }
+  }
+}

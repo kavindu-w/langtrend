@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.06879v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T16:15:33.770182+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3667,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "the snippets refer to a 'non-Latin-script filter' used in cleaning, which is a tool/filter, not the Latin language itself"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "the snippet mentions Korean voice‑phishing data in related work, but the paper itself does not work on Korean data"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "the snippet states the dataset is English‑only, indicating the paper builds a dataset of English conversations"
+    }
+  }
+}

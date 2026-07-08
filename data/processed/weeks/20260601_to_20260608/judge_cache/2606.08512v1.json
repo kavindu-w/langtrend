@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.08512v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T16:17:31.624837+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8400,
+  "verdicts": {
+    "Lame": {
+      "verdict": "false_positive",
+      "reason": "In the snippets 'lame' describes a prompt format (e.g., 'lame prompts') rather than a language, so false_positive"
+    },
+    "Bulgarian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to a 'Bulgarian fine‑tuned variant' of the model, indicating the language is mentioned as the model’s provenance but no experiments are run in Bulgarian, so mentioned_only"
+    },
+    "Lithuanian": {
+      "verdict": "false_positive",
+      "reason": "Lithuanian appears only as part of the historical term 'Polish‑Lithuanian Commonwealth', not as a language under study, so false_positive"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears only in the phrase 'Polish‑Lithuanian Commonwealth', not as a language of analysis, so false_positive"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German is used to denote the 'German empire' in a historical context, not the German language, so false_positive"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is the language of the queries and of a fine‑tuned model; the paper conducts experiments in Russian, so studied"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is the language of the queries and of a fine‑tuned model; the paper conducts experiments in Ukrainian, so studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the three query languages used in the experiments, so studied"
+    }
+  }
+}

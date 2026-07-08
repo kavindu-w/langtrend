@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.07812v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-08T15:56:19.411876+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3949,
+  "verdicts": {
+    "Yale": {
+      "verdict": "false_positive",
+      "reason": "The snippets show references like \"yale-nlp/...\" which are model or repository identifiers from Yale NLP, not a reference to a human language named Yale, so this is a false positive."
+    },
+    "Tulu": {
+      "verdict": "mentioned_only",
+      "reason": "The text says \"Instruction tuned on Tulu 3 data\", indicating the Tulu language data is used for instruction tuning, but the paper only mentions the language without conducting dedicated experiments or"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The passage discusses \"enhancing cultural awareness especially in Chinese\", referring to the Chinese language, yet the paper merely lists a model targeting Chinese and does not study or evaluate the l"
+    }
+  }
+}
