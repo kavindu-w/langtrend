@@ -792,13 +792,6 @@ for (const it of paperItems) {
     if (activeFilterTags) activeFilterTags.textContent = tags.join(' · ');
   }
 
-  function applyChipVerdictVisibility(row: HTMLElement) {
-    row.querySelectorAll<HTMLElement>('[data-verdict]').forEach(chip => {
-      const target = (chip.closest('.lang-chip-popover') as HTMLElement | null) ?? chip;
-      target.style.display = enabledVerdicts.has(chip.dataset.verdict || '') ? '' : 'none';
-    });
-  }
-
   function applyFilters() {
     const activeWeekSet = new Set(getActiveWeekSlugs());
     const searchTerm = foldSearchText(searchInput?.value.trim() ?? '');
@@ -819,7 +812,6 @@ for (const it of paperItems) {
       const matchesClass = classFilter === 'all' || rowClasses.includes(classFilter);
       const show = inScope && matchesLanguage && matchesSearch && matchesClass;
       (row.parentElement as HTMLElement).style.display = show ? '' : 'none';
-      if (show) applyChipVerdictVisibility(row);
       if (show) visible++;
       if (inScope) inScopeTotal++;
     });
