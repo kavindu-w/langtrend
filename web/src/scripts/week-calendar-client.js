@@ -152,13 +152,17 @@ function populatePeriodSelects() {
   fillMonthSelect(toMonthSel, data, toD.getFullYear(), toD.getMonth() + 1);
   fillWeekSelect(toSelect, data, toD.getFullYear(), toD.getMonth() + 1, anchorWeekStr);
 
-  // From cascading (year/month filter only; week triggers navigation)
+  // From cascading (year/month change repopulates the week select, which may
+  // auto-select its first/only option without firing a native `change` event
+  // on it — so trigger navigation explicitly here rather than relying on that)
   fromYearSel.addEventListener('change', () => {
     fillMonthSelect(fromMonthSel, data, parseInt(fromYearSel.value), null);
     fillWeekSelect(fromSelect, data, parseInt(fromYearSel.value), parseInt(fromMonthSel.value), null);
+    onPeriodSelectChange();
   });
   fromMonthSel.addEventListener('change', () => {
     fillWeekSelect(fromSelect, data, parseInt(fromYearSel.value), parseInt(fromMonthSel.value), null);
+    onPeriodSelectChange();
   });
   fromSelect.addEventListener('change', onPeriodSelectChange);
 
@@ -166,9 +170,11 @@ function populatePeriodSelects() {
   toYearSel.addEventListener('change', () => {
     fillMonthSelect(toMonthSel, data, parseInt(toYearSel.value), null);
     fillWeekSelect(toSelect, data, parseInt(toYearSel.value), parseInt(toMonthSel.value), null);
+    onPeriodSelectChange();
   });
   toMonthSel.addEventListener('change', () => {
     fillWeekSelect(toSelect, data, parseInt(toYearSel.value), parseInt(toMonthSel.value), null);
+    onPeriodSelectChange();
   });
   toSelect.addEventListener('change', onPeriodSelectChange);
 }

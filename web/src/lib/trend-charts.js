@@ -219,6 +219,71 @@ export function buildBumpSegmentPath(start, end) {
   return `M ${start.x} ${start.y} C ${midX} ${start.y} ${midX} ${end.y} ${end.x} ${end.y}`;
 }
 
+// Leader line from a bump-chart point that sits at the first/last plotted column
+// out to its margin label. The whole line lives in the empty margin, so a gentle
+// bow is enough to keep it from tracing directly along a rank gridline.
+export function buildBumpEdgeLeaderPath(x1, y1, x2, y2) {
+  const midX = (x1 + x2) / 2;
+  const bow = 5;
+  return `M ${x1} ${y1} C ${midX} ${y1 - bow} ${midX} ${y2 - bow} ${x2} ${y2}`;
+}
+
+// Chooses which inter-row gap a mid-chart entry/exit's leader line should jog
+// through: the gap between this point's rank row and the next one, either above
+// or below — every column shares the same rank axis, so that gap is circle-free
+// all the way across. Picks whichever side is closer to the label, falling back
+// to the only available side at the rank-1/rank-max edges of the axis.
+export function computeBumpFlyoverLaneY(y1, y2, rowSpacing, plotHeight) {
+  const halfGap = rowSpacing / 2;
+  const canGoAbove = y1 - halfGap > 0.01;
+  const canGoBelow = y1 + halfGap < plotHeight - 0.01;
+  const goAbove = canGoAbove && (!canGoBelow || y2 <= y1);
+  return goAbove ? y1 - halfGap : y1 + halfGap;
+}
+
+// Multiple mid-chart entries/exits can land on the exact same inter-row gap (e.g.
+// two languages both jogging through the rank 7/8 gap toward the same margin) —
+// including cases where one heads to the left margin and the other to the right,
+// since both still travel the full width of that shared lane. Pass the left- and
+// right-side lane Ys combined into one array (see callers) so the whole shared
+// lane is deconflicted together, not per side. Groups lane Ys that round to the
+// same pixel and fans each group out by `step` so parallel leaders stay apart.
+export function assignBumpLaneOffsets(laneYs, step = 7) {
+  const groups = new Map();
+  laneYs.forEach((y, idx) => {
+    if (y == null) return;
+    const key = Math.round(y);
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(idx);
+  });
+  const offsets = new Array(laneYs.length).fill(0);
+  groups.forEach((idxs) => {
+    const n = idxs.length;
+    idxs.forEach((idx, i) => { offsets[idx] = (i - (n - 1) / 2) * step; });
+  });
+  return offsets;
+}
+
+// Leader line from a bump-chart point that enters/exits the top-10 mid-chart (not
+// at the first/last column) out to its margin label. A straight line would cut
+// across the intervening columns' circles and curves, so instead it jogs into a
+// circle-free inter-row lane (see computeBumpFlyoverLaneY/assignBumpLaneOffsets)
+// and travels through it to the margin before turning toward the label.
+export function buildBumpFlyoverLeaderPath(x1, y1, x2, y2, laneY) {
+  const r = Math.min(8, Math.abs(laneY - y1) / 2, Math.abs(x2 - x1) / 2);
+  const dx = x2 >= x1 ? 1 : -1;
+  const dy1 = laneY >= y1 ? 1 : -1;
+  const dy2 = y2 >= laneY ? 1 : -1;
+  return [
+    `M ${x1} ${y1}`,
+    `L ${x1} ${laneY - dy1 * r}`,
+    `Q ${x1} ${laneY} ${x1 + dx * r} ${laneY}`,
+    `L ${x2 - dx * r} ${laneY}`,
+    `Q ${x2} ${laneY} ${x2} ${laneY + dy2 * r}`,
+    `L ${x2} ${y2}`,
+  ].join(' ');
+}
+
 export function scrollableChartWidth(baseWidth, margins, periodCount, maxVisible = 5) {
   if (periodCount <= maxVisible) return null;
   const baseInner = baseWidth - margins.left - margins.right;

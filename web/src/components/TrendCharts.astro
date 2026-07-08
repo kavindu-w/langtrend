@@ -4,8 +4,12 @@ import { CLASS_LABELS, colorForIndex } from '../lib/data.js';
 import { languageBorderClass } from '../lib/language-colors.js';
 import {
   aggregateTrendPeriods,
+  assignBumpLaneOffsets,
+  buildBumpEdgeLeaderPath,
+  buildBumpFlyoverLeaderPath,
   buildBumpSegmentPath,
   buildLinePath,
+  computeBumpFlyoverLaneY,
   buildPieSlices,
   classColorForId,
   classColorForLanguage,
@@ -375,6 +379,7 @@ function computeTrendData(granularity: TrendGranularity) {
   const bumpSvgWidth = bumpScrollPx ?? 960;
   const bumpInnerWidth = bumpSvgWidth - bumpMargins.left - bumpMargins.right;
   const bumpInnerHeight = bumpSvgHeight - bumpMargins.top - bumpMargins.bottom;
+  const bumpRowSpacing = bumpInnerHeight / (bumpMaxRank - 1);
   const bumpYScale = scaleLinear().domain([1, bumpMaxRank]).range([0, bumpInnerHeight]);
   const bumpXScale = scaleBand().domain(periodLabels).range([0, bumpInnerWidth]).padding(0.42);
   const bumpPeriods: BumpWeek[] = periods.map((period) => {
@@ -410,10 +415,14 @@ function computeTrendData(granularity: TrendGranularity) {
       }
       previousPoint = point;
     }
-    const firstPt = points.find((point): point is BumpPoint => point !== null) ?? null;
-    const lastPt = [...points].reverse().find((point): point is BumpPoint => point !== null) ?? null;
+    const firstIdx = points.findIndex((point) => point !== null);
+    const lastIdx = points.length - 1 - [...points].reverse().findIndex((point) => point !== null);
+    const firstPt = firstIdx === -1 ? null : points[firstIdx];
+    const lastPt = firstIdx === -1 ? null : points[lastIdx];
+    const firstIsEdge = firstIdx === 0;
+    const lastIsEdge = lastIdx === points.length - 1;
     const labelColor = langColorMap.get(language) || TREND_LINE_COLORS[seriesIdx] || colorForIndex(seriesIdx);
-    return { language, points, segments, firstPt, lastPt, labelColor };
+    return { language, points, segments, firstPt, lastPt, firstIsEdge, lastIsEdge, labelColor };
   });
   const bumpSegments = bumpSeriesData.flatMap((series) => series.segments);
   const bumpLeftLabelRaw = bumpSeriesData.map((series, idx) => ({ idx, naturalY: series.firstPt?.y ?? 0 }));
@@ -432,6 +441,21 @@ function computeTrendData(granularity: TrendGranularity) {
     bumpRightLabelY[item.idx] = y;
     bumpRightPrevY = y;
   }
+  const bumpLeftLaneY = bumpSeriesData.map((series, idx) =>
+    series.firstPt && !series.firstIsEdge
+      ? computeBumpFlyoverLaneY(series.firstPt.y, bumpLeftLabelY[idx], bumpRowSpacing, bumpInnerHeight)
+      : null
+  );
+  const bumpRightLaneY = bumpSeriesData.map((series, idx) =>
+    series.lastPt && !series.lastIsEdge
+      ? computeBumpFlyoverLaneY(series.lastPt.y, bumpRightLabelY[idx], bumpRowSpacing, bumpInnerHeight)
+      : null
+  );
+  // Left- and right-heading leaders can share the same lane (both travel its
+  // full width), so deconflict them together rather than per side.
+  const bumpCombinedLaneOffsets = assignBumpLaneOffsets([...bumpLeftLaneY, ...bumpRightLaneY]);
+  const bumpLeftLaneOffsets = bumpCombinedLaneOffsets.slice(0, bumpSeriesData.length);
+  const bumpRightLaneOffsets = bumpCombinedLaneOffsets.slice(bumpSeriesData.length);
 
   return {
     granularity, granularityLabel, periods, periodLabels, topLanguages, langColorMap, trendSeries, endpointLabelY,
@@ -439,7 +463,7 @@ function computeTrendData(granularity: TrendGranularity) {
     topLangHeight, topLangMargins, topLangScrollPx, topLangWidth, topLangInnerWidth, topLangInnerHeight, topLangScale, topLangMax, topLangY,
     classHeight, classMargins, classScrollPx, classWidth, classInnerWidth, classInnerHeight, classScale, classBars,
     uniqueHeight, uniqueMargins, uniqueScrollPx, uniqueWidth, uniqueInnerWidth, uniqueInnerHeight, uniqueScale, uniqueMax, uniqueY,
-    bumpMaxRank, bumpSvgHeight, bumpMargins, bumpScrollPx, bumpSvgWidth, bumpInnerWidth, bumpInnerHeight, bumpYScale, bumpXScale, bumpPeriods, bumpSeriesData, bumpSegments, bumpLeftLabelY, bumpRightLabelY,
+    bumpMaxRank, bumpSvgHeight, bumpMargins, bumpScrollPx, bumpSvgWidth, bumpInnerWidth, bumpInnerHeight, bumpRowSpacing, bumpYScale, bumpXScale, bumpPeriods, bumpSeriesData, bumpSegments, bumpLeftLabelY, bumpRightLabelY, bumpLeftLaneY, bumpLeftLaneOffsets, bumpRightLaneY, bumpRightLaneOffsets,
   };
 }
 
@@ -1133,7 +1157,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           </div>
         </div>
         <div class="class-legend" id="period-class-legend"></div>
-        <div class="chart-scroll" id="period-class-mix"></div>
+        <div class="chart-scroll trend-period-chart-scroll" id="period-class-mix"></div>
       </article>
 
       <article class="chart-subpanel">
@@ -1252,12 +1276,17 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         bumpSvgWidth,
         bumpInnerWidth,
         bumpInnerHeight,
+        bumpRowSpacing,
         bumpYScale,
         bumpXScale,
         bumpSeriesData,
         bumpSegments,
         bumpLeftLabelY,
         bumpRightLabelY,
+        bumpLeftLaneY,
+        bumpLeftLaneOffsets,
+        bumpRightLaneY,
+        bumpRightLaneOffsets,
       } = trendDataByGranularity[gran];
       return (
         <div class="trend-granularity-pane" data-granularity={gran} style={gran !== 'week' ? 'display:none' : ''}>
@@ -1317,7 +1346,15 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
               <span><span class="coverage-dot html"></span>Papers with detected languages</span>
             </div>
             {trendPeriods.length > 0 ? (
-              <div class="chart-scroll trend-period-chart-scroll">
+              <div class={`chart-scroll trend-period-chart-scroll${trendGroupedScrollPx !== null ? ' chart-scroll-frozen' : ''}`}>
+                {trendGroupedScrollPx !== null && (
+                  <svg class="chart-axis-overlay" width={trendGroupedMargins.left} height={trendGroupedHeight} viewBox={`0 0 ${trendGroupedMargins.left} ${trendGroupedHeight}`} aria-hidden="true">
+                    <rect x="0" y="0" width={trendGroupedMargins.left} height={trendGroupedHeight} class="chart-axis-overlay-bg"></rect>
+                    {trendGroupedY.ticks(4).map((tick) => (
+                      <text x={trendGroupedMargins.left - 10} y={trendGroupedMargins.top + trendGroupedY(tick) + 4} text-anchor="end" class="chart-axis-label">{tick}</text>
+                    ))}
+                  </svg>
+                )}
                 <svg class="chart-svg" width={trendGroupedScrollPx === null ? "100%" : undefined} style={trendGroupedScrollPx !== null ? `width:${trendGroupedScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendGroupedWidth} ${trendGroupedHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`Stacked bar chart of ${trendGranularity} scan volume`}>
                   <g transform={`translate(${trendGroupedMargins.left} ${trendGroupedMargins.top})`}>
                     {trendGroupedY.ticks(4).map((tick) => (
@@ -1374,7 +1411,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
               ))}
             </div>
             {trendPeriods.length > 0 ? (
-              <div class="chart-scroll">
+              <div class="chart-scroll trend-period-chart-scroll">
                 <svg class="chart-svg" width={trendClassScrollPx === null ? "100%" : undefined} style={trendClassScrollPx !== null ? `width:${trendClassScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendClassWidth} ${trendClassHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`100 percent stacked bar chart of resource class mix by ${trendGranularity}`}>
                   <g transform={`translate(${trendClassMargins.left} ${trendClassMargins.top})`}>
                     {trendPeriods.map((period, index) => {
@@ -1408,7 +1445,15 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
               </div>
             </div>
             {trendPeriods.length > 0 ? (
-              <div class="chart-scroll trend-period-chart-scroll">
+              <div class={`chart-scroll trend-period-chart-scroll${trendUniqueScrollPx !== null ? ' chart-scroll-frozen' : ''}`}>
+                {trendUniqueScrollPx !== null && (
+                  <svg class="chart-axis-overlay" width={trendUniqueMargins.left} height={trendUniqueHeight} viewBox={`0 0 ${trendUniqueMargins.left} ${trendUniqueHeight}`} aria-hidden="true">
+                    <rect x="0" y="0" width={trendUniqueMargins.left} height={trendUniqueHeight} class="chart-axis-overlay-bg"></rect>
+                    {trendUniqueY.ticks(4).map((tick) => (
+                      <text x={trendUniqueMargins.left - 10} y={trendUniqueMargins.top + trendUniqueY(tick) + 4} text-anchor="end" class="chart-axis-label">{tick}</text>
+                    ))}
+                  </svg>
+                )}
                 <svg class="chart-svg" width={trendUniqueScrollPx === null ? "100%" : undefined} style={trendUniqueScrollPx !== null ? `width:${trendUniqueScrollPx}px;max-width:none` : undefined} viewBox={`0 0 ${trendUniqueWidth} ${trendUniqueHeight}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label={`Line chart of unique languages per ${trendGranularity}`}>
                   <g transform={`translate(${trendUniqueMargins.left} ${trendUniqueMargins.top})`}>
                     {trendUniqueY.ticks(4).map((tick) => (
@@ -1454,7 +1499,15 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             </div>
             {trendPeriods.length > 0 && topTrendLanguages.length > 0 ? (
               <div class="trend-line-layout">
-                <div class="chart-scroll trend-period-chart-scroll">
+                <div class={`chart-scroll trend-period-chart-scroll${trendTopLanguageScrollPx !== null ? ' chart-scroll-frozen' : ''}`}>
+                  {trendTopLanguageScrollPx !== null && (
+                    <svg class="chart-axis-overlay" width={trendTopLanguageMargins.left} height={trendTopLanguageHeight} viewBox={`0 0 ${trendTopLanguageMargins.left} ${trendTopLanguageHeight}`} aria-hidden="true">
+                      <rect x="0" y="0" width={trendTopLanguageMargins.left} height={trendTopLanguageHeight} class="chart-axis-overlay-bg"></rect>
+                      {trendTopLanguageY.ticks(6).map((tick) => (
+                        <text x={trendTopLanguageMargins.left - 10} y={trendTopLanguageMargins.top + trendTopLanguageY(tick) + 4} text-anchor="end" class="chart-axis-label">{tick}</text>
+                      ))}
+                    </svg>
+                  )}
                   <svg class="chart-svg" width={trendTopLanguageScrollPx === null ? "100%" : undefined} style={trendTopLanguageScrollPx !== null ? `width:${trendTopLanguageScrollPx}px;max-width:none` : undefined} height={trendTopLanguageScrollPx !== null ? trendTopLanguageHeight : undefined} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Line chart of top-language trends across ${trendGranularity}s`}>
                     <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
                       {trendTopLanguageY.ticks(6).map((tick) => (
@@ -1526,7 +1579,9 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
                       <g>
                         {series.firstPt && (
                           <g>
-                            <path d={`M ${series.firstPt.x - 14} ${series.firstPt.y} L ${-14} ${bumpLeftLabelY[seriesIdx]}`} fill="none" stroke={series.labelColor} stroke-dasharray="3 4" stroke-width="1"></path>
+                            <path d={series.firstIsEdge
+                              ? buildBumpEdgeLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, bumpLeftLabelY[seriesIdx])
+                              : buildBumpFlyoverLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, bumpLeftLabelY[seriesIdx], (bumpLeftLaneY[seriesIdx] ?? 0) + bumpLeftLaneOffsets[seriesIdx])} fill="none" stroke={series.labelColor} stroke-dasharray="3 4" stroke-width="1"></path>
                             {pfpWarn(series.language) ? (
                               <g class="chart-warn-label" data-pfp-reason={pfpWarn(series.language)}>
                                 <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${series.labelColor};font-weight:700`}>{series.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan></text>
@@ -1538,7 +1593,9 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
                         )}
                         {series.lastPt && (
                           <g>
-                            <path d={`M ${series.lastPt.x + 14} ${series.lastPt.y} L ${bumpInnerWidth + 14} ${bumpRightLabelY[seriesIdx]}`} fill="none" stroke={series.labelColor} stroke-dasharray="3 4" stroke-width="1"></path>
+                            <path d={series.lastIsEdge
+                              ? buildBumpEdgeLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerWidth + 14, bumpRightLabelY[seriesIdx])
+                              : buildBumpFlyoverLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerWidth + 14, bumpRightLabelY[seriesIdx], (bumpRightLaneY[seriesIdx] ?? 0) + bumpRightLaneOffsets[seriesIdx])} fill="none" stroke={series.labelColor} stroke-dasharray="3 4" stroke-width="1"></path>
                             {pfpWarn(series.language) ? (
                               <g class="chart-warn-label" data-pfp-reason={pfpWarn(series.language)}>
                                 <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${series.labelColor};font-weight:700`}>{series.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan></text>
@@ -1583,6 +1640,20 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
     const trendScrollStorageKey = 'langtrend:overall-trend-scroll-y';
     const trendModeStorageKey = 'langtrend:trend-mode';
 
+    // Horizontally scrollable per-period charts (scan volume, class mix,
+    // unique languages, top-language trends, rank trajectory) default to
+    // showing the earliest period on the left — scroll them to the right
+    // edge so the latest period is visible without the user having to
+    // scroll manually. Safe to call on non-overflowing charts (scrollLeft
+    // is a no-op when scrollWidth === clientWidth) and on hidden panes
+    // (scrollWidth reads 0 while display:none, so it's a harmless no-op
+    // there too — callers re-invoke this once a pane becomes visible).
+    function scrollChartsToEnd(root) {
+      (root || document).querySelectorAll('.trend-period-chart-scroll, .bump-chart-scroll').forEach(function(el) {
+        el.scrollLeft = el.scrollWidth;
+      });
+    }
+
     function switchTrendPane(mode) {
       document.querySelectorAll('.trend-granularity-pane').forEach(function(pane) {
         pane.style.display = pane.dataset.granularity === mode ? '' : 'none';
@@ -1594,12 +1665,15 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       });
       try { history.replaceState(null, '', '?trend=' + mode); } catch {}
       try { sessionStorage.setItem(trendModeStorageKey, mode); } catch {}
+      var activePane = document.querySelector('.trend-granularity-pane[data-granularity="' + mode + '"]');
+      requestAnimationFrame(function() { scrollChartsToEnd(activePane); });
     }
 
     // Restore trend mode from URL param or session storage
     try {
       var _trendMode = new URLSearchParams(location.search).get('trend') || sessionStorage.getItem(trendModeStorageKey) || 'week';
       if (_trendMode !== 'week') switchTrendPane(_trendMode);
+      else requestAnimationFrame(function() { scrollChartsToEnd(); });
     } catch {}
 
     try { window.history.scrollRestoration = 'manual'; } catch {}
@@ -1710,6 +1784,21 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         r = Math.min(r, w / 2, Math.max(h / 2, 0));
         if (h <= 0) return '';
         return 'M '+x+','+y+' H '+(x+w)+' V '+(y+h-r)+' Q '+(x+w)+','+(y+h)+' '+(x+w-r)+','+(y+h)+' H '+(x+r)+' Q '+x+','+(y+h)+' '+x+','+(y+h-r)+' Z';
+      }
+
+      // A small "frozen column" y-axis overlay for horizontally scrollable
+      // per-period charts (many weeks/months/years): without it, the axis
+      // labels scroll away with the plot and the user has to scroll all the
+      // way back to the start to see what the numbers mean. tickEntries is
+      // an array of { y, label } where y is already in inner-plot
+      // coordinates (0 at the top of the plot area, matching the main
+      // chart's own tick positions).
+      function axisOverlaySvg(marginLeft, marginTop, height, tickEntries) {
+        var bg = '<rect x="0" y="0" width="' + marginLeft + '" height="' + height + '" class="chart-axis-overlay-bg"></rect>';
+        var labels = tickEntries.map(function(t) {
+          return '<text x="' + (marginLeft - 10) + '" y="' + (marginTop + t.y + 4) + '" text-anchor="end" class="chart-axis-label">' + t.label + '</text>';
+        }).join('');
+        return '<svg class="chart-axis-overlay" width="' + marginLeft + '" height="' + height + '" viewBox="0 0 ' + marginLeft + ' ' + height + '" aria-hidden="true">' + bg + labels + '</svg>';
       }
 
       function pieSlicePath(cx, cy, radius, startAngle, endAngle) {
@@ -1852,6 +1941,50 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       function buildBumpSegmentPath(start, end) {
         var midX = (start.x + end.x) / 2;
         return 'M ' + start.x + ' ' + start.y + ' C ' + midX + ' ' + start.y + ' ' + midX + ' ' + end.y + ' ' + end.x + ' ' + end.y;
+      }
+
+      function buildBumpEdgeLeaderPath(x1, y1, x2, y2) {
+        var midX = (x1 + x2) / 2;
+        var bow = 5;
+        return 'M ' + x1 + ' ' + y1 + ' C ' + midX + ' ' + (y1 - bow) + ' ' + midX + ' ' + (y2 - bow) + ' ' + x2 + ' ' + y2;
+      }
+
+      function computeBumpFlyoverLaneY(y1, y2, rowSpacing, plotHeight) {
+        var halfGap = rowSpacing / 2;
+        var canGoAbove = y1 - halfGap > 0.01;
+        var canGoBelow = y1 + halfGap < plotHeight - 0.01;
+        var goAbove = canGoAbove && (!canGoBelow || y2 <= y1);
+        return goAbove ? y1 - halfGap : y1 + halfGap;
+      }
+
+      function assignBumpLaneOffsets(laneYs, step) {
+        step = step || 7;
+        var groups = new Map();
+        laneYs.forEach(function(y, idx) {
+          if (y == null) return;
+          var key = Math.round(y);
+          if (!groups.has(key)) groups.set(key, []);
+          groups.get(key).push(idx);
+        });
+        var offsets = new Array(laneYs.length).fill(0);
+        groups.forEach(function(idxs) {
+          var n = idxs.length;
+          idxs.forEach(function(idx, i) { offsets[idx] = (i - (n - 1) / 2) * step; });
+        });
+        return offsets;
+      }
+
+      function buildBumpFlyoverLeaderPath(x1, y1, x2, y2, laneY) {
+        var r = Math.min(8, Math.abs(laneY - y1) / 2, Math.abs(x2 - x1) / 2);
+        var dx = x2 >= x1 ? 1 : -1;
+        var dy1 = laneY >= y1 ? 1 : -1;
+        var dy2 = y2 >= laneY ? 1 : -1;
+        return 'M ' + x1 + ' ' + y1 +
+          ' L ' + x1 + ' ' + (laneY - dy1 * r) +
+          ' Q ' + x1 + ' ' + laneY + ' ' + (x1 + dx * r) + ' ' + laneY +
+          ' L ' + (x2 - dx * r) + ' ' + laneY +
+          ' Q ' + x2 + ' ' + laneY + ' ' + x2 + ' ' + (laneY + dy2 * r) +
+          ' L ' + x2 + ' ' + y2;
       }
 
       function markerPathJs(shapeIdx, cx, cy, size) {
@@ -2182,7 +2315,13 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             svg += '<text x="' + (x + barW / 2) + '" y="' + (scanInnerH + 18) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>';
             return svg;
           }).join('');
-          scanContainer.innerHTML = '<svg class="chart-svg"' + (scanWidth !== 760 ? ' style="width:' + scanWidth + 'px;max-width:none"' : ' width="100%"') + ' viewBox="0 0 ' + scanWidth + ' ' + scanHeight + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Stacked bar chart of selected period scan volume"><g transform="translate(' + scanMargin.left + ' ' + scanMargin.top + ')"><line x1="0" x2="' + scanInnerW + '" y1="' + scanInnerH + '" y2="' + scanInnerH + '" class="chart-grid-line"></line>' + yAxis + bars + '</g></svg>';
+          var scanIsScrollable = scanWidth !== 760;
+          scanContainer.classList.toggle('chart-scroll-frozen', scanIsScrollable);
+          var scanOverlay = scanIsScrollable ? axisOverlaySvg(scanMargin.left, scanMargin.top, scanHeight, [0, 1, 2, 3, 4].map(function(i) {
+            var tick = Math.round(maxP * i / 4);
+            return { y: scanInnerH - (tick / maxP) * scanInnerH, label: tick };
+          })) : '';
+          scanContainer.innerHTML = scanOverlay + '<svg class="chart-svg"' + (scanWidth !== 760 ? ' style="width:' + scanWidth + 'px;max-width:none"' : ' width="100%"') + ' viewBox="0 0 ' + scanWidth + ' ' + scanHeight + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Stacked bar chart of selected period scan volume"><g transform="translate(' + scanMargin.left + ' ' + scanMargin.top + ')"><line x1="0" x2="' + scanInnerW + '" y1="' + scanInnerH + '" y2="' + scanInnerH + '" class="chart-grid-line"></line>' + yAxis + bars + '</g></svg>';
         }
 
         var classLegend = document.getElementById('period-class-legend');
@@ -2250,7 +2389,12 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           var uniqueDots = uniquePts.map(function(point) {
             return '<circle cx="' + point.x + '" cy="' + point.y + '" r="5" fill="#7c3aed" stroke="white" stroke-width="2"></circle><text x="' + point.x + '" y="' + uniqueLabelY(point.y) + '" text-anchor="middle" class="chart-value">' + point.val + '</text><text x="' + point.x + '" y="' + (uniqueInnerH + 18) + '" text-anchor="middle" class="chart-label">' + point.label + '</text>';
           }).join('');
-          uniqueContainer.innerHTML = '<svg class="chart-svg"' + (uniqueWidth !== 700 ? ' style="width:' + uniqueWidth + 'px;max-width:none"' : ' width="100%"') + ' viewBox="0 0 ' + uniqueWidth + ' ' + uniqueHeight + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of unique languages per selected period"><g transform="translate(' + uniqueMargin.left + ' ' + uniqueMargin.top + ')">' + uniqueAxis + '<path d="' + uniqueLine + '" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round"></path>' + uniqueDots + '</g></svg>';
+          var uniqueIsScrollable = uniqueWidth !== 700;
+          uniqueContainer.classList.toggle('chart-scroll-frozen', uniqueIsScrollable);
+          var uniqueOverlay = uniqueIsScrollable ? axisOverlaySvg(uniqueMargin.left, uniqueMargin.top, uniqueHeight, uniqueTicks.map(function(tick) {
+            return { y: uniqueY(tick), label: tick };
+          })) : '';
+          uniqueContainer.innerHTML = uniqueOverlay + '<svg class="chart-svg"' + (uniqueWidth !== 700 ? ' style="width:' + uniqueWidth + 'px;max-width:none"' : ' width="100%"') + ' viewBox="0 0 ' + uniqueWidth + ' ' + uniqueHeight + '" preserveAspectRatio="xMinYMin meet" role="img" aria-label="Line chart of unique languages per selected period"><g transform="translate(' + uniqueMargin.left + ' ' + uniqueMargin.top + ')">' + uniqueAxis + '<path d="' + uniqueLine + '" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round"></path>' + uniqueDots + '</g></svg>';
         }
 
         var langTotals = new Map();
@@ -2319,7 +2463,11 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
               series.points.map(function(point) { return '<path d="' + markerPathJs(index, point.x, point.y, 4) + '" fill="' + series.color + '" stroke="white" stroke-width="1.2"></path>'; }).join('') +
               '</g>';
           }).join('');
-          topTrendsContainer.innerHTML = '<div class="chart-scroll trend-period-chart-scroll"><svg class="chart-svg"' + (trendWidth !== 760 ? ' style="width:' + trendWidth + 'px;max-width:none"' : ' width="100%"') + (trendWidth !== 760 ? ' height="' + trendHeight + '"' : '') + ' viewBox="0 0 ' + trendWidth + ' ' + trendHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across selected period"><g transform="translate(' + trendMargin.left + ' ' + trendMargin.top + ')">' + trendAxis + trendSvg + periods.map(function(period) { return '<text x="' + ((periods.indexOf(period) * trendBand) + trendBand / 2) + '" y="' + (trendInnerH + 18) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>'; }).join('') + '</g></svg></div>';
+          var trendIsScrollable = trendWidth !== 760;
+          var trendOverlay = trendIsScrollable ? axisOverlaySvg(trendMargin.left, trendMargin.top, trendHeight, trendAxisTicks.map(function(tick) {
+            return { y: trendY(tick), label: tick };
+          })) : '';
+          topTrendsContainer.innerHTML = '<div class="chart-scroll trend-period-chart-scroll' + (trendIsScrollable ? ' chart-scroll-frozen' : '') + '">' + trendOverlay + '<svg class="chart-svg"' + (trendWidth !== 760 ? ' style="width:' + trendWidth + 'px;max-width:none"' : ' width="100%"') + (trendWidth !== 760 ? ' height="' + trendHeight + '"' : '') + ' viewBox="0 0 ' + trendWidth + ' ' + trendHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across selected period"><g transform="translate(' + trendMargin.left + ' ' + trendMargin.top + ')">' + trendAxis + trendSvg + periods.map(function(period) { return '<text x="' + ((periods.indexOf(period) * trendBand) + trendBand / 2) + '" y="' + (trendInnerH + 18) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>'; }).join('') + '</g></svg></div>';
         }
 
         var rankContainer = document.getElementById('period-rank-trajectory');
@@ -2331,7 +2479,8 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           var bumpInnerW = bumpWidth - bumpMargin.left - bumpMargin.right;
           var bumpInnerH = bumpHeight - bumpMargin.top - bumpMargin.bottom;
           var bumpBand = bumpInnerW / periods.length;
-          var bumpY = function(rank) { return (rank - 1) * (bumpInnerH / Math.max(1, bumpMaxRank - 1)); };
+          var bumpRowSpacing = bumpInnerH / Math.max(1, bumpMaxRank - 1);
+          var bumpY = function(rank) { return (rank - 1) * bumpRowSpacing; };
           var bumpPeriods = periods.map(function(period, index) {
             // Exclude languages that were only ever mentioned_only this week —
             // the bump chart ranks studied activity, not raw mentions.
@@ -2361,10 +2510,14 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
               }
               previousPoint = point;
             }
-            var firstPt = points.find(function(point) { return point !== null; }) || null;
-            var lastPt = [...points].reverse().find(function(point) { return point !== null; }) || null;
+            var firstIdx = points.findIndex(function(point) { return point !== null; });
+            var lastIdx = points.length - 1 - [...points].reverse().findIndex(function(point) { return point !== null; });
+            var firstPt = firstIdx === -1 ? null : points[firstIdx];
+            var lastPt = firstIdx === -1 ? null : points[lastIdx];
+            var firstIsEdge = firstIdx === 0;
+            var lastIsEdge = lastIdx === points.length - 1;
             var labelColor = TREND_LINE_COLORS_JS[seriesIdx] || CLASS_COLORS_JS[seriesIdx % CLASS_COLORS_JS.length];
-            return { language: language, points: points, segments: segments, firstPt: firstPt, lastPt: lastPt, labelColor: labelColor };
+            return { language: language, points: points, segments: segments, firstPt: firstPt, lastPt: lastPt, firstIsEdge: firstIsEdge, lastIsEdge: lastIsEdge, labelColor: labelColor };
           });
           var bumpSegments = bumpSeriesData.flatMap(function(series) { return series.segments; });
           var bumpLeftLabelRaw = bumpSeriesData.map(function(series, idx) { return { idx: idx, naturalY: series.firstPt ? series.firstPt.y : 0 }; }).sort(function(a, b) { return a.naturalY - b.naturalY; });
@@ -2375,6 +2528,21 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           bumpLeftLabelRaw.forEach(function(item) { var y = Math.max(item.naturalY, bumpLeftPrevY + 16); bumpLeftLabelY[item.idx] = y; bumpLeftPrevY = y; });
           var bumpRightPrevY = -Infinity;
           bumpRightLabelRaw.forEach(function(item) { var y = Math.max(item.naturalY, bumpRightPrevY + 16); bumpRightLabelY[item.idx] = y; bumpRightPrevY = y; });
+          var bumpLeftLaneY = bumpSeriesData.map(function(series, idx) {
+            return series.firstPt && !series.firstIsEdge
+              ? computeBumpFlyoverLaneY(series.firstPt.y, bumpLeftLabelY[idx], bumpRowSpacing, bumpInnerH)
+              : null;
+          });
+          var bumpRightLaneY = bumpSeriesData.map(function(series, idx) {
+            return series.lastPt && !series.lastIsEdge
+              ? computeBumpFlyoverLaneY(series.lastPt.y, bumpRightLabelY[idx], bumpRowSpacing, bumpInnerH)
+              : null;
+          });
+          // Left- and right-heading leaders can share the same lane (both travel its
+          // full width), so deconflict them together rather than per side.
+          var bumpCombinedLaneOffsets = assignBumpLaneOffsets(bumpLeftLaneY.concat(bumpRightLaneY));
+          var bumpLeftLaneOffsets = bumpCombinedLaneOffsets.slice(0, bumpSeriesData.length);
+          var bumpRightLaneOffsets = bumpCombinedLaneOffsets.slice(bumpSeriesData.length);
           var bumpAxis = Array.from({ length: bumpMaxRank }, function(_, i) { return i + 1; }).map(function(rank) {
             return '<line x1="0" x2="' + bumpInnerW + '" y1="' + bumpY(rank) + '" y2="' + bumpY(rank) + '" class="chart-grid-line"></line>';
           }).join('');
@@ -2385,8 +2553,14 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           var bumpNodes = bumpSeriesData.map(function(series, seriesIdx) {
             var leftY = bumpLeftLabelY[seriesIdx];
             var rightY = bumpRightLabelY[seriesIdx];
-            var leftLabel = series.firstPt ? '<g><path d="M ' + (series.firstPt.x - 14) + ' ' + series.firstPt.y + ' L 12 ' + leftY + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="14" y="' + (leftY + 5) + '" text-anchor="start" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
-            var rightLabel = series.lastPt ? '<g><path d="M ' + (series.lastPt.x + 14) + ' ' + series.lastPt.y + ' L ' + (bumpInnerW + 14) + ' ' + rightY + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="' + (bumpInnerW + 16) + '" y="' + (rightY + 5) + '" text-anchor="start" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
+            var leftLeaderD = series.firstPt ? (series.firstIsEdge
+              ? buildBumpEdgeLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, leftY)
+              : buildBumpFlyoverLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, leftY, (bumpLeftLaneY[seriesIdx] ?? 0) + bumpLeftLaneOffsets[seriesIdx])) : '';
+            var leftLabel = series.firstPt ? '<g><path d="' + leftLeaderD + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="-16" y="' + (leftY + 5) + '" text-anchor="end" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
+            var rightLeaderD = series.lastPt ? (series.lastIsEdge
+              ? buildBumpEdgeLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerW + 14, rightY)
+              : buildBumpFlyoverLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerW + 14, rightY, (bumpRightLaneY[seriesIdx] ?? 0) + bumpRightLaneOffsets[seriesIdx])) : '';
+            var rightLabel = series.lastPt ? '<g><path d="' + rightLeaderD + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="' + (bumpInnerW + 16) + '" y="' + (rightY + 5) + '" text-anchor="start" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
             return '<g>' + leftLabel + rightLabel +
               series.points.map(function(point) {
                 if (!point) return '';
@@ -2398,6 +2572,8 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           }).join('');
           rankContainer.innerHTML = '<svg class="chart-svg"' + (bumpWidth !== 960 ? ' style="width:' + bumpWidth + 'px;max-width:none"' : ' width="100%"') + ' height="' + bumpHeight + '" viewBox="0 0 ' + bumpWidth + ' ' + bumpHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Language rank bump chart across selected period"><g transform="translate(' + bumpMargin.left + ' ' + bumpMargin.top + ')">' + bumpAxis + bumpPoints + bumpLines + bumpNodes + '</g></svg>';
         }
+
+        requestAnimationFrame(function() { scrollChartsToEnd(document.getElementById('period-trends-panel')); });
       }
 
       renderPeriodTrendCharts(periodData);
