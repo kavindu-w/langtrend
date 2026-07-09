@@ -17,7 +17,7 @@ _thread_local = threading.local()
 
 # Cap concurrent arXiv HTML requests regardless of worker count
 _ARXIV_SEMAPHORE = threading.Semaphore(1)
-_HTML_MAX_BYTES = 10 * 1024 * 1024  # 10 MB — enough for any paper's HTML
+_HTML_MAX_BYTES = 50 * 1024 * 1024  # 50 MB — enough for any paper's HTML
 _HTML_DOWNLOAD_TIMEOUT = 120  # wall-clock cap; arXiv keepalives defeat per-chunk read timeouts
 
 # Honest bot UA — arXiv's access policy asks automated tools to self-identify with contact info.
