@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.05510v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T17:11:26.964457+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4608,
+  "verdicts": {
+    "Amal": {
+      "verdict": "false_positive",
+      "reason": "The matched text is the Arabic word 'amal' meaning hope, not a language name; thus false positive"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The matched text is the Arabic conjunction 'wa' meaning 'and', not a language name; thus false positive"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Arabic language (Arabic medical text generation, Arabic dataset) and the paper builds and evaluates models on Arabic data; thus studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets show English translations of Arabic data, but the paper does not build resources for English; thus mentioned_only"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.03773v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T17:27:28.217092+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11838,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains German text; 'Dass' does not appear as a language name but is part of German wording, so it is a false positive."
+    },
+    "Alemannic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet explicitly calls out 'Alemannic/Swiss-German' as a wrong German variety, indicating the language is only mentioned as an error, not studied."
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'MAE' as an abbreviation for Mean Absolute Error, not a language name, so it is a false positive."
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes the German pronoun 'Sie', not a language name, so it is a false positive."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Latin' as a script label (German Latin) in GlotLID, not the Latin language, so it is a false positive."
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "The conclusion mentions Italian as a possible additional language for future translation, only a mention."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The conclusion mentions French as a possible additional language for future translation, only a mention."
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The conclusion mentions Spanish as a possible additional language for future translation, only a mention."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the source language for translation and evaluation, but the paper does not build resources or models for English; it is only mentioned."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper constructs a German corpus, conducts experiments and evaluations on German downstream tasks, thus the language is studied."
+    }
+  }
+}

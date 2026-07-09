@@ -1,0 +1,45 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.03291v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T17:39:03.721363+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11691,
+  "verdicts": {
+    "Chru": {
+      "verdict": "false_positive",
+      "reason": "The snippets only show concatenated language codes like ENCHRU where 'CHRU' is a combination of language abbreviations, not an explicit reference to the Chru language; no evidence of studying or menti"
+    },
+    "Ende": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain strings such as ENDE that are part of combined language codes, not a clear mention of the Ende language; there is no indication that Ende is a focus of the paper."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is referred to solely as the Latin script (e.g., 'Latin script') and not as the Latin language itself."
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is listed as a target language in the multilingual benchmark, appears in experimental tables, evaluation, and analysis, showing the paper works with Russian language data."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is included among the additional languages in the benchmark and is used throughout experiments and analyses, indicating the paper studies German."
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is one of the four additional languages extended in the benchmark and is featured in experiments, evaluation, and analysis, demonstrating the paper studies Turkish."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is a core additional language in the benchmark and is used in multiple experiments, representation analyses, and steering‑vector studies, indicating the paper studies Chinese."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the original language of the dataset and is used throughout the experiments and analyses, showing the paper studies English."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears only in a qualitative example describing an author's writing genre, with no experimental work on French; it is merely mentioned."
+    }
+  }
+}

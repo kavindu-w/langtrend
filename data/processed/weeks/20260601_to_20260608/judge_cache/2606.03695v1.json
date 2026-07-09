@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.03695v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T17:30:15.448643+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6053,
+  "verdicts": {
+    "Duke": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Duke' refers to the title 'Duke of Sussex' (a person), not the language; therefore it is a false positive."
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Pol Pot' (a historical figure), not the Pol language; thus it is a false positive."
+    },
+    "Khmer": {
+      "verdict": "false_positive",
+      "reason": "Here 'Khmer' appears in 'Khmer Rouge', an organization, not the Khmer language; this is a false positive."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The text cites the French word 'Lupin' meaning 'thief', mentioning French only as a lexical example, not studying the language; verdict is mentioned_only."
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "The occurrences refer to Greek mythology and culture (e.g., Zeus, Culture of Greece), not the Greek language; thus it is a false positive."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper repeatedly references English Wikipedia, English token embeddings, and English-specific experiments, indicating the language is central to the study; verdict is studied."
+    }
+  }
+}

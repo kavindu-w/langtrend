@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.05545v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T16:36:15.971599+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10002,
+  "verdicts": {
+    "Toro": {
+      "verdict": "false_positive",
+      "reason": "refers to the surname Pérez‑Toro in a citation, not to a language"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "refers to the Bengali language mentioned as a low‑resource language lacking datasets, but no Bengali data is used"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "refers to the Portuguese language mentioned as a low‑resource language lacking datasets, but no Portuguese data is used"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "refers to the Spanish language in discussion of prior work, without any Spanish data or experiments in this paper"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "refers to the Hindi language for which a DementiaBankHindi dataset is described, used in experiments and reported in results"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "refers to the Arabic language with a dedicated Arabic dataset and evaluation results presented"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "refers to the Chinese language with a Chinese dataset and evaluation results presented"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "refers to the English language with English datasets and experiments reported throughout the paper"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.05937v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T16:22:05.859997+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6833,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "In the snippet \"aka cross-entropy\" the term \"aka\" is an abbreviation for \"also known as\", not the Aka language, leading to a false positive."
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet discusses the word \"puč\" in Czech as an example of orthographic differences, mentioning the Czech language but not building resources or experiments for it, so it is only mentioned."
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to German in the same orthographic example, mentioning the German language without conducting dedicated study, thus only mentioned."
+    },
+    "Pol": {
+      "verdict": "studied",
+      "reason": "The snippet lists \"pol\" as the ISO code for Polish and includes Polish in the multiparallel dataset used for the paper's experiments, indicating the language is studied."
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Multiple sections present a dedicated case study, results, and analysis for Portuguese texts, showing the paper builds and evaluates resources for Portuguese."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as a language used in experiments, baselines, and analysis throughout the paper, indicating it is studied."
+    }
+  }
+}

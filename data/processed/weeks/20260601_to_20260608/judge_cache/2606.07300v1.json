@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.07300v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T16:27:28.436633+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4873,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin refers to the romanization system for Chinese characters used in the character-to-pinyin conversion task, not a distinct human language"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek is cited as an example of an alphabetic language when discussing language selection, with no experiments on Greek"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean is mentioned as part of other benchmarks (KoBALT, KoGEM) and not used in the paper's experiments"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as an example of an alphabetic language and as the target language of another benchmark, but the paper does not conduct experiments on English"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is the focus of the benchmark, with character-to-pinyin tests and evaluation of LLMs on Chinese phonological tasks"
+    }
+  }
+}

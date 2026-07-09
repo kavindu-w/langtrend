@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.04874v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T16:59:22.320094+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4852,
+  "verdicts": {
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'company logo' and tool names containing the word logo, not the Logo programming language, so this is a false positive."
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'MAE' as an abbreviation for Mean Absolute Error, not the Mae language, so this is a false positive."
+    },
+    "Pear": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists 'PEAR' as a benchmark name (e.g., PEAR (Dong, 2025)), not the Pear language, so this is a false positive."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions writing a Chinese analysis report, referring to the Chinese language for the report, but the paper does not study or build resources for Chinese, so it is only mentioned."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to using English sources, mentioning the English language, without any study or resource development for English, so it is only mentioned."
+    }
+  }
+}

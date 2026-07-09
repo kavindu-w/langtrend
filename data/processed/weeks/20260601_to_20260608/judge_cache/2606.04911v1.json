@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.04911v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T16:57:47.054809+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6013,
+  "verdicts": {
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'dao guan yuan wei ai' is part of a Chinese medical term, not a reference to the Dao language"
+    },
+    "Mam": {
+      "verdict": "false_positive",
+      "reason": "In the snippets 'Mam' is used as an abbreviation for 'Mammography', not the Mam language"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper processes Chinese radiology reports and performs Chinese-to-English translation, indicating the language is used as source data"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the primary language of the reports, instructions, and model outputs, showing the paper works with English text"
+    }
+  }
+}

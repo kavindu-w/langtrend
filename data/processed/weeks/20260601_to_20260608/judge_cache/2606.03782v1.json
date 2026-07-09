@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.03782v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T17:27:03.714534+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11348,
+  "verdicts": {
+    "Manchu": {
+      "verdict": "mentioned_only",
+      "reason": "Manchu refers to the historical language whose dictionaries and grammar books are used as supplementary resources for Xibe; the paper only mentions/uses it as a resource, not as a target of study → me"
+    },
+    "Xibe": {
+      "verdict": "studied",
+      "reason": "Xibe refers to the low‑resource Tungusic language that is the source language for translation experiments and for which reasoning traces are generated; the paper evaluates MT on Xibe → studied"
+    },
+    "Tibetan": {
+      "verdict": "false_positive",
+      "reason": "Tibetan does not appear as a language name in the snippets; only the family term 'Sino‑Tibetan' is used, so the match is a false positive → false_positive"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script/transliteration, not the Latin language; thus a false positive → false_positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the target language of translation and to evaluation prompts; the paper only uses it for translation output and evaluation, not as a language being studied → mentioned_only"
+    }
+  }
+}

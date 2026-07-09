@@ -1,0 +1,61 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.03027v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T17:57:27.484520+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7647,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the 'jina-embeddings' model name listed among competing methods, not a human language"
+    },
+    "Tha": {
+      "verdict": "studied",
+      "reason": "Tha appears in the benchmark language list alongside Thai, indicating it is treated as a language name and the paper evaluates embeddings on it"
+    },
+    "Burmese": {
+      "verdict": "studied",
+      "reason": "Burmese is listed among the Southeast Asian languages evaluated in the benchmark, and results are reported for it"
+    },
+    "Khmer": {
+      "verdict": "studied",
+      "reason": "Khmer is mentioned as a lower‑resource language in the evaluation and results discussion"
+    },
+    "Lao": {
+      "verdict": "studied",
+      "reason": "Lao is highlighted as a lower‑resource language with performance gains, indicating it is evaluated"
+    },
+    "Malay": {
+      "verdict": "studied",
+      "reason": "Malay appears in the benchmark language list and is part of the evaluation set"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is included in the benchmark language list and evaluated"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is repeatedly listed and evaluated in the experiments"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian (Ind) is included in the benchmark language list and results are discussed"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is listed among the evaluated languages and performance is reported"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is only mentioned as part of instruction data samples and not evaluated"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese results are reported for comparison, indicating the language is evaluated"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English as a benchmark/evaluation language (e.g., reporting English MTEB results, comparing performance on English datasets) rather than as a language the paper studies or builds"
+    }
+  }
+}

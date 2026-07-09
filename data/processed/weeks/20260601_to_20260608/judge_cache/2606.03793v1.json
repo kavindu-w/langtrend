@@ -1,0 +1,61 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.03793v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-09T17:27:51.037388+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11808,
+  "verdicts": {
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "the snippets report safety rates, adversarial attack performance, and transfer behavior for Bengali, indicating experiments were run on this language"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "snippets discuss unsafe rates and typography safety for Hindi, showing it was evaluated"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "the snippet uses 'non-Latin languages' to refer to script families, not the Latin language itself"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "snippets present unsafe rates and visual typography results for Urdu, indicating it was part of the experiments"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "snippets mention Portuguese in safety rate tables and adversarial evaluation, showing it was evaluated"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is listed among the languages covered in the multilingual benchmark but no specific experimental results are shown, so it is only mentioned"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese appears in the language list for the benchmark but no results are presented, thus only mentioned"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "snippets provide unsafe rates for Turkish and discuss its behavior, indicating it was evaluated"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "snippets describe Arabic in safety benchmarks, translation pipeline, and qualitative examples, showing it was used in experiments"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "snippets include Chinese in safety rates, adversarial attacks, and model description, indicating experiments on Chinese"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used throughout the paper as a primary language for evaluation and baseline, thus studied"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "snippets report transfer from French and safety rates, indicating French was evaluated"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippets list Spanish as one of the target languages in the multilingual benchmark and report its unsafe response rates, showing that the paper evaluates models on Spanish"
+    }
+  }
+}
