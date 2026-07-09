@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="LangTrend Pipeline" id="langtrend-pipeline">
-        <mxGraphModel dx="553" dy="1683" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="232" dy="1861" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -53,7 +53,7 @@
                 <mxCell id="s2-abs" value="Abstract&#xa;(always scanned)&#xa;&#xa;From JSONL metadata" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" parent="s2" vertex="1">
                     <mxGeometry x="20" y="50" width="160" height="90" as="geometry"/>
                 </mxCell>
-                <mxCell id="s2-html" value="HTML Extraction (primary)&#xa;arxiv.org/html/{id}&#xa;&#xa;BeautifulSoup + lxml&#xa;Split on h1–h6 headings&#xa;Skip: abstract · refs · bibliography&#xa;related work · lit. review · ack&#xa;funding · ethics (+ non-Latin variants)&#xa;Max 10 MB · 120 s · GHA Job 1: 24 I/O threads" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" parent="s2" vertex="1">
+                <mxCell id="s2-html" value="HTML Extraction (primary)&#xa;arxiv.org/html/{id}&#xa;&#xa;BeautifulSoup + lxml&#xa;Split on h1–h6 headings&#xa;Skip: abstract · refs · bibliography&#xa;related work · lit. review · ack&#xa;funding · ethics (+ non-Latin variants)&#xa;Max 50 MB · 120 s · GHA Job 1: 24 I/O threads" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" parent="s2" vertex="1">
                     <mxGeometry x="210" y="60" width="215" height="140" as="geometry"/>
                 </mxCell>
                 <mxCell id="s2-fb1" value="HTML missing &#xa;or incomplete" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#6c8ebf;fontSize=10;fontStyle=2;" parent="s2" source="s2-html" target="s2-pdf" edge="1">

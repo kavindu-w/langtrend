@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-08T16:22:21.549146+00:00",
+  "generated_at": "2026-07-08T08:36:54.155604+00:00",
   "window_days": 7,
   "week_start": "2026-04-27",
   "week_end": "2026-05-04",
@@ -7,23 +7,23 @@
   "counts": {
     "papers": 475,
     "flagged_papers": 287,
-    "unique_languages": 220,
+    "unique_languages": 219,
     "unique_languages_mentioned_only": 0,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 0,
-      "judged_languages": 0,
-      "studied": 0,
-      "mentioned_only": 0,
-      "false_positive": 0
+      "judged_papers": 3,
+      "judged_languages": 7,
+      "studied": 3,
+      "mentioned_only": 2,
+      "false_positive": 2
     }
   },
   "language_counts": [
     {
       "language": "English",
       "count": 171,
-      "studied": 171,
-      "mentioned_only": 0
+      "studied": 170,
+      "mentioned_only": 1
     },
     {
       "language": "Chinese",
@@ -46,8 +46,8 @@
     {
       "language": "Japanese",
       "count": 25,
-      "studied": 25,
-      "mentioned_only": 0
+      "studied": 24,
+      "mentioned_only": 1
     },
     {
       "language": "Spanish",
@@ -230,12 +230,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Bo",
-      "count": 4,
-      "studied": 4,
-      "mentioned_only": 0
-    },
-    {
       "language": "Bulgarian",
       "count": 4,
       "studied": 4,
@@ -299,6 +293,12 @@
       "language": "Yoruba",
       "count": 4,
       "studied": 4,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Bo",
+      "count": 3,
+      "studied": 3,
       "mentioned_only": 0
     },
     {
@@ -1332,19 +1332,13 @@
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
-    },
-    {
-      "language": "Zo",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
     }
   ],
   "class_counts": [
     {
       "class_id": 0,
-      "count": 218,
-      "studied": 218,
+      "count": 216,
+      "studied": 216,
       "mentioned_only": 0
     },
     {
@@ -1374,8 +1368,8 @@
     {
       "class_id": 5,
       "count": 385,
-      "studied": 385,
-      "mentioned_only": 0
+      "studied": 383,
+      "mentioned_only": 2
     }
   ],
   "daily_series": [
@@ -11170,7 +11164,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet refers to the English language as part of the dataset name (Feedback Prize English Language Learning dataset) and the paper evaluates essay scoring on this English dataset, indicating the ",
+          "judge_model": "gpt-oss-120b",
+          "judged_at": "2026-07-08T05:36:28.484062+00:00"
         }
       ],
       "sources_checked": [
@@ -11188,7 +11186,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet refers to the English language as part of the dataset name (Feedback Prize English Language Learning dataset) and the paper evaluates essay scoring on this English dataset, indicating the ",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:36:28.484062+00:00"
             }
           ]
         },
@@ -11198,7 +11200,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet refers to the English language as part of the dataset name (Feedback Prize English Language Learning dataset) and the paper evaluates essay scoring on this English dataset, indicating the ",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:36:28.484062+00:00"
             }
           ]
         }
@@ -11344,14 +11350,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to Chinese as the target language of the translation dataset, to native Chinese annotators, and to Chinese translations produced by models; thus the paper builds and evaluates resou",
+          "judge_model": "gpt-oss-120b",
+          "judged_at": "2026-07-08T05:35:50.074423+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to English as the source language of the translation pair (English–Chinese) and to English sentences in the dataset; the paper creates and evaluates a dataset involving English, so ",
+          "judge_model": "gpt-oss-120b",
+          "judged_at": "2026-07-08T05:35:50.074423+00:00"
         }
       ],
       "sources_checked": [
@@ -11375,11 +11389,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Chinese as the target language of the translation dataset, to native Chinese annotators, and to Chinese translations produced by models; thus the paper builds and evaluates resou",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:35:50.074423+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as the source language of the translation pair (English–Chinese) and to English sentences in the dataset; the paper creates and evaluates a dataset involving English, so ",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:35:50.074423+00:00"
             }
           ]
         },
@@ -11389,7 +11411,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Chinese as the target language of the translation dataset, to native Chinese annotators, and to Chinese translations produced by models; thus the paper builds and evaluates resou",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:35:50.074423+00:00"
             }
           ]
         },
@@ -11399,7 +11425,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Chinese as the target language of the translation dataset, to native Chinese annotators, and to Chinese translations produced by models; thus the paper builds and evaluates resou",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:35:50.074423+00:00"
             }
           ]
         },
@@ -11409,11 +11439,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Chinese as the target language of the translation dataset, to native Chinese annotators, and to Chinese translations produced by models; thus the paper builds and evaluates resou",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:35:50.074423+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as the source language of the translation pair (English–Chinese) and to English sentences in the dataset; the paper creates and evaluates a dataset involving English, so ",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:35:50.074423+00:00"
             }
           ]
         },
@@ -11423,11 +11461,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Chinese as the target language of the translation dataset, to native Chinese annotators, and to Chinese translations produced by models; thus the paper builds and evaluates resou",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:35:50.074423+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as the source language of the translation pair (English–Chinese) and to English sentences in the dataset; the paper creates and evaluates a dataset involving English, so ",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:35:50.074423+00:00"
             }
           ]
         },
@@ -11437,7 +11483,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Chinese as the target language of the translation dataset, to native Chinese annotators, and to Chinese translations produced by models; thus the paper builds and evaluates resou",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:35:50.074423+00:00"
             }
           ]
         },
@@ -11447,7 +11497,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Chinese as the target language of the translation dataset, to native Chinese annotators, and to Chinese translations produced by models; thus the paper builds and evaluates resou",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:35:50.074423+00:00"
             }
           ]
         },
@@ -11457,7 +11511,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Chinese as the target language of the translation dataset, to native Chinese annotators, and to Chinese translations produced by models; thus the paper builds and evaluates resou",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:35:50.074423+00:00"
             }
           ]
         }
@@ -11491,21 +11549,33 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "Japanese appears in dataset names (e.g., JA‑VLM‑Bench) as a language reference, but the paper does not conduct studies or build resources for it.",
+          "judge_model": "gpt-oss-120b",
+          "judged_at": "2026-07-08T05:36:52.850429+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "English is mentioned as the language of the LibriSpeech corpus in a dataset list, without any experiments or resources built for it.",
+          "judge_model": "gpt-oss-120b",
+          "judged_at": "2026-07-08T05:36:52.850429+00:00"
         },
         {
           "language": "Zo",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The occurrences are in terms like 'ZO-DARTS++' and refer to zero‑order gradient methods, not the Zo language.",
+          "judge_model": "gpt-oss-120b",
+          "judged_at": "2026-07-08T05:36:52.850429+00:00"
         },
         {
           "language": "Bo",
@@ -11514,7 +11584,11 @@
           "flag_reason": "BO = Bayesian Optimization (GP-BO); also could be a common given name appearing in author lists",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "In the snippet, 'BO' appears as part of 'P¯ BO Search', referring to Bayesian Optimization rather than the Bo human language.",
+          "judge_model": "gpt-oss-120b",
+          "judged_at": "2026-07-08T05:36:52.850429+00:00"
         }
       ],
       "sources_checked": [
@@ -11536,11 +11610,19 @@
           "detected_languages": [
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Japanese appears in dataset names (e.g., JA‑VLM‑Bench) as a language reference, but the paper does not conduct studies or build resources for it.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:36:52.850429+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned as the language of the LibriSpeech corpus in a dataset list, without any experiments or resources built for it.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:36:52.850429+00:00"
             }
           ]
         },
@@ -11550,11 +11632,19 @@
           "detected_languages": [
             {
               "language": "Zo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The occurrences are in terms like 'ZO-DARTS++' and refer to zero‑order gradient methods, not the Zo language.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:36:52.850429+00:00"
             },
             {
               "language": "Zo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The occurrences are in terms like 'ZO-DARTS++' and refer to zero‑order gradient methods, not the Zo language.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:36:52.850429+00:00"
             }
           ]
         },
@@ -11564,7 +11654,11 @@
           "detected_languages": [
             {
               "language": "Zo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The occurrences are in terms like 'ZO-DARTS++' and refer to zero‑order gradient methods, not the Zo language.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:36:52.850429+00:00"
             }
           ]
         },
@@ -11574,7 +11668,11 @@
           "detected_languages": [
             {
               "language": "Zo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The occurrences are in terms like 'ZO-DARTS++' and refer to zero‑order gradient methods, not the Zo language.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:36:52.850429+00:00"
             }
           ]
         },
@@ -11586,7 +11684,11 @@
               "language": "Bo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "BO = Bayesian Optimization (GP-BO); also could be a common given name appearing in author lists"
+              "flag_reason": "BO = Bayesian Optimization (GP-BO); also could be a common given name appearing in author lists",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the snippet, 'BO' appears as part of 'P¯ BO Search', referring to Bayesian Optimization rather than the Bo human language.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:36:52.850429+00:00"
             }
           ]
         },
@@ -11598,7 +11700,11 @@
               "language": "Bo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "BO = Bayesian Optimization (GP-BO); also could be a common given name appearing in author lists"
+              "flag_reason": "BO = Bayesian Optimization (GP-BO); also could be a common given name appearing in author lists",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the snippet, 'BO' appears as part of 'P¯ BO Search', referring to Bayesian Optimization rather than the Bo human language.",
+              "judge_model": "gpt-oss-120b",
+              "judged_at": "2026-07-08T05:36:52.850429+00:00"
             }
           ]
         }

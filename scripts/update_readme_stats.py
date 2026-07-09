@@ -26,6 +26,7 @@ import csv
 import json
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -41,8 +42,12 @@ _SUMMARY_FIELDNAMES = [
     "week_start", "week_end", "papers", "flagged_papers", "unique_languages",
     "total_language_mentions", "top_language", "top_language_count",
     "needs_review_detections", "needs_review_papers",
-    "class_0_mentions", "class_1_mentions", "class_2_mentions",
-    "class_3_mentions", "class_4_mentions", "class_5_mentions",
+    "class_0_mentions", "class_0_studied", "class_0_false_positive",
+    "class_1_mentions", "class_1_studied", "class_1_false_positive",
+    "class_2_mentions", "class_2_studied", "class_2_false_positive",
+    "class_3_mentions", "class_3_studied", "class_3_false_positive",
+    "class_4_mentions", "class_4_studied", "class_4_false_positive",
+    "class_5_mentions", "class_5_studied", "class_5_false_positive",
     "pdf_failed_no_detection",
     "judged_papers", "judge_studied", "judge_mentioned_only", "judge_false_positive",
 ]
@@ -148,6 +153,24 @@ def _needs_review_counts(flagged_papers: list[dict]) -> tuple[int, int]:
     return detections, papers_with_flag
 
 
+def _class_false_positive_counts(flagged_papers: list[dict]) -> dict[int, int]:
+    """Judge-verdict false-positive detections per resource class, for that week.
+
+    Mirrors `_needs_review_counts` above: `class_counts` in the manifest excludes
+    false positives entirely (see `langtrend/manifest.py`), so this walks the raw
+    per-paper language detections the same way to recover a per-class breakdown.
+    """
+    counts: Counter[int] = Counter()
+    for paper in flagged_papers:
+        for language in paper.get("languages", []):
+            if language.get("judge_verdict") != "false_positive":
+                continue
+            class_id = language.get("class")
+            if class_id is not None:
+                counts[int(class_id)] += 1
+    return dict(counts)
+
+
 def build_weekly_summary_rows(week_manifests: list[dict]) -> list[dict]:
     """One flat row per week — counts only, no paper-level data.
 
@@ -159,11 +182,18 @@ def build_weekly_summary_rows(week_manifests: list[dict]) -> list[dict]:
     or `unique_languages`) grouped by the Joshi et al. resource-availability class described
     in the root README's "Language Classes" table — 0 is the most under-resourced, 5 the most
     dominant (e.g. English, Chinese). `total_language_mentions` is the sum of all six.
+
+    class_N_studied is the subset of class_N_mentions with an explicit or provisional
+    "studied" judge verdict (mirrors judge_studied, per class). class_N_false_positive
+    counts detections the judge verdict marked false_positive for that class — these are
+    *not* included in class_N_mentions (false positives are excluded from manifest
+    class_counts entirely, same as they're excluded from language_counts).
     """
     rows = []
     for manifest in week_manifests:
         counts = manifest.get("counts", {})
-        class_counts = {c.get("class_id"): c.get("count", 0) for c in manifest.get("class_counts", [])}
+        class_counts = {c.get("class_id"): c for c in manifest.get("class_counts", [])}
+        class_fp_counts = _class_false_positive_counts(manifest.get("flagged_papers", []))
         top_language, top_language_count = _top_language(manifest.get("language_counts", []))
         needs_review_detections, needs_review_papers = _needs_review_counts(manifest.get("flagged_papers", []))
 
@@ -173,7 +203,7 @@ def build_weekly_summary_rows(week_manifests: list[dict]) -> list[dict]:
             "papers": counts.get("papers", 0),
             "flagged_papers": counts.get("flagged_papers", 0),
             "unique_languages": counts.get("unique_languages", 0),
-            "total_language_mentions": sum(class_counts.values()),
+            "total_language_mentions": sum(c.get("count", 0) for c in class_counts.values()),
             "top_language": top_language or "",
             "top_language_count": top_language_count,
             "needs_review_detections": needs_review_detections,
@@ -186,7 +216,10 @@ def build_weekly_summary_rows(week_manifests: list[dict]) -> list[dict]:
             "judge_false_positive": counts.get("judge", {}).get("false_positive", 0),
         }
         for class_id in _CLASS_IDS:
-            row[f"class_{class_id}_mentions"] = class_counts.get(class_id, 0)
+            entry = class_counts.get(class_id, {})
+            row[f"class_{class_id}_mentions"] = entry.get("count", 0)
+            row[f"class_{class_id}_studied"] = entry.get("studied", 0)
+            row[f"class_{class_id}_false_positive"] = class_fp_counts.get(class_id, 0)
         rows.append(row)
     return rows
 
