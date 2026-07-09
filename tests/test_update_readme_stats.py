@@ -235,11 +235,15 @@ def test_build_weekly_summary_rows_flattens_counts_and_class_counts():
             "week_end": "2026-05-04",
             "counts": {"papers": 100, "flagged_papers": 60, "unique_languages": 42,
                        "pdf_failed_no_detection": 3},
-            "class_counts": [{"class_id": 0, "count": 20}, {"class_id": 5, "count": 5}],
+            "class_counts": [
+                {"class_id": 0, "count": 20, "studied": 15, "mentioned_only": 5},
+                {"class_id": 5, "count": 5, "studied": 5, "mentioned_only": 0},
+            ],
             "language_counts": [{"language": "English", "count": 20}, {"language": "Sinhala", "count": 5}],
             "flagged_papers": [
                 {"languages": [{"language": "Aka", "needs_review": True}]},
                 {"languages": [{"language": "English"}]},
+                {"languages": [{"language": "Ari", "class": 0, "judge_verdict": "false_positive"}]},
             ],
         },
     ]
@@ -252,7 +256,12 @@ def test_build_weekly_summary_rows_flattens_counts_and_class_counts():
         "needs_review_detections": 1, "needs_review_papers": 1,
         "pdf_failed_no_detection": 3,
         "judged_papers": 0, "judge_studied": 0, "judge_mentioned_only": 0, "judge_false_positive": 0,
-        "class_0_mentions": 20, "class_1_mentions": 0, "class_2_mentions": 0, "class_3_mentions": 0, "class_4_mentions": 0, "class_5_mentions": 5,
+        "class_0_mentions": 20, "class_0_studied": 15, "class_0_false_positive": 1,
+        "class_1_mentions": 0, "class_1_studied": 0, "class_1_false_positive": 0,
+        "class_2_mentions": 0, "class_2_studied": 0, "class_2_false_positive": 0,
+        "class_3_mentions": 0, "class_3_studied": 0, "class_3_false_positive": 0,
+        "class_4_mentions": 0, "class_4_studied": 0, "class_4_false_positive": 0,
+        "class_5_mentions": 5, "class_5_studied": 5, "class_5_false_positive": 0,
     }]
 
 
@@ -266,7 +275,12 @@ def _sample_summary_row() -> dict:
         "papers": 100, "flagged_papers": 60, "unique_languages": 42,
         "total_language_mentions": 25, "top_language": "English", "top_language_count": 20,
         "needs_review_detections": 1, "needs_review_papers": 1,
-        "class_0_mentions": 20, "class_1_mentions": 0, "class_2_mentions": 0, "class_3_mentions": 0, "class_4_mentions": 0, "class_5_mentions": 5,
+        "class_0_mentions": 20, "class_0_studied": 15, "class_0_false_positive": 1,
+        "class_1_mentions": 0, "class_1_studied": 0, "class_1_false_positive": 0,
+        "class_2_mentions": 0, "class_2_studied": 0, "class_2_false_positive": 0,
+        "class_3_mentions": 0, "class_3_studied": 0, "class_3_false_positive": 0,
+        "class_4_mentions": 0, "class_4_studied": 0, "class_4_false_positive": 0,
+        "class_5_mentions": 5, "class_5_studied": 5, "class_5_false_positive": 0,
         "pdf_failed_no_detection": 3,
         "judged_papers": 2, "judge_studied": 4, "judge_mentioned_only": 1, "judge_false_positive": 3,
     }
@@ -278,7 +292,11 @@ def test_write_weekly_summary_csv_writes_header_and_rows(tmp_path):
     text = out_path.read_text(encoding="utf-8")
     lines = text.splitlines()
     assert lines[0] == ",".join(urs._SUMMARY_FIELDNAMES)
-    assert lines[1] == "2026-04-27,2026-05-04,100,60,42,25,English,20,1,1,20,0,0,0,0,5,3,2,4,1,3"
+    assert lines[1] == (
+        "2026-04-27,2026-05-04,100,60,42,25,English,20,1,1,"
+        "20,15,1,0,0,0,0,0,0,0,0,0,0,0,0,5,5,0,"
+        "3,2,4,1,3"
+    )
     assert "\r\n" not in text  # fixed line terminator, no OS-dependent newlines
 
 
