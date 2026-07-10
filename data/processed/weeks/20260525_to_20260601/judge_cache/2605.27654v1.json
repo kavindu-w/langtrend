@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.27654v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T19:16:56.641968+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11849,
+  "verdicts": {
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "SAR refers to the Source-Aware Reranker method, not a human language, so false_positive"
+    },
+    "Marathi": {
+      "verdict": "mentioned_only",
+      "reason": "Marathi appears as a language mentioned in related work (mitigation for gender stereotypes) but no experiments or resources are built for it, so mentioned_only"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is the target language of the translation experiments, with classifiers and preservation evaluation built for it, so studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is the source language used for translation and evaluation, but the paper does not develop resources or models for English itself, so mentioned_only"
+    }
+  }
+}

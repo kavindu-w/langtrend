@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.29000v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T18:27:43.845298+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11880,
+  "verdicts": {
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol appears as part of a compressed example string ('pol' from 'poll'), not a language name"
+    },
+    "Rom": {
+      "verdict": "false_positive",
+      "reason": "Rom appears in the movie title 'Romancing The Stone', not a language name"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish is used as a processing step label ('with polish') referring to fluency correction, not the Polish language"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in datasets, tokenization, and evaluation, and the paper conducts experiments on Chinese text"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used throughout the experiments and evaluation, and the paper conducts experiments on English text"
+    }
+  }
+}

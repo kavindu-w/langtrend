@@ -1,0 +1,101 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.31136v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T17:42:08.930307+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 9296,
+  "verdicts": {
+    "Malayo": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Malayo-Polynesian' as a language family name, not a language called Malayo, so it is a false positive"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'Mon-Khmer' (a language family) and 'Monolingual' but no reference to the Mon language itself, so it is a false positive"
+    },
+    "Albanian": {
+      "verdict": "studied",
+      "reason": "Albanian is mentioned as a low-resource language and is included in the dataset and experiments, so it is studied"
+    },
+    "Khmer": {
+      "verdict": "false_positive",
+      "reason": "The snippet only includes 'Mon-Khmer' as a family name; Khmer is not directly referenced as a language, so it is a false positive"
+    },
+    "Armenian": {
+      "verdict": "false_positive",
+      "reason": "The mention is of the Armenian script among scripts, not the Armenian language itself, so it is a false positive"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "Bulgarian is listed as a target language where LLMs achieve competitive results, indicating it is part of the experiments, so it is studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears only as a script label for many languages, not as the Latin language, so it is a false positive"
+    },
+    "Macedonian": {
+      "verdict": "studied",
+      "reason": "Macedonian appears in the language table with its code and script, indicating it is part of the corpus, so it is studied"
+    },
+    "Uzbek": {
+      "verdict": "studied",
+      "reason": "Uzbek is discussed as an outlier language in performance results, showing it is evaluated in the study, so it is studied"
+    },
+    "Azerbaijani": {
+      "verdict": "studied",
+      "reason": "Azerbaijani appears in the language table, implying it is included in the multilingual corpus and experiments, so it is studied"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch appears in the language table, indicating it is part of the dataset used for experiments, so it is studied"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian appears in the language table, showing it is included in the multilingual corpus and evaluated, so it is studied"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The snippets list Italian in the language statistics table and discuss its inclusion in the multilingual CND corpus, indicating the paper uses Italian data in experiments, so it is studied"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "Norwegian appears in the language statistics table with resource level and script information, showing it is part of the corpus used for evaluation, thus it is studied"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is listed in the language statistics table and mentioned as a high‑resource language in the dataset, implying it is included in the experiments, so it is studied"
+    },
+    "Romanian": {
+      "verdict": "studied",
+      "reason": "Romanian appears in the language statistics table with resource level and is part of the multilingual dataset, indicating it is used in the study, so it is studied"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is shown in the language statistics table (resource level, script) and thus is part of the corpus evaluated in the paper, making it studied"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is mentioned in the language statistics table and in performance discussion (e.g., Turkish results), showing it is included in experiments, so it is studied"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian appears in the language statistics table with its resource level, indicating its inclusion in the multilingual dataset and experiments, thus it is studied"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is listed in the language statistics table and associated with its script, implying it is part of the corpus used for evaluation, so it is studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is referenced in the language statistics table and highlighted as an outlier in performance analysis, indicating it is part of the experimental set, so it is studied"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is mentioned as a high‑resource language expanded for CND and appears in the language statistics table, showing it is included in the dataset and experiments, thus it is studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is repeatedly referenced (e.g., English‑trained models, English baseline) and is the primary language for training and evaluation, confirming it is studied"
+    }
+  }
+}

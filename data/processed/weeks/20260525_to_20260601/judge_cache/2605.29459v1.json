@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.29459v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T18:08:31.916241+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6581,
+  "verdicts": {
+    "Kube": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'kube' appears as part of 'kubernetes' and 'Hibernate', i.e., software/tool names, not a human language."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The term 'Latin' appears in the phrase 'non‑Latin scripts', referring to writing scripts rather than the Latin language."
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Tamil consonant clusters' when discussing Unicode combining characters, i.e., referring to the Tamil script/language only as an example, without any experiments on it."
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "Similarly, 'Thai' is cited as an example of combining‑character Unicode, not a focus of the study."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper trains and evaluates models on a synthetic English corpus and repeatedly discusses English tokenization, indicating that English is the primary language of the experiments."
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "A Japanese katakana token is given as an example in a probe, but no experiments or resources are built for Japanese; it is only mentioned."
+    }
+  }
+}

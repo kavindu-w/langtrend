@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.29048v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T18:26:32.160862+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7383,
+  "verdicts": {
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian appears only in example phrases like \"the Italian restaurant … a Chinese one\", referring to a restaurant's nationality, not to the Italian language itself, so it is a false positive"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese is used similarly in example phrases such as \"a Chinese one\" to denote a restaurant, not the Chinese language, making it a false positive"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language for the referential bridging task; the paper evaluates on English datasets, builds models for English, and discusses English corpora, so it is studied"
+    }
+  }
+}

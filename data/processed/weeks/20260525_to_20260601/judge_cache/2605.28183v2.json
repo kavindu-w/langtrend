@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.28183v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T18:53:21.479934+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11993,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'Dass' appears as the German conjunction 'dass' (a common word), not as a language name."
+    },
+    "Kein": {
+      "verdict": "false_positive",
+      "reason": "The term 'Kein' is the German word meaning 'none', used in grading descriptions, not a language name."
+    },
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "'Loo' occurs within the acronym 'GLOO' (leave-one-out) and does not refer to a human language."
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "'Mae' appears as the abbreviation MAE (Mean Absolute Error) in evaluation metrics, not as a language name."
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "'Sie' is the German pronoun meaning 'you/she', used in instructional text, not a language name."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets contain an English translation note for the reader, indicating the language is mentioned but not the focus of study."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper collects German legal texts, provides prompts in German, and evaluates models on German-language tasks, building resources and experiments for the German language."
+    }
+  }
+}

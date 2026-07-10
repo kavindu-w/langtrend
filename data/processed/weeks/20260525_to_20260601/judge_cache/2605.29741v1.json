@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.29741v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T17:56:56.178796+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11892,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "The snippets only show English and Hausa text; there is no occurrence of the language name, indicating the detection is a false positive."
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'wa Thiong’o' is a personal name, not the Wa language, so the detection is a false positive."
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is listed among colonial languages in the introduction, mentioned but not part of the experiments."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears as a colonial language in the introduction, only mentioned."
+    },
+    "Northern Sotho": {
+      "verdict": "studied",
+      "reason": "Northern Sotho is one of the six African target languages for which the corpus is built and MT performance is evaluated, thus it is studied."
+    },
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "Amharic is a target language in the corpus and evaluated in MT experiments, so it is studied."
+    },
+    "Hausa": {
+      "verdict": "studied",
+      "reason": "Hausa is a target language with parallel data, glossaries, and evaluation, indicating it is studied."
+    },
+    "Yoruba": {
+      "verdict": "studied",
+      "reason": "Yorùbá is a target language with a glossary and dataset statistics, indicating it is studied."
+    },
+    "Zulu": {
+      "verdict": "studied",
+      "reason": "isiZulu is listed as a target language in the dataset description and experiments, thus it is studied."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as the source language for translation and evaluation but the paper does not develop resources for English itself, so it is only mentioned."
+    }
+  }
+}

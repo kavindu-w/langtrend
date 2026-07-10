@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.29170v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T18:23:19.891496+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7052,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "In the abstract, 'Latin' appears only as part of the phrase 'non-Latin-script languages', referring to script type, not the Latin language itself, so it's a false positive."
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "In the discussion, 'Czech' is listed as an example of a language for future cross‑lingual evaluation, only mentioned, not studied, so it's mentioned_only."
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "In the discussion, 'Polish' is listed as an example of a language for future cross‑lingual evaluation, only mentioned, not studied, so it's mentioned_only."
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is the target language of the benchmark, with Ukrainian text, prompts, and evaluation throughout the paper, indicating the paper studies the language."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a comparison language and in describing English‑centric benchmarks, but no resources or experiments are built for English, so it's only mentioned."
+    }
+  }
+}

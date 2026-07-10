@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.26935v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T19:36:08.703595+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11756,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin characters (script) used in the filtering criteria, not the Latin language"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic refers to Arabic script characters in the filtering criteria, not the Arabic language"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu refers to the target human language for which models are trained, evaluated, and resources are built throughout the paper"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is mentioned only as part of the historical writing tradition of Urdu, not as a language under study"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is mentioned only as an example of prior RoBERTa work in Portuguese NLP, not a focus of this work"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish is mentioned only in comparison to a prior Turkish study (SindBERT), not a language studied here"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as a high-resource language for comparison, not a language studied in this work"
+    }
+  }
+}

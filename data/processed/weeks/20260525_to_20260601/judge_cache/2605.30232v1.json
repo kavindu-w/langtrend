@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.30232v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T18:23:44.042290+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5885,
+  "verdicts": {
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "Dao appears in the URL 'github.com/Dao-AILab/flash-attention', referring to a research lab/library name, not the Dao language."
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains no clear occurrence of 'Mae'; the surrounding text shows statistical terms, so 'Mae' is not referenced as a language."
+    },
+    "Tol": {
+      "verdict": "false_positive",
+      "reason": "In the snippet '± 1 tol.' the term 'tol' is an abbreviation for tolerance, not the Tol language."
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "The word 'pole' is used to describe opposite ends of a vector space (positive‑GOLD, negative‑MOLD pole), not the Pole language."
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The token 'sake' appears in a list of model output tokens, representing the English word 'sake', not the Sake language."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions 'English' when describing token lists and placeholders, indicating the language is referenced but not studied; the work focuses on model behavior, not on English-specific resources."
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "The term 'German' appears in a prompt about German Shepherd dogs, referring to the breed, not the German language."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.31183v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T17:06:02.815885+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4171,
+  "verdicts": {
+    "Alabama": {
+      "verdict": "false_positive",
+      "reason": "The term refers to the U.S. state of Alabama, not the language, so it's a false positive."
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Here 'pole' appears as a word in lyrics, not a language name, so it's a false positive."
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Chinese' as an adjective describing culture/emperors, not discussing the Chinese language, thus a false positive."
+    },
+    "Danish": {
+      "verdict": "false_positive",
+      "reason": "Refers to Danish bachelor students (people), not the language, so it's a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Mentions English as the target language for fluency evaluation, but the paper does not build resources for English, so it's mentioned_only."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "Uses French in a translation prompt, only mentioning the language without studying it, so it's mentioned_only."
+    }
+  }
+}

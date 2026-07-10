@@ -1,0 +1,45 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.31220v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T17:05:15.317276+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11805,
+  "verdicts": {
+    "Ese": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'es' as a language code for Spanish, not the Ese language, so it is a false positive."
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The word 'una' appears as a Spanish article in the prompt, not as the Una language, so it is a false positive."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears as the script name in the table (Latin script), not as the Latin language, so it is a false positive."
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is listed as a language (pl) in prompts and evaluation tables, and the paper evaluates confidence estimation on Polish data, so it is studied."
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is listed as a language (ru) in prompts and evaluation tables, and the paper evaluates confidence estimation on Russian data, so it is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the primary source language and appears in experiments and data processing, indicating the paper evaluates and builds models for English, so it is studied."
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is used as a source language for training the probe and appears in evaluation tables, indicating the paper studies French, so it is studied."
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is included among the six languages evaluated and appears in prompts and results tables, indicating the paper studies Japanese, so it is studied."
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish appears as one of the six languages evaluated and in prompts, indicating the paper studies Spanish, so it is studied."
+    }
+  }
+}

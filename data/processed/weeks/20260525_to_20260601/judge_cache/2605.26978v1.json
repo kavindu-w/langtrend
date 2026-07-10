@@ -1,0 +1,57 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.26978v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T19:32:57.667598+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11992,
+  "verdicts": {
+    "Dari": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Dari as a possible language that a system might mistakenly output (language substitution), not as a language being evaluated or built resources for, so the paper only mentions it"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "The term 'nasal' appears in the text as a phonetic descriptor, not as a human language, so this is a false positive."
+    },
+    "Pashto": {
+      "verdict": "studied",
+      "reason": "Pashto is the primary focus of the benchmark, with experiments, data, and evaluation conducted for Pashto TTS, indicating the paper studies Pashto."
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is cited only as an example of a language whose retroflexes may be missing in training data, with no experiments on Hindi, so it is merely mentioned."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears only in the context of 'non‑Latin‑script' and script ranges, referring to the script rather than the Latin language, thus a false positive."
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "Thai is mentioned as an example of a non‑Latin‑script language for which the framework could be adapted, without any Thai data or experiments, so it is only mentioned."
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu is used as a negative control and as a language‑substitution case, with the paper evaluating Urdu output to test language identification, thus the language is actively used in experiments."
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is referenced only in the discussion of language substitution (e.g., Persian TTS systems may substitute Farsi), without any Persian data or experiments, so it is only mentioned."
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is discussed as a possible substitution language and in script‑related contexts, but no Arabic data or models are evaluated, so it is only mentioned."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears in background as an example of a low‑resource language, with no Chinese experiments, so it is only mentioned."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is the language of the paper and appears in section headings, but the study does not evaluate English TTS or build resources for English, so it is only mentioned."
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is cited in background and related‑work sections as an example, without any Japanese experiments, so it is only mentioned."
+    }
+  }
+}

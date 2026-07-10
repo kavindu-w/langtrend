@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.30214v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T17:40:31.933686+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11966,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'Dass' appears as the German conjunction meaning 'that' (e.g., in German sentences), not as the name of a human language; therefore it is a false positive."
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The term 'Sie' is used as the German third‑person singular feminine pronoun (and also the formal 'you') in example sentences and annotation instructions, not as a language name; thus it is a false pos"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to the English language when comparing pronoun fidelity and bias between English and German, but the paper does not build resources or conduct experiments for English; it is only me"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper creates a German pronoun‑fidelity dataset (GRUFF), evaluates LLMs on German pronouns, and discusses German grammatical gender, indicating that German is the primary language studied."
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is cited only as a comparative reference (e.g., 'Rodríguez et al. (2025) finds similar results with Spanish'), with no dataset or experiments for Spanish; thus it is mentioned only."
+    }
+  }
+}

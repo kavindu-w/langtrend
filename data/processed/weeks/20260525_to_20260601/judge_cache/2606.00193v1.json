@@ -1,0 +1,53 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.00193v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T17:30:08.252954+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8061,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "Dia appears as an abbreviation for 'dialect' (e.g., 'Arabic ( dia)') not a language name, so false_positive"
+    },
+    "Mali": {
+      "verdict": "false_positive",
+      "reason": "Mali appears as a country name in a geographic distribution table, not a language, so false_positive"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is used to describe the Latin script for Arabizi, not the Latin language, so false_positive"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "Urdu is listed among languages of existing datasets but no Urdu data is collected or evaluated, so mentioned_only"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is listed among languages of existing datasets but not used in the study, so mentioned_only"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic (including dialects and MSA) is a core component of the BOUTEF corpus and is evaluated, so studied"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only as an example of other languages with datasets, not used in the corpus, so mentioned_only"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German appears only in a reference to an external dataset (PHEME) and not in the BOUTEF corpus, so mentioned_only"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned only as another language with existing datasets, not part of the corpus, so mentioned_only"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is a core language in the BOUTEF corpus and is used in experiments, so studied"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is included in the BOUTEF corpus and discussed as part of multilingual content, so studied"
+    }
+  }
+}

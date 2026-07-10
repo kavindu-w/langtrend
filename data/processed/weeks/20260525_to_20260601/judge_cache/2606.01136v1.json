@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.01136v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T17:08:28.736188+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 6282,
+  "verdicts": {
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'crow' refers to the bird used in example translations, not the Crow language, so it's a false positive."
+    },
+    "Fore": {
+      "verdict": "false_positive",
+      "reason": "Here 'fore' appears as part of the English word 'before' in a translation example, not the Fore language, so it's a false positive."
+    },
+    "Sanskrit": {
+      "verdict": "mentioned_only",
+      "reason": "Sanskrit is mentioned only as part of related work on ancient language processing, with no experiments on Sanskrit, so it is mentioned only."
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek appears only in discussion of ancient Greek translation as related work, not as a language studied, so it is mentioned only."
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin is listed among other classical languages in a background sentence, without any study of Latin, so it is mentioned only."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced in context of Buddhist digital humanities and ancient Chinese texts, but the paper does not work on Chinese, so it is mentioned only."
+    },
+    "Pali": {
+      "verdict": "studied",
+      "reason": "Pali is the source language whose translations are evaluated throughout the paper, indicating it is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language of the translation evaluation, and the paper assesses English outputs, thus it is studied."
+    }
+  }
+}

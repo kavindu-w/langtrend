@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.30529v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T17:27:44.249398+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11706,
+  "verdicts": {
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "Mal appears as part of the phrase 'Mal de queixal fort', a Catalan term meaning 'severe throat pain', not a language name → false_positive"
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "UMA appears in the system name 'ICB-UMA', not referring to a language → false_positive"
+    },
+    "Catalan": {
+      "verdict": "mentioned_only",
+      "reason": "Catalan is referenced as a language used to generate synthetic training rows and mentioned in the text, but no experiments or resources are built specifically for it → mentioned_only"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is listed as one of the target languages for synthetic data generation, without dedicated evaluation or resources → mentioned_only"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is included in synthetic data and performance results are reported (e.g., R@5 = 0.829), indicating the paper builds and evaluates models for this language → studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as a source language for pretraining and baseline models, but the study does not evaluate or build resources specifically for English → mentioned_only"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears only as a language for synthetic data generation, with no specific evaluation or resources → mentioned_only"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is the primary language of the study, with models fine‑tuned on Spanish data, evaluation datasets, and detailed results, indicating the paper builds and evaluates resources for Spanish → studi"
+    }
+  }
+}

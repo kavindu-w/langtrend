@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.03504v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T15:48:51.289651+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4963,
+  "verdicts": {
+    "Balti": {
+      "verdict": "studied",
+      "reason": "The snippets discuss the Balti language as the target of the new speech corpus and ASR experiments, indicating the paper builds resources and models for it"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows a series of characters and error analysis without any reference to the Mon language, so the match is a spurious detection"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "Swahili is cited only as an example of prior Whisper fine‑tuning work, not used in the current experiments"
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "Tibetan is mentioned as a related, better‑resourced language for comparison, with no new data or models built for it"
+    },
+    "Yoruba": {
+      "verdict": "mentioned_only",
+      "reason": "Yoruba appears only in a citation of earlier Whisper fine‑tuning studies, not as a focus of this work"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is referenced only in related work about Whisper fine‑tuning on Hindi dialects, not studied here"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "Urdu is referenced for script similarity and tokenizer configuration, but the paper does not create resources or evaluate Urdu itself"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic is mentioned solely in the context of the Nastaliq script being derived from Arabic script, not as a language under study"
+    }
+  }
+}

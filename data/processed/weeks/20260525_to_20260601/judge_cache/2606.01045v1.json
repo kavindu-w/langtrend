@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.01045v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T16:22:50.935726+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5219,
+  "verdicts": {
+    "Bun": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word 'bun' as part of generated text ('national bun the unsha storybooks'), not referring to the Bun language."
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes the word 'Italian' within generated text ('... italian disp music ...'), not a discussion of the Italian language."
+    },
+    "Kaluli": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Kaluli of Papua New Guinea' as an example of a language community, but the paper does not conduct experiments on Kaluli."
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the phrase 'for the sake of evaluation', where 'sake' is part of an English idiom, not the Sake language."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the English language (e.g., 'English CHILDES corpora', 'spoken English'), and the paper's experiments and data are centered on English, indicating it is studied."
+    }
+  }
+}

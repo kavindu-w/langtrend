@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.29667v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T18:37:20.694732+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3534,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to Pinyin as a romanization system used to evade filters, not a human language, so it's a false positive."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets discuss Chinese as the target language for safety evaluation and dataset creation, indicating the paper studies Chinese."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention English only as a high-resource language used for comparison, without any experiments on English, so it's mentioned only."
+    },
+    "Albanian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets cite Albanian as an example of an underrepresented language with existing safety datasets, but the paper does not work on Albanian, so it's mentioned only."
+    },
+    "Kazakh": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets cite Kazakh similarly as an example of an underrepresented language, without direct work on it, so it's mentioned only."
+    }
+  }
+}

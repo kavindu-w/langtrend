@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.01567v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T16:04:02.764433+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3998,
+  "verdicts": {
+    "Toto": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'there are 48 in toto' the word 'toto' is used as a common term meaning 'in total', not referring to a human language, leading to a false positive."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet discusses 'Latin' script versus non-Latin script, referring to writing systems rather than the Latin language, so this is a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The paper states that tasks are primarily in English, using the language for evaluation but not building resources or models specifically for it, thus it is only mentioned."
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is used to translate skill files and is part of the experimental evaluation of attacks, indicating the language is actively studied in the paper."
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is employed for translating skill files and evaluating attack reframing, making it a language that the paper studies through experiments."
+    }
+  }
+}

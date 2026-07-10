@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.04095v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T15:38:27.530771+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8810,
+  "verdicts": {
+    "Gurung": {
+      "verdict": "false_positive",
+      "reason": "Gurung refers to the author surname in the citation 'Gurung and Lapata (2025)', not the Gurung language → false_positive"
+    },
+    "Pin": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not contain any clear reference to the Pin language; the occurrence is ambiguous and likely not a language mention → mentioned_only"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake appears only as part of the phrase 'for its own sake' and not as the Sake language → false_positive"
+    },
+    "Tem": {
+      "verdict": "false_positive",
+      "reason": "Tem is part of the word 'temperature' in 'tem- perature 0.2', not a reference to the Tem language → false_positive"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to Chinese culture and a Chinese-language personal story prompt, but the paper does not build resources for the Chinese language → mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears in tables describing English prompts and evaluations, indicating the language is used as a test language but not studied as a resource → mentioned_only"
+    }
+  }
+}

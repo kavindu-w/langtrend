@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.27740v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T19:14:08.596259+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5444,
+  "verdicts": {
+    "Fwe": {
+      "verdict": "false_positive",
+      "reason": "FWE appears as an abbreviation in a table header (CWE FWE AVG) and not as the language name"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "polish is used as a verb meaning to refine the writing, not referring to the Polish language"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is mentioned as the language of speech data and test sets (Brazilian and European Portuguese) used in experiments"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is mentioned as part of the bilingual benchmark (English and Chinese samples) used in experiments"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is mentioned as the language of the benchmark split and used in experiments"
+    }
+  }
+}

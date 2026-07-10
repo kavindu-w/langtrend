@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.02433v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T15:45:39.764820+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8651,
+  "verdicts": {
+    "Fore": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'Fore' appears as part of the dataset name ODTQA-FoRe and as the role 'Forecaster', not referring to a human language"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Pinyin' to denote the romanization of Chinese names, not a human language"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to 'Chinese' as the language of the original data source and column headers, indicating the language is mentioned but not studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to 'English' as the target language for translation and as English-based LLMs, indicating it is mentioned only"
+    }
+  }
+}

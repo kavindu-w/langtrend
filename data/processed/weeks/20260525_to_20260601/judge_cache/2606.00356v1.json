@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.00356v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T16:46:26.965759+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11986,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script version of Serbian (Serbian Latin) and script mentions, not the Latin language itself, so it is a false positive"
+    },
+    "Catalan": {
+      "verdict": "mentioned_only",
+      "reason": "Catalan is mentioned only as an example of an official language in a sentence, with no experimental work on it, so it is mentioned_only"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian refers to the Russian language (and its Cyrillic script) used throughout the dataset and evaluation experiments, so it is studied"
+    },
+    "Serbian": {
+      "verdict": "studied",
+      "reason": "Serbian refers to the Serbian language (both Latin and Cyrillic scripts) that is the primary focus of the experiments, so it is studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used in the experiments and dataset, so it is studied"
+    }
+  }
+}

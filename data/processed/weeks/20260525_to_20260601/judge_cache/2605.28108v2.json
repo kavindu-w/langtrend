@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.28108v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T18:57:44.837704+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3900,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'pin' is used as a verb meaning to fix or set a parameter value, not the name of the Pin language."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The term 'non-Latin-script' refers to script type, not the Latin language."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet says the instruction is Chinese, indicating the Chinese language is used in prompts, but the paper does not build resources for it."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet instructs to write an English paragraph and mentions English place names, referring to the English language used in prompts, not studied."
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The phrase 'Book a Japanese place' refers to a Japanese restaurant (cuisine), not the Japanese language."
+    }
+  }
+}

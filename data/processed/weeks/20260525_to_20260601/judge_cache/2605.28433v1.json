@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.28433v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T19:29:21.900431+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5495,
+  "verdicts": {
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'i' as a variable/subscript, not the name of the Ik language, so the match is a false positive."
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Jina Embeddings', a model/embedding library, not the Jina human language, making it a false positive."
+    },
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'LOO refresh interval', an abbreviation for Leave-One-Out, not the Loo language, so it is a false positive."
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists 'MAE' as part of model/component names (e.g., Mean Absolute Error), not the Mae language, thus a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions English as the language of benchmark datasets (e.g., 'text-only English open-ended question subset') but does not study or build resources for English, so it is mentioned only."
+    }
+  }
+}

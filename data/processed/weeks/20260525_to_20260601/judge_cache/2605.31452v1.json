@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.31452v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T16:56:50.798352+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9259,
+  "verdicts": {
+    "Ata": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'ATA' refers to the ATA certification for translators, not the Ata language, so it's a false positive."
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Sie' is the German formal pronoun used in prompts, not a language name, so it's a false positive."
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Russian as a target language for translation and include Russian reference translations, indicating the paper works with Russian, so it is studied."
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese appears as a target language with professional translations and is part of the benchmark, so it is studied."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to Simplified Chinese as a target language and the corpus includes Chinese translations, so it is studied."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the source language of the corpus and in prompts, but the paper does not build resources for English, so it is mentioned only."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is a target language with added reference translations and used in experiments, so it is studied."
+    }
+  }
+}

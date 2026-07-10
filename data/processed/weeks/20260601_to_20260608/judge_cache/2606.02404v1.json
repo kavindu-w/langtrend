@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.02404v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T15:44:51.277442+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11691,
+  "verdicts": {
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not show 'Ik' referring to the human language; it appears only as an unrelated token, indicating a false positive."
+    },
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'Mango' is part of the horse name 'Purple Mango' (퍼플망고), not a language, so it is a false positive."
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The term 'Korean' refers to the Korean language and Korean-specific content, and the paper constructs a benchmark dataset and evaluates models on Korean tasks, thus it is studied."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'English' is mentioned only for comparison purposes without any dedicated experiments or resources, so it is mentioned only."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.31393v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T16:59:15.153915+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2886,
+  "verdicts": {
+    "German Sign Language": {
+      "verdict": "studied",
+      "reason": "The snippets discuss the DGS dataset and report BLEU scores for German Sign Language, indicating it is used in experiments, so the language is studied"
+    },
+    "Greek Sign Language": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the GSL dataset and present results for Greek Sign Language, showing it is part of the experimental evaluation, so the language is studied"
+    },
+    "Spanish Sign Language": {
+      "verdict": "studied",
+      "reason": "The snippets describe the LSA‑T dataset (Spanish Sign Language) and include BLEU results for it, meaning it is used in the experiments, so the language is studied"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "In the snippets \"Greek\" is used as a shorthand for Greek Sign Language (GSL), not the spoken Greek language, so this is a false positive for the human language Greek"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippets mention German text as the target language for translation and report BLEU scores on German output, indicating the language is used in the experiments, so it is studied"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Spanish text as the target language for the LSA‑T dataset and provide BLEU results on Spanish output, showing the language is used in the experiments, so it is studied"
+    }
+  }
+}

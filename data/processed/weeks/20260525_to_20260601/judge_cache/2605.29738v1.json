@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.29738v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T17:56:32.152104+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11946,
+  "verdicts": {
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi appears only in a discussion of Indian bilingual data that is excluded from the benchmark, so the language is only mentioned, not studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is referenced as a script (Latin script) rather than the Latin language, making it a false positive"
+    },
+    "Lithuanian": {
+      "verdict": "studied",
+      "reason": "Lithuanian is used for prompts, evaluation, and token‑fertility analysis as one of the six benchmark jurisdictions, indicating the paper studies this language"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech is included in the benchmark with native prompts, evaluation results, and analysis, showing the language is studied"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is part of the benchmark with native prompts, evaluation, and scaling analysis, so the paper studies this language"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is featured in the benchmark with native prompts, evaluation results, and transfer analysis, indicating the language is studied"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is a primary benchmark language with dedicated baseline, prompts, and extensive evaluation, so the paper studies this language"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used only for task instructions and as a reference point, not as a target language in the benchmark, so it is only mentioned"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is one of the six benchmark jurisdictions with native prompts and evaluation results, indicating the language is studied"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German appears solely as an example of a single‑language benchmark in the introduction and is not part of the evaluated jurisdictions, so it is only mentioned"
+    }
+  }
+}

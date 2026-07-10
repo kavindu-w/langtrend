@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.26918v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T19:37:20.848308+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11889,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col appears as a column label for the 'College' grade band in result tables, not a language"
+    },
+    "Sora": {
+      "verdict": "false_positive",
+      "reason": "Sora is the name of a video generation model evaluated in the paper, not a human language"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean refers to the Korean language used in the curriculum and dataset, with prompts and evaluations built for it, so the paper studies this language"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is only mentioned as a high‑resource educational system in the limitations, with no data or experiments on it"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as a subject (English language arts) and as a parallel rubric/template, but the paper does not conduct experiments on English language content, only mentions it"
+    }
+  }
+}

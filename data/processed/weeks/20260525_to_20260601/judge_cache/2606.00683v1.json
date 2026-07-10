@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.00683v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T16:36:02.793944+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5483,
+  "verdicts": {
+    "Karen": {
+      "verdict": "false_positive",
+      "reason": "Karen refers to the fictional character Karen Hayes in the prompt example, not the Karen language, so false_positive"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "Tat appears only as part of dataset and benchmark names like TAT-QA, not as the Tat language, so false_positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language of the Wikipedia dump used for data ingestion, but the paper does not study or build resources for English, so mentioned_only"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French is used as an adjective describing Charles de Gaulle (a French general), not referring to the French language, so false_positive"
+    }
+  }
+}

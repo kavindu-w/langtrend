@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.30804v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T17:18:50.818924+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11984,
+  "verdicts": {
+    "Kare": {
+      "verdict": "false_positive",
+      "reason": "The snippets do not contain any reference to the Kare human language; the term appears to be a spurious match, so it is a false positive"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The snippets do not show Wa being used as a human language name; it appears to be an erroneous detection, thus a false positive"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is mentioned as the target language for translations, prompts, and human baselines, and the paper conducts experiments and bias measurements in Korean, so it is studied"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced for translations, prompts, and human baselines, and the study evaluates models in Chinese, indicating it is studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used for translations, prompts, and as a baseline language in experiments, with the paper evaluating models in English, so it is studied"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese appears in translation work, prompts, and human baseline comparisons, and the paper runs experiments in Japanese, thus it is studied"
+    }
+  }
+}

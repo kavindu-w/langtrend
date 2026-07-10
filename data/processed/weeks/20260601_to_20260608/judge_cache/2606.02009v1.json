@@ -1,0 +1,57 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.02009v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T15:55:15.137510+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10168,
+  "verdicts": {
+    "Moi": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'moi' as the French pronoun meaning 'me', not the language Moi; thus false_positive"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the phrase 'for the sake of simplicity', where 'sake' is part of an English idiom, not the language Sake; thus false_positive"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'mon sac' (French for 'my bag'), not the language Mon; thus false_positive"
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Czech as one of the languages in external corpora (MERLIN), mentioning it but not using it in experiments; thus mentioned_only"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Italian among languages in external corpora, only mentioning it without conducting experiments; thus mentioned_only"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists German among languages in external corpora, only mentioning it without conducting experiments; thus mentioned_only"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Portuguese among languages in external corpora, only mentioning it without conducting experiments; thus mentioned_only"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Russian among candidate languages in the dataset, only mentioning it; thus mentioned_only"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Arabic among candidate languages in the dataset, only mentioning it; thus mentioned_only"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Spanish among candidate languages in the dataset, only mentioning it; thus mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a baseline dataset and comparison language, but the study focuses on French; thus mentioned_only"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is the target language of the study, with experiments, corpus, and models built for French AES; thus studied"
+    }
+  }
+}

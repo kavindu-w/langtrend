@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.27015v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T19:31:20.654729+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10245,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin-script data used by tokenizers, not the Latin language, so false_positive"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "Persian is the target language of the benchmark and all experiments, so studied"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic refers to Arabic script in OCR processing, not the Arabic language, so false_positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is only mentioned as the language of prompts and related discussion, without experiments on it, so mentioned_only"
+    }
+  }
+}

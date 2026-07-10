@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.31142v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T17:07:38.879074+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11792,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina appears only as part of model names such as jina-embeddings- and not as a reference to a human language"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is explicitly mentioned as a language (e.g., 'Hindi language') and is included in the paper's multilingual experiments and analyses"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a language and is part of the experimental evaluation across multiple tasks"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is referenced as a language and is evaluated in the retrieval and other task-specific analyses"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is referenced as a language and is included in the multilingual evaluation across tasks"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic appears only within model names (e.g., Arabic-all-nli-triplet-Matryoshka) and not as a language being evaluated"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is explicitly mentioned as a language and is part of the paper's experimental analyses"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.29278v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T18:20:31.888347+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7703,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists Spanish words such as \"prueba\" and \"tabla\" where \"dia\" is just the Spanish word for \"day\", not a language name; thus it's a false positive."
+    },
+    "Sira": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains Turkish words like \"veri\" and \"hizmet\"; \"sira\" appears as part of Turkish text but does not refer to a human language, so it's a false positive."
+    },
+    "Tabla": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows the Spanish word \"tabla\" (meaning \"table\") among other Spanish terms, not a language name; therefore it's a false positive."
+    },
+    "Yil": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes Turkish words such as \"yıl\" (year) and other Turkish terms; \"yil\" is not used to denote a language, making it a false positive."
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is listed among the eight languages (English, French, Spanish, Portuguese, Italian, Russian, Chinese, Turkish) for which the authors sample up to 5,000 conversations and evaluate linguistic co"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese appears in the same eight-language sampling and is used for the convergence analysis, showing that the paper conducts experiments on it; thus it is studied."
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is one of the eight languages sampled for conversation data and is included in the convergence metrics evaluation, so the paper studies Russian."
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is among the eight languages for which the authors collect conversation data and compute convergence scores, indicating it is studied in the experiments."
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean is mentioned only in a list of languages present in the WildChat dataset and not among the eight languages sampled for analysis, so it is only mentioned."
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is included in the eight-language sample and discussed in dictionary coverage and code‑switching observations, meaning the paper conducts experiments on Turkish; thus it is studied."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is part of the eight languages sampled for conversation data and appears in the convergence metrics discussion, indicating the paper studies Chinese."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used for human‑human baseline datasets, appears throughout the results and limitations, and is a primary language of analysis, so the paper studies English."
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German refers to the German language, mentioned as a language whose LIWC dictionary is excluded and not used in the experiments – mentioned_only"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese refers to the Japanese language listed among languages present in WildChat but not among the eight sampled languages for analysis – mentioned_only"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish refers to the Spanish language used in language-specific dictionaries and sampled for up to 5,000 conversations, indicating it is part of the study – studied"
+    }
+  }
+}

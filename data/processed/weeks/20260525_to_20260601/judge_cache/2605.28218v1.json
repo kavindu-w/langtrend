@@ -1,0 +1,57 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.28218v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T18:50:09.908101+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5732,
+  "verdicts": {
+    "Tibetan": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain no reference to the Tibetan language; its name appears only in the candidate list, indicating a false detection"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is mentioned only in the phrase 'Latin script', referring to the writing system, not the Latin language"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is listed in the Limitations as a language not covered by the benchmark, so it is only mentioned"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is listed in the Limitations as a language not covered by the benchmark, so it is only mentioned"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is included among the seven target languages and used for instruction-language diversity, indicating the benchmark studies Korean"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is included among the seven target languages and used for instruction-language diversity, indicating the benchmark studies Japanese"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The word 'polish' appears in the phrase 'stylish polish' referring to quality, not the Polish language"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is one of the seven target languages and appears throughout dataset construction and evaluation, indicating it is studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the seven target languages and appears throughout dataset construction and evaluation, indicating it is studied"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is one of the seven target languages and appears throughout dataset construction and evaluation, indicating it is studied"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is one of the seven target languages and appears throughout dataset construction and evaluation, indicating it is studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is one of the seven target languages and appears throughout dataset construction and evaluation, indicating it is studied"
+    }
+  }
+}

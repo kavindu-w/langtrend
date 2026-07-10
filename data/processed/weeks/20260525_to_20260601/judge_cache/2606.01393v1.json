@@ -1,0 +1,61 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.01393v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T16:16:51.306734+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8248,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col refers to column layout (e.g., single column, double column) in tables, not a human language, so false_positive"
+    },
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "Fam is an abbreviation for the BISAC subject 'Family & Relationships', not a language, so false_positive"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese appears only in the language coverage table as one of the languages present in the dataset, with no dedicated experiments, so mentioned_only"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish is listed in the language coverage table but the paper does not conduct specific experiments on it, so mentioned_only"
+    },
+    "egyptian arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Egyptian Arabic is listed among languages in the coverage table without dedicated analysis, so mentioned_only"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned in the language coverage list but no specific study or evaluation is performed, so mentioned_only"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German appears in the language coverage table only, without dedicated experiments, so mentioned_only"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is listed in the language coverage and inference prompt, but no specific experiments focus on it, so mentioned_only"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned in the language coverage and inference prompt, without dedicated evaluation, so mentioned_only"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese appears in the language coverage and inference prompt, but the paper does not specifically study it, so mentioned_only"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is discussed in performance analysis, with specific evaluation of models on Chinese-script text elements and page-level language breakdown, indicating the paper studies Chinese, so studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the primary language of the dataset and is used in multiple evaluations, showing the paper studies English, so studied"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears in a table of per-page language distribution, indicating it is only mentioned as part of the multilingual dataset without dedicated experiments"
+    }
+  }
+}

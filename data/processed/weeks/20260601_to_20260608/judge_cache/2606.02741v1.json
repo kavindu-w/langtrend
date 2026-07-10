@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.02741v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T15:38:51.243350+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10102,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain German text but do not refer to the human language 'Dass'; the term appears only as part of German words or conjunctions, so it is a false positive"
+    },
+    "Kein": {
+      "verdict": "false_positive",
+      "reason": "The term appears in German instructions ('Keine Begründung') and not as a language name, making it a false positive"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Appears only within the English phrase 'for the sake of' and not as a language name, thus a false positive"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Mentioned as part of the model name 'Arabic mini‑climateGPT', not referring to the Arabic language itself, so it is a false positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Referred to as the language of the prompt version ('English Version') only for documentation purposes, not studied, so mentioned only"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper uses German questionnaire items, compares LLM outputs to German survey data, and evaluates models in German, indicating the German language is studied"
+    }
+  }
+}

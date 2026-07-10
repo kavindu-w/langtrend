@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.29340v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T18:15:20.815427+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3569,
+  "verdicts": {
+    "Nii": {
+      "verdict": "false_positive",
+      "reason": "The match is part of a URL domain (llmc.nii.ac.jp) referring to the National Institute of Informatics, not the Nii language; thus false positive"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains no occurrence of the word 'Sake' and does not refer to the Sake language; the detection is a false positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions an 'English translation' indicating the English language is referenced only as a translation target, not as a focus of the study; thus mentioned_only"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Japanese language as the language of the laws and the dataset (e.g., 'original act in Japanese', 'dataset according to the Japanese laws'), and the paper builds a QA dataset "
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.03284v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T15:53:39.421598+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 9462,
+  "verdicts": {
+    "Cara": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'Ia mengambil cara lain...' the word 'cara' is an Indonesian word meaning 'way', not the name of a language."
+    },
+    "Cua": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists 'Cua' among SEA languages and dialects, referring to a language name, but the paper only mentions it as an example and does not evaluate or build resources for it."
+    },
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'Dia memilih cara...' the word 'Dia' is an Indonesian pronoun meaning 'he/she', not a language name."
+    },
+    "Malayo": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the 'Malayo-Polynesian' language family; 'Malayo' alone is not a distinct language, so the match is a false positive."
+    },
+    "Tha": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Thai language (e.g., 'Thai fruit stall'), which is one of the eight SEA languages for which the benchmark includes native data, so the language is studied."
+    },
+    "Wa": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Wa' as a SEA language/dialect example, but the paper does not provide data or experiments for it, only mentions it."
+    },
+    "Burmese": {
+      "verdict": "studied",
+      "reason": "The paper includes Burmese (Myanmar) in dataset tables and evaluation results, indicating it is part of the benchmark and experiments, thus studied."
+    },
+    "Khmer": {
+      "verdict": "studied",
+      "reason": "Khmer appears in annotator distribution tables and evaluation, showing it is a language for which data was collected and models evaluated, so studied."
+    },
+    "Malay": {
+      "verdict": "studied",
+      "reason": "Malay is listed in annotator tables and dataset description, with native speakers and evaluation, indicating it is studied."
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil appears in annotator tables and is part of the benchmark, indicating it is studied."
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is repeatedly used as a language in the dataset, annotation tables, and model evaluation, confirming it is studied."
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian is central to the benchmark, with native data, annotator tables, and evaluation results, showing it is studied."
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is listed as a native regional language in the dataset and model evaluation tables, showing it is used in experiments"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese appears only in the context of cultural references such as 'Chinese New Year', not referring to the Chinese language itself"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a benchmark language and evaluated across models in the study, indicating it is part of the experiments"
+    }
+  }
+}

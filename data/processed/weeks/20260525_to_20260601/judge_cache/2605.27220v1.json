@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.27220v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-10T19:25:45.283110+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7691,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE appears as a metric abbreviation (Mean Absolute Error), not a language name → false_positive"
+    },
+    "Tal": {
+      "verdict": "false_positive",
+      "reason": "tal appears as part of the Danish term '1800‑tal' meaning 'the 1800s', not a language name → false_positive"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French is used as an adjective describing a painting style, not referring to the French language itself → false_positive"
+    },
+    "Danish": {
+      "verdict": "studied",
+      "reason": "Danish is referenced as the language of the encyclopedia, prompts, and evaluation (e.g., 'question and sources are in Danish'), indicating the paper works with Danish data → studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only in comparison to benchmarks (e.g., 'English RAG benchmarks'), without any experiments on English → mentioned_only"
+    }
+  }
+}
