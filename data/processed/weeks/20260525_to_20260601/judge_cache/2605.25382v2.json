@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.25382v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T15:05:24.122089+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10955,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to contiguous Latin alphanumeric strings (script) used for token counting, not the Latin language, so false_positive"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language (modern Chinese prose writers, Chinese characters, Chinese literature) which is the primary data and focus of the benchmark, so studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to English translations of prompts and examples provided for reviewer readability, not a focus of the research, so mentioned_only"
+    }
+  }
+}

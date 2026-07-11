@@ -1,0 +1,45 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.21403v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T16:55:13.090380+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4240,
+  "verdicts": {
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'pole' appears as a lexical item meaning 'field' in an example sentence, not as a reference to the Pole language, so it is a false positive."
+    },
+    "Slovak": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Slovak' as one of several languages where syncretism affects attraction, but no data, experiments, or resources for Slovak are presented, so it is only mentioned."
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists 'Czech' among languages affected by syncretism without any experimental work on Czech, so it is only mentioned."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to 'French' showing a reverse pattern, but the paper does not conduct experiments on French, so it is only mentioned."
+    },
+    "Armenian": {
+      "verdict": "mentioned_only",
+      "reason": "Armenian appears in discussion of languages where syncretism does not affect attraction, yet no Armenian data or models are used, so it is only mentioned."
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is included in the set of four languages evaluated with LLM-derived surprisal and attention entropy measures, indicating the paper conducts analyses on Russian data; thus it is studied."
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is one of the four languages for which the paper extracts LLM measures and reports experimental results, indicating it is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is part of the four languages examined with LLM-derived proxies and experimental replication, showing the paper studies English."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is included among the four languages analyzed with LLM measures and discussed with empirical findings, indicating the paper studies German."
+    }
+  }
+}

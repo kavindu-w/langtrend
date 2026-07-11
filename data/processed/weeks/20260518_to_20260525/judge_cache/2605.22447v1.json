@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.22447v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T16:36:48.938602+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4440,
+  "verdicts": {
+    "Fore": {
+      "verdict": "false_positive",
+      "reason": "The match occurs within the word 'before' in a table header ('Be- fore Verif.'), not referring to a language; thus it is a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as the language of the paper and as translations of Arabic posts, but the research focuses on Arabic data; English is only mentioned."
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is the primary focus of the dataset, examples, and NLP resource discussion, indicating the paper studies the language."
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.23325v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T16:15:48.245431+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4539,
+  "verdicts": {
+    "Reli": {
+      "verdict": "false_positive",
+      "reason": "The term 'Reli-' appears as part of the word 'Religious/Spiritual' in a category label, not as a language name; therefore it is a false positive."
+    },
+    "Malayalam": {
+      "verdict": "mentioned_only",
+      "reason": "Malayalam is mentioned as one of the languages in the PolyHope multilingual dataset cited in related work, but the paper does not collect or evaluate data for Malayalam; thus it is only mentioned."
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is listed among languages in the PolyHope multilingual dataset referenced in the background, without any data collection or experiments on Hindi; therefore it is only mentioned."
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "Tamil appears in the discussion of prior annotation schemes and the PolyHope dataset, but the study does not build resources or evaluate Tamil; hence it is only mentioned."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a language in prior work and as a code‑switching partner, yet the paper’s experiments and dataset focus on Arabic, so English is only mentioned."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is cited in the context of code‑switching with Arabic, without any dedicated French data or analysis; thus it is only mentioned."
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is the primary language of the introduced AraHopeCorpus dataset and the focus of all experiments and analyses presented in the paper; therefore it is studied."
+    }
+  }
+}

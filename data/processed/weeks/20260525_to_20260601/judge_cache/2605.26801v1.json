@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.26801v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T14:25:48.476680+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7123,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'chaos aka evil ghost…' the term 'aka' is used as the abbreviation for 'also known as', not referring to the Aka language, so it is a false positive."
+    },
+    "Busuu": {
+      "verdict": "false_positive",
+      "reason": "The word 'busuu' appears within a Reddit comment token ('challenge!go!busuu') and refers to a platform/name rather than the Busuu language, making it a false positive."
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Throughout the excerpts 'pole' denotes the positive or negative endpoint of semantic gradients (e.g., 'positive pole'), not a human language, so it is a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language of the affective norms and the participant population; the paper does not create or evaluate resources for English, so it is only mentioned."
+    }
+  }
+}

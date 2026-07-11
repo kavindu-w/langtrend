@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.26954v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T14:59:24.163855+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5867,
+  "verdicts": {
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "The match 'fam' occurs as part of the word 'family' describing family dynamics, not the name of a language"
+    },
+    "Kazakh": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'Kazakh' is used to refer to the Kazakh language in related work citations, but the paper does not build resources or experiments for it"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'Turkish' refers to the Turkish language in citation of an offensive language corpus, without any experiments on Turkish"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'Arabic' refers to the Arabic language (including Levantine Arabic) in discussion of prior work, not a focus of the current study"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'Chinese' refers to the Chinese language in prior work and benchmark descriptions, not a language the paper studies directly"
+    },
+    "Albanian": {
+      "verdict": "studied",
+      "reason": "The term 'Albanian' refers to the Albanian language for which the paper creates a safety evaluation dataset, indicating the language is a primary focus of the study"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'English' refers to the English language as a high-resource baseline in related work, without new resources or experiments for English"
+    }
+  }
+}

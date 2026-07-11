@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.20588v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T16:48:48.929797+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3120,
+  "verdicts": {
+    "American Sign Language": {
+      "verdict": "studied",
+      "reason": "The abstract mentions ASL as one of the sign languages for which synthetic sign-sign pairs are generated and evaluated, indicating the paper builds and tests models for ASL."
+    },
+    "Chinese Sign Language": {
+      "verdict": "studied",
+      "reason": "The introduction and abstract refer to CSL as a distinct sign language used in the synthetic training data and evaluation, showing the paper directly works on CSL."
+    },
+    "German Sign Language": {
+      "verdict": "studied",
+      "reason": "The introduction and abstract refer to DGS as a distinct sign language used in the synthetic training data and evaluation, showing the paper directly works on DGS."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets use 'Chinese' to denote the spoken language partner for CSL in the back‑translation pipeline, not as a target of study, so it is only mentioned."
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets use 'German' to denote the spoken language partner for DGS in the pipeline, not as a target of study, so it is only mentioned."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets use 'English' to denote the spoken language partner for ASL in the pipeline, not as a target of study, so it is only mentioned."
+    }
+  }
+}

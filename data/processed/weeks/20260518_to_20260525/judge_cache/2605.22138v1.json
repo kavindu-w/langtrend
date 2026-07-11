@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.22138v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T16:17:48.155896+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4016,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to a proxy tool used for web searches (Jina proxy), not a human language, so the match is a false positive."
+    },
+    "Sira": {
+      "verdict": "false_positive",
+      "reason": "SiRA is the name of a method extending LLM simulation, not a language, so this is a false positive."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the source language of questions being translated, only mentioned for translation purposes, so the language is only mentioned."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the target language of translation and the instruction language, only mentioned, not studied."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is the target language for a translation query about a Gaulish name, only mentioned, not studied."
+    }
+  }
+}

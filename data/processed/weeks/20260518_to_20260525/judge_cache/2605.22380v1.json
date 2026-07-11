@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.22380v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T16:37:13.082873+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3135,
+  "verdicts": {
+    "Kannada": {
+      "verdict": "studied",
+      "reason": "Kannada is listed among Dravidian languages that make up a sizable portion of the dataset and is part of the language-wise training pipeline, indicating it is used in experiments → studied"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "Malayalam is mentioned alongside Tamil, Telugu, and Kannada as part of the Dravidian languages comprising the dataset, implying it is included in the experiments → studied"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "Marathi appears in the context of pre‑training experiments on external datasets for Marathi and Hindi, showing it is a target language in the study → studied"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu is cited as one of the Dravidian languages forming a sizable portion of the dataset and is included in the language‑wise training pipeline, indicating experimental use → studied"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is described as the primary language of the dataset and a focus for improving model performance, showing it is central to the experiments → studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is referred to as \"Latin script\" used for transliterated Indic data, not the Latin language itself, so it is a false positive → false_positive"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is mentioned as part of the Dravidian language group comprising a sizable portion of the dataset and is included in the language‑wise training pipeline, indicating experimental use → studied"
+    }
+  }
+}

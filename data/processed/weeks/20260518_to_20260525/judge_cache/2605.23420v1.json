@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.23420v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T15:49:24.904014+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11686,
+  "verdicts": {
+    "Fars": {
+      "verdict": "false_positive",
+      "reason": "In the snippets 'Fars' appears as part of Danish text referring to 'father's' family, not a language name; false_positive"
+    },
+    "Lave": {
+      "verdict": "false_positive",
+      "reason": "'Lave' occurs within Danish sentences describing actions (e.g., 'lave en frokost'), not referencing a language; false_positive"
+    },
+    "Tal": {
+      "verdict": "false_positive",
+      "reason": "'Tal' is used in Danish context meaning 'talk' or 'speak', not a language identifier; false_positive"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The term appears as part of the tool name 'jina-embeddings' used in the pipeline, not the Jina human language; false_positive"
+    },
+    "Liv": {
+      "verdict": "false_positive",
+      "reason": "'Liv' shows up in Danish narrative meaning 'life', not as a language name; false_positive"
+    },
+    "Mor": {
+      "verdict": "false_positive",
+      "reason": "'Mor' is used in the Danish text to mean 'mother', not a language; false_positive"
+    },
+    "Danish": {
+      "verdict": "studied",
+      "reason": "The paper builds a dataset of social dilemmas in Danish, evaluates models tuned for Danish, and discusses Danish cultural norms; studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as translation of examples and occasional commentary, without any experiments or resources built for English; mentioned_only"
+    }
+  }
+}

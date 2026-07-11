@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.26947v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T15:00:36.268995+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 6635,
+  "verdicts": {
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'family situations' the term 'fam' is an abbreviation for family, not a language, so it's a false positive."
+    },
+    "Albanian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Albanian among languages for which safety benchmarks exist, mentioning the language but not providing data or experiments on it, so it's mentioned_only."
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to limited Russian mixing in prompts and a multilingual detector covering Russian, mentioning the language without building resources, so it's mentioned_only."
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet discusses Arabic NLP domain datasets, mentioning Arabic language only, so it's mentioned_only."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites Chinese safety benchmarks and detection work, mentioning the language only, so it's mentioned_only."
+    },
+    "Kazakh": {
+      "verdict": "studied",
+      "reason": "The snippets describe a Kazakh prompt dataset, its creation, and evaluation, indicating the paper studies Kazakh language, so it's studied."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English translations and English-centric benchmarks, mentioning English but not creating resources for it, so it's mentioned_only."
+    }
+  }
+}

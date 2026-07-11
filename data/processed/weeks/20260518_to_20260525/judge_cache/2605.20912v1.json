@@ -1,0 +1,45 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.20912v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T16:42:26.183510+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6289,
+  "verdicts": {
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'digituma.uma.pt' as part of a repository URL, not a language name; thus it's a false positive."
+    },
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'uri' as a field name for a Uniform Resource Identifier, not a language; thus it's a false positive."
+    },
+    "Occitan": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Occitan' as a source language for translation models, but the paper does not build or evaluate resources for it; thus mentioned_only."
+    },
+    "Catalan": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Catalan' as a source language for translation models, but no resources or experiments are conducted for it; thus mentioned_only."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Latin' in the phrase 'Latin American countries', referring to a geographic region, not the Latin language; thus false_positive."
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The paper creates Portuguese–English corpora and fine‑tunes NMT models for the PT–EN pair, building resources for Portuguese; thus studied."
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The paper creates Spanish–English corpora and fine‑tunes NMT models for the ES–EN pair, building resources for Spanish; thus studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper builds monolingual English corpora and uses English as target language in translation experiments, providing resources for English; thus studied."
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The paper builds French–English corpora and mentions French monolingual data, providing resources for French; thus studied."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.26575v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T14:33:00.296674+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6099,
+  "verdicts": {
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "Mon. appears as a table column abbreviation, not referring to the Mon language → false_positive"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is listed among the four languages whose scripts are used and the corpus includes Bangla data, indicating it is part of the experiments → studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is mentioned as a script type ('Latin script') rather than the Latin language → false_positive"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is one of the languages in the parallel idiom corpus and is used throughout the experiments, showing the paper works with Hindi data → studied"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is included in the parallel corpus and experimental analysis, demonstrating the paper studies Arabic data → studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is part of the parallel corpus and experimental evaluation, so the paper studies English data → studied"
+    }
+  }
+}

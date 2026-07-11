@@ -1,0 +1,77 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.25263v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T15:16:12.355845+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11226,
+  "verdicts": {
+    "Beng": {
+      "verdict": "false_positive",
+      "reason": "Beng appears as a script code (Bengali script) in the language tables, not as the Bengali language itself"
+    },
+    "Mal": {
+      "verdict": "studied",
+      "reason": "Mal appears as the language code for Malayalam (human language) in the dataset tables, indicating the language is included in the pretraining data"
+    },
+    "Orya": {
+      "verdict": "false_positive",
+      "reason": "Orya is listed as a script name (Oriya script) rather than the language itself"
+    },
+    "Tha": {
+      "verdict": "false_positive",
+      "reason": "Tha is listed as a script code for Thai script, not the Thai language"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai appears as the language name in the dataset tables, indicating the Thai language is part of the multilingual corpus"
+    },
+    "Hani": {
+      "verdict": "false_positive",
+      "reason": "Hani is used as a label for Mandarin Chinese data, not referring to the Hani language itself"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is listed with its language code (hin) and script, and appears in the multilingual dataset, so the language is used in the study"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese (vie) is listed among the languages in the dataset, indicating it is part of the multilingual training/evaluation"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic (arb) is listed among the languages in the dataset, showing it is included in the multilingual modeling"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese (zho Hans/Hant) is listed and distinguished by script, indicating Chinese language data is used in the study"
+    },
+    "Pol": {
+      "verdict": "studied",
+      "reason": "Pol appears as the language name for Polish in the dataset tables, indicating inclusion in the multilingual corpus"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is explicitly used in the sense understanding evaluation experiments, showing the language is evaluated"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "the snippets refer to the English language as a pretraining language, evaluation language, and baseline, indicating the paper works with English data"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "the snippets refer to French as an evaluation language in the sense‑understanding benchmark, showing the model is evaluated on French"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "the snippets refer to German as an evaluation language in the sense‑understanding benchmark, indicating the model is evaluated on German"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "the snippets refer to Spanish as an evaluation language in the sense‑understanding benchmark and as a language in the MLQA dataset, showing the model is evaluated on Spanish"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "the snippets list Japanese (jpn) among the languages in the pre‑training and instruction‑tuning datasets and give an example for Japanese in data‑generation instructions, indicating the paper includes"
+    }
+  }
+}

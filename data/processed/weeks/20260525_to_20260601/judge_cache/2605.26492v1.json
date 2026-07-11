@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.26492v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T14:33:48.356778+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3968,
+  "verdicts": {
+    "Hermit": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists \"hermit\" as a profession token count, not a language name, so it is a false positive."
+    },
+    "Maya": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"maya\" as a token (likely a name) among other name tokens, not referring to the Maya language, so it is a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The excerpts discuss \"English\" as the language of literature and corpora used for comparison, without building resources or experiments for English itself, so it is mentioned only."
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions \"Japanese media\" as a content category, not studying the Japanese language, so it is mentioned only."
+    }
+  }
+}

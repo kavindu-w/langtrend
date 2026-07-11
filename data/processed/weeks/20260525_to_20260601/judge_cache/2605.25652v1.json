@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.25652v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T14:57:24.185654+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11682,
+  "verdicts": {
+    "Ake": {
+      "verdict": "false_positive",
+      "reason": "Ake is used as a personal name (Mr Ake) in the question text, not referring to a human language"
+    },
+    "Khao": {
+      "verdict": "false_positive",
+      "reason": "Khao appears as a personal name (Mr Khao) in both question and reference answer, not a language"
+    },
+    "Saam": {
+      "verdict": "false_positive",
+      "reason": "Saam occurs within a Thai phrase (hang-hun-suan saam-sa-hai ...) and is not a language name"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai refers to the Thai language, which is the subject of the bar‑exam essays, prompts, and evaluations, so the paper studies this language"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as the language of translation for Thai material, not a focus of the research"
+    }
+  }
+}

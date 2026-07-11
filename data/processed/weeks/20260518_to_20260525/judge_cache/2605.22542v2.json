@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.22542v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T16:08:35.999952+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5699,
+  "verdicts": {
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'crow' to denote the bird/animal group (e.g., 'crow = AnimalGroupX', 'crow being ominous'), not the human language; thus it is a false positive."
+    },
+    "Fur": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'fur' as a material/property of an animal ('made of: fur, bones, teeth'), not a language; therefore it is a false positive."
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The term 'pin' appears as a verb describing an action ('pin Jay to the floor'), not as a language name; this is a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The paper references English as the language of the corpus ('Corpus of Contemporary American English', 'English-language fiction') but does not study or build resources for English; it is only mention"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.26770v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T14:27:00.164670+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6393,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to the Mean Absolute Error metric (e.g., \"MAE =20.55 kWh\"), not the Mae human language, so this is a false positive."
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "MON appears in the pandas resampling frequency string \"W-MON\" (weekly on Monday), not the Mon language, so this is a false positive."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is used as an adjective for \"French public-holiday count\" and to describe a household near Paris, referring to the country/culture rather than the French language itself; the paper only mention"
+    }
+  }
+}

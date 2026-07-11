@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.22567v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T16:36:00.739503+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3236,
+  "verdicts": {
+    "Maa": {
+      "verdict": "false_positive",
+      "reason": "The snippet references a URL (maa.org) and the langdetect library, not the Maa human language, indicating a false positive detection"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "The snippet reports performance gains on Thai in multilingual benchmarks, showing the paper evaluates and thus studies the Thai language"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet presents a Korean question as an illustrative example without reporting experiments or resources for Korean, so the language is only mentioned"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "The snippet reports performance gains on Vietnamese in multilingual benchmarks, indicating the paper evaluates and studies the Vietnamese language"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions English as a reference point for reasoning capability, without conducting dedicated experiments on English, so it is only mentioned"
+    }
+  }
+}

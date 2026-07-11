@@ -1,0 +1,61 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.22005v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T16:22:12.810505+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11037,
+  "verdicts": {
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek appears as part of multilingual proper nouns and place names in token clusters, i.e., tokens from the Greek language are listed, not a tool or script name"
+    },
+    "Ukrainian": {
+      "verdict": "mentioned_only",
+      "reason": "Ukrainian appears in token clusters of proper nouns and place names, indicating mention of the language rather than a resource"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is referenced via contemporary adjectives and historical vocabulary in token clusters, showing the language is mentioned but not studied"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "Hebrew shows up in multilingual proper noun clusters and as Hebrew sequences, merely mentioned in token analysis"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Unicode Latin small‑letter‑long‑s character used in tokens, i.e., a script character, not the Latin language itself"
+    },
+    "Thai": {
+      "verdict": "false_positive",
+      "reason": "Thai is cited only as \"Thai‑script tokens\" (script characters), which is a script name rather than a study of the Thai language"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic appears as \"Arabic diacritics\"—script characters—not as a language resource or analysis"
+    },
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "Korean is mentioned as \"Hangul (Korean script) characters\", a script name rather than a language study"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish shows up in multilingual lexical clusters spanning Turkish, Korean, and English, indicating a mention of Turkish tokens without dedicated study"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced via simplified/traditional characters and Chinese‑language token clusters, mentioning the language but not building resources for it"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English tokens dominate many eigenvectors and the paper analyses historical English orthography and English‑language subspaces, using English as the primary focus of the experiments"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese appears as full‑width katakana tokens and in references to the Japanese LLM community, mentioned only without dedicated study"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears only among multilingual proper nouns and place names, with no dedicated analysis or resources for Spanish"
+    }
+  }
+}

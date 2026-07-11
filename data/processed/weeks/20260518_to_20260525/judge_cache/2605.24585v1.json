@@ -1,0 +1,53 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.24585v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T15:31:25.284128+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7797,
+  "verdicts": {
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists \"greek\" among many token words in cluster assignments, indicating it is treated as a lexical item rather than a language being examined, so false_positive"
+    },
+    "Spanish": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes \"spanish\" as a token in the vocabulary clusters, not as a language under study, so false_positive"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The word \"latin\" appears in token lists (e.g., \"latin\" among other nouns) without any analysis of the Latin language itself, so false_positive"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "\"italian\" shows up as a token in the clustering tables, not as a language being investigated, so false_positive"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The term \"polish\" is present in the token clusters as a lexical item, not as a focus of the research, so false_positive"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "\"russian\" appears among clustered tokens, serving as a word example rather than a language under study, so false_positive"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists \"chinese\" as a token in the vocabulary clusters, without any dedicated analysis of the Chinese language, so false_positive"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper repeatedly references English as the corpus language (WikiText-103) and analyzes English POS structure, indicating the language is the primary object of modeling, so studied"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "\"french\" is included in token cluster lists, serving as a lexical example rather than a language being examined, so false_positive"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "The term \"german\" appears in the clustering tables as a token, not as a language focus, so false_positive"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "\"japanese\" is present among token clusters, but the paper does not study Japanese language itself, making it a false positive"
+    }
+  }
+}

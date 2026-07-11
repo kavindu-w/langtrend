@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.25226v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-11T15:15:48.422268+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6087,
+  "verdicts": {
+    "Beaver": {
+      "verdict": "false_positive",
+      "reason": "BEAVER refers to a public Text-to-SQL benchmark dataset name, not the language, so false_positive"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese refers to instruction-following datasets in the Japanese language, mentioned but no experiments or resources built for it, so mentioned_only"
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "Tibetan refers to low-resource benchmark datasets for the Tibetan language, only mentioned as part of dataset list, so mentioned_only"
+    },
+    "Malay": {
+      "verdict": "mentioned_only",
+      "reason": "Malay appears in a multilingual safety benchmark and evaluation discussion, only mentioned without dedicated study, so mentioned_only"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "Tamil appears in performance drop discussion and multilingual benchmark, only mentioned without dedicated study, so mentioned_only"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears in benchmark, instruction datasets, and dialogue dataset mentions, only referenced without dedicated study, so mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned in exclusion criteria as the language of papers, only referenced, so mentioned_only"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears in the description of the RUN dataset of Spanish news, only mentioned without dedicated study, so mentioned_only"
+    }
+  }
+}
