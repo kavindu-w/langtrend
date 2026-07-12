@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.19066v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T14:44:03.319401+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3289,
+  "verdicts": {
+    "Fore": {
+      "verdict": "false_positive",
+      "reason": "Fore is used as a common English word meaning 'to the front' rather than a language, so it's a false positive"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi appears as the name of a human language in the English‑Hindi Parallel Corpus, but only mentioned in historical context, not studied, so mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a high‑resource pivot language and in the English‑Hindi corpus, but the paper does not build resources or experiments for it, so mentioned_only"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.13481v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T16:38:03.764003+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4292,
+  "verdicts": {
+    "Nii": {
+      "verdict": "false_positive",
+      "reason": "Nii appears in a GitHub repository name (Alab-NII) and not as a language name, so it is a false positive"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to a Chinese forum from which the DiaASQ dataset is drawn, indicating the dataset is in Chinese but the paper only uses it, so it is mentioned only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to English Wikipedia as the source of the HotpotQA dataset, mentioned only without studying the language"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French is used as an adjective for \"French declaration of the rights of man\" and does not refer to the French language, making it a false positive"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German is used as an adjective describing a film director's nationality, not referring to the German language, so it is a false positive"
+    }
+  }
+}

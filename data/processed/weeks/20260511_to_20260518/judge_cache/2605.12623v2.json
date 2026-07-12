@@ -1,0 +1,101 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.12623v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T17:04:51.671133+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8036,
+  "verdicts": {
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'logo' refers to a figure category, not a language, so it is a false positive."
+    },
+    "Burmese": {
+      "verdict": "mentioned_only",
+      "reason": "Burmese is listed among low-resource scripts contributing pages to the dataset, but no experiments or resources are built specifically for it, so it is only mentioned."
+    },
+    "Khmer": {
+      "verdict": "mentioned_only",
+      "reason": "Khmer is listed among low-resource scripts contributing pages to the dataset, but no experiments or resources are built specifically for it, so it is only mentioned."
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "Tibetan appears only as part of the term 'Sino‑Tibetan' describing a language family; the paper does not build resources or evaluate on Tibetan, so it is only mentioned."
+    },
+    "Croatian": {
+      "verdict": "studied",
+      "reason": "Croatian is included among the 15 representative languages evaluated in the chart extraction experiments, indicating it is used in experiments, so it is studied."
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is included among the 15 representative languages evaluated in the chart extraction experiments, indicating it is used in experiments, so it is studied."
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is included among the 15 representative languages evaluated in the chart extraction experiments, indicating it is used in experiments, so it is studied."
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Hebrew is used to generate synthetic RTL data and appears in dataset statistics, meaning the paper creates resources for it, so it is studied."
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu is used to generate synthetic RTL data and appears in dataset statistics, meaning the paper creates resources for it, so it is studied."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script text wrapped in bidirectional markers, not the Latin language, so it is a false positive."
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is both part of the dataset and one of the 15 languages evaluated, indicating it is used in experiments, so it is studied."
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is evaluated in the multilingual chart extraction results, showing it is part of the experiments, so it is studied."
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Persian as a human language (one of the four RTL languages for which synthetic data and fonts are generated), implying it is studied in the paper."
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "The snippets list Polish among the 15 representative languages evaluated for chart extraction, indicating it is studied."
+    },
+    "Serbian": {
+      "verdict": "studied",
+      "reason": "The snippets include Serbian as a language in the evaluation setup, showing it is studied."
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "The snippets mention Ukrainian as one of the languages used in experiments, indicating it is studied."
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "The snippets list Vietnamese among the languages selected for evaluation, implying it is studied."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Chinese as a language in the evaluation setup, showing it is studied."
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippets include French as a language in the evaluation setup, indicating it is studied."
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Russian as a high‑resource language in dataset statistics and as part of the evaluation, implying it is studied."
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippets mention Spanish as a high‑resource language in dataset statistics and as part of the evaluation, indicating it is studied."
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Arabic as a human language used in synthetic RTL pipelines, dataset composition, and evaluation, implying it is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as a human language throughout the introduction, dataset statistics, and evaluation, indicating it is studied."
+    }
+  }
+}

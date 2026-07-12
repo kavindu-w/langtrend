@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.14040v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T16:28:03.974973+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11985,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to version pinning of software/library versions (e.g., transformers == 4.57.0), not a human language, so it is a false positive"
+    },
+    "Shan": {
+      "verdict": "false_positive",
+      "reason": "Shan refers to the author name Shan Yang (and related author metadata), not a human language, so it is a false positive"
+    },
+    "Estonian": {
+      "verdict": "studied",
+      "reason": "Estonian refers to the Estonian language of the Physics Olympiad problems and the bilingual EN/ET dataset, and the paper builds, evaluates, and releases resources for it"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language used for translations and baseline comparisons, mentioned only without building new resources or models for it"
+    }
+  }
+}

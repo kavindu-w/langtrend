@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.19276v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T14:39:15.961590+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4775,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "Agi appears in the dataset name 'Arc-AGI', referring to an artificial general intelligence benchmark, not a human language."
+    },
+    "Amo": {
+      "verdict": "false_positive",
+      "reason": "Amo appears in 'AMO-Bench', a competition-style math dataset, not a human language."
+    },
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier is used as a generic term for data structures ('input carrier') and not as a language name."
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears as part of the author name 'Mo Li', a person, not a language."
+    },
+    "Sala": {
+      "verdict": "false_positive",
+      "reason": "Sala occurs within model names (e.g., MiniCPM‑Sala) in the evaluation results, not referring to a human language."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned as one of the two languages in the bilingual LongBench benchmark, indicating the human language Chinese."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned alongside Chinese in the LongBench benchmark, referring to the human language English."
+    }
+  }
+}

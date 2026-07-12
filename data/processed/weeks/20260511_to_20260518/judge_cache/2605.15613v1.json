@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.15613v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T15:45:16.151863+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9953,
+  "verdicts": {
+    "Nii": {
+      "verdict": "false_positive",
+      "reason": "Nii appears in a URL (llm-jp.nii.ac.jp) referring to the National Institute of Informatics, not to a human language, so it is a false positive"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian refers to the Russian language used in few‑shot examples and performance evaluation, indicating the paper evaluates this language, so it is studied"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in prompting and performance evaluation on the MGSM test set, indicating the paper evaluates this language, so it is studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language throughout the paper (datasets, benchmarks, analysis) and is central to the experiments, so it is studied"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the Japanese language as the target language for continual pre‑training, dataset portions, and cultural‑understanding benchmarks, indicating the paper evaluates and builds resources"
+    }
+  }
+}

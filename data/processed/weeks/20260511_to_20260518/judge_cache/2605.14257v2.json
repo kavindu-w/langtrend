@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.14257v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T16:19:39.665137+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11941,
+  "verdicts": {
+    "Tiene": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'tiene' used as a regular word, not referring to a language, so it is a false positive"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'una' as an article in English text, not as a language name, so it is a false positive"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only as the L1 of learners and in prompt templates, without building resources or models for Chinese itself, so it is mentioned_only"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language whose vocabulary difficulty is modeled and for which a dataset is provided, indicating the paper studies English, so it is studied"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German appears as an L1 of learners and in feature prompts, but no resources or models are built for German, so it is mentioned_only"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is referenced as an L1 of learners and in prompts, without dedicated resources or models for Spanish, so it is mentioned_only"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.13663v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T16:33:15.911359+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3402,
+  "verdicts": {
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Russian' as an adjective describing campaigns in the Russia–Ukraine war, not referring to the Russian language itself, so it is a false positive."
+    },
+    "Ukrainian": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists 'ukrainian' as a token in a token-frequency table, not as a reference to the Ukrainian language, so it is a false positive."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to 'English' as the language of the tweets in the dataset and the spaCy English model, indicating the paper works with English text and evaluates models on it, thus the language is "
+    }
+  }
+}

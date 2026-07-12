@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.14816v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T16:32:03.464748+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3803,
+  "verdicts": {
+    "Tol": {
+      "verdict": "false_positive",
+      "reason": "The snippets show \"[TOL 11a]\" and \"[TOL 11b]\" as citation identifiers, not a reference to the Tol human language, so it is a false positive."
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions \"Modern Greek\" as one of the other languages with Lexicon‑Grammar tables, but the paper does not work on Greek, only cites it, so it is mentioned only."
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists \"Italian\" among languages that have Lexicon‑Grammar tables, without any experimental work on Italian, thus it is only mentioned."
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean appears in the phrase \"...such as Italian, Portuguese, Modern Greek and Korean\" as a language example, with no further work on Korean, so it is mentioned only."
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is cited as another language with Lexicon‑Grammar tables, but the paper does not study Portuguese resources, so it is mentioned only."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears in URLs and as \"English gloss\" for translations, serving only as a reference language for examples, not as a focus of the study, so it is mentioned only."
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The entire work is about converting French Lexicon‑Grammar tables into LMF format, creating resources for French, thus the language is studied."
+    }
+  }
+}

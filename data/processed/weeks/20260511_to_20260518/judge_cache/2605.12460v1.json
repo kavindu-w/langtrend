@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.12460v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T17:06:27.463453+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4120,
+  "verdicts": {
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'Mon.' as an abbreviation for monitor accuracy (e.g., 'Mon. acc.') and not as a reference to the Mon human language, so it is a false positive."
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses the word 'polish' as a verb describing formatting instructions (e.g., 'follow the format strictly', 'polish'), not referring to the Polish language, so it is a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'English instruction-response pairs' indicating the dataset is in English, but the paper does not study or develop resources for the English language itself, only uses it as data,"
+    }
+  }
+}

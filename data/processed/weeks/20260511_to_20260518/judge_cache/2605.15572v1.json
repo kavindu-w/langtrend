@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.15572v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T15:47:39.774031+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6466,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'Carrier' refers to the component that carries activation values (e.g., 'carrier components', 'carrier of extreme values'), not a human language, so it's a false positive."
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Here 'pin' appears in the phrase 'pinned versions of torch/transformers/accelerate', referring to software versioning, not a language, thus a false positive."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'Chinese' is used to denote Chinese language samples in the corpus and evaluation mixture, but the paper does not build resources or evaluate models specifically for Chinese, so it is only me"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'English' refers to English language samples in the corpus and evaluation mixture, without dedicated study or resources, so it is only mentioned."
+    }
+  }
+}

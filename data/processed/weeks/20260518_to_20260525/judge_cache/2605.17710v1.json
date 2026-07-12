@@ -1,0 +1,61 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.17710v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T15:06:51.302525+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11598,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "Dia appears as a Pidgin word replacement for 'the' in the variant list, not as a language name, so false_positive"
+    },
+    "Wia": {
+      "verdict": "false_positive",
+      "reason": "Wia appears as a Pidgin word replacement for 'where' in the variant list, not as a language name, so false_positive"
+    },
+    "Ghanaian Pidgin English": {
+      "verdict": "mentioned_only",
+      "reason": "Ghanaian Pidgin English is mentioned only as a variant to be examined in future work, not used in experiments, so mentioned_only"
+    },
+    "Kom": {
+      "verdict": "false_positive",
+      "reason": "Kom appears as a word replacement ('kom → com') in the Pidgin variant list, not a language, so false_positive"
+    },
+    "Moni": {
+      "verdict": "false_positive",
+      "reason": "Moni appears as a word replacement for 'money' in the variant list, not a language, so false_positive"
+    },
+    "Sama": {
+      "verdict": "false_positive",
+      "reason": "Sama appears as a Pidgin word ('sama') in the variant list, not a language, so false_positive"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "Una appears as a Pidgin word ('una') in the variant list, not a language, so false_positive"
+    },
+    "Waka": {
+      "verdict": "false_positive",
+      "reason": "Waka appears as a Pidgin word ('waka') in the variant list, not a language, so false_positive"
+    },
+    "Hausa": {
+      "verdict": "studied",
+      "reason": "Hausa is a target language for which the paper builds and evaluates ASR models, so studied"
+    },
+    "Igbo": {
+      "verdict": "studied",
+      "reason": "Igbo is a target language with dedicated datasets, models, and evaluation, so studied"
+    },
+    "Yoruba": {
+      "verdict": "studied",
+      "reason": "Yorùbá is a target language with datasets and evaluation, so studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English (including Nigerian English) is used as a baseline and also evaluated for language identification, indicating the paper studies it, so studied"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The abstract cites French as an example of high-resource languages (\"high-resource languages like English and French\"), but the paper's experiments and resources target Nigerian languages only, so Fre"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.15976v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T15:43:15.842455+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11970,
+  "verdicts": {
+    "Beng": {
+      "verdict": "studied",
+      "reason": "Beng appears as a column header in the human preference table, referring to the Bengali language which is evaluated in the experiments, so it is studied"
+    },
+    "Pol": {
+      "verdict": "studied",
+      "reason": "Pol appears as a column header and in result tables, referring to the Polish language evaluated in the experiments, so it is studied"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is listed among the target languages in result tables and experiments, indicating it is evaluated, so it is studied"
+    },
+    "Tibetan": {
+      "verdict": "studied",
+      "reason": "Tibetan is mentioned in reward discriminability and experiment sections as a target language evaluated, thus it is studied"
+    },
+    "Yoruba": {
+      "verdict": "studied",
+      "reason": "Yoruba appears in reward discriminability analysis and experiment results as a target language evaluated, so it is studied"
+    },
+    "Belarusian": {
+      "verdict": "studied",
+      "reason": "Belarusian is included in result tables and analysis as a language evaluated, so it is studied"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is repeatedly referenced in experiment and evaluation tables as a target language, indicating it is studied"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi appears only as a held‑out language for catastrophic forgetting analysis, not as a target language for translation experiments, so it is only mentioned"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears only as a script name in the language set table, not referring to the Latin language, so it is a false positive"
+    },
+    "Basque": {
+      "verdict": "studied",
+      "reason": "Basque is listed among the evaluated languages in multiple experiment sections, indicating it is studied"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech appears in result tables as a language evaluated, so it is studied"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish appears in result tables and experiments as a target language, thus it is studied"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is used as a held‑out language to evaluate catastrophic forgetting of adapters, i.e., the paper directly assesses translation performance on Russian"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is used as a held‑out language in forgetting experiments, indicating direct evaluation of French translation quality"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish appears in multiple result tables and human‑preference evaluations as a target language, showing it is directly evaluated"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is explicitly compared between GRPO and supervised fine‑tuning with detailed performance discussion, indicating direct evaluation"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Traditional Chinese is a primary target language with reported gains and extensive analysis, demonstrating direct evaluation"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as the source language for experiments; no target‑language evaluation or resource creation for English is presented"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is listed among target languages in reward discriminability and result tables, indicating it is directly evaluated"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is referenced solely as the source language in cross‑source replication experiments, not as a target language under study"
+    }
+  }
+}

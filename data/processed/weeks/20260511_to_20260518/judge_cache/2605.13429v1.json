@@ -1,0 +1,85 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.13429v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T16:42:27.622122+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7573,
+  "verdicts": {
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'Dao' appearing as an isolated word after a description of training tricks, with no context indicating it refers to the Dao language; it appears to be a stray token or acronym, not a"
+    },
+    "Icelandic": {
+      "verdict": "studied",
+      "reason": "The conclusion discusses 'low-resource languages like Armenian and Icelandic' and notes tokenization inefficiency, indicating the paper evaluates Icelandic as part of its multilingual experiments."
+    },
+    "Armenian": {
+      "verdict": "studied",
+      "reason": "Both the introduction and conclusion refer to Armenian text length and tokenization inefficiency, showing the paper evaluates Armenian in its experiments."
+    },
+    "Malayalam": {
+      "verdict": "mentioned_only",
+      "reason": "The language code table lists 'ml Malayalam' among many languages, but the snippet provides only a tabular listing without evidence of experiments on Malayalam."
+    },
+    "Mongolian": {
+      "verdict": "mentioned_only",
+      "reason": "The language code table includes 'mn Mongolian' similarly without further experimental discussion."
+    },
+    "Telugu": {
+      "verdict": "mentioned_only",
+      "reason": "The language code table includes 'te Telugu' with no additional context of evaluation."
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "The language code table lists 'bn Bengali' but no specific experimental results are shown."
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "Tibetan appears in section headings and a table of language families, but the snippets do not show direct experimental evaluation of Tibetan tokens."
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Case study sections present token alignment examples for Tamil, demonstrating that the method is evaluated on Tamil data."
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Case study sections include Thai token alignment examples, indicating evaluation on Thai."
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Case study sections include Urdu token alignment examples, indicating evaluation on Urdu."
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Case study sections include Korean token alignment examples, indicating evaluation on Korean."
+    },
+    "Ukrainian": {
+      "verdict": "mentioned_only",
+      "reason": "Ukrainian appears in a language‑code table in the conclusion, indicating it is referenced as a human language but no experimental results are shown, so it is only mentioned"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is listed among language codes in the conclusion table, referring to the human language without any specific experimental data, thus it is only mentioned"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German shows up in the language‑code table in the conclusion, indicating a reference to the language but no direct experimental evaluation in the provided snippets, so it is only mentioned"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is cited in the cross‑lingual transfer experiments with a reported performance gain (+2.5%), demonstrating that the paper evaluates the method on Vietnamese, so it is studied"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese appears in the cross‑lingual transfer experiments with a reported improvement (+3.4%), indicating the method is evaluated on Japanese, thus it is studied"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is included in case‑study and ablation tables where token alignment results are presented, showing direct experimental evaluation, so it is studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is discussed throughout (English‑biased tokenizers, performance results, and case studies), indicating the paper both uses and evaluates English, so it is studied"
+    }
+  }
+}

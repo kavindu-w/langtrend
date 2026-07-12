@@ -1,0 +1,53 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.18232v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T14:55:15.982685+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11831,
+  "verdicts": {
+    "Afar": {
+      "verdict": "mentioned_only",
+      "reason": "Afar is listed in a background table as one of the Horn of Africa languages, but no Afar data or experiments are presented"
+    },
+    "Maay": {
+      "verdict": "mentioned_only",
+      "reason": "Maay is discussed as a Somali dialect that is not covered by the released corpus, with only brief mention of its absence"
+    },
+    "Oromo": {
+      "verdict": "mentioned_only",
+      "reason": "Oromo appears only as a language mentioned in background and as a source of confusion in language ID benchmarks, with no Oromo-specific resources built"
+    },
+    "Amharic": {
+      "verdict": "mentioned_only",
+      "reason": "Amharic is cited in the background as a language with Ge'ez script, not a focus of the study"
+    },
+    "Kinyarwanda": {
+      "verdict": "mentioned_only",
+      "reason": "Kinyarwanda is mentioned as another Latin‑script African language that language ID tools confuse with Somali, but no Kinyarwanda resources are created"
+    },
+    "Wolof": {
+      "verdict": "mentioned_only",
+      "reason": "Wolof is referenced similarly as a language confused with Somali in LID evaluation, with no Wolof-specific work"
+    },
+    "Somali": {
+      "verdict": "studied",
+      "reason": "Somali is the primary focus of the paper, for which a new corpus, tokenizer, and LID benchmark are built and evaluated"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin in the snippets refers to the Latin script used for Somali and other languages, not to the Latin language itself"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch is mentioned only in a comparative statement about speaker counts and existing corpora, with no Dutch-specific work"
+    },
+    "Swedish": {
+      "verdict": "mentioned_only",
+      "reason": "Swedish is mentioned only in a comparative statement about speaker counts and existing corpora, with no Swedish-specific work"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as a source of leakage that is filtered out during language identification, with no English-focused contribution"
+    }
+  }
+}

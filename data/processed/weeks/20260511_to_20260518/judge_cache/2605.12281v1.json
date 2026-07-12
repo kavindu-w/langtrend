@@ -1,0 +1,45 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.12281v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T17:10:03.617550+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11968,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script (alphabet) in the character similarity discussion, not the Latin language → false_positive"
+    },
+    "Catalan": {
+      "verdict": "mentioned_only",
+      "reason": "Catalan is mentioned only as a possible related language for future transfer experiments, with no data or models built for it → mentioned_only"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only as a potential future target language for transfer, not used in the current experiments → mentioned_only"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is referenced only as a possible related language for future work, without any experimental focus → mentioned_only"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese appears only in the discussion of future transfer to typologically related languages, not studied directly → mentioned_only"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is one of the three L1s whose learners are modeled, with dedicated data and models built for it → studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is the target language of the vocabulary items but the paper does not build resources or models for English itself, only uses it for difficulty modeling → mentioned_only"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is a L1 used in the experiments, with specific models and data constructed for German learners → studied"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is a L1 used in the experiments, with specific models and data constructed for Spanish learners → studied"
+    }
+  }
+}

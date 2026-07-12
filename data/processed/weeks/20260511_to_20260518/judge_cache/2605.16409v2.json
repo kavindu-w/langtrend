@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.16409v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T16:36:03.949708+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5334,
+  "verdicts": {
+    "Pali": {
+      "verdict": "false_positive",
+      "reason": "The term appears as part of the model name \"PaLI-X\" in the reference list, not referring to the human language, so it is a false positive"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is shown only as a target language in an illustrative translation figure, with no evidence of experimental work on it, so it is mentioned only"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese appears solely as a target language in an example translation figure, without experimental focus, thus it is mentioned only"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is presented only as a target language in an example translation figure, lacking evidence of dedicated study, so it is mentioned only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the source language in dataset construction and OCR data curation, serving as a baseline rather than a studied language, so it is mentioned only"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French translations are evaluated and discussed in the results section, indicating the paper conducts experiments on French OCR translation, thus it is studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German translations are evaluated in the results, showing experimental work on German OCR translation, so it is studied"
+    }
+  }
+}

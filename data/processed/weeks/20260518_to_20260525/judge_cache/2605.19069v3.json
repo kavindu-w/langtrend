@@ -1,0 +1,69 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.19069v3",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T15:08:27.374290+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 7021,
+  "verdicts": {
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Miami refers to the Miami Bangor corpus name, not a human language, so false_positive"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is listed among languages supported by Deepgram but not used in the paper's experiments, so mentioned_only"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script characters, not the Latin language, so false_positive"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch appears in a list of languages supported by Deepgram and is not part of the study, so mentioned_only"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian appears in a list of languages supported by Deepgram and is not examined in the work, so mentioned_only"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese appears in a list of languages supported by Deepgram and is not examined in the work, so mentioned_only"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian appears in a list of languages supported by Deepgram and is not examined in the work, so mentioned_only"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears in a list of languages supported by Deepgram and is not examined in the work, so mentioned_only"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "Persian is a target language in the code‑switching benchmark and is evaluated, so studied"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "Egyptian Arabic is a specific language pair for which a dataset is built and evaluated, so studied"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is a target language in the benchmark and is evaluated, so studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the counterpart language in all code‑switching pairs and is evaluated, so studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the German language used in the German‑English code‑switching pair evaluated in the benchmark"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese appears only in a list of languages supported by Deepgram and is not part of the benchmark experiments"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears only in the same list of languages supported by Deepgram and is not evaluated in the study"
+    }
+  }
+}

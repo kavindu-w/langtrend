@@ -1,0 +1,53 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.14152v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T16:23:39.907685+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11996,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to the Mean Absolute Error metric in calibration tables, not a human language, so it is a false positive"
+    },
+    "Javanese": {
+      "verdict": "mentioned_only",
+      "reason": "Javanese is mentioned only as part of a low‑resource language group in a comparative analysis, with no experiments or resources built for it, so it is mentioned only"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "Swahili appears only in the list of low‑resource languages for MultiJail comparison, without any dedicated study, so it is mentioned only"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is listed among low‑resource languages in the setup description, but the paper does not conduct experiments on it, so it is mentioned only"
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "Thai is included in the medium‑resource language tier for comparative purposes, with no direct work on Thai, thus it is mentioned only"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is cited as a high‑resource language in the MultiJail comparison grouping, without any specific study, so it is mentioned only"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Vietnamese appears in the high‑resource language group for comparative analysis, but the paper does not evaluate or build resources for it, making it mentioned only"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is the focal language of the benchmark, with dataset construction, experiments, and analysis explicitly targeting Korean variants, indicating the paper studies Korean"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned only as a medium‑resource language in a future‑work discussion and comparative setup, with no direct experiments, so it is mentioned only"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is listed among high‑resource languages for comparative purposes and in a limitation discussion, but no specific Chinese experiments are conducted, thus it is mentioned only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used as the baseline comparison language throughout the paper, but no resources or models are built specifically for English, so it is mentioned only"
+    }
+  }
+}

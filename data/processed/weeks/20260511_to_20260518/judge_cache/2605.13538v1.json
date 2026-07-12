@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.13538v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T16:36:27.601109+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9519,
+  "verdicts": {
+    "Maya": {
+      "verdict": "false_positive",
+      "reason": "Maya refers to a person name 'Maya Iyer' in the PERSON pool, not the Maya language, so false_positive"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "Mon appears as part of the date format token 'DD-Mon-YYYY' and in date pool descriptors, not the Mon language, so false_positive"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is used to describe Latin-script outputs, not the Latin language, so false_positive"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to Chinese names and locale (e.g., 杨娟) and Chinese‑specific surrogate generation, indicating the paper works with the Chinese language, so studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to English locale demonstrations and an English NER pipeline, showing the paper works with the English language, so studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to German names and locale demonstrations, indicating the paper works with the German language, so studied"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to Japanese names and locale handling, showing the paper works with the Japanese language, so studied"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish refers to Spanish demo and locale, indicating the paper works with the Spanish language, so studied"
+    }
+  }
+}

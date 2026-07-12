@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.14188v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-12T16:21:15.756973+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10767,
+  "verdicts": {
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'noon' refers to the time of day (e.g., 'silent noon paragraph'), not to the Noon language, so false_positive"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The term 'Una' appears only as an article in Italian/Spanish text and not as a language name; the snippets do not refer to the Una language, so false_positive"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Spanish-language fiction' when referring to works by Borges, indicating the language is only mentioned, not studied; verdict mentioned_only"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "Latin is listed as one of the three languages of the corpus and the multilingual embedder is evaluated on Latin texts; the paper uses Latin texts in experiments, so studied"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is identified as a language of several texts (e.g., Dante's Inferno, Calvino) and is used in the experimental corpus, indicating the language is studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as the language of a small illustrative mini‑text used to show the pipeline; the paper does not evaluate or build resources for English, so mentioned_only"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is included among the corpus languages and specific French novels are used in experiments, so the language is studied"
+    }
+  }
+}
