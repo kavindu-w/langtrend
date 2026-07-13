@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.09100v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-13T17:07:06.448339+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3125,
+  "verdicts": {
+    "Miao": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'Zhongtao Miao' as an author's surname, not the Miao language, indicating a false positive."
+    },
+    "Tulu": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions the dataset name 'DR-Tulu-SFT', which contains the word Tulu but does not provide evidence that the paper studies or works on the Tulu language, so it is only mentioned."
+    },
+    "English": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists model names such as 'Cohere-embed-english-v3.0', where 'english' is part of a model identifier, not a reference to the English language itself, making it a false positive."
+    }
+  }
+}

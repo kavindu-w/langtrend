@@ -1,0 +1,117 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.09015v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-13T17:12:42.517030+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11940,
+  "verdicts": {
+    "Arta": {
+      "verdict": "false_positive",
+      "reason": "Arta does not appear as a language name; the snippet contains Sardinian text and no reference to a language called Arta, so it is a false positive."
+    },
+    "Bassa": {
+      "verdict": "false_positive",
+      "reason": "Bassa is not mentioned as a language; the snippet includes Sardinian description of musical parts and does not refer to a language named Bassa, making it a false positive."
+    },
+    "Bari": {
+      "verdict": "false_positive",
+      "reason": "Bari is used as a city name (birthplace) in the text, not as a language, so it is a false positive."
+    },
+    "Canela": {
+      "verdict": "false_positive",
+      "reason": "Canela appears as the word for cinnamon in the paragraph about Sardinia, not as a language name, thus a false positive."
+    },
+    "Dura": {
+      "verdict": "false_positive",
+      "reason": "Dura is used as an adjective meaning 'hard' describing nature, not as a language name, so it is a false positive."
+    },
+    "Cara": {
+      "verdict": "false_positive",
+      "reason": "Cara occurs as a common word (e.g., 'a cara' meaning 'to the face') in the description of the capital, not as a language name, making it a false positive."
+    },
+    "Limba": {
+      "verdict": "false_positive",
+      "reason": "Limba is used generically to mean 'language' (e.g., 'Limba Sarda Comuna', 'una limba neolatina') rather than naming a distinct language, so it is a false positive."
+    },
+    "Roma": {
+      "verdict": "false_positive",
+      "reason": "Roma appears as the city name in the biographical text, not as a language, thus a false positive."
+    },
+    "Rombo": {
+      "verdict": "false_positive",
+      "reason": "Rombo is used as a nickname ('Rombo di Tuono') for a footballer, not as a language name, so it is a false positive."
+    },
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "Sar shows up as a fragment of model-generated text and does not denote a human language, making it a false positive."
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "Una is the Italian indefinite article appearing throughout the snippets, not a language name, so it is a false positive."
+    },
+    "Friulian": {
+      "verdict": "mentioned_only",
+      "reason": "Friulian is mentioned only as an example of another low‑resource Romance language in the conclusion, with no experiments or resources built for it, so it is mentioned_only."
+    },
+    "Corsican": {
+      "verdict": "mentioned_only",
+      "reason": "Corsican is only cited as an example of another low‑resource Romance language that could benefit from the same adaptation pipeline; the paper does not train or evaluate on it"
+    },
+    "Romansh": {
+      "verdict": "mentioned_only",
+      "reason": "Romansh is mentioned solely as a potential target language for future transfer of the method, with no experiments or resources built for it"
+    },
+    "Sicilian": {
+      "verdict": "mentioned_only",
+      "reason": "Sicilian is referenced only as another scarce Romance language that might be handled similarly; no Sardinian‑specific work is done on Sicilian"
+    },
+    "Sardinian": {
+      "verdict": "studied",
+      "reason": "Sardinian text, prompts, and extensive experiments (pretraining, fine‑tuning, translation benchmarks) are central to the paper, indicating the language is studied"
+    },
+    "Tibetan": {
+      "verdict": "false_positive",
+      "reason": "Tibetan appears in discussion of script handling and as a comparative example, not as a language resource or experiment; thus it is a false positive"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is referred to in the context of the Latin script (e.g., “scripts other than Latin”) rather than the Latin language itself, making it a false positive"
+    },
+    "Catalan": {
+      "verdict": "mentioned_only",
+      "reason": "Catalan is listed only as part of the related Romance replay corpus; the paper mentions it but does not build or evaluate resources for Catalan"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is used as a source/target language in translation experiments and appears in the training corpus, so the language is part of the paper's evaluations"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish shows up in the FLORES‑200 translation benchmark where model performance is evaluated, indicating it is used in experiments"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is mentioned only as a source of replay text from Wikipedia; no dedicated experiments or resources are created for Portuguese"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is cited when discussing tokenization and script issues, without any Chinese‑specific data or models, so it is merely mentioned"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as the language of the manuscript and as a source language in translation benchmarks, but no resources are built for English; thus it is only mentioned"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is only cited as a language whose documents are filtered out (removed) and not as a target of any model or evaluation, implying it is merely mentioned"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German appears only as a language whose documents are filtered out and as a country name in a biographical note, with no resources or experiments built for German, implying it is merely mentioned"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is referenced as part of the auxiliary Romance text used in the pretraining corpus, but the paper does not build or evaluate models for Spanish itself, implying it is merely mentioned"
+    }
+  }
+}

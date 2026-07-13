@@ -1,0 +1,65 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.10391v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-13T16:28:18.282517+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5965,
+  "verdicts": {
+    "Ong": {
+      "verdict": "false_positive",
+      "reason": "Ong refers to a contributor's surname (Matthew Ong) in the author list, not a language, leading to a false positive"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi appears in translation evaluation (English–Hindi) indicating the model's performance on Hindi translation, implying the language is studied"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean appears in benchmark results (KMMLU) showing performance evaluation on Korean, implying the language is studied"
+    },
+    "Malay": {
+      "verdict": "studied",
+      "reason": "Malay is listed among languages evaluated and highlighted in performance tables and figures, indicating the model is evaluated on Malay, implying it is studied"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is listed among languages evaluated and highlighted in performance tables and figures, indicating the model is evaluated on Tamil, implying it is studied"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian appears in benchmark results (Indonesian MMLU) and corpus integration, showing evaluation of the model on Indonesian, implying it is studied"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is only mentioned as part of the tokenizer's multilingual token list without any evaluation or data collection, so it is only mentioned"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is only mentioned as part of the tokenizer's multilingual token list without any evaluation or data collection, so it is only mentioned"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is only mentioned as part of the tokenizer's multilingual token list without any evaluation or data collection, so it is only mentioned"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is only mentioned as part of the tokenizer's multilingual token list without any evaluation or data collection, so it is only mentioned"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears in multiple evaluation tables, figures, and tokenizer description with performance results, indicating the language is studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears throughout as a baseline, in pretraining data, design principles, and evaluation results, showing extensive use and evaluation, implying it is studied"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The snippet references Japanese as a target language in translation benchmarks and JMMLU evaluation, showing the paper actively works with Japanese, so the verdict is studied"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet merely lists Spanish among languages whose tokens are covered by the tokenizer, indicating only a mention without further work, so the verdict is mentioned_only"
+    }
+  }
+}

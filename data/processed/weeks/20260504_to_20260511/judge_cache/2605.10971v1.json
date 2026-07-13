@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.10971v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-13T17:29:06.663260+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4731,
+  "verdicts": {
+    "Oro": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists 'Oro' as a token in a vocabulary grounding list, not referring to the Oro language; thus false_positive"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Chinese glosses' indicating Chinese language tokens used for glosses, but only as a mention, not studied; thus mentioned_only"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'pole' as a technical term meaning direction in steering, not the language; thus false_positive"
+    },
+    "Spokane": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the city 'Spokane' in a narrative example, not a language; thus false_positive"
+    },
+    "Catalan": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Catalan club' referring to a regional club, not discussing the Catalan language; thus mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references 'English tokens' and models fine‑tuned on English data, mentioning the language but not studying it; thus mentioned_only"
+    }
+  }
+}

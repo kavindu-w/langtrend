@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.10843v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-13T16:19:54.967302+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9864,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses COL as the country code for Colombia, not referring to a human language"
+    },
+    "Gende": {
+      "verdict": "false_positive",
+      "reason": "The term appears in a table of dimensions as an abbreviation for gender, not a language name"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Used to denote the positive pole of a value dimension, not a language"
+    },
+    "Tha": {
+      "verdict": "false_positive",
+      "reason": "Appears as the country code THA for Thailand, not as a language reference"
+    },
+    "Vai": {
+      "verdict": "false_positive",
+      "reason": "Occurs within Vietnamese text as the Vietnamese word \"vai\" (role), not as the name of the Vai language"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "The paper includes persona prompts written in Vietnamese, using the Vietnamese language for data but does not study or build resources for it"
+    },
+    "Amharic": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned only in a limitations paragraph as a low‑resource language not included in the panel"
+    },
+    "Khmer": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned only as a low‑resource language absent from the study"
+    },
+    "Yoruba": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned only as a low‑resource language not present in the experiments"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Used for answer tokens and evaluation throughout the paper, but the work does not study or develop resources for English itself"
+    }
+  }
+}

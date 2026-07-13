@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.08950v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-13T17:09:54.599067+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11891,
+  "verdicts": {
+    "Tiene": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows the Spanish word 'tiene' (means 'has'), not a language name, so it is a false positive"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows the Spanish article 'una', not a language name, so it is a false positive"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Mentions Mandarin Chinese as a language group used in datasets and experiments, with performance results, indicating the paper studies this language"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "Discusses English as the target language for lexical difficulty prediction and uses English-based inputs; models are built to predict English word difficulty, so the language is studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is listed as one of the L1 groups and evaluated in experiments, with performance metrics across German data, indicating the paper studies this language"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is listed as one of the L1 groups and evaluated in experiments, with performance metrics across Spanish data, indicating the paper studies this language"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.10296v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-13T16:29:06.364697+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7915,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to uppercase Latin letters used for answer options, not the Latin language"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian refers to the target language of the retrieval and QA tasks, with new Ukrainian datasets and training resources built, indicating the paper studies Ukrainian"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the source language of the pretraining corpus and translation material, only mentioned as a source, not studied"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.18808v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-13T16:10:18.776537+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11782,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to a generic 'content-carrier' term in the text, not the Carrier human language, so false_positive"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is mentioned only as a language the authors did not test, so mentioned_only"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned only as a language the authors did not test, so mentioned_only"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean is mentioned only as a language not tested or as future work, so mentioned_only"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only as a language not tested or as future work, so mentioned_only"
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "Czech is referenced as a source of foreign vocabulary injected under French prompts, not as a focus of study, so mentioned_only"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish is referenced as a source of foreign vocabulary injected under English prompts, not as a focus of study, so mentioned_only"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the primary language of prompts, outputs, and analyses, and the paper evaluates English-language behavior, so studied"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is used as a prompt language and evaluated for cross‑lingual gate behavior, indicating the paper studies it, so studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is used as a prompt language and a language‑specific gate is analyzed, showing the paper studies it, so studied"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is used as a prompt language and evaluated in the experiments, so studied"
+    }
+  }
+}
