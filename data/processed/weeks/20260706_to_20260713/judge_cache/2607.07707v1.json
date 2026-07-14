@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.07707v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T16:57:03.546732+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4329,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'jina-embeddings-v5-text-nano' which is a query encoder/embedder model, not the human language; thus it's a false positive."
+    },
+    "Lama": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'LAMA' as a knowledge completion benchmark (from Petroni et al., 2019), not a human language; therefore it's a false positive."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The excerpts discuss using Simple English Wikipedia and the English Wikipedia dump as data sources and evaluation sets, directly referring to the English language; the paper evaluates models on Englis"
+    }
+  }
+}

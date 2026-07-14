@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.05614v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T17:21:27.438015+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7939,
+  "verdicts": {
+    "Dla": {
+      "verdict": "false_positive",
+      "reason": "The snippets use Dla as an abbreviation for Document Layout Analysis, a task, not a human language, so it is a false positive"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to Logo as a visual element (image/diagram/logo/figure) within forms, not a human language, so it is a false positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets discuss English forms used for comparison with Bangla, but the paper does not build resources or evaluate models specifically for English, so it is only mentioned"
+    }
+  }
+}

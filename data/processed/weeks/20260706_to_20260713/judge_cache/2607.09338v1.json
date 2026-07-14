@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.09338v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T16:31:03.724091+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4854,
+  "verdicts": {
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian refers to the cuisine type (Italian food/restaurant) used as slot values in the dialogue examples, not the Italian language, so false_positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language of the utterances when discussing linguistic constraints, but the paper does not study English itself, only uses it, so mentioned_only"
+    },
+    "Spanish": {
+      "verdict": "false_positive",
+      "reason": "Spanish appears as a cuisine label (Spanish food) and as 'Spanish instances' in the knowledge base, referring to food type rather than the Spanish language, thus false_positive"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.08662v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T16:39:51.500624+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5924,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the Jina Reader API and a Jina-based page-reading tool, i.e., a software library, not a human language; thus false_positive"
+    },
+    "Roma": {
+      "verdict": "false_positive",
+      "reason": "ROMA refers to a recursive meta-agent framework (a model) cited in the paper, not a human language; thus false_positive"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the Chinese language tasks in the benchmark, but the paper only mentions them and does not evaluate or build resources for Chinese; thus mentioned_only"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language tasks used in the experiments and benchmarks, and the paper conducts experiments on English data, so it is studied"
+    }
+  }
+}

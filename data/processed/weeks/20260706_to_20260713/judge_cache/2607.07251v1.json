@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.07251v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T16:59:27.613117+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1184,
+  "verdicts": {
+    "Ese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets list Ese as a language name but the paper focuses on four languages and provides no experimental work on Ese, so it is only mentioned."
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears only as a language name in the introduction, without any experiments or resources built for it, indicating it is merely mentioned."
+    },
+    "Kono": {
+      "verdict": "mentioned_only",
+      "reason": "Kono is referenced by name in multiple sections but the study does not build or evaluate models for Kono, so it is only mentioned."
+    },
+    "Finnish": {
+      "verdict": "mentioned_only",
+      "reason": "Finnish is cited in the background discussion of spatial deictic expressions, but no data or experiments are conducted for Finnish, making it a mention only."
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is repeatedly referenced in method, prompt, and results sections where the benchmark is applied, indicating the paper builds and evaluates models for Korean."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears throughout the methodology and results, showing that the benchmark is used to evaluate VLM performance on Chinese, so it is studied."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used in the experimental setting, prompts, and evaluation, demonstrating that the paper conducts experiments with English data, thus it is studied."
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is included in the benchmark and appears in method and results sections, indicating the paper evaluates VLMs on Japanese, so it is studied."
+    }
+  }
+}

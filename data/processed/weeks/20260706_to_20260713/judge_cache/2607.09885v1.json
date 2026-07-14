@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.09885v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T16:26:15.857781+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6070,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin letters in the tokenizer discussion, not the Latin language, so false_positive"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean refers to the Korean language in a tokenizer compression table, only mentioned for evaluation, so mentioned_only"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese refers to the Japanese language in a tokenizer compression table, only mentioned for evaluation, so mentioned_only"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language throughout the paper (pretraining data, tokenizer design, instruction pairs, and benchmark evaluation), indicating the paper studies Chinese, so studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language throughout the paper (pretraining data, instruction pairs, and evaluation), indicating the paper studies English, so studied"
+    }
+  }
+}

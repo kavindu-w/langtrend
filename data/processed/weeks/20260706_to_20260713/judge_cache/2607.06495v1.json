@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.06495v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T17:06:43.727101+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7114,
+  "verdicts": {
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "In the calibration parameters, \"deg\" is a variable/unit (e.g., degrees or degradation) related to fuel effect, not a human language, so false_positive"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Throughout the paper \"Mae\" appears as the abbreviation MAE for Mean Absolute Error, not a language, so false_positive"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "The term \"pole\" is used to denote pole position (grid-order baseline), not a language, so false_positive"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The system explicitly generates strategy briefings in Portuguese, making Portuguese a language the paper studies, so studied"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The paper produces briefings in Spanish and evaluates them, indicating Spanish is a language studied in the work, so studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as an output language for the generated briefings and is part of the system's evaluation, thus it is studied, so studied"
+    }
+  }
+}

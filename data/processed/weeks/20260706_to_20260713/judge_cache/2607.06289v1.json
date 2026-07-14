@@ -1,0 +1,81 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.06289v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T17:07:03.649552+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11749,
+  "verdicts": {
+    "Ainu": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites prior work on Sakhalin Ainu ASR as an example of transfer learning, not as a focus of this study"
+    },
+    "Malasar": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references Tamil to Malasar multistage transfer in prior work, but the paper does not build resources or evaluate Malasar itself"
+    },
+    "Tujia": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Chinese-to-Tujia transfer as prior work, without conducting experiments on Tujia in this paper"
+    },
+    "Kinyarwanda": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet reports performance numbers for Kinyarwanda from previous studies, not part of the current experiments"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet reports Swahili performance numbers from prior work, not studied in the present experiments"
+    },
+    "Danish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet discusses zero-shot transfer across Swedish, Danish and Norwegian as prior work, not a focus of this paper"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Tamil to Malasar transfer in prior work, but Tamil itself is not a target of the current study"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites pretraining on Korean speech in prior work, without evaluating Korean in this study"
+    },
+    "Norwegian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references Norwegian in the context of prior multilingual transfer experiments, not studied here"
+    },
+    "Mama": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word 'mama' within example sentences, which is a lexical item rather than a language name, so this is a false positive"
+    },
+    "Maldivian": {
+      "verdict": "studied",
+      "reason": "The snippet states that Dhivehi is also called Maldivian, and the paper builds ASR models for Dhivehi, effectively studying this language"
+    },
+    "Sinhala": {
+      "verdict": "studied",
+      "reason": "The snippet shows extensive use of Sinhala data for transfer learning experiments, model training, and evaluation, indicating the language is studied"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites prior work reducing performance for Portuguese as a language, not as a model or tool, indicating it is only mentioned"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references Russian in the context of multilingual dataset improvements, referring to the language itself, only mentioned"
+    },
+    "Swedish": {
+      "verdict": "mentioned_only",
+      "reason": "Swedish is mentioned as one of the languages in zero-shot transfer experiments from prior work, not studied here"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears in prior work describing Chinese-to-Tujia transfer, referring to the language, only mentioned"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is used as a control language in the paper's experiments and methodology, indicating the language is actively studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned in prior work about pre‑training English on Korean speech, referring to the language only"
+    }
+  }
+}

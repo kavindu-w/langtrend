@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.05355v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T17:37:27.778421+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11775,
+  "verdicts": {
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'mal' is used as a domain label (e.g., malicious/ malign) in tables and method descriptions, not referring to a human language"
+    },
+    "Wanda": {
+      "verdict": "false_positive",
+      "reason": "Throughout the paper, 'Wanda' denotes a selector algorithm (row-aggregated adaptation) and appears in method names and analyses, not a human language"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'English' appears only in the Limitations section as a language mention (non-English inputs are out of scope), without any study or resource development for it"
+    }
+  }
+}

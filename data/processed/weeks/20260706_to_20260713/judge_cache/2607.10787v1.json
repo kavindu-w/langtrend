@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.10787v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T17:44:17.117934+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4408,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'real carrier' refers to a detection concept (the carrier of artifacts), not a human language, so it is a false positive."
+    },
+    "Sora": {
+      "verdict": "false_positive",
+      "reason": "'Sora' is used as the name of a text‑to‑video generation model (e.g., Sora 2), not a human language, making it a false positive."
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "The term appears in the context of 'GAN' (generative adversarial network) and not as a language name, so it is a false positive."
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions a 'Large‑scale Korean AIGC‑V detection dataset', referring to the Korean language as part of a dataset, but the paper does not build or evaluate resources for Korean, so it is onl"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic appears in the name of a dataset for Arabic‑English code‑switching; the paper only cites the dataset without conducting Arabic‑specific experiments, so it is mentioned only."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as part of an Arabic‑English code‑switching dataset; the survey does not study English language resources directly, so it is mentioned only."
+    }
+  }
+}
