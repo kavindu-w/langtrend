@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.03073v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T19:08:46.857371+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11572,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to 'carrier sentences' used to embed entities, not the Carrier language"
+    },
+    "Kannada": {
+      "verdict": "mentioned_only",
+      "reason": "Kannada is mentioned only as a script output observed in Whisper's errors, with no experiments on the language"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu is the primary language for which synthetic audio is generated and ASR performance is evaluated, making it a studied language"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is included in cross-language evaluation and LoRA fine‑tuning results, so it is studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin numerals and script used in examples, not the Latin language"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is evaluated in cross-language results and script fidelity measurements, thus it is studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as part of code‑mixed examples and brand names, with no dedicated experiments, so it is mentioned only"
+    }
+  }
+}

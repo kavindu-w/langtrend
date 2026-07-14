@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.03780v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T18:54:23.654577+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10330,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'col' denotes the column space of a matrix (e.g., col(𝚯̂)) used in mathematical analysis, not a human language."
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Here 'pin' is part of the verb phrase 'pin down' meaning to specify precisely, not a language name."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a source language in word‑function tasks (e.g., English→French) and OOD task construction, but the paper does not build resources or evaluate models specifically for English; "
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears as a target language in tasks (English→French) and in OOD task construction, yet the work does not study French itself, only uses it as an example task."
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is mentioned as a target language in tasks (English→German) but the paper does not focus on German language resources; it is mentioned only."
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is used as a target language in tasks (English→Spanish) without any dedicated study of the language; it is mentioned only."
+    }
+  }
+}

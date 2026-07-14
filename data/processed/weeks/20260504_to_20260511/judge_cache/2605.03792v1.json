@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.03792v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T18:51:59.300632+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9940,
+  "verdicts": {
+    "Sensi": {
+      "verdict": "false_positive",
+      "reason": "Sensi appears as a column label for a risk type in a performance table, not as a reference to the Sensi human language, so false_positive"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean refers to the Korean language used in prompts, annotations, data sources, and the benchmark itself, indicating the paper builds and evaluates resources for Korean, so studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as English glosses/translations of Korean prompts for non‑Korean readers, without any study or resource development for English, so mentioned_only"
+    }
+  }
+}

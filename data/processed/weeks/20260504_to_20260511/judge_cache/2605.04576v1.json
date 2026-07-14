@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.04576v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T18:39:34.758771+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7914,
+  "verdicts": {
+    "Dari": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Dari as the Afghan variety of Persian language, mentioned only as a comparative script; thus the paper only mentions the language."
+    },
+    "Tajik": {
+      "verdict": "studied",
+      "reason": "The snippets describe Tajik as the target language of the POS tagging benchmark, with dedicated corpus and experiments; thus the language is studied."
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is referenced as a related language and as the basis for the ParsBERT model used for comparison, but no resources are built for it; thus only mentioned."
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian appears via the ruBERT model and discussion of shared Cyrillic script, without dedicated study; thus only mentioned."
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic is used only to denote the Arabic script in which Persian equivalents are written, not the Arabic language itself; thus a false positive."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.03742v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-14T18:52:47.357608+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11618,
+  "verdicts": {
+    "Tajik": {
+      "verdict": "studied",
+      "reason": "The snippets discuss the Tajik language as the target of corpus creation, model training and evaluation, indicating the paper studies Tajik"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The term 'Latin' appears only as part of the phrase 'non‑Latin script', referring to script type, not the Latin language"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic is mentioned only in the context of 'Persian Arabic scripts', referring to script, not the Arabic language"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is referenced as a related language and as the source of a Persian BERT model used for comparison, but no resources or experiments are built for Persian itself"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian appears in example outputs labeled as Russian text, serving only as an illustration, with no dedicated Russian experiments"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is cited as a high‑resource language and appears in generated example texts, but the paper does not develop resources or models for English"
+    }
+  }
+}
