@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.01417v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-15T15:32:05.367097+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4858,
+  "verdicts": {
+    "Anal": {
+      "verdict": "false_positive",
+      "reason": "The term 'anal' refers to an anatomical region (anal pain) in the medical case description, not to a human language, so it is a false positive."
+    },
+    "Bote": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Bote' appears as a placeholder or variable name for an input/output format, not as a human language, making it a false positive."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet mentions 'Simplified Chinese' and 'Traditional Chinese' as the languages of medical licensing exam questions used in the benchmark, indicating the paper actually uses Chinese-language data"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English as the language of USMLE questions and English corpus used in the benchmark, showing the paper employs English-language data in its evaluation, thus it is studied."
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippet describes that the dataset originates from Spanish Specialized Healthcare Training examinations, meaning the paper utilizes Spanish-language data in its benchmark, so it is studied."
+    }
+  }
+}

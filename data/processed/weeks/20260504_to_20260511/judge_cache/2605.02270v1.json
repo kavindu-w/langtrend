@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.02270v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-15T15:10:18.135074+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11953,
+  "verdicts": {
+    "Dari": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Dari–Tajik parallels', referring to the Dari language as a future extension, but the paper does not build resources or evaluate models for Dari"
+    },
+    "Tajik": {
+      "verdict": "studied",
+      "reason": "The snippets describe dataset construction, script analysis, and extensive experiments targeting Tajik, indicating the paper studies Tajik directly"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'fragments in Latin script' and excludes them, indicating Latin is mentioned as a script, not as the Latin language"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "The snippets discuss Persian texts, script, and transliteration targets, showing the paper creates resources and evaluates models for Persian"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "The mentions pertain to 'Arabic script' and 'Arabic characters' used for Persian, not to the Arabic language itself"
+    }
+  }
+}

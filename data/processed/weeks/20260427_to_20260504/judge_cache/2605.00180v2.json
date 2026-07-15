@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.00180v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-15T16:02:44.391281+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3172,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "The match refers to benchmark names like 'AGIEval' and 'agi eval', not to a human language, so it is a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists 'English' as the language of a dataset (e.g., 'AGIEval English'), indicating a mention of the English language but no study of it, so it is mentioned_only."
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet contains no occurrence of the word 'Polish'; the detection likely stems from unrelated text, and the paper does not study Polish, so it is treated as a mention only."
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to 'A Chinese standardized-exam benchmark', mentioning the Chinese language in the context of a benchmark without studying the language itself, so it is mentioned_only."
+    }
+  }
+}

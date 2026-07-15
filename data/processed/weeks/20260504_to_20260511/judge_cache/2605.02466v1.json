@@ -1,0 +1,21 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.02466v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-15T15:03:20.496620+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7465,
+  "verdicts": {
+    "Acheron": {
+      "verdict": "false_positive",
+      "reason": "Acheron appears as a headword entry (e.g., Acheron, Acherontia) in the table, not referring to the Acheron language, so it is a false positive"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Swedish refers to the language of the Nordisk familjebok encyclopedia and the Swedish text used for NER, classification, and embedding models, indicating the paper builds and evaluates resources for S"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned only in the context of a French dictionary (Petit Larousse) in related work, with no experiments or resources built for French, so it is mentioned_only"
+    }
+  }
+}
