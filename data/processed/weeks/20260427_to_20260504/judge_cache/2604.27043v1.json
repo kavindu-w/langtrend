@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2604.27043v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-16T15:31:28.210980+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5135,
+  "verdicts": {
+    "Cora": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'Cora' as a personal name in Slack mentions, not as a language name, so it is a false positive."
+    },
+    "Gimi": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'Gimi' as a person's name in dialogue, not to the Gimi language, so it is a false positive."
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The snippets mention 'Japanese' as an adjective for products (e.g., Japanese Grill, Japan Voltage Converter), not the Japanese language, so it is a false positive."
+    },
+    "Moba": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'MOBA' to denote a game genre (Multiplayer Online Battle Arena), not the Moba language, so it is a false positive."
+    }
+  }
+}

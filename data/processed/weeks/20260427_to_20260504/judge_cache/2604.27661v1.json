@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2604.27661v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-16T15:15:28.883000+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11729,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The term appears as the German conjunction 'dass' within example sentences, not as a language name, so it is a false positive"
+    },
+    "Maan": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'ech perséinlech maan' the word is a Luxembourgish verb meaning 'think', not a language, so it is a false positive"
+    },
+    "Mengen": {
+      "verdict": "false_positive",
+      "reason": "The word occurs as 'mengen' meaning 'think' in Luxembourgish/German, not as a language name, thus a false positive"
+    },
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "Used as the Luxembourgish pronoun 'we' in multiple contexts, not referring to a language, so it is a false positive"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "Appears as the German pronoun 'sie' within sentences, not as a language name, making it a false positive"
+    },
+    "Sou": {
+      "verdict": "false_positive",
+      "reason": "Functions as the Luxembourgish adverb 'sou' ('so'), not a language, therefore a false positive"
+    },
+    "Luxembourgish": {
+      "verdict": "studied",
+      "reason": "The paper collects Luxembourgish comments, annotates them, and evaluates LLMs on this data, so the language is actively studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a translation target and in prompts, with model performance evaluated on English data, indicating it is studied"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French appears as a translation language for the Luxembourgish comments and model performance is reported on French data, so it is studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is employed as a translation language and model performance is evaluated on German data, thus the language is studied"
+    }
+  }
+}

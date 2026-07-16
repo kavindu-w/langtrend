@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2604.27228v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-16T15:27:03.983913+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11935,
+  "verdicts": {
+    "Kein": {
+      "verdict": "false_positive",
+      "reason": "Kein is a German word meaning 'no', not a language name; the snippets show German statements but no reference to a language called Kein, so false_positive"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "Sie is a German pronoun meaning 'you', not a language name; the snippets contain German text but no indication of a language called Sie, so false_positive"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language of the statement dataset and experiments; the paper evaluates models on English statements, so studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the German language of the statement dataset and experiments; the paper evaluates models on German statements, so studied"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.01831v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-16T15:07:04.331507+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8043,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "mentioned_only",
+      "reason": "Tulu appears only in model names (e.g., Llama-3.1-Tulu-3-8B-RM) and evaluation tables, not as a language being analyzed; it is merely mentioned as part of model identifiers"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Greek letters' in Unicode ranges for a content filter, referring to script characters rather than the Greek language"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'non-Latin scripts' as part of Unicode filtering, indicating the Latin script, not the Latin language"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper explicitly filters for English text, limits the benchmark to English prompts, and evaluates reward models on English data, showing the language is used in the study"
+    }
+  }
+}

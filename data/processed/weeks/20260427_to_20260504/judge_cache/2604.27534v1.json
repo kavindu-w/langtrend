@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2604.27534v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-16T15:19:28.211179+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7235,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'bo-' is a fragment of a Ukrainian word, not a language name, so false_positive"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The phrase 'Latin characters' refers to the Latin script, not the Latin language, so false_positive"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "The abstract mentions a prior entropy study for Hebrew but does not conduct work on Hebrew itself, so mentioned_only"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "The paper performs Shannon's entropy experiment, collects data, and evaluates models specifically for Ukrainian, so studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced only for comparison and prior work, without any experiments or resources built for it, so mentioned_only"
+    }
+  }
+}
