@@ -1,0 +1,37 @@
+{
+  "paper_id": "http://arxiv.org/abs/2604.26230v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-17T15:05:39.786545+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 6311,
+  "verdicts": {
+    "Ache": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists medical terms including 'ache*', which is a word fragment, not the Ache language; thus false_positive"
+    },
+    "Ito": {
+      "verdict": "false_positive",
+      "reason": "The occurrences of 'Ito' appear as author surnames in citations, not referring to the Ito language; thus false_positive"
+    },
+    "Seki": {
+      "verdict": "false_positive",
+      "reason": "Seki appears as an author name in references, not the Seki language; thus false_positive"
+    },
+    "Bugis": {
+      "verdict": "mentioned_only",
+      "reason": "The reference cites a study on the Bugis language, but the current paper only cites it and does not conduct its own work on Bugis; thus mentioned_only"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Mentions of 'Chinese' refer to diplomats, leaders, and media, not to the Chinese language itself; thus mentioned_only"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper analyzes an English-language newspaper corpus and applies polarity models to English text, indicating the language is used in experiments; thus studied"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German appears only in a cited work about German political text, with no direct work on German in this paper; thus mentioned_only"
+    }
+  }
+}

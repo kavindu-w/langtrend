@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2604.24929v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-17T14:57:15.620056+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9938,
+  "verdicts": {
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "Sie refers to the German formal pronoun, not the language, so false_positive"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is listed as one of the five target non‑English languages for which the benchmark is adapted and evaluated, indicating the paper studies Hindi, verdict studied"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese (Brazil) is a target language for which GAIA‑v2‑LILT provides data and performance results, so the paper studies Portuguese, verdict studied"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian appears only as an example of a hallucination where the model output the wrong language, so the language is merely mentioned, verdict mentioned_only"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is a target language undergoing cultural alignment, difficulty calibration and performance evaluation, thus the paper studies Korean, verdict studied"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is a target language evaluated and discussed (e.g., translation errors), so the paper studies Arabic, verdict studied"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is the source language and baseline for comparison, mentioned but not a focus of resource creation, so verdict mentioned_only"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is a target language with evaluation results and examples, indicating the paper studies German, verdict studied"
+    }
+  }
+}

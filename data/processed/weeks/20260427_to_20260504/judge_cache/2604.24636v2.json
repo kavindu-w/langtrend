@@ -1,0 +1,33 @@
+{
+  "paper_id": "http://arxiv.org/abs/2604.24636v2",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-17T15:01:15.770436+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10813,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "Dia appears only as the common word for 'day' in the code comments, not as a language name → false_positive"
+    },
+    "Tem": {
+      "verdict": "false_positive",
+      "reason": "Tem is used as a Portuguese verb meaning 'has' in example hints, not referring to a language → false_positive"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian refers to an added Italian dataset used to demonstrate extensibility, but the paper does not evaluate or build resources for it → mentioned_only"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is the target language for hints, prompts, and evaluation throughout the study, indicating the paper works with Portuguese data → studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is repeatedly used as a target language in prompts, experiments, and analysis, showing the paper works with English data → studied"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is listed as a supported language and appears in experimental sections, indicating the paper evaluates Spanish data → studied"
+    }
+  }
+}

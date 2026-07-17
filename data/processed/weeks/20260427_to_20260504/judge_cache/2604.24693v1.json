@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2604.24693v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-17T15:00:28.554610+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5248,
+  "verdicts": {
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not contain a reference to a language named Uma; the apparent match is likely a mis‑detection of the Spanish word 'Una', so it is a false positive"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'Una' is the Spanish word meaning 'one' introducing the translation, not a language name, so it is a false positive"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet labels a translation as 'Italian' and shows the Italian version of the quote, but the paper only provides it as an illustrative example, not as a focus of experiments, so it is mentioned o"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet provides a Portuguese translation of the example quote, but Portuguese is not used in the paper's experiments or resources, so it is mentioned only"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet includes a German translation of the quote as an example, without any experimental work on German, so it is mentioned only"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet shows a Japanese translation of the quote as an example, but Japanese is not part of the evaluated tasks, so it is mentioned only"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet contains a Spanish translation of the quote used as an example; Spanish is not a target language in the reported experiments, so it is mentioned only"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet provides Chinese translations and the experiments include an MNMT task translating English quotes into Chinese, indicating the language is used in evaluation, so it is studied"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippet provides French translations and the experiments include an MNMT task translating English quotes into French, indicating the language is used in evaluation, so it is studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language of the quotes and appears in multiple benchmark datasets (e.g., IMDb, MMLU) used in the experiments, so it is studied"
+    }
+  }
+}
