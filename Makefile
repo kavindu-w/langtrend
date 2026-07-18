@@ -31,6 +31,10 @@ _NO_PDF_FLAG   = $(if $(NO_PDF),--no-pdf,)
 # Pass --pdf-only only when PDF_ONLY=1 (reprocess targets only: limit to papers with a
 # cached PDF extraction, e.g. after a pdf_processor.py-only change)
 _PDF_ONLY_FLAG = $(if $(PDF_ONLY),--pdf-only,)
+# Pass --force-pdf-reextract only when FORCE_PDF_REEXTRACT=1 (reprocess targets, with
+# PDF_ONLY=1: re-run docling instead of reusing pdf_cache's stored text — needed for
+# fixes inside the docling extraction step itself, e.g. markdown end-matter trimming)
+_FORCE_PDF_REEXTRACT_FLAG = $(if $(FORCE_PDF_REEXTRACT),--force-pdf-reextract,)
 # manifest has no --end-date flag of its own; when INPUT isn't given explicitly,
 # derive the metadata filename from END_DATE/WINDOW_DAYS the same way
 # fetch_arxiv_metadata.py names it (arxiv_papers_<start>_to_<end>.jsonl).
@@ -92,6 +96,9 @@ help:
 	@echo "         — space-separated end-dates for *-all targets"
 	@echo "  NO_PDF=1    skip docling PDF processing (safe for parallel terminals)"
 	@echo "  PDF_ONLY=1  reprocess/reprocess-all: only papers with a cached PDF extraction"
+	@echo "  FORCE_PDF_REEXTRACT=1  with PDF_ONLY=1: re-run docling (reuses data/raw/pdfs,"
+	@echo "                          no re-download) instead of reusing cached text — needed"
+	@echo "                          for fixes inside docling extraction itself"
 	@echo "  WORKERS=$(WORKERS)  DATA_ROOT=$(DATA_ROOT)  WINDOW_DAYS=$(WINDOW_DAYS)  MAX_RESULTS=$(MAX_RESULTS)"
 	@echo "  JUDGE_WORKERS=$(JUDGE_WORKERS)  (LLM judge config lives in .env — see .env.example)"
 	@echo ""
@@ -142,7 +149,8 @@ reprocess:
 		$(_END_DATE_FLAG) \
 		--skip-fetch \
 		--reprocess-cache \
-		$(_PDF_ONLY_FLAG)
+		$(_PDF_ONLY_FLAG) \
+		$(_FORCE_PDF_REEXTRACT_FLAG)
 
 retry-missing:
 	scripts/run_logged.sh retry-missing \
@@ -224,7 +232,7 @@ reprocess-all:
 		scripts/run_logged.sh reprocess-all-$$d \
 		$(PYTHON) scripts/run_langtrend_pipeline.py \
 			--data-root $(DATA_ROOT) --window-days $(WINDOW_DAYS) --workers $(WORKERS) \
-			--end-date $$d --skip-fetch --reprocess-cache $(_PDF_ONLY_FLAG); \
+			--end-date $$d --skip-fetch --reprocess-cache $(_PDF_ONLY_FLAG) $(_FORCE_PDF_REEXTRACT_FLAG); \
 	done
 
 retry-missing-all:

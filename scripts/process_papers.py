@@ -282,8 +282,18 @@ def _reprocess_single_paper(
     possible_false_positive_languages: dict[str, str],
     html_cache_dir: Path,
     pdf_cache_dir: Path,
+    force_pdf_reextract: bool = False,
+    pdf_dir: Path | None = None,
 ) -> dict:
-    """Re-run text cleaning + language detection on cached extractions only."""
+    """Re-run text cleaning + language detection on cached extractions only.
+
+    force_pdf_reextract re-runs docling on the underlying PDF (reusing the local
+    copy under pdf_dir if present, downloading only if it's gone) instead of reusing
+    pdf_cache's stored "text". That stored text already reflects whatever
+    trim_markdown_end_matter did at the time of the original extraction — a fix to
+    that function can only take effect on already-cached papers by re-extracting,
+    since the pre-trim markdown itself is never cached.
+    """
     import time as _time
     t_paper = _time.monotonic()
     paper_id = paper.get("id", "unknown")
@@ -401,11 +411,28 @@ def _reprocess_single_paper(
             try:
                 with pdf_cache_path.open("r", encoding="utf-8") as fh:
                     pdf_cached = json.load(fh)
-                text = pdf_cached.get("text", "")
-                if text:
+
+                raw_text = None
+                if force_pdf_reextract:
+                    pdf_url = paper.get("pdf_url")
+                    pdf_path = _download_pdf(pdf_url, pdf_dir, paper_id) if pdf_url else None
+                    if pdf_path:
+                        processor = PDFProcessor(input_dir=str(pdf_path.parent), output_dir=str(pdf_path.parent))
+                        raw_text, extract_meta = processor.extract_text(pdf_path)
+                        end_matter_trimmed = bool(extract_meta.get("end_matter_trimmed"))
+                        pdf_cached["text"] = raw_text
+                        pdf_cached["end_matter_trimmed"] = end_matter_trimmed
+                    else:
+                        tqdm.write(f"  [{paper_id}] force_pdf_reextract: no pdf_url / download failed — falling back to cached text")
+
+                if raw_text is None:
+                    raw_text = pdf_cached.get("text", "")
                     # Cache entries written before this flag existed default to False
                     # (re-trim, matching the old, pre-fix behavior for that cached text).
                     end_matter_trimmed = bool(pdf_cached.get("end_matter_trimmed", False))
+
+                text = raw_text
+                if text:
                     processor = PDFProcessor(input_dir=".", output_dir=".")
                     cleaned_text = processor.clean_text(text)
                     body_text = trim_pdf_text_to_body(cleaned_text, trim_end=not end_matter_trimmed)
@@ -448,6 +475,8 @@ def reprocess_from_cache(
     pdf_cache_dir: Path,
     no_detections_file: Path | None = None,
     max_workers: int = 4,
+    force_pdf_reextract: bool = False,
+    pdf_dir: Path | None = None,
 ) -> dict:
     """Re-run cleaning + detection on cached HTML/PDF text; write new output JSONL."""
     output_jsonl.parent.mkdir(parents=True, exist_ok=True)
@@ -474,6 +503,8 @@ def reprocess_from_cache(
                 possible_false_positive_languages,
                 html_cache_dir,
                 pdf_cache_dir,
+                force_pdf_reextract,
+                pdf_dir,
             ): paper
             for paper in papers
         }
@@ -801,6 +832,18 @@ def main() -> None:
         ),
     )
     parser.add_argument(
+        "--force-pdf-reextract",
+        action="store_true",
+        help=(
+            "With --reprocess-cache --pdf-only, re-run docling on the underlying PDF "
+            "instead of reusing pdf_cache's stored text. Reuses the local copy under "
+            "data/raw/pdfs if present (no re-download), but does re-run extraction — "
+            "needed because a fix to the docling markdown-trimming step only affects "
+            "papers whose text is freshly extracted; the cached 'text' field already "
+            "reflects whatever trimming happened at original extraction time."
+        ),
+    )
+    parser.add_argument(
         "--retry-missing",
         action="store_true",
         help=(
@@ -874,6 +917,8 @@ def main() -> None:
         with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
             tmp_no_det = Path(tmp.name)
 
+        if args.force_pdf_reextract:
+            print(f"--force-pdf-reextract: re-running docling on {len(subset)} paper(s) (reusing local PDFs where present)")
         reprocess_from_cache(
             papers=subset,
             lang_classes=lang_classes,
@@ -885,6 +930,8 @@ def main() -> None:
             pdf_cache_dir=pdf_cache_dir,
             no_detections_file=tmp_no_det,
             max_workers=args.workers,
+            force_pdf_reextract=args.force_pdf_reextract,
+            pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
         )
 
         reprocessed_ids = {str(p.get("id", "")) for p in subset}
