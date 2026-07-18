@@ -788,6 +788,19 @@ def main() -> None:
         ),
     )
     parser.add_argument(
+        "--pdf-only",
+        action="store_true",
+        help=(
+            "With --reprocess-cache, only re-run papers that have a cached PDF extraction "
+            "(i.e. papers whose detections came from the PDF fallback), instead of every "
+            "paper in the week. Use after a change to PDF-only logic (pdf_processor.py, "
+            "trim_pdf_text_to_body, etc.) — abstract/HTML detections are untouched, so "
+            "reprocessing them again would be wasted work. Results are merged into the "
+            "existing detected/warnings/no-detections files; papers without a PDF cache "
+            "are left exactly as they are."
+        ),
+    )
+    parser.add_argument(
         "--retry-missing",
         action="store_true",
         help=(
@@ -838,7 +851,95 @@ def main() -> None:
     html_cache_dir = output_dir / "html_cache"
     pdf_cache_dir = output_dir / "pdf_cache"
 
-    if args.reprocess_cache:
+    if args.reprocess_cache and args.pdf_only:
+        pdf_cached_ids = {p.stem for p in pdf_cache_dir.glob("*.json")}
+        subset = [p for p in papers if str(p.get("id", "")).split("/")[-1] in pdf_cached_ids]
+        print(
+            f"--reprocess-cache --pdf-only: {len(subset)}/{len(papers)} paper(s) have a "
+            f"cached PDF extraction in {pdf_cache_dir}; reprocessing those only"
+        )
+        if not subset:
+            print("--pdf-only: nothing to do.")
+            sys.exit(0)
+
+        detected_path = output_dir / f"{stem}_detected.jsonl"
+        warnings_path = output_dir / f"{stem}_warnings.json"
+        no_det_path   = output_dir / f"{stem}_no_detections.json"
+
+        import tempfile
+        with tempfile.NamedTemporaryFile(suffix=".jsonl", delete=False) as tmp:
+            tmp_detected = Path(tmp.name)
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
+            tmp_warnings = Path(tmp.name)
+        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
+            tmp_no_det = Path(tmp.name)
+
+        reprocess_from_cache(
+            papers=subset,
+            lang_classes=lang_classes,
+            languages_to_ignore=languages_to_ignore,
+            possible_false_positive_languages=possible_false_positive_languages,
+            output_jsonl=tmp_detected,
+            warnings_file=tmp_warnings,
+            html_cache_dir=html_cache_dir,
+            pdf_cache_dir=pdf_cache_dir,
+            no_detections_file=tmp_no_det,
+            max_workers=args.workers,
+        )
+
+        reprocessed_ids = {str(p.get("id", "")) for p in subset}
+
+        # Merge detected.jsonl: drop old lines for reprocessed papers, keep everything
+        # else untouched, then write back the fresh results for the reprocessed subset.
+        existing_detected = []
+        if detected_path.exists():
+            for line in detected_path.read_text(encoding="utf-8").splitlines():
+                if line.strip() and json.loads(line).get("paper_id") not in reprocessed_ids:
+                    existing_detected.append(line)
+        new_detected = [l for l in tmp_detected.read_text(encoding="utf-8").splitlines() if l.strip()]
+        with detected_path.open("w", encoding="utf-8") as fp:
+            for line in existing_detected + new_detected:
+                fp.write(line + "\n")
+        print(f"Merged: kept {len(existing_detected)} unchanged + wrote {len(new_detected)} reprocessed detection record(s) into {detected_path}")
+
+        # Merge no_detections.json the same way.
+        existing_no_det = []
+        if no_det_path.exists():
+            try:
+                existing_no_det = [
+                    r for r in json.loads(no_det_path.read_text(encoding="utf-8"))
+                    if r.get("paper_id") not in reprocessed_ids
+                ]
+            except (json.JSONDecodeError, KeyError):
+                pass
+        new_no_det = json.loads(tmp_no_det.read_text(encoding="utf-8")) if tmp_no_det.exists() and tmp_no_det.stat().st_size > 2 else []
+        with no_det_path.open("w", encoding="utf-8") as fp:
+            json.dump(existing_no_det + new_no_det, fp, ensure_ascii=False, indent=2)
+        print(f"No-detection records: {len(existing_no_det) + len(new_no_det)} → {no_det_path}")
+
+        # Merge warnings.json: drop old warnings for reprocessed papers, keep the rest,
+        # append any fresh ones.
+        existing_warnings = []
+        if warnings_path.exists():
+            try:
+                existing_warnings = [
+                    w for w in json.loads(warnings_path.read_text(encoding="utf-8"))
+                    if w.get("paper_id") not in reprocessed_ids
+                ]
+            except (json.JSONDecodeError, KeyError):
+                pass
+        new_warnings = json.loads(tmp_warnings.read_text(encoding="utf-8")) if tmp_warnings.exists() and tmp_warnings.stat().st_size > 2 else []
+        merged_warnings = existing_warnings + new_warnings
+        if merged_warnings:
+            with warnings_path.open("w", encoding="utf-8") as fp:
+                json.dump(merged_warnings, fp, ensure_ascii=False, indent=2)
+            print(f"Warnings saved to {warnings_path}")
+        elif warnings_path.exists():
+            warnings_path.unlink()
+
+        for tmp_path in (tmp_detected, tmp_warnings, tmp_no_det):
+            tmp_path.unlink(missing_ok=True)
+    elif args.reprocess_cache:
         print(f"--reprocess-cache: re-running cleaning+detection on cached extractions in {output_dir}")
         reprocess_from_cache(
             papers=papers,

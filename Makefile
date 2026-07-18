@@ -28,6 +28,9 @@ DATES ?= 2026-06-15 2026-06-22 2026-06-29 2026-07-06
 _END_DATE_FLAG = $(if $(END_DATE),--end-date $(END_DATE),)
 # Pass --no-pdf only when NO_PDF=1 (skips docling; safe to run in multiple terminals)
 _NO_PDF_FLAG   = $(if $(NO_PDF),--no-pdf,)
+# Pass --pdf-only only when PDF_ONLY=1 (reprocess targets only: limit to papers with a
+# cached PDF extraction, e.g. after a pdf_processor.py-only change)
+_PDF_ONLY_FLAG = $(if $(PDF_ONLY),--pdf-only,)
 # manifest has no --end-date flag of its own; when INPUT isn't given explicitly,
 # derive the metadata filename from END_DATE/WINDOW_DAYS the same way
 # fetch_arxiv_metadata.py names it (arxiv_papers_<start>_to_<end>.jsonl).
@@ -44,6 +47,8 @@ help:
 	@echo "  make fetch-oai        Fetch via OAI-PMH harvester instead of arXiv API"
 	@echo "  make process          Detect languages via HTML/PDF (skipped if already done)"
 	@echo "  make reprocess        Re-run cleaning+detection on cached text only (no downloads)"
+	@echo "                          Add PDF_ONLY=1 to only touch papers with a cached PDF"
+	@echo "                          extraction (fast recheck after a PDF-only logic change)"
 	@echo "  make retry-missing    Retry papers with no/incomplete cache (downloads missing PDFs)"
 	@echo "  make judge            LLM-verify detected languages (needs LLM_JUDGE_API_KEY in .env);"
 	@echo "                          run 'make manifest' afterwards to fold verdicts in"
@@ -86,6 +91,7 @@ help:
 	@echo "  DATES=\"$(DATES)\""
 	@echo "         — space-separated end-dates for *-all targets"
 	@echo "  NO_PDF=1    skip docling PDF processing (safe for parallel terminals)"
+	@echo "  PDF_ONLY=1  reprocess/reprocess-all: only papers with a cached PDF extraction"
 	@echo "  WORKERS=$(WORKERS)  DATA_ROOT=$(DATA_ROOT)  WINDOW_DAYS=$(WINDOW_DAYS)  MAX_RESULTS=$(MAX_RESULTS)"
 	@echo "  JUDGE_WORKERS=$(JUDGE_WORKERS)  (LLM judge config lives in .env — see .env.example)"
 	@echo ""
@@ -135,7 +141,8 @@ reprocess:
 		--workers $(WORKERS) \
 		$(_END_DATE_FLAG) \
 		--skip-fetch \
-		--reprocess-cache
+		--reprocess-cache \
+		$(_PDF_ONLY_FLAG)
 
 retry-missing:
 	scripts/run_logged.sh retry-missing \
@@ -217,7 +224,7 @@ reprocess-all:
 		scripts/run_logged.sh reprocess-all-$$d \
 		$(PYTHON) scripts/run_langtrend_pipeline.py \
 			--data-root $(DATA_ROOT) --window-days $(WINDOW_DAYS) --workers $(WORKERS) \
-			--end-date $$d --skip-fetch --reprocess-cache; \
+			--end-date $$d --skip-fetch --reprocess-cache $(_PDF_ONLY_FLAG); \
 	done
 
 retry-missing-all:

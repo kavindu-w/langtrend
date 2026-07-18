@@ -101,6 +101,10 @@ def main() -> None:
                         help="Skip process step; rebuild manifest from existing caches only")
     parser.add_argument("--reprocess-cache", action="store_true",
                         help="Re-run text cleaning+detection on cached HTML/PDF text only (no downloads)")
+    parser.add_argument("--pdf-only", action="store_true",
+                        help="With --reprocess-cache, only reprocess papers with a cached PDF "
+                             "extraction (skip papers whose detections came from HTML/abstract). "
+                             "Use after a PDF-only logic change; results are merged in.")
     parser.add_argument("--retry-missing", action="store_true",
                         help="Retry papers not yet detected or with no html/pdf cache; uses cache where available")
     parser.add_argument("--no-pdf", action="store_true",
@@ -185,8 +189,10 @@ def main() -> None:
             "--output-dir", str(week_dir),
             "--workers", str(args.workers),
             "--reprocess-cache",
-        ] + _no_pdf_flag
-        timings["process"] = _run("Step 2: reprocess from cache (cleaning+detection only)", cmd)
+        ] + _no_pdf_flag + (["--pdf-only"] if args.pdf_only else [])
+        step_label = "Step 2: reprocess from cache (PDF-only papers)" if args.pdf_only \
+            else "Step 2: reprocess from cache (cleaning+detection only)"
+        timings["process"] = _run(step_label, cmd)
     elif args.retry_missing:
         cmd = [
             sys.executable,
