@@ -491,7 +491,7 @@ def reprocess_from_cache(
         "sources": {"abstract": 0, "html": 0, "pdf": 0},
     }
 
-    _fp_out = output_jsonl.open("w", encoding="utf-8")
+    detected_records: list[dict] = []
     executor = ThreadPoolExecutor(max_workers=max_workers)
     try:
         futures = {
@@ -526,8 +526,7 @@ def reprocess_from_cache(
                             pid = record.get("paper_id", "unknown")
                             all_warnings.extend({**w, "paper_id": pid} for w in record["warnings"])
                         if record.get("sections"):
-                            _fp_out.write(json.dumps(record, ensure_ascii=False) + "\n")
-                            _fp_out.flush()
+                            detected_records.append(record)
                             stats["papers_with_detections"] += 1
                             for sec in record["sections"].values():
                                 stats["total_detections"] += len(sec.get("detected_languages", []))
@@ -550,7 +549,18 @@ def reprocess_from_cache(
                     pbar.update(1)
     finally:
         executor.shutdown(wait=False)
-        _fp_out.close()
+
+        # Sort by paper_id before writing: ThreadPoolExecutor completion order is
+        # nondeterministic run-to-run, so streaming writes in completion order would
+        # jumble records even when nothing about the actual detections changed —
+        # producing a noisy diff (and a needless commit) for a no-op rerun.
+        detected_records.sort(key=lambda r: r.get("paper_id") or "")
+        no_detection_records.sort(key=lambda r: r.get("paper_id") or "")
+        all_warnings.sort(key=lambda w: w.get("paper_id") or "")
+
+        with output_jsonl.open("w", encoding="utf-8") as fp:
+            for record in detected_records:
+                fp.write(json.dumps(record, ensure_ascii=False) + "\n")
 
         if all_warnings:
             with warnings_file.open("w", encoding="utf-8") as fp:
@@ -944,8 +954,12 @@ def main() -> None:
                 if line.strip() and json.loads(line).get("paper_id") not in reprocessed_ids:
                     existing_detected.append(line)
         new_detected = [l for l in tmp_detected.read_text(encoding="utf-8").splitlines() if l.strip()]
+        # Sort the full merged set by paper_id — not just old-then-new concatenation —
+        # so the file is in the same canonical order regardless of which papers happened
+        # to be reprocessed this run, keeping a true no-op rerun byte-identical.
+        merged_detected = sorted(existing_detected + new_detected, key=lambda l: json.loads(l).get("paper_id") or "")
         with detected_path.open("w", encoding="utf-8") as fp:
-            for line in existing_detected + new_detected:
+            for line in merged_detected:
                 fp.write(line + "\n")
         print(f"Merged: kept {len(existing_detected)} unchanged + wrote {len(new_detected)} reprocessed detection record(s) into {detected_path}")
 
@@ -960,9 +974,10 @@ def main() -> None:
             except (json.JSONDecodeError, KeyError):
                 pass
         new_no_det = json.loads(tmp_no_det.read_text(encoding="utf-8")) if tmp_no_det.exists() and tmp_no_det.stat().st_size > 2 else []
+        merged_no_det = sorted(existing_no_det + new_no_det, key=lambda r: r.get("paper_id") or "")
         with no_det_path.open("w", encoding="utf-8") as fp:
-            json.dump(existing_no_det + new_no_det, fp, ensure_ascii=False, indent=2)
-        print(f"No-detection records: {len(existing_no_det) + len(new_no_det)} → {no_det_path}")
+            json.dump(merged_no_det, fp, ensure_ascii=False, indent=2)
+        print(f"No-detection records: {len(merged_no_det)} → {no_det_path}")
 
         # Merge warnings.json: drop old warnings for reprocessed papers, keep the rest,
         # append any fresh ones.
@@ -976,7 +991,7 @@ def main() -> None:
             except (json.JSONDecodeError, KeyError):
                 pass
         new_warnings = json.loads(tmp_warnings.read_text(encoding="utf-8")) if tmp_warnings.exists() and tmp_warnings.stat().st_size > 2 else []
-        merged_warnings = existing_warnings + new_warnings
+        merged_warnings = sorted(existing_warnings + new_warnings, key=lambda w: w.get("paper_id") or "")
         if merged_warnings:
             with warnings_path.open("w", encoding="utf-8") as fp:
                 json.dump(merged_warnings, fp, ensure_ascii=False, indent=2)

@@ -316,6 +316,21 @@ class TestDetectLanguagesInText:
         detected = detect_languages_in_text([], lang_classes, languages_to_ignore)
         assert detected == []
 
+    def test_order_is_deterministic_regardless_of_set_construction_order(self, languages_to_ignore):
+        # detect_languages_in_text used to iterate each class's raw set, whose order is
+        # PYTHONHASHSEED-randomized per process — two equal sets built in a different
+        # order could still produce differently-ordered output. Sorting the class before
+        # iterating makes the result depend only on which languages match, not on set
+        # iteration order.
+        blocks, _ = clean_paper_text_for_language_screening(
+            "The paper covers French, German, and Spanish corpora."
+        )
+        class_a = {0: {"French", "German", "Spanish"}}
+        class_b = {0: set(reversed(list(class_a[0])))}  # same members, different construction order
+        result_a = detect_languages_in_text(blocks, class_a, languages_to_ignore)
+        result_b = detect_languages_in_text(blocks, class_b, languages_to_ignore)
+        assert result_a == result_b == sorted(result_a)
+
 
 # ---------------------------------------------------------------------------
 # trim_pdf_text_to_body

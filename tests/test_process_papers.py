@@ -478,6 +478,37 @@ def test_reprocess_from_cache_writes_detected_and_no_detection_outputs(lang_clas
     assert [r["paper_id"] for r in no_detections] == ["2"]
 
 
+def test_reprocess_from_cache_output_is_sorted_by_paper_id_regardless_of_completion_order(lang_classes, languages_to_ignore, cache_dirs, tmp_path):
+    # ThreadPoolExecutor completion order is nondeterministic run-to-run, so streaming
+    # records out in completion order (the old behavior) would jumble detected.jsonl
+    # even when the underlying detections never changed. Sorting by paper_id at write
+    # time keeps output stable/diff-free across reruns of identical input.
+    _, html_cache_dir, pdf_cache_dir = cache_dirs
+    ids = ["3", "1", "4", "1a", "2"]
+    papers = [{"id": pid} for pid in ids]
+    records_by_id = {
+        pid: _record(pid, sections={"abstract": {"source": "abstract", "detected_languages": [{"language": "Swahili", "class": 0}]}}, sources=["abstract"])
+        for pid in ids
+    }
+
+    def fake_reprocess(paper, *a, **kw):
+        return records_by_id[paper["id"]]
+
+    with patch("process_papers._reprocess_single_paper", side_effect=fake_reprocess):
+        pp.reprocess_from_cache(
+            papers, lang_classes, languages_to_ignore, {},
+            output_jsonl=tmp_path / "detected.jsonl",
+            warnings_file=tmp_path / "warnings.json",
+            html_cache_dir=html_cache_dir, pdf_cache_dir=pdf_cache_dir,
+            no_detections_file=tmp_path / "no_detections.json",
+            max_workers=1,  # single worker keeps future submission order == completion order
+        )
+
+    lines = (tmp_path / "detected.jsonl").read_text(encoding="utf-8").splitlines()
+    written_ids = [json.loads(l)["paper_id"] for l in lines]
+    assert written_ids == sorted(ids)
+
+
 # ---------------------------------------------------------------------------
 # _needs_retry (--retry-missing decision logic)
 # ---------------------------------------------------------------------------

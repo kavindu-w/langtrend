@@ -595,7 +595,11 @@ def detect_languages_in_text(
         if not isinstance(text, str):
             continue
         for langs in language_groups:
-            candidate_languages = [langs] if isinstance(langs, str) else langs
+            # sorted(), not raw set iteration: a set's order is PYTHONHASHSEED-randomized
+            # per process, so co-occurring languages in the same text block would get
+            # appended in a different order every run — jumbling detected_languages
+            # even when the actual set of detections is unchanged.
+            candidate_languages = [langs] if isinstance(langs, str) else sorted(langs)
             for lang in candidate_languages:
                 if not isinstance(lang, str):
                     continue

@@ -11,7 +11,13 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from langtrend.manifest import build_detections, build_snapshot_manifest, save_json, load_snapshot_inputs
+from langtrend.manifest import (
+    build_detections,
+    build_snapshot_manifest,
+    save_json,
+    save_json_if_changed,
+    load_snapshot_inputs,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -61,6 +67,60 @@ def test_save_json_creates_parent_dirs_and_writes_content(tmp_path):
     target = tmp_path / "nested" / "dir" / "out.json"
     returned = save_json({"a": 1}, target)
     assert returned == target
+    assert json.loads(target.read_text(encoding="utf-8")) == {"a": 1}
+
+
+# ---------------------------------------------------------------------------
+# save_json_if_changed
+# ---------------------------------------------------------------------------
+
+def test_save_json_if_changed_writes_when_file_missing(tmp_path):
+    target = tmp_path / "out.json"
+    path, changed = save_json_if_changed({"a": 1, "generated_at": "t0"}, target)
+    assert changed is True
+    assert json.loads(target.read_text(encoding="utf-8")) == {"a": 1, "generated_at": "t0"}
+
+
+def test_save_json_if_changed_skips_write_when_only_ignored_key_differs(tmp_path):
+    target = tmp_path / "out.json"
+    save_json({"a": 1, "generated_at": "t0"}, target)
+    mtime_before = target.stat().st_mtime_ns
+
+    path, changed = save_json_if_changed({"a": 1, "generated_at": "t1"}, target)
+
+    assert changed is False
+    assert target.stat().st_mtime_ns == mtime_before
+    # File on disk keeps its original generated_at — it was never rewritten.
+    assert json.loads(target.read_text(encoding="utf-8"))["generated_at"] == "t0"
+
+
+def test_save_json_if_changed_writes_when_real_data_differs(tmp_path):
+    target = tmp_path / "out.json"
+    save_json({"a": 1, "generated_at": "t0"}, target)
+
+    path, changed = save_json_if_changed({"a": 2, "generated_at": "t1"}, target)
+
+    assert changed is True
+    assert json.loads(target.read_text(encoding="utf-8")) == {"a": 2, "generated_at": "t1"}
+
+
+def test_save_json_if_changed_treats_non_dict_existing_content_as_changed(tmp_path):
+    target = tmp_path / "out.json"
+    target.write_text(json.dumps([1, 2, 3]), encoding="utf-8")
+
+    path, changed = save_json_if_changed({"a": 1, "generated_at": "t0"}, target)
+
+    assert changed is True
+    assert json.loads(target.read_text(encoding="utf-8")) == {"a": 1, "generated_at": "t0"}
+
+
+def test_save_json_if_changed_treats_corrupt_existing_file_as_changed(tmp_path):
+    target = tmp_path / "out.json"
+    target.write_text("{not valid json", encoding="utf-8")
+
+    path, changed = save_json_if_changed({"a": 1}, target)
+
+    assert changed is True
     assert json.loads(target.read_text(encoding="utf-8")) == {"a": 1}
 
 

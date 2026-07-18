@@ -33,7 +33,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from langtrend.judge import apply_judge_to_flagged, load_judge_cache
-from langtrend.manifest import build_detections, build_snapshot_manifest, save_json
+from langtrend.manifest import build_detections, build_snapshot_manifest, save_json_if_changed
 from langtrend.text_cleaning import clean_paper_text_for_language_screening, detect_languages_in_text
 
 _PROJECT_ROOT = Path(__file__).parent.parent
@@ -389,15 +389,15 @@ def build_and_save(
     # Week-specific manifest lives inside the week folder
     output_dir.mkdir(parents=True, exist_ok=True)
     week_manifest_path = output_dir / "langtrend_manifest.json"
-    save_json(manifest, week_manifest_path)
-    print(f"Saved: {week_manifest_path}")
+    _, changed = save_json_if_changed(manifest, week_manifest_path)
+    print(f"{'Saved' if changed else 'Unchanged'}: {week_manifest_path}")
 
     # "Latest" pointer lives at the top of processed/ regardless of output_dir depth
     processed_root = output_dir.parent.parent if output_dir.parent.name == "weeks" else output_dir
     latest_path = processed_root / f"langtrend_manifest_last_{window_days}_days.json"
     if _is_latest_week(output_dir, week_end):
-        save_json(manifest, latest_path)
-        print(f"Saved: {latest_path}")
+        _, changed = save_json_if_changed(manifest, latest_path)
+        print(f"{'Saved' if changed else 'Unchanged'}: {latest_path}")
     else:
         print(f"Skipped: {latest_path} (week {week_start}–{week_end} is not the latest known week)")
 
