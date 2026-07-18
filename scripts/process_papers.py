@@ -477,12 +477,30 @@ def reprocess_from_cache(
     max_workers: int = 4,
     force_pdf_reextract: bool = False,
     pdf_dir: Path | None = None,
+    preserved_detected_lines: list[str] | None = None,
+    preserved_no_detection_records: list[dict] | None = None,
+    preserved_warnings: list[dict] | None = None,
 ) -> dict:
-    """Re-run cleaning + detection on cached HTML/PDF text; write new output JSONL."""
+    """Re-run cleaning + detection on cached HTML/PDF text; write new output JSONL.
+
+    output_jsonl/warnings_file/no_detections_file are written directly — always the
+    real, final destination, never a temp file a caller merges in afterward. Callers
+    reprocessing only a subset of papers (e.g. --pdf-only) pass the untouched records
+    for every other paper via preserved_*, so this function can write the complete,
+    merged result in one shot. This matters specifically for force_pdf_reextract: it
+    invokes docling from a worker thread, and docling's PyTorch C++ thread pools
+    reliably SIGSEGV during native cleanup sometime after the pool is torn down (see
+    the os._exit(0) comment at the bottom of this file). That crash bypasses Python's
+    exception handling entirely, so nothing here can guarantee the write completes —
+    but writing directly to the real path (instead of a temp file a *separate*,
+    later main()-level merge step would fold in) means a write that does complete
+    lands where it's actually read, instead of sitting in an orphaned temp file no
+    one will ever look for.
+    """
     output_jsonl.parent.mkdir(parents=True, exist_ok=True)
 
-    all_warnings: list[dict] = []
-    no_detection_records: list[dict] = []
+    all_warnings: list[dict] = list(preserved_warnings or [])
+    no_detection_records: list[dict] = list(preserved_no_detection_records or [])
     stats = {
         "total_papers": len(papers),
         "papers_with_detections": 0,
@@ -491,6 +509,7 @@ def reprocess_from_cache(
         "sources": {"abstract": 0, "html": 0, "pdf": 0},
     }
 
+    preserved_lines = list(preserved_detected_lines or [])
     detected_records: list[dict] = []
     executor = ThreadPoolExecutor(max_workers=max_workers)
     try:
@@ -550,27 +569,42 @@ def reprocess_from_cache(
     finally:
         executor.shutdown(wait=False)
 
-        # Sort by paper_id before writing: ThreadPoolExecutor completion order is
-        # nondeterministic run-to-run, so streaming writes in completion order would
-        # jumble records even when nothing about the actual detections changed —
-        # producing a noisy diff (and a needless commit) for a no-op rerun.
-        detected_records.sort(key=lambda r: r.get("paper_id") or "")
-        no_detection_records.sort(key=lambda r: r.get("paper_id") or "")
-        all_warnings.sort(key=lambda w: w.get("paper_id") or "")
-
+        # Write here, in finally — not after it — so a best-effort save still happens
+        # on any *catchable* exception escaping the loop above (e.g. Ctrl-C), same as
+        # the pre-sorting version of this function did. Sort by paper_id first:
+        # ThreadPoolExecutor completion order is nondeterministic run-to-run, so
+        # writing in completion order would jumble records even when nothing about
+        # the actual detections changed — a noisy diff (and a needless commit) for a
+        # no-op rerun. Merge in preserved_* so this write lands directly at the real,
+        # final destination in one shot rather than a temp file some separate,
+        # later step would need to fold in — see the force_pdf_reextract note in the
+        # docstring above for why that distinction matters.
+        #
+        # None of this can fully protect against force_pdf_reextract's known SIGSEGV
+        # risk (docling's PyTorch C++ thread pools crashing during native cleanup) —
+        # that bypasses Python's exception handling entirely, so finally itself may
+        # never run. What it does guarantee: whenever this code *does* get to run
+        # (the overwhelmingly common case), the write goes straight to the file
+        # callers actually read, with no intermediate merge step required.
+        fresh_lines = [json.dumps(r, ensure_ascii=False) for r in detected_records]
+        merged_lines = sorted(preserved_lines + fresh_lines, key=lambda l: json.loads(l).get("paper_id") or "")
         with output_jsonl.open("w", encoding="utf-8") as fp:
-            for record in detected_records:
-                fp.write(json.dumps(record, ensure_ascii=False) + "\n")
+            for line in merged_lines:
+                fp.write(line + "\n")
 
-        if all_warnings:
-            with warnings_file.open("w", encoding="utf-8") as fp:
-                json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
-            print(f"Warnings saved to {warnings_file}")
-
+        no_detection_records.sort(key=lambda r: r.get("paper_id") or "")
         _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
         with _nd_path.open("w", encoding="utf-8") as fp:
             json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
         print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
+
+        all_warnings.sort(key=lambda w: w.get("paper_id") or "")
+        if all_warnings:
+            with warnings_file.open("w", encoding="utf-8") as fp:
+                json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
+            print(f"Warnings saved to {warnings_file}")
+        elif warnings_file.exists():
+            warnings_file.unlink()
 
     print(f"\nTotal papers:            {stats['total_papers']}")
     print(f"Papers with detections:  {stats['papers_with_detections']}")
@@ -919,13 +953,38 @@ def main() -> None:
         warnings_path = output_dir / f"{stem}_warnings.json"
         no_det_path   = output_dir / f"{stem}_no_detections.json"
 
-        import tempfile
-        with tempfile.NamedTemporaryFile(suffix=".jsonl", delete=False) as tmp:
-            tmp_detected = Path(tmp.name)
-        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
-            tmp_warnings = Path(tmp.name)
-        with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
-            tmp_no_det = Path(tmp.name)
+        reprocessed_ids = {str(p.get("id", "")) for p in subset}
+
+        # Records for every paper NOT in this subset — untouched, but still passed
+        # in so reprocess_from_cache can write the complete, final file directly in
+        # one shot instead of writing a temp file for a separate merge step here to
+        # fold in afterward. That distinction matters for --force-pdf-reextract: see
+        # the docstring on reprocess_from_cache for why.
+        preserved_detected_lines = []
+        if detected_path.exists():
+            for line in detected_path.read_text(encoding="utf-8").splitlines():
+                if line.strip() and json.loads(line).get("paper_id") not in reprocessed_ids:
+                    preserved_detected_lines.append(line)
+
+        preserved_no_detection_records = []
+        if no_det_path.exists():
+            try:
+                preserved_no_detection_records = [
+                    r for r in json.loads(no_det_path.read_text(encoding="utf-8"))
+                    if r.get("paper_id") not in reprocessed_ids
+                ]
+            except (json.JSONDecodeError, KeyError):
+                pass
+
+        preserved_warnings = []
+        if warnings_path.exists():
+            try:
+                preserved_warnings = [
+                    w for w in json.loads(warnings_path.read_text(encoding="utf-8"))
+                    if w.get("paper_id") not in reprocessed_ids
+                ]
+            except (json.JSONDecodeError, KeyError):
+                pass
 
         if args.force_pdf_reextract:
             print(f"--force-pdf-reextract: re-running docling on {len(subset)} paper(s) (reusing local PDFs where present)")
@@ -934,73 +993,19 @@ def main() -> None:
             lang_classes=lang_classes,
             languages_to_ignore=languages_to_ignore,
             possible_false_positive_languages=possible_false_positive_languages,
-            output_jsonl=tmp_detected,
-            warnings_file=tmp_warnings,
+            output_jsonl=detected_path,
+            warnings_file=warnings_path,
             html_cache_dir=html_cache_dir,
             pdf_cache_dir=pdf_cache_dir,
-            no_detections_file=tmp_no_det,
+            no_detections_file=no_det_path,
             max_workers=args.workers,
             force_pdf_reextract=args.force_pdf_reextract,
             pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
+            preserved_detected_lines=preserved_detected_lines,
+            preserved_no_detection_records=preserved_no_detection_records,
+            preserved_warnings=preserved_warnings,
         )
-
-        reprocessed_ids = {str(p.get("id", "")) for p in subset}
-
-        # Merge detected.jsonl: drop old lines for reprocessed papers, keep everything
-        # else untouched, then write back the fresh results for the reprocessed subset.
-        existing_detected = []
-        if detected_path.exists():
-            for line in detected_path.read_text(encoding="utf-8").splitlines():
-                if line.strip() and json.loads(line).get("paper_id") not in reprocessed_ids:
-                    existing_detected.append(line)
-        new_detected = [l for l in tmp_detected.read_text(encoding="utf-8").splitlines() if l.strip()]
-        # Sort the full merged set by paper_id — not just old-then-new concatenation —
-        # so the file is in the same canonical order regardless of which papers happened
-        # to be reprocessed this run, keeping a true no-op rerun byte-identical.
-        merged_detected = sorted(existing_detected + new_detected, key=lambda l: json.loads(l).get("paper_id") or "")
-        with detected_path.open("w", encoding="utf-8") as fp:
-            for line in merged_detected:
-                fp.write(line + "\n")
-        print(f"Merged: kept {len(existing_detected)} unchanged + wrote {len(new_detected)} reprocessed detection record(s) into {detected_path}")
-
-        # Merge no_detections.json the same way.
-        existing_no_det = []
-        if no_det_path.exists():
-            try:
-                existing_no_det = [
-                    r for r in json.loads(no_det_path.read_text(encoding="utf-8"))
-                    if r.get("paper_id") not in reprocessed_ids
-                ]
-            except (json.JSONDecodeError, KeyError):
-                pass
-        new_no_det = json.loads(tmp_no_det.read_text(encoding="utf-8")) if tmp_no_det.exists() and tmp_no_det.stat().st_size > 2 else []
-        merged_no_det = sorted(existing_no_det + new_no_det, key=lambda r: r.get("paper_id") or "")
-        with no_det_path.open("w", encoding="utf-8") as fp:
-            json.dump(merged_no_det, fp, ensure_ascii=False, indent=2)
-        print(f"No-detection records: {len(merged_no_det)} → {no_det_path}")
-
-        # Merge warnings.json: drop old warnings for reprocessed papers, keep the rest,
-        # append any fresh ones.
-        existing_warnings = []
-        if warnings_path.exists():
-            try:
-                existing_warnings = [
-                    w for w in json.loads(warnings_path.read_text(encoding="utf-8"))
-                    if w.get("paper_id") not in reprocessed_ids
-                ]
-            except (json.JSONDecodeError, KeyError):
-                pass
-        new_warnings = json.loads(tmp_warnings.read_text(encoding="utf-8")) if tmp_warnings.exists() and tmp_warnings.stat().st_size > 2 else []
-        merged_warnings = sorted(existing_warnings + new_warnings, key=lambda w: w.get("paper_id") or "")
-        if merged_warnings:
-            with warnings_path.open("w", encoding="utf-8") as fp:
-                json.dump(merged_warnings, fp, ensure_ascii=False, indent=2)
-            print(f"Warnings saved to {warnings_path}")
-        elif warnings_path.exists():
-            warnings_path.unlink()
-
-        for tmp_path in (tmp_detected, tmp_warnings, tmp_no_det):
-            tmp_path.unlink(missing_ok=True)
+        print(f"Merged: kept {len(preserved_detected_lines)} unchanged detection record(s), reprocessed {len(subset)} paper(s), into {detected_path}")
     elif args.reprocess_cache:
         print(f"--reprocess-cache: re-running cleaning+detection on cached extractions in {output_dir}")
         reprocess_from_cache(
