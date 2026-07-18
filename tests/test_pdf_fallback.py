@@ -180,6 +180,109 @@ class TestTrimMarkdownEndMatter:
     def test_empty_returns_empty(self):
         assert self._trim("") == ""
 
+    # --- Back matter with no literal "Appendix" heading (regression guard) ---
+    #
+    # LaTeX's \appendix command (standard in ACL/EMNLP-style papers) numbers
+    # sections "A ...", "B.1 ..." without ever writing the word "Appendix",
+    # and some papers use custom names ("Supplementary materials") instead.
+    # Requiring the literal word silently discarded this real content along
+    # with the reference list — found by re-auditing papers whose language
+    # detections vanished after the references-cutoff fix landed.
+
+    def test_latex_numbered_appendix_without_word_appendix_is_kept(self):
+        md = (
+            "## 1 Introduction\n\nWe study Swahili.\n\n"
+            "## References\n\n- Smith 2020.\n- Jones 2021.\n\n"
+            "## A Training Details\n\nMore on Tamil.\n\n"
+            "## B.1 Cross-lingual Generalizability\n\nResults on Telugu and Kannada.\n"
+        )
+        result = self._trim(md)
+        assert "Tamil" in result and "Telugu" in result and "Kannada" in result
+        assert "Smith 2020" not in result
+
+    def test_custom_named_back_matter_without_word_appendix_is_kept(self):
+        md = (
+            "## 1 Introduction\n\nWe study Swahili.\n\n"
+            "## References\n\n- Smith 2020.\n\n"
+            "## Supplementary materials\n\n"
+            "## Case studies\n\nLenition patterns in Welsh and Breton.\n"
+        )
+        result = self._trim(md)
+        assert "Welsh" in result and "Breton" in result
+        assert "Smith 2020" not in result
+
+    def test_no_heading_after_references_still_cuts_cleanly(self):
+        # No back matter at all after References — must fall back to the old
+        # behavior (cut everything from References onward), not keep trailing
+        # unheaded citation text.
+        md = "## 1 Introduction\n\nWe study Arabic.\n\n## References\n\n- Smith 2020.\n- Jones 2021.\n"
+        result = self._trim(md)
+        assert "Arabic" in result
+        assert "Smith 2020" not in result and "Jones 2021" not in result
+
+
+# ---------------------------------------------------------------------------
+# extract_text's end_matter_trimmed flag (regression guard)
+#
+# No real PDF/docling needed — the docling converter itself is stubbed, so
+# these run everywhere (unlike TestPDFProcessorExtraction below).
+# ---------------------------------------------------------------------------
+
+class TestExtractTextEndMatterTrimmedFlag:
+    """The flag must reflect whether trim_markdown_end_matter actually cut
+    something, not just that docling itself succeeded. trim_markdown_end_matter's
+    regexes can silently no-op (all-caps "## REFERENCES", a numbered
+    "## 8 References" heading) — if the flag were hardcoded True whenever
+    docling succeeded, callers would skip trim_pdf_text_to_body's own
+    end-matter search believing it was redundant, and a bibliography the
+    markdown stage failed to recognize would leak straight into language
+    detection with no fallback left to catch it.
+    """
+
+    def _stub_docling(self, monkeypatch, markdown_text):
+        import langtrend.pdf_processor as pp
+
+        class _FakeDoc:
+            def export_to_markdown(self):
+                return markdown_text
+
+        class _FakeResult:
+            document = _FakeDoc()
+
+        class _FakeConverter:
+            def convert(self, pdf_path):
+                return _FakeResult()
+
+        monkeypatch.setattr(pp, "_DOCLING_CONVERTER", _FakeConverter())
+
+    def test_flag_false_when_markdown_trim_is_a_noop(self, monkeypatch, tmp_path):
+        from langtrend.pdf_processor import PDFProcessor
+
+        md = (
+            "## 1 Introduction\n\nWe study Swahili.\n\n"
+            "## REFERENCES\n\n- Smith 2020. A study of Icelandic phonology.\n"
+        )
+        self._stub_docling(monkeypatch, md)
+        processor = PDFProcessor(input_dir=str(tmp_path), output_dir=str(tmp_path))
+        text, meta = processor.extract_text(tmp_path / "fake.pdf")
+        assert meta["end_matter_trimmed"] is False
+        # Nothing was actually trimmed at this stage — the caller must still
+        # run trim_pdf_text_to_body's own (case-insensitive) end-matter search.
+        assert "Icelandic" in text
+
+    def test_flag_true_when_markdown_trim_cuts_references(self, monkeypatch, tmp_path):
+        from langtrend.pdf_processor import PDFProcessor
+
+        md = (
+            "## 1 Introduction\n\nWe study Swahili.\n\n"
+            "## References\n\n- Smith 2020. A study of Icelandic phonology.\n"
+        )
+        self._stub_docling(monkeypatch, md)
+        processor = PDFProcessor(input_dir=str(tmp_path), output_dir=str(tmp_path))
+        text, meta = processor.extract_text(tmp_path / "fake.pdf")
+        assert meta["end_matter_trimmed"] is True
+        assert "Icelandic" not in text
+
 
 # ---------------------------------------------------------------------------
 # PDFProcessor smoke tests

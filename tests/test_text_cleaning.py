@@ -558,3 +558,40 @@ class TestTrimPdfTextToBody:
         assert "Igbo" in result  # body kept
         assert "Hausa" in result and "Wolof" in result  # appendix kept
         assert "cited paper title" not in result  # bibliography excised
+
+    # --- trim_end=False (regression guard for the double-cut bug) ---
+    #
+    # When pdf_processor.trim_markdown_end_matter has already removed the
+    # reference list upstream (using docling's markdown heading structure to
+    # keep back matter regardless of what it's titled), this function must not
+    # re-run its own plain-text end-matter search on the result. That search
+    # can find a legitimate heading (e.g. a genuine "Acknowledgments" section)
+    # that sits *before* further real content in an unusual paper layout, and
+    # re-cut there — silently discarding real content a second time even
+    # though the first, more reliable pass already decided to keep it.
+
+    def test_trim_end_false_skips_end_matter_search(self):
+        text = (
+            "1. Introduction\nWe study Swahili.\n\n"
+            "Acknowledgments\nTBD\n\n"
+            "Case studies\nExtended analysis of Welsh and Breton phonology.\n"
+        )
+        result = trim_pdf_text_to_body(text, trim_end=False)
+        assert "Welsh" in result and "Breton" in result  # not re-cut at Acknowledgments
+        assert "Swahili" in result
+
+    def test_trim_end_false_still_trims_front_matter(self):
+        text = (
+            "Title\n\nAuthor One\n\nAbstract\nStudies Arabic.\n\n"
+            "1. Introduction\nWe study Hindi.\n\n"
+            "References\n[1] Smith 2020.\n"
+        )
+        result = trim_pdf_text_to_body(text, trim_end=False)
+        assert "Author One" not in result  # front matter still trimmed
+        assert "Hindi" in result
+        assert "Smith 2020" in result  # end matter NOT trimmed this time
+
+    def test_trim_end_true_is_still_the_default(self):
+        text = "1. Introduction\nWe study Hindi.\n\nReferences\n[1] Smith 2020.\n"
+        assert trim_pdf_text_to_body(text) == trim_pdf_text_to_body(text, trim_end=True)
+        assert "Smith 2020" not in trim_pdf_text_to_body(text)

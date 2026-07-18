@@ -204,12 +204,13 @@ def _process_single_paper(
                     try:
                         t_extract = _time.monotonic()
                         processor = PDFProcessor(input_dir=str(pdf_path.parent), output_dir=str(pdf_path.parent))
-                        raw_text, _ = processor.extract_text(pdf_path)
+                        raw_text, extract_meta = processor.extract_text(pdf_path)
                         tqdm.write(f"  [{paper_id}] PDF text extracted ({len(raw_text)} chars) in {_time.monotonic()-t_extract:.1f}s")
                         record["sources_checked"].append("pdf")
                         if raw_text:
+                            end_matter_trimmed = bool(extract_meta.get("end_matter_trimmed"))
                             cleaned_text = processor.clean_text(raw_text)
-                            body_text = trim_pdf_text_to_body(cleaned_text)
+                            body_text = trim_pdf_text_to_body(cleaned_text, trim_end=not end_matter_trimmed)
                             screened_blocks, _ = clean_paper_text_for_language_screening(body_text, _label=paper_id)
                             raw_langs = detect_languages_in_text(screened_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
                             detections = build_detections(raw_langs, lang_classes, possible_false_positive_languages)
@@ -223,6 +224,7 @@ def _process_single_paper(
                                 json.dump({
                                     "paper_id": paper_id,
                                     "text": raw_text,
+                                    "end_matter_trimmed": end_matter_trimmed,
                                     "cleaned_text": cleaned_text,
                                     "body_text": body_text,
                                     "screened_text": "\n\n".join(screened_blocks),
@@ -401,9 +403,12 @@ def _reprocess_single_paper(
                     pdf_cached = json.load(fh)
                 text = pdf_cached.get("text", "")
                 if text:
+                    # Cache entries written before this flag existed default to False
+                    # (re-trim, matching the old, pre-fix behavior for that cached text).
+                    end_matter_trimmed = bool(pdf_cached.get("end_matter_trimmed", False))
                     processor = PDFProcessor(input_dir=".", output_dir=".")
                     cleaned_text = processor.clean_text(text)
-                    body_text = trim_pdf_text_to_body(cleaned_text)
+                    body_text = trim_pdf_text_to_body(cleaned_text, trim_end=not end_matter_trimmed)
                     screened_blocks, _ = clean_paper_text_for_language_screening(body_text, _label=paper_id)
                     raw_langs = detect_languages_in_text(screened_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
                     detections = build_detections(raw_langs, lang_classes, possible_false_positive_languages)
