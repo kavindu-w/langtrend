@@ -1,13 +1,61 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.01939v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-15T15:41:31.453648+00:00",
+  "judged_at": "2026-07-20T10:04:10.100114+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 1851,
+  "context_chars": 9477,
   "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Refers to column identifiers in JSON table schemas (e.g., \"<col1>\") not to a human language, so false_positive"
+    },
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "Refers to the singer Sheryl Crow in a knowledge‑graph example, not to a language, so false_positive"
+    },
+    "Gala": {
+      "verdict": "false_positive",
+      "reason": "Appears as part of a guild name \"Moonridge Gala\" in synthetic data, not a language, so false_positive"
+    },
+    "Kara": {
+      "verdict": "false_positive",
+      "reason": "Appears as a guild name \"Kara Synn\" in the table, not a language, so false_positive"
+    },
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Used as a city name \"Miami\" in knowledge‑graph triples, not a language, so false_positive"
+    },
+    "Mina": {
+      "verdict": "false_positive",
+      "reason": "Appears as a guild name \"Mina Vark\" in the synthetic table, not a language, so false_positive"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Occurs in the phrase \"pole vaulting\" (sport term), not referring to a language, so false_positive"
+    },
     "Tem": {
       "verdict": "false_positive",
-      "reason": "The snippet shows 'tem-' as part of the word 'template' (prompt tem- plate), not referring to a human language."
+      "reason": "Part of the word \"template\" (\"tem‑plate\") in a prompt description, not a language, so false_positive"
+    },
+    "Czech": {
+      "verdict": "false_positive",
+      "reason": "Appears as part of \"Czech Republic\" (country name) in a table, not as the Czech language, so false_positive"
+    },
+    "Finnish": {
+      "verdict": "false_positive",
+      "reason": "Used as an adjective describing a songwriter's nationality (\"Finnish songwriter\"), not the language itself, so false_positive"
+    },
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "Appears as an adjective for a currency (\"Korean yen\") and country name, not referring to the Korean language, so false_positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as the language of questions, error pattern names, and sentence requirements (e.g., \"<English question>\", \"English name\", \"grammatical English\"), but the paper does not study or build resour"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists \"French\" as an example of a value entity (e.g., French, Standard French, English) rather than indicating the paper studies or builds resources for the French language; thus it is onl"
     }
   }
 }

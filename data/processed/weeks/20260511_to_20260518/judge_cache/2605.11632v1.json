@@ -1,37 +1,101 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.11632v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-13T16:42:43.113793+00:00",
+  "judged_at": "2026-07-20T11:09:19.293206+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4967,
+  "context_chars": 9926,
   "verdicts": {
+    "Chini": {
+      "verdict": "false_positive",
+      "reason": "The matched token appears within multilingual health text as a regular word, not referring to the Chini language"
+    },
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The token does not appear in any provided snippet and there is no indication it refers to the Col language"
+    },
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The token occurs inside a block of mixed characters and does not denote the Dass language"
+    },
+    "Kuna": {
+      "verdict": "false_positive",
+      "reason": "Appears as the Swahili word \"kuna\" (meaning \"there is\"), not as a reference to the Kuna language"
+    },
+    "Kwa": {
+      "verdict": "false_positive",
+      "reason": "Used repeatedly as the Swahili preposition \"kwa\", not as a language name"
+    },
+    "Miji": {
+      "verdict": "false_positive",
+      "reason": "Occurs as the Swahili word \"miji\" (\"cities\"), not as a language reference"
+    },
+    "Nusu": {
+      "verdict": "false_positive",
+      "reason": "The isolated token \"Nusu\" appears in context unrelated to language discussion"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Appears as the Swahili plural marker \"wa\", not as a language name"
+    },
+    "Bali": {
+      "verdict": "false_positive",
+      "reason": "Mentioned as a regular word (likely referring to the island), not as the Bali language"
+    },
+    "Lao": {
+      "verdict": "false_positive",
+      "reason": "The Lao language is not present in any snippet, so no evidence of a genuine mention"
+    },
     "Swahili": {
       "verdict": "studied",
-      "reason": "The snippets refer to Swahili as a language whose sensitivity, validity, and minimality are evaluated and report performance differences, indicating the paper conducts experiments on Swahili."
+      "reason": "Explicitly discussed as a target language in experiments and sensitivity analyses"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "Included in the set of unseen languages on which the models are evaluated"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "The snippets list Greek among six unseen languages evaluated for cross‑lingual generalizability, indicating the paper conducts experiments on the Greek language"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi appears in the same set of six unseen languages evaluated in the paper, showing that Hindi is used in experimental evaluation"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is included among the six unseen languages on which the models are evaluated, meaning the paper studies Thai"
     },
     "Russian": {
       "verdict": "studied",
-      "reason": "The snippets discuss Russian as a language evaluated for sensitivity and cross‑lingual similarity, showing that the paper includes Russian in its experimental analysis."
+      "reason": "Russian is mentioned in language‑specific observation tables and in the set of overlapping languages, indicating experimental results are reported for Russian"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is listed as one of the six unseen languages evaluated for cross‑lingual generalizability, so the paper studies Turkish"
     },
     "Vietnamese": {
       "verdict": "studied",
-      "reason": "Vietnamese appears in the language selection and performance discussion, indicating it is one of the languages experimentally evaluated in the study."
+      "reason": "Vietnamese appears in language‑specific observation tables and in the overlapping language set, showing that the paper evaluates on Vietnamese"
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "Arabic is mentioned in the context of language confusion reduction and performance evaluation, demonstrating that the paper studies Arabic in its experiments."
+      "reason": "Arabic is referenced in language‑specific observation tables and the overlapping language set, indicating experimental evaluation on Arabic"
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "Chinese is listed among the selected languages and referenced in cross‑lingual performance analysis, showing that the paper evaluates Chinese."
+      "reason": "Chinese is included in language‑specific observation tables and the overlapping language set, demonstrating that the paper conducts experiments on Chinese"
     },
     "German": {
       "verdict": "studied",
-      "reason": "German is cited in sensitivity and cross‑lingual similarity analyses, indicating that the paper includes German in its experimental evaluation."
+      "reason": "German appears in language‑specific observation tables and the overlapping language set, showing that the paper evaluates on German"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is listed among the six unseen languages evaluated for cross‑lingual generalizability, indicating the paper studies Spanish"
     },
     "English": {
       "verdict": "studied",
-      "reason": "English is repeatedly referenced as a language evaluated for sensitivity, baseline performance, and cross‑lingual comparisons, meaning the paper studies English as part of its multilingual experiments"
+      "reason": "English is repeatedly mentioned in the abstract, observations, and evaluation tables, and is used as a baseline language in experiments, so the paper studies English"
     }
   }
 }

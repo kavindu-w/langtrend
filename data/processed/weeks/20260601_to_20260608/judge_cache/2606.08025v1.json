@@ -1,21 +1,29 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.08025v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-09T16:21:40.964253+00:00",
+  "judged_at": "2026-07-20T11:51:48.872494+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2221,
+  "context_chars": 3237,
   "verdicts": {
     "Abu": {
       "verdict": "false_positive",
-      "reason": "The snippet shows 'Abu' as part of the place name 'Abu Dhabi', not referring to a human language."
+      "reason": "The term 'Abu' occurs in the affiliation 'Abu Dhabi', referring to a place, not a language, so it is a false positive"
+    },
+    "Mama": {
+      "verdict": "false_positive",
+      "reason": "The term 'Mama' appears in a list alongside names like 'Majed Mama', indicating a personal or dataset name rather than a language, so it is a false positive"
     },
     "Wa": {
       "verdict": "false_positive",
-      "reason": "The snippet uses 'wa' as an Arabic coordinating conjunction meaning 'and', not as the name of a language."
+      "reason": "The term 'wa' is used as the Arabic conjunction meaning 'and', not as a language name, so it is a false positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as part of the name 'Arabic-English Bilingual Undergraduate Corpus', serving as a language label rather than a focus of the study, so it is mentioned only"
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "The snippet discusses Arabic sentence segmentation, introduces an Arabic corpus, and evaluates models on Arabic, indicating the paper studies the Arabic language."
+      "reason": "Arabic is the central focus of the paper, with a corpus, experiments, and analysis dedicated to Arabic sentence segmentation, so it is studied"
     }
   }
 }

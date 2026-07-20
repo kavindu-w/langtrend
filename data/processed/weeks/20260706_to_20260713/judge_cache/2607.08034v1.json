@@ -1,25 +1,85 @@
 {
   "paper_id": "http://arxiv.org/abs/2607.08034v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-14T17:51:40.811929+00:00",
+  "judged_at": "2026-07-20T13:21:03.235168+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3855,
+  "context_chars": 6978,
   "verdicts": {
+    "Bhojpuri": {
+      "verdict": "mentioned_only",
+      "reason": "appears in a demographic table listing languages of participants, not used in experiments"
+    },
+    "Odia": {
+      "verdict": "mentioned_only",
+      "reason": "appears in a demographic table listing languages of participants, not used in experiments"
+    },
+    "Kannada": {
+      "verdict": "mentioned_only",
+      "reason": "appears in a demographic table listing languages of participants, not used in experiments"
+    },
+    "Kashmiri": {
+      "verdict": "mentioned_only",
+      "reason": "appears in a demographic table listing languages of participants, not used in experiments"
+    },
+    "Malayalam": {
+      "verdict": "mentioned_only",
+      "reason": "appears in a demographic table listing languages of participants, not used in experiments"
+    },
+    "Marathi": {
+      "verdict": "mentioned_only",
+      "reason": "appears in a demographic table listing languages of participants, not used in experiments"
+    },
+    "Telugu": {
+      "verdict": "mentioned_only",
+      "reason": "appears in a demographic table listing languages of participants, not used in experiments"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "appears in a demographic table listing languages of participants, not used in experiments"
+    },
     "Hindi": {
       "verdict": "mentioned_only",
-      "reason": "the snippet refers to Hindi as the target language of the Nanda model, i.e., mentions the language but does not study it"
+      "reason": "mentioned as a target language for a regional model and in a demographic table, but no experiments focus on the language itself"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "refers to the region 'Latin America' rather than the Latin language"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "appears in a demographic table listing languages of participants, not used in experiments"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "appears in a demographic table listing languages of participants, not used in experiments"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian appears in a table of languages associated with country participants, but the paper does not build resources or evaluate models for Italian; it is only mentioned."
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean is listed among languages in a demographic table, without any dedicated experiments or resources; thus it is only mentioned."
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese shows up in the same demographic table and is not the focus of any study or dataset creation; it is merely mentioned."
     },
     "Arabic": {
       "verdict": "mentioned_only",
-      "reason": "the snippet refers to Arabic as the target language of the Jais model, i.e., mentions the language but does not study it"
+      "reason": "Arabic is referenced when discussing a regional language model (Jais for Arabic) but no Arabic-specific data or models are built; it is only mentioned."
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "the snippet refers to English as the language used to generate the dataset, but the paper does not conduct research on English itself"
+      "reason": "English is cited as the language used to generate all triplets and in several descriptive passages, but the work does not study English as a target language; it is only mentioned."
     },
     "Japanese": {
-      "verdict": "false_positive",
-      "reason": "the snippet uses Japanese to describe a demographic group and cultural virtues, not the Japanese language"
+      "verdict": "mentioned_only",
+      "reason": "Japanese appears in examples describing cultural alignment (e.g., \"traditional Japanese virtues\") but no Japanese-specific resources are created; it is only mentioned."
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is included in the demographic language list for Brazil and elsewhere, without any dedicated study or resource; it is only mentioned."
     }
   }
 }

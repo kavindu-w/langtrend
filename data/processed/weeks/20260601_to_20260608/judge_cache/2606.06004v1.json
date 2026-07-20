@@ -1,45 +1,61 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.06004v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-09T16:51:23.025219+00:00",
+  "judged_at": "2026-07-20T11:51:01.564281+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 5947,
+  "context_chars": 7973,
   "verdicts": {
+    "Mor": {
+      "verdict": "false_positive",
+      "reason": "Mor appears as part of the personal name 'Mor Rubinstein' in a citation, not as a language name, so it's a false positive."
+    },
+    "Ottawa": {
+      "verdict": "false_positive",
+      "reason": "Ottawa appears as a city name in a publication location, not referring to a language, so it's a false positive."
+    },
+    "Raji": {
+      "verdict": "false_positive",
+      "reason": "Raji appears in the personal name 'Inioluwa Deborah Raji', not a language reference, so it's a false positive."
+    },
+    "Bali": {
+      "verdict": "false_positive",
+      "reason": "Bali appears in the personal name 'Kalika Bali', not a language reference, so it's a false positive."
+    },
     "Haitian Creole": {
       "verdict": "mentioned_only",
-      "reason": "referred to as an example of a diglossic language situation, not a focus of the study"
+      "reason": "Haitian Creole is mentioned as an example of a diglossic language without any experimental work on it, so it's mentioned only."
     },
     "Latin": {
       "verdict": "false_positive",
-      "reason": "refers to Latin script (e.g., \"languages with Latin script normalization\"), not the Latin language"
+      "reason": "Latin is used to refer to 'Latin script' rather than the Latin language, so it's a false positive."
     },
     "Tamil": {
       "verdict": "mentioned_only",
-      "reason": "referred to as an example of a diglossic language situation, not a focus of the study"
+      "reason": "Tamil is cited as an example of a diglossic language, with no direct study, so it's mentioned only."
     },
     "Portuguese": {
       "verdict": "mentioned_only",
-      "reason": "mentioned as a pluricentric language example, without any experimental work on it"
+      "reason": "Portuguese is listed as a pluricentric language example, without being studied, so it's mentioned only."
     },
     "egyptian arabic": {
       "verdict": "mentioned_only",
-      "reason": "mentioned as one of several Arabic dialect resources (e.g., SMS/Chat evaluation) but the paper does not build or evaluate resources specifically for it"
+      "reason": "Egyptian Arabic is referenced as an existing treebank and evaluation resource, but the paper does not conduct new experiments on it, so it's mentioned only."
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "cited in discussion of prestige varieties and African American English, with no dedicated study or resource creation"
+      "reason": "English is mentioned in contexts such as African American English and general discussion, without being the focus of study, so it's mentioned only."
     },
     "German": {
       "verdict": "mentioned_only",
-      "reason": "cited as a pluricentric language example, not a target of the paper's experiments or resources"
-    },
-    "Spanish": {
-      "verdict": "mentioned_only",
-      "reason": "cited as a pluricentric language example, not a target of the paper's experiments or resources"
+      "reason": "German is mentioned as a pluricentric language example, not studied, so it's mentioned only."
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "central case study of Arabic dialects, with discussion of resources, guidelines, and diglossia, indicating the paper studies Arabic"
+      "reason": "Arabic dialects are the central focus of the case study and guidelines, indicating the paper studies Arabic, so it's studied."
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears only in a list of pluricentric languages as an example, with no further work on it, implying mentioned_only."
     }
   }
 }

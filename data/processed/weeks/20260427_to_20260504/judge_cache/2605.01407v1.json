@@ -1,21 +1,29 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.01407v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-15T15:59:31.777477+00:00",
+  "judged_at": "2026-07-20T10:01:46.496601+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3848,
+  "context_chars": 4858,
   "verdicts": {
+    "Kuan": {
+      "verdict": "false_positive",
+      "reason": "Kuan appears as part of the author name Chih‑Kuan Yeh, not a language"
+    },
     "Ottawa": {
       "verdict": "false_positive",
-      "reason": "Ottawa refers to the capital city of Canada, not a language, so false_positive"
+      "reason": "Ottawa is used as the name of the Canadian capital city, not a language"
+    },
+    "Puri": {
+      "verdict": "false_positive",
+      "reason": "Puri appears as part of the author name Raul Puri, not a language"
     },
     "Sake": {
       "verdict": "false_positive",
-      "reason": "Sake is used in the phrase \"for the sake of\" meaning purpose, not the Japanese language, so false_positive"
+      "reason": "sake is used in the common English phrase 'for the sake of', not a language"
     },
     "Korean": {
       "verdict": "studied",
-      "reason": "Korean refers to the Korean language, which the dataset is primarily centered on, indicating the paper uses this language in its experiments, so studied"
+      "reason": "Korean refers to the Korean language, which the paper’s dataset is centric to and used in experiments, so it is studied"
     }
   }
 }

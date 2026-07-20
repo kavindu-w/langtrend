@@ -1,25 +1,69 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.24337v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-05T22:24:17.537024+00:00",
+  "judged_at": "2026-07-20T13:07:21.131159+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4446,
+  "context_chars": 8512,
   "verdicts": {
+    "Amal": {
+      "verdict": "false_positive",
+      "reason": "Amal appears as part of a personal name (Fethi Amal) rather than referring to the Amal language, so this is a false_positive"
+    },
+    "Berta": {
+      "verdict": "false_positive",
+      "reason": "Berta appears as a surname (e.g., García-Miguel José María ... Berta) and not as the Berta language, so this is a false_positive"
+    },
+    "Dima": {
+      "verdict": "false_positive",
+      "reason": "Dima is used as a personal given name (Taji, Dima) rather than the Dima language, so this is a false_positive"
+    },
+    "Efe": {
+      "verdict": "false_positive",
+      "reason": "Efe occurs in a personal name (Genç Efe Eren) and does not denote the Efe language, so this is a false_positive"
+    },
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "Fam is listed as a surname (Rashel, Fam) and not as the Fam language, so this is a false_positive"
+    },
+    "Ika": {
+      "verdict": "false_positive",
+      "reason": "Ika appears as a personal name (Alfina, Ika) rather than referencing the Ika language, so this is a false_positive"
+    },
+    "Katla": {
+      "verdict": "false_positive",
+      "reason": "Katla is used as a personal name (Ásgeirsdóttir, Katla) and not as the Katla language, so this is a false_positive"
+    },
+    "Ito": {
+      "verdict": "false_positive",
+      "reason": "Ito occurs as a surname (Ito, Kaoru) and does not refer to the Ito language, so this is a false_positive"
+    },
+    "Kara": {
+      "verdict": "false_positive",
+      "reason": "Kara appears as a personal surname (Kara, Neslihan) rather than the Kara language, so this is a false_positive"
+    },
+    "Kaili": {
+      "verdict": "false_positive",
+      "reason": "Kaili is present as a personal name (Müürisep, Kaili) and not as the Kaili language, so this is a false_positive"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo is used as a personal given name (Shen, Mo) rather than indicating the Mo language, so this is a false_positive"
+    },
     "Latin": {
       "verdict": "false_positive",
-      "reason": "Latin refers to the Latin-based alphabet used for Czech, not the Latin language itself, so false_positive"
-    },
-    "English": {
-      "verdict": "mentioned_only",
-      "reason": "English refers to the English Web Treebank and English source texts used as examples/comparisons, mentioned only"
-    },
-    "German": {
-      "verdict": "mentioned_only",
-      "reason": "German refers to the German-HDT treebank mentioned for size comparison, mentioned only"
+      "reason": "Latin is mentioned in reference to a Latin-based alphabet/script, not the Latin language, so this is a false_positive"
     },
     "Czech": {
       "verdict": "studied",
-      "reason": "Czech refers to the Czech language and its treebank, which is the main focus of the paper, thus studied"
+      "reason": "Czech refers to the target language of the new UD treebank and conversion described throughout the paper, indicating the paper studies Czech."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only in references to other treebanks (e.g., English Web Treebank, Czech‑English Dependency Treebank) and not as a focus of the work, indicating it is only mentioned."
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is mentioned only as part of the German‑HDT treebank used for comparison, not as a focus of the research, indicating it is only mentioned."
     }
   }
 }

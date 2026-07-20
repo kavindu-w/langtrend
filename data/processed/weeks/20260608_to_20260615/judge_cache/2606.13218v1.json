@@ -1,21 +1,29 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.13218v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-08T07:11:03.303988+00:00",
+  "judged_at": "2026-07-20T12:47:52.554789+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2728,
+  "context_chars": 5810,
   "verdicts": {
-    "Hebrew": {
-      "verdict": "studied",
-      "reason": "The snippets refer to the Hebrew language (e.g., Hebrew word ...), and the paper evaluates LLM performance on Hebrew cognates, so it is studied"
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col refers to spreadsheet column abbreviations (e.g., \"col L\", \"col. K\") in annotation instructions, not to a human language, so false_positive"
     },
-    "Arabic": {
-      "verdict": "studied",
-      "reason": "The snippets refer to the Arabic language (e.g., Arabic word ...), and the paper evaluates LLM performance on Arabic cognates, so it is studied"
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language used to provide meanings of Arabic and Hebrew words in the dataset, but the paper does not build resources or evaluate models for English, so mentioned_only"
     },
     "Japanese": {
       "verdict": "mentioned_only",
-      "reason": "The snippet mentions the Japanese language only as the origin of a loanword example, without any experiments on Japanese, so it is mentioned_only"
+      "reason": "Japanese refers to the Japanese lexical item \"sushi\" cited as a loanword example; the paper does not study Japanese itself, so mentioned_only"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Hebrew refers to the Hebrew language whose words are central to the benchmark, data collection, and model evaluation, thus it is studied"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the Arabic language whose words are central to the benchmark, data collection, and model evaluation, thus it is studied"
     }
   }
 }

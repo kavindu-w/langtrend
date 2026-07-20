@@ -1,37 +1,69 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.26947v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-11T15:00:36.268995+00:00",
+  "judged_at": "2026-07-20T11:27:47.123662+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 6635,
+  "context_chars": 10438,
   "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "Abu refers to the place name 'Abu Dhabi' in the affiliation line, not a language"
+    },
+    "Ayu": {
+      "verdict": "false_positive",
+      "reason": "Ayu is part of the author name 'Ayu Purwarianti', not the language"
+    },
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo is part of the author name 'Bo Li', not a language"
+    },
+    "Chong": {
+      "verdict": "false_positive",
+      "reason": "Chong appears as a surname in an author list, not the language"
+    },
     "Fam": {
       "verdict": "false_positive",
-      "reason": "In the snippet 'family situations' the term 'fam' is an abbreviation for family, not a language, so it's a false positive."
+      "reason": "Fam appears within the word 'family' in a description of borderline cases, not a language name"
+    },
+    "Kamar": {
+      "verdict": "false_positive",
+      "reason": "Kamar is the surname of author 'Ece Kamar', not a language"
+    },
+    "Tay": {
+      "verdict": "false_positive",
+      "reason": "Tay is the surname of author 'Yi Tay', not a language"
+    },
+    "Bali": {
+      "verdict": "false_positive",
+      "reason": "Bali is a geographic location (Bali, Indonesia) mentioned in the conference venue, not the language"
     },
     "Albanian": {
       "verdict": "mentioned_only",
-      "reason": "The snippet lists Albanian among languages for which safety benchmarks exist, mentioning the language but not providing data or experiments on it, so it's mentioned_only."
+      "reason": "Albanian refers to the Albanian language when citing an existing safety dataset; the paper only mentions it without conducting experiments on it"
+    },
+    "Shan": {
+      "verdict": "false_positive",
+      "reason": "Shan appears as part of the author name 'Ming Shan Hee', not a language"
     },
     "Russian": {
       "verdict": "mentioned_only",
-      "reason": "The snippet refers to limited Russian mixing in prompts and a multilingual detector covering Russian, mentioning the language without building resources, so it's mentioned_only."
-    },
-    "Arabic": {
-      "verdict": "mentioned_only",
-      "reason": "The snippet discusses Arabic NLP domain datasets, mentioning Arabic language only, so it's mentioned_only."
-    },
-    "Chinese": {
-      "verdict": "mentioned_only",
-      "reason": "The snippet cites Chinese safety benchmarks and detection work, mentioning the language only, so it's mentioned_only."
+      "reason": "Russian refers to the Russian language used in mixed prompts and detection, but the paper does not build resources for Russian; it is only mentioned"
     },
     "Kazakh": {
       "verdict": "studied",
-      "reason": "The snippets describe a Kazakh prompt dataset, its creation, and evaluation, indicating the paper studies Kazakh language, so it's studied."
+      "reason": "Kazakh refers to the Kazakh language which is the focus of the dataset and experiments; the paper studies it"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "the term refers to an Arabic hate‑speech dataset cited in related work, not a resource or experiment conducted in this paper"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "the term refers to Chinese safety/offensive‑language benchmarks mentioned as related work, not a dataset or evaluation performed here"
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The snippets refer to English translations and English-centric benchmarks, mentioning English but not creating resources for it, so it's mentioned_only."
+      "reason": "the term refers to English translations of the Kazakh prompts and to English‑centric benchmarks, but the paper does not study or build resources for English itself"
     }
   }
 }

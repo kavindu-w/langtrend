@@ -1,53 +1,61 @@
 {
   "paper_id": "http://arxiv.org/abs/2607.06196v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-14T17:57:57.426206+00:00",
+  "judged_at": "2026-07-20T13:23:03.968509+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 10346,
+  "context_chars": 11359,
   "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "refers to the prefix 'col-' in 'collectivist', not a language"
+    },
     "Kota": {
       "verdict": "false_positive",
-      "reason": "Kota refers to the Indian city mentioned in the cohort description, not the language"
+      "reason": "refers to the Indian city Kota, not a language"
+    },
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "refers to the fruit mango, not a language"
     },
     "Ong": {
       "verdict": "false_positive",
-      "reason": "Ong appears within a transliteration string and as a surname, not as a language name"
+      "reason": "appears as part of a transliteration 'song zhong', not a language name"
     },
     "Bengali": {
       "verdict": "studied",
-      "reason": "Bengali is listed as a target language for prompt translation and dataset annotation, indicating the paper creates resources for it"
+      "reason": "used as a language in the dataset (Bangladesh prompts) and translation/localization, indicating the paper builds resources for Bengali"
     },
     "Hindi": {
       "verdict": "studied",
-      "reason": "Hindi is used for cohort description and prompt localization, with dedicated annotations, indicating the paper works with this language"
+      "reason": "used as a language in the dataset and translation/localization, indicating the paper builds resources for Hindi"
     },
     "Malay": {
       "verdict": "studied",
-      "reason": "Malay is mentioned as a target language for translation and as a language group of raters, with dataset content, indicating study"
+      "reason": "used as a language in the dataset and translation/localization, indicating the paper builds resources for Malay"
     },
     "Tamil": {
       "verdict": "studied",
-      "reason": "Tamil is a target language for translation and cohort description, with dedicated raters, indicating study"
+      "reason": "used as a language in the dataset and translation/localization, indicating the paper builds resources for Tamil"
     },
     "Urdu": {
       "verdict": "studied",
-      "reason": "Urdu is listed as a target language for translation and dataset annotation, indicating study"
+      "reason": "used as a language in the dataset and translation/localization, indicating the paper builds resources for Urdu"
     },
     "Indonesian": {
       "verdict": "mentioned_only",
-      "reason": "Indonesian is referenced only in a discussion of conventions on Malay prompts, without dataset inclusion, so only mentioned"
+      "reason": "mentioned as a language whose conventions are discussed, but no evidence of dataset collection or experiments, so only mentioned"
     },
     "Korean": {
       "verdict": "studied",
-      "reason": "Korean is a target language for translation and dataset, with specific Korean prompts, indicating study"
+      "reason": "used as a language in the dataset and translation/localization, indicating the paper builds resources for Korean"
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "Chinese (Traditional Chinese) is a target language for translation and cultural examples, indicating study"
+      "reason": "used as a language (Traditional Chinese) in the dataset and translation/localization, indicating the paper builds resources for Chinese"
     },
     "English": {
       "verdict": "studied",
-      "reason": "English is the source language for seed prompts and also evaluated, with dedicated English cohort, indicating study"
+      "reason": "English is used as the primary seed language for prompts and as a target language in translations and evaluations, indicating the paper builds and tests resources for English"
     }
   }
 }

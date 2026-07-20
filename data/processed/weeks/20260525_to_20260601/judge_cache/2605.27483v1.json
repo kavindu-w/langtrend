@@ -1,13 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.27483v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-11T14:56:35.833489+00:00",
+  "judged_at": "2026-07-20T11:28:34.744267+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3193,
+  "context_chars": 4715,
   "verdicts": {
     "Agi": {
       "verdict": "false_positive",
-      "reason": "The snippets use 'AGI' as part of task names like ARC-AGI-2, referring to artificial general intelligence, not a human language"
+      "reason": "The term 'Agi' appears within the acronym 'ARC-AGI-2' and in discussion of artificial general intelligence, not referring to a human language, so false_positive"
+    },
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The term 'Col' is used as an abbreviation for 'column' in describing grid positions and patterns, not a human language, so false_positive"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The term 'sentinel' refers to a sentinel value in programming (negative-indexing bug story), not a human language, so false_positive"
     }
   }
 }

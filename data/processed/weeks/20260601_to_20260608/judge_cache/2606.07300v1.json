@@ -1,29 +1,45 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.07300v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-09T16:27:28.436633+00:00",
+  "judged_at": "2026-07-20T11:51:25.028152+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4873,
+  "context_chars": 9317,
   "verdicts": {
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "The term 'nasal' appears as a phonetic feature (optional nasal ending) in the description of Chinese finals, not referring to a language."
+    },
+    "Ong": {
+      "verdict": "false_positive",
+      "reason": "The occurrences of 'Ong' are pinyin finals in Chinese syllable groups, not a language name."
+    },
     "Pinyin": {
       "verdict": "false_positive",
-      "reason": "Pinyin refers to the romanization system for Chinese characters used in the character-to-pinyin conversion task, not a distinct human language"
+      "reason": "Pinyin is described as the official romanization system for Chinese, not a human language."
     },
     "Greek": {
       "verdict": "mentioned_only",
-      "reason": "Greek is cited as an example of an alphabetic language when discussing language selection, with no experiments on Greek"
+      "reason": "Greek is cited as an example of an alphabetic language when discussing writing systems, with no experiments on it."
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "Czech appears only in a pun example ('check and Czech') as a wordplay illustration, not as a study target."
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is mentioned as an example of a language with regular grapheme‑phoneme mapping, without any experiments on it."
     },
     "Korean": {
       "verdict": "mentioned_only",
-      "reason": "Korean is mentioned as part of other benchmarks (KoBALT, KoGEM) and not used in the paper's experiments"
+      "reason": "Korean is referenced in the context of existing multilingual benchmarks (KoBALT, KoGEM) but the paper does not conduct experiments on Korean."
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "English is mentioned as an example of an alphabetic language and as the target language of another benchmark, but the paper does not conduct experiments on English"
+      "reason": "English is mentioned as an example of an alphabetic language and as the target of another benchmark (PhonologyBench), but the paper does not evaluate English itself."
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "Chinese is the focus of the benchmark, with character-to-pinyin tests and evaluation of LLMs on Chinese phonological tasks"
+      "reason": "Chinese is the central language of the benchmark, with character‑to‑pinyin tests and evaluations, indicating the paper studies Chinese phonological understanding."
     }
   }
 }

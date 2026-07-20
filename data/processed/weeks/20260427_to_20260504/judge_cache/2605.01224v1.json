@@ -1,41 +1,93 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.01224v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-15T16:07:39.602128+00:00",
+  "judged_at": "2026-07-20T10:02:34.940622+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3325,
+  "context_chars": 8747,
   "verdicts": {
+    "Basa": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'basa' as a generic word meaning 'language' (e.g., 'basa Inggris') rather than referring to the Basa language, so it is a false positive."
+    },
+    "Bua": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not contain a clear reference to the Bua language; the candidate appears only in the list, so we cannot confirm a language reference and treat it as mentioned only."
+    },
+    "Ito": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets provide no explicit mention of the Ito language, only the candidate name appears in the list, so we treat it as mentioned only."
+    },
+    "Kung": {
+      "verdict": "mentioned_only",
+      "reason": "No clear reference to the Kung language is present in the snippets; the candidate is listed without supporting evidence, so we treat it as mentioned only."
+    },
+    "Nuk": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not show a distinct reference to the Nuk language; the name appears only in the candidate list, so we treat it as mentioned only."
+    },
+    "Asturian": {
+      "verdict": "studied",
+      "reason": "The snippet includes a translation prompt and correct ISO code output for an Asturian sentence, indicating the paper evaluates Asturian, thus it is studied."
+    },
+    "Banjar": {
+      "verdict": "studied",
+      "reason": "The snippet contains a translation prompt and output for a Banjar sentence, showing the paper evaluates Banjar, thus it is studied."
+    },
+    "Bugis": {
+      "verdict": "studied",
+      "reason": "The snippet presents a translation prompt and correct English output for a Bugis sentence, demonstrating evaluation of Bugis, thus it is studied."
+    },
+    "Akan": {
+      "verdict": "studied",
+      "reason": "The snippet shows translation of an Akan prompt and analysis of model behavior, indicating the language is evaluated, thus it is studied."
+    },
+    "Albanian": {
+      "verdict": "studied",
+      "reason": "The snippet includes translation of an Albanian sentence and discussion of model support, showing Albanian is evaluated, thus it is studied."
+    },
     "Quechua": {
       "verdict": "studied",
-      "reason": "The snippets show Quechua used as a language in agent experiments (agents operating in Quechua, random language condition), indicating the paper evaluates LLM behavior for Quechua"
+      "reason": "The snippet describes agents operating in Quechua as part of the multilingual experimental condition, indicating the language is used in the study, thus it is studied."
+    },
+    "Tagalog": {
+      "verdict": "studied",
+      "reason": "The snippet contains a translation prompt and correct English output for a Tagalog sentence, demonstrating evaluation of Tagalog, thus it is studied."
     },
     "Bengali": {
       "verdict": "studied",
-      "reason": "Bengali appears in the random language condition where agents are tricked into operating in Bengali, showing the paper evaluates LLM performance for Bengali"
+      "reason": "Bengali appears in the multilingual experimental condition list, indicating it is used in the study → studied"
     },
     "Greek": {
       "verdict": "studied",
-      "reason": "Greek is referenced both in bias analysis (Greek‑speaking agents) and as a random language in experiments, indicating evaluation of LLMs for Greek"
+      "reason": "Greek is discussed in bias analysis and included in the multilingual condition, showing it is used in experiments → studied"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is only present in the candidate list without any snippet demonstrating its use in the experiments, so it is merely mentioned → mentioned_only"
+    },
+    "Welsh": {
+      "verdict": "studied",
+      "reason": "Welsh is used in a self‑report vs translation test (model denies but still translates), demonstrating it is part of the evaluation → studied"
     },
     "Hungarian": {
       "verdict": "studied",
-      "reason": "Hungarian is mentioned in bias patterns and as a random language in the multilingual condition, meaning the paper studies LLM behavior for Hungarian"
+      "reason": "Hungarian appears in bias analysis and the multilingual condition, indicating experimental use → studied"
     },
     "Romanian": {
       "verdict": "studied",
-      "reason": "Romanian appears in bias comparisons and as a random language in experiments, showing the paper evaluates LLM performance for Romanian"
+      "reason": "Romanian is mentioned in bias analysis and the multilingual condition, showing it is part of the experiments → studied"
     },
     "Turkish": {
       "verdict": "studied",
-      "reason": "Turkish is discussed in bias scores and included in the multilingual experimental condition, indicating the paper studies LLM behavior for Turkish"
+      "reason": "Turkish is discussed in bias analysis and the multilingual condition, indicating it is used in experiments → studied"
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "Chinese (Mandarin) is listed among the random languages used to test agents, demonstrating evaluation of LLMs for Chinese"
+      "reason": "Chinese (Mandarin) is listed among the languages in the multilingual condition, meaning it is used in experiments → studied"
     },
     "English": {
       "verdict": "studied",
-      "reason": "English is used as the monolingual baseline and discussed in the context of English‑centric research, meaning the paper evaluates LLM performance for English"
+      "reason": "English is the baseline monolingual condition and frequently referenced, thus it is central to the experiments → studied"
     }
   }
 }

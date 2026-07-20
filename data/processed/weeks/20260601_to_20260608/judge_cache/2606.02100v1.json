@@ -1,25 +1,29 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.02100v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-10T16:06:26.679419+00:00",
+  "judged_at": "2026-07-20T11:42:13.087296+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3857,
+  "context_chars": 4363,
   "verdicts": {
+    "Nora": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Nora Limbourg, a Google Cloud Customer Engineer (a person), not a language, so it's a false positive."
+    },
     "Dutch": {
       "verdict": "mentioned_only",
-      "reason": "The snippets refer to Dutch as a language in prior work comparisons (e.g., \"effect observed in prior work on Dutch and German\"), not as a model or dataset; the paper only mentions Dutch."
+      "reason": "The snippets refer to Dutch as a language mentioned in prior work comparisons, but the paper does not conduct experiments on Dutch, so it's mentioned_only."
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The snippets refer to English as a language (e.g., \"tokenizer was trained on English corpora\", \"early efforts prioritized English\"); the paper does not build or evaluate models for English."
+      "reason": "The snippets refer to English as a language used in referenced datasets/tokenizer training, but the paper does not study English, so it's mentioned_only."
     },
     "German": {
       "verdict": "mentioned_only",
-      "reason": "The snippets refer to German as a language in prior work (e.g., \"similar adaptations in ... German\"), without any study or resource creation for German."
+      "reason": "The snippets refer to German as a language cited in prior work, without any experiments on German, so it's mentioned_only."
     },
     "Portuguese": {
       "verdict": "studied",
-      "reason": "The snippets describe training and evaluating PortBERT models specifically for Portuguese (e.g., \"tailored for Portuguese\", \"dedicated Portuguese tokenizer\", \"Portuguese NLP\"), indicating the paper st"
+      "reason": "The snippets discuss Portuguese as the target language for model training, evaluation, and resources, indicating the paper studies Portuguese, so it's studied."
     }
   }
 }

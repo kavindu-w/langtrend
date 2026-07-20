@@ -1,21 +1,33 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.30497v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-10T18:03:45.548043+00:00",
+  "judged_at": "2026-07-20T11:34:10.940267+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2229,
+  "context_chars": 4132,
   "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "Dia appears in a sentence about document formatting and tweet context, not referring to the Dia language; it is a false positive."
+    },
+    "Mak": {
+      "verdict": "false_positive",
+      "reason": "Mak appears as part of a person's name (Hugo Mak) in the acknowledgments, not as the Mak language; it is a false positive."
+    },
     "Chinese": {
       "verdict": "mentioned_only",
-      "reason": "The snippet lists 'China Chinese' as the language of the EQUALS benchmark, i.e., a referenced dataset, not a focus of this work; therefore the language is only mentioned."
+      "reason": "Chinese is listed in a table column indicating the language of a benchmark (Chinese law articles), so it is mentioned but not studied."
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The snippet lists 'US English' as the language of the LegalBench-RAG benchmark, a referenced dataset, not a focus of this work; therefore the language is only mentioned."
+      "reason": "English is listed in the same table as the language of a benchmark (US English), only mentioned without being studied."
     },
     "French": {
       "verdict": "mentioned_only",
-      "reason": "The snippet refers to 'Belgium French' and 'case laws in French' as parts of other benchmarks or future work, not as a target of the study; thus French is only mentioned."
+      "reason": "French appears in the table as a language and in a discussion of French case law sources, indicating only a mention, not a study."
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German is used to describe Albert Einstein's nationality ('German theoretical physicist'), not the German language; it is a false positive."
     }
   }
 }

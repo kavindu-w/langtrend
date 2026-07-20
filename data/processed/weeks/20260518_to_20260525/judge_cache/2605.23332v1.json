@@ -1,33 +1,41 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.23332v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-11T16:13:24.201276+00:00",
+  "judged_at": "2026-07-20T11:22:09.647706+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4189,
+  "context_chars": 5205,
   "verdicts": {
+    "Raji": {
+      "verdict": "false_positive",
+      "reason": "Raji refers to an author name in a citation, not a language, so false_positive"
+    },
+    "Bali": {
+      "verdict": "false_positive",
+      "reason": "Bali refers to an author name in a citation, not a language, so false_positive"
+    },
     "Wolof": {
       "verdict": "mentioned_only",
-      "reason": "The snippet cites fieldwork on Wolof speakers in Senegal as an illustrative example, but no dataset or experiments are presented for Wolof, so it is only mentioned."
-    },
-    "Italian": {
-      "verdict": "studied",
-      "reason": "The snippets refer to the X‑Stance dataset and cross‑lingual stance detection experiments that include Italian comments, indicating the paper evaluates on Italian data, so it is studied."
+      "reason": "Wolof refers to the Wolof language spoken in Senegal, mentioned as an example but no experiments, so mentioned_only"
     },
     "Arabic": {
-      "verdict": "studied",
-      "reason": "The snippets discuss multi‑dialectal Arabic resources such as MARASTA and note Arabic term shura, and refer to Arabic stance detection experiments, showing the paper works with Arabic data, so it is s"
-    },
-    "French": {
-      "verdict": "studied",
-      "reason": "The snippets mention the X‑Stance dataset and cross‑lingual evaluation on French comments, indicating the paper includes French data in its experiments, so it is studied."
-    },
-    "German": {
-      "verdict": "studied",
-      "reason": "The snippets reference the X‑Stance dataset and cross‑lingual stance detection on German comments, showing German is part of the experimental evaluation, so it is studied."
+      "verdict": "mentioned_only",
+      "reason": "Arabic refers to the Arabic language (term shura, multi‑dialectal Arabic resources) mentioned in examples, not directly studied, so mentioned_only"
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The snippets refer to English language training data as the dominant source but do not present experiments on English, so English is only mentioned."
+      "reason": "English refers to English language training data and models, mentioned but not a focus of study, so mentioned_only"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian refers to the Italian language used in evaluation datasets (X‑Stance) and experiments, indicating the paper studies it, so studied"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to the French language used in evaluation datasets and experiments, indicating the paper studies it, so studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the German language used in evaluation datasets and experiments, indicating the paper studies it, so studied"
     }
   }
 }

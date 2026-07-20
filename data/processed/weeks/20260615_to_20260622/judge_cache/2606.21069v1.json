@@ -1,13 +1,29 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.21069v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-06T17:29:33.879298+00:00",
+  "judged_at": "2026-07-20T13:01:43.218757+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2844,
+  "context_chars": 5377,
   "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Abu Dhabi, a location, not the Abu language."
+    },
+    "Sani": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists a person name 'Murja Sani Gadanya', not the Sani language."
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists a person name 'Alexandra Uma', not the Uma language."
+    },
+    "Finnish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'finnish novels', referring to the Finnish language in a citation, but the paper does not study Finnish."
+    },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The term 'English' refers to the language spoken by annotators and the language of the text being annotated; the paper only mentions it and does not study or build resources for English."
+      "reason": "The snippet describes annotators as native English speakers and labels the dataset language as English, but the paper does not develop resources for English; it only mentions it."
     }
   }
 }

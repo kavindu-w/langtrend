@@ -1,13 +1,17 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.30801v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-08T03:28:48.465595+00:00",
+  "judged_at": "2026-07-20T13:16:37.780359+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2519,
+  "context_chars": 4832,
   "verdicts": {
+    "Alabama": {
+      "verdict": "false_positive",
+      "reason": "Alabama refers to a U.S. state listed as a persona location, not the language, so false_positive"
+    },
     "Hawaiian": {
       "verdict": "false_positive",
-      "reason": "The snippet mentions 'Native Hawaiian/Pacific Islander' as a demographic/ethnicity category, not the Hawaiian language itself."
+      "reason": "Hawaiian appears as part of the ethnicity label 'Native Hawaiian Pacific Islander', not referring to the Hawaiian language, so false_positive"
     }
   }
 }

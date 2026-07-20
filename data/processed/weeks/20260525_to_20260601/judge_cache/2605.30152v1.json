@@ -1,13 +1,33 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.30152v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-10T18:27:19.837009+00:00",
+  "judged_at": "2026-07-20T11:32:59.340914+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 1899,
+  "context_chars": 7000,
   "verdicts": {
+    "Katla": {
+      "verdict": "false_positive",
+      "reason": "Katla refers to a product name in the example prompt ('Katla's product pricing details'), not a human language"
+    },
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "Noon appears as the time-of-day term within Chinese-readable bands, not as a language name"
+    },
     "Pin": {
       "verdict": "false_positive",
-      "reason": "In the snippet, \"pin\" is used as a verb (e.g., \"test events pin to\") rather than referring to the Pin human language."
+      "reason": "Pin occurs in the phrase 'pin to' within a technical description, not referring to a language"
+    },
+    "Tring": {
+      "verdict": "false_positive",
+      "reason": "Tring shows up inside variable-like strings (e.g., 'tring purpose string'), not as a language reference"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is explicitly used as the target natural-language intent (Chinese-only imperatives, Chinese prompts, Chinese dataset) and the paper evaluates models on Chinese intents, indicating the language"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as a contrast (e.g., 'English task string') without any experiments or resources built for it, so it is merely mentioned"
     }
   }
 }

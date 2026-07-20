@@ -1,13 +1,25 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.29920v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-08T03:30:02.714382+00:00",
+  "judged_at": "2026-07-20T13:17:24.908189+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 1985,
+  "context_chars": 4932,
   "verdicts": {
     "Fur": {
       "verdict": "false_positive",
-      "reason": "The snippet shows 'fur- ther' as part of the word 'further', not referring to the Fur language."
+      "reason": "In the snippet 'fur- ther analyze', 'Fur' is part of the word 'further' and does not refer to the Fur language, so false_positive"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'polish certain sentences', 'Polish' is used as a verb meaning to refine, not the Polish language, so false_positive"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet says 'The rubric requires Chinese user-visible output', referring to the Chinese language as part of the rubric, but the paper only mentions it without studying the language, so mentioned_"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'The judge rewards English' and 'read technical English', referring to the English language in the context of rubric evaluation, without studying English language resources, so me"
     }
   }
 }

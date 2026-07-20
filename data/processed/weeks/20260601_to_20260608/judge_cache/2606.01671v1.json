@@ -1,29 +1,41 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.01671v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-10T16:06:50.858499+00:00",
+  "judged_at": "2026-07-20T11:41:01.078193+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4812,
+  "context_chars": 6863,
   "verdicts": {
     "Idio": {
       "verdict": "false_positive",
-      "reason": "Idio appears only as a component of terms like IDIO‑TONE and Idiomatic Property Signal, not referring to a human language, so false_positive"
+      "reason": "Idio refers to the Idiomatic Validation metric and IDIO‑TONE label, not a human language"
     },
     "Bengali": {
       "verdict": "studied",
-      "reason": "Bengali is cited as one of the target languages whose idioms are included in the Varnika dataset and evaluated with the proposed models, indicating it is studied"
+      "reason": "Bengali is cited as a low‑resource language for which the Varnika idiom dataset is created and evaluated, so the paper studies it"
     },
     "Hindi": {
       "verdict": "studied",
-      "reason": "Hindi is mentioned alongside Bengali and Thai as a language whose idioms are part of the dataset and experimental evaluation, indicating it is studied"
+      "reason": "Hindi is cited as a low‑resource language for which the Varnika idiom dataset is created and evaluated, so the paper studies it"
     },
     "Thai": {
       "verdict": "studied",
-      "reason": "Thai is listed as a language whose idioms are included in the dataset and used in evaluation experiments, indicating it is studied"
+      "reason": "Thai is cited as a low‑resource language for which the Varnika idiom dataset is created and evaluated, so the paper studies it"
+    },
+    "Ngam": {
+      "verdict": "false_positive",
+      "reason": "Ngam appears as part of a Thai idiom ('...lem ngam') rather than as a language name"
+    },
+    "Pali": {
+      "verdict": "mentioned_only",
+      "reason": "Pali is mentioned only in historical discussion of cultural exchange, with no resources or experiments built for it"
+    },
+    "Sanskrit": {
+      "verdict": "mentioned_only",
+      "reason": "Sanskrit is mentioned only in historical discussion of cultural exchange, with no resources or experiments built for it"
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "English appears only as an abbreviation in a comparison table (E) and not as a focus of experiments or resources, so it is mentioned only"
+      "reason": "English is used as a translation language and baseline abbreviation, not a target language studied in the paper"
     }
   }
 }

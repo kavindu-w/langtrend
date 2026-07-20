@@ -1,113 +1,117 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.31363v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-10T17:39:19.921973+00:00",
+  "judged_at": "2026-07-20T11:40:35.073924+00:00",
   "context_coverage": "abstract+pdf",
   "context_chars": 11814,
   "verdicts": {
     "Ari": {
       "verdict": "false_positive",
-      "reason": "In the snippet 'ari' appears as a romanized subword of a token, not as the Ari language"
+      "reason": "In the snippet 'bar ari' it is a subword token, not the Ari language."
     },
     "Kap": {
       "verdict": "false_positive",
-      "reason": "Kap occurs within a multilingual example as part of transliterated text, not referring to the Kap language"
+      "reason": "Appears as the Thai word 'kap' in a phrase, not the Kap language."
     },
     "Khao": {
       "verdict": "false_positive",
-      "reason": "Khao appears as a word in the example text, not as the Khao language"
+      "reason": "Appears as the Thai word 'khao' in a phrase, not the Khao language."
     },
     "Mala": {
       "verdict": "false_positive",
-      "reason": "Mala is used as a personal name/word in the example, not as the Mala language"
+      "reason": "Used as a proper name/word in the multilingual example, not referring to the Mala language."
     },
     "Nai": {
       "verdict": "false_positive",
-      "reason": "Nai appears as a word in the example, not as the Nai language"
+      "reason": "Appears as the Thai word 'nai' within a phrase, not the Nai language."
     },
     "Ona": {
       "verdict": "false_positive",
-      "reason": "Ona is a Russian pronoun in the example sentence, not the Ona language"
+      "reason": "Occurs as the Russian word 'Ona' meaning 'she', not the Ona language."
     },
     "Samay": {
       "verdict": "false_positive",
-      "reason": "Samay occurs as the Hindi word 'samay' (time) in the example, not as the Samay language"
+      "reason": "Present as the Hindi word 'samay' meaning 'time', not the Samay language."
     },
     "Sanga": {
       "verdict": "false_positive",
-      "reason": "Sanga appears as part of a phrase in the example, not as the Sanga language"
+      "reason": "Used as part of a phrase 'gosht sanga', not the Sanga language."
     },
     "Tha": {
       "verdict": "false_positive",
-      "reason": "Tha appears within other words (e.g., 'Thai') but not as a reference to the Tha language"
+      "reason": "Appears within the word 'Thai' or as part of a reference to Thailand, not as the Tha language name."
     },
     "Gujarati": {
-      "verdict": "mentioned_only",
-      "reason": "Gujarati is listed as a target script for transliteration, mentioned as a language name but no experiments focus on it"
+      "verdict": "studied",
+      "reason": "Mentioned as a target script/language in transliteration experiments and evaluated by the paper, so it is studied."
     },
     "Malayalam": {
       "verdict": "studied",
-      "reason": "Malayalam is used as the source language in transliteration experiments and analyses, thus the paper studies it"
+      "reason": "Used as the source language for transliteration and analysis, with experiments on Malayalam, thus studied."
     },
     "Marathi": {
       "verdict": "studied",
-      "reason": "Marathi is included as an evaluation language for script mediation, with experiments on its script, indicating it is studied"
+      "reason": "Evaluated as a target language in cross‑script experiments, with analysis on Marathi, thus studied."
     },
     "Telugu": {
       "verdict": "studied",
-      "reason": "snippets show Telugu as a target script in transliteration experiments (e.g., 'Telugu (te)') indicating the paper evaluates models on Telugu script"
+      "reason": "Telugu is discussed as a target script for transliteration tasks, indicating the paper evaluates Telugu language data"
     },
     "Greek": {
       "verdict": "studied",
-      "reason": "snippets refer to Greek as both a source and target script in multiple experiments, showing the paper works with Greek script"
+      "reason": "Greek appears both as a source language and as a target script in the experiments, showing the paper works with Greek language"
     },
     "Hindi": {
       "verdict": "studied",
-      "reason": "snippets describe Hindi as a source language and as a script (Devanagari and Latin) used throughout the experiments"
+      "reason": "Hindi is used as a source language and evaluated in script separability analyses, so the paper studies Hindi"
     },
     "Thai": {
-      "verdict": "studied",
-      "reason": "snippets mention Thai as a target script in the analysis of script conversion, indicating Thai is included in the experimental evaluation"
+      "verdict": "false_positive",
+      "reason": "Thai is mentioned only as a script target (e.g., 'Indonesian toward Thai'), not as a language under study"
     },
     "Urdu": {
       "verdict": "studied",
-      "reason": "snippets discuss Urdu with Perso‑Arabic and Latin forms and include it in cross‑lingual evaluation, showing the paper works with Urdu"
+      "reason": "Urdu is listed as a language with PersoArabic script and included in cross‑script experiments, so it is studied"
     },
     "Indonesian": {
       "verdict": "studied",
-      "reason": "snippets include Indonesian in the pattern analysis of script conversion, implying it is part of the experimental set"
+      "reason": "Indonesian is used as a source language in transliteration experiments (e.g., mapping Indonesian toward Thai), indicating it is studied"
     },
     "Polish": {
       "verdict": "studied",
-      "reason": "snippets reference Polish in the script‑conversion pattern analysis, indicating Polish is evaluated in the study"
+      "reason": "Polish appears in the analysis of script drift (e.g., 'Polish toward Cyrillic'), implying it is part of the experimental evaluation"
     },
     "Russian": {
       "verdict": "studied",
-      "reason": "snippets show Russian (Cyrillic) used as a target script and in cross‑lingual experiments, so the paper studies Russian script handling"
+      "reason": "Russian (Cyrillic) is used in script‑flipping experiments and head localization, so the paper studies Russian"
     },
     "Serbian": {
       "verdict": "mentioned_only",
-      "reason": "snippets only mention Serbian as an example of a language with multiple scripts in the introduction, without any experimental work on it"
+      "reason": "Serbian is cited only as an example of a language with multiple scripts in the introduction, with no experimental work, so it is mentioned only"
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "snippets repeatedly refer to Arabic as a source language and target script in transliteration and script‑mediation experiments"
+      "reason": "Arabic is a primary language in the experiments, both as source and target script, thus studied"
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "snippets cite prior work about latent English representations but do not conduct experiments on English script variation"
+      "reason": "English is referenced only in related‑work citations about latent English representations, not used in the paper’s own experiments, so mentioned only"
     },
     "Latin": {
       "verdict": "false_positive",
-      "reason": "snippets use Latin to refer to the Latin script, not the Latin language; the term denotes a script choice rather than a human language"
+      "reason": "In the snippets, 'Latin' is used to describe the Latin script or Latin-script outputs (e.g., 'diffuse-Latin picture', 'Latin signal', 'Latin script'), not the Latin human language itself."
     },
     "French": {
-      "verdict": "studied",
-      "reason": "The snippet lists French among languages whose script outputs drift toward Arabic in the experimental analysis, indicating French is part of the paper's experiments, so it is studied."
+      "verdict": "mentioned_only",
+      "reason": "The snippet 'French toward Arabic' uses French as a human language name, but only as an example without dedicated experiments, so mentioned_only"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "No snippet shows German; insufficient evidence to confirm a language reference, so likely only a mention, thus mentioned_only"
     },
     "Japanese": {
       "verdict": "studied",
-      "reason": "The snippet mentions evaluating transfer on Japanese as an unseen language, showing the paper runs experiments on Japanese, so it is studied."
+      "reason": "Snippets refer to Japanese as a language used in evaluation (e.g., 'Japanese (mixed)' and 'Japanese models'), indicating the paper evaluates on Japanese, so studied"
     }
   }
 }

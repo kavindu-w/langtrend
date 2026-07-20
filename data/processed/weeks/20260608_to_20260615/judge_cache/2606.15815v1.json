@@ -1,13 +1,29 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.15815v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-08T06:09:50.988079+00:00",
+  "judged_at": "2026-07-20T12:14:59.682454+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 1944,
+  "context_chars": 4474,
   "verdicts": {
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the substring 'mal' as part of the word 'minimal' (e.g., 'mini‑mal thresholds'), not referring to the Mal language."
+    },
+    "Akan": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to 'Akan ontology' and cultural concepts, not to the Akan language itself."
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Polish words' as a comparison for pronouns, without studying the Polish language."
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Chinese tourists' as a nationality; it does not refer to the Chinese language."
+    },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The term 'English' refers to the English language as the source of training data and speaker population, not as a focus of study; the paper only mentions English."
+      "reason": "The snippet discusses training on English data and English speakers, mentioning the English language only, not studying it."
     }
   }
 }

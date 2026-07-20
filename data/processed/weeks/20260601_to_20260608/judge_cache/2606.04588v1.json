@@ -1,13 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.04588v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-09T17:25:27.517883+00:00",
+  "judged_at": "2026-07-20T11:46:12.691866+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 1487,
+  "context_chars": 3021,
   "verdicts": {
+    "Fur": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'fur' to describe animal hair, not the Fur language, so it's a false positive."
+    },
+    "Mum": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'mum' as part of the word 'maximum' and not as a language name, so it's a false positive."
+    },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The snippet refers to the English language as the language of the benchmark's instructions and outputs, but the paper does not study or build resources for English; it merely mentions it."
+      "reason": "The snippets refer to the English language for writing instructions, but the paper does not study or develop resources for English itself; it merely uses English, so it's mentioned only."
     }
   }
 }

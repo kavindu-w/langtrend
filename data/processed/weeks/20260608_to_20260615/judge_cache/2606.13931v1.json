@@ -1,21 +1,33 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.13931v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-08T06:50:39.165364+00:00",
+  "judged_at": "2026-07-20T12:16:11.810156+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 1991,
+  "context_chars": 4528,
   "verdicts": {
-    "Chinese": {
-      "verdict": "mentioned_only",
-      "reason": "The snippet mentions \"LegalAgentBench Chinese law\" and the paper includes Chinese law cases, referring to the legal system rather than the Chinese language itself; the paper does not build resources o"
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'col- lected' as part of the word 'collected', not referring to the Col language; it's a false positive."
+    },
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'dia- logues' (part of 'dialogues'), not the Dia language; it's a false positive."
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'pin' in the phrase 'pin decoding parameters', not the Pin language; it's a false positive."
     },
     "English": {
-      "verdict": "mentioned_only",
-      "reason": "The snippet cites \"LEXam English/German law exams\", using English as a descriptor for law exams, not as a language focus of the study; the paper does not develop or evaluate models specifically for En"
+      "verdict": "studied",
+      "reason": "The paper includes English as a language of its benchmark data and evaluates models on English legal texts, thus the language is used in the study."
     },
     "German": {
       "verdict": "mentioned_only",
-      "reason": "The snippet cites \"LEXam English/German law exams\", using German as a descriptor for law exams, not as a language focus of the study; the paper does not develop or evaluate models specifically for Ger"
+      "reason": "German is mentioned only in the context of 'English/German law exams' without any dedicated data or experiments for German, so it is merely mentioned."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The benchmark provides Chinese legal cases and evaluates models on Chinese-language data, indicating the language is part of the study's resources and experiments."
     }
   }
 }

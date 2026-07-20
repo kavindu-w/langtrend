@@ -1,53 +1,57 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.11779v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-13T16:35:54.971292+00:00",
+  "judged_at": "2026-07-20T11:08:31.162334+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 7759,
+  "context_chars": 8198,
   "verdicts": {
+    "Neme": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Alexis Neme, a person’s surname, not a language, so it's a false positive."
+    },
     "Estonian": {
       "verdict": "mentioned_only",
-      "reason": "The snippets refer to Estonian MWEs and a database of Estonian MWEs, used as examples rather than as the focus of the paper's experiments."
+      "reason": "The snippets refer to Estonian as the language of MWEs (e.g., Estonian MWEs), but only as examples/mentions without conducting experiments, so mentioned_only."
     },
     "Greek": {
       "verdict": "mentioned_only",
-      "reason": "Greek appears only in lists of languages and citations (e.g., \"in English, Romance languages, Greek\"), with no Greek-specific data or analysis presented."
+      "reason": "Greek is mentioned as one of the languages in examples and citations, not studied directly, so mentioned_only."
     },
     "Czech": {
       "verdict": "mentioned_only",
-      "reason": "The snippet mentions the SemLex Dictionary of Czech MWEs as a cited resource, but the paper does not conduct Czech-specific experiments."
+      "reason": "Czech appears in reference to the SemLex Dictionary of Czech MWEs, only mentioned, so mentioned_only."
     },
     "Dutch": {
       "verdict": "mentioned_only",
-      "reason": "Dutch is referenced via the DuELME dictionary and a study of 5000 Dutch MWEs, cited as background rather than as the paper's own empirical work."
+      "reason": "Dutch is referenced via the DuELME dictionary and a study of Dutch MWEs, but only cited, not investigated, so mentioned_only."
     },
     "Italian": {
       "verdict": "mentioned_only",
-      "reason": "Italian is listed among languages in examples and citations, without any dedicated Italian data or experiments."
+      "reason": "Italian is listed among languages for which criteria are adapted, only mentioned, so mentioned_only."
     },
     "Korean": {
       "verdict": "mentioned_only",
-      "reason": "Korean appears only in cross‑linguistic lists and typological discussion, with no Korean‑specific analysis provided."
+      "reason": "Korean is listed among languages in typological discussion, only mentioned, so mentioned_only."
     },
     "Portuguese": {
       "verdict": "mentioned_only",
-      "reason": "Portuguese is mentioned solely as part of a list of languages used for illustrative examples."
+      "reason": "Portuguese appears in a list of languages for which criteria are illustrated, only mentioned, so mentioned_only."
     },
     "Arabic": {
       "verdict": "mentioned_only",
-      "reason": "Arabic is included in a list of languages concerning support‑verb constructions, but the paper does not present Arabic‑specific work."
+      "reason": "Arabic is included in a list of languages with certain syntactic properties, only mentioned, so mentioned_only."
     },
     "Chinese": {
       "verdict": "mentioned_only",
-      "reason": "Chinese is cited in a list of languages (Arabic, Chinese, Korean) regarding certain constructions, without dedicated Chinese analysis."
+      "reason": "Chinese is included in a list of languages with certain syntactic properties, only mentioned, so mentioned_only."
     },
     "English": {
-      "verdict": "studied",
-      "reason": "The snippets refer to English MWEs (e.g., NomLex‑Plus, NomBank, English idioms) that are used in the paper's classification experiments, indicating the paper works with English data."
+      "verdict": "mentioned_only",
+      "reason": "English is repeatedly cited as a source of MWEs and examples, but the paper does not conduct new work on English, so mentioned_only."
     },
     "French": {
       "verdict": "mentioned_only",
-      "reason": "French is mentioned in examples of support‑verb constructions and idioms, but no French‑specific experiments or resources are described."
+      "reason": "French is discussed in examples of support-verb constructions and lexical counts, but no new study is performed, so mentioned_only."
     }
   }
 }

@@ -1,53 +1,141 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.15643v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-08T06:15:27.371789+00:00",
+  "judged_at": "2026-07-20T12:48:41.141256+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4776,
+  "context_chars": 11856,
   "verdicts": {
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "The term 'ik' appears in statistical notation (e.g., max k Ȳ ik) rather than referring to the Ik language, implying a false positive."
+    },
     "Sepa": {
       "verdict": "false_positive",
-      "reason": "The snippet uses 'sepa-' as part of the word 'separation', not referring to the Sepa language, so it is a false positive."
+      "reason": "The string 'sepa-' is part of the word 'separation' in the description of discriminability, not a reference to the Sepa language, implying a false positive."
+    },
+    "Una": {
+      "verdict": "mentioned_only",
+      "reason": "Una is listed among many languages without any contextual snippet showing it being used or discussed, so it is only mentioned."
+    },
+    "Afrikaans": {
+      "verdict": "studied",
+      "reason": "Afrikaans appears in the table of languages evaluated across 29 languages, indicating the paper conducts experiments on it, so it is studied."
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "Marathi is included in the evaluation language table, showing it is part of the experiments, thus it is studied."
+    },
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "Nepali is listed among the evaluated languages, meaning the paper uses it in its experiments, so it is studied."
     },
     "Swahili": {
       "verdict": "studied",
-      "reason": "The snippet lists Swahili among the low-resource languages evaluated in the multilingual benchmark, indicating the paper evaluates LLMs on Swahili, so it is studied."
+      "reason": "Swahili is mentioned as a low‑resource language in the evaluation and appears in the language list, indicating it is part of the study."
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu appears in the table of languages evaluated, showing it is used in the experiments, thus it is studied."
     },
     "Wolof": {
       "verdict": "studied",
-      "reason": "The snippet mentions Wolof as one of the low-resource African languages whose error detection distribution is analyzed, showing the paper evaluates LLMs on Wolof, so it is studied."
+      "reason": "Wolof is discussed in error‑detection analysis and listed among the evaluated languages, indicating it is part of the study."
+    },
+    "Yiddish": {
+      "verdict": "studied",
+      "reason": "Yiddish is the target language of a specific test item ('In Yiddish, what is the word for covenant?'), showing the paper evaluates it, so it is studied."
     },
     "Yoruba": {
       "verdict": "studied",
-      "reason": "The snippet mentions Yoruba as a low-resource language in the benchmark and in error detection analysis, indicating the paper evaluates LLMs on Yoruba, so it is studied."
+      "reason": "Yoruba is cited as a low‑resource language in the analysis and appears in the language breakdown, meaning it is evaluated, thus it is studied."
     },
     "Zulu": {
       "verdict": "studied",
-      "reason": "The snippet mentions Zulu as a low-resource language in the benchmark and in error detection analysis, indicating the paper evaluates LLMs on Zulu, so it is studied."
+      "reason": "Zulu is mentioned in the language distribution discussion and listed among the evaluated languages, indicating it is part of the experiments, so it is studied."
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The snippet lists 'bn Bengali' in a table of languages evaluated by the paper, indicating the language is used in experiments, so it is studied"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The snippet includes 'hi Hindi' among the languages evaluated, showing the paper runs experiments on it, so it is studied"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "The snippet shows 'th Thai' in the evaluation language list, meaning the paper evaluates models on Thai, so it is studied"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "The snippet contains 'ur Urdu' in the table of languages used for evaluation, indicating the language is part of the study"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "The snippet lists 'cs Czech' among the evaluated languages, so the paper studies Czech"
+    },
+    "Hungarian": {
+      "verdict": "studied",
+      "reason": "The snippet includes 'hu Hungarian' in the set of languages evaluated, indicating Hungarian is studied"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "The snippet shows 'id Indonesian' in the evaluation language table, meaning the paper studies Indonesian"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The snippet contains 'it Italian' in the list of languages used for evaluation, so Italian is studied"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippet lists 'ko Korean' among the evaluated languages, indicating the paper studies Korean"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The snippet includes 'pt Portuguese' in the table of languages evaluated, so Portuguese is studied"
     },
     "Russian": {
       "verdict": "studied",
-      "reason": "The snippet describes annotators evaluating translation errors in Russian, showing the paper uses Russian data for evaluation, so it is studied."
+      "reason": "The snippet shows 'ru Russian' in the evaluation language list, indicating the paper studies Russian"
+    },
+    "Serbian": {
+      "verdict": "studied",
+      "reason": "The snippet contains 'sr Serbian' among the languages evaluated, meaning Serbian is studied"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian appears in the table of languages evaluated and is part of the 29-language benchmark, indicating it is used in the experiments; studied"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is listed among the evaluated languages and used in the multilingual benchmark experiments; studied"
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "The snippet describes annotators evaluating translation errors in Arabic, showing the paper uses Arabic data for evaluation, so it is studied."
+      "reason": "Arabic is mentioned as one of the languages for which translation errors are annotated and evaluated, showing it is part of the experimental setup; studied"
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "The snippet lists Chinese among the high-resource languages in the multilingual benchmark, indicating the paper evaluates LLMs on Chinese, so it is studied."
+      "reason": "Chinese is cited as a high‑resource language in the benchmark and appears in the language list used for evaluation; studied"
     },
     "French": {
       "verdict": "studied",
-      "reason": "The snippet lists French among the high-resource languages and mentions annotators evaluating French translation errors, indicating the paper evaluates LLMs on French, so it is studied."
+      "reason": "French is included in the set of languages evaluated for translation‑error annotation and appears in the language list; studied"
     },
     "German": {
       "verdict": "studied",
-      "reason": "The snippet lists German among the high-resource languages in the multilingual benchmark, indicating the paper evaluates LLMs on German, so it is studied."
+      "reason": "German is referenced as a high‑resource language in the benchmark and is part of the evaluated language set; studied"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese appears in the table of languages evaluated, indicating it is used in the experiments; studied"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is listed among the evaluated languages and used in the multilingual benchmark; studied"
     },
     "English": {
       "verdict": "studied",
-      "reason": "The snippet references English as a high-resource language and discusses its role in the benchmark, showing the paper evaluates LLMs on English, so it is studied."
+      "reason": "English is repeatedly referenced as a baseline and as part of the language list for evaluation, showing it is used in the experiments; studied"
     }
   }
 }

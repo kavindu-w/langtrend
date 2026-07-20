@@ -1,25 +1,33 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.19468v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-06T17:59:34.181227+00:00",
+  "judged_at": "2026-07-20T12:57:31.156022+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4918,
+  "context_chars": 6637,
   "verdicts": {
     "Ere": {
       "verdict": "false_positive",
-      "reason": "ERE refers to the ACE and ERE annotation schema for event relation extraction, not the Ere language; thus false positive"
+      "reason": "ERE refers to the ACE and ERE event annotation schema, not the Ere language; therefore false_positive"
     },
     "Mae": {
       "verdict": "false_positive",
-      "reason": "MAE is used as the abbreviation for mean absolute error in the evaluation metrics, not the Mae language; thus false positive"
+      "reason": "MAE is used as the abbreviation for mean absolute error, not the Mae language; therefore false_positive"
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "Uma is a personal name (Uma Gunturi) rather than the Uma language; therefore false_positive"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "FLAN‑TULU is a model/instruction template name, not the Tulu language; therefore false_positive"
     },
     "Russian": {
       "verdict": "mentioned_only",
-      "reason": "Russian refers to Russian formalists (a scholarly tradition) in a historical discussion, not to the Russian language itself; only mentioned"
+      "reason": "Russian refers to Russian formalist scholars, not the Russian language itself; the language is only mentioned, so mentioned_only"
     },
     "English": {
       "verdict": "studied",
-      "reason": "English denotes the English language of the pretraining corpus and analysis, and the paper conducts experiments on English text; studied"
+      "reason": "English denotes the English language of the pretraining data and the released dataset, which the paper analyzes and builds resources for; thus studied"
     }
   }
 }

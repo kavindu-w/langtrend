@@ -1,41 +1,57 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.11316v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-08T08:01:27.229843+00:00",
+  "judged_at": "2026-07-20T12:51:29.081967+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4208,
+  "context_chars": 7346,
   "verdicts": {
-    "Bulgarian": {
-      "verdict": "studied",
-      "reason": "The term refers to the Bulgarian language, which is the focus of the new safety dataset and experiments evaluating LLM safety; therefore the paper studies Bulgarian."
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'Dass' appears as a German word meaning 'that', not a language name → false_positive"
     },
-    "German": {
-      "verdict": "studied",
-      "reason": "The term refers to the German language, which is paired with Bulgarian in the safety dataset and evaluated in experiments; therefore the paper studies German."
+    "Kein": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'kein' is the German word for 'no', not a language name → false_positive"
     },
-    "English": {
-      "verdict": "mentioned_only",
-      "reason": "The term refers to the English language, mentioned only as a baseline or prior work language without new resources or experiments; therefore the paper mentions English only."
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'Sie' is the German pronoun 'you', not a language name → false_positive"
     },
-    "Chinese": {
-      "verdict": "mentioned_only",
-      "reason": "The term refers to the Chinese language, cited only in related work as another language with safety benchmarks; therefore the paper mentions Chinese only."
-    },
-    "Arabic": {
-      "verdict": "mentioned_only",
-      "reason": "The term refers to the Arabic language, cited only in related work as another language with safety benchmarks; therefore the paper mentions Arabic only."
-    },
-    "Russian": {
-      "verdict": "mentioned_only",
-      "reason": "The term refers to the Russian language, cited only in related work as another language with safety benchmarks; therefore the paper mentions Russian only."
-    },
-    "Kazakh": {
-      "verdict": "mentioned_only",
-      "reason": "The term refers to the Kazakh language, used only as a source for translation in a DNA benchmark and not evaluated directly; therefore the paper mentions Kazakh only."
+    "Yoke": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'Yoke' is used as an English noun (e.g., 'Under the Yoke'), not a language name → false_positive"
     },
     "Hindi": {
       "verdict": "mentioned_only",
-      "reason": "The term refers to the Hindi language, mentioned only as an example of other languages in prior work; therefore the paper mentions Hindi only."
+      "reason": "The snippet lists Hindi among other languages, indicating only a mention without any experiments on Hindi → mentioned_only"
+    },
+    "Kazakh": {
+      "verdict": "mentioned_only",
+      "reason": "Kazakh is mentioned as part of related datasets and used to adapt prompts, but no dedicated Kazakh evaluation or resources are built → mentioned_only"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is cited as an existing dataset/language in related work, with no direct experiments on Russian → mentioned_only"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic appears only in a list of languages for prior work, no Arabic-specific experiments → mentioned_only"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "Bulgarian is the focus of the new safety dataset and experiments, indicating the paper studies this language → studied"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced only in prior work and examples, no Chinese-specific dataset or evaluation → mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a source benchmark and for comparison, but the paper does not build resources for English → mentioned_only"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is the high-resource counterpart in the new safety dataset and is evaluated, so the paper studies German → studied"
     }
   }
 }

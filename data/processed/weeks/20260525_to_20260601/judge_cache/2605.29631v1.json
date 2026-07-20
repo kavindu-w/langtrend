@@ -1,13 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.29631v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-10T18:46:09.106510+00:00",
+  "judged_at": "2026-07-20T11:31:22.688756+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 1899,
+  "context_chars": 1947,
   "verdicts": {
+    "Swedish": {
+      "verdict": "false_positive",
+      "reason": "the term appears as part of the name of the Swedish International Development Cooperation Agency (SIDA) in acknowledgements, not referring to the Swedish language"
+    },
     "English": {
       "verdict": "studied",
-      "reason": "The snippet states the experiments focus exclusively on English queries, indicating the paper uses English language data in its experiments."
+      "reason": "the paper states experiments focus exclusively on English queries, indicating the language is used for data and evaluation"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "the term appears in the name of the French Development Agency (AFD) in acknowledgements, not referring to the French language"
     }
   }
 }

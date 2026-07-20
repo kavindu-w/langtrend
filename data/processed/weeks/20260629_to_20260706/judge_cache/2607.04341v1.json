@@ -1,29 +1,33 @@
 {
   "paper_id": "http://arxiv.org/abs/2607.04341v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-07T19:23:00.998857+00:00",
+  "judged_at": "2026-07-20T13:13:49.464703+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4481,
+  "context_chars": 4991,
   "verdicts": {
     "Fur": {
       "verdict": "false_positive",
-      "reason": "In the snippet, 'fur' refers to animal hair/fur in the context of hair rendering, not a human language."
+      "reason": "In the snippet, 'fur' refers to animal hair in graphics rendering, not a human language, leading to a false positive."
     },
     "Gua": {
       "verdict": "false_positive",
-      "reason": "The term 'gua' appears as a citation key ([gua]) referencing a source, not a language name."
+      "reason": "Here 'gua' appears as a citation label for a reference, not as the name of a human language, so it is a false positive."
     },
     "Maya": {
       "verdict": "false_positive",
-      "reason": "'Maya' is used to denote the Autodesk Maya graphics software and related renderers, not the Maya human language."
+      "reason": "The term 'Maya' is used to denote the 3D graphics software/engine, not the Maya language, thus a false positive."
     },
     "Sora": {
       "verdict": "false_positive",
-      "reason": "'Sora' is mentioned as a video diffusion model (Sora 2) from OpenAI, not the Sora human language."
+      "reason": "'Sora' is mentioned as an OpenAI video diffusion model (Sora 2), not a human language, making it a false positive."
     },
     "Gan": {
       "verdict": "false_positive",
-      "reason": "'GAN' refers to Generative Adversarial Networks and related models (e.g., GAN-Avatar), not a human language."
+      "reason": "'GAN' refers to Generative Adversarial Networks and related models, not a language, so this is a false positive."
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "The word 'German' is used as an adjective for awards and affiliations, not to discuss the German language, thus a false positive."
     }
   }
 }

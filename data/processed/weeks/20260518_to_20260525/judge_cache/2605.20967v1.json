@@ -1,17 +1,25 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.20967v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-12T14:38:03.232467+00:00",
+  "judged_at": "2026-07-20T11:18:57.176188+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3018,
+  "context_chars": 4031,
   "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo appears as part of an author name (Bo Xu) rather than referring to the Bo language, so false_positive"
+    },
+    "Ganda": {
+      "verdict": "false_positive",
+      "reason": "Ganda is not present in the provided snippets and there is no indication it refers to the Ganda language, so false_positive"
+    },
     "Bengali": {
       "verdict": "mentioned_only",
-      "reason": "the snippet refers to a previously introduced multimodal sentiment analysis dataset in Bengali, mentioned only as related work, not used or built in this paper"
+      "reason": "Bengali is mentioned only as the language of a previously introduced dataset, without any study or resource creation for Bengali, so mentioned_only"
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "the snippet discusses Arabic political meme discourse and the new Arabic dataset, indicating the paper builds resources and conducts analysis for Arabic"
+      "reason": "Arabic refers to the language of the political memes and dataset that the paper creates and analyzes, so studied"
     }
   }
 }

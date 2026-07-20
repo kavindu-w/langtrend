@@ -1,13 +1,17 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.10126v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-08T08:10:14.893447+00:00",
+  "judged_at": "2026-07-20T12:48:16.861093+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2162,
+  "context_chars": 2667,
   "verdicts": {
+    "Tol": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'tol' appears in phrases like 'formality worsen tol 0.1' as an abbreviation for tolerance, not referring to the Tol human language; therefore it is a false positive."
+    },
     "English": {
-      "verdict": "studied",
-      "reason": "The snippet states that experiments are conducted in controlled English-language settings, indicating the paper uses English data for its experiments, which means the language is actively studied in t"
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'controlled English-language settings', indicating the paper uses English as the language of its experiments but does not build resources or evaluate models specifically for Engli"
     }
   }
 }

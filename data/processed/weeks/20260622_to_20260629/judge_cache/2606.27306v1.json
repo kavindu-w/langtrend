@@ -1,33 +1,485 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.27306v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-05T14:36:57.708603+00:00",
+  "judged_at": "2026-07-20T13:13:22.482980+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 5822,
+  "context_chars": 11958,
   "verdicts": {
+    "Burushaski": {
+      "verdict": "studied",
+      "reason": "Appears as a language entry in the evaluation tables, indicating the paper runs experiments on it, so it is studied"
+    },
+    "Dhundari": {
+      "verdict": "studied",
+      "reason": "Listed among language rows in the results tables, showing it is part of the experimental evaluation, so it is studied"
+    },
+    "Ekpeye": {
+      "verdict": "studied",
+      "reason": "Present in the language columns of the evaluation tables, implying the paper includes it in its experiments, thus studied"
+    },
+    "Idoma": {
+      "verdict": "studied",
+      "reason": "Shown as a language row in the result tables, meaning the paper evaluates it, so it is studied"
+    },
+    "Isoko": {
+      "verdict": "studied",
+      "reason": "Appears in the language list of the evaluation tables, indicating experimental use, therefore studied"
+    },
+    "Jingpho": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned in the candidate list but not visible in the provided snippets; cannot confirm experimental use, so treated as mentioned only"
+    },
+    "Kabuverdianu": {
+      "verdict": "mentioned_only",
+      "reason": "Appears in the candidate list without supporting snippet evidence; likely a language mention but not shown as studied, so mentioned only"
+    },
+    "Kumzari": {
+      "verdict": "studied",
+      "reason": "Listed in the evaluation tables as a language row, indicating the paper runs experiments on it, thus studied"
+    },
+    "Marwari": {
+      "verdict": "studied",
+      "reason": "Present in the language columns of the result tables, showing it is part of the experimental evaluation, so studied"
+    },
+    "Urhobo": {
+      "verdict": "studied",
+      "reason": "Appears as a language entry in the evaluation tables, meaning the paper includes it in its experiments, therefore studied"
+    },
+    "Bhojpuri": {
+      "verdict": "studied",
+      "reason": "Shown in the language list of the evaluation tables, indicating experimental evaluation, so it is studied"
+    },
+    "Hawaiian": {
+      "verdict": "studied",
+      "reason": "Listed among language rows in the evaluation tables, implying the paper evaluates it, thus studied"
+    },
+    "Ilocano": {
+      "verdict": "mentioned_only",
+      "reason": "Ilocano does not appear in the provided snippets; its presence is only as a candidate name, so we cannot confirm it is studied, only mentioned"
+    },
+    "Meitei": {
+      "verdict": "studied",
+      "reason": "Meitei is listed in the evaluation tables (e.g., \"Meitei (Bengali script)\" and \"Meitei (Meitei script)\") as a target language, indicating the paper evaluates on it"
+    },
+    "Northern Sotho": {
+      "verdict": "mentioned_only",
+      "reason": "Northern Sotho is not found in the snippets; its name appears only as a candidate, so we treat it as merely mentioned"
+    },
+    "Odia": {
+      "verdict": "mentioned_only",
+      "reason": "Odia does not appear in the snippets; the paper only lists it as a candidate without evidence of study"
+    },
+    "Oromo": {
+      "verdict": "mentioned_only",
+      "reason": "Oromo is absent from the provided excerpts; its name is only a candidate, so we consider it mentioned only"
+    },
+    "Pashto": {
+      "verdict": "mentioned_only",
+      "reason": "Pashto is not present in the snippets; the paper merely lists it as a candidate without showing study"
+    },
+    "Waray": {
+      "verdict": "mentioned_only",
+      "reason": "Waray does not appear in the given text; it is only a candidate name, so we treat it as mentioned only"
+    },
+    "Afrikaans": {
+      "verdict": "mentioned_only",
+      "reason": "Afrikaans is not found in the snippets; its occurrence is limited to the candidate list, implying only a mention"
+    },
+    "Albanian": {
+      "verdict": "studied",
+      "reason": "Albanian appears in the evaluation tables as a language evaluated in the translation cascade experiments, indicating it is studied"
+    },
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "Amharic is listed in the low-resource evaluation section of the tables, showing the paper evaluates on this language"
+    },
+    "Assamese": {
+      "verdict": "studied",
+      "reason": "Assamese is included in the low-resource language list within the evaluation tables, meaning the paper studies it"
+    },
+    "Bosnian": {
+      "verdict": "studied",
+      "reason": "Bosnian appears in the language tables as part of the evaluated set, indicating the paper conducts experiments on it"
+    },
+    "Burmese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not show the word 'Burmese', but it is listed among many languages, indicating a mention of the human language rather than an acronym or other entity"
+    },
+    "Chichewa": {
+      "verdict": "studied",
+      "reason": "The snippet lists 'Chichewa' among low‑resource languages with performance numbers, showing it is used in the evaluation experiments"
+    },
+    "Faroese": {
+      "verdict": "studied",
+      "reason": "The language table includes 'Faroese' as a column with results, indicating it is part of the multilingual benchmark evaluated"
+    },
+    "Ganda": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not display 'Ganda'; it appears only as a candidate name, suggesting a simple mention of the language rather than experimental use"
+    },
+    "Gujarati": {
+      "verdict": "studied",
+      "reason": "The language table lists 'Gujarati' with evaluation scores, meaning the paper runs experiments on this language"
+    },
+    "Haitian Creole": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not contain 'Haitian Creole'; its presence in the candidate list implies a mention without experimental evidence"
+    },
+    "Hausa": {
+      "verdict": "studied",
+      "reason": "Both language tables include 'Hausa' with performance results, indicating it is part of the evaluated multilingual set"
+    },
+    "Icelandic": {
+      "verdict": "studied",
+      "reason": "The table shows 'Icelandic' as a language column with results, demonstrating its use in the experiments"
+    },
+    "Igbo": {
+      "verdict": "studied",
+      "reason": "The language tables list 'Igbo' with evaluation metrics, showing it is studied in the multilingual experiments"
+    },
+    "Javanese": {
+      "verdict": "studied",
+      "reason": "The language table includes 'Javanese' among other languages with results, indicating experimental evaluation"
+    },
+    "Kannada": {
+      "verdict": "studied",
+      "reason": "The table lists 'Kannada' with performance numbers, meaning the paper evaluates on this language"
+    },
+    "Khmer": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not show 'Khmer'; its appearance only in the candidate list suggests a mention without direct experimental evidence"
+    },
+    "Kinyarwanda": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Kyrgyz": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Lao": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Lingala": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Malagasy": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Maltese": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Maori": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Mongolian": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Shan": {
+      "verdict": "studied",
+      "reason": "Appears as a language column in evaluation tables, indicating the human language is being evaluated; therefore studied"
+    },
+    "Shona": {
+      "verdict": "studied",
+      "reason": "Shona appears as a language column in the low‑resource results table, indicating it was evaluated, so studied"
+    },
+    "Sindhi": {
+      "verdict": "studied",
+      "reason": "Sindhi appears as a language column (including a Devanagari variant) in the evaluation tables, showing it was part of the experiments, so studied"
+    },
+    "Sinhala": {
+      "verdict": "studied",
+      "reason": "Sinhala is listed among the languages in the result tables, meaning it was evaluated, so studied"
+    },
+    "Somali": {
+      "verdict": "studied",
+      "reason": "Somali appears in the low‑resource language list of the results table, indicating it was used in evaluation, so studied"
+    },
+    "Southern Sotho": {
+      "verdict": "mentioned_only",
+      "reason": "The provided snippets do not contain any occurrence of 'Southern Sotho', so we cannot confirm it is used; we treat it as only mentioned"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is included as a language column in the evaluation tables, showing it was evaluated, so studied"
+    },
+    "Swati": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not show 'Swati' anywhere, thus we cannot confirm experimental use; we treat it as mentioned only"
+    },
+    "Tagalog": {
+      "verdict": "studied",
+      "reason": "Tagalog appears as a language column in the evaluation tables, indicating it was part of the experiments, so studied"
+    },
+    "Tajik": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not contain 'Tajik', so we cannot confirm experimental use; we treat it as mentioned only"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu is listed among the languages in the result tables, meaning it was evaluated, so studied"
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not show 'Tibetan', so we cannot confirm experimental use; we treat it as mentioned only"
+    },
+    "Tsonga": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not contain 'Tsonga', so we cannot confirm experimental use; we treat it as mentioned only"
+    },
+    "Uyghur": {
+      "verdict": "studied",
+      "reason": "The snippet lists Uyghur as a row in the evaluation table, showing performance is measured for this language, so the paper studies it"
+    },
+    "Wolof": {
+      "verdict": "mentioned_only",
+      "reason": "Wolof appears in the candidate list but is not shown in the provided snippets, so its presence is only a mention without evidence of study"
+    },
+    "Xhosa": {
+      "verdict": "mentioned_only",
+      "reason": "Xhosa appears in the candidate list but is not shown in the provided snippets, so its presence is only a mention without evidence of study"
+    },
+    "Yoruba": {
+      "verdict": "studied",
+      "reason": "The snippet lists Yoruba as a row in the evaluation table, showing performance is measured for this language, so the paper studies it"
+    },
+    "Zulu": {
+      "verdict": "studied",
+      "reason": "The snippet lists Zulu as a row in the evaluation table, showing performance is measured for this language, so the paper studies it"
+    },
+    "moroccan Arabic": {
+      "verdict": "studied",
+      "reason": "The snippet lists Moroccan Arabic as a row in the evaluation table, showing performance is measured for this language, so the paper studies it"
+    },
+    "Armenian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Armenian as a row in the evaluation table, showing performance is measured for this language, so the paper studies it"
+    },
+    "Belarusian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Belarusian as a row in the evaluation table, showing performance is measured for this language, so the paper studies it"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The snippet lists Bengali as a row in the evaluation table, showing performance is measured for this language, so the paper studies it"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Bulgarian as a row in the evaluation table, showing performance is measured for this language, so the paper studies it"
+    },
+    "Cebuano": {
+      "verdict": "mentioned_only",
+      "reason": "Cebuano appears in the candidate list but is not shown in the provided snippets, so its presence is only a mention without evidence of study"
+    },
+    "Croatian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Croatian as a row in the evaluation table, showing performance is measured for this language, so the paper studies it"
+    },
+    "Danish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not show Danish explicitly; it is only listed among many languages without specific evaluation data, so it is only mentioned."
+    },
+    "Estonian": {
+      "verdict": "studied",
+      "reason": "Estonian appears in the performance table as a language for which results are reported, indicating the paper evaluates it, so it is studied."
+    },
+    "Galician": {
+      "verdict": "studied",
+      "reason": "Galician is listed in the results table with performance numbers, showing the paper evaluates this language, so it is studied."
+    },
+    "Georgian": {
+      "verdict": "studied",
+      "reason": "Georgian appears in the evaluation table with associated scores, meaning the paper conducts experiments on it, so it is studied."
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "Greek is included in the result tables, indicating the language is part of the experimental evaluation, thus it is studied."
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Hebrew is present in the performance tables, showing the paper evaluates it, so it is studied."
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi appears in the evaluation tables with performance metrics, meaning the paper evaluates this language, so it is studied."
+    },
+    "Kazakh": {
+      "verdict": "studied",
+      "reason": "Kazakh is listed in the result tables with scores, indicating the paper evaluates it, so it is studied."
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not provide a clear reference to Latin as a language; it is only possibly mentioned without evaluation, so it is treated as mentioned only."
+    },
+    "Latvian": {
+      "verdict": "mentioned_only",
+      "reason": "Latvian does not appear in the provided snippets; it is only listed among many languages without specific evaluation, so it is mentioned only."
+    },
+    "Lithuanian": {
+      "verdict": "studied",
+      "reason": "Lithuanian is included in the performance tables with results, indicating the paper evaluates it, so it is studied."
+    },
+    "Macedonian": {
+      "verdict": "studied",
+      "reason": "Macedonian appears in the evaluation tables with associated scores, showing the paper evaluates this language, so it is studied."
+    },
     "Malay": {
       "verdict": "studied",
-      "reason": "The snippet contains a Malay sentence and describes a Malay question used in the translation cascade, showing the paper uses Malay as a source language in its experiments → studied"
+      "reason": "The snippet lists Malay as a column in performance tables for the translation cascade, indicating the paper evaluates on the Malay language, so it is studied"
+    },
+    "Slovak": {
+      "verdict": "studied",
+      "reason": "Slovak appears as a language entry in the evaluation tables, showing the paper runs experiments on Slovak, thus it is studied"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is included among language columns in the results tables, meaning the paper evaluates on Tamil, so it is studied"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is listed as a language in the performance tables, indicating the paper conducts experiments on Thai, thus it is studied"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu appears as a language entry in the evaluation tables, showing the paper evaluates on Urdu, so it is studied"
+    },
+    "Uzbek": {
+      "verdict": "studied",
+      "reason": "Uzbek is present in the language columns of the results tables, indicating the paper includes Uzbek in its experiments, thus it is studied"
+    },
+    "Azerbaijani": {
+      "verdict": "studied",
+      "reason": "Azerbaijani is listed among the languages in the evaluation tables, meaning the paper evaluates on Azerbaijani, so it is studied"
+    },
+    "Basque": {
+      "verdict": "studied",
+      "reason": "Basque appears as a language column in the performance tables, indicating the paper runs experiments on Basque, thus it is studied"
+    },
+    "Catalan": {
+      "verdict": "studied",
+      "reason": "Catalan is included in the language list of the evaluation tables, showing the paper evaluates on Catalan, so it is studied"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech is shown as a language entry in the results tables, meaning the paper conducts experiments on Czech, thus it is studied"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch appears as a language column in the evaluation tables, indicating the paper evaluates on Dutch, so it is studied"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "Finnish is listed among the languages in the performance tables, showing the paper includes Finnish in its experiments, thus it is studied"
+    },
+    "Hungarian": {
+      "verdict": "studied",
+      "reason": "the snippet lists Hungarian as a language column in evaluation tables, showing the paper evaluates on Hungarian, so it is studied"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "the snippet lists Indonesian as a language column in evaluation tables, showing the paper evaluates on Indonesian, so it is studied"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "the snippet lists Italian as a language column in evaluation tables, showing the paper evaluates on Italian, so it is studied"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "the snippet lists Korean as a language column in evaluation tables, showing the paper evaluates on Korean, so it is studied"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "the snippet lists Norwegian (Bokmål and Nynorsk) as language columns in evaluation tables, showing the paper evaluates on Norwegian, so it is studied"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "the snippet lists Persian (Western Persian) as a language column in evaluation tables, showing the paper evaluates on Persian, so it is studied"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "the snippet lists Polish as a language column in evaluation tables, showing the paper evaluates on Polish, so it is studied"
     },
     "Portuguese": {
       "verdict": "studied",
-      "reason": "The snippet refers to a Portuguese question that the model recovers, indicating Portuguese is used as a source language in the experiments → studied"
+      "reason": "the snippet lists Portuguese (Brazil and Portugal) as language columns in evaluation tables, showing the paper evaluates on Portuguese, so it is studied"
+    },
+    "Romanian": {
+      "verdict": "studied",
+      "reason": "the snippet lists Romanian as a language column in evaluation tables, showing the paper evaluates on Romanian, so it is studied"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "the snippet lists Russian as a language column in evaluation tables, showing the paper evaluates on Russian, so it is studied"
+    },
+    "Serbian": {
+      "verdict": "studied",
+      "reason": "the snippet lists Serbian (Cyrillic and Latin) as language columns in evaluation tables, showing the paper evaluates on Serbian, so it is studied"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "the snippet lists Swedish as a language column in evaluation tables, showing the paper evaluates on Swedish, so it is studied"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Appears in a results table listing languages for which performance metrics are reported, indicating the paper evaluates Turkish → studied"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Listed among languages in the evaluation tables, showing the paper includes Ukrainian in its experiments → studied"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Present in the language columns of performance tables, meaning Vietnamese is part of the evaluated set → studied"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "Shown as a language variant in the evaluation tables, indicating the paper assesses Egyptian Arabic → studied"
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "The snippet mentions the Aya Arabic evaluation suite and target-language answers, demonstrating Arabic is evaluated in the study → studied"
+      "reason": "Appears as a language (and as several dialect variants) in the results tables, confirming Arabic is evaluated → studied"
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "The snippet includes Chinese characters and discusses a Chinese question within the cascade, showing Chinese is a source language in the experiments → studied"
+      "reason": "Listed in the language columns (including Chinese Simplified/Traditional) of the evaluation tables, showing Chinese is tested → studied"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "Included in the table of languages with performance numbers, indicating French is part of the experiments → studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "Present in the evaluation tables as a language with reported results, meaning the paper evaluates German → studied"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Appears in the language list of performance tables, showing Japanese is evaluated in the study → studied"
     },
     "Spanish": {
       "verdict": "studied",
-      "reason": "The snippet describes a Spanish dish and references a Spanish question, indicating Spanish is used as a source language in the experiments → studied"
+      "reason": "Listed among languages in the results tables (multiple Spanish variants), indicating Spanish is evaluated → studied"
     },
     "English": {
       "verdict": "studied",
-      "reason": "The snippet discusses reasoning in English and the translation cascade pivoting through English, confirming English is central to the methodology → studied"
+      "reason": "Mentioned in the abstract and appears in the evaluation tables as a language for which results are reported, so English is evaluated → studied"
     }
   }
 }

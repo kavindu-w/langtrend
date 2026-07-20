@@ -1,21 +1,41 @@
 {
   "paper_id": "http://arxiv.org/abs/2607.10114v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-14T17:45:33.764078+00:00",
+  "judged_at": "2026-07-20T13:18:15.394187+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4097,
+  "context_chars": 4602,
   "verdicts": {
-    "Japanese": {
-      "verdict": "studied",
-      "reason": "the snippets refer to the Japanese language, describing a Japanese-reasoning model and evaluation on Japanese benchmarks, indicating the paper builds and evaluates resources for it"
-    },
-    "English": {
+    "Italian": {
       "verdict": "mentioned_only",
-      "reason": "the snippets refer to the English language as a baseline and comparison point, without building resources or experiments specifically for English"
+      "reason": "the snippet cites work that fine‑tuned models to reason in Italian, i.e., mentions Italian as a target language in related work"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "the snippet cites work that fine‑tuned a model to reason in Portuguese, i.e., mentions Portuguese as a target language in related work"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "the snippet cites work that shifted reasoning into French, i.e., mentions French as a target language in related work"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "the snippet cites work that shifted reasoning into German, i.e., mentions German as a target language in related work"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "the snippet cites work that shifted reasoning into Spanish, i.e., mentions Spanish as a target language in related work"
     },
     "Chinese": {
       "verdict": "mentioned_only",
-      "reason": "the snippets refer to Chinese language tokens in the model for comparison, but the paper does not develop or evaluate resources for Chinese, only mentions it"
+      "reason": "the snippet discusses Chinese tokens and the difficulty of distinguishing Japanese from Chinese characters, i.e., mentions Chinese language in token analysis"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "the snippet refers to reasoning in English as the dominant baseline language, i.e., mentions English only"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "the snippet describes building a Japanese‑reasoning model, evaluating on Japanese benchmarks, and analyzing Japanese tokens, i.e., the paper studies Japanese"
     }
   }
 }

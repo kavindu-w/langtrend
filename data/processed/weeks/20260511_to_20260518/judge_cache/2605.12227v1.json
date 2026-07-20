@@ -1,13 +1,25 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.12227v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-12T17:14:03.260413+00:00",
+  "judged_at": "2026-07-20T11:10:06.806121+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2556,
+  "context_chars": 4071,
   "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "In the table the term appears as part of the metric label \"En.Dia\", which is a task or metric abbreviation, not a reference to the Dia human language; therefore it is a false positive."
+    },
+    "Fwe": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"FWE\" as a column header in a results table (likely an abbreviation for a metric), not a mention of the Fwe language; thus it is a false positive."
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "The word appears in the acknowledgment of a funding plan named \"Portuguese Recovery and Resilience Plan\", referring to the country/language in a grant context, not as a language under study; hence it "
+    },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "the snippet lists English as one of the natural languages in the dataset composition, not as a focus of study; the paper does not build resources or evaluate specifically for English, so it's only men"
+      "reason": "English is listed among many natural languages in a dataset composition table, serving only as a language label for data statistics, not as a focus of study; thus it is only mentioned."
     }
   }
 }

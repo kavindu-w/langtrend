@@ -1,13 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.10065v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-13T16:46:18.239829+00:00",
+  "judged_at": "2026-07-20T11:07:18.761030+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2090,
+  "context_chars": 3119,
   "verdicts": {
+    "Tii": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'TII' as an organization/license (Technology Innovation Institute), not a human language, so it's a false positive."
+    },
     "Picard": {
       "verdict": "false_positive",
-      "reason": "The snippet refers to PICARD as a method for incremental parsing during beam search (a tool/model), not the human language"
+      "reason": "The snippet mentions 'PICARD' as a model/method for constrained decoding, not the Picard human language, so it's a false positive."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet discusses using the English subset of a profanity lexicon for experiments, indicating the language is used in the paper's evaluation, so it is studied."
     }
   }
 }

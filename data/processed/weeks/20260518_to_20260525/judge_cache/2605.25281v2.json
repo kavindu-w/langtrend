@@ -1,13 +1,25 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.25281v2",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-11T15:29:47.821390+00:00",
+  "judged_at": "2026-07-20T11:23:44.616776+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 1490,
+  "context_chars": 3665,
   "verdicts": {
     "Ata": {
       "verdict": "false_positive",
-      "reason": "The snippet shows 'data' containing the substring 'ata', which the regex mistakenly flagged; it does not refer to the Ata human language."
+      "reason": "the snippet is garbled text with no reference to the Ata language; it appears to be part of the paper's own wording, so it is a false positive"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "the occurrences of \"polish\" are in colloquial phrases (e.g., \"can't polish a turd\") and refer to the verb, not the Polish language, so they are false positives"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "the snippet explicitly states that test texts are in Chinese and discusses Chinese data, indicating the paper uses Chinese language data for evaluation, so the language is studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "the snippet mentions English-domain artifacts and translation, showing that English language data is used in the experiments, thus the language is studied"
     }
   }
 }

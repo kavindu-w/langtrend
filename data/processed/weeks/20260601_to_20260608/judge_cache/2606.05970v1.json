@@ -1,13 +1,17 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.05970v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-09T17:01:46.063001+00:00",
+  "judged_at": "2026-07-20T11:49:00.715533+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2577,
+  "context_chars": 3517,
   "verdicts": {
+    "Baki": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'regex_aki_present_yes' referring to the medical acronym AKI (acute kidney injury), not a human language; therefore it's a false positive."
+    },
     "Pin": {
       "verdict": "false_positive",
-      "reason": "The snippet uses 'pin' as a verb meaning to fix a model version, not referring to the Pin language."
+      "reason": "The snippet uses the verb 'pin' meaning to fix a model version, not a human language; therefore it's a false positive."
     }
   }
 }
