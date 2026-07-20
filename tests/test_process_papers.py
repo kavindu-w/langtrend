@@ -573,6 +573,47 @@ def test_reprocess_from_cache_writes_output_before_shutting_down_executor(lang_c
     assert shutdown_saw_file_written == [True]
 
 
+def test_atomic_write_text_replaces_content(tmp_path):
+    path = tmp_path / "out.json"
+    pp._atomic_write_text(path, "old")
+    pp._atomic_write_text(path, "new")
+    assert path.read_text(encoding="utf-8") == "new"
+    # no leftover temp file
+    assert list(tmp_path.iterdir()) == [path]
+
+
+def test_atomic_write_text_leaves_destination_untouched_on_mid_write_failure(tmp_path):
+    path = tmp_path / "out.json"
+    path.write_text("original", encoding="utf-8")
+
+    with patch("process_papers.os.fsync", side_effect=OSError("simulated crash mid-write")):
+        with pytest.raises(OSError):
+            pp._atomic_write_text(path, "corrupted-partial-content")
+
+    # The destination must still hold its old, complete content — never a
+    # truncated mix of old and new (this is the exact failure mode a SIGSEGV
+    # mid `path.open("w")` used to produce: real data silently dropped).
+    assert path.read_text(encoding="utf-8") == "original"
+    # temp file cleaned up, not left orphaned next to the real file
+    assert list(tmp_path.iterdir()) == [path]
+
+
+def test_plain_run_would_clobber_existing_output_true_when_populated(tmp_path):
+    path = tmp_path / "detected.jsonl"
+    path.write_text('{"paper_id": "1"}\n', encoding="utf-8")
+    assert pp._plain_run_would_clobber_existing_output(path) is True
+
+
+def test_plain_run_would_clobber_existing_output_false_when_missing(tmp_path):
+    assert pp._plain_run_would_clobber_existing_output(tmp_path / "detected.jsonl") is False
+
+
+def test_plain_run_would_clobber_existing_output_false_when_empty(tmp_path):
+    path = tmp_path / "detected.jsonl"
+    path.write_text("", encoding="utf-8")
+    assert pp._plain_run_would_clobber_existing_output(path) is False
+
+
 # ---------------------------------------------------------------------------
 # _needs_retry (--retry-missing decision logic)
 # ---------------------------------------------------------------------------

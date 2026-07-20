@@ -69,6 +69,33 @@ def load_language_data(path: Path) -> tuple[dict[int, set[str]], set[str], dict[
     return lang_classes, languages_to_ignore, possible_false_positive_languages
 
 
+def _atomic_write_text(path: Path, content: str) -> None:
+    """Write content to path atomically: write to a temp file in the same
+    directory, then os.replace() over the destination.
+
+    The write-before-shutdown reorder elsewhere in this file (see the
+    os._exit(0) comment near the bottom, and the finally blocks in
+    reprocess_from_cache/process_papers) narrows the window before a native
+    SIGSEGV can hit, but doesn't make a plain `path.open("w")` rewrite safe on
+    its own — that truncates the file immediately, so a crash mid-write can
+    still leave a half-written, truncated file behind with no error raised.
+    os.replace() is a single atomic filesystem operation, so `path` is always
+    either its old complete content or its new complete content, never a
+    truncated mix of the two — a crash before it leaves `path` untouched, a
+    crash after it (vanishingly small window) leaves `path` fully updated.
+    """
+    tmp_path = path.with_name(f".{path.name}.tmp{os.getpid()}")
+    try:
+        with tmp_path.open("w", encoding="utf-8") as fp:
+            fp.write(content)
+            fp.flush()
+            os.fsync(fp.fileno())
+        os.replace(tmp_path, path)
+    except BaseException:
+        tmp_path.unlink(missing_ok=True)
+        raise
+
+
 _PDF_EXTRACT_RETRIES = 2  # re-download and retry if extraction fails (e.g. truncated file)
 
 
@@ -596,20 +623,16 @@ def reprocess_from_cache(
         try:
             fresh_lines = [json.dumps(r, ensure_ascii=False) for r in detected_records]
             merged_lines = sorted(preserved_lines + fresh_lines, key=lambda l: json.loads(l).get("paper_id") or "")
-            with output_jsonl.open("w", encoding="utf-8") as fp:
-                for line in merged_lines:
-                    fp.write(line + "\n")
+            _atomic_write_text(output_jsonl, "".join(line + "\n" for line in merged_lines))
 
             no_detection_records.sort(key=lambda r: r.get("paper_id") or "")
             _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
-            with _nd_path.open("w", encoding="utf-8") as fp:
-                json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
+            _atomic_write_text(_nd_path, json.dumps(no_detection_records, ensure_ascii=False, indent=2))
             print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
 
             all_warnings.sort(key=lambda w: w.get("paper_id") or "")
             if all_warnings:
-                with warnings_file.open("w", encoding="utf-8") as fp:
-                    json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
+                _atomic_write_text(warnings_file, json.dumps(all_warnings, ensure_ascii=False, indent=2))
                 print(f"Warnings saved to {warnings_file}")
             elif warnings_file.exists():
                 warnings_file.unlink()
@@ -762,13 +785,11 @@ def process_papers(
         # no ordering can catch.
         try:
             if all_warnings:
-                with warnings_file.open("w", encoding="utf-8") as fp:
-                    json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
+                _atomic_write_text(warnings_file, json.dumps(all_warnings, ensure_ascii=False, indent=2))
                 print(f"Warnings saved to {warnings_file}")
 
             _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
-            with _nd_path.open("w", encoding="utf-8") as fp:
-                json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
+            _atomic_write_text(_nd_path, json.dumps(no_detection_records, ensure_ascii=False, indent=2))
             print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
         finally:
             executor.shutdown(wait=False)
@@ -787,6 +808,18 @@ def process_papers(
 # ---------------------------------------------------------------------------
 # CLI entry point
 # ---------------------------------------------------------------------------
+
+def _plain_run_would_clobber_existing_output(detected_path: Path) -> bool:
+    """True when a plain (non-retry, non-reprocess) run would truncate real data.
+
+    process_papers() opens output_jsonl in "w" mode, which truncates immediately
+    on open — safe when run_langtrend_pipeline.py is the caller (it already skips
+    this branch via its own detected_path.exists() check), but a direct
+    `python process_papers.py --input ...` invocation against an already-populated
+    week has no such guard and would wipe existing results.
+    """
+    return detected_path.exists() and detected_path.stat().st_size > 0
+
 
 def _needs_retry(
     p: dict,
@@ -1097,9 +1130,7 @@ def main() -> None:
 
         # Re-initialize detected_path with existing records (clean deduplication),
         # then process_papers() will append new records directly as each paper completes.
-        with detected_path.open("w", encoding="utf-8") as fp:
-            for line in existing_lines:
-                fp.write(line + "\n")
+        _atomic_write_text(detected_path, "".join(line + "\n" for line in existing_lines))
 
         import tempfile
         with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
@@ -1129,9 +1160,7 @@ def main() -> None:
         last_index: dict[str, int] = {}
         for i, line in enumerate(all_lines):
             last_index[json.loads(line).get("paper_id", "")] = i
-        with detected_path.open("w", encoding="utf-8") as fp:
-            for i in sorted(last_index.values()):
-                fp.write(all_lines[i] + "\n")
+        _atomic_write_text(detected_path, "".join(all_lines[i] + "\n" for i in sorted(last_index.values())))
         appended = sum(1 for pid in last_index if pid not in existing_by_id)
         replaced = sum(1 for pid, idx in last_index.items() if pid in existing_by_id and idx >= existing_count)
         print(f"Merged {appended} new + {replaced} upgraded detection record(s) into {detected_path}")
@@ -1140,8 +1169,7 @@ def main() -> None:
         new_warnings = json.loads(tmp_warnings.read_text(encoding="utf-8")) if tmp_warnings.stat().st_size > 2 else []
         if new_warnings:
             existing_warnings = json.loads(warnings_path.read_text(encoding="utf-8")) if warnings_path.exists() else []
-            with warnings_path.open("w", encoding="utf-8") as fp:
-                json.dump(existing_warnings + new_warnings, fp, ensure_ascii=False, indent=2)
+            _atomic_write_text(warnings_path, json.dumps(existing_warnings + new_warnings, ensure_ascii=False, indent=2))
             print(f"Appended {len(new_warnings)} warning(s) to {warnings_path}")
 
         # Merge no-detections
@@ -1163,19 +1191,28 @@ def main() -> None:
         # Append genuinely new no-det records not seen before
         existing_nd_ids = {r.get("paper_id") for r in existing_no_det}
         merged_no_det += [r for r in new_no_det if r.get("paper_id") not in existing_nd_ids and r.get("paper_id") not in now_detected_ids]
-        with no_det_path.open("w", encoding="utf-8") as fp:
-            json.dump(merged_no_det, fp, ensure_ascii=False, indent=2)
+        _atomic_write_text(no_det_path, json.dumps(merged_no_det, ensure_ascii=False, indent=2))
         print(f"No-detections file updated: {len(merged_no_det)} total record(s) → {no_det_path}")
 
         for tmp_path in (tmp_warnings, tmp_no_det):
             tmp_path.unlink(missing_ok=True)
     else:
+        plain_detected_path = output_dir / f"{stem}_detected.jsonl"
+        if _plain_run_would_clobber_existing_output(plain_detected_path):
+            print(
+                f"Error: {plain_detected_path} already has content — a plain run would "
+                f"truncate it and rebuild from scratch, discarding existing detections.\n"
+                f"Use --retry-missing to fill in missing papers, or --reprocess-cache to "
+                f"re-run detection on cached text, instead.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
         process_papers(
             papers=papers,
             lang_classes=lang_classes,
             languages_to_ignore=languages_to_ignore,
             possible_false_positive_languages=possible_false_positive_languages,
-            output_jsonl=output_dir / f"{stem}_detected.jsonl",
+            output_jsonl=plain_detected_path,
             warnings_file=output_dir / f"{stem}_warnings.json",
             pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
             html_cache_dir=html_cache_dir,
