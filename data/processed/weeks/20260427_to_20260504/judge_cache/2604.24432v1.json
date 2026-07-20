@@ -1,17 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2604.24432v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-17T15:17:39.147729+00:00",
+  "judged_at": "2026-07-20T09:59:22.248212+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3706,
+  "context_chars": 4217,
   "verdicts": {
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Dao' appears as part of a citation (\"Mamba Gu and Dao (2024)\") indicating an author name, not the human language, leading to a false positive."
+    },
     "Fwe": {
       "verdict": "false_positive",
-      "reason": "FWE appears as an uppercase acronym for a benchmark/subtask (e.g., a dataset name) rather than the Fwe human language, so it is a false positive."
+      "reason": "The occurrences of 'FWE' are within tables and performance discussions (e.g., \"HybridKSA surpasses ... on FWE\"), referring to a dataset or benchmark abbreviation rather than the human language, so it "
     },
     "Chinese": {
       "verdict": "mentioned_only",
-      "reason": "Chinese refers to the Chinese language in the context of benchmark datasets and resources, but the paper does not study or build resources for Chinese; it only mentions it."
+      "reason": "The snippets reference 'Chinese benchmarks' and 'Chinese-language resources', indicating the paper mentions the Chinese language for evaluation purposes but does not build resources or models specific"
     }
   }
 }
