@@ -509,6 +509,70 @@ def test_reprocess_from_cache_output_is_sorted_by_paper_id_regardless_of_complet
     assert written_ids == sorted(ids)
 
 
+# Regression guards for a real bug (fixed twice already): docling, when invoked
+# from one of these executors' worker threads (process_papers()'s ordinary PDF
+# fallback, or reprocess_from_cache()'s force_pdf_reextract), can SIGSEGV during
+# native cleanup shortly after ThreadPoolExecutor.shutdown() tears the pool down.
+# That crash bypasses Python's exception handling entirely, so the only real
+# protection is ensuring output files are written to disk *before* shutdown() is
+# called, not after. These assert exactly that ordering by inspecting the
+# filesystem from inside a mocked shutdown() — if a future edit hoists shutdown()
+# back above the writes, these must fail.
+
+def test_process_papers_writes_output_before_shutting_down_executor(lang_classes, languages_to_ignore, cache_dirs, tmp_path):
+    pdf_dir, html_cache_dir, pdf_cache_dir = cache_dirs
+    no_det_path = tmp_path / "no_detections.json"
+    papers = [{"id": "1"}]
+    record = _record("1", sources=["abstract"])  # no detections -> exercises the no_detections_file write
+
+    shutdown_saw_file_written = []
+    original_shutdown = pp.ThreadPoolExecutor.shutdown
+
+    def fake_shutdown(self, *a, **kw):
+        shutdown_saw_file_written.append(no_det_path.exists())
+        return original_shutdown(self, *a, **kw)
+
+    with patch("process_papers._process_single_paper", return_value=record), \
+         patch.object(pp.ThreadPoolExecutor, "shutdown", fake_shutdown):
+        pp.process_papers(
+            papers, lang_classes, languages_to_ignore, {},
+            output_jsonl=tmp_path / "detected.jsonl",
+            warnings_file=tmp_path / "warnings.json",
+            pdf_dir=pdf_dir, html_cache_dir=html_cache_dir, pdf_cache_dir=pdf_cache_dir,
+            no_detections_file=no_det_path,
+            max_workers=1, no_pdf=True,
+        )
+
+    assert shutdown_saw_file_written == [True]
+
+
+def test_reprocess_from_cache_writes_output_before_shutting_down_executor(lang_classes, languages_to_ignore, cache_dirs, tmp_path):
+    _, html_cache_dir, pdf_cache_dir = cache_dirs
+    detected_path = tmp_path / "detected.jsonl"
+    papers = [{"id": "1"}]
+    record = _record("1", sections={"abstract": {"source": "abstract", "detected_languages": [{"language": "Swahili", "class": 0}]}}, sources=["abstract"])
+
+    shutdown_saw_file_written = []
+    original_shutdown = pp.ThreadPoolExecutor.shutdown
+
+    def fake_shutdown(self, *a, **kw):
+        shutdown_saw_file_written.append(detected_path.exists() and detected_path.stat().st_size > 0)
+        return original_shutdown(self, *a, **kw)
+
+    with patch("process_papers._reprocess_single_paper", return_value=record), \
+         patch.object(pp.ThreadPoolExecutor, "shutdown", fake_shutdown):
+        pp.reprocess_from_cache(
+            papers, lang_classes, languages_to_ignore, {},
+            output_jsonl=detected_path,
+            warnings_file=tmp_path / "warnings.json",
+            html_cache_dir=html_cache_dir, pdf_cache_dir=pdf_cache_dir,
+            no_detections_file=tmp_path / "no_detections.json",
+            max_workers=1,
+        )
+
+    assert shutdown_saw_file_written == [True]
+
+
 # ---------------------------------------------------------------------------
 # _needs_retry (--retry-missing decision logic)
 # ---------------------------------------------------------------------------

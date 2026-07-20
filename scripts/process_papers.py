@@ -487,10 +487,12 @@ def reprocess_from_cache(
     real, final destination, never a temp file a caller merges in afterward. Callers
     reprocessing only a subset of papers (e.g. --pdf-only) pass the untouched records
     for every other paper via preserved_*, so this function can write the complete,
-    merged result in one shot. This matters specifically for force_pdf_reextract: it
-    invokes docling from a worker thread, and docling's PyTorch C++ thread pools
-    reliably SIGSEGV during native cleanup sometime after the pool is torn down (see
-    the os._exit(0) comment at the bottom of this file). That crash bypasses Python's
+    merged result in one shot. This matters whenever docling runs inside a worker
+    thread of this executor (currently: only when force_pdf_reextract is set — see
+    _reprocess_single_paper — but the same is true of ordinary PDF-fallback
+    extraction in process_papers()). docling's PyTorch C++ thread pools reliably
+    SIGSEGV during native cleanup sometime after the pool is torn down (see the
+    os._exit(0) comment at the bottom of this file). That crash bypasses Python's
     exception handling entirely, so nothing here can guarantee the write completes —
     but writing directly to the real path (instead of a temp file a *separate*,
     later main()-level merge step would fold in) means a write that does complete
@@ -567,44 +569,52 @@ def reprocess_from_cache(
                         stats["failed_papers"] += 1
                     pbar.update(1)
     finally:
-        executor.shutdown(wait=False)
-
-        # Write here, in finally — not after it — so a best-effort save still happens
-        # on any *catchable* exception escaping the loop above (e.g. Ctrl-C), same as
-        # the pre-sorting version of this function did. Sort by paper_id first:
-        # ThreadPoolExecutor completion order is nondeterministic run-to-run, so
-        # writing in completion order would jumble records even when nothing about
-        # the actual detections changed — a noisy diff (and a needless commit) for a
-        # no-op rerun. Merge in preserved_* so this write lands directly at the real,
-        # final destination in one shot rather than a temp file some separate,
-        # later step would need to fold in — see the force_pdf_reextract note in the
-        # docstring above for why that distinction matters.
+        # Write here, in finally, BEFORE executor.shutdown() — not after it. Whenever
+        # docling runs inside one of this executor's worker threads (currently: only
+        # when force_pdf_reextract is set — see _reprocess_single_paper), its PyTorch
+        # C++ thread pools reliably SIGSEGV during native cleanup shortly after
+        # executor.shutdown() tears the pool down (see the os._exit(0) comment at the
+        # bottom of this file — process_papers() has the identical risk whenever its
+        # ordinary PDF fallback runs docling, unrelated to this flag). That crash
+        # bypasses Python's exception handling entirely, so nothing here can
+        # guarantee these writes complete — but empirically the race is won or lost
+        # within this handful of writes: sometimes none of them land, sometimes only
+        # the first. Calling shutdown() last means the crash-prone window doesn't
+        # even open until every write below has already completed, instead of racing
+        # them against it. The inner try/finally still guarantees shutdown() runs
+        # even if a write raises (e.g. disk full) — this reordering trades away
+        # nothing on the ordinary exception path, only reduces exposure to the
+        # SIGSEGV, which no ordering can catch.
         #
-        # None of this can fully protect against force_pdf_reextract's known SIGSEGV
-        # risk (docling's PyTorch C++ thread pools crashing during native cleanup) —
-        # that bypasses Python's exception handling entirely, so finally itself may
-        # never run. What it does guarantee: whenever this code *does* get to run
-        # (the overwhelmingly common case), the write goes straight to the file
-        # callers actually read, with no intermediate merge step required.
-        fresh_lines = [json.dumps(r, ensure_ascii=False) for r in detected_records]
-        merged_lines = sorted(preserved_lines + fresh_lines, key=lambda l: json.loads(l).get("paper_id") or "")
-        with output_jsonl.open("w", encoding="utf-8") as fp:
-            for line in merged_lines:
-                fp.write(line + "\n")
+        # Sort by paper_id first: ThreadPoolExecutor completion order is
+        # nondeterministic run-to-run, so writing in completion order would jumble
+        # records even when nothing about the actual detections changed — a noisy
+        # diff (and a needless commit) for a no-op rerun. Merge in preserved_* so
+        # this write lands directly at the real, final destination in one shot
+        # rather than a temp file some separate, later step would need to fold in —
+        # see the docstring above for why that distinction matters.
+        try:
+            fresh_lines = [json.dumps(r, ensure_ascii=False) for r in detected_records]
+            merged_lines = sorted(preserved_lines + fresh_lines, key=lambda l: json.loads(l).get("paper_id") or "")
+            with output_jsonl.open("w", encoding="utf-8") as fp:
+                for line in merged_lines:
+                    fp.write(line + "\n")
 
-        no_detection_records.sort(key=lambda r: r.get("paper_id") or "")
-        _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
-        with _nd_path.open("w", encoding="utf-8") as fp:
-            json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
-        print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
+            no_detection_records.sort(key=lambda r: r.get("paper_id") or "")
+            _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
+            with _nd_path.open("w", encoding="utf-8") as fp:
+                json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
+            print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
 
-        all_warnings.sort(key=lambda w: w.get("paper_id") or "")
-        if all_warnings:
-            with warnings_file.open("w", encoding="utf-8") as fp:
-                json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
-            print(f"Warnings saved to {warnings_file}")
-        elif warnings_file.exists():
-            warnings_file.unlink()
+            all_warnings.sort(key=lambda w: w.get("paper_id") or "")
+            if all_warnings:
+                with warnings_file.open("w", encoding="utf-8") as fp:
+                    json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
+                print(f"Warnings saved to {warnings_file}")
+            elif warnings_file.exists():
+                warnings_file.unlink()
+        finally:
+            executor.shutdown(wait=False)
 
     print(f"\nTotal papers:            {stats['total_papers']}")
     print(f"Papers with detections:  {stats['papers_with_detections']}")
@@ -734,19 +744,35 @@ def process_papers(
                         stats["failed_papers"] += 1
                     pbar.update(1)
     finally:
-        # Don't block on stuck threads — daemon threads will be reaped when the process exits
-        executor.shutdown(wait=False)
-        _fp_out.close()
+        # Write here, in finally, BEFORE executor.shutdown() — not after it (and
+        # don't block on stuck threads either way — daemon threads are reaped when
+        # the process exits). Detected-paper records are already safe regardless:
+        # they're flushed to _fp_out per-record inside the loop above, not batched.
+        # warnings_file/no_detections_file are batched here though, and whenever
+        # docling runs inside one of this executor's worker threads — the ordinary
+        # PDF-fallback path above, whenever no_pdf is False and HTML is unavailable —
+        # its PyTorch C++ thread pools reliably SIGSEGV during native cleanup shortly
+        # after executor.shutdown() tears the pool down (see the os._exit(0) comment
+        # at the bottom of this file, and the identical reorder + explanation in
+        # reprocess_from_cache above). Calling shutdown() last means that crash-prone
+        # window doesn't open until these writes are already done, instead of racing
+        # them against it. The inner try/finally still guarantees shutdown() (and
+        # closing _fp_out) run even if a write raises for an ordinary reason (e.g.
+        # disk full) — this reordering only reduces exposure to the SIGSEGV, which
+        # no ordering can catch.
+        try:
+            if all_warnings:
+                with warnings_file.open("w", encoding="utf-8") as fp:
+                    json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
+                print(f"Warnings saved to {warnings_file}")
 
-        if all_warnings:
-            with warnings_file.open("w", encoding="utf-8") as fp:
-                json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
-            print(f"Warnings saved to {warnings_file}")
-
-        _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
-        with _nd_path.open("w", encoding="utf-8") as fp:
-            json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
-        print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
+            _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
+            with _nd_path.open("w", encoding="utf-8") as fp:
+                json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
+            print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
+        finally:
+            executor.shutdown(wait=False)
+            _fp_out.close()
 
     print(f"\nTotal papers:            {stats['total_papers']}")
     print(f"Papers with detections:  {stats['papers_with_detections']}")
