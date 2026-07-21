@@ -511,7 +511,7 @@ for (const it of paperItems) {
     wrap.className = 'paper-row-wrap';
     wrap.style.display = 'none';
 
-    const chips = p.languages.map(l => {
+    const chips = p.languages.map((l, chipIdx) => {
       const mentionedOnly = l.judgeVerdict === 'mentioned_only';
       const span = document.createElement('span');
       span.className = `lang-chip class-${l.borderClass}${l.needsReview ? ' needs-review' : ''}${mentionedOnly ? ' mentioned-only' : ''}`;
@@ -531,12 +531,35 @@ for (const it of paperItems) {
         mark.setAttribute('aria-hidden', 'true');
         mark.textContent = '~';
         span.appendChild(mark);
-        span.title = 'LLM judge: mentioned but not studied';
       }
-      return span;
+      if (!l.needsReview && !mentionedOnly) return span;
+
+      // Match the server-rendered popover markup (see the .lang-chip-popover
+      // block above) instead of a plain title attribute, so hover behavior is
+      // consistent between the default single-week view and this client-side
+      // multi-week/period path. Note: PaperJSON.languages doesn't carry
+      // judgeReason/flagReason (only the booleans), so unlike the server-rendered
+      // popover this one shows the generic note without the per-paper reason text.
+      const tipId = `chip-tip-${index}-${chipIdx}`;
+      span.setAttribute('aria-describedby', tipId);
+      const popoverWrap = document.createElement('span');
+      popoverWrap.className = 'lang-chip-popover';
+      popoverWrap.appendChild(span);
+      const body = document.createElement('div');
+      body.className = 'review-popover-body';
+      body.id = tipId;
+      body.setAttribute('role', 'tooltip');
+      // mentionedOnly and needsReview are independent flags — a chip can be both
+      // at once, so both notes must render (mirrors the server-rendered JSX above).
+      let bodyHtml = '';
+      if (mentionedOnly) bodyHtml += `<div><strong>LLM judge: mentioned but not studied</strong></div>`;
+      if (l.needsReview) bodyHtml += `<div><strong>⚠ Manual verification may be needed</strong></div>`;
+      body.innerHTML = bodyHtml;
+      popoverWrap.appendChild(body);
+      return popoverWrap;
     });
 
-    const suppressedChips = (p.judgeSuppressedChips || []).map(sc => {
+    const suppressedChips = (p.judgeSuppressedChips || []).map((sc, jcIdx) => {
       const span = document.createElement('span');
       span.className = `lang-chip class-${sc.borderClass} suppressed judge-suppressed`;
       span.dataset.verdict = 'false_positive';
@@ -546,8 +569,19 @@ for (const it of paperItems) {
       mark.setAttribute('aria-hidden', 'true');
       mark.textContent = '✗';
       span.appendChild(mark);
-      span.title = `Excluded by LLM judge${sc.model ? ` (${sc.model})` : ''}${sc.reason ? `: ${sc.reason}` : ''}`;
-      return span;
+
+      const tipId = `judge-suppressed-tip-${index}-${jcIdx}`;
+      span.setAttribute('aria-describedby', tipId);
+      const popoverWrap = document.createElement('span');
+      popoverWrap.className = 'lang-chip-popover';
+      popoverWrap.appendChild(span);
+      const body = document.createElement('div');
+      body.className = 'review-popover-body';
+      body.id = tipId;
+      body.setAttribute('role', 'tooltip');
+      body.innerHTML = `<strong>Excluded by LLM judge${sc.model ? ` (${escapeHtml(sc.model)})` : ''}</strong>${sc.reason ? `<p>${escapeHtml(sc.reason)}</p>` : ''}`;
+      popoverWrap.appendChild(body);
+      return popoverWrap;
     });
 
     const weekBadge = `<span class="week-badge">w/o ${fmtWeekLabel(weekStart)}</span>`;
