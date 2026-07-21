@@ -1,0 +1,41 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.14491v1",
+  "judge_model": "openai/gpt-oss-120b",
+  "judged_at": "2026-07-21T16:30:24.760068+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5988,
+  "verdicts": {
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "refers to the dominant script/language of the BD‑op tweets (Bengali script) mentioned only in the data table, not used in experiments"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "refers to the Latin alphabet/script used in tweets, not the Latin language"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "refers to Persian as part of the Arabic/Persian script column in the data description, only mentioned"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "refers to Arabic as part of the Arabic/Persian script column in the data description, only mentioned"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "refers to Spanish as the language of certain operations (e.g., VE‑op‑A domestic ES) in the data table, without further analysis"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "refers to Russian‑original items and the rusentilex lexicon, with affect‑label validation on Russian texts, so the paper studies Russian language data"
+    },
+    "Turkish": {
+      "verdict": "false_positive",
+      "reason": "refers to the Turkish military as an example of a foreign state, not to the Turkish language"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "refers to English text used throughout the study (validation, translation, affect labeling), indicating the paper studies English language data"
+    }
+  }
+}

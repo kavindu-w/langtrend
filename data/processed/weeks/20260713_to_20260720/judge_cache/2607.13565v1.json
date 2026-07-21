@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.13565v1",
+  "judge_model": "openai/gpt-oss-120b",
+  "judged_at": "2026-07-21T16:40:24.217648+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5437,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'pin dated snapshots' is used as a verb meaning to fix snapshots, not referring to the Pin language; thus false positive"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is mentioned as the round‑trip translation language and as a literal Hindi back‑translation attack, i.e., the paper uses Hindi in its experiments, so studied"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian appears as the target of a translated‑Russian register style used in attacks, indicating the language is employed in the experimental evaluation, so studied"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is described as the round‑trip translation language for Qwen3.6, meaning the language is used in the experiments, so studied"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the primary language of the generated text and detector training, central to the experiments, so studied"
+    }
+  }
+}

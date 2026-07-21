@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.17111v1",
+  "judge_model": "openai/gpt-oss-120b",
+  "judged_at": "2026-07-21T16:02:47.948320+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7681,
+  "verdicts": {
+    "Zia": {
+      "verdict": "false_positive",
+      "reason": "refers to Khaleda Zia, a political leader, not a language; therefore false_positive"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "refers to the Bengali language of the legislative texts and language identification; the dataset provides Bengali documents, so studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "refers to Latin script used for Unicode-range heuristics, not the Latin language; therefore false_positive"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "refers to Arabic numerals (Western Arabic digits), not the Arabic language; therefore false_positive"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "refers to the English language of many acts and the dataset includes English texts, thus the paper studies English"
+    }
+  }
+}

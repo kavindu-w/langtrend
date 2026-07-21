@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.17173v1",
+  "judge_model": "openai/gpt-oss-120b",
+  "judged_at": "2026-07-21T16:08:24.693643+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11616,
+  "verdicts": {
+    "Altai": {
+      "verdict": "false_positive",
+      "reason": "The match occurs in the phrase 'Sayan-Altai', referring to a geographic region, not the Altai language → false_positive"
+    },
+    "Uyghur": {
+      "verdict": "false_positive",
+      "reason": "The match occurs in 'defeating the Uyghur Khaganate', referring to a historical empire, not the Uyghur language → false_positive"
+    },
+    "Kyrgyz": {
+      "verdict": "studied",
+      "reason": "The text discusses Kyrgyz language characteristics, datasets, and evaluation, indicating the paper builds resources and evaluates models for Kyrgyz → studied"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is mentioned as a comparison language (e.g., test conducted in Kyrgyz and Russian, script differences) but no resources or experiments are built for it → mentioned_only"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the source language of translated benchmarks and as a baseline, without building resources for English → mentioned_only"
+    }
+  }
+}
