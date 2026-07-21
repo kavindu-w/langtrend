@@ -244,7 +244,7 @@ for (const it of paperItems) {
               {item.chips.map((chip, chipIdx) => (
                 chip.needsReview || chip.mentionedOnly ? (
                   <span class="lang-chip-popover">
-                    <span class={`lang-chip class-${chip.borderClass}${chip.needsReview ? ' needs-review' : ''}${chip.mentionedOnly ? ' mentioned-only' : ''}`} style={`background:${chip.fillColor}`} aria-describedby={`chip-tip-${item.index}-${chipIdx}`} data-verdict={chip.mentionedOnly ? 'mentioned_only' : 'studied'}>
+                    <span class={`lang-chip class-${chip.borderClass}${chip.needsReview ? ' needs-review' : ''}${chip.mentionedOnly ? ' mentioned-only' : ''}`} style={`background:${chip.fillColor}`} aria-describedby={`chip-tip-${item.index}-${chipIdx}`} data-verdict={chip.mentionedOnly ? 'mentioned_only' : 'studied'} tabindex="0">
                       {chip.language}{chip.needsReview && <span class="review-star" aria-hidden="true">★</span>}{chip.mentionedOnly && <span class="mentioned-mark" aria-hidden="true">~</span>}
                     </span>
                     <div class="review-popover-body" id={`chip-tip-${item.index}-${chipIdx}`} role="tooltip">
@@ -268,7 +268,7 @@ for (const it of paperItems) {
               ))}
               {item.suppressedChips.map((sc, scIdx) => (
                 <span class="lang-chip-popover">
-                  <span class={`lang-chip class-${sc.borderClass} suppressed`} aria-describedby={`suppressed-tip-${item.index}-${scIdx}`}>
+                  <span class={`lang-chip class-${sc.borderClass} suppressed`} aria-describedby={`suppressed-tip-${item.index}-${scIdx}`} tabindex="0">
                     {sc.language}<span class="suppressed-mark" aria-hidden="true">?</span>
                   </span>
                   <div class="review-popover-body" id={`suppressed-tip-${item.index}-${scIdx}`} role="tooltip">
@@ -279,7 +279,7 @@ for (const it of paperItems) {
               ))}
               {(item.judgeSuppressedChips ?? []).map((jc, jcIdx) => (
                 <span class="lang-chip-popover">
-                  <span class={`lang-chip class-${jc.borderClass} suppressed judge-suppressed`} aria-describedby={`judge-suppressed-tip-${item.index}-${jcIdx}`} data-verdict="false_positive">
+                  <span class={`lang-chip class-${jc.borderClass} suppressed judge-suppressed`} aria-describedby={`judge-suppressed-tip-${item.index}-${jcIdx}`} data-verdict="false_positive" tabindex="0">
                     {jc.language}<span class="suppressed-mark" aria-hidden="true">✗</span>
                   </span>
                   <div class="review-popover-body" id={`judge-suppressed-tip-${item.index}-${jcIdx}`} role="tooltip">
@@ -290,7 +290,7 @@ for (const it of paperItems) {
               ))}
               {item.coverageBadge && (
                 <span class="lang-chip-popover">
-                  <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} aria-describedby={`coverage-tip-${item.index}`}>
+                  <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} aria-describedby={`coverage-tip-${item.index}`} tabindex="0">
                     {item.coverageBadge.label}
                   </span>
                   <div class="review-popover-body" id={`coverage-tip-${item.index}`} role="tooltip">
@@ -480,6 +480,8 @@ for (const it of paperItems) {
     languageNames: string[]; langCount: number; minClass: number; classes: number[];
     judgeSuppressedChips: { language: string; borderClass: number; reason: string; model: string }[];
     verdicts: string[];
+    hasPdf: boolean;
+    coverageBadge: { label: string; title: string } | null;
   };
 
   function formatPubDate(iso: string): string {
@@ -542,6 +544,7 @@ for (const it of paperItems) {
       // popover this one shows the generic note without the per-paper reason text.
       const tipId = `chip-tip-${index}-${chipIdx}`;
       span.setAttribute('aria-describedby', tipId);
+      span.setAttribute('tabindex', '0');
       const popoverWrap = document.createElement('span');
       popoverWrap.className = 'lang-chip-popover';
       popoverWrap.appendChild(span);
@@ -572,6 +575,7 @@ for (const it of paperItems) {
 
       const tipId = `judge-suppressed-tip-${index}-${jcIdx}`;
       span.setAttribute('aria-describedby', tipId);
+      span.setAttribute('tabindex', '0');
       const popoverWrap = document.createElement('span');
       popoverWrap.className = 'lang-chip-popover';
       popoverWrap.appendChild(span);
@@ -583,6 +587,19 @@ for (const it of paperItems) {
       popoverWrap.appendChild(body);
       return popoverWrap;
     });
+
+    let coverageBadgeHtml = '';
+    if (p.coverageBadge) {
+      const tipId = `coverage-tip-${index}`;
+      coverageBadgeHtml = `
+        <span class="lang-chip-popover">
+          <span class="coverage-badge${p.hasPdf ? ' pdf-only' : ' abstract-only'}" aria-describedby="${tipId}" tabindex="0">${escapeHtml(p.coverageBadge.label)}</span>
+          <div class="review-popover-body" id="${tipId}" role="tooltip">
+            <strong>⚠ ${escapeHtml(p.coverageBadge.label)}</strong>
+            <p>${escapeHtml(p.coverageBadge.title)}</p>
+          </div>
+        </span>`;
+    }
 
     const weekBadge = `<span class="week-badge">w/o ${fmtWeekLabel(weekStart)}</span>`;
     const pubDateStr = formatPubDate(p.published);
@@ -601,7 +618,7 @@ for (const it of paperItems) {
     details.dataset.week = weekStart;
     details.dataset.verdicts = p.verdicts.join(',');
 
-    const tagsHtml = [...chips, ...suppressedChips].map(c => c.outerHTML).join('');
+    const tagsHtml = [...chips, ...suppressedChips].map(c => c.outerHTML).join('') + coverageBadgeHtml;
     details.innerHTML = `
       <summary class="paper-summary">
         <div class="paper-main">

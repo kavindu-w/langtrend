@@ -382,6 +382,38 @@ describe('buildWeekApiPaper', () => {
     );
     expect(result.titleHtml).toBe('DiM<sup>3</sup>: Bridging Models');
   });
+
+  it('sets hasPdf and a PDF & Abstract coverage badge when HTML was not scanned but PDF was', () => {
+    const result = buildWeekApiPaper(
+      { paper, languages: [], sourcesChecked: ['abstract', 'pdf'] },
+      {},
+    );
+    expect(result.hasPdf).toBe(true);
+    expect(result.coverageBadge).toEqual({
+      label: 'PDF & Abstract',
+      title: 'HTML version could not be extracted — analysis done with PDF and abstract',
+    });
+  });
+
+  it('sets an Abstract-only coverage badge when neither HTML nor PDF was scanned', () => {
+    const result = buildWeekApiPaper(
+      { paper, languages: [], sourcesChecked: ['abstract'] },
+      {},
+    );
+    expect(result.hasPdf).toBe(false);
+    expect(result.coverageBadge).toEqual({
+      label: 'Abstract only',
+      title: 'HTML and PDF versions could not be extracted — analysis done with abstract only',
+    });
+  });
+
+  it('has no coverage badge when the HTML source was scanned', () => {
+    const result = buildWeekApiPaper(
+      { paper, languages: [], sourcesChecked: ['html', 'pdf'] },
+      {},
+    );
+    expect(result.coverageBadge).toBeNull();
+  });
 });
 
 describe('LLM judge fields', () => {

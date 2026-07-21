@@ -94,6 +94,19 @@ export function chipFromEntry(entry, langClasses, pfpMap = {}) {
   };
 }
 
+/** @param {string[]} sourcesChecked */
+export function coverageBadgeFor(sourcesChecked) {
+  const sources = sourcesChecked ?? [];
+  const hasHtml = sources.includes('html');
+  const hasPdf = sources.includes('pdf');
+  const coverageBadge = !hasHtml
+    ? (hasPdf
+        ? { label: 'PDF & Abstract', title: 'HTML version could not be extracted — analysis done with PDF and abstract' }
+        : { label: 'Abstract only', title: 'HTML and PDF versions could not be extracted — analysis done with abstract only' })
+    : null;
+  return { hasPdf, coverageBadge };
+}
+
 export function formatDate(iso) {
   if (!iso) return '';
   try { return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }); }
@@ -128,14 +141,7 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
   const chipLanguageNames = chips.map(c => c.language).filter(Boolean);
   const minClass = chips.length > 0 ? chips.reduce((min, c) => Math.min(min, c.borderClass), 5) : 5;
 
-  const sources = item.sourcesChecked ?? [];
-  const hasHtml = sources.includes('html');
-  const hasPdf = sources.includes('pdf');
-  const coverageBadge = !hasHtml
-    ? (hasPdf
-        ? { label: 'PDF & Abstract', title: 'HTML version could not be extracted — analysis done with PDF and abstract' }
-        : { label: 'Abstract only', title: 'HTML and PDF versions could not be extracted — analysis done with abstract only' })
-    : null;
+  const { hasPdf, coverageBadge } = coverageBadgeFor(item.sourcesChecked);
 
   const searchText = foldSearchText(`${paper.title} ${paper.authors.join(' ')}`);
 
@@ -255,6 +261,8 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
     judgeSuppressedChips,
   );
 
+  const { hasPdf, coverageBadge } = coverageBadgeFor(item.sourcesChecked);
+
   return {
     id: paper.id ?? '',
     title: paper.title,
@@ -274,5 +282,7 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
     classes,
     judgeSuppressedChips,
     verdicts,
+    hasPdf,
+    coverageBadge,
   };
 }
