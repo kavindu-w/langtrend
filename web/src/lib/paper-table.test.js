@@ -11,6 +11,7 @@ import {
   sourcesOfEntry,
   verdictsPresent,
 } from './paper-table.js';
+import { foldForSubstringMatch } from './text-utils.js';
 
 describe('foldSearchText', () => {
   it('lowercases', () => {
@@ -21,8 +22,35 @@ describe('foldSearchText', () => {
     expect(foldSearchText('é')).toBe('e');
   });
 
-  it('normalizes typographic apostrophes to a plain one', () => {
+  it('normalizes typographic apostrophes to a plain one, without dropping it', () => {
+    // Identity-preserving: distinct taxonomy entries like "Kwa"/"Kwa'" must
+    // stay distinguishable for exact-match/"already active" checks.
     expect(foldSearchText('N’ko')).toBe("n'ko");
+    expect(foldSearchText('Kwa’')).not.toBe(foldSearchText('Kwa'));
+  });
+
+  describe('foldForSubstringMatch', () => {
+    it('drops apostrophes so "n\'ko"/"nko" both match as a substring query', () => {
+      expect(foldForSubstringMatch('N’ko')).toBe('nko');
+      expect(foldForSubstringMatch("n'ko")).toBe('nko');
+    });
+  });
+
+  it('maps superscript digits to plain digits', () => {
+    expect(foldSearchText('Dim³')).toBe('dim3');
+  });
+
+  it('unwraps \\textsuperscript{} so a plain-digit query matches a raw-LaTeX arXiv title', () => {
+    // Real arXiv title: "DiM\textsuperscript{3}: Bridging Multilingual and Multimodal..."
+    const title = 'DiM\\textsuperscript{3}: Bridging Multilingual and Multimodal Models';
+    expect(foldSearchText(title)).toContain('dim3');
+    expect(foldSearchText(title)).toContain(foldSearchText('dim^3'));
+  });
+
+  it('drops stray LaTeX math-mode noise ($, ^, braces) around bare exponents', () => {
+    expect(foldSearchText('R^3: Advertisement Compliance Rectification')).toContain('r3');
+    expect(foldSearchText('M$^3$Eval: Multi-Modal Memory Evaluation')).toContain('m3eval');
+    expect(foldSearchText('H$^{2}$MT: Semantic Hierarchy-Aware Memory Transformer')).toContain('h2mt');
   });
 });
 

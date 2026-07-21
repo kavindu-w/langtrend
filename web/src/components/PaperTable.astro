@@ -253,8 +253,9 @@ for (const it of paperItems) {
               </div>
             <p class="paper-authors">{item.allAuthors}</p>
             <div class="paper-tags">
-              {item.chips.map((chip, chipIdx) => (
-                chip.needsReview || chip.mentionedOnly ? (
+              {item.chips.map((chip, chipIdx) => {
+                const showStudiedReason = !chip.needsReview && !chip.mentionedOnly && !!chip.judgeReason;
+                return chip.needsReview || chip.mentionedOnly || showStudiedReason ? (
                   <span class="lang-chip-popover">
                     <span class={`lang-chip class-${chip.borderClass}${chip.needsReview ? ' needs-review' : ''}${chip.mentionedOnly ? ' mentioned-only' : ''}`} style={`background:${chip.fillColor}`} aria-describedby={`chip-tip-${item.index}-${chipIdx}`} data-verdict={chip.mentionedOnly ? 'mentioned_only' : 'studied'} tabindex="0">
                       {chip.language}{chip.needsReview && <span class="review-star" aria-hidden="true">★</span>}{chip.mentionedOnly && <span class="mentioned-mark" aria-hidden="true">~</span>}
@@ -272,12 +273,18 @@ for (const it of paperItems) {
                           {chip.flagReason && <p>{chip.flagReason}</p>}
                         </div>
                       )}
+                      {showStudiedReason && (
+                        <div>
+                          <strong>LLM judge: studied</strong>
+                          <p>{chip.judgeReason}</p>
+                        </div>
+                      )}
                     </div>
                   </span>
                 ) : (
                   <span class={`lang-chip class-${chip.borderClass}`} style={`background:${chip.fillColor}`} data-verdict="studied">{chip.language}</span>
-                )
-              ))}
+                );
+              })}
               {item.suppressedChips.map((sc, scIdx) => (
                 <span class="lang-chip-popover">
                   <span class={`lang-chip class-${sc.borderClass} suppressed`} aria-describedby={`suppressed-tip-${item.index}-${scIdx}`} tabindex="0">
@@ -409,7 +416,7 @@ for (const it of paperItems) {
 </section>
 
 <script>
-  import { foldSearchText } from '../lib/text-utils.js';
+  import { foldSearchText, foldForSubstringMatch } from '../lib/text-utils.js';
   import { activeWeekSlugsFor, compareEntries, debounce, matchPaperRow, paginate, paginationWindow, parseRowMeta } from '../lib/paper-filters.js';
 
   // ── State ────────────────────────────────────────────────────────────────────
@@ -495,7 +502,10 @@ for (const it of paperItems) {
   // Full taxonomy (~6k names), used for the search typeahead and to tell a
   // known-but-absent language apart from an unrecognized/misspelled one.
   const allLanguageNames: string[] = JSON.parse(document.getElementById('all-languages-data')?.textContent || '[]');
-  const foldedLanguageNames = allLanguageNames.map(name => ({ name, folded: foldSearchText(name) }));
+  // `folded` is identity-preserving (used for exact-match/"known language"
+  // lookups below); `matchFolded` additionally drops apostrophes, for the
+  // substring typeahead only — see foldForSubstringMatch's doc comment.
+  const foldedLanguageNames = allLanguageNames.map(name => ({ name, folded: foldSearchText(name), matchFolded: foldForSubstringMatch(name) }));
 
   // ── Pagination state ─────────────────────────────────────────────────────────
 
@@ -550,7 +560,7 @@ for (const it of paperItems) {
     id: string; title: string; titleHtml: string; authors: string[]; abstract: string; abstractHtml: string;
     pdf_url: string; arxiv_url: string; published: string; categories: string[];
     searchText: string;
-    languages: { language: string; borderClass: number; fillColor: string; needsReview: boolean; judgeVerdict?: string }[];
+    languages: { language: string; borderClass: number; fillColor: string; needsReview: boolean; judgeVerdict?: string; judgeReason?: string; flagReason?: string; mentionedOnly?: boolean }[];
     languageNames: string[]; langCount: number; minClass: number; classes: number[];
     judgeSuppressedChips: { language: string; borderClass: number; reason: string; model: string }[];
     verdicts: string[];
@@ -588,7 +598,7 @@ for (const it of paperItems) {
     wrap.style.display = 'none';
 
     const chips = p.languages.map((l, chipIdx) => {
-      const mentionedOnly = l.judgeVerdict === 'mentioned_only';
+      const mentionedOnly = !!l.mentionedOnly;
       const span = document.createElement('span');
       span.className = `lang-chip class-${l.borderClass}${l.needsReview ? ' needs-review' : ''}${mentionedOnly ? ' mentioned-only' : ''}`;
       span.dataset.verdict = mentionedOnly ? 'mentioned_only' : 'studied';
@@ -608,14 +618,12 @@ for (const it of paperItems) {
         mark.textContent = '~';
         span.appendChild(mark);
       }
-      if (!l.needsReview && !mentionedOnly) return span;
+      const showStudiedReason = !l.needsReview && !mentionedOnly && !!l.judgeReason;
+      if (!l.needsReview && !mentionedOnly && !showStudiedReason) return span;
 
       // Match the server-rendered popover markup (see the .lang-chip-popover
-      // block above) instead of a plain title attribute, so hover behavior is
-      // consistent between the default single-week view and this client-side
-      // multi-week/period path. Note: PaperJSON.languages doesn't carry
-      // judgeReason/flagReason (only the booleans), so unlike the server-rendered
-      // popover this one shows the generic note without the per-paper reason text.
+      // block above) so hover behavior is consistent between the default
+      // single-week view and this client-side multi-week/period path.
       const tipId = `chip-tip-${index}-${chipIdx}`;
       span.setAttribute('aria-describedby', tipId);
       span.setAttribute('tabindex', '0');
@@ -629,8 +637,15 @@ for (const it of paperItems) {
       // mentionedOnly and needsReview are independent flags — a chip can be both
       // at once, so both notes must render (mirrors the server-rendered JSX above).
       let bodyHtml = '';
-      if (mentionedOnly) bodyHtml += `<div><strong>LLM judge: mentioned but not studied</strong></div>`;
-      if (l.needsReview) bodyHtml += `<div><strong>⚠ Manual verification may be needed</strong></div>`;
+      if (mentionedOnly) {
+        bodyHtml += `<div><strong>LLM judge: mentioned but not studied</strong>${l.judgeReason ? `<p>${escapeHtml(l.judgeReason)}</p>` : ''}</div>`;
+      }
+      if (l.needsReview) {
+        bodyHtml += `<div><strong>⚠ Manual verification may be needed</strong>${l.flagReason ? `<p>${escapeHtml(l.flagReason)}</p>` : ''}</div>`;
+      }
+      if (showStudiedReason) {
+        bodyHtml += `<div><strong>LLM judge: studied</strong><p>${escapeHtml(l.judgeReason)}</p></div>`;
+      }
       body.innerHTML = bodyHtml;
       popoverWrap.appendChild(body);
       return popoverWrap;
@@ -896,9 +911,9 @@ for (const it of paperItems) {
   // because its chip momentarily scrolled out of the text-matched set would
   // silently undo the previous pick before the user gets to their second one.
   function filterLangChips(query: string) {
-    const q = foldSearchText(query.trim());
+    const q = foldForSubstringMatch(query.trim());
     langChips.forEach(chip => {
-      chip.hidden = q.length > 0 && !foldSearchText(chip.dataset.lang || '').includes(q);
+      chip.hidden = q.length > 0 && !foldForSubstringMatch(chip.dataset.lang || '').includes(q);
     });
     if (chipExpanded) {
       langChips.forEach(c => { if (!c.hidden) c.style.removeProperty('display'); });
@@ -960,13 +975,13 @@ for (const it of paperItems) {
   let activeSuggestionIndex = -1;
 
   function getSuggestions(query: string): string[] {
-    const q = foldSearchText(query.trim());
+    const q = foldForSubstringMatch(query.trim());
     if (!q) return [];
     const prefixMatches: string[] = [];
     const substringMatches: string[] = [];
-    for (const { name, folded } of foldedLanguageNames) {
-      if (folded.startsWith(q)) prefixMatches.push(name);
-      else if (folded.includes(q)) substringMatches.push(name);
+    for (const { name, matchFolded } of foldedLanguageNames) {
+      if (matchFolded.startsWith(q)) prefixMatches.push(name);
+      else if (matchFolded.includes(q)) substringMatches.push(name);
     }
     return [...prefixMatches, ...substringMatches];
   }

@@ -222,29 +222,19 @@ export function verdictsPresent(chips, judgeSuppressedChips) {
 
 /**
  * Shapes a flagged-paper record for the /api/weeks/[slug].json route.
- * needsReview matches chipFromEntry's rule: explicit flag, two-letter code, or a
- * hit in the false-positive-language map.
+ * Each language entry is built via chipFromEntry, so it carries the same
+ * judgeReason/flagReason/mentionedOnly fields as the server-rendered chips.
  * @param {object} item @param {Record<string, unknown[]>} langClasses @param {Record<string, string>} pfpMap
  */
 export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
   const paper = item.paper;
   const judgeRejected = [...item.languages].filter(Boolean).filter(isJudgedFalsePositive);
-  const languages = [...item.languages].filter(Boolean).filter((entry) => !isJudgedFalsePositive(entry)).map((entry) => {
-    const language = normalizeLanguage(entry);
-    const borderClass = classFromEntry(entry) ?? languageBorderClass(language, langClasses);
-    const judgeVerdict = judgeVerdictOfEntry(entry);
-    const needsReview = judgeVerdict !== 'studied' && (
-      (!Array.isArray(entry) && typeof entry === 'object' && !!entry?.needs_review)
-      || (typeof language === 'string' && /^[A-Za-z]{2}$/.test(language.trim()))
-      || (typeof language === 'string' && !!pfpMap[language])
-    );
-    return { language, borderClass, fillColor: languageFillColor(language), needsReview, judgeVerdict };
-  }).sort((a, b) => {
-    const aMentioned = a.judgeVerdict === 'mentioned_only';
-    const bMentioned = b.judgeVerdict === 'mentioned_only';
-    if (aMentioned !== bMentioned) return aMentioned ? 1 : -1;
-    return b.borderClass - a.borderClass || a.language.localeCompare(b.language);
-  });
+  const languages = [...item.languages].filter(Boolean).filter((entry) => !isJudgedFalsePositive(entry))
+    .map((entry) => chipFromEntry(entry, langClasses, pfpMap))
+    .sort((a, b) => {
+      if (a.mentionedOnly !== b.mentionedOnly) return a.mentionedOnly ? 1 : -1;
+      return b.borderClass - a.borderClass || a.language.localeCompare(b.language);
+    });
 
   const judgeSuppressedChips = judgeRejected.map((entry) => ({
     language: normalizeLanguage(entry),
@@ -256,10 +246,7 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
   const languageNames = languages.map((l) => l.language).filter(Boolean);
   const minClass = languages.length > 0 ? Math.min(...languages.map((l) => l.borderClass)) : 5;
   const classes = [...new Set(languages.map((l) => l.borderClass))];
-  const verdicts = verdictsPresent(
-    languages.map((l) => ({ mentionedOnly: l.judgeVerdict === 'mentioned_only' })),
-    judgeSuppressedChips,
-  );
+  const verdicts = verdictsPresent(languages, judgeSuppressedChips);
 
   const { hasPdf, coverageBadge } = coverageBadgeFor(item.sourcesChecked);
 
