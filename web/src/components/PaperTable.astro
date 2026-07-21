@@ -6,6 +6,7 @@ type LanguageEntry = string | [string, number] | { language?: string | null; cla
 type PaperRecord = {
   id?: string;
   title: string;
+  titleHtml?: string;
   authors: string[];
   abstract: string;
   abstractHtml?: string;
@@ -236,7 +237,7 @@ for (const it of paperItems) {
           <summary class="paper-summary">
             <div class="paper-main">
               <div class="paper-title-row">
-                <h3>{item.paper.title}</h3>
+                <h3 set:html={item.paper.titleHtml}></h3>
               </div>
             <p class="paper-authors">{item.allAuthors}</p>
             <div class="paper-tags">
@@ -472,7 +473,7 @@ for (const it of paperItems) {
   // ── Multi-week fetch ─────────────────────────────────────────────────────────
 
   type PaperJSON = {
-    id: string; title: string; authors: string[]; abstract: string; abstractHtml: string;
+    id: string; title: string; titleHtml: string; authors: string[]; abstract: string; abstractHtml: string;
     pdf_url: string; arxiv_url: string; published: string; categories: string[];
     searchText: string;
     languages: { language: string; borderClass: number; fillColor: string; needsReview: boolean; judgeVerdict?: string }[];
@@ -571,7 +572,9 @@ for (const it of paperItems) {
       <summary class="paper-summary">
         <div class="paper-main">
           <div class="paper-title-row">
-            <h3>${escapeHtml(p.title)}${weekBadge}</h3>
+            <!-- titleHtml is pre-rendered server-side (renderTitleHtml) — already
+                 HTML-escaped except for trusted <sup>/<sub> markup, so not re-escaped here. -->
+            <h3>${p.titleHtml}${weekBadge}</h3>
           </div>
           <p class="paper-authors">${escapeHtml(p.authors.join(', ')) || 'Unknown authors'}</p>
           <div class="paper-tags">${tagsHtml}</div>

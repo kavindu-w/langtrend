@@ -303,6 +303,15 @@ describe('buildPaperItem', () => {
 
     expect(item.sourcesGroups.map((g) => g.src)).toEqual(['abstract', 'pdf']);
   });
+
+  it('renders titleHtml from the paper title, converting LaTeX script macros', () => {
+    const item = buildPaperItem(
+      { paper: { ...paper, title: 'DiM\\textsuperscript{3}: Bridging Models' }, languages: [], sourcesChecked: [], sections: [], warnings: [] },
+      0,
+      '2026-05-18',
+    );
+    expect(item.paper.titleHtml).toBe('DiM<sup>3</sup>: Bridging Models');
+  });
 });
 
 describe('buildWeekApiPaper', () => {
@@ -364,6 +373,14 @@ describe('buildWeekApiPaper', () => {
     const result = buildWeekApiPaper({ paper: noIdPaper, languages: [] }, {});
     expect(result.arxiv_url).toBe(paper.pdf_url);
     expect(result.id).toBe('');
+  });
+
+  it('renders titleHtml from the paper title, converting LaTeX script macros', () => {
+    const result = buildWeekApiPaper(
+      { paper: { ...paper, title: 'DiM\\textsuperscript{3}: Bridging Models' }, languages: [] },
+      {},
+    );
+    expect(result.titleHtml).toBe('DiM<sup>3</sup>: Bridging Models');
   });
 });
 

@@ -1,5 +1,5 @@
 import { languageBorderClass, languageFillColor } from './language-colors.js';
-import { renderAbstractHtml } from './abstract-math.js';
+import { renderAbstractHtml, renderTitleHtml } from './abstract-math.js';
 import { foldSearchText } from './text-utils.js';
 
 export { foldSearchText };
@@ -102,7 +102,7 @@ export function formatDate(iso) {
 
 /** @param {object} item @param {number} index @param {string} weekStart @param {Record<string, unknown[]>} langClasses @param {Record<string, string>} pfpMap */
 export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap = {}) {
-  const paper = { ...item.paper, abstractHtml: renderAbstractHtml(item.paper.abstract) };
+  const paper = { ...item.paper, abstractHtml: renderAbstractHtml(item.paper.abstract), titleHtml: renderTitleHtml(item.paper.title) };
   const allAuthors = Array.isArray(paper.authors) && paper.authors.length > 0 ? paper.authors.join(', ') : 'Unknown authors';
 
   // Languages the LLM judge rejected are hidden from the chip row (and from
@@ -258,6 +258,7 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
   return {
     id: paper.id ?? '',
     title: paper.title,
+    titleHtml: renderTitleHtml(paper.title),
     authors: paper.authors,
     abstract: paper.abstract,
     abstractHtml: renderAbstractHtml(paper.abstract),
