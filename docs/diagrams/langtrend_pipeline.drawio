@@ -164,7 +164,7 @@
                 <mxCell id="s3j-1" value="① Assemble bounded context&#xa;judge.assemble_context()&#xa;&#xa;Title + abstract, then rarest-&#xa;language-first round-robin&#xa;snippets around each match" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#555555;fontSize=10;" parent="s3j" vertex="1">
                     <mxGeometry x="15" y="50" width="230" height="110" as="geometry"/>
                 </mxCell>
-                <mxCell id="s3j-2" value="② LLM call (OpenAI-compatible)&#xa;langtrend/llm_client.py&#xa;&#xa;Cerebras free tier (gpt-oss-120b)&#xa;default · Groq / Ollama / Gemini&#xa;also supported&#xa;&#xa;RPM/RPH-throttled · retries&#xa;transient errors · stops cleanly&#xa;on daily-quota exhaustion" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" parent="s3j" vertex="1">
+                <mxCell id="s3j-2" value="② LLM call (OpenAI-compatible)&#xa;langtrend/llm_client.py&#xa;&#xa;Groq free tier (gpt-oss-120b)&#xa;default · Cerebras / Ollama / Gemini&#xa;also supported&#xa;&#xa;RPM/RPH-throttled · retries&#xa;transient errors · stops cleanly&#xa;on daily-quota exhaustion" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" parent="s3j" vertex="1">
                     <mxGeometry x="270" y="40" width="280" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="s3j-3" value="③ Classify each detected language&#xa;studied · mentioned_only · false_positive&#xa;+ one-line model-generated reason" style="rounded=1;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;fontStyle=1;" parent="s3j" vertex="1">
@@ -232,9 +232,6 @@
                 </mxCell>
                 <mxCell id="s4-snap" value="langtrend_manifest.json&#xa;(dated snapshot per week)" style="shape=cylinder3;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalLabelPosition=middle;" parent="s4" vertex="1">
                     <mxGeometry x="920" y="131" width="220" height="90" as="geometry"/>
-                </mxCell>
-                <mxCell id="s4-note" value="Not-yet-judged detections (no ④ LLM JUDGE output yet for that week) are&#xa;counted as provisionally &#39;studied&#39; until the judge stage reaches them." style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;dashed=1;fontSize=9;fontStyle=2;align=left;spacingLeft=6;" parent="s4" vertex="1">
-                    <mxGeometry x="210" y="211" width="330" height="35" as="geometry"/>
                 </mxCell>
                 <mxCell id="s5" value="⑥ FRONTEND — Astro + D3.js  (npm run build → GitHub Pages)" style="swimlane;startSize=28;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;rounded=1;align=center;" parent="gha" vertex="1">
                     <mxGeometry x="30" y="1379" width="1160" height="220" as="geometry"/>
