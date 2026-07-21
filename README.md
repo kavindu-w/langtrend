@@ -21,7 +21,7 @@ _Latest processed week: **2026-07-13 – 2026-07-20**._
 | Metric | This week | All-time |
 |--------|----------:|---------:|
 | Papers scanned | 320 | 6,495 |
-| Papers with language mentions | 166 | 2,914 |
+| Papers with language mentions | 165 | 2,913 |
 | Unique languages detected | 206 | 431 |
 | Weeks tracked | — | 12 (since 2026-04-27) |
 

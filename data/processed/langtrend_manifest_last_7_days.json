@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-07-21T16:47:15.145518+00:00",
+  "generated_at": "2026-07-21T16:52:36.810017+00:00",
   "window_days": 7,
   "week_start": "2026-07-13",
   "week_end": "2026-07-20",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 320,
-    "flagged_papers": 166,
+    "flagged_papers": 165,
     "unique_languages": 206,
     "unique_languages_mentioned_only": 0,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 96,
-      "judged_languages": 288,
+      "judged_papers": 97,
+      "judged_languages": 289,
       "studied": 143,
       "mentioned_only": 55,
-      "false_positive": 90
+      "false_positive": 91
     }
   },
   "language_counts": [
@@ -200,12 +200,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Sentinel",
-      "count": 5,
-      "studied": 5,
-      "mentioned_only": 0
-    },
-    {
       "language": "Telugu",
       "count": 5,
       "studied": 5,
@@ -237,6 +231,12 @@
     },
     {
       "language": "Malay",
+      "count": 4,
+      "studied": 4,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Sentinel",
       "count": 4,
       "studied": 4,
       "mentioned_only": 0
@@ -1259,8 +1259,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 116,
-      "studied": 116,
+      "count": 115,
+      "studied": 115,
       "mentioned_only": 0
     },
     {
@@ -1308,7 +1308,7 @@
     {
       "date": "2026-07-15",
       "papers": 51,
-      "flagged": 22
+      "flagged": 21
     },
     {
       "date": "2026-07-16",
@@ -36331,7 +36331,11 @@
           "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "In the snippet Sentinel is listed as a service/provider alongside Vantage and Meridian, not a human language, so it is a false positive",
+          "judge_model": "openai/gpt-oss-120b",
+          "judged_at": "2026-07-21T16:50:46.348290+00:00"
         }
       ],
       "sources_checked": [
@@ -36351,7 +36355,11 @@
               "language": "Sentinel",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens"
+              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the snippet Sentinel is listed as a service/provider alongside Vantage and Meridian, not a human language, so it is a false positive",
+              "judge_model": "openai/gpt-oss-120b",
+              "judged_at": "2026-07-21T16:50:46.348290+00:00"
             }
           ]
         },
@@ -36363,7 +36371,11 @@
               "language": "Sentinel",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens"
+              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the snippet Sentinel is listed as a service/provider alongside Vantage and Meridian, not a human language, so it is a false positive",
+              "judge_model": "openai/gpt-oss-120b",
+              "judged_at": "2026-07-21T16:50:46.348290+00:00"
             }
           ]
         }
