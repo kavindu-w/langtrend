@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-07-21T16:42:47.247984+00:00",
+  "generated_at": "2026-07-21T16:47:15.145518+00:00",
   "window_days": 7,
   "week_start": "2026-07-13",
   "week_end": "2026-07-20",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 320,
-    "flagged_papers": 167,
-    "unique_languages": 208,
+    "flagged_papers": 166,
+    "unique_languages": 206,
     "unique_languages_mentioned_only": 0,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 95,
-      "judged_languages": 286,
+      "judged_papers": 96,
+      "judged_languages": 288,
       "studied": 143,
       "mentioned_only": 55,
-      "false_positive": 88
+      "false_positive": 90
     }
   },
   "language_counts": [
@@ -626,19 +626,7 @@
       "mentioned_only": 0
     },
     {
-      "language": "Amba",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Assamese",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Axi",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -1271,8 +1259,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 118,
-      "studied": 118,
+      "count": 116,
+      "studied": 116,
       "mentioned_only": 0
     },
     {
@@ -1315,7 +1303,7 @@
     {
       "date": "2026-07-14",
       "papers": 56,
-      "flagged": 34
+      "flagged": 33
     },
     {
       "date": "2026-07-15",
@@ -36997,14 +36985,22 @@
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "In the snippet, 'AMBA' refers to the Advanced Microcontroller Bus Architecture specification, not a human language, leading to a false positive verdict",
+          "judge_model": "openai/gpt-oss-120b",
+          "judged_at": "2026-07-21T16:46:13.287681+00:00"
         },
         {
           "language": "Axi",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "In the snippet, 'AXI' refers to the Advanced eXtensible Interface protocol specification, not a human language, leading to a false positive verdict",
+          "judge_model": "openai/gpt-oss-120b",
+          "judged_at": "2026-07-21T16:46:13.287681+00:00"
         }
       ],
       "sources_checked": [
@@ -37022,11 +37018,19 @@
           "detected_languages": [
             {
               "language": "Amba",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the snippet, 'AMBA' refers to the Advanced Microcontroller Bus Architecture specification, not a human language, leading to a false positive verdict",
+              "judge_model": "openai/gpt-oss-120b",
+              "judged_at": "2026-07-21T16:46:13.287681+00:00"
             },
             {
               "language": "Axi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the snippet, 'AXI' refers to the Advanced eXtensible Interface protocol specification, not a human language, leading to a false positive verdict",
+              "judge_model": "openai/gpt-oss-120b",
+              "judged_at": "2026-07-21T16:46:13.287681+00:00"
             }
           ]
         },
@@ -37036,11 +37040,19 @@
           "detected_languages": [
             {
               "language": "Amba",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the snippet, 'AMBA' refers to the Advanced Microcontroller Bus Architecture specification, not a human language, leading to a false positive verdict",
+              "judge_model": "openai/gpt-oss-120b",
+              "judged_at": "2026-07-21T16:46:13.287681+00:00"
             },
             {
               "language": "Axi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the snippet, 'AXI' refers to the Advanced eXtensible Interface protocol specification, not a human language, leading to a false positive verdict",
+              "judge_model": "openai/gpt-oss-120b",
+              "judged_at": "2026-07-21T16:46:13.287681+00:00"
             }
           ]
         }
