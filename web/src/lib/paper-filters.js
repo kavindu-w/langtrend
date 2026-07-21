@@ -53,3 +53,55 @@ export function matchPaperRow(meta, filters) {
   const show = inScope && matchesLanguage && matchesSearch && matchesClass;
   return { inPeriod, inScope, show };
 }
+
+/** Comparator for the paper list's sort dropdown, operating on {langCount, minClass, title, index}. */
+export function compareEntries(mode) {
+  switch (mode) {
+    case 'lang-desc':     return (a, b) => b.langCount - a.langCount;
+    case 'lang-asc':      return (a, b) => a.langCount - b.langCount;
+    case 'resource-asc':  return (a, b) => a.minClass - b.minClass;
+    case 'resource-desc': return (a, b) => b.minClass - a.minClass;
+    case 'title-asc':     return (a, b) => a.title.localeCompare(b.title);
+    case 'title-desc':    return (a, b) => b.title.localeCompare(a.title);
+    default:               return (a, b) => a.index - b.index;
+  }
+}
+
+/**
+ * Clamps a requested page into range and computes the [start, end) slice bounds.
+ * `pageSize` is a positive integer, or the string 'all' to disable paging entirely.
+ * totalPages is always >= 1, even for zero items, so "page 1 of 1" is well-defined.
+ */
+export function paginate(totalItems, requestedPage, pageSize) {
+  if (pageSize === 'all') {
+    return { page: 1, totalPages: 1, start: 0, end: totalItems };
+  }
+  const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+  const page = Math.min(Math.max(1, requestedPage || 1), totalPages);
+  const start = (page - 1) * pageSize;
+  const end = Math.min(start + pageSize, totalItems);
+  return { page, totalPages, start, end };
+}
+
+/**
+ * Compact page-button layout: full run of pages if it fits, otherwise
+ * first + last pinned with `null` gaps (render as an ellipsis) around a
+ * window centered on the current page. siblingCount is pages shown on
+ * each side of the current page within that window.
+ */
+export function paginationWindow(currentPage, totalPages, siblingCount = 1) {
+  if (totalPages <= 1) return [1];
+  // Below this size, showing every page number outright is more useful than any ellipsis.
+  const totalNumbers = siblingCount * 2 + 5;
+  if (totalPages <= totalNumbers) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+  const left = Math.max(currentPage - siblingCount, 1);
+  const right = Math.min(currentPage + siblingCount, totalPages);
+  const items = [1];
+  if (left > 2) items.push(null);
+  for (let p = Math.max(left, 2); p <= Math.min(right, totalPages - 1); p++) items.push(p);
+  if (right < totalPages - 1) items.push(null);
+  items.push(totalPages);
+  return items;
+}

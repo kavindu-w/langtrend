@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { activeWeekSlugsFor, debounce, matchPaperRow, parseRowMeta } from './paper-filters.js';
+import { activeWeekSlugsFor, compareEntries, debounce, matchPaperRow, paginate, paginationWindow, parseRowMeta } from './paper-filters.js';
 
 describe('debounce', () => {
   it('only invokes fn once after the delay, using the last call\'s args', () => {
@@ -145,5 +145,83 @@ describe('matchPaperRow', () => {
     expect(result.inPeriod).toBe(true);
     expect(result.inScope).toBe(true);
     expect(result.show).toBe(false);
+  });
+});
+
+describe('compareEntries', () => {
+  const entries = [
+    { langCount: 2, minClass: 3, title: 'banana paper', index: 2 },
+    { langCount: 4, minClass: 1, title: 'apple paper', index: 0 },
+    { langCount: 1, minClass: 5, title: 'cherry paper', index: 1 },
+  ];
+
+  it('defaults to original insertion order (arXiv order)', () => {
+    const sorted = [...entries].sort(compareEntries('default'));
+    expect(sorted.map(e => e.index)).toEqual([0, 1, 2]);
+  });
+
+  it('sorts by language count descending/ascending', () => {
+    expect([...entries].sort(compareEntries('lang-desc')).map(e => e.langCount)).toEqual([4, 2, 1]);
+    expect([...entries].sort(compareEntries('lang-asc')).map(e => e.langCount)).toEqual([1, 2, 4]);
+  });
+
+  it('sorts by resource class ascending/descending', () => {
+    expect([...entries].sort(compareEntries('resource-asc')).map(e => e.minClass)).toEqual([1, 3, 5]);
+    expect([...entries].sort(compareEntries('resource-desc')).map(e => e.minClass)).toEqual([5, 3, 1]);
+  });
+
+  it('sorts by title A-Z/Z-A', () => {
+    expect([...entries].sort(compareEntries('title-asc')).map(e => e.title)).toEqual(['apple paper', 'banana paper', 'cherry paper']);
+    expect([...entries].sort(compareEntries('title-desc')).map(e => e.title)).toEqual(['cherry paper', 'banana paper', 'apple paper']);
+  });
+});
+
+describe('paginate', () => {
+  it('slices the requested page', () => {
+    expect(paginate(120, 2, 50)).toEqual({ page: 2, totalPages: 3, start: 50, end: 100 });
+  });
+
+  it('truncates the last page to the remaining items', () => {
+    expect(paginate(120, 3, 50)).toEqual({ page: 3, totalPages: 3, start: 100, end: 120 });
+  });
+
+  it('clamps a requested page above the total down to the last page', () => {
+    expect(paginate(120, 99, 50)).toEqual({ page: 3, totalPages: 3, start: 100, end: 120 });
+  });
+
+  it('clamps a requested page below 1 up to page 1', () => {
+    expect(paginate(120, 0, 50)).toEqual({ page: 1, totalPages: 3, start: 0, end: 50 });
+    expect(paginate(120, -5, 50)).toEqual({ page: 1, totalPages: 3, start: 0, end: 50 });
+  });
+
+  it('treats pageSize "all" as a single page containing everything', () => {
+    expect(paginate(4013, 1, 'all')).toEqual({ page: 1, totalPages: 1, start: 0, end: 4013 });
+  });
+
+  it('always reports at least 1 page, even with zero items', () => {
+    expect(paginate(0, 1, 50)).toEqual({ page: 1, totalPages: 1, start: 0, end: 0 });
+  });
+});
+
+describe('paginationWindow', () => {
+  it('returns [1] when there is only one page', () => {
+    expect(paginationWindow(1, 1)).toEqual([1]);
+  });
+
+  it('shows every page when the total fits without ellipses', () => {
+    expect(paginationWindow(1, 5)).toEqual([1, 2, 3, 4, 5]);
+    expect(paginationWindow(3, 7)).toEqual([1, 2, 3, 4, 5, 6, 7]);
+  });
+
+  it('shows a right ellipsis only when the current page is near the start', () => {
+    expect(paginationWindow(1, 20)).toEqual([1, 2, null, 20]);
+  });
+
+  it('shows a left ellipsis only when the current page is near the end', () => {
+    expect(paginationWindow(20, 20)).toEqual([1, null, 19, 20]);
+  });
+
+  it('shows both ellipses when the current page is in the middle of a large range', () => {
+    expect(paginationWindow(10, 20)).toEqual([1, null, 9, 10, 11, null, 20]);
   });
 });

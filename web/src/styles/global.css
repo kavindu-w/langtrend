@@ -1068,6 +1068,58 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0;
 }
 .chip-expand-btn:hover { background: rgba(15,108,93,0.07); }
+
+.pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 10px 0 14px;
+  flex-wrap: wrap;
+}
+.pagination-bar-bottom { justify-content: center; margin: 14px 0 0; }
+.page-size-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.page-size-select {
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  padding: 4px 10px;
+  font: inherit;
+  font-size: 0.82rem;
+  background: #fff;
+  cursor: pointer;
+}
+.pagination-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.page-btn {
+  border: 0;
+  border-radius: 999px;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  color: var(--text);
+  background: rgba(32, 22, 19, 0.08);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.page-btn:hover:not(:disabled) { background: rgba(32, 22, 19, 0.16); }
+.page-btn.active { background: var(--text); color: #fff; cursor: default; }
+.page-btn:disabled { opacity: 0.4; cursor: default; }
+.page-ellipsis {
+  padding: 0 4px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 .paper-list { display: grid; gap: 14px; }
 /* Wrapper lets the PDF link sit outside <summary> (avoids nested-interactive) while
