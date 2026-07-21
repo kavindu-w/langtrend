@@ -394,6 +394,7 @@ for (const it of paperItems) {
 
 <script>
   import { foldSearchText } from '../lib/text-utils.js';
+  import { activeWeekSlugsFor, debounce, matchPaperRow, parseRowMeta } from '../lib/paper-filters.js';
 
   // ── State ────────────────────────────────────────────────────────────────────
 
@@ -431,6 +432,19 @@ for (const it of paperItems) {
   const langChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .lang-filter-chip'));
   let rows = Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row'));
   let chipExpanded = false;
+
+  // `dataset` strings are static once a row is created, but every filter pass
+  // used to re-split them for every row. Parse once per row and cache — a
+  // WeakMap needs no invalidation as rows are appended (fetchWeek only adds).
+  const rowMetaCache = new WeakMap<HTMLElement, ReturnType<typeof parseRowMeta>>();
+  function getRowMeta(row: HTMLElement): ReturnType<typeof parseRowMeta> {
+    let meta = rowMetaCache.get(row);
+    if (!meta) {
+      meta = parseRowMeta(row.dataset, currentWeekSlug);
+      rowMetaCache.set(row, meta);
+    }
+    return meta;
+  }
   const chipRow = document.getElementById('language-filters') as HTMLElement | null;
 
   // Full taxonomy (~6k names), used for the search typeahead and to tell a
@@ -457,17 +471,11 @@ for (const it of paperItems) {
 
   function getActiveWeekSlugs(): string[] {
     const params = new URLSearchParams(location.search);
-    const periodParam = params.get('period');
-    const fromParam = params.get('from');
-    if (periodParam === 'all') return [...availableWeeks];
-    if (fromParam) {
-      const fromIdx = availableWeeks.indexOf(fromParam);
-      const anchorIdx = availableWeeks.indexOf(currentWeekSlug);
-      if (fromIdx !== -1 && anchorIdx !== -1) {
-        return availableWeeks.slice(Math.min(fromIdx, anchorIdx), Math.max(fromIdx, anchorIdx) + 1);
-      }
-    }
-    return [currentWeekSlug];
+    return activeWeekSlugsFor(
+      { periodParam: params.get('period'), fromParam: params.get('from') },
+      availableWeeks,
+      currentWeekSlug,
+    );
   }
 
   // ── Multi-week fetch ─────────────────────────────────────────────────────────
@@ -693,34 +701,19 @@ for (const it of paperItems) {
 
   // ── Chip counts ──────────────────────────────────────────────────────────────
 
-  function updateChipCounts(): Map<string, number> {
-    const activeWeekSet = new Set(getActiveWeekSlugs());
-    const counts = new Map<string, number>();
-    for (const row of rows) {
-      const rowWeek = row.dataset.week ?? currentWeekSlug;
-      if (!activeWeekSet.has(rowWeek)) continue;
-      (row.dataset.languages ?? '').split('|').filter(Boolean).forEach(l => {
-        counts.set(l, (counts.get(l) ?? 0) + 1);
-      });
-    }
+  // Paints precomputed per-language counts (from the single applyFilters pass
+  // over `rows`) onto the chip DOM. Never loops over `rows` itself.
+  function applyChipCounts(counts: Map<string, number>): void {
     document.querySelectorAll<HTMLElement>('#language-filters .lang-filter-chip').forEach(chip => {
       const lang = chip.dataset.lang ?? '';
       const valEl = chip.querySelector<HTMLElement>('.chip-count-val');
       if (valEl) valEl.textContent = String(counts.get(lang) ?? 0);
     });
-    return counts;
   }
 
-  function updateVerdictCounts() {
-    const activeWeekSet = new Set(getActiveWeekSlugs());
-    const counts = new Map<string, number>();
-    for (const row of rows) {
-      const rowWeek = row.dataset.week ?? currentWeekSlug;
-      if (!activeWeekSet.has(rowWeek)) continue;
-      (row.dataset.verdicts ?? '').split(',').filter(Boolean).forEach(v => {
-        counts.set(v, (counts.get(v) ?? 0) + 1);
-      });
-    }
+  // Paints precomputed per-verdict counts (from the single applyFilters pass
+  // over `rows`) onto the chip DOM. Never loops over `rows` itself.
+  function applyVerdictCounts(counts: Map<string, number>): void {
     verdictChips.forEach(chip => {
       const verdict = chip.dataset.verdict ?? '';
       const valEl = chip.querySelector<HTMLElement>('.chip-count-val');
@@ -1014,19 +1007,18 @@ for (const it of paperItems) {
     const classFilter = getClassFilter();
     let visible = 0;
     let inScopeTotal = 0;
+    // Chip/verdict counts reflect the active period only (not the current
+    // search/language/class filters), so they're accumulated in this same
+    // pass instead of three separate full-row loops.
+    const langCounts = new Map<string, number>();
+    const verdictCounts = new Map<string, number>();
     rows.forEach(row => {
-      const rowWeek = row.dataset.week ?? currentWeekSlug;
-      const inPeriod = activeWeekSet.has(rowWeek);
-      const rowSearch = row.dataset.search || '';
-      const rowLanguages = (row.dataset.languages || '').split('|').filter(Boolean);
-      const rowClasses = (row.dataset.classes || '').split(',').filter(Boolean);
-      const rowVerdicts = (row.dataset.verdicts || '').split(',').filter(Boolean);
-      const matchesVerdict = rowVerdicts.some(v => enabledVerdicts.has(v));
-      const inScope = inPeriod && matchesVerdict;
-      const matchesLanguage = activeLanguages.size === 0 || rowLanguages.some(l => activeLanguages.has(l));
-      const matchesSearch = !searchTerm || rowSearch.includes(searchTerm);
-      const matchesClass = classFilter === 'all' || rowClasses.includes(classFilter);
-      const show = inScope && matchesLanguage && matchesSearch && matchesClass;
+      const meta = getRowMeta(row);
+      const { inPeriod, inScope, show } = matchPaperRow(meta, { activeWeekSet, searchTerm, classFilter, activeLanguages, enabledVerdicts });
+      if (inPeriod) {
+        meta.languages.forEach(l => langCounts.set(l, (langCounts.get(l) ?? 0) + 1));
+        meta.verdicts.forEach(v => verdictCounts.set(v, (verdictCounts.get(v) ?? 0) + 1));
+      }
       (row.parentElement as HTMLElement).style.display = show ? '' : 'none';
       if (show) visible++;
       if (inScope) inScopeTotal++;
@@ -1037,10 +1029,15 @@ for (const it of paperItems) {
         : `${visible} of ${inScopeTotal} papers`;
     }
     updateFilterBar();
-    const counts = updateChipCounts();
-    updateVerdictCounts();
-    updateZeroActiveLanguageNotice(counts);
+    applyChipCounts(langCounts);
+    applyVerdictCounts(verdictCounts);
+    updateZeroActiveLanguageNotice(langCounts);
   }
+
+  // Bundled together so the URL and the rendered result set never disagree —
+  // debouncing only applyFilters left a window where ?q= had updated but the
+  // visible rows/counts hadn't caught up yet.
+  const debouncedSearch = debounce(() => { updateUrlParams(); applyFilters(); }, 120);
 
   // ── Sort ─────────────────────────────────────────────────────────────────────
 
@@ -1065,7 +1062,7 @@ for (const it of paperItems) {
   allChips.forEach(chip => {
     chip.addEventListener('click', () => { toggleLanguage(chip.dataset.lang || 'all'); applyFilters(); });
   });
-  searchInput?.addEventListener('input', () => { updateUrlParams(); applyFilters(); });
+  searchInput?.addEventListener('input', debouncedSearch);
   langSearchInput?.addEventListener('input', e => {
     const value = (e.target as HTMLInputElement).value;
     filterLangChips(value);
