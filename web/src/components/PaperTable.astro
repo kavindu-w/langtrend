@@ -217,6 +217,18 @@ for (const it of paperItems) {
       <p id="lang-chip-empty" class="lang-chip-empty" role="status" style="display:none"></p>
     </div>
   </div>
+
+  <div class="pagination-bar" id="pagination-bar">
+    <label class="page-size-label" for="page-size-select">
+      Per page
+      <select id="page-size-select" class="page-size-select">
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="all">All</option>
+      </select>
+    </label>
+    <nav class="pagination-nav" id="pagination-nav" aria-label="Paper list pages (top)"></nav>
+  </div>
   <script type="application/json" id="all-languages-data" set:html={JSON.stringify(allLanguageNames)} is:inline />
 
   <div class="paper-list" id="paper-list">
@@ -241,10 +253,11 @@ for (const it of paperItems) {
               </div>
             <p class="paper-authors">{item.allAuthors}</p>
             <div class="paper-tags">
-              {item.chips.map((chip, chipIdx) => (
-                chip.needsReview || chip.mentionedOnly ? (
+              {item.chips.map((chip, chipIdx) => {
+                const showStudiedReason = !chip.needsReview && !chip.mentionedOnly && !!chip.judgeReason;
+                return chip.needsReview || chip.mentionedOnly || showStudiedReason ? (
                   <span class="lang-chip-popover">
-                    <span class={`lang-chip class-${chip.borderClass}${chip.needsReview ? ' needs-review' : ''}${chip.mentionedOnly ? ' mentioned-only' : ''}`} style={`background:${chip.fillColor}`} aria-describedby={`chip-tip-${item.index}-${chipIdx}`} data-verdict={chip.mentionedOnly ? 'mentioned_only' : 'studied'}>
+                    <span class={`lang-chip class-${chip.borderClass}${chip.needsReview ? ' needs-review' : ''}${chip.mentionedOnly ? ' mentioned-only' : ''}`} style={`background:${chip.fillColor}`} aria-describedby={`chip-tip-${item.index}-${chipIdx}`} data-verdict={chip.mentionedOnly ? 'mentioned_only' : 'studied'} tabindex="0">
                       {chip.language}{chip.needsReview && <span class="review-star" aria-hidden="true">★</span>}{chip.mentionedOnly && <span class="mentioned-mark" aria-hidden="true">~</span>}
                     </span>
                     <div class="review-popover-body" id={`chip-tip-${item.index}-${chipIdx}`} role="tooltip">
@@ -260,15 +273,21 @@ for (const it of paperItems) {
                           {chip.flagReason && <p>{chip.flagReason}</p>}
                         </div>
                       )}
+                      {showStudiedReason && (
+                        <div>
+                          <strong>LLM judge: studied</strong>
+                          <p>{chip.judgeReason}</p>
+                        </div>
+                      )}
                     </div>
                   </span>
                 ) : (
                   <span class={`lang-chip class-${chip.borderClass}`} style={`background:${chip.fillColor}`} data-verdict="studied">{chip.language}</span>
-                )
-              ))}
+                );
+              })}
               {item.suppressedChips.map((sc, scIdx) => (
                 <span class="lang-chip-popover">
-                  <span class={`lang-chip class-${sc.borderClass} suppressed`} aria-describedby={`suppressed-tip-${item.index}-${scIdx}`}>
+                  <span class={`lang-chip class-${sc.borderClass} suppressed`} aria-describedby={`suppressed-tip-${item.index}-${scIdx}`} tabindex="0">
                     {sc.language}<span class="suppressed-mark" aria-hidden="true">?</span>
                   </span>
                   <div class="review-popover-body" id={`suppressed-tip-${item.index}-${scIdx}`} role="tooltip">
@@ -279,7 +298,7 @@ for (const it of paperItems) {
               ))}
               {(item.judgeSuppressedChips ?? []).map((jc, jcIdx) => (
                 <span class="lang-chip-popover">
-                  <span class={`lang-chip class-${jc.borderClass} suppressed judge-suppressed`} aria-describedby={`judge-suppressed-tip-${item.index}-${jcIdx}`} data-verdict="false_positive">
+                  <span class={`lang-chip class-${jc.borderClass} suppressed judge-suppressed`} aria-describedby={`judge-suppressed-tip-${item.index}-${jcIdx}`} data-verdict="false_positive" tabindex="0">
                     {jc.language}<span class="suppressed-mark" aria-hidden="true">✗</span>
                   </span>
                   <div class="review-popover-body" id={`judge-suppressed-tip-${item.index}-${jcIdx}`} role="tooltip">
@@ -290,7 +309,7 @@ for (const it of paperItems) {
               ))}
               {item.coverageBadge && (
                 <span class="lang-chip-popover">
-                  <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} aria-describedby={`coverage-tip-${item.index}`}>
+                  <span class={`coverage-badge${item.hasPdf ? ' pdf-only' : ' abstract-only'}`} aria-describedby={`coverage-tip-${item.index}`} tabindex="0">
                     {item.coverageBadge.label}
                   </span>
                   <div class="review-popover-body" id={`coverage-tip-${item.index}`} role="tooltip">
@@ -390,10 +409,15 @@ for (const it of paperItems) {
       </div>
     ))}
   </div>
+
+  <div class="pagination-bar pagination-bar-bottom">
+    <nav class="pagination-nav" id="pagination-nav-bottom" aria-label="Paper list pages (bottom)"></nav>
+  </div>
 </section>
 
 <script>
-  import { foldSearchText } from '../lib/text-utils.js';
+  import { foldSearchText, foldForSubstringMatch, foldTitleSearchText } from '../lib/text-utils.js';
+  import { activeWeekSlugsFor, compareEntries, debounce, matchPaperRow, paginate, paginationWindow, parseRowMeta } from '../lib/paper-filters.js';
 
   // ── State ────────────────────────────────────────────────────────────────────
 
@@ -429,14 +453,78 @@ for (const it of paperItems) {
   const verdictChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#verdict-filters .verdict-chip'));
   const allChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .chip'));
   const langChips = Array.from(document.querySelectorAll<HTMLButtonElement>('#language-filters .lang-filter-chip'));
-  let rows = Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row'));
   let chipExpanded = false;
   const chipRow = document.getElementById('language-filters') as HTMLElement | null;
+  const pageSizeSelect = document.getElementById('page-size-select') as HTMLSelectElement | null;
+  const paginationNavs = [
+    document.getElementById('pagination-nav') as HTMLElement | null,
+    document.getElementById('pagination-nav-bottom') as HTMLElement | null,
+  ].filter((el): el is HTMLElement => el !== null);
+
+  // ── Paper index ──────────────────────────────────────────────────────────────
+  // Filtering/sorting/paging run over this plain-object index (cheap even at
+  // tens of thousands of papers) instead of the live DOM — only the current
+  // page's slice ever gets turned into real `.paper-row-wrap` elements, so the
+  // rendered DOM (and the per-keystroke display-toggle cost) stays capped at
+  // page size no matter how large the corpus grows.
+  type IndexEntry = {
+    weekSlug: string;
+    index: number;
+    meta: ReturnType<typeof parseRowMeta>;
+    title: string;
+    langCount: number;
+    minClass: number;
+    getElement: () => HTMLElement;
+  };
+  const paperIndex: IndexEntry[] = [];
+  const seenPaperIds = new Set<string>();
+
+  // Server-rendered current-week rows are already built DOM — reuse the
+  // existing elements (detach/reattach on page change) rather than rebuilding.
+  Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row')).forEach(row => {
+    const wrap = row.parentElement as HTMLElement;
+    paperIndex.push({
+      weekSlug: row.dataset.week ?? currentWeekSlug,
+      index: Number(row.dataset.index ?? paperIndex.length),
+      meta: parseRowMeta(row.dataset, currentWeekSlug),
+      title: row.dataset.title || '',
+      langCount: Number(row.dataset.langCount || '0'),
+      minClass: Number(row.dataset.minClass || '5'),
+      getElement: () => wrap,
+    });
+  });
+  // Deliberately not clearing #paper-list here — the SSR rows stay visible
+  // as-is (same as before pagination existed) until the first applyFilters()
+  // call replaces them with the real page slice. If that call never fires
+  // (slow/blocked/erroring JS elsewhere), users still see the full unfiltered
+  // week instead of a blank list.
 
   // Full taxonomy (~6k names), used for the search typeahead and to tell a
   // known-but-absent language apart from an unrecognized/misspelled one.
   const allLanguageNames: string[] = JSON.parse(document.getElementById('all-languages-data')?.textContent || '[]');
-  const foldedLanguageNames = allLanguageNames.map(name => ({ name, folded: foldSearchText(name) }));
+  // `folded` is identity-preserving (used for exact-match/"known language"
+  // lookups below); `matchFolded` additionally drops apostrophes, for the
+  // substring typeahead only — see foldForSubstringMatch's doc comment.
+  const foldedLanguageNames = allLanguageNames.map(name => ({ name, folded: foldSearchText(name), matchFolded: foldForSubstringMatch(name) }));
+
+  // ── Pagination state ─────────────────────────────────────────────────────────
+
+  const DEFAULT_PAGE_SIZE = 50;
+  function parsePageSize(v: string | null): number | 'all' {
+    if (v === 'all') return 'all';
+    const n = Math.floor(Number(v));
+    return Number.isFinite(n) && n > 0 ? n : DEFAULT_PAGE_SIZE;
+  }
+  // Floored, not just Math.max'd — a hand-edited ?page=1.5 must not survive as
+  // a fractional page (no button would ever show as active, and Prev/Next
+  // would then walk in 0.5-page steps forever).
+  function parsePage(v: string | null): number {
+    const n = Math.floor(Number(v));
+    return Number.isFinite(n) && n > 0 ? n : 1;
+  }
+  let pageSize: number | 'all' = urlParams.has('pageSize') ? parsePageSize(urlParams.get('pageSize')) : DEFAULT_PAGE_SIZE;
+  let currentPage = parsePage(urlParams.get('page'));
+  if (pageSizeSelect) pageSizeSelect.value = String(pageSize);
 
   // ── URL param helpers ────────────────────────────────────────────────────────
 
@@ -449,6 +537,8 @@ for (const it of paperItems) {
     const sort = sortSelect?.value ?? 'default';
     if (sort && sort !== 'default') p.set('sort', sort); else p.delete('sort');
     if (!isDefaultVerdicts()) p.set('verdict', [...enabledVerdicts].join(',')); else p.delete('verdict');
+    if (pageSize !== DEFAULT_PAGE_SIZE) p.set('pageSize', String(pageSize)); else p.delete('pageSize');
+    if (currentPage > 1) p.set('page', String(currentPage)); else p.delete('page');
     const qs = p.toString();
     history.replaceState(null, '', qs ? `${location.pathname}?${qs}` : location.pathname);
   }
@@ -457,17 +547,11 @@ for (const it of paperItems) {
 
   function getActiveWeekSlugs(): string[] {
     const params = new URLSearchParams(location.search);
-    const periodParam = params.get('period');
-    const fromParam = params.get('from');
-    if (periodParam === 'all') return [...availableWeeks];
-    if (fromParam) {
-      const fromIdx = availableWeeks.indexOf(fromParam);
-      const anchorIdx = availableWeeks.indexOf(currentWeekSlug);
-      if (fromIdx !== -1 && anchorIdx !== -1) {
-        return availableWeeks.slice(Math.min(fromIdx, anchorIdx), Math.max(fromIdx, anchorIdx) + 1);
-      }
-    }
-    return [currentWeekSlug];
+    return activeWeekSlugsFor(
+      { periodParam: params.get('period'), fromParam: params.get('from') },
+      availableWeeks,
+      currentWeekSlug,
+    );
   }
 
   // ── Multi-week fetch ─────────────────────────────────────────────────────────
@@ -476,10 +560,12 @@ for (const it of paperItems) {
     id: string; title: string; titleHtml: string; authors: string[]; abstract: string; abstractHtml: string;
     pdf_url: string; arxiv_url: string; published: string; categories: string[];
     searchText: string;
-    languages: { language: string; borderClass: number; fillColor: string; needsReview: boolean; judgeVerdict?: string }[];
+    languages: { language: string; borderClass: number; fillColor: string; needsReview: boolean; judgeVerdict?: string; judgeReason?: string; flagReason?: string; mentionedOnly?: boolean }[];
     languageNames: string[]; langCount: number; minClass: number; classes: number[];
     judgeSuppressedChips: { language: string; borderClass: number; reason: string; model: string }[];
     verdicts: string[];
+    hasPdf: boolean;
+    coverageBadge: { label: string; title: string } | null;
   };
 
   function formatPubDate(iso: string): string {
@@ -512,7 +598,7 @@ for (const it of paperItems) {
     wrap.style.display = 'none';
 
     const chips = p.languages.map((l, chipIdx) => {
-      const mentionedOnly = l.judgeVerdict === 'mentioned_only';
+      const mentionedOnly = !!l.mentionedOnly;
       const span = document.createElement('span');
       span.className = `lang-chip class-${l.borderClass}${l.needsReview ? ' needs-review' : ''}${mentionedOnly ? ' mentioned-only' : ''}`;
       span.dataset.verdict = mentionedOnly ? 'mentioned_only' : 'studied';
@@ -532,16 +618,15 @@ for (const it of paperItems) {
         mark.textContent = '~';
         span.appendChild(mark);
       }
-      if (!l.needsReview && !mentionedOnly) return span;
+      const showStudiedReason = !l.needsReview && !mentionedOnly && !!l.judgeReason;
+      if (!l.needsReview && !mentionedOnly && !showStudiedReason) return span;
 
       // Match the server-rendered popover markup (see the .lang-chip-popover
-      // block above) instead of a plain title attribute, so hover behavior is
-      // consistent between the default single-week view and this client-side
-      // multi-week/period path. Note: PaperJSON.languages doesn't carry
-      // judgeReason/flagReason (only the booleans), so unlike the server-rendered
-      // popover this one shows the generic note without the per-paper reason text.
+      // block above) so hover behavior is consistent between the default
+      // single-week view and this client-side multi-week/period path.
       const tipId = `chip-tip-${index}-${chipIdx}`;
       span.setAttribute('aria-describedby', tipId);
+      span.setAttribute('tabindex', '0');
       const popoverWrap = document.createElement('span');
       popoverWrap.className = 'lang-chip-popover';
       popoverWrap.appendChild(span);
@@ -552,8 +637,15 @@ for (const it of paperItems) {
       // mentionedOnly and needsReview are independent flags — a chip can be both
       // at once, so both notes must render (mirrors the server-rendered JSX above).
       let bodyHtml = '';
-      if (mentionedOnly) bodyHtml += `<div><strong>LLM judge: mentioned but not studied</strong></div>`;
-      if (l.needsReview) bodyHtml += `<div><strong>⚠ Manual verification may be needed</strong></div>`;
+      if (mentionedOnly) {
+        bodyHtml += `<div><strong>LLM judge: mentioned but not studied</strong>${l.judgeReason ? `<p>${escapeHtml(l.judgeReason)}</p>` : ''}</div>`;
+      }
+      if (l.needsReview) {
+        bodyHtml += `<div><strong>⚠ Manual verification may be needed</strong>${l.flagReason ? `<p>${escapeHtml(l.flagReason)}</p>` : ''}</div>`;
+      }
+      if (showStudiedReason) {
+        bodyHtml += `<div><strong>LLM judge: studied</strong><p>${escapeHtml(l.judgeReason)}</p></div>`;
+      }
       body.innerHTML = bodyHtml;
       popoverWrap.appendChild(body);
       return popoverWrap;
@@ -572,6 +664,7 @@ for (const it of paperItems) {
 
       const tipId = `judge-suppressed-tip-${index}-${jcIdx}`;
       span.setAttribute('aria-describedby', tipId);
+      span.setAttribute('tabindex', '0');
       const popoverWrap = document.createElement('span');
       popoverWrap.className = 'lang-chip-popover';
       popoverWrap.appendChild(span);
@@ -583,6 +676,19 @@ for (const it of paperItems) {
       popoverWrap.appendChild(body);
       return popoverWrap;
     });
+
+    let coverageBadgeHtml = '';
+    if (p.coverageBadge) {
+      const tipId = `coverage-tip-${index}`;
+      coverageBadgeHtml = `
+        <span class="lang-chip-popover">
+          <span class="coverage-badge${p.hasPdf ? ' pdf-only' : ' abstract-only'}" aria-describedby="${tipId}" tabindex="0">${escapeHtml(p.coverageBadge.label)}</span>
+          <div class="review-popover-body" id="${tipId}" role="tooltip">
+            <strong>⚠ ${escapeHtml(p.coverageBadge.label)}</strong>
+            <p>${escapeHtml(p.coverageBadge.title)}</p>
+          </div>
+        </span>`;
+    }
 
     const weekBadge = `<span class="week-badge">w/o ${fmtWeekLabel(weekStart)}</span>`;
     const pubDateStr = formatPubDate(p.published);
@@ -601,7 +707,7 @@ for (const it of paperItems) {
     details.dataset.week = weekStart;
     details.dataset.verdicts = p.verdicts.join(',');
 
-    const tagsHtml = [...chips, ...suppressedChips].map(c => c.outerHTML).join('');
+    const tagsHtml = [...chips, ...suppressedChips].map(c => c.outerHTML).join('') + coverageBadgeHtml;
     details.innerHTML = `
       <summary class="paper-summary">
         <div class="paper-main">
@@ -655,16 +761,25 @@ for (const it of paperItems) {
         const resp = await fetch(url);
         if (!resp.ok) return;
         const papers: PaperJSON[] = await resp.json();
-        const existingIds = new Set(rows.map(r => r.dataset.id).filter(Boolean));
-        let idx = rows.length;
+        let idx = paperIndex.length;
         for (const p of papers) {
-          if (p.id && existingIds.has(p.id)) continue;
-          if (p.id) existingIds.add(p.id);
-          const wrap = createPaperRow(p, weekSlug, idx++);
-          paperList?.appendChild(wrap);
+          if (p.id && seenPaperIds.has(p.id)) continue;
+          if (p.id) seenPaperIds.add(p.id);
+          const i = idx++;
+          // DOM is only ever materialized for whichever page needs it (see
+          // render()) — built lazily here and cached so revisiting a page
+          // doesn't rebuild it.
+          let built: HTMLElement | null = null;
+          paperIndex.push({
+            weekSlug,
+            index: i,
+            meta: { week: weekSlug, search: p.searchText, languages: p.languageNames, classes: p.classes.map(String), verdicts: p.verdicts },
+            title: p.title.toLowerCase(),
+            langCount: p.langCount,
+            minClass: p.minClass,
+            getElement: () => { if (!built) built = createPaperRow(p, weekSlug, i); return built; },
+          });
         }
-        // Refresh rows array to include newly added rows
-        rows = Array.from(document.querySelectorAll<HTMLElement>('#paper-list .paper-row'));
         fetchedWeeks.add(weekSlug);
       } catch { /* silently ignore fetch errors */ }
     })();
@@ -676,34 +791,19 @@ for (const it of paperItems) {
 
   // ── Chip counts ──────────────────────────────────────────────────────────────
 
-  function updateChipCounts(): Map<string, number> {
-    const activeWeekSet = new Set(getActiveWeekSlugs());
-    const counts = new Map<string, number>();
-    for (const row of rows) {
-      const rowWeek = row.dataset.week ?? currentWeekSlug;
-      if (!activeWeekSet.has(rowWeek)) continue;
-      (row.dataset.languages ?? '').split('|').filter(Boolean).forEach(l => {
-        counts.set(l, (counts.get(l) ?? 0) + 1);
-      });
-    }
+  // Paints precomputed per-language counts (from the single applyFilters pass
+  // over `paperIndex`) onto the chip DOM. Never loops over the index itself.
+  function applyChipCounts(counts: Map<string, number>): void {
     document.querySelectorAll<HTMLElement>('#language-filters .lang-filter-chip').forEach(chip => {
       const lang = chip.dataset.lang ?? '';
       const valEl = chip.querySelector<HTMLElement>('.chip-count-val');
       if (valEl) valEl.textContent = String(counts.get(lang) ?? 0);
     });
-    return counts;
   }
 
-  function updateVerdictCounts() {
-    const activeWeekSet = new Set(getActiveWeekSlugs());
-    const counts = new Map<string, number>();
-    for (const row of rows) {
-      const rowWeek = row.dataset.week ?? currentWeekSlug;
-      if (!activeWeekSet.has(rowWeek)) continue;
-      (row.dataset.verdicts ?? '').split(',').filter(Boolean).forEach(v => {
-        counts.set(v, (counts.get(v) ?? 0) + 1);
-      });
-    }
+  // Paints precomputed per-verdict counts (from the single applyFilters pass
+  // over `paperIndex`) onto the chip DOM. Never loops over the index itself.
+  function applyVerdictCounts(counts: Map<string, number>): void {
     verdictChips.forEach(chip => {
       const verdict = chip.dataset.verdict ?? '';
       const valEl = chip.querySelector<HTMLElement>('.chip-count-val');
@@ -811,9 +911,9 @@ for (const it of paperItems) {
   // because its chip momentarily scrolled out of the text-matched set would
   // silently undo the previous pick before the user gets to their second one.
   function filterLangChips(query: string) {
-    const q = foldSearchText(query.trim());
+    const q = foldForSubstringMatch(query.trim());
     langChips.forEach(chip => {
-      chip.hidden = q.length > 0 && !foldSearchText(chip.dataset.lang || '').includes(q);
+      chip.hidden = q.length > 0 && !foldForSubstringMatch(chip.dataset.lang || '').includes(q);
     });
     if (chipExpanded) {
       langChips.forEach(c => { if (!c.hidden) c.style.removeProperty('display'); });
@@ -875,13 +975,13 @@ for (const it of paperItems) {
   let activeSuggestionIndex = -1;
 
   function getSuggestions(query: string): string[] {
-    const q = foldSearchText(query.trim());
+    const q = foldForSubstringMatch(query.trim());
     if (!q) return [];
     const prefixMatches: string[] = [];
     const substringMatches: string[] = [];
-    for (const { name, folded } of foldedLanguageNames) {
-      if (folded.startsWith(q)) prefixMatches.push(name);
-      else if (folded.includes(q)) substringMatches.push(name);
+    for (const { name, matchFolded } of foldedLanguageNames) {
+      if (matchFolded.startsWith(q)) prefixMatches.push(name);
+      else if (matchFolded.includes(q)) substringMatches.push(name);
     }
     return [...prefixMatches, ...substringMatches];
   }
@@ -917,6 +1017,8 @@ for (const it of paperItems) {
     // activeLanguages) sees this language and doesn't also raise its own notice.
     toggleLanguage(name);
     filterLangChips(name);
+    currentPage = 1;
+    updateUrlParams();
     applyFilters();
     langSearchInput?.focus();
   }
@@ -957,7 +1059,9 @@ for (const it of paperItems) {
     const allBtn = allChips.find(c => c.dataset.lang === 'all');
     langChips.forEach(chip => chip.classList.toggle('active', activeLanguages.has(chip.dataset.lang || '')));
     if (allBtn) allBtn.classList.toggle('active', activeLanguages.size === 0);
-    updateUrlParams();
+    // Callers write the URL themselves, once, after currentPage is settled —
+    // writing it here too let a caller's later `currentPage = 1` race past
+    // an already-flushed stale page number (see the two call sites below).
   }
 
   // ── Paper filters ────────────────────────────────────────────────────────────
@@ -993,62 +1097,128 @@ for (const it of paperItems) {
 
   function applyFilters() {
     const activeWeekSet = new Set(getActiveWeekSlugs());
-    const searchTerm = foldSearchText(searchInput?.value.trim() ?? '');
+    const searchTerm = foldTitleSearchText(searchInput?.value.trim() ?? '');
     const classFilter = getClassFilter();
-    let visible = 0;
     let inScopeTotal = 0;
-    rows.forEach(row => {
-      const rowWeek = row.dataset.week ?? currentWeekSlug;
-      const inPeriod = activeWeekSet.has(rowWeek);
-      const rowSearch = row.dataset.search || '';
-      const rowLanguages = (row.dataset.languages || '').split('|').filter(Boolean);
-      const rowClasses = (row.dataset.classes || '').split(',').filter(Boolean);
-      const rowVerdicts = (row.dataset.verdicts || '').split(',').filter(Boolean);
-      const matchesVerdict = rowVerdicts.some(v => enabledVerdicts.has(v));
-      const inScope = inPeriod && matchesVerdict;
-      const matchesLanguage = activeLanguages.size === 0 || rowLanguages.some(l => activeLanguages.has(l));
-      const matchesSearch = !searchTerm || rowSearch.includes(searchTerm);
-      const matchesClass = classFilter === 'all' || rowClasses.includes(classFilter);
-      const show = inScope && matchesLanguage && matchesSearch && matchesClass;
-      (row.parentElement as HTMLElement).style.display = show ? '' : 'none';
-      if (show) visible++;
+    // Chip/verdict counts reflect the active period only (not the current
+    // search/language/class filters), so they're accumulated in this same
+    // pass instead of three separate full-index loops.
+    const langCounts = new Map<string, number>();
+    const verdictCounts = new Map<string, number>();
+    const matches: IndexEntry[] = [];
+    for (const entry of paperIndex) {
+      const { inPeriod, inScope, show } = matchPaperRow(entry.meta, { activeWeekSet, searchTerm, classFilter, activeLanguages, enabledVerdicts });
+      if (inPeriod) {
+        entry.meta.languages.forEach(l => langCounts.set(l, (langCounts.get(l) ?? 0) + 1));
+        entry.meta.verdicts.forEach(v => verdictCounts.set(v, (verdictCounts.get(v) ?? 0) + 1));
+      }
       if (inScope) inScopeTotal++;
-    });
+      if (show) matches.push(entry);
+    }
+
+    const sortMode = sortSelect?.value ?? 'default';
+    matches.sort(compareEntries(sortMode.startsWith('class-') ? 'default' : sortMode));
+
+    // Only this page's slice ever becomes real DOM — everything above runs
+    // over plain objects, so it stays fast regardless of corpus size.
+    const { page, totalPages, start, end } = paginate(matches.length, currentPage, pageSize);
+    currentPage = page;
+    if (paperList) {
+      paperList.replaceChildren(...matches.slice(start, end).map(entry => {
+        const el = entry.getElement();
+        el.style.display = '';
+        return el;
+      }));
+    }
+
     if (resultCount) {
-      resultCount.textContent = visible === inScopeTotal
-        ? `${inScopeTotal} papers`
-        : `${visible} of ${inScopeTotal} papers`;
+      const matchLabel = matches.length === inScopeTotal ? `${inScopeTotal} papers` : `${matches.length} of ${inScopeTotal} papers`;
+      resultCount.textContent = totalPages > 1 ? `${matchLabel} · page ${page} of ${totalPages}` : matchLabel;
     }
     updateFilterBar();
-    const counts = updateChipCounts();
-    updateVerdictCounts();
-    updateZeroActiveLanguageNotice(counts);
+    applyChipCounts(langCounts);
+    applyVerdictCounts(verdictCounts);
+    updateZeroActiveLanguageNotice(langCounts);
+    renderPaginationControls(totalPages);
   }
 
-  // ── Sort ─────────────────────────────────────────────────────────────────────
+  // Bundled together so the URL and the rendered result set never disagree —
+  // debouncing only applyFilters left a window where ?q= had updated but the
+  // visible rows/counts hadn't caught up yet.
+  const debouncedSearch = debounce(() => { currentPage = 1; updateUrlParams(); applyFilters(); }, 120);
 
-  function sortPapers(mode: string) {
-    if (!paperList) return;
-    const sorted = [...rows].sort((a, b) => {
-      switch (mode) {
-        case 'lang-desc':    return parseInt(b.dataset.langCount || '0') - parseInt(a.dataset.langCount || '0');
-        case 'lang-asc':     return parseInt(a.dataset.langCount || '0') - parseInt(b.dataset.langCount || '0');
-        case 'resource-asc': return parseInt(a.dataset.minClass  || '5') - parseInt(b.dataset.minClass  || '5');
-        case 'resource-desc':return parseInt(b.dataset.minClass  || '5') - parseInt(a.dataset.minClass  || '5');
-        case 'title-asc':    return (a.dataset.title || '').localeCompare(b.dataset.title || '');
-        case 'title-desc':   return (b.dataset.title || '').localeCompare(a.dataset.title || '');
-        default:             return parseInt(a.dataset.index || '0') - parseInt(b.dataset.index || '0');
+  // ── Pagination controls ──────────────────────────────────────────────────────
+
+  function renderPaginationControls(totalPages: number) {
+    if (paginationNavs.length === 0) return;
+
+    // Every button gets rebuilt from scratch below, so a keyboard user's
+    // focus (e.g. on "Next") would otherwise land on nothing afterward and
+    // bounce to <body>. Remember which nav had focus and what role the
+    // focused button played, then restore focus to that role's new button
+    // once rebuilt — falling back to the active page if that role is now
+    // disabled (e.g. "Next" after reaching the last page).
+    const focusedNav = paginationNavs.find(nav => nav.contains(document.activeElement));
+    const focusedLabel = focusedNav ? document.activeElement?.getAttribute('aria-label') : null;
+    const focusedRole = focusedLabel === 'Previous page' ? 'prev' : focusedLabel === 'Next page' ? 'next' : focusedLabel ? 'page' : null;
+
+    paginationNavs.forEach(nav => nav.replaceChildren());
+    if (totalPages <= 1) return;
+
+    const makeBtn = (label: string, targetPage: number, opts: { disabled?: boolean; active?: boolean; ariaLabel?: string } = {}) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'page-btn' + (opts.active ? ' active' : '');
+      btn.textContent = label;
+      btn.disabled = !!opts.disabled;
+      btn.setAttribute('aria-label', opts.ariaLabel ?? `Page ${label}`);
+      if (opts.active) btn.setAttribute('aria-current', 'page');
+      if (!opts.disabled && !opts.active) {
+        btn.addEventListener('click', () => { currentPage = targetPage; updateUrlParams(); applyFilters(); });
       }
-    });
-    sorted.forEach(row => paperList.appendChild(row.parentElement as HTMLElement));
+      return btn;
+    };
+
+    // A DOM node can only live in one parent, so each nav (top/bottom) gets
+    // its own freshly-built set of buttons rather than sharing elements.
+    for (const nav of paginationNavs) {
+      const prevBtn = makeBtn('‹ Prev', currentPage - 1, { disabled: currentPage <= 1, ariaLabel: 'Previous page' });
+      nav.appendChild(prevBtn);
+      for (const item of paginationWindow(currentPage, totalPages)) {
+        if (item === null) {
+          const span = document.createElement('span');
+          span.className = 'page-ellipsis';
+          span.textContent = '…';
+          span.setAttribute('aria-hidden', 'true');
+          nav.appendChild(span);
+        } else {
+          nav.appendChild(makeBtn(String(item), item, { active: item === currentPage }));
+        }
+      }
+      const nextBtn = makeBtn('Next ›', currentPage + 1, { disabled: currentPage >= totalPages, ariaLabel: 'Next page' });
+      nav.appendChild(nextBtn);
+
+      if (nav === focusedNav) {
+        const roleTarget = focusedRole === 'prev' ? prevBtn : focusedRole === 'next' ? nextBtn : null;
+        const target = roleTarget && !roleTarget.disabled ? roleTarget : nav.querySelector<HTMLElement>('.page-btn.active');
+        target?.focus();
+      }
+    }
   }
+
+  pageSizeSelect?.addEventListener('change', () => {
+    pageSize = parsePageSize(pageSizeSelect.value);
+    currentPage = 1;
+    updateUrlParams();
+    applyFilters();
+  });
 
   // ── Wire up ──────────────────────────────────────────────────────────────────
 
   allChips.forEach(chip => {
-    chip.addEventListener('click', () => { toggleLanguage(chip.dataset.lang || 'all'); applyFilters(); });
+    chip.addEventListener('click', () => { toggleLanguage(chip.dataset.lang || 'all'); currentPage = 1; updateUrlParams(); applyFilters(); });
   });
-  searchInput?.addEventListener('input', () => { updateUrlParams(); applyFilters(); });
+  searchInput?.addEventListener('input', debouncedSearch);
   langSearchInput?.addEventListener('input', e => {
     const value = (e.target as HTMLInputElement).value;
     filterLangChips(value);
@@ -1091,8 +1261,7 @@ for (const it of paperItems) {
   });
   langSearchInput?.addEventListener('blur', () => { closeSuggestions(); });
   sortSelect?.addEventListener('change', () => {
-    const v = sortSelect.value;
-    sortPapers(v.startsWith('class-') ? 'default' : v);
+    currentPage = 1;
     updateUrlParams();
     applyFilters();
   });
@@ -1101,6 +1270,7 @@ for (const it of paperItems) {
       const v = chip.dataset.verdict || '';
       if (enabledVerdicts.has(v)) enabledVerdicts.delete(v); else enabledVerdicts.add(v);
       chip.classList.toggle('active', enabledVerdicts.has(v));
+      currentPage = 1;
       updateUrlParams();
       applyFilters();
     });
@@ -1112,10 +1282,10 @@ for (const it of paperItems) {
     allChips.forEach(c => c.classList.toggle('active', c.dataset.lang === 'all'));
     langChips.forEach(c => c.classList.remove('active'));
     if (sortSelect) sortSelect.value = 'default';
-    sortPapers('default');
     enabledVerdicts.clear();
     DEFAULT_VERDICTS.forEach(v => enabledVerdicts.add(v));
     verdictChips.forEach(c => c.classList.toggle('active', enabledVerdicts.has(c.dataset.verdict || '')));
+    currentPage = 1;
     updateUrlParams();
     applyFilters();
   });
@@ -1143,10 +1313,7 @@ for (const it of paperItems) {
   const _qParam = urlParams.get('q') ?? '';
   if (_qParam && searchInput) searchInput.value = _qParam;
   const _sortParam = urlParams.get('sort') ?? '';
-  if (_sortParam && sortSelect) {
-    sortSelect.value = _sortParam;
-    sortPapers(_sortParam.startsWith('class-') ? 'default' : _sortParam);
-  }
+  if (_sortParam && sortSelect) sortSelect.value = _sortParam;
 
   // Fetch any weeks needed by the current URL state (period/all-time mode), then render
   document.fonts.ready.then(async () => {

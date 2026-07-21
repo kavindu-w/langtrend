@@ -11,6 +11,7 @@ import {
   sourcesOfEntry,
   verdictsPresent,
 } from './paper-table.js';
+import { foldForSubstringMatch, foldTitleSearchText } from './text-utils.js';
 
 describe('foldSearchText', () => {
   it('lowercases', () => {
@@ -21,8 +22,50 @@ describe('foldSearchText', () => {
     expect(foldSearchText('é')).toBe('e');
   });
 
-  it('normalizes typographic apostrophes to a plain one', () => {
+  it('normalizes typographic apostrophes to a plain one, without dropping it', () => {
+    // Identity-preserving: distinct taxonomy entries like "Kwa"/"Kwa'" must
+    // stay distinguishable for exact-match/"already active" checks.
     expect(foldSearchText('N’ko')).toBe("n'ko");
+    expect(foldSearchText('Kwa’')).not.toBe(foldSearchText('Kwa'));
+  });
+
+  describe('foldForSubstringMatch', () => {
+    it('drops apostrophes so "n\'ko"/"nko" both match as a substring query', () => {
+      expect(foldForSubstringMatch('N’ko')).toBe('nko');
+      expect(foldForSubstringMatch("n'ko")).toBe('nko');
+    });
+  });
+
+  describe('foldTitleSearchText', () => {
+    it('folds hyphens to spaces so a hyphenated title and a spaced query match', () => {
+      expect(foldTitleSearchText('Cross-Temporal Analysis')).toBe(foldTitleSearchText('Cross Temporal Analysis'));
+    });
+
+    it('folds unicode dash variants (en dash, em dash) the same as a hyphen', () => {
+      expect(foldTitleSearchText('Cross–Temporal')).toBe(foldTitleSearchText('Cross Temporal'));
+      expect(foldTitleSearchText('Cross—Temporal')).toBe(foldTitleSearchText('Cross Temporal'));
+    });
+
+    it('collapses the resulting whitespace so a hyphen surrounded by spaces does not double up', () => {
+      expect(foldTitleSearchText('Multi - Agent Debate')).toBe('multi agent debate');
+    });
+  });
+
+  it('maps superscript digits to plain digits', () => {
+    expect(foldSearchText('Dim³')).toBe('dim3');
+  });
+
+  it('unwraps \\textsuperscript{} so a plain-digit query matches a raw-LaTeX arXiv title', () => {
+    // Real arXiv title: "DiM\textsuperscript{3}: Bridging Multilingual and Multimodal..."
+    const title = 'DiM\\textsuperscript{3}: Bridging Multilingual and Multimodal Models';
+    expect(foldSearchText(title)).toContain('dim3');
+    expect(foldSearchText(title)).toContain(foldSearchText('dim^3'));
+  });
+
+  it('drops stray LaTeX math-mode noise ($, ^, braces) around bare exponents', () => {
+    expect(foldSearchText('R^3: Advertisement Compliance Rectification')).toContain('r3');
+    expect(foldSearchText('M$^3$Eval: Multi-Modal Memory Evaluation')).toContain('m3eval');
+    expect(foldSearchText('H$^{2}$MT: Semantic Hierarchy-Aware Memory Transformer')).toContain('h2mt');
   });
 });
 
@@ -381,6 +424,38 @@ describe('buildWeekApiPaper', () => {
       {},
     );
     expect(result.titleHtml).toBe('DiM<sup>3</sup>: Bridging Models');
+  });
+
+  it('sets hasPdf and a PDF & Abstract coverage badge when HTML was not scanned but PDF was', () => {
+    const result = buildWeekApiPaper(
+      { paper, languages: [], sourcesChecked: ['abstract', 'pdf'] },
+      {},
+    );
+    expect(result.hasPdf).toBe(true);
+    expect(result.coverageBadge).toEqual({
+      label: 'PDF & Abstract',
+      title: 'HTML version could not be extracted — analysis done with PDF and abstract',
+    });
+  });
+
+  it('sets an Abstract-only coverage badge when neither HTML nor PDF was scanned', () => {
+    const result = buildWeekApiPaper(
+      { paper, languages: [], sourcesChecked: ['abstract'] },
+      {},
+    );
+    expect(result.hasPdf).toBe(false);
+    expect(result.coverageBadge).toEqual({
+      label: 'Abstract only',
+      title: 'HTML and PDF versions could not be extracted — analysis done with abstract only',
+    });
+  });
+
+  it('has no coverage badge when the HTML source was scanned', () => {
+    const result = buildWeekApiPaper(
+      { paper, languages: [], sourcesChecked: ['html', 'pdf'] },
+      {},
+    );
+    expect(result.coverageBadge).toBeNull();
   });
 });
 

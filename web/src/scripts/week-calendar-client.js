@@ -123,6 +123,8 @@ function getForwardedParams() {
   const sort = p.get('sort'); if (sort) parts.push(`sort=${encodeURIComponent(sort)}`);
   const verdict = p.get('verdict'); if (verdict) parts.push(`verdict=${encodeURIComponent(verdict)}`);
   const trend = p.get('trend'); if (trend) parts.push(`trend=${encodeURIComponent(trend)}`);
+  const pageSize = p.get('pageSize'); if (pageSize) parts.push(`pageSize=${encodeURIComponent(pageSize)}`);
+  const page = p.get('page'); if (page) parts.push(`page=${encodeURIComponent(page)}`);
   return parts.length ? '?' + parts.join('&') : '';
 }
 

@@ -1,6 +1,6 @@
 import { languageBorderClass, languageFillColor } from './language-colors.js';
 import { renderAbstractHtml, renderTitleHtml } from './abstract-math.js';
-import { foldSearchText } from './text-utils.js';
+import { foldSearchText, foldTitleSearchText } from './text-utils.js';
 
 export { foldSearchText };
 
@@ -94,6 +94,19 @@ export function chipFromEntry(entry, langClasses, pfpMap = {}) {
   };
 }
 
+/** @param {string[]} sourcesChecked */
+export function coverageBadgeFor(sourcesChecked) {
+  const sources = sourcesChecked ?? [];
+  const hasHtml = sources.includes('html');
+  const hasPdf = sources.includes('pdf');
+  const coverageBadge = !hasHtml
+    ? (hasPdf
+        ? { label: 'PDF & Abstract', title: 'HTML version could not be extracted — analysis done with PDF and abstract' }
+        : { label: 'Abstract only', title: 'HTML and PDF versions could not be extracted — analysis done with abstract only' })
+    : null;
+  return { hasPdf, coverageBadge };
+}
+
 export function formatDate(iso) {
   if (!iso) return '';
   try { return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }); }
@@ -128,16 +141,9 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
   const chipLanguageNames = chips.map(c => c.language).filter(Boolean);
   const minClass = chips.length > 0 ? chips.reduce((min, c) => Math.min(min, c.borderClass), 5) : 5;
 
-  const sources = item.sourcesChecked ?? [];
-  const hasHtml = sources.includes('html');
-  const hasPdf = sources.includes('pdf');
-  const coverageBadge = !hasHtml
-    ? (hasPdf
-        ? { label: 'PDF & Abstract', title: 'HTML version could not be extracted — analysis done with PDF and abstract' }
-        : { label: 'Abstract only', title: 'HTML and PDF versions could not be extracted — analysis done with abstract only' })
-    : null;
+  const { hasPdf, coverageBadge } = coverageBadgeFor(item.sourcesChecked);
 
-  const searchText = foldSearchText(`${paper.title} ${paper.authors.join(' ')}`);
+  const searchText = foldTitleSearchText(`${paper.title} ${paper.authors.join(' ')}`);
 
   const sourcesMap = new Map();
   for (const entry of chipLanguages) {
@@ -216,29 +222,19 @@ export function verdictsPresent(chips, judgeSuppressedChips) {
 
 /**
  * Shapes a flagged-paper record for the /api/weeks/[slug].json route.
- * needsReview matches chipFromEntry's rule: explicit flag, two-letter code, or a
- * hit in the false-positive-language map.
+ * Each language entry is built via chipFromEntry, so it carries the same
+ * judgeReason/flagReason/mentionedOnly fields as the server-rendered chips.
  * @param {object} item @param {Record<string, unknown[]>} langClasses @param {Record<string, string>} pfpMap
  */
 export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
   const paper = item.paper;
   const judgeRejected = [...item.languages].filter(Boolean).filter(isJudgedFalsePositive);
-  const languages = [...item.languages].filter(Boolean).filter((entry) => !isJudgedFalsePositive(entry)).map((entry) => {
-    const language = normalizeLanguage(entry);
-    const borderClass = classFromEntry(entry) ?? languageBorderClass(language, langClasses);
-    const judgeVerdict = judgeVerdictOfEntry(entry);
-    const needsReview = judgeVerdict !== 'studied' && (
-      (!Array.isArray(entry) && typeof entry === 'object' && !!entry?.needs_review)
-      || (typeof language === 'string' && /^[A-Za-z]{2}$/.test(language.trim()))
-      || (typeof language === 'string' && !!pfpMap[language])
-    );
-    return { language, borderClass, fillColor: languageFillColor(language), needsReview, judgeVerdict };
-  }).sort((a, b) => {
-    const aMentioned = a.judgeVerdict === 'mentioned_only';
-    const bMentioned = b.judgeVerdict === 'mentioned_only';
-    if (aMentioned !== bMentioned) return aMentioned ? 1 : -1;
-    return b.borderClass - a.borderClass || a.language.localeCompare(b.language);
-  });
+  const languages = [...item.languages].filter(Boolean).filter((entry) => !isJudgedFalsePositive(entry))
+    .map((entry) => chipFromEntry(entry, langClasses, pfpMap))
+    .sort((a, b) => {
+      if (a.mentionedOnly !== b.mentionedOnly) return a.mentionedOnly ? 1 : -1;
+      return b.borderClass - a.borderClass || a.language.localeCompare(b.language);
+    });
 
   const judgeSuppressedChips = judgeRejected.map((entry) => ({
     language: normalizeLanguage(entry),
@@ -250,10 +246,9 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
   const languageNames = languages.map((l) => l.language).filter(Boolean);
   const minClass = languages.length > 0 ? Math.min(...languages.map((l) => l.borderClass)) : 5;
   const classes = [...new Set(languages.map((l) => l.borderClass))];
-  const verdicts = verdictsPresent(
-    languages.map((l) => ({ mentionedOnly: l.judgeVerdict === 'mentioned_only' })),
-    judgeSuppressedChips,
-  );
+  const verdicts = verdictsPresent(languages, judgeSuppressedChips);
+
+  const { hasPdf, coverageBadge } = coverageBadgeFor(item.sourcesChecked);
 
   return {
     id: paper.id ?? '',
@@ -266,7 +261,7 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
     arxiv_url: paper.id ? paper.id.replace('http://', 'https://') : paper.pdf_url,
     published: paper.published ?? '',
     categories: paper.categories ?? [],
-    searchText: foldSearchText(`${paper.title} ${paper.authors.join(' ')}`),
+    searchText: foldTitleSearchText(`${paper.title} ${paper.authors.join(' ')}`),
     languages,
     languageNames,
     langCount: languageNames.length,
@@ -274,5 +269,7 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
     classes,
     judgeSuppressedChips,
     verdicts,
+    hasPdf,
+    coverageBadge,
   };
 }
