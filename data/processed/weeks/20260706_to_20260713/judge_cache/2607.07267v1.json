@@ -1,17 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2607.07267v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-14T17:54:45.519730+00:00",
+  "judged_at": "2026-07-20T13:20:39.590988+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3231,
+  "context_chars": 5075,
   "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'BO' as a country code in a list of country abbreviations, not referring to the Bo language."
+    },
     "Crow": {
       "verdict": "false_positive",
-      "reason": "The snippet uses \"crow\" as an example concept (a bird) in the discussion of visual clusters, not referring to the Crow human language, so it is a false positive."
+      "reason": "The snippet uses 'crow' as an example concept (the bird) in the discussion of visual clusters, not referring to the Crow language."
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The snippets refer to English-speaking countries and English lemmas as part of broader analyses, mentioning the language but not studying or building resources for it."
+      "reason": "The snippets refer to English lemmas, English‑speaking countries, and English word resources, indicating the language is mentioned but not the focus of the study; no resources or models are built for "
     }
   }
 }

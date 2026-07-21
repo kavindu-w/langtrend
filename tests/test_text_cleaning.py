@@ -316,6 +316,21 @@ class TestDetectLanguagesInText:
         detected = detect_languages_in_text([], lang_classes, languages_to_ignore)
         assert detected == []
 
+    def test_order_is_deterministic_regardless_of_set_construction_order(self, languages_to_ignore):
+        # detect_languages_in_text used to iterate each class's raw set, whose order is
+        # PYTHONHASHSEED-randomized per process — two equal sets built in a different
+        # order could still produce differently-ordered output. Sorting the class before
+        # iterating makes the result depend only on which languages match, not on set
+        # iteration order.
+        blocks, _ = clean_paper_text_for_language_screening(
+            "The paper covers French, German, and Spanish corpora."
+        )
+        class_a = {0: {"French", "German", "Spanish"}}
+        class_b = {0: set(reversed(list(class_a[0])))}  # same members, different construction order
+        result_a = detect_languages_in_text(blocks, class_a, languages_to_ignore)
+        result_b = detect_languages_in_text(blocks, class_b, languages_to_ignore)
+        assert result_a == result_b == sorted(result_a)
+
 
 # ---------------------------------------------------------------------------
 # trim_pdf_text_to_body
@@ -558,3 +573,40 @@ class TestTrimPdfTextToBody:
         assert "Igbo" in result  # body kept
         assert "Hausa" in result and "Wolof" in result  # appendix kept
         assert "cited paper title" not in result  # bibliography excised
+
+    # --- trim_end=False (regression guard for the double-cut bug) ---
+    #
+    # When pdf_processor.trim_markdown_end_matter has already removed the
+    # reference list upstream (using docling's markdown heading structure to
+    # keep back matter regardless of what it's titled), this function must not
+    # re-run its own plain-text end-matter search on the result. That search
+    # can find a legitimate heading (e.g. a genuine "Acknowledgments" section)
+    # that sits *before* further real content in an unusual paper layout, and
+    # re-cut there — silently discarding real content a second time even
+    # though the first, more reliable pass already decided to keep it.
+
+    def test_trim_end_false_skips_end_matter_search(self):
+        text = (
+            "1. Introduction\nWe study Swahili.\n\n"
+            "Acknowledgments\nTBD\n\n"
+            "Case studies\nExtended analysis of Welsh and Breton phonology.\n"
+        )
+        result = trim_pdf_text_to_body(text, trim_end=False)
+        assert "Welsh" in result and "Breton" in result  # not re-cut at Acknowledgments
+        assert "Swahili" in result
+
+    def test_trim_end_false_still_trims_front_matter(self):
+        text = (
+            "Title\n\nAuthor One\n\nAbstract\nStudies Arabic.\n\n"
+            "1. Introduction\nWe study Hindi.\n\n"
+            "References\n[1] Smith 2020.\n"
+        )
+        result = trim_pdf_text_to_body(text, trim_end=False)
+        assert "Author One" not in result  # front matter still trimmed
+        assert "Hindi" in result
+        assert "Smith 2020" in result  # end matter NOT trimmed this time
+
+    def test_trim_end_true_is_still_the_default(self):
+        text = "1. Introduction\nWe study Hindi.\n\nReferences\n[1] Smith 2020.\n"
+        assert trim_pdf_text_to_body(text) == trim_pdf_text_to_body(text, trim_end=True)
+        assert "Smith 2020" not in trim_pdf_text_to_body(text)

@@ -1,25 +1,37 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.19718v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-12T14:52:51.327907+00:00",
+  "judged_at": "2026-07-20T11:15:44.741676+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3999,
+  "context_chars": 5672,
   "verdicts": {
     "Mpi": {
       "verdict": "false_positive",
-      "reason": "The snippets refer to the MPI-EVA-Manchester corpus (an acronym), not the Mpi language, so it's a false positive."
+      "reason": "Mpi refers to the MPI-EVA-Manchester corpus (an acronym), not the Mpi language"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake appears in the phrase 'for the sake of comparison', a common English word, not the Sake language"
+    },
+    "Dutch": {
+      "verdict": "false_positive",
+      "reason": "Dutch is used in 'Dutch Research Council', referring to the organization, not the Dutch language"
     },
     "Norwegian": {
       "verdict": "mentioned_only",
-      "reason": "The snippet lists Norwegian as a language for which UD annotations were introduced, but the paper only mentions it without conducting experiments, so it is mentioned only."
+      "reason": "Norwegian is mentioned as one of the languages for which UD annotations were introduced in related work, but no experiments are conducted on Norwegian data"
     },
     "French": {
       "verdict": "mentioned_only",
-      "reason": "The snippet lists French as a language for which UD annotations were introduced, but the paper only mentions it without conducting experiments, so it is mentioned only."
+      "reason": "French is cited in related work (e.g., Bechet et al. 2014) as a language studied elsewhere, without any French data or experiments in this paper"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German appears in 'Deutsche Forschungsgemeinschaft (DFG German Research Foundation)', referring to the German research foundation, not the German language"
     },
     "English": {
       "verdict": "studied",
-      "reason": "The snippets discuss the UD-English-CHILDES treebank and describe training and evaluating parsers on English child‑adult interaction data, indicating the paper studies English."
+      "reason": "English is the primary focus of the study, with the UD-English-CHILDES treebank and parser training/evaluation on English child‑adult interactions"
     }
   }
 }

@@ -40,6 +40,34 @@ def save_json(data: dict[str, Any], output_path: str | Path) -> Path:
     return path
 
 
+def save_json_if_changed(
+    data: dict[str, Any],
+    output_path: str | Path,
+    ignore_keys: frozenset[str] = frozenset({"generated_at"}),
+) -> tuple[Path, bool]:
+    """Like save_json, but skips the write if the file already has this content
+    (ignoring volatile keys like generated_at). Manifests get rebuilt on every
+    pipeline run even when nothing detection-related changed; writing unconditionally
+    would touch generated_at every time and turn every run into a no-op-but-dirty git
+    diff. Returns (path, changed) so callers can report what happened.
+    """
+    path = Path(output_path)
+    if path.exists():
+        try:
+            existing = json.loads(path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            existing = None
+        if isinstance(existing, dict):
+            existing_cmp = {k: v for k, v in existing.items() if k not in ignore_keys}
+            new_cmp = {k: v for k, v in data.items() if k not in ignore_keys}
+            if existing_cmp == new_cmp:
+                return path, False
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as handle:
+        json.dump(data, handle, ensure_ascii=False, indent=2)
+    return path, True
+
+
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         return []

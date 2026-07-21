@@ -1,21 +1,37 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.04177v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-15T15:12:04.515152+00:00",
+  "judged_at": "2026-07-20T10:05:48.280784+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3506,
+  "context_chars": 8254,
   "verdicts": {
+    "Bamunka": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses Bamunka as a place name (a location in Ngo‑Ketunjia), not referring to the Bamunka human language, so it is a false positive"
+    },
     "Boko": {
       "verdict": "false_positive",
-      "reason": "The snippet uses 'Boko' as part of the group name 'Boko Haram' referring to an insurgent organization, not the Boko language"
+      "reason": "The occurrences are part of the name Boko Haram (terrorist group) and related conflict descriptions, not the Boko language, thus a false positive"
+    },
+    "Kogi": {
+      "verdict": "false_positive",
+      "reason": "Kogi appears in the context of a militia (Kogi militia), indicating a regional or group name rather than the Kogi language, so it is a false positive"
+    },
+    "Kumba": {
+      "verdict": "false_positive",
+      "reason": "Kumba is mentioned as a town/location and in event descriptions (e.g., \"in Kumba killing three fighters\"), not as the Kumba language, making it a false positive"
     },
     "Sake": {
       "verdict": "false_positive",
-      "reason": "The snippet contains the phrase 'for the sake of brevity', where 'sake' is a common English word, not the Sake language"
+      "reason": "The snippet shows a split word \"sepa-\" (part of \"separatist\") with no clear reference to the Sake language, so it is a false positive"
+    },
+    "Sepa": {
+      "verdict": "false_positive",
+      "reason": "The term appears only as the broken word \"sepa-\" within \"separatist\", not as the Sepa language, thus a false positive"
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The snippet refers to 'English-speaking regions', mentioning the English language but not studying it"
+      "reason": "English is mentioned in the phrase \"English‑speaking regions\" as a language reference, but the paper does not study or build resources for English, so it is mentioned only"
     }
   }
 }

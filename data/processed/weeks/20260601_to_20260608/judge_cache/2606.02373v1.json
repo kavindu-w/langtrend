@@ -1,13 +1,17 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.02373v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-10T16:05:38.999212+00:00",
+  "judged_at": "2026-07-20T11:42:36.798204+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2146,
+  "context_chars": 4274,
   "verdicts": {
     "Jina": {
       "verdict": "false_positive",
-      "reason": "The snippet uses 'Jina' to refer to a web backend/tool (Serper + Jina web backend) rather than a human language."
+      "reason": "Jina refers to a web backend/tool (Serper+Jina) used for retrieval, not a human language, so it is a false positive"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English-language version of a game page mentioned in examples, not a language studied in the research, so it is only mentioned"
     }
   }
 }

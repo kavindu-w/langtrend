@@ -1,105 +1,117 @@
 {
   "paper_id": "http://arxiv.org/abs/2607.05992v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-14T17:59:26.713935+00:00",
+  "judged_at": "2026-07-20T13:23:51.556395+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 7145,
+  "context_chars": 11579,
   "verdicts": {
     "Lower Sorbian": {
       "verdict": "studied",
-      "reason": "the snippet lists Lower Sorbian in a benchmark table and discusses its inclusion in the dataset, indicating it is used in experiments"
+      "reason": "the term appears as a language column and in 'annotation of the Upper Sorbian and Lower Sorbian splits', indicating dataset splits for the language"
     },
     "Odia": {
       "verdict": "studied",
-      "reason": "the snippet mentions Odia in the benchmark table, tokenization analysis, and model tuning, showing it is part of the experiments"
+      "reason": "appears in language columns and token‑length tables for the PLURAMATH dataset, showing it is one of the target languages evaluated"
     },
     "Upper Sorbian": {
       "verdict": "studied",
-      "reason": "the snippet includes Upper Sorbian in the dataset table and references it in the evaluation, indicating experimental use"
+      "reason": "mentioned in 'annotation of the Upper Sorbian and Lower Sorbian splits', indicating a dedicated dataset split for the language"
     },
     "Amharic": {
       "verdict": "studied",
-      "reason": "the snippet discusses Amharic in token length analysis and performance gaps, showing it is evaluated in the study"
+      "reason": "listed in language columns, token‑length tables and performance discussion, indicating it is a target language evaluated in the study"
     },
     "Chuvash": {
       "verdict": "studied",
-      "reason": "the snippet reports performance gaps for Chuvash, implying it is part of the benchmark evaluation"
+      "reason": "referenced in dataset split acknowledgments and token‑length tables, showing it is a language for which data were collected and evaluated"
     },
     "Greek": {
       "verdict": "studied",
-      "reason": "the snippet references Greek in performance comparisons and editing effort, indicating it is included in the experiments"
+      "reason": "included in language columns and performance analysis, indicating it is one of the languages evaluated in the benchmark"
     },
     "Hebrew": {
       "verdict": "studied",
-      "reason": "the snippet lists Hebrew among languages with minimal editing effort, showing it is part of the evaluation"
+      "reason": "appears in language columns and evaluation tables, signifying it is a target language examined in the experiments"
     },
     "Hindi": {
       "verdict": "studied",
-      "reason": "the snippet includes Hindi in tokenization length analysis and model tuning, demonstrating its experimental use"
+      "reason": "present in token‑length tables as a PLURAMATH target language, indicating it is part of the evaluated set"
     },
     "Kazakh": {
       "verdict": "studied",
-      "reason": "the snippet mentions Kazakh in editing effort and performance gap discussions, indicating it is evaluated"
+      "reason": "shown in language columns and resource‑availability discussion, meaning it is a language for which performance was measured"
     },
     "Latin": {
-      "verdict": "false_positive",
-      "reason": "the snippet uses Latin to refer to Latin script and the Latin word meaning 'more', not the Latin language itself"
+      "verdict": "mentioned_only",
+      "reason": "the provided snippets do not contain a clear occurrence of the term 'Latin' referring to the language, so there is no evidence of study or explicit mention"
     },
     "Slovak": {
       "verdict": "studied",
-      "reason": "the snippet cites Slovak in editing effort and performance gap analysis, showing it is part of the benchmark"
+      "reason": "mentioned in acknowledgments for Slovak translations and in token‑length tables, indicating it is a language with a dedicated dataset split evaluated in the paper"
     },
     "Tatar": {
       "verdict": "studied",
-      "reason": "the snippet discusses Tatar in editing effort and performance gap sections, indicating it is included in the experiments"
+      "reason": "appears in language columns and resource‑availability discussion, showing it is a target language evaluated in the benchmark"
     },
     "Uzbek": {
       "verdict": "studied",
-      "reason": "The snippets list Uzbek in a dataset table and discuss its translation and evaluation, indicating the paper works with Uzbek language data, so it is studied"
+      "reason": "The snippets list Uzbek in language columns and token‑length tables for the new PLURAMATH dataset, indicating it is a target language evaluated in the study, so it is studied"
     },
     "Catalan": {
       "verdict": "studied",
-      "reason": "Catalan appears in the language table and in examples of language‑pair models (e.g., salamandraTA‑7b‑instruct for Spanish‑Catalan), showing the paper uses Catalan data, so it is studied"
+      "reason": "Catalan appears in translation direction tables and token‑length tables as a language for which data were collected and evaluated, so it is studied"
     },
     "Czech": {
       "verdict": "studied",
-      "reason": "Czech is listed in the dataset table and referenced in performance analysis, meaning the paper evaluates on Czech, so it is studied"
+      "reason": "Czech is listed among the PLURAMATH target languages and appears in evaluation tables, indicating the paper works with it, so it is studied"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch shows up in the translation direction listings and token‑length tables as a language evaluated in the benchmark, so it is studied"
     },
     "Polish": {
       "verdict": "studied",
-      "reason": "Polish appears in the language table and in gap analysis, indicating the paper includes Polish in its benchmark, so it is studied"
+      "reason": "Polish is included in the language tables and translation direction listings used for evaluation, indicating the paper works with it, so it is studied"
+    },
+    "Romanian": {
+      "verdict": "studied",
+      "reason": "Romanian appears in the translation direction tables as a language for which the benchmark evaluates models, so it is studied"
     },
     "Russian": {
       "verdict": "studied",
-      "reason": "Russian is included in the dataset table and used for translation and evaluation, showing the paper works with Russian language data, so it is studied"
+      "reason": "Russian is mentioned in the high‑resource baseline tables and used for evaluation of models, thus the paper evaluates it, so it is studied"
     },
     "Serbian": {
       "verdict": "studied",
-      "reason": "Serbian is listed in the language table and mentioned in error analysis, indicating the paper evaluates Serbian, so it is studied"
+      "reason": "Serbian is listed among the PLURAMATH target languages and appears in evaluation tables, indicating it is part of the study, so it is studied"
     },
     "Turkish": {
       "verdict": "studied",
-      "reason": "Turkish appears in the dataset table and in model language columns, demonstrating the paper uses Turkish data, so it is studied"
+      "reason": "Turkish appears in the language columns and token‑length tables for the new dataset, showing it is evaluated, so it is studied"
     },
     "Ukrainian": {
       "verdict": "studied",
-      "reason": "Ukrainian is shown in the language table and in a specific prompt example for the Ukrainian case, meaning the paper evaluates Ukrainian, so it is studied"
+      "reason": "Ukrainian is included in the PLURAMATH language tables and evaluation listings, indicating the paper works with it, so it is studied"
     },
-    "German": {
-      "verdict": "studied",
-      "reason": "German is present in the language table and referenced as a high‑resource baseline, indicating the paper includes German in its experiments, so it is studied"
-    },
-    "Spanish": {
-      "verdict": "studied",
-      "reason": "Spanish appears in the language table and in examples of language‑pair models, showing the paper works with Spanish data, so it is studied"
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "The provided snippets do not contain a clear reference to Vietnamese; the language is only listed in the candidate list, so with insufficient evidence we treat it as mentioned only"
     },
     "Chinese": {
-      "verdict": "studied",
-      "reason": "Chinese is mentioned in the abstract and later sections as a high‑resource language used for evaluation, indicating the paper evaluates Chinese, so it is studied"
+      "verdict": "mentioned_only",
+      "reason": "Chinese is cited in the abstract as a high‑resource language used for motivation and baseline comparison, without new data or evaluation on it, so it is mentioned only"
     },
     "English": {
       "verdict": "studied",
-      "reason": "English is repeatedly referenced throughout the abstract and sections as a baseline and evaluation language, meaning the paper works with English data, so it is studied"
+      "reason": "The snippets list English as a language column in tables of token lengths and as a source/target language for translation, showing the paper evaluates models on English data, so it is studied."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German appears in the same evaluation tables and translation listings, indicating the paper includes German in its benchmark experiments, thus it is studied."
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is mentioned in comparative tables of high‑resource languages and in translation contexts, meaning the paper evaluates models on Spanish, so it is studied."
     }
   }
 }

@@ -1,17 +1,125 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.24579v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-05T21:45:27.645711+00:00",
+  "judged_at": "2026-07-20T13:08:09.978829+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2682,
+  "context_chars": 11902,
   "verdicts": {
+    "Dari": {
+      "verdict": "false_positive",
+      "reason": "The word 'Dari' appears as the Indonesian preposition meaning 'from', not referring to the Dari language; therefore it is a false positive."
+    },
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The term 'Dass' occurs as the German conjunction meaning 'that', not as the name of a language; thus it is a false positive."
+    },
+    "Ende": {
+      "verdict": "false_positive",
+      "reason": "The string 'Ende' is part of German words like 'Endgültige Antwort' meaning 'final', not a reference to the Ende language; hence false positive."
+    },
+    "Ese": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'siguiente pregunta factual', 'Ese' functions as a Spanish demonstrative pronoun, not as the Ese language; therefore false positive."
+    },
+    "Lalu": {
+      "verdict": "false_positive",
+      "reason": "The token 'Lalu' appears within multilingual instruction text but does not denote the Lalu language; it is likely a spurious match, so false positive."
+    },
+    "Pela": {
+      "verdict": "false_positive",
+      "reason": "'Pela' is used as a Portuguese preposition meaning 'by' in the snippet, not as the name of a language; thus false positive."
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The word 'Sie' appears as the German pronoun 'you', not referencing the Sie language; consequently it is a false positive."
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "'Uma' occurs as a Portuguese article meaning 'a' and not as the Uma language; therefore it is a false positive."
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The term 'Una' is seen as a Spanish article meaning 'one' or part of other words, not as the Una language; hence false positive."
+    },
+    "Akan": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not contain the word 'Akan' as a language name; any occurrence is incidental, so it is a false positive."
+    },
+    "Tibetan": {
+      "verdict": "studied",
+      "reason": "Tibetan is listed in the table of languages evaluated and appears in experimental results, indicating the paper includes it in its multilingual benchmarks; thus it is studied."
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is included in the language table and result tables, showing that the paper evaluates models on Bengali data; therefore it is studied."
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "Bulgarian appears as a language entry in the evaluation table and is included in the multilingual benchmarks, indicating it is studied in the paper"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Hebrew appears as a language column in result tables and is part of the multilingual experiments, indicating it is studied"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is listed as a language in the language‑coverage table and is used in the cross‑lingual benchmarks, so it is studied"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is used as a script/family label in tables (e.g., \"Latin\" column) rather than referring to the Latin language itself, so it is a false positive"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian is listed as a language in the evaluation table and is included in the multilingual experiments, indicating it is studied"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian appears as a language entry in the language‑coverage table and is part of the evaluated benchmarks, so it is studied"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is listed as a language in the evaluation tables and used in the cross‑lingual prompting experiments, indicating it is studied"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese appears as a language row in the language overview and is used in the multilingual benchmark, so it is studied"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is included as a language in the evaluation table and participates in the multilingual experiments, indicating it is studied"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is listed as a language in the language‑coverage table and is part of the multilingual benchmarks, so it is studied"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic appears as a language column in result tables and is used in the cross‑lingual experiments, indicating it is studied"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is listed as a language in the evaluation tables and is included in the multilingual benchmark, so it is studied"
+    },
     "English": {
       "verdict": "studied",
-      "reason": "The snippets refer to English as the human language used for prompting, translation, and reasoning paths, and the paper evaluates cross-lingual performance across languages, indicating English is part"
+      "reason": "The snippets include English in tables of languages evaluated and in result tables, indicating the paper conducts experiments on English, so it is studied"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French appears in the language tables and result tables as a language evaluated in the benchmarks, showing the paper works with French, so it is studied"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is listed among the evaluated languages and appears in result tables, indicating the paper includes German in its experiments, so it is studied"
     },
     "Japanese": {
       "verdict": "studied",
-      "reason": "The snippets refer to Japanese as the human language used for prompting and reasoning, and the paper evaluates cross-lingual performance including Japanese, indicating it is part of the experiments."
+      "reason": "Japanese is present in the language overview and result tables, demonstrating that the paper evaluates Japanese, thus it is studied"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is included in the language tables and result tables, showing that the paper conducts experiments on Spanish, so it is studied"
     }
   }
 }

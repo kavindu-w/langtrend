@@ -1,45 +1,73 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.15518v2",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-12T16:24:51.667771+00:00",
+  "judged_at": "2026-07-20T11:13:42.537310+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 5187,
+  "context_chars": 11566,
   "verdicts": {
+    "Pero": {
+      "verdict": "false_positive",
+      "reason": "The term 'Pero' appears only as part of surrounding text (e.g., within 'Prompt') and not as a reference to a human language, so it's a false positive."
+    },
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "Here 'SAR' refers to Macau SAR (Special Administrative Region), not a language, so false positive."
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "In the German prompt, 'Sie' is the German second‑person pronoun, not a language name, so false positive."
+    },
+    "Tem": {
+      "verdict": "false_positive",
+      "reason": "The word 'Tem' is a Portuguese verb meaning 'has', not a language, so false positive."
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "The occurrence of 'Uma' is the Portuguese article 'uma', not a language, so false positive."
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The word 'Una' is a Spanish article, not a language, so false positive."
+    },
     "Tibetan": {
       "verdict": "mentioned_only",
-      "reason": "The snippets only refer to the Sino‑Tibetan language family without explicitly mentioning the Tibetan language itself, so the evidence is insufficient to confirm it is studied; it is at most mentioned"
+      "reason": "Tibetan is mentioned only as part of the Sino‑Tibetan language family in a discussion of transfer challenges, without any experiments on Tibetan itself, so mentioned_only."
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is referred to as an alphabetic script (Latin alphabet), not the Latin language, so false_positive."
     },
     "Portuguese": {
       "verdict": "studied",
-      "reason": "The snippets list Portuguese among the languages covered by the benchmark and show performance tables for it, indicating the paper uses and evaluates detectors on Portuguese data, thus it is studied."
+      "reason": "Portuguese appears in prompts and the benchmark description as a language for which data are collected and detectors evaluated, so studied."
     },
     "Russian": {
       "verdict": "studied",
-      "reason": "The snippets include Russian in the benchmark description and report detector performance metrics for Russian, demonstrating that the paper conducts experiments with Russian data, thus it is studied."
+      "reason": "Russian appears in prompts and evaluation results, indicating the paper works with Russian data, so studied."
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "Arabic appears in the benchmark language list and in performance results, showing that the paper evaluates detectors on Arabic texts, so it is studied."
+      "reason": "Arabic is listed among the high‑complexity languages evaluated and performance numbers are reported for it, so studied."
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "Chinese is explicitly listed among the benchmark languages and has associated performance results, indicating the paper conducts experiments with Chinese data, thus it is studied."
+      "reason": "Chinese is listed among the evaluated languages with performance results, so studied."
     },
     "English": {
       "verdict": "studied",
-      "reason": "English is repeatedly mentioned as a benchmark language and appears in performance tables, showing that the paper evaluates detectors on English data, therefore it is studied."
+      "reason": "The snippets refer to English as one of the benchmark languages evaluated for detection performance, indicating it is part of the study"
     },
     "French": {
       "verdict": "studied",
-      "reason": "French is included in the language list for the benchmark and has performance results shown, indicating the paper uses French data in its experiments, so it is studied."
+      "reason": "The snippets refer to French as a benchmark language included in the multilingual evaluation, showing it is used in the study"
     },
     "German": {
       "verdict": "studied",
-      "reason": "German is part of the benchmark language set and appears in the performance tables, demonstrating that the paper evaluates detectors on German texts, thus it is studied."
+      "reason": "The snippets refer to German as a target language for prompts and as part of the benchmark evaluation, indicating it is studied"
     },
     "Spanish": {
       "verdict": "studied",
-      "reason": "Spanish is listed among the benchmark languages and has associated performance metrics, showing that the paper conducts experiments with Spanish data, so it is studied."
+      "reason": "The snippets refer to Spanish as a target language for prompts and as part of the benchmark evaluation, indicating it is studied"
     }
   }
 }

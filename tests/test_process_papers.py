@@ -478,6 +478,142 @@ def test_reprocess_from_cache_writes_detected_and_no_detection_outputs(lang_clas
     assert [r["paper_id"] for r in no_detections] == ["2"]
 
 
+def test_reprocess_from_cache_output_is_sorted_by_paper_id_regardless_of_completion_order(lang_classes, languages_to_ignore, cache_dirs, tmp_path):
+    # ThreadPoolExecutor completion order is nondeterministic run-to-run, so streaming
+    # records out in completion order (the old behavior) would jumble detected.jsonl
+    # even when the underlying detections never changed. Sorting by paper_id at write
+    # time keeps output stable/diff-free across reruns of identical input.
+    _, html_cache_dir, pdf_cache_dir = cache_dirs
+    ids = ["3", "1", "4", "1a", "2"]
+    papers = [{"id": pid} for pid in ids]
+    records_by_id = {
+        pid: _record(pid, sections={"abstract": {"source": "abstract", "detected_languages": [{"language": "Swahili", "class": 0}]}}, sources=["abstract"])
+        for pid in ids
+    }
+
+    def fake_reprocess(paper, *a, **kw):
+        return records_by_id[paper["id"]]
+
+    with patch("process_papers._reprocess_single_paper", side_effect=fake_reprocess):
+        pp.reprocess_from_cache(
+            papers, lang_classes, languages_to_ignore, {},
+            output_jsonl=tmp_path / "detected.jsonl",
+            warnings_file=tmp_path / "warnings.json",
+            html_cache_dir=html_cache_dir, pdf_cache_dir=pdf_cache_dir,
+            no_detections_file=tmp_path / "no_detections.json",
+            max_workers=1,  # single worker keeps future submission order == completion order
+        )
+
+    lines = (tmp_path / "detected.jsonl").read_text(encoding="utf-8").splitlines()
+    written_ids = [json.loads(l)["paper_id"] for l in lines]
+    assert written_ids == sorted(ids)
+
+
+# Regression guards for a real bug (fixed twice already): docling, when invoked
+# from one of these executors' worker threads (process_papers()'s ordinary PDF
+# fallback, or reprocess_from_cache()'s force_pdf_reextract), can SIGSEGV during
+# native cleanup shortly after ThreadPoolExecutor.shutdown() tears the pool down.
+# That crash bypasses Python's exception handling entirely, so the only real
+# protection is ensuring output files are written to disk *before* shutdown() is
+# called, not after. These assert exactly that ordering by inspecting the
+# filesystem from inside a mocked shutdown() — if a future edit hoists shutdown()
+# back above the writes, these must fail.
+
+def test_process_papers_writes_output_before_shutting_down_executor(lang_classes, languages_to_ignore, cache_dirs, tmp_path):
+    pdf_dir, html_cache_dir, pdf_cache_dir = cache_dirs
+    no_det_path = tmp_path / "no_detections.json"
+    papers = [{"id": "1"}]
+    record = _record("1", sources=["abstract"])  # no detections -> exercises the no_detections_file write
+
+    shutdown_saw_file_written = []
+    original_shutdown = pp.ThreadPoolExecutor.shutdown
+
+    def fake_shutdown(self, *a, **kw):
+        shutdown_saw_file_written.append(no_det_path.exists())
+        return original_shutdown(self, *a, **kw)
+
+    with patch("process_papers._process_single_paper", return_value=record), \
+         patch.object(pp.ThreadPoolExecutor, "shutdown", fake_shutdown):
+        pp.process_papers(
+            papers, lang_classes, languages_to_ignore, {},
+            output_jsonl=tmp_path / "detected.jsonl",
+            warnings_file=tmp_path / "warnings.json",
+            pdf_dir=pdf_dir, html_cache_dir=html_cache_dir, pdf_cache_dir=pdf_cache_dir,
+            no_detections_file=no_det_path,
+            max_workers=1, no_pdf=True,
+        )
+
+    assert shutdown_saw_file_written == [True]
+
+
+def test_reprocess_from_cache_writes_output_before_shutting_down_executor(lang_classes, languages_to_ignore, cache_dirs, tmp_path):
+    _, html_cache_dir, pdf_cache_dir = cache_dirs
+    detected_path = tmp_path / "detected.jsonl"
+    papers = [{"id": "1"}]
+    record = _record("1", sections={"abstract": {"source": "abstract", "detected_languages": [{"language": "Swahili", "class": 0}]}}, sources=["abstract"])
+
+    shutdown_saw_file_written = []
+    original_shutdown = pp.ThreadPoolExecutor.shutdown
+
+    def fake_shutdown(self, *a, **kw):
+        shutdown_saw_file_written.append(detected_path.exists() and detected_path.stat().st_size > 0)
+        return original_shutdown(self, *a, **kw)
+
+    with patch("process_papers._reprocess_single_paper", return_value=record), \
+         patch.object(pp.ThreadPoolExecutor, "shutdown", fake_shutdown):
+        pp.reprocess_from_cache(
+            papers, lang_classes, languages_to_ignore, {},
+            output_jsonl=detected_path,
+            warnings_file=tmp_path / "warnings.json",
+            html_cache_dir=html_cache_dir, pdf_cache_dir=pdf_cache_dir,
+            no_detections_file=tmp_path / "no_detections.json",
+            max_workers=1,
+        )
+
+    assert shutdown_saw_file_written == [True]
+
+
+def test_atomic_write_text_replaces_content(tmp_path):
+    path = tmp_path / "out.json"
+    pp._atomic_write_text(path, "old")
+    pp._atomic_write_text(path, "new")
+    assert path.read_text(encoding="utf-8") == "new"
+    # no leftover temp file
+    assert list(tmp_path.iterdir()) == [path]
+
+
+def test_atomic_write_text_leaves_destination_untouched_on_mid_write_failure(tmp_path):
+    path = tmp_path / "out.json"
+    path.write_text("original", encoding="utf-8")
+
+    with patch("process_papers.os.fsync", side_effect=OSError("simulated crash mid-write")):
+        with pytest.raises(OSError):
+            pp._atomic_write_text(path, "corrupted-partial-content")
+
+    # The destination must still hold its old, complete content — never a
+    # truncated mix of old and new (this is the exact failure mode a SIGSEGV
+    # mid `path.open("w")` used to produce: real data silently dropped).
+    assert path.read_text(encoding="utf-8") == "original"
+    # temp file cleaned up, not left orphaned next to the real file
+    assert list(tmp_path.iterdir()) == [path]
+
+
+def test_plain_run_would_clobber_existing_output_true_when_populated(tmp_path):
+    path = tmp_path / "detected.jsonl"
+    path.write_text('{"paper_id": "1"}\n', encoding="utf-8")
+    assert pp._plain_run_would_clobber_existing_output(path) is True
+
+
+def test_plain_run_would_clobber_existing_output_false_when_missing(tmp_path):
+    assert pp._plain_run_would_clobber_existing_output(tmp_path / "detected.jsonl") is False
+
+
+def test_plain_run_would_clobber_existing_output_false_when_empty(tmp_path):
+    path = tmp_path / "detected.jsonl"
+    path.write_text("", encoding="utf-8")
+    assert pp._plain_run_would_clobber_existing_output(path) is False
+
+
 # ---------------------------------------------------------------------------
 # _needs_retry (--retry-missing decision logic)
 # ---------------------------------------------------------------------------

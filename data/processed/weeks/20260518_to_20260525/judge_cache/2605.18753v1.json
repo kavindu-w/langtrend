@@ -1,17 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.18753v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-12T15:07:39.229220+00:00",
+  "judged_at": "2026-07-20T11:14:32.854475+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2475,
+  "context_chars": 4826,
   "verdicts": {
     "Fwe": {
       "verdict": "false_positive",
-      "reason": "In the table, 'FWE' appears as a column header likely representing a metric or model abbreviation, not the human language; therefore it is a false positive."
+      "reason": "In the snippets, \"FWE\" appears as a column header in result tables (e.g., \"CWE FWE QA1\"), indicating a metric or abbreviation, not a reference to the Fwe human language."
     },
     "Moba": {
       "verdict": "false_positive",
-      "reason": "The term 'MoBA' is used to refer to a prior method (mean pooling used in MoBA), not the human language; thus it is a false positive."
+      "reason": "The term \"MoBA\" is used to denote a prior method for trainable sparse attention (e.g., \"SeerAttention and MoBA\"), which is a model name, not the Moba language."
+    },
+    "Portuguese": {
+      "verdict": "false_positive",
+      "reason": "The word \"Portuguese\" appears in the acknowledgment as part of the \"Portuguese Recovery and Resilience Plan\", referring to a funding program, not to the Portuguese language itself."
     }
   }
 }

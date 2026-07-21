@@ -1,13 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.20066v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-12T14:44:31.292416+00:00",
+  "judged_at": "2026-07-20T11:17:20.378441+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2111,
+  "context_chars": 3121,
   "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Abu Dhabi, UAE', a geographic location, not the human language named Abu; therefore it is a false positive."
+    },
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists author names such as 'Bo Zheng', indicating a personal name, not a language; thus it is a false positive."
+    },
     "Uri": {
       "verdict": "false_positive",
-      "reason": "The snippet uses 'URI' to refer to Uniform Resource Identifiers, a technical term, not the human language Uri; therefore it is a false positive."
+      "reason": "The snippet uses 'URI' as an acronym for Uniform Resource Identifier, not a human language; hence it is a false positive."
     }
   }
 }

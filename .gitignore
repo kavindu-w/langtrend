@@ -20,6 +20,10 @@ data/processed/weeks/*/pdf_cache/
 # Raw PDF downloads
 data/raw/pdfs/
 
+# Orphaned atomic-write temp files (scripts/process_papers.py _atomic_write_text) —
+# only left behind if a process is killed between the temp write and os.replace()
+**/.*.tmp*
+
 # Scratch output from scripts/test_single_paper.py (make test-paper) — full
 # paper body text and per-paper experiments, never meant to be committed
 data/sandbox/

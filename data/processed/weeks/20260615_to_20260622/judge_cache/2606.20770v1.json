@@ -1,53 +1,65 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.20770v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-06T17:36:46.780217+00:00",
+  "judged_at": "2026-07-20T13:03:42.537286+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 7551,
+  "context_chars": 10085,
   "verdicts": {
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'model families', 'Fam' is part of the word 'families', not a language name → false_positive"
+    },
+    "Karo": {
+      "verdict": "false_positive",
+      "reason": "The occurrence of 'karo' is within Punjabi instructional text meaning 'do', not a language name → false_positive"
+    },
     "Rom": {
       "verdict": "false_positive",
-      "reason": "Rom appears as a column label representing the Roman script, not the Rom language"
+      "reason": "Here 'Rom' denotes the Roman script column, not the Romani language → false_positive"
     },
     "Sindhi": {
       "verdict": "mentioned_only",
-      "reason": "Sindhi is listed among multiscript languages but no experiments or resources for Sindhi are presented"
+      "reason": "Sindhi is listed among multilingual languages but no experiments or resources are built for it → mentioned_only"
     },
     "Swahili": {
       "verdict": "mentioned_only",
-      "reason": "Swahili is cited as an example language in another benchmark (MaRVL) and not studied here"
+      "reason": "Swahili is mentioned as a language represented in Latin script, without any study of Swahili itself → mentioned_only"
     },
     "Latin": {
       "verdict": "false_positive",
-      "reason": "Latin is used to denote the Latin script (e.g., Roman transliteration) rather than the Latin language"
+      "reason": "Latin appears as reference to the Latin script (e.g., 'Latin linearity'), not the Latin language → false_positive"
     },
     "Tamil": {
       "verdict": "mentioned_only",
-      "reason": "Tamil is mentioned as a language represented in a prior benchmark, without any study or data for Tamil in this paper"
+      "reason": "Tamil is cited as a language represented in its own script, but the paper does not evaluate Tamil → mentioned_only"
     },
     "Arabic": {
       "verdict": "false_positive",
-      "reason": "Arabic appears only as part of the term Perso‑Arabic describing a script, not as the Arabic language itself"
-    },
-    "Chinese": {
-      "verdict": "mentioned_only",
-      "reason": "Chinese is referenced as an example of a logographic system (traditional/simplified) and not investigated"
+      "reason": "Arabic is referenced in the context of Perso‑Arabic script and script columns, not as the Arabic language itself → false_positive"
     },
     "Hindi": {
       "verdict": "mentioned_only",
-      "reason": "Hindi is mentioned for comparison (e.g., low-resource vs Punjabi) but no Hindi-specific experiments are conducted"
+      "reason": "Hindi is mentioned as a comparison language, with no dedicated experiments → mentioned_only"
     },
     "Punjabi": {
       "verdict": "studied",
-      "reason": "Punjabi is the focus of the benchmark, with data, experiments, and analysis across its three scripts"
+      "reason": "Punjabi is the focus of the benchmark, with data collection and experiments across its three scripts → studied"
     },
     "Urdu": {
       "verdict": "mentioned_only",
-      "reason": "Urdu is mentioned alongside Hindi as a related language for comparison, without dedicated experiments"
+      "reason": "Urdu is mentioned alongside Hindi as a related language, but no direct study is performed → mentioned_only"
     },
     "Serbian": {
       "verdict": "mentioned_only",
-      "reason": "Serbian is used as an example of a digraphic language (Cyrillic/Latin) and not directly studied"
+      "reason": "Serbian is discussed as an example of a digraphic language, without experiments on it → mentioned_only"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Chinese as an example of a logographic language (traditional/simplified) when discussing script diversity, but no experiments or resources are built for Chinese; thus it is only "
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets use English as the language of instruction templates and constraints, not as a target of study or resource creation; therefore it is only mentioned."
     }
   }
 }

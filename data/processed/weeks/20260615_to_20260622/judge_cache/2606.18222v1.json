@@ -1,21 +1,25 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.18222v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-07T19:35:55.312943+00:00",
+  "judged_at": "2026-07-20T12:54:43.226913+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4239,
+  "context_chars": 4707,
   "verdicts": {
-    "Pali": {
-      "verdict": "studied",
-      "reason": "The snippets refer to the Pali language as the source language of the Pali Canon and as part of the aligned corpus, indicating the paper collects and provides Pali text resources, so the language is s"
+    "Roma": {
+      "verdict": "false_positive",
+      "reason": "Roma refers to a person name (Roma Bose) in the acknowledgements, not the language, so false_positive"
     },
     "Sanskrit": {
-      "verdict": "studied",
-      "reason": "The snippets refer to Sanskrit as the original language of many verses and cite Sanskrit computational resources, showing the paper gathers and aligns Sanskrit texts, thus the language is studied."
+      "verdict": "mentioned_only",
+      "reason": "Sanskrit refers to the language in discussion of original texts and computational linguistics, but the paper only mentions it and does not build resources specifically for it, so mentioned_only"
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The snippets refer to English as the translation language used for the corpus, but the paper does not develop resources or models for English itself, only uses it for translation, so it is only mentio"
+      "reason": "English refers to the translation language used in the corpus, mentioned as the medium of translation, not a focus of study, so mentioned_only"
+    },
+    "Pali": {
+      "verdict": "studied",
+      "reason": "Pali refers to the language of the Buddhist canon that is included and aligned in the corpus, with data collected and used for analysis, thus the paper studies the language, so studied"
     }
   }
 }

@@ -1,13 +1,29 @@
 {
   "paper_id": "http://arxiv.org/abs/2607.10590v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-14T17:42:20.279211+00:00",
+  "judged_at": "2026-07-20T13:19:51.755266+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 1889,
+  "context_chars": 5569,
   "verdicts": {
+    "Reli": {
+      "verdict": "false_positive",
+      "reason": "In the table 'reli map native vs others' refers to a reliability or demographic variable, not the Reli language, so false_positive"
+    },
+    "Hawaiian": {
+      "verdict": "mentioned_only",
+      "reason": "The term appears in 'Native Hawaiian or Pacific Islander' as an ethnic group, not the Hawaiian language, so mentioned_only"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "Listed among demographic race percentages as 'Hebrew (0.20%)', indicating an ethnic identifier rather than a study of the Hebrew language, so mentioned_only"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Described as 'Chinese-trained models' indicating models trained on Chinese data, not a focus on the Chinese language, so mentioned_only"
+    },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The snippets refer to English as the language of the datasets and experimental setup (\"English-only scope\", \"datasets ... are in English\"), not as a subject of study or resource creation"
+      "reason": "Stated that experiments are conducted in English, indicating the language of the data but no study of English itself, so mentioned_only"
     }
   }
 }

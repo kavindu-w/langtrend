@@ -1,33 +1,37 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.09403v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-08T08:11:27.305121+00:00",
+  "judged_at": "2026-07-20T12:51:04.674892+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 6077,
+  "context_chars": 9555,
   "verdicts": {
     "Dass": {
       "verdict": "false_positive",
-      "reason": "In the snippet, \"Dass\" appears as the German conjunction meaning \"that\", not as the name of a human language."
+      "reason": "The snippet shows the German word \"Dass\" (meaning \"that\"), not a language name, so it is a false positive."
+    },
+    "Gebe": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the German verb \"GEBE\" (\"give\"), not a language name, so it is a false positive."
     },
     "Sie": {
       "verdict": "false_positive",
-      "reason": "Here \"Sie\" is the German second‑person pronoun (you), not a language name."
+      "reason": "The snippet uses the German pronoun \"Sie\" (\"you\"/\"she\"), not referring to the German language, so it is a false positive."
     },
     "Una": {
       "verdict": "false_positive",
-      "reason": "The occurrence of \"una\" is the Italian indefinite article, not a reference to a language."
+      "reason": "The snippet includes the Italian word \"Una\" (\"a\"), not a language name, so it is a false positive."
     },
     "Italian": {
       "verdict": "studied",
-      "reason": "The text explicitly mentions the Italian language for instructions, a dataset collected in Italy, and rating‑system support, indicating the paper works with Italian language data."
+      "reason": "The paper describes an Italian dataset, instructions presented in Italian, and participants who are Italian citizens, indicating the language is used in the study, so it is studied."
     },
     "English": {
       "verdict": "studied",
-      "reason": "English is cited as the language of instruction for studies 2 & 3 and as a supported language in the rating systems, showing the paper uses English language data."
+      "reason": "Instructions and data are provided in English for several study arms, showing the language is part of the experimental material, so it is studied."
     },
     "German": {
       "verdict": "studied",
-      "reason": "German is referenced as the instruction language for study 1, as a supported language in the rating systems, and in discussion of German‑specific preprocessing, indicating the paper works with German "
+      "reason": "The study includes German instructions and participants, and mentions German in the dataset, indicating the language is used in the research, so it is studied."
     }
   }
 }

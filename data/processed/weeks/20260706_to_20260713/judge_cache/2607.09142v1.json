@@ -1,13 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2607.09142v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-14T17:47:05.871298+00:00",
+  "judged_at": "2026-07-20T13:19:03.463057+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3510,
+  "context_chars": 4537,
   "verdicts": {
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'logo' refers to a hospital logo (a graphic symbol), not the Logo programming language, so it is a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions English only as the language used to translate rubric fields for readability, without any study or resource development for English, so it is mentioned only."
+    },
     "Chinese": {
       "verdict": "studied",
-      "reason": "The snippets refer to the Chinese language as the language of the online medical consultation data and the benchmark is built for Chinese medical dialogues, indicating the paper works with and evaluat"
+      "reason": "The snippets refer to Chinese as the language of the online medical consultation benchmark and rubric, indicating the paper builds and evaluates resources for Chinese, so it is studied."
     }
   }
 }

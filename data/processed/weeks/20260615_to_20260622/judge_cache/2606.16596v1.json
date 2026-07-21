@@ -1,33 +1,61 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.16596v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-07T19:36:21.374822+00:00",
+  "judged_at": "2026-07-20T12:57:06.916158+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4994,
+  "context_chars": 8038,
   "verdicts": {
+    "Ende": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'Am Ende jeder...' the word 'Ende' is German for 'end', not the language Ende; false_positive"
+    },
+    "Foi": {
+      "verdict": "false_positive",
+      "reason": "The occurrence is within French text where 'foi' means 'faith', not the language Foi; false_positive"
+    },
+    "Moi": {
+      "verdict": "false_positive",
+      "reason": "The word 'moi' is a French pronoun meaning 'me', not a language; false_positive"
+    },
+    "Rom": {
+      "verdict": "false_positive",
+      "reason": "In the Diplomacy order list, 'ROM' denotes the province Rome, not the language Rom; false_positive"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "Here 'Sie' is the German pronoun 'you' and not the language Sie; false_positive"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The term 'Mon' appears as a French possessive pronoun, not the language Mon; false_positive"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'Dutch' refers to Dutch institutions and a supercomputer, not a study of the Dutch language; mentioned_only"
+    },
     "Romanian": {
       "verdict": "studied",
-      "reason": "the snippets discuss translation performance on English→Romanian and native speaker annotation for Romanian, indicating experiments on Romanian"
+      "reason": "The paper evaluates translation performance and conducts experiments on Romanian, indicating it is studied; studied"
     },
     "Russian": {
       "verdict": "studied",
-      "reason": "the snippets discuss translation performance on English→Russian and native speaker annotation for Russian, indicating experiments on Russian"
+      "reason": "Russian is included in translation experiments and evaluation, so it is studied; studied"
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "the snippets discuss translation performance on English→Arabic, native speaker annotation for Arabic, and translation impact on coordination for Arabic, indicating experiments on Arabic"
+      "reason": "Arabic is part of the translation experiments and analysis, thus studied; studied"
     },
     "English": {
-      "verdict": "mentioned_only",
-      "reason": "the snippets refer to English as the source language and as a monolingual baseline, not as a language being evaluated or built resources for"
+      "verdict": "studied",
+      "reason": "English is used as a baseline dataset and in monolingual communication experiments, so it is studied; studied"
     },
     "French": {
       "verdict": "studied",
-      "reason": "the snippets report translation impact and COMETQE scores for French, indicating experiments on French"
+      "reason": "French is evaluated in translation experiments and its impact on coordination is analyzed, thus studied; studied"
     },
     "German": {
       "verdict": "studied",
-      "reason": "the snippets report translation impact and COMETQE scores for German, indicating experiments on German"
+      "reason": "German refers to the human language used as a target language in the paper's experiments (e.g., experiments on German, performance tables, and discussion of its effect on coordination), indicating the"
     }
   }
 }

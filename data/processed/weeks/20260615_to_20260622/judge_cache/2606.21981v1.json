@@ -1,17 +1,25 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.21981v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-06T17:10:34.814993+00:00",
+  "judged_at": "2026-07-20T13:02:06.526899+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3230,
+  "context_chars": 4243,
   "verdicts": {
-    "Arabic": {
-      "verdict": "studied",
-      "reason": "Arabic refers to the Arabic language, the target of generation and evaluation in the study, as shown by references to Arabic text generation, morphology, and Arabic essays."
+    "Dima": {
+      "verdict": "false_positive",
+      "reason": "Dima refers to an author name (Dima Taji) in the citation list, not a language, so false_positive"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo refers to an author name (Mo El-Haj) in the citation list, not a language, so false_positive"
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "English refers to the English language only as part of a bilingual corpus name and translation examples, not a focus of the research."
+      "reason": "English refers to the English language mentioned as part of a bilingual corpus and translation, but the paper does not conduct experiments on English, so mentioned_only"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the Arabic language which is the focus of the experiments and evaluation, so studied"
     }
   }
 }

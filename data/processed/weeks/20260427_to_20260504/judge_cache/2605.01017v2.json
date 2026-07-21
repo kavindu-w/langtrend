@@ -1,17 +1,33 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.01017v2",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-16T15:09:03.805401+00:00",
+  "judged_at": "2026-07-20T09:59:46.623532+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3314,
+  "context_chars": 7348,
   "verdicts": {
+    "Anal": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'anal-' is part of the word 'analysis', not a reference to the Anal language; therefore it is a false positive."
+    },
+    "Kota": {
+      "verdict": "false_positive",
+      "reason": "The term 'Kota' appears in the place name 'Kota Kinabalu' and related hashtags, not as a language name; therefore it is a false positive."
+    },
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "Mango refers to the fruit/dessert described in the example, not to a human language; therefore it is a false positive."
+    },
     "Ong": {
       "verdict": "false_positive",
-      "reason": "The match 'Ong' appears within the platform name 'Xiaohongshu' (as part of 'hong'), not referring to the Ong language, so it is a false positive."
+      "reason": "'Ong' occurs within the word 'Hong' in 'XiaoHongShu' and does not denote a language; therefore it is a false positive."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as the language used for translating prompts and labels, without any experiments or resources built for English; thus it is mentioned only."
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "The term 'Chinese' refers to the language of the Xiaohongshu posts and the native language of participants, and the paper builds a benchmark and evaluates Chinese encoders, indicating the language is "
+      "reason": "Chinese is the primary language of the dataset, prompts, and participant population; the paper builds a Chinese benchmark and evaluates models on Chinese text, so it is studied."
     }
   }
 }

@@ -172,14 +172,18 @@ _MD_REFS_AMBIGUOUS_RE = re.compile(
     r"^#{1,6}\s+(?:Related [Ww]ork|Related Works|Literature Review|Acknowledgement?|Acknowledgements?|Acknowledgments?|Acknowledgment?|Funding|Ethics(?: Statement)?)\s*$",
     re.MULTILINE,
 )
-# Appendix heading in docling markdown — an appendix that follows the
-# References (main body → References → Appendix) must be kept, not discarded
-# with the reference list. Matches "## Appendix", "## Appendix A",
-# "## A Appendix", "## Appendices".
-_MD_APPENDIX_RE = re.compile(
-    r"^#{1,6}\s+(?:[A-Z0-9]\.?\s+)?Appendix(?:es)?\b",
-    re.MULTILINE | re.IGNORECASE,
-)
+# Any markdown heading. Docling never inserts headings *inside* a citation
+# list — a reference list is one continuous unheaded block of text — so the
+# first heading found after the References/Bibliography match reliably marks
+# where the bibliography ends and back matter begins, regardless of what that
+# back matter is titled. This deliberately does not require the literal word
+# "Appendix": LaTeX's \appendix command (standard in ACL/EMNLP-style papers)
+# numbers sections "A ...", "B.1 ..." etc. without ever writing "Appendix",
+# and some papers use custom names ("Supplementary materials") instead —
+# both were previously discarded along with the reference list, silently
+# losing real body content (e.g. an evaluation-languages list in an appendix
+# subsection) with no trace it had ever been detected.
+_MD_ANY_HEADING_RE = re.compile(r"^#{1,6}\s+\S.*$", re.MULTILINE)
 
 
 def trim_markdown_end_matter(md: str) -> str:
@@ -199,11 +203,11 @@ def trim_markdown_end_matter(md: str) -> str:
         m = _MD_REFS_AMBIGUOUS_RE.search(md, len(md) // 2)
     if m is None:
         return md
-    # Keep an appendix that follows the reference list (main body → References →
-    # Appendix): excise only the citation block between them. Appendix
-    # Experiments/Data can carry language mentions, so dropping it would be an
-    # unrecoverable recall loss.
-    app = _MD_APPENDIX_RE.search(md, m.end())
+    # Keep whatever comes after the reference list (main body → References →
+    # back matter): excise only the citation block between them. Appendix/
+    # supplementary content can carry language mentions, so dropping it would
+    # be an unrecoverable recall loss.
+    app = _MD_ANY_HEADING_RE.search(md, m.end())
     return md[: m.start()] + "\n\n" + md[app.start():] if app else md[: m.start()]
 
 
@@ -251,12 +255,23 @@ class PDFProcessor:
     def extract_text(self, pdf_path: Path) -> tuple[str, Dict]:
         """Extract text from PDF using docling (layout-aware, column-correct).
 
-        Returns (plain_text, {}).  The plain text has the end-matter reference
-        list stripped (a trailing appendix, if any, is kept) — running
-        trim_pdf_text_to_body downstream additionally removes the front matter
-        before the Introduction.
+        Returns (plain_text, {"end_matter_trimmed": bool}). The flag is True
+        only when trim_markdown_end_matter actually found and cut an end-matter
+        heading — it does *not* just mean "docling succeeded" (that regex can
+        silently no-op, e.g. on an all-caps "## REFERENCES" or a numbered
+        "## 8 References" heading it doesn't recognize). Callers should pass
+        this flag through as trim_pdf_text_to_body(text, trim_end=not
+        meta.get("end_matter_trimmed")): when True, that function's own
+        end-matter search is skipped so it doesn't re-trigger on a heading
+        (e.g. a genuine "Acknowledgments" section) that trim_markdown_end_matter
+        already decided to keep as part of the preserved appendix/back matter —
+        re-cutting there would silently discard real body content a second
+        time. When False, trim_pdf_text_to_body's own search still runs as the
+        safety net it always was, since nothing was actually trimmed upstream.
 
-        Falls back to pdfplumber if docling fails.
+        Falls back to pdfplumber if docling fails, which does *not* set the
+        flag (pdfplumber has no heading structure to trim by, so the raw text
+        still needs trim_pdf_text_to_body's own end-matter removal).
         """
         global _DOCLING_CONVERTER
         with _DOCLING_LOCK:
@@ -271,13 +286,23 @@ class PDFProcessor:
             md = result.document.export_to_markdown()
 
             body_md = trim_markdown_end_matter(md)
+            # trim_markdown_end_matter is a silent no-op (returns md unchanged) when
+            # its regexes don't match — e.g. an all-caps "## REFERENCES" heading, or a
+            # numbered one like "## 8 References" that its exact-heading pattern
+            # doesn't handle. Comparing against the input (rather than assuming success
+            # whenever docling itself didn't raise) means callers only skip
+            # trim_pdf_text_to_body's own end-matter search when a cut actually
+            # happened — otherwise that more lenient, case-insensitive, numbering-
+            # tolerant fallback still gets its chance, exactly as it did before this
+            # markdown-level trim existed.
+            end_matter_trimmed = body_md != md
 
             # Strip markdown heading markers to get plain text
             text = _MD_HEADING_RE.sub("", body_md)
             text = re.sub(r"\n{3,}", "\n\n", text).strip()
 
             print(f"    [docling] extracted {len(text)} chars from {pdf_path.name}", flush=True)
-            return text, {}
+            return text, {"end_matter_trimmed": end_matter_trimmed}
 
         except Exception as e:
             print(f"    [docling] failed ({type(e).__name__}: {e}), falling back to pdfplumber", flush=True)

@@ -595,7 +595,11 @@ def detect_languages_in_text(
         if not isinstance(text, str):
             continue
         for langs in language_groups:
-            candidate_languages = [langs] if isinstance(langs, str) else langs
+            # sorted(), not raw set iteration: a set's order is PYTHONHASHSEED-randomized
+            # per process, so co-occurring languages in the same text block would get
+            # appended in a different order every run — jumbling detected_languages
+            # even when the actual set of detections is unchanged.
+            candidate_languages = [langs] if isinstance(langs, str) else sorted(langs)
             for lang in candidate_languages:
                 if not isinstance(lang, str):
                     continue
@@ -611,19 +615,30 @@ def detect_languages_in_text(
 def trim_pdf_text_to_body(
     text: str,
     end_headings: list[str] | None = None,
+    trim_end: bool = True,
 ) -> str:
     """Trim PDF-extracted text to the body of the paper.
 
     Skips everything before the Introduction (title, authors, abstract — the
-    abstract is already scanned from the arXiv API metadata) and removes the
-    end-matter reference list (References / Bibliography, or as a fallback
-    Related Work / Acknowledgements / Funding / Ethics), matching the headings
-    the HTML processor removes.
+    abstract is already scanned from the arXiv API metadata) and, when
+    ``trim_end`` is True, removes the end-matter reference list (References /
+    Bibliography, or as a fallback Related Work / Acknowledgements / Funding /
+    Ethics), matching the headings the HTML processor removes.
 
     An Appendix that follows the References is preserved (main body →
     References → Appendix is the common ML/NLP layout), so only the citation
     list between them is excised — appendix text is kept, consistent with the
     HTML processor, which never removes appendices.
+
+    Pass ``trim_end=False`` when the text has already had its end matter
+    trimmed upstream by pdf_processor.trim_markdown_end_matter (docling's
+    markdown heading structure lets that function reliably keep back matter
+    titled anything, not just literal "Appendix" headings). Re-running this
+    function's own end-matter search on already-trimmed text risks a false
+    match on a legitimate heading inside the preserved back matter (e.g. a
+    genuine "Acknowledgments" section that comes *before* further real content
+    in an unusual paper layout) and silently re-discarding real content a
+    second time.
 
     Pass ``end_headings`` to override the default heading list.
     Returns the original text unchanged if no end-matter marker is found.
@@ -631,17 +646,21 @@ def trim_pdf_text_to_body(
     if not text:
         return text
 
+    start = 0
+    intro_match = _PDF_INTRO_RE.search(text)
+    if intro_match:
+        start = intro_match.start()
+
+    if not trim_end:
+        trimmed = text[start:].strip()
+        return trimmed if trimmed else text
+
     if end_headings is not None:
         unambiguous_re: re.Pattern | None = _build_pdf_end_re(end_headings)
         ambiguous_re: re.Pattern | None = None
     else:
         unambiguous_re = _PDF_END_RE_UNAMBIGUOUS
         ambiguous_re = _PDF_END_RE_AMBIGUOUS
-
-    start = 0
-    intro_match = _PDF_INTRO_RE.search(text)
-    if intro_match:
-        start = intro_match.start()
 
     # References/Bibliography is an unambiguous end-of-body marker, so trust it
     # wherever it appears — including well before the midpoint, which happens

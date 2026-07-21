@@ -1,29 +1,185 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.22567v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-11T16:36:00.739503+00:00",
+  "judged_at": "2026-07-20T11:24:32.736996+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3236,
+  "context_chars": 11586,
   "verdicts": {
+    "Jibu": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'jibu' appears as a Swahili word meaning 'answer', not as a reference to the Jibu language."
+    },
+    "Kwa": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Kwa' is used as a Swahili preposition meaning 'for', not as a reference to the Kwa language."
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Sie' is the German pronoun meaning 'you', not a reference to the Sie language."
+    },
     "Maa": {
       "verdict": "false_positive",
-      "reason": "The snippet references a URL (maa.org) and the langdetect library, not the Maa human language, indicating a false positive detection"
+      "reason": "The occurrence is within a URL ('https maa org ...'), not a mention of the Maa language."
+    },
+    "Moi": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Moi' appears as the French pronoun meaning 'me', not as a reference to the Moi language."
+    },
+    "Saya": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Saya' is the Malay word for 'I', not a reference to the Saya language."
+    },
+    "Sila": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Sila' is the Malay word meaning 'please', not a reference to the Sila language."
+    },
+    "Afrikaans": {
+      "verdict": "mentioned_only",
+      "reason": "No snippet showing the term is provided; insufficient evidence to confirm a false positive, so it is treated as a mention only."
+    },
+    "Burmese": {
+      "verdict": "mentioned_only",
+      "reason": "No snippet showing the term is provided; insufficient evidence to confirm a false positive, so it is treated as a mention only."
+    },
+    "Haitian Creole": {
+      "verdict": "mentioned_only",
+      "reason": "No snippet showing the term is provided; insufficient evidence to confirm a false positive, so it is treated as a mention only."
+    },
+    "Marathi": {
+      "verdict": "mentioned_only",
+      "reason": "No snippet showing the term is provided; insufficient evidence to confirm a false positive, so it is treated as a mention only."
+    },
+    "Nepali": {
+      "verdict": "mentioned_only",
+      "reason": "No snippet showing the term is provided; insufficient evidence to confirm a false positive, so it is treated as a mention only."
+    },
+    "Quechua": {
+      "verdict": "false_positive",
+      "reason": "Quechua is not mentioned in any of the provided snippets, so the regex match does not refer to the language"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili appears in prompts (\"Tumia Kiswahili ...\") and is listed among test languages, indicating the paper uses and evaluates it"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu is listed among the test languages in the multilingual benchmark description, showing it is evaluated in the study"
+    },
+    "Wolof": {
+      "verdict": "false_positive",
+      "reason": "Wolof does not appear in any snippet, so the match does not refer to the language"
+    },
+    "Yoruba": {
+      "verdict": "false_positive",
+      "reason": "Yoruba is absent from the snippets, indicating the match is not a reference to the language"
+    },
+    "Zulu": {
+      "verdict": "false_positive",
+      "reason": "Zulu is not present in the provided text, so the detection is a false positive"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is listed among the benchmark languages, implying it is part of the evaluation set"
+    },
+    "Estonian": {
+      "verdict": "false_positive",
+      "reason": "Estonian does not appear in any snippet, so the match does not refer to the language"
+    },
+    "Hindi": {
+      "verdict": "false_positive",
+      "reason": "Hindi is not mentioned in the provided excerpts, making the detection a false positive"
+    },
+    "Malay": {
+      "verdict": "studied",
+      "reason": "Malay is used in prompts (\"Gunakan bahasa Melayu ...\") and listed in the benchmark languages, showing it is evaluated"
+    },
+    "Tamil": {
+      "verdict": "false_positive",
+      "reason": "Tamil is absent from the snippets, so the match does not refer to the language"
     },
     "Thai": {
       "verdict": "studied",
-      "reason": "The snippet reports performance gains on Thai in multilingual benchmarks, showing the paper evaluates and thus studies the Thai language"
+      "reason": "Thai is listed among the benchmark languages, indicating it is part of the evaluation"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "The provided snippets do not contain any occurrence of the word 'Urdu' or a clear reference to the Urdu language, so we cannot confirm its role; it is at most mentioned."
+    },
+    "Basque": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets show no occurrence of 'Basque' or a clear reference to the Basque language, so we cannot confirm it is studied; it is at most mentioned."
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets contain no occurrence of 'Czech' or a clear reference to the Czech language, so we cannot confirm its use; it is at most mentioned."
+    },
+    "Hungarian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets contain no occurrence of 'Hungarian' or a clear reference to the Hungarian language, so we cannot confirm its use; it is at most mentioned."
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "The language list in the benchmark description explicitly includes Indonesian (id) as one of the evaluated languages, indicating the paper uses/evaluates it."
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian (it) appears in the benchmark language list, showing the paper evaluates on this language."
     },
     "Korean": {
+      "verdict": "studied",
+      "reason": "Korean (ko) is listed among the benchmark languages, indicating the paper evaluates on this language."
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese (pt) is included in the benchmark language list, showing the paper evaluates on this language."
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian (ru) appears in the benchmark language list, indicating the paper evaluates on this language."
+    },
+    "Serbian": {
       "verdict": "mentioned_only",
-      "reason": "The snippet presents a Korean question as an illustrative example without reporting experiments or resources for Korean, so the language is only mentioned"
+      "reason": "The snippets do not contain any occurrence of 'Serbian' or a clear reference to the Serbian language; we cannot confirm its use, so it is at most mentioned."
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not contain any occurrence of 'Turkish' or a clear reference to the Turkish language; we cannot confirm its use, so it is at most mentioned."
+    },
+    "Ukrainian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not contain any occurrence of 'Ukrainian' or a clear reference to the Ukrainian language; we cannot confirm its use, so it is at most mentioned."
     },
     "Vietnamese": {
       "verdict": "studied",
-      "reason": "The snippet reports performance gains on Vietnamese in multilingual benchmarks, indicating the paper evaluates and studies the Vietnamese language"
+      "reason": "The snippets list Vietnamese among the languages in the multilingual benchmark used for evaluation, showing the paper evaluates its method on Vietnamese."
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic appears in the benchmark language list, indicating the paper includes Arabic in its evaluation experiments."
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is mentioned as one of the languages in the multilingual test sets, implying the paper evaluates its approach on Chinese."
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is included in the set of languages used for multilingual benchmarking, meaning the paper studies French in its experiments."
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is listed among the benchmark languages, showing the paper evaluates its method on German."
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese appears in the multilingual benchmark language list, indicating the paper conducts experiments with Japanese."
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is part of the multilingual benchmark languages, meaning the paper includes Spanish in its evaluation."
     },
     "English": {
-      "verdict": "mentioned_only",
-      "reason": "The snippet mentions English as a reference point for reasoning capability, without conducting dedicated experiments on English, so it is only mentioned"
+      "verdict": "studied",
+      "reason": "English is mentioned in the benchmark language list and in the abstract discussing language drift, showing the paper evaluates and discusses English."
     }
   }
 }

@@ -215,17 +215,19 @@ def _ensure_pdf_cache(
         if not pdf_path:
             return
         processor = PDFProcessor(input_dir=str(pdf_path.parent), output_dir=str(pdf_path.parent))
-        raw_text, _ = processor.extract_text(pdf_path)
+        raw_text, extract_meta = processor.extract_text(pdf_path)
         if not raw_text:
             return
+        end_matter_trimmed = bool(extract_meta.get("end_matter_trimmed"))
         cleaned_text = processor.clean_text(raw_text)
-        body_text = trim_pdf_text_to_body(cleaned_text)
+        body_text = trim_pdf_text_to_body(cleaned_text, trim_end=not end_matter_trimmed)
         screened_blocks, _ = clean_paper_text_for_language_screening(body_text, _label=paper_id)
         pdf_cache_dir.mkdir(parents=True, exist_ok=True)
         with pdf_cache_path.open("w", encoding="utf-8") as fh:
             json.dump({
                 "paper_id": paper_id,
                 "text": raw_text,
+                "end_matter_trimmed": end_matter_trimmed,
                 "cleaned_text": cleaned_text,
                 "body_text": body_text,
                 "screened_text": "\n\n".join(screened_blocks),

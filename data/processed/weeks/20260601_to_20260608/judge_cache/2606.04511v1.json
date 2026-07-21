@@ -1,13 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.04511v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-09T17:28:14.750842+00:00",
+  "judged_at": "2026-07-20T11:45:48.832218+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2528,
+  "context_chars": 4294,
   "verdicts": {
+    "Fwe": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'fwe' appears as a column label in a performance table, likely an abbreviation for a metric or method, not the Fwe human language."
+    },
     "Moba": {
       "verdict": "false_positive",
-      "reason": "Moba refers to the MoBA sparse attention method cited as prior work, not a human language; false_positive"
+      "reason": "In the snippet, 'MoBA' is cited as a prior sparse attention method (MoBA [5]), i.e., a model name, not the Moba human language."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet states 'We evaluate all 14 English tasks', referring to tasks in the English language, but the paper does not build resources or models specifically for English; it merely uses English tas"
     }
   }
 }

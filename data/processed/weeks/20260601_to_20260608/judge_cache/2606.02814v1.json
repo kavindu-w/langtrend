@@ -1,13 +1,41 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.02814v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-10T16:04:26.399270+00:00",
+  "judged_at": "2026-07-20T11:43:49.087998+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2278,
+  "context_chars": 6396,
   "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "In the snippet 'building bo ...' the term 'bo' is part of the word 'building' and not a reference to the Bo language, so it is a false positive."
+    },
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The occurrence 'col- lection' is a split word 'collection', not the Col language, thus false positive."
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to 'Greek mythology' and shows the Greek script, mentioning the Greek language only as an example, so it is mentioned_only."
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "The passage discusses 'Traditional English pronunciation of Latin' and historical Latin usage, mentioning the Latin language without any study, thus mentioned_only."
+    },
     "Czech": {
       "verdict": "false_positive",
-      "reason": "The snippet mentions 'Brno, Czech Republic' as a location, not the Czech language itself."
+      "reason": "References to 'Czech Republic' and 'Brno University of Technology' are geographic and institutional, not the Czech language, so false positive."
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper evaluates retrieval models on English datasets and cites English resources, using English as the primary language of the experiments, so it is studied."
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned in a historical context of Latin development, with no analysis of French language resources, thus mentioned_only."
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "The term appears in a place name '( German Zechern )' indicating a German-language name of a village, not the German language itself, so false positive."
     }
   }
 }

@@ -112,14 +112,15 @@ def process_local_pdf(
     }
 
     processor = PDFProcessor(input_dir=str(pdf_path.parent), output_dir=str(pdf_path.parent))
-    raw_text, _ = processor.extract_text(pdf_path)
+    raw_text, extract_meta = processor.extract_text(pdf_path)
     record["sources_checked"].append("pdf")
     if not raw_text:
         record["warnings"].append({"step": "pdf_processing", "error": "No text could be extracted from the PDF"})
         return record
 
+    end_matter_trimmed = bool(extract_meta.get("end_matter_trimmed"))
     cleaned_text = processor.clean_text(raw_text)
-    body_text = trim_pdf_text_to_body(cleaned_text)
+    body_text = trim_pdf_text_to_body(cleaned_text, trim_end=not end_matter_trimmed)
     screened_blocks, _ = clean_paper_text_for_language_screening(body_text, _label=paper_id)
     raw_langs = detect_languages_in_text(screened_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
     detections = build_detections(raw_langs, lang_classes, possible_false_positive_languages)
@@ -131,6 +132,7 @@ def process_local_pdf(
         json.dump({
             "paper_id": paper_id,
             "text": raw_text,
+            "end_matter_trimmed": end_matter_trimmed,
             "cleaned_text": cleaned_text,
             "body_text": body_text,
             "screened_text": "\n\n".join(screened_blocks),

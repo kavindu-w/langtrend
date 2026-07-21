@@ -69,6 +69,33 @@ def load_language_data(path: Path) -> tuple[dict[int, set[str]], set[str], dict[
     return lang_classes, languages_to_ignore, possible_false_positive_languages
 
 
+def _atomic_write_text(path: Path, content: str) -> None:
+    """Write content to path atomically: write to a temp file in the same
+    directory, then os.replace() over the destination.
+
+    The write-before-shutdown reorder elsewhere in this file (see the
+    os._exit(0) comment near the bottom, and the finally blocks in
+    reprocess_from_cache/process_papers) narrows the window before a native
+    SIGSEGV can hit, but doesn't make a plain `path.open("w")` rewrite safe on
+    its own — that truncates the file immediately, so a crash mid-write can
+    still leave a half-written, truncated file behind with no error raised.
+    os.replace() is a single atomic filesystem operation, so `path` is always
+    either its old complete content or its new complete content, never a
+    truncated mix of the two — a crash before it leaves `path` untouched, a
+    crash after it (vanishingly small window) leaves `path` fully updated.
+    """
+    tmp_path = path.with_name(f".{path.name}.tmp{os.getpid()}")
+    try:
+        with tmp_path.open("w", encoding="utf-8") as fp:
+            fp.write(content)
+            fp.flush()
+            os.fsync(fp.fileno())
+        os.replace(tmp_path, path)
+    except BaseException:
+        tmp_path.unlink(missing_ok=True)
+        raise
+
+
 _PDF_EXTRACT_RETRIES = 2  # re-download and retry if extraction fails (e.g. truncated file)
 
 
@@ -204,12 +231,13 @@ def _process_single_paper(
                     try:
                         t_extract = _time.monotonic()
                         processor = PDFProcessor(input_dir=str(pdf_path.parent), output_dir=str(pdf_path.parent))
-                        raw_text, _ = processor.extract_text(pdf_path)
+                        raw_text, extract_meta = processor.extract_text(pdf_path)
                         tqdm.write(f"  [{paper_id}] PDF text extracted ({len(raw_text)} chars) in {_time.monotonic()-t_extract:.1f}s")
                         record["sources_checked"].append("pdf")
                         if raw_text:
+                            end_matter_trimmed = bool(extract_meta.get("end_matter_trimmed"))
                             cleaned_text = processor.clean_text(raw_text)
-                            body_text = trim_pdf_text_to_body(cleaned_text)
+                            body_text = trim_pdf_text_to_body(cleaned_text, trim_end=not end_matter_trimmed)
                             screened_blocks, _ = clean_paper_text_for_language_screening(body_text, _label=paper_id)
                             raw_langs = detect_languages_in_text(screened_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
                             detections = build_detections(raw_langs, lang_classes, possible_false_positive_languages)
@@ -223,6 +251,7 @@ def _process_single_paper(
                                 json.dump({
                                     "paper_id": paper_id,
                                     "text": raw_text,
+                                    "end_matter_trimmed": end_matter_trimmed,
                                     "cleaned_text": cleaned_text,
                                     "body_text": body_text,
                                     "screened_text": "\n\n".join(screened_blocks),
@@ -280,8 +309,18 @@ def _reprocess_single_paper(
     possible_false_positive_languages: dict[str, str],
     html_cache_dir: Path,
     pdf_cache_dir: Path,
+    force_pdf_reextract: bool = False,
+    pdf_dir: Path | None = None,
 ) -> dict:
-    """Re-run text cleaning + language detection on cached extractions only."""
+    """Re-run text cleaning + language detection on cached extractions only.
+
+    force_pdf_reextract re-runs docling on the underlying PDF (reusing the local
+    copy under pdf_dir if present, downloading only if it's gone) instead of reusing
+    pdf_cache's stored "text". That stored text already reflects whatever
+    trim_markdown_end_matter did at the time of the original extraction — a fix to
+    that function can only take effect on already-cached papers by re-extracting,
+    since the pre-trim markdown itself is never cached.
+    """
     import time as _time
     t_paper = _time.monotonic()
     paper_id = paper.get("id", "unknown")
@@ -399,11 +438,31 @@ def _reprocess_single_paper(
             try:
                 with pdf_cache_path.open("r", encoding="utf-8") as fh:
                     pdf_cached = json.load(fh)
-                text = pdf_cached.get("text", "")
+
+                raw_text = None
+                if force_pdf_reextract:
+                    pdf_url = paper.get("pdf_url")
+                    pdf_path = _download_pdf(pdf_url, pdf_dir, paper_id) if pdf_url else None
+                    if pdf_path:
+                        processor = PDFProcessor(input_dir=str(pdf_path.parent), output_dir=str(pdf_path.parent))
+                        raw_text, extract_meta = processor.extract_text(pdf_path)
+                        end_matter_trimmed = bool(extract_meta.get("end_matter_trimmed"))
+                        pdf_cached["text"] = raw_text
+                        pdf_cached["end_matter_trimmed"] = end_matter_trimmed
+                    else:
+                        tqdm.write(f"  [{paper_id}] force_pdf_reextract: no pdf_url / download failed — falling back to cached text")
+
+                if raw_text is None:
+                    raw_text = pdf_cached.get("text", "")
+                    # Cache entries written before this flag existed default to False
+                    # (re-trim, matching the old, pre-fix behavior for that cached text).
+                    end_matter_trimmed = bool(pdf_cached.get("end_matter_trimmed", False))
+
+                text = raw_text
                 if text:
                     processor = PDFProcessor(input_dir=".", output_dir=".")
                     cleaned_text = processor.clean_text(text)
-                    body_text = trim_pdf_text_to_body(cleaned_text)
+                    body_text = trim_pdf_text_to_body(cleaned_text, trim_end=not end_matter_trimmed)
                     screened_blocks, _ = clean_paper_text_for_language_screening(body_text, _label=paper_id)
                     raw_langs = detect_languages_in_text(screened_blocks, lang_classes, languages_to_ignore, paper_id=paper_id)
                     detections = build_detections(raw_langs, lang_classes, possible_false_positive_languages)
@@ -443,12 +502,34 @@ def reprocess_from_cache(
     pdf_cache_dir: Path,
     no_detections_file: Path | None = None,
     max_workers: int = 4,
+    force_pdf_reextract: bool = False,
+    pdf_dir: Path | None = None,
+    preserved_detected_lines: list[str] | None = None,
+    preserved_no_detection_records: list[dict] | None = None,
+    preserved_warnings: list[dict] | None = None,
 ) -> dict:
-    """Re-run cleaning + detection on cached HTML/PDF text; write new output JSONL."""
+    """Re-run cleaning + detection on cached HTML/PDF text; write new output JSONL.
+
+    output_jsonl/warnings_file/no_detections_file are written directly — always the
+    real, final destination, never a temp file a caller merges in afterward. Callers
+    reprocessing only a subset of papers (e.g. --pdf-only) pass the untouched records
+    for every other paper via preserved_*, so this function can write the complete,
+    merged result in one shot. This matters whenever docling runs inside a worker
+    thread of this executor (currently: only when force_pdf_reextract is set — see
+    _reprocess_single_paper — but the same is true of ordinary PDF-fallback
+    extraction in process_papers()). docling's PyTorch C++ thread pools reliably
+    SIGSEGV during native cleanup sometime after the pool is torn down (see the
+    os._exit(0) comment at the bottom of this file). That crash bypasses Python's
+    exception handling entirely, so nothing here can guarantee the write completes —
+    but writing directly to the real path (instead of a temp file a *separate*,
+    later main()-level merge step would fold in) means a write that does complete
+    lands where it's actually read, instead of sitting in an orphaned temp file no
+    one will ever look for.
+    """
     output_jsonl.parent.mkdir(parents=True, exist_ok=True)
 
-    all_warnings: list[dict] = []
-    no_detection_records: list[dict] = []
+    all_warnings: list[dict] = list(preserved_warnings or [])
+    no_detection_records: list[dict] = list(preserved_no_detection_records or [])
     stats = {
         "total_papers": len(papers),
         "papers_with_detections": 0,
@@ -457,7 +538,8 @@ def reprocess_from_cache(
         "sources": {"abstract": 0, "html": 0, "pdf": 0},
     }
 
-    _fp_out = output_jsonl.open("w", encoding="utf-8")
+    preserved_lines = list(preserved_detected_lines or [])
+    detected_records: list[dict] = []
     executor = ThreadPoolExecutor(max_workers=max_workers)
     try:
         futures = {
@@ -469,6 +551,8 @@ def reprocess_from_cache(
                 possible_false_positive_languages,
                 html_cache_dir,
                 pdf_cache_dir,
+                force_pdf_reextract,
+                pdf_dir,
             ): paper
             for paper in papers
         }
@@ -490,8 +574,7 @@ def reprocess_from_cache(
                             pid = record.get("paper_id", "unknown")
                             all_warnings.extend({**w, "paper_id": pid} for w in record["warnings"])
                         if record.get("sections"):
-                            _fp_out.write(json.dumps(record, ensure_ascii=False) + "\n")
-                            _fp_out.flush()
+                            detected_records.append(record)
                             stats["papers_with_detections"] += 1
                             for sec in record["sections"].values():
                                 stats["total_detections"] += len(sec.get("detected_languages", []))
@@ -513,18 +596,48 @@ def reprocess_from_cache(
                         stats["failed_papers"] += 1
                     pbar.update(1)
     finally:
-        executor.shutdown(wait=False)
-        _fp_out.close()
+        # Write here, in finally, BEFORE executor.shutdown() — not after it. Whenever
+        # docling runs inside one of this executor's worker threads (currently: only
+        # when force_pdf_reextract is set — see _reprocess_single_paper), its PyTorch
+        # C++ thread pools reliably SIGSEGV during native cleanup shortly after
+        # executor.shutdown() tears the pool down (see the os._exit(0) comment at the
+        # bottom of this file — process_papers() has the identical risk whenever its
+        # ordinary PDF fallback runs docling, unrelated to this flag). That crash
+        # bypasses Python's exception handling entirely, so nothing here can
+        # guarantee these writes complete — but empirically the race is won or lost
+        # within this handful of writes: sometimes none of them land, sometimes only
+        # the first. Calling shutdown() last means the crash-prone window doesn't
+        # even open until every write below has already completed, instead of racing
+        # them against it. The inner try/finally still guarantees shutdown() runs
+        # even if a write raises (e.g. disk full) — this reordering trades away
+        # nothing on the ordinary exception path, only reduces exposure to the
+        # SIGSEGV, which no ordering can catch.
+        #
+        # Sort by paper_id first: ThreadPoolExecutor completion order is
+        # nondeterministic run-to-run, so writing in completion order would jumble
+        # records even when nothing about the actual detections changed — a noisy
+        # diff (and a needless commit) for a no-op rerun. Merge in preserved_* so
+        # this write lands directly at the real, final destination in one shot
+        # rather than a temp file some separate, later step would need to fold in —
+        # see the docstring above for why that distinction matters.
+        try:
+            fresh_lines = [json.dumps(r, ensure_ascii=False) for r in detected_records]
+            merged_lines = sorted(preserved_lines + fresh_lines, key=lambda l: json.loads(l).get("paper_id") or "")
+            _atomic_write_text(output_jsonl, "".join(line + "\n" for line in merged_lines))
 
-        if all_warnings:
-            with warnings_file.open("w", encoding="utf-8") as fp:
-                json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
-            print(f"Warnings saved to {warnings_file}")
+            no_detection_records.sort(key=lambda r: r.get("paper_id") or "")
+            _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
+            _atomic_write_text(_nd_path, json.dumps(no_detection_records, ensure_ascii=False, indent=2))
+            print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
 
-        _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
-        with _nd_path.open("w", encoding="utf-8") as fp:
-            json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
-        print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
+            all_warnings.sort(key=lambda w: w.get("paper_id") or "")
+            if all_warnings:
+                _atomic_write_text(warnings_file, json.dumps(all_warnings, ensure_ascii=False, indent=2))
+                print(f"Warnings saved to {warnings_file}")
+            elif warnings_file.exists():
+                warnings_file.unlink()
+        finally:
+            executor.shutdown(wait=False)
 
     print(f"\nTotal papers:            {stats['total_papers']}")
     print(f"Papers with detections:  {stats['papers_with_detections']}")
@@ -654,19 +767,33 @@ def process_papers(
                         stats["failed_papers"] += 1
                     pbar.update(1)
     finally:
-        # Don't block on stuck threads — daemon threads will be reaped when the process exits
-        executor.shutdown(wait=False)
-        _fp_out.close()
+        # Write here, in finally, BEFORE executor.shutdown() — not after it (and
+        # don't block on stuck threads either way — daemon threads are reaped when
+        # the process exits). Detected-paper records are already safe regardless:
+        # they're flushed to _fp_out per-record inside the loop above, not batched.
+        # warnings_file/no_detections_file are batched here though, and whenever
+        # docling runs inside one of this executor's worker threads — the ordinary
+        # PDF-fallback path above, whenever no_pdf is False and HTML is unavailable —
+        # its PyTorch C++ thread pools reliably SIGSEGV during native cleanup shortly
+        # after executor.shutdown() tears the pool down (see the os._exit(0) comment
+        # at the bottom of this file, and the identical reorder + explanation in
+        # reprocess_from_cache above). Calling shutdown() last means that crash-prone
+        # window doesn't open until these writes are already done, instead of racing
+        # them against it. The inner try/finally still guarantees shutdown() (and
+        # closing _fp_out) run even if a write raises for an ordinary reason (e.g.
+        # disk full) — this reordering only reduces exposure to the SIGSEGV, which
+        # no ordering can catch.
+        try:
+            if all_warnings:
+                _atomic_write_text(warnings_file, json.dumps(all_warnings, ensure_ascii=False, indent=2))
+                print(f"Warnings saved to {warnings_file}")
 
-        if all_warnings:
-            with warnings_file.open("w", encoding="utf-8") as fp:
-                json.dump(all_warnings, fp, ensure_ascii=False, indent=2)
-            print(f"Warnings saved to {warnings_file}")
-
-        _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
-        with _nd_path.open("w", encoding="utf-8") as fp:
-            json.dump(no_detection_records, fp, ensure_ascii=False, indent=2)
-        print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
+            _nd_path = no_detections_file or output_jsonl.parent / output_jsonl.name.replace("_detected.jsonl", "_no_detections.json")
+            _atomic_write_text(_nd_path, json.dumps(no_detection_records, ensure_ascii=False, indent=2))
+            print(f"No-detection records: {len(no_detection_records)} → {_nd_path}")
+        finally:
+            executor.shutdown(wait=False)
+            _fp_out.close()
 
     print(f"\nTotal papers:            {stats['total_papers']}")
     print(f"Papers with detections:  {stats['papers_with_detections']}")
@@ -681,6 +808,18 @@ def process_papers(
 # ---------------------------------------------------------------------------
 # CLI entry point
 # ---------------------------------------------------------------------------
+
+def _plain_run_would_clobber_existing_output(detected_path: Path) -> bool:
+    """True when a plain (non-retry, non-reprocess) run would truncate real data.
+
+    process_papers() opens output_jsonl in "w" mode, which truncates immediately
+    on open — safe when run_langtrend_pipeline.py is the caller (it already skips
+    this branch via its own detected_path.exists() check), but a direct
+    `python process_papers.py --input ...` invocation against an already-populated
+    week has no such guard and would wipe existing results.
+    """
+    return detected_path.exists() and detected_path.stat().st_size > 0
+
 
 def _needs_retry(
     p: dict,
@@ -783,6 +922,31 @@ def main() -> None:
         ),
     )
     parser.add_argument(
+        "--pdf-only",
+        action="store_true",
+        help=(
+            "With --reprocess-cache, only re-run papers that have a cached PDF extraction "
+            "(i.e. papers whose detections came from the PDF fallback), instead of every "
+            "paper in the week. Use after a change to PDF-only logic (pdf_processor.py, "
+            "trim_pdf_text_to_body, etc.) — abstract/HTML detections are untouched, so "
+            "reprocessing them again would be wasted work. Results are merged into the "
+            "existing detected/warnings/no-detections files; papers without a PDF cache "
+            "are left exactly as they are."
+        ),
+    )
+    parser.add_argument(
+        "--force-pdf-reextract",
+        action="store_true",
+        help=(
+            "With --reprocess-cache --pdf-only, re-run docling on the underlying PDF "
+            "instead of reusing pdf_cache's stored text. Reuses the local copy under "
+            "data/raw/pdfs if present (no re-download), but does re-run extraction — "
+            "needed because a fix to the docling markdown-trimming step only affects "
+            "papers whose text is freshly extracted; the cached 'text' field already "
+            "reflects whatever trimming happened at original extraction time."
+        ),
+    )
+    parser.add_argument(
         "--retry-missing",
         action="store_true",
         help=(
@@ -833,7 +997,75 @@ def main() -> None:
     html_cache_dir = output_dir / "html_cache"
     pdf_cache_dir = output_dir / "pdf_cache"
 
-    if args.reprocess_cache:
+    if args.reprocess_cache and args.pdf_only:
+        pdf_cached_ids = {p.stem for p in pdf_cache_dir.glob("*.json")}
+        subset = [p for p in papers if str(p.get("id", "")).split("/")[-1] in pdf_cached_ids]
+        print(
+            f"--reprocess-cache --pdf-only: {len(subset)}/{len(papers)} paper(s) have a "
+            f"cached PDF extraction in {pdf_cache_dir}; reprocessing those only"
+        )
+        if not subset:
+            print("--pdf-only: nothing to do.")
+            sys.exit(0)
+
+        detected_path = output_dir / f"{stem}_detected.jsonl"
+        warnings_path = output_dir / f"{stem}_warnings.json"
+        no_det_path   = output_dir / f"{stem}_no_detections.json"
+
+        reprocessed_ids = {str(p.get("id", "")) for p in subset}
+
+        # Records for every paper NOT in this subset — untouched, but still passed
+        # in so reprocess_from_cache can write the complete, final file directly in
+        # one shot instead of writing a temp file for a separate merge step here to
+        # fold in afterward. That distinction matters for --force-pdf-reextract: see
+        # the docstring on reprocess_from_cache for why.
+        preserved_detected_lines = []
+        if detected_path.exists():
+            for line in detected_path.read_text(encoding="utf-8").splitlines():
+                if line.strip() and json.loads(line).get("paper_id") not in reprocessed_ids:
+                    preserved_detected_lines.append(line)
+
+        preserved_no_detection_records = []
+        if no_det_path.exists():
+            try:
+                preserved_no_detection_records = [
+                    r for r in json.loads(no_det_path.read_text(encoding="utf-8"))
+                    if r.get("paper_id") not in reprocessed_ids
+                ]
+            except (json.JSONDecodeError, KeyError):
+                pass
+
+        preserved_warnings = []
+        if warnings_path.exists():
+            try:
+                preserved_warnings = [
+                    w for w in json.loads(warnings_path.read_text(encoding="utf-8"))
+                    if w.get("paper_id") not in reprocessed_ids
+                ]
+            except (json.JSONDecodeError, KeyError):
+                pass
+
+        if args.force_pdf_reextract:
+            print(f"--force-pdf-reextract: re-running docling on {len(subset)} paper(s) (reusing local PDFs where present)")
+        reprocess_from_cache(
+            papers=subset,
+            lang_classes=lang_classes,
+            languages_to_ignore=languages_to_ignore,
+            possible_false_positive_languages=possible_false_positive_languages,
+            output_jsonl=detected_path,
+            warnings_file=warnings_path,
+            html_cache_dir=html_cache_dir,
+            pdf_cache_dir=pdf_cache_dir,
+            no_detections_file=no_det_path,
+            max_workers=args.workers,
+            force_pdf_reextract=args.force_pdf_reextract,
+            pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
+            preserved_detected_lines=preserved_detected_lines,
+            preserved_no_detection_records=preserved_no_detection_records,
+            preserved_warnings=preserved_warnings,
+        )
+        print(f"Merged: kept {len(preserved_detected_lines)} unchanged detection record(s), reprocessed {len(subset)} paper(s), into {detected_path}")
+    elif args.reprocess_cache:
         print(f"--reprocess-cache: re-running cleaning+detection on cached extractions in {output_dir}")
         reprocess_from_cache(
             papers=papers,
@@ -898,9 +1130,7 @@ def main() -> None:
 
         # Re-initialize detected_path with existing records (clean deduplication),
         # then process_papers() will append new records directly as each paper completes.
-        with detected_path.open("w", encoding="utf-8") as fp:
-            for line in existing_lines:
-                fp.write(line + "\n")
+        _atomic_write_text(detected_path, "".join(line + "\n" for line in existing_lines))
 
         import tempfile
         with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
@@ -930,9 +1160,7 @@ def main() -> None:
         last_index: dict[str, int] = {}
         for i, line in enumerate(all_lines):
             last_index[json.loads(line).get("paper_id", "")] = i
-        with detected_path.open("w", encoding="utf-8") as fp:
-            for i in sorted(last_index.values()):
-                fp.write(all_lines[i] + "\n")
+        _atomic_write_text(detected_path, "".join(all_lines[i] + "\n" for i in sorted(last_index.values())))
         appended = sum(1 for pid in last_index if pid not in existing_by_id)
         replaced = sum(1 for pid, idx in last_index.items() if pid in existing_by_id and idx >= existing_count)
         print(f"Merged {appended} new + {replaced} upgraded detection record(s) into {detected_path}")
@@ -941,8 +1169,7 @@ def main() -> None:
         new_warnings = json.loads(tmp_warnings.read_text(encoding="utf-8")) if tmp_warnings.stat().st_size > 2 else []
         if new_warnings:
             existing_warnings = json.loads(warnings_path.read_text(encoding="utf-8")) if warnings_path.exists() else []
-            with warnings_path.open("w", encoding="utf-8") as fp:
-                json.dump(existing_warnings + new_warnings, fp, ensure_ascii=False, indent=2)
+            _atomic_write_text(warnings_path, json.dumps(existing_warnings + new_warnings, ensure_ascii=False, indent=2))
             print(f"Appended {len(new_warnings)} warning(s) to {warnings_path}")
 
         # Merge no-detections
@@ -964,19 +1191,28 @@ def main() -> None:
         # Append genuinely new no-det records not seen before
         existing_nd_ids = {r.get("paper_id") for r in existing_no_det}
         merged_no_det += [r for r in new_no_det if r.get("paper_id") not in existing_nd_ids and r.get("paper_id") not in now_detected_ids]
-        with no_det_path.open("w", encoding="utf-8") as fp:
-            json.dump(merged_no_det, fp, ensure_ascii=False, indent=2)
+        _atomic_write_text(no_det_path, json.dumps(merged_no_det, ensure_ascii=False, indent=2))
         print(f"No-detections file updated: {len(merged_no_det)} total record(s) → {no_det_path}")
 
         for tmp_path in (tmp_warnings, tmp_no_det):
             tmp_path.unlink(missing_ok=True)
     else:
+        plain_detected_path = output_dir / f"{stem}_detected.jsonl"
+        if _plain_run_would_clobber_existing_output(plain_detected_path):
+            print(
+                f"Error: {plain_detected_path} already has content — a plain run would "
+                f"truncate it and rebuild from scratch, discarding existing detections.\n"
+                f"Use --retry-missing to fill in missing papers, or --reprocess-cache to "
+                f"re-run detection on cached text, instead.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
         process_papers(
             papers=papers,
             lang_classes=lang_classes,
             languages_to_ignore=languages_to_ignore,
             possible_false_positive_languages=possible_false_positive_languages,
-            output_jsonl=output_dir / f"{stem}_detected.jsonl",
+            output_jsonl=plain_detected_path,
             warnings_file=output_dir / f"{stem}_warnings.json",
             pdf_dir=Path(__file__).parent.parent / "data/raw/pdfs",
             html_cache_dir=html_cache_dir,

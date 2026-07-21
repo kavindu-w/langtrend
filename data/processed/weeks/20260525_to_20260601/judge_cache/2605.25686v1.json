@@ -1,201 +1,209 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.25686v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-11T15:14:36.530554+00:00",
+  "judged_at": "2026-07-20T11:32:10.920257+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 9945,
+  "context_chars": 11973,
   "verdicts": {
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Miami refers to the city where the artist was raised, not a human language; therefore it is a false positive."
+    },
+    "Zay": {
+      "verdict": "false_positive",
+      "reason": "Zay refers to the Jean Zay HPC cluster used for data generation, not a human language; therefore it is a false positive."
+    },
     "Gujarati": {
       "verdict": "studied",
-      "reason": "the snippets list Gujarati in a table of target languages and note its inclusion in experiments (e.g., lacking parsers), indicating the paper evaluates translation for this language, so studied"
+      "reason": "Gujarati is listed as a target language in the experiment tables and evaluation metrics, indicating the paper conducts translation experiments for Gujarati; therefore it is studied."
     },
     "Kannada": {
       "verdict": "studied",
-      "reason": "the snippets list Kannada in a table of target languages and note its inclusion in experiments, indicating the paper evaluates translation for this language, so studied"
+      "reason": "Kannada appears as a target language in the experiment tables and is noted among languages lacking parsers, showing it is used in the paper's experiments; therefore it is studied."
     },
     "Malayalam": {
       "verdict": "studied",
-      "reason": "the snippets list Malayalam in a table of target languages and note its inclusion in experiments, indicating the paper evaluates translation for this language, so studied"
+      "reason": "Malayalam is included in the target‑language tables and discussed in the context of missing parsers, meaning the paper evaluates translation for Malayalam; therefore it is studied."
     },
     "Marathi": {
       "verdict": "studied",
-      "reason": "the snippets list Marathi in a table of target languages, showing it is part of the experimental setup, so studied"
+      "reason": "Marathi is listed among the target languages in the experimental setup, indicating it is part of the translation evaluation; therefore it is studied."
     },
     "Swahili": {
       "verdict": "studied",
-      "reason": "the snippets list Swahili in a table of target languages and mention its inclusion in experiments, indicating the paper evaluates translation for this language, so studied"
+      "reason": "Swahili appears in the target‑language tables and performance discussion, showing the paper evaluates translation into Swahili; therefore it is studied."
     },
     "Telugu": {
       "verdict": "studied",
-      "reason": "the snippets list Telugu in a table of target languages, showing it is part of the experimental setup, so studied"
+      "reason": "Telugu is present in the target‑language tables, indicating it is used in the translation experiments; therefore it is studied."
     },
     "Tibetan": {
-      "verdict": "false_positive",
-      "reason": "the snippet only uses the word as part of the term 'Sino‑Tibetan' referring to a language family, not the Tibetan language itself, so false_positive"
+      "verdict": "mentioned_only",
+      "reason": "Tibetan is mentioned only as part of the Sino‑Tibetan language family to describe typological diversity, not as a language evaluated in the experiments; therefore it is mentioned_only."
     },
     "Zulu": {
       "verdict": "studied",
-      "reason": "the snippets list Zulu in a table of target languages and note its inclusion in experiments, indicating the paper evaluates translation for this language, so studied"
+      "reason": "Zulu is listed as a target language and discussed in performance degradation, indicating the paper evaluates translation for Zulu; therefore it is studied."
     },
     "Bengali": {
       "verdict": "studied",
-      "reason": "the snippets list Bengali in a table of target languages and note its inclusion in experiments, indicating the paper evaluates translation for this language, so studied"
+      "reason": "Bengali appears in the target‑language tables and is noted among languages lacking parsers, showing it is part of the experimental evaluation; therefore it is studied."
     },
     "Bulgarian": {
       "verdict": "studied",
-      "reason": "the snippets list Bulgarian in a table of target languages, showing it is part of the experimental setup, so studied"
+      "reason": "Bulgarian is included in the target‑language tables, indicating it is used in the translation experiments; therefore it is studied."
     },
     "Croatian": {
       "verdict": "studied",
-      "reason": "the snippets list Croatian in a table of target languages, showing it is part of the experimental setup, so studied"
+      "reason": "The snippet lists Croatian (hr HR) among the target languages and locales represented in the experiments, indicating it is used for evaluation, so it is studied"
     },
     "Danish": {
       "verdict": "studied",
-      "reason": "the snippets list Danish in a table of target languages, showing it is part of the experimental setup, so studied"
+      "reason": "Danish (da DK) appears in the table of target languages used in the experiments, meaning the paper evaluates translation for this language, so it is studied"
     },
     "Estonian": {
       "verdict": "studied",
-      "reason": "The snippet lists 'Estonian (Estonia)' among target languages used in the experiments, showing the paper evaluates translation for Estonian, so it is studied"
+      "reason": "Estonian (et EE) is included in the experimental target-language table, showing it is part of the evaluation, thus it is studied"
     },
     "Greek": {
       "verdict": "studied",
-      "reason": "The snippet includes 'Greek (Greece)' in the table of target languages and mentions Greek-specific prefix tokens for NLLB models, indicating experiments on Greek, so it is studied"
+      "reason": "Greek (el GR) is listed among the target languages in the experiments, indicating the paper works with this language, so it is studied"
     },
     "Hebrew": {
       "verdict": "studied",
-      "reason": "The snippet shows 'Hebrew (Israel)' as a target language in the experiments, meaning the paper evaluates translation for Hebrew, so it is studied"
+      "reason": "Hebrew (he IL) appears in the table of target languages used for evaluation, meaning the paper studies this language"
     },
     "Hindi": {
       "verdict": "studied",
-      "reason": "The snippet lists 'Hindi (India)' among the target languages, implying the paper includes Hindi in its translation experiments, so it is studied"
+      "reason": "Hindi (hi IN) is present in the experimental target-language list, showing it is evaluated, thus it is studied"
     },
     "Latvian": {
       "verdict": "studied",
-      "reason": "The snippet presents 'Latvian (Latvia)' in the target language table, indicating Latvian is part of the experimental setup, so it is studied"
+      "reason": "Latvian (lv LV) is included in the list of target languages and locales used in the experiments, so the paper studies it"
     },
     "Lithuanian": {
       "verdict": "studied",
-      "reason": "The snippet includes 'Lithuanian (Lithuania)' among the target languages, showing the paper conducts experiments on Lithuanian, so it is studied"
+      "reason": "Lithuanian (lt LT) appears in the table of target languages for the experiments, indicating it is part of the study, thus studied"
     },
     "Punjabi": {
       "verdict": "studied",
-      "reason": "The snippet mentions Punjabi (India) in the list of target languages and notes the lack of parsers for Punjabi, confirming its inclusion in the experiments, so it is studied"
+      "reason": "Punjabi (pa IN) is listed among the target languages evaluated in the experiments, so it is studied"
     },
     "Slovak": {
       "verdict": "studied",
-      "reason": "The snippet lists 'Slovak (Slovakia)' as a target language, indicating the paper evaluates translation for Slovak, so it is studied"
+      "reason": "Slovak (sk SK) is included in the experimental target-language table, meaning the paper evaluates translation for this language, thus studied"
     },
     "Tamil": {
       "verdict": "studied",
-      "reason": "The snippet shows 'Tamil (India)' in the target language table, meaning Tamil is part of the experimental evaluation, so it is studied"
+      "reason": "Tamil (ta IN) appears in the list of target languages used in the experiments, indicating it is studied"
     },
     "Thai": {
       "verdict": "studied",
-      "reason": "The snippet includes 'Thai (Thailand)' among target languages and discusses Thai in the context of missing parsers, confirming its experimental use, so it is studied"
+      "reason": "Thai (th TH) is present in the table of target languages and locales represented in the experiments, so it is studied"
     },
     "Urdu": {
       "verdict": "studied",
-      "reason": "The snippet lists 'Urdu (Pakistan)' as a target language, indicating the paper includes Urdu in its translation experiments, so it is studied"
+      "reason": "The snippets include Urdu in a table of target languages used in the experiments, showing the paper evaluates translation for Urdu → studied"
     },
     "Catalan": {
       "verdict": "studied",
-      "reason": "The snippet contains 'Catalan (Spain)' in the target language table and references Catalan locale in LLM inference, showing Catalan is used in experiments, so it is studied"
+      "reason": "Catalan appears in the listed target languages for the experiments, indicating it is evaluated in the study → studied"
     },
     "Czech": {
       "verdict": "studied",
-      "reason": "The snippet lists Czech in a table of target languages/locales used in the experiments, showing it is a translation target evaluated in the study, so it is studied."
+      "reason": "Czech is listed among the target languages in the experimental setup, meaning the paper conducts translation experiments on Czech → studied"
     },
     "Dutch": {
       "verdict": "studied",
-      "reason": "The snippet includes Dutch in the table of target languages/locales used in the experiments, indicating the paper evaluates translation for Dutch, thus it is studied."
+      "reason": "Dutch is present in the table of target languages used in the experiments, implying the paper studies translation for Dutch → studied"
     },
     "Finnish": {
       "verdict": "studied",
-      "reason": "Finnish appears in the table of target languages/locales used in the experiments, meaning the paper evaluates translation for Finnish, so it is studied."
+      "reason": "Finnish is included in the list of target languages evaluated in the experiments, so the paper studies Finnish translation → studied"
     },
     "Hungarian": {
       "verdict": "studied",
-      "reason": "Hungarian is listed among target languages/locales in the experimental setup table, showing the paper evaluates translation for Hungarian, thus it is studied."
+      "reason": "Hungarian appears in the experimental target-language table, indicating it is part of the study's translation evaluation → studied"
     },
     "Indonesian": {
       "verdict": "studied",
-      "reason": "Indonesian appears in the table of target languages/locales used in the experiments, indicating the paper evaluates translation for Indonesian, so it is studied."
+      "reason": "Indonesian is listed among the target languages used in the experiments, showing the paper evaluates Indonesian translation → studied"
     },
     "Italian": {
       "verdict": "studied",
-      "reason": "Italian is included in the table of target languages/locales used in the experiments, showing the paper evaluates translation for Italian, thus it is studied."
+      "reason": "Italian is mentioned both in a prompt example and in the target-language table, confirming it is used in the experimental evaluation → studied"
     },
     "Korean": {
       "verdict": "studied",
-      "reason": "Korean is listed among target languages/locales in the experimental table, indicating the paper evaluates translation for Korean, so it is studied."
+      "reason": "Korean is included in the table of target languages for the experiments, indicating the paper studies Korean translation → studied"
     },
     "Norwegian": {
       "verdict": "studied",
-      "reason": "Norwegian appears in the table of target languages/locales used in the experiments, showing the paper evaluates translation for Norwegian, thus it is studied."
+      "reason": "Norwegian appears in the list of target languages used in the experiments, meaning the paper evaluates translation for Norwegian → studied"
     },
     "Polish": {
       "verdict": "studied",
-      "reason": "Polish is included in the table of target languages/locales used in the experiments, indicating the paper evaluates translation for Polish, so it is studied."
+      "reason": "Polish is listed among the target languages in the experimental setup, showing the paper conducts translation experiments on Polish → studied"
     },
     "Portuguese": {
       "verdict": "studied",
-      "reason": "Portuguese appears in the table of target languages/locales used in the experiments (both Brazil and Portugal variants), showing the paper evaluates translation for Portuguese, thus it is studied."
+      "reason": "Portuguese is present in the target-language table (both Brazil and Portugal variants), indicating it is part of the study's experiments → studied"
     },
     "Romanian": {
       "verdict": "studied",
-      "reason": "Romanian is listed among target languages/locales in the experimental setup table, indicating the paper evaluates translation for Romanian, so it is studied."
+      "reason": "Romanian appears in the table of target languages and is listed among the languages evaluated in the experiments, indicating the paper evaluates translations for Romanian"
     },
     "Russian": {
       "verdict": "studied",
-      "reason": "Russian appears in the table of target languages/locales used in the experiments, showing the paper evaluates translation for Russian, thus it is studied."
+      "reason": "Russian is listed in the target languages table and discussed in performance evaluations, showing the paper includes Russian in its translation experiments"
     },
     "Serbian": {
       "verdict": "studied",
-      "reason": "The snippet lists Serbian as a target language in the experimental table, showing it is used in the translation experiments, so the language is studied"
+      "reason": "Serbian is included in the extensive list of target languages and is part of the experimental evaluation, meaning the paper studies Serbian translations"
     },
     "Swedish": {
       "verdict": "studied",
-      "reason": "Swedish appears in the table of target languages and locales, indicating it is part of the experiments, so the language is studied"
+      "reason": "Swedish is mentioned in the target‑language table and in performance discussion, indicating it is one of the languages evaluated in the study"
     },
     "Turkish": {
       "verdict": "studied",
-      "reason": "Turkish is listed among target languages and also in a validation dataset description, meaning it is used in the study, so the language is studied"
+      "reason": "Turkish appears in the target‑language list and in the description of the validation dataset, showing the paper conducts experiments on Turkish translations"
     },
     "Ukrainian": {
       "verdict": "studied",
-      "reason": "Ukrainian is included in the table of target languages and locales, showing it is part of the experimental setup, so the language is studied"
+      "reason": "Ukrainian is listed among the target languages used in the experiments, implying the paper evaluates translation performance for Ukrainian"
     },
     "Vietnamese": {
       "verdict": "studied",
-      "reason": "Vietnamese appears in the target‑language table, indicating it is used in the translation experiments, so the language is studied"
+      "reason": "Vietnamese is included in the table of target languages and is part of the experimental setup, so the paper studies Vietnamese translations"
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "Arabic is listed as a target language (e.g., Arabic (Egypt), Arabic (Saudi Arabia)) and in the validation dataset, meaning it is used in the study, so the language is studied"
+      "reason": "Arabic is present in the target‑language table and in the validation dataset composition, indicating the paper evaluates Arabic translations"
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "Chinese (Mandarin) is included in the target‑language table and validation set, showing it is part of the experiments, so the language is studied"
+      "reason": "Chinese (Mandarin) is listed among the target languages and appears in the experimental coverage, meaning the paper studies Chinese translations"
     },
     "English": {
       "verdict": "studied",
-      "reason": "English is the source language and also mentioned in experimental descriptions, indicating it is central to the study, so the language is studied"
+      "reason": "English is used as the source language for all translation tasks and is central to the experimental design, so the paper evaluates translations from English, qualifying as studied"
     },
     "French": {
       "verdict": "studied",
-      "reason": "French appears in the validation dataset and in a locale‑specific experiment (French of France), demonstrating its use in the experiments, so the language is studied"
+      "reason": "French is included in the target‑language list and in the validation dataset, showing the paper conducts experiments on French translations"
     },
     "German": {
       "verdict": "studied",
-      "reason": "German is listed among target languages and referenced in historical discussion, confirming its inclusion in the experiments, so the language is studied"
+      "reason": "German appears in the target‑language table and performance discussion, indicating the paper evaluates German translations as part of its experiments"
     },
     "Japanese": {
       "verdict": "studied",
-      "reason": "Japanese is included in the validation dataset and target‑language table, indicating it is used in the study, so the language is studied"
+      "reason": "The snippets include Japanese in a table of target languages and locales used in the experiments (e.g., \"ja JP Japanese (Japan)\"), indicating the paper evaluates translation for Japanese, so it is stu"
     },
     "Spanish": {
       "verdict": "studied",
-      "reason": "Spanish is listed in the target‑language table and validation dataset, showing it is part of the experimental evaluation, so the language is studied"
+      "reason": "Spanish appears in the experimental language list (e.g., \"es MX Spanish (Mexico)\") and in performance discussion, showing the paper evaluates translation for Spanish, thus it is studied."
     }
   }
 }

@@ -12,7 +12,10 @@ tests/
 ├── test_process_papers.py        scripts/process_papers.py
 ├── test_build_manifest.py        scripts/build_manifest.py
 ├── test_extract_language_data.py scripts/extract_language_data.py
-└── test_update_readme_stats.py   scripts/update_readme_stats.py
+├── test_update_readme_stats.py   scripts/update_readme_stats.py
+├── test_judge.py                 langtrend/judge.py, langtrend/llm_client.py
+├── test_judge_languages.py       scripts/judge_languages.py
+└── test_judge_model_eval.py      langtrend/judge.py (live model-swap acceptance suite)
 ```
 
 | Test file | Covers |
@@ -26,6 +29,9 @@ tests/
 | `test_build_manifest.py` | Manifest assembly from cached detections (`scripts/build_manifest.py`). |
 | `test_extract_language_data.py` | Language taxonomy extraction from the submodule (`scripts/extract_language_data.py`). |
 | `test_update_readme_stats.py` | README stats table, badge JSON, and `weekly_summary.csv` generation (`scripts/update_readme_stats.py`). |
+| `test_judge.py` | Context assembly, prompt building, verdict parsing, quota/retry handling — no network (`langtrend/judge.py`, `langtrend/llm_client.py`). |
+| `test_judge_languages.py` | Judge CLI orchestration (`scripts/judge_languages.py`). |
+| `test_judge_model_eval.py` | Hand-written, synthetic ground-truth cases sent to a **live** LLM endpoint — skipped by default, opt in with `RUN_JUDGE_MODEL_EVAL=1`. Run this when swapping the judge provider/model to check the candidate still gets the tricky cases (acronym backronyms, tool-name collisions, script-vs-language, etc.) right. |
 
 Naming mirrors what's under test — `test_<module_or_script>.py` for each file in `langtrend/` or `scripts/`. Tests import scripts directly (`sys.path.insert(0, ".../scripts"); import build_manifest as bm`) rather than through the package, matching how each script is actually run from the command line.
 

@@ -1,29 +1,37 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.12242v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-13T16:24:18.159711+00:00",
+  "judged_at": "2026-07-20T11:10:32.613156+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 5236,
+  "context_chars": 5744,
   "verdicts": {
-    "Marathi": {
-      "verdict": "studied",
-      "reason": "The snippets refer to Marathi as one of the three Indian languages evaluated in the experiments, indicating the paper builds and tests models for it"
+    "Kami": {
+      "verdict": "false_positive",
+      "reason": "Kami appears only as part of a word example (jami → aami) rather than referring to the Kami language, so false_positive"
     },
-    "Bengali": {
-      "verdict": "studied",
-      "reason": "The snippets mention Bengali as a target language for evaluation and improvement, showing the paper conducts experiments on it"
-    },
-    "Hindi": {
-      "verdict": "studied",
-      "reason": "The snippets discuss Hindi as a language on which the proposed method is evaluated, implying the paper works with Hindi data"
+    "Kela": {
+      "verdict": "false_positive",
+      "reason": "Kela appears only within a word example (vet kami kela) and not as a language name, so false_positive"
     },
     "Portuguese": {
-      "verdict": "mentioned_only",
-      "reason": "The snippet cites Portuguese only as an example language for zero- or few-shot prompting experiments, without building resources or models for it"
+      "verdict": "studied",
+      "reason": "Portuguese refers to the language of debates used in prompt-based experiments evaluating LLM disfluency removal, indicating the paper studies Portuguese, so studied"
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The snippet references English in the context of prior baseline work and related studies, not as a language the paper directly experiments on"
+      "reason": "English is mentioned only in background and related‑work discussion without any experiments on English data, so mentioned_only"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "Marathi is one of the three Indian languages on which the paper conducts experiments and reports results, so studied"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is one of the three Indian languages on which the paper conducts experiments and reports results, so studied"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is one of the three Indian languages on which the paper conducts experiments and reports results, so studied"
     }
   }
 }

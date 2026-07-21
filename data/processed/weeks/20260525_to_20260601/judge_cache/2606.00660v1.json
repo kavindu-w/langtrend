@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.00660v1",
+  "judge_model": "gpt-oss-120b",
+  "judged_at": "2026-07-20T11:39:47.038848+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4433,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "The snippets use \"Bo˙ zena Muszy´ nska\" as a personal name, not referring to the Bo language"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "The snippet \"Pol. J. Environ. Stud.\" is a journal abbreviation, not a reference to the Pol language"
+    },
+    "Mba": {
+      "verdict": "false_positive",
+      "reason": "The occurrences are the degree abbreviation \"MBA\" (Master of Business Administration), not the Mba language"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions \"100 Chinese information‑seeking questions\" and uses the original Chinese questions, indicating the language is used as data but not studied or built for"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to translating a question \"into English for readability\", merely using English as a translation target, not studying the language"
+    }
+  }
+}

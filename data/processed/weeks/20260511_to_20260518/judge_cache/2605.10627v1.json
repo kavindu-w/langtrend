@@ -1,17 +1,25 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.10627v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-13T16:44:18.363087+00:00",
+  "judged_at": "2026-07-20T11:06:06.566199+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3297,
+  "context_chars": 4390,
   "verdicts": {
+    "Berta": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Asteroid 187 Lam- berta', a celestial object name, not the Berta human language, so it's a false positive"
+    },
+    "Chin": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists 'chin' as a body part in a taxonomy, not the Chin human language, so it's a false positive"
+    },
     "Mina": {
       "verdict": "false_positive",
-      "reason": "The snippet refers to \"MINA algorithms\" (an algorithm name) rather than the Mina human language, so it is a false positive."
+      "reason": "The snippet mentions 'MINA algorithms' as a technical term, not the Mina human language, so it's a false positive"
     },
     "English": {
       "verdict": "studied",
-      "reason": "The snippets refer to the English language as the language of the coreference datasets and resources used in experiments, indicating the paper conducts experiments on English data, thus it is studied."
+      "reason": "The snippets show the paper conducts experiments on English coreference datasets, uses English CNER resources, and evaluates its framework on English data, indicating the language is central to the wo"
     }
   }
 }

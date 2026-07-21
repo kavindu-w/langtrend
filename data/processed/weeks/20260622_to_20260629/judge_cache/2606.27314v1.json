@@ -1,17 +1,21 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.27314v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-05T14:31:21.327368+00:00",
+  "judged_at": "2026-07-20T13:09:45.503917+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3387,
+  "context_chars": 3895,
   "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"Pig-Latin\" as an example of a phonological encoding rule, referring to a language game rather than the Latin language itself, so false_positive"
+    },
     "Chinese": {
       "verdict": "mentioned_only",
-      "reason": "The snippet refers to Chinese as the language of prior work on social media encoding, not as data or resources used in this paper; therefore it is only mentioned."
+      "reason": "The snippet cites prior work analyzing encoding in Chinese social media, mentioning the Chinese language only in related work without building resources or experiments for it, so mentioned_only"
     },
     "English": {
       "verdict": "studied",
-      "reason": "The snippet refers to English as the language of the collected posts and the focus of the experiments, indicating the paper uses and evaluates on English data."
+      "reason": "The snippets describe collecting English-language posts, focusing the dataset and evaluations on English, indicating the paper studies English, so studied"
     }
   }
 }

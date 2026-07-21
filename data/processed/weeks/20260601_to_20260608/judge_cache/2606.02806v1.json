@@ -1,25 +1,29 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.02806v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-10T16:04:50.608010+00:00",
+  "judged_at": "2026-07-20T11:43:25.162184+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3708,
+  "context_chars": 4220,
   "verdicts": {
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "the match is the fragment 'wa-' from the word 'water' in the English prose excerpt, not a reference to the Wa language"
+    },
     "Sanskrit": {
       "verdict": "mentioned_only",
-      "reason": "Sanskrit refers to the language influence and prior work on Sanskrit poetry conversion, but the paper does not experiment on Sanskrit; thus mentioned_only"
+      "reason": "the snippets refer to Sanskrit as a related language influencing source texts and prior work, but the paper does not create resources or evaluate models for Sanskrit"
     },
     "Persian": {
       "verdict": "mentioned_only",
-      "reason": "Persian refers to prior work on Persian ghazal prose generation, not used in the paper's experiments; thus mentioned_only"
+      "reason": "the snippet mentions Persian ghazal couplets only in the context of related work, with no experiments or resources built for Persian"
     },
     "Telugu": {
       "verdict": "studied",
-      "reason": "Telugu refers to the source language of the classical poems and the target language of translations evaluated in the study; thus studied"
+      "reason": "the snippets describe a dataset of Telugu poems and evaluate LLMs generating Telugu prose translations, showing the paper studies Telugu"
     },
     "English": {
       "verdict": "studied",
-      "reason": "English refers to the target language of prose translations evaluated in the experiments; thus studied"
+      "reason": "the snippets discuss English prose translations and evaluation alongside Telugu, indicating the paper studies English as a target language"
     }
   }
 }

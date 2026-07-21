@@ -1,73 +1,113 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.12748v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-08T07:22:39.455626+00:00",
+  "judged_at": "2026-07-20T12:53:04.683910+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 10851,
+  "context_chars": 11599,
   "verdicts": {
     "Arawak": {
       "verdict": "mentioned_only",
-      "reason": "Arawak is referenced as the language family of Tariana nouns, but the paper does not analyze or build resources for it; it is only mentioned."
+      "reason": "The snippet refers to Tariana (Arawak) nouns as an example of suppletive lexemes, not as a language being studied"
+    },
+    "Ata": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'ata' as a morpheme example (e.g., 'ata ⇒ ada'), not referring to the Ata language"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "The snippet discusses nasal assimilation processes, not the Nasal language"
     },
     "Tariana": {
       "verdict": "mentioned_only",
-      "reason": "Tariana is cited as a language with many suppletive lexemes, yet no data or experiments are conducted on it; it is only mentioned."
+      "reason": "The snippet mentions Tariana (Arawak) nouns as an example of suppletive lexemes, without studying the language itself"
     },
     "Vai": {
       "verdict": "false_positive",
-      "reason": "The term \"vai\" appears as an Italian verb form (the 2nd‑person singular of \"andare\"), not as the Vai language; thus this is a false positive."
+      "reason": "The snippet uses 'vai' as an Italian verb form ('vado', 'vai'), not referring to the Vai language"
+    },
+    "Breton": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet discusses Breton mutation patterns as linguistic examples, not as a language under study"
+    },
+    "Cornish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet discusses Cornish mutation patterns as linguistic examples, not as a language under study"
+    },
+    "Irish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet describes Irish lenition and mutation as examples, without conducting experiments on Irish"
     },
     "Javanese": {
       "verdict": "mentioned_only",
-      "reason": "Javanese is discussed in relation to its honorific speech levels, but no experiments or resources are built for it; it is only mentioned."
+      "reason": "The snippet mentions Javanese honorific speech levels as an illustrative example, not as a language being studied"
+    },
+    "Manx": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references Manx as a Goidelic language example for lenition, not as a focus of the research"
+    },
+    "Occitan": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet uses Occitan verb forms as examples of alternation patterns, without studying the language itself"
+    },
+    "Scots": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Scots Gaelic as an example of Goidelic language behavior, not as a language under investigation"
     },
     "Estonian": {
       "verdict": "studied",
-      "reason": "Estonian is included in the set of languages whose morphological alternation distributions are computed and analyzed, so the paper studies it."
+      "reason": "The snippets discuss Estonian as one of the languages whose morphological datasets are analyzed for stem alternation distributions, indicating the paper conducts experiments on Estonian data."
     },
     "Georgian": {
       "verdict": "mentioned_only",
-      "reason": "Georgian is given as an example of a verb with multiple roots; the paper does not conduct analysis on Georgian, so it is only mentioned."
+      "reason": "Georgian is cited only as an illustrative example of a verb with multiple roots, with no analysis or data presented, so it is merely mentioned."
     },
     "Latin": {
       "verdict": "studied",
-      "reason": "Latin is one of the languages whose morphological data are segmented, analyzed, and used in experiments, indicating the paper studies it."
+      "reason": "Latin appears in the list of languages whose paradigms are analyzed and in examples of alternation patterns, showing the paper evaluates Latin morphology."
+    },
+    "Welsh": {
+      "verdict": "mentioned_only",
+      "reason": "Welsh is discussed in examples of consonant mutation and lenition, but no dataset or experiments are reported for Welsh, so it is only mentioned."
     },
     "Finnish": {
       "verdict": "studied",
-      "reason": "Finnish is part of the language set whose stem alternation distributions are computed and evaluated, so the paper studies it."
+      "reason": "Finnish is included among the languages whose morphological datasets are segmented and analyzed for alternation patterns, indicating the paper studies Finnish."
     },
     "Hungarian": {
       "verdict": "studied",
-      "reason": "Hungarian is listed among the languages whose morphological paradigms are analyzed, indicating the paper studies it."
+      "reason": "Hungarian is listed as a language whose noun paradigms are analyzed in the alternation study, implying it is studied."
     },
     "Italian": {
       "verdict": "studied",
-      "reason": "Italian is a primary language in the analysis of morphological alternations and appears in tables and experiments; the paper studies it."
+      "reason": "Italian is featured with detailed tables of verb forms and is part of the languages analyzed for alternation patterns, so it is studied."
     },
     "Korean": {
       "verdict": "mentioned_only",
-      "reason": "Korean is mentioned only in the context of implementing Korean subject‑marker allomorphy for compression; no analysis is performed on Korean itself."
+      "reason": "Korean appears in the candidate list but no snippet shows any reference to the language, leaving its role unclear; we treat it as a mere mention."
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is mentioned only in a comparative statement that it does not show the alternations discussed, with no analysis, so it is only mentioned."
     },
     "Vietnamese": {
       "verdict": "mentioned_only",
-      "reason": "Vietnamese is cited as an example of a language with little inflectional morphology; the paper does not analyze or build resources for it."
-    },
-    "English": {
-      "verdict": "mentioned_only",
-      "reason": "English is referred to as the language of the example 'went' and in English‑Japanese comparison, but no data or experiments are conducted on English itself"
+      "reason": "Vietnamese appears in the candidate list without any supporting snippet, so we assume it is only mentioned."
     },
     "French": {
       "verdict": "studied",
-      "reason": "French is listed among the languages whose morphological alternation distributions are computed and analyzed, indicating the paper studies French morphology"
+      "reason": "French is included in the set of languages whose paradigms are analyzed and in examples of alternation, indicating the paper studies French morphology."
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used in the abstract as an illustrative example of suppletion ('go'/'went') but no experimental work on English is described, so it is only mentioned."
     },
     "Japanese": {
       "verdict": "mentioned_only",
-      "reason": "Japanese is mentioned in comparative discussion of honorific systems and verb forms, but not included in the set of languages analyzed, so only mentioned"
+      "reason": "Japanese refers to the human language, discussed as an example of verb morphology and honorific systems, but the paper does not conduct experiments or build resources for it"
     },
     "Spanish": {
       "verdict": "mentioned_only",
-      "reason": "Spanish appears only as an illustrative example of verb paradigms and not among the languages analyzed, so only mentioned"
+      "reason": "Spanish refers to the human language, mentioned only to note its lack of the alternations under discussion, with no data collection or modeling for it"
     }
   }
 }

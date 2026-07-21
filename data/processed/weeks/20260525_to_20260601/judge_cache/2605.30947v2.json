@@ -1,21 +1,37 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.30947v2",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-10T17:42:32.050062+00:00",
+  "judged_at": "2026-07-20T11:35:23.160264+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3209,
+  "context_chars": 6747,
   "verdicts": {
-    "Latin": {
-      "verdict": "studied",
-      "reason": "The snippets refer to Greco-Roman Latin texts as part of the benchmark corpus and evaluation, indicating the paper works with Latin-language material, so the language is studied."
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'dao' appears as part of a Chinese phrase (e.g., 'ren yi li dao') rather than referring to the Dao language, so false_positive"
     },
-    "Chinese": {
-      "verdict": "studied",
-      "reason": "The snippets refer to classical Chinese texts as the benchmark corpus and evaluation data, showing the paper uses Chinese-language material, so the language is studied."
+    "Seneca": {
+      "verdict": "false_positive",
+      "reason": "The term 'Seneca' appears as the name of a Roman philosopher and author (e.g., 'Seneca's De Brevitate Vitae'), not the Seneca language, so false_positive"
+    },
+    "Shan": {
+      "verdict": "false_positive",
+      "reason": "Here 'Shan' occurs within the Chinese term 'xing-shan' describing a concept, not the Shan language, so false_positive"
+    },
+    "Persian": {
+      "verdict": "false_positive",
+      "reason": "The word 'Persian' is used to describe a Persian nobleman and a concept title, not the Persian language, so false_positive"
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The snippet mentions that some of the collected papers are in English, merely noting the language of the source documents without conducting experiments on English itself, so it is only mentioned."
+      "reason": "English is mentioned as the language of the papers collected (e.g., 'English or Chinese') and for rendering Latin passages, but the work does not build resources or evaluate models for English, so men"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "Latin is the focus of the benchmark and evidence extraction (e.g., 'classical Latin', 'Latin Library', 'Latin passages'), and the paper evaluates systems on Latin texts, indicating it is studied"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is similarly central to the benchmark (e.g., 'classical Chinese', 'Chinese evidences'), with data collection and evaluation on Chinese texts, so it is studied"
     }
   }
 }

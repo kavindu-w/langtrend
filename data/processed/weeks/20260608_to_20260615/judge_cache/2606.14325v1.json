@@ -1,21 +1,33 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.14325v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-08T06:39:26.977894+00:00",
+  "judged_at": "2026-07-20T12:15:47.612513+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 3423,
+  "context_chars": 6541,
   "verdicts": {
     "Mo": {
       "verdict": "false_positive",
-      "reason": "Mo refers to the 'Movie' graph category in benchmark tables, not a human language"
+      "reason": "MO refers to the 'Movie' graph domain abbreviation in tables and benchmark descriptions, not the Mo human language; therefore it is a false positive."
     },
     "Zo": {
       "verdict": "false_positive",
-      "reason": "Zo appears as part of the benchmark name 'Zo-grascope', not a human language"
+      "reason": "Zo appears as part of the benchmark name 'Zo-grascope' (and similar), not as the Zo human language; therefore it is a false positive."
+    },
+    "Haitian Creole": {
+      "verdict": "mentioned_only",
+      "reason": "Haitian Creole is used only as a literal value in an example Cypher query (filtering countries by official language), with no data collection or model built for it; thus it is mentioned only."
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "English is mentioned as the supported natural language for queries, but the paper does not build resources or evaluate models specifically for English"
+      "reason": "English is mentioned as the supported natural language for queries and as a reference point, but the paper does not create resources or evaluate models specifically for English; thus it is mentioned o"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German appears as a literal value in example query conditions (e.g., nationality 'German'), without any study or resource creation for the German language; thus it is mentioned only."
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears as a literal value in example query conditions (e.g., nationality 'Spanish'), without any study or resource creation for the Spanish language; thus it is mentioned only."
     }
   }
 }

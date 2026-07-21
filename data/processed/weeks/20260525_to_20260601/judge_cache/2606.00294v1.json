@@ -1,17 +1,29 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.00294v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-10T17:25:20.777129+00:00",
+  "judged_at": "2026-07-20T11:36:58.857395+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 2838,
+  "context_chars": 4567,
   "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet only contains the abbreviation MAE (mean absolute error), not the language name; thus it's a false positive."
+    },
+    "Tem": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows the word fragment 'tem-' from 'temporal', not a language name; thus it's a false positive."
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek is mentioned in reference to ancient Greek rhetorical theory, not as a language of data or experiments; thus mentioned_only."
+    },
     "English": {
       "verdict": "studied",
-      "reason": "The snippets refer to English as the language of news outlets and annotators used in the corpus and experiments, indicating the paper works with English data, so it is studied"
+      "reason": "English is listed as a language of the corpus, annotators, and experiments, indicating the paper studies it."
     },
     "German": {
       "verdict": "studied",
-      "reason": "The snippets refer to German as the language of news outlets and annotators used in the corpus and experiments, indicating the paper works with German data, so it is studied"
+      "reason": "German is listed as a language of the corpus, annotators, and experiments, indicating the paper studies it."
     }
   }
 }

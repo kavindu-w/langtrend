@@ -1,21 +1,25 @@
 {
   "paper_id": "http://arxiv.org/abs/2606.20152v1",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-06T17:42:46.307230+00:00",
+  "judged_at": "2026-07-20T13:00:55.992783+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4163,
+  "context_chars": 4670,
   "verdicts": {
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "SAR refers to Macau Special Administrative Region, not a human language, so false_positive"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the nationality of students and the Chinese exam, not the Chinese language itself, so mentioned_only"
+    },
     "Portuguese": {
       "verdict": "studied",
-      "reason": "Portuguese refers to the ENEM dataset, a Portuguese-language essay dataset used in the experiments, so the paper studies this language."
+      "reason": "Portuguese refers to the Portuguese essay dataset ENEM used in experiments, indicating the language is studied, so studied"
     },
     "English": {
       "verdict": "studied",
-      "reason": "English refers to the ASAP++ and CSEE essay datasets, which are English-language datasets used in the experiments, so the paper studies this language."
-    },
-    "Chinese": {
-      "verdict": "false_positive",
-      "reason": "Chinese appears only in the name \"Chinese Student English Essay\" and in reference to the Chinese National College Entrance Examination, not as the language being analyzed; thus it is a false positive."
+      "reason": "English refers to the English essay datasets used for experiments, indicating the language is studied, so studied"
     }
   }
 }

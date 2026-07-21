@@ -1,25 +1,37 @@
 {
   "paper_id": "http://arxiv.org/abs/2605.07731v2",
   "judge_model": "gpt-oss-120b",
-  "judged_at": "2026-07-13T18:18:49.587498+00:00",
+  "judged_at": "2026-07-20T11:02:04.600438+00:00",
   "context_coverage": "abstract+pdf",
-  "context_chars": 4337,
+  "context_chars": 6784,
   "verdicts": {
+    "Oro": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Oro' is the Italian word for the metal gold, not a language"
+    },
+    "Roma": {
+      "verdict": "false_positive",
+      "reason": "Here 'Roma' is the name of the Italian city, not a language"
+    },
     "Sake": {
       "verdict": "false_positive",
-      "reason": "In the snippet 'For the sake of our evaluation' the word 'sake' is used in its common English sense of purpose, not as a language name, so false_positive"
+      "reason": "'Sake' occurs in the phrase 'for the sake of our evaluation', not referring to a language"
+    },
+    "Temi": {
+      "verdict": "false_positive",
+      "reason": "'Temi' appears as an Italian word meaning 'themes', not a language name"
     },
     "Una": {
       "verdict": "false_positive",
-      "reason": "The snippet contains the Italian word 'Una' as part of a sentence, not a language name, so false_positive"
+      "reason": "'Una' is used as an Italian indefinite article/word in prompts, not a language"
     },
     "English": {
       "verdict": "mentioned_only",
-      "reason": "The term 'English' is used to denote the English language of benchmark datasets, but the paper only mentions it without conducting language-specific work, so mentioned_only"
+      "reason": "'English' is mentioned as the language of benchmark datasets, but the paper only references it without building resources for it"
     },
     "Italian": {
       "verdict": "studied",
-      "reason": "The term 'Italian' refers to the Italian language for which the LLM is developed and evaluated, indicating the paper studies resources/models for Italian, so studied"
+      "reason": "'Italian' refers to the target language of the LLM and benchmark datasets; the paper evaluates and builds models for Italian, so it is studied"
     }
   }
 }
