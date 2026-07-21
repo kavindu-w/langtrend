@@ -1,12 +1,12 @@
 """Minimal OpenAI-compatible chat client for the LLM judge stage.
 
-Works against any /chat/completions endpoint. Defaults target Cerebras' free
-tier (open-weight gpt-oss-120b) via its OpenAI-compatible endpoint — check `GET /v1/models` if DEFAULT_MODEL ever starts 404ing. A local Ollama server is a drop-in
-override for quota-free testing:
+Works against any /chat/completions endpoint. Defaults target Groq's free
+tier (open-weight gpt-oss-120b) via its OpenAI-compatible endpoint. A local Ollama
+server is a drop-in override for quota-free testing:
 
     LLM_JUDGE_BASE_URL=http://localhost:11434/v1
     LLM_JUDGE_MODEL=qwen3:8b
-    LLM_JUDGE_API_KEY=ollama
+    LLM_JUDGE_API_KEY=123
 
 Environment variables (all optional except the API key for hosted backends):
     LLM_JUDGE_BASE_URL           OpenAI-compatible base URL
@@ -33,7 +33,7 @@ import requests
 
 _PROJECT_ROOT = Path(__file__).parent.parent
 
-DEFAULT_BASE_URL = "https://api.cerebras.ai/v1"
+DEFAULT_BASE_URL = "https://api.groq.com/openai/v1"
 DEFAULT_MODEL = "gpt-oss-120b"
 
 _CHAT_RETRIES = 3
