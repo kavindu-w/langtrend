@@ -34,7 +34,7 @@ import requests
 _PROJECT_ROOT = Path(__file__).parent.parent
 
 DEFAULT_BASE_URL = "https://api.groq.com/openai/v1"
-DEFAULT_MODEL = "gpt-oss-120b"
+DEFAULT_MODEL = "openai/gpt-oss-120b"
 
 _CHAT_RETRIES = 3
 _RETRY_BACKOFF = 2  # seconds; doubles each attempt
