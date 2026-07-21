@@ -1,6 +1,6 @@
 import { languageBorderClass, languageFillColor } from './language-colors.js';
 import { renderAbstractHtml, renderTitleHtml } from './abstract-math.js';
-import { foldSearchText } from './text-utils.js';
+import { foldSearchText, foldTitleSearchText } from './text-utils.js';
 
 export { foldSearchText };
 
@@ -143,7 +143,7 @@ export function buildPaperItem(item, index, weekStart, langClasses = {}, pfpMap 
 
   const { hasPdf, coverageBadge } = coverageBadgeFor(item.sourcesChecked);
 
-  const searchText = foldSearchText(`${paper.title} ${paper.authors.join(' ')}`);
+  const searchText = foldTitleSearchText(`${paper.title} ${paper.authors.join(' ')}`);
 
   const sourcesMap = new Map();
   for (const entry of chipLanguages) {
@@ -261,7 +261,7 @@ export function buildWeekApiPaper(item, langClasses = {}, pfpMap = {}) {
     arxiv_url: paper.id ? paper.id.replace('http://', 'https://') : paper.pdf_url,
     published: paper.published ?? '',
     categories: paper.categories ?? [],
-    searchText: foldSearchText(`${paper.title} ${paper.authors.join(' ')}`),
+    searchText: foldTitleSearchText(`${paper.title} ${paper.authors.join(' ')}`),
     languages,
     languageNames,
     langCount: languageNames.length,

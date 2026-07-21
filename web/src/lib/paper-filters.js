@@ -39,7 +39,8 @@ export function activeWeekSlugsFor({ periodParam, fromParam }, availableWeeks, c
 
 /**
  * Core per-row filter predicate for the paper table. `filters.searchTerm` must already be
- * folded (see foldSearchText); `activeWeekSet`/`activeLanguages`/`enabledVerdicts` are Sets.
+ * folded (see foldTitleSearchText, so hyphens/dashes match spaces the same way `meta.search`
+ * does); `activeWeekSet`/`activeLanguages`/`enabledVerdicts` are Sets.
  * `inPeriod` is reported separately from `inScope` because chip/verdict counts in the UI are
  * scoped to the active period only, ignoring the verdict/search/language/class filters.
  */

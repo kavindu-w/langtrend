@@ -416,7 +416,7 @@ for (const it of paperItems) {
 </section>
 
 <script>
-  import { foldSearchText, foldForSubstringMatch } from '../lib/text-utils.js';
+  import { foldSearchText, foldForSubstringMatch, foldTitleSearchText } from '../lib/text-utils.js';
   import { activeWeekSlugsFor, compareEntries, debounce, matchPaperRow, paginate, paginationWindow, parseRowMeta } from '../lib/paper-filters.js';
 
   // ── State ────────────────────────────────────────────────────────────────────
@@ -1097,7 +1097,7 @@ for (const it of paperItems) {
 
   function applyFilters() {
     const activeWeekSet = new Set(getActiveWeekSlugs());
-    const searchTerm = foldSearchText(searchInput?.value.trim() ?? '');
+    const searchTerm = foldTitleSearchText(searchInput?.value.trim() ?? '');
     const classFilter = getClassFilter();
     let inScopeTotal = 0;
     // Chip/verdict counts reflect the active period only (not the current

@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { activeWeekSlugsFor, compareEntries, debounce, matchPaperRow, paginate, paginationWindow, parseRowMeta } from './paper-filters.js';
+import { foldTitleSearchText } from './text-utils.js';
 
 describe('debounce', () => {
   it('only invokes fn once after the delay, using the last call\'s args', () => {
@@ -145,6 +146,16 @@ describe('matchPaperRow', () => {
     expect(result.inPeriod).toBe(true);
     expect(result.inScope).toBe(true);
     expect(result.show).toBe(false);
+  });
+
+  // Pins the contract documented on matchPaperRow: `meta.search` is built via
+  // foldTitleSearchText (paper-table.js), so `filters.searchTerm` must be folded
+  // the same way here — otherwise a hyphenated title and an unhyphenated query
+  // silently stop matching again.
+  it('matches a hyphenated title against an unhyphenated query when both sides use foldTitleSearchText', () => {
+    const meta = { ...baseMeta, search: foldTitleSearchText('Cross-Temporal Drift in Argument Mining') };
+    const filters = { ...baseFilters(), searchTerm: foldTitleSearchText('cross temporal') };
+    expect(matchPaperRow(meta, filters).show).toBe(true);
   });
 });
 

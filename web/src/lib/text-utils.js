@@ -46,3 +46,14 @@ export function foldSearchText(s) {
 export function foldForSubstringMatch(s) {
   return foldSearchText(s).replace(/'/g, '');
 }
+
+// Treats hyphens (plus unicode dash variants LaTeX/copy-paste sometimes
+// produce) as a space on top of foldSearchText, for the paper title/author
+// search only, so "cross temporal" and "cross-temporal" match each other
+// regardless of which form the user types or the title uses. Kept separate
+// from foldSearchText itself: that fold backs language-name identity checks,
+// and dozens of taxonomy entries are distinguished only by a hyphen (e.g.
+// "Aka-Bea"), so collapsing hyphens there would merge distinct languages.
+export function foldTitleSearchText(s) {
+  return foldSearchText(s).replace(/[-‐-―]/g, ' ').replace(/\s+/g, ' ').trim();
+}

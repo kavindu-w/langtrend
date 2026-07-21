@@ -11,7 +11,7 @@ import {
   sourcesOfEntry,
   verdictsPresent,
 } from './paper-table.js';
-import { foldForSubstringMatch } from './text-utils.js';
+import { foldForSubstringMatch, foldTitleSearchText } from './text-utils.js';
 
 describe('foldSearchText', () => {
   it('lowercases', () => {
@@ -33,6 +33,21 @@ describe('foldSearchText', () => {
     it('drops apostrophes so "n\'ko"/"nko" both match as a substring query', () => {
       expect(foldForSubstringMatch('N’ko')).toBe('nko');
       expect(foldForSubstringMatch("n'ko")).toBe('nko');
+    });
+  });
+
+  describe('foldTitleSearchText', () => {
+    it('folds hyphens to spaces so a hyphenated title and a spaced query match', () => {
+      expect(foldTitleSearchText('Cross-Temporal Analysis')).toBe(foldTitleSearchText('Cross Temporal Analysis'));
+    });
+
+    it('folds unicode dash variants (en dash, em dash) the same as a hyphen', () => {
+      expect(foldTitleSearchText('Cross–Temporal')).toBe(foldTitleSearchText('Cross Temporal'));
+      expect(foldTitleSearchText('Cross—Temporal')).toBe(foldTitleSearchText('Cross Temporal'));
+    });
+
+    it('collapses the resulting whitespace so a hyphen surrounded by spaces does not double up', () => {
+      expect(foldTitleSearchText('Multi - Agent Debate')).toBe('multi agent debate');
     });
   });
 
