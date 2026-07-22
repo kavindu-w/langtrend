@@ -355,10 +355,7 @@ def main() -> None:
     fallback_note = ""
     if config.fallback_models:
         chain = " -> ".join(config.fallback_models)
-        fallback_note = (
-            f", fallback={chain}" if config.is_openrouter()
-            else f", fallback={chain} (IGNORED — LLM_JUDGE_BASE_URL isn't OpenRouter)"
-        )
+        fallback_note = f", fallback={chain}"
     print(f"Judge: {config.model} @ {config.base_url}{fallback_note} "
           f"(workers={config.workers}, rpm={config.rpm}, rph={config.rph}, "
           f"context≤{config.max_context_chars} chars)")
