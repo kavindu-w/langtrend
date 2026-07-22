@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import {
   aggregateTrendPeriods,
@@ -6,10 +9,12 @@ import {
   buildPieSlices,
   classColorForId,
   classColorForLanguage,
+  computeRankTrajectoryStats,
   coverageSliceLines,
   coverageSliceLinesWithPercent,
   coverageSlicePercent,
   fillWeekSeries,
+  formatEffectiveLanguageCount,
   formatPercent,
   formatSliceLabel,
   formatWeekLabel,
@@ -297,6 +302,185 @@ describe('markerPath', () => {
       const d = markerPath(i, 300, 44, 4);
       const strayVertical = /[VH]\s*-?\d[\d.]*,-?\d/.test(d);
       expect(strayVertical, `shape ${i}: "${d}"`).toBe(false);
+    }
+  });
+});
+
+describe('computeRankTrajectoryStats', () => {
+  it('picks a fastest-rising language that never leads the tier and would never appear in a top-N cutoff', () => {
+    // Fourteen flat "background" languages plus one that goes from 0 to a
+    // meaningful share only in the back half — with a low enough count it
+    // would never make a top-10 cut, but it's still the biggest share-gainer.
+    const weeklyCounts = new Map();
+    for (let i = 0; i < 14; i++) {
+      weeklyCounts.set(`Flat${i}`, [10, 10, 10, 10]);
+    }
+    weeklyCounts.set('RisingMinor', [0, 0, 3, 3]);
+    const stats = computeRankTrajectoryStats(weeklyCounts, 4);
+    expect(stats.rising).not.toBeNull();
+    expect(stats.rising.language).toBe('RisingMinor');
+    expect(stats.rising.delta).toBeGreaterThan(0);
+    // The dominant "leader" is one of the flat languages (tied totals — first
+    // one encountered wins), never the minor riser.
+    expect(stats.leader.language).not.toBe('RisingMinor');
+  });
+
+  it('leader is the language with the largest total share across the window', () => {
+    const weeklyCounts = new Map([
+      ['English', [50, 50]],
+      ['French', [10, 10]],
+      ['Xhosa', [1, 1]],
+    ]);
+    const stats = computeRankTrajectoryStats(weeklyCounts, 2);
+    expect(stats.leader).toEqual({ language: 'English', share: 50 / 61 });
+  });
+
+  it('diversity is the full language count when attention is spread perfectly evenly', () => {
+    const weeklyCounts = new Map([
+      ['A', [5, 5]],
+      ['B', [5, 5]],
+      ['C', [5, 5]],
+      ['D', [5, 5]],
+    ]);
+    const stats = computeRankTrajectoryStats(weeklyCounts, 2);
+    expect(stats.diversityEffective).toBeCloseTo(4, 5);
+  });
+
+  it('diversity collapses toward 1 when a single language dominates', () => {
+    const weeklyCounts = new Map([
+      ['Dominant', [1000, 1000]],
+      ['Tiny', [1, 1]],
+    ]);
+    const stats = computeRankTrajectoryStats(weeklyCounts, 2);
+    expect(stats.diversityEffective).toBeGreaterThan(1);
+    expect(stats.diversityEffective).toBeLessThan(1.05);
+  });
+
+  it('returns nulls and zero diversity when no language has any studied mentions', () => {
+    const weeklyCounts = new Map([
+      ['Ghost', [0, 0, 0]],
+    ]);
+    const stats = computeRankTrajectoryStats(weeklyCounts, 3);
+    expect(stats.rising).toBeNull();
+    expect(stats.leader).toBeNull();
+    expect(stats.diversityEffective).toBe(0);
+  });
+
+  it('rising is null when every language holds a perfectly constant share (proportional volume swings do not count as rising)', () => {
+    // Both languages shrink in absolute count together, but each holds exactly
+    // 50% of the tier throughout — no real share shift, just less total volume.
+    const weeklyCounts = new Map([
+      ['A', [10, 10, 2, 2]],
+      ['B', [10, 10, 2, 2]],
+    ]);
+    const stats = computeRankTrajectoryStats(weeklyCounts, 4);
+    expect(stats.rising).toBeNull();
+  });
+});
+
+describe('formatEffectiveLanguageCount', () => {
+  it('rounds to an integer at 10 and above', () => {
+    expect(formatEffectiveLanguageCount(64.3)).toEqual({ value: 64, text: '64', isSingular: false });
+  });
+
+  it('keeps one decimal place below 10', () => {
+    expect(formatEffectiveLanguageCount(3.44)).toEqual({ value: 3.4, text: '3.4', isSingular: false });
+  });
+
+  it('is reachably singular when the rounded value is exactly 1', () => {
+    expect(formatEffectiveLanguageCount(1.0)).toEqual({ value: 1, text: '1', isSingular: true });
+  });
+
+  it('rounds a near-1 value up into the singular case', () => {
+    // Regression guard: a naive `.toFixed(1)` would print "1.0", which can
+    // never strictly-equal the string "1" — the original dead-code bug.
+    expect(formatEffectiveLanguageCount(0.96)).toEqual({ value: 1, text: '1', isSingular: true });
+  });
+});
+
+// TrendCharts.astro's <script is:inline> can't `import` this module (it's a
+// plain, non-bundled script tag, not an ES module), so it keeps hand-synced
+// duplicates of computeRankTrajectoryStats/formatEffectiveLanguageCount named
+// computeRankTrajectoryStatsJs/formatEffectiveLanguageCountJs — matching this
+// file's existing pattern for buildBumpSegmentPath, markerPath, etc. Nothing
+// enforces the two copies stay identical, so a future edit to only one would
+// ship silently. This suite pulls the live source text for the *Js functions
+// straight out of the .astro file, evaluates it, and runs it through the same
+// fixtures as the tested lib versions above — any drift fails here instead of
+// in production.
+describe('inline <script> duplicates stay in sync with the tested lib versions', () => {
+  const astroSourcePath = join(dirname(fileURLToPath(import.meta.url)), '../components/TrendCharts.astro');
+  const astroSource = readFileSync(astroSourcePath, 'utf-8');
+
+  /** Extracts `function <name>(...) { ... }` from source via brace balancing (safe here: neither function contains string/template literals with braces). */
+  function extractFunctionSource(source, name) {
+    const startIdx = source.indexOf(`function ${name}(`);
+    if (startIdx === -1) {
+      throw new Error(`Could not find "function ${name}(" in TrendCharts.astro — was it renamed or removed?`);
+    }
+    const braceStart = source.indexOf('{', startIdx);
+    let depth = 0;
+    let endIdx = -1;
+    for (let i = braceStart; i < source.length; i++) {
+      if (source[i] === '{') depth++;
+      else if (source[i] === '}') {
+        depth--;
+        if (depth === 0) { endIdx = i; break; }
+      }
+    }
+    if (endIdx === -1) {
+      throw new Error(`Unbalanced braces while extracting "${name}" from TrendCharts.astro`);
+    }
+    return source.slice(startIdx, endIdx + 1);
+  }
+
+  /** Compiles an extracted inline function so it can be called directly from a test. */
+  function loadInlineFunction(name) {
+    const source = extractFunctionSource(astroSource, name);
+    // eslint-disable-next-line no-new-func -- deliberately evaluating the shipped inline-script source, not arbitrary input
+    const factory = new Function(`'use strict'; ${source}; return ${name};`);
+    return factory();
+  }
+
+  const computeRankTrajectoryStatsJs = loadInlineFunction('computeRankTrajectoryStatsJs');
+  const formatEffectiveLanguageCountJs = loadInlineFunction('formatEffectiveLanguageCountJs');
+
+  it('computeRankTrajectoryStatsJs produces identical output to computeRankTrajectoryStats across representative fixtures', () => {
+    const fixtures = [
+      // Full-tier rising scope (the bug this stat was fixed for).
+      { weekCount: 4, counts: (() => {
+        const m = new Map();
+        for (let i = 0; i < 14; i++) m.set(`Flat${i}`, [10, 10, 10, 10]);
+        m.set('RisingMinor', [0, 0, 3, 3]);
+        return m;
+      })() },
+      // Clear leader.
+      { weekCount: 2, counts: new Map([['English', [50, 50]], ['French', [10, 10]], ['Xhosa', [1, 1]]]) },
+      // Perfectly even diversity.
+      { weekCount: 2, counts: new Map([['A', [5, 5]], ['B', [5, 5]], ['C', [5, 5]], ['D', [5, 5]]]) },
+      // Dominated diversity.
+      { weekCount: 2, counts: new Map([['Dominant', [1000, 1000]], ['Tiny', [1, 1]]]) },
+      // All-zero (no studied mentions at all).
+      { weekCount: 3, counts: new Map([['Ghost', [0, 0, 0]]]) },
+      // Proportional decline — no real share shift, rising should be null.
+      { weekCount: 4, counts: new Map([['A', [10, 10, 2, 2]], ['B', [10, 10, 2, 2]]]) },
+      // Odd week count (uneven halves) and a single-language tier.
+      { weekCount: 5, counts: new Map([['Solo', [1, 2, 3, 4, 5]]]) },
+      // Empty tier.
+      { weekCount: 3, counts: new Map() },
+    ];
+
+    for (const { weekCount, counts } of fixtures) {
+      const libResult = computeRankTrajectoryStats(counts, weekCount);
+      const jsResult = computeRankTrajectoryStatsJs(counts, weekCount);
+      expect(jsResult).toEqual(libResult);
+    }
+  });
+
+  it('formatEffectiveLanguageCountJs produces identical output to formatEffectiveLanguageCount', () => {
+    const values = [64.3, 3.44, 1.0, 0.96, 0, 9.96, 10, 9.949, 200];
+    for (const value of values) {
+      expect(formatEffectiveLanguageCountJs(value)).toEqual(formatEffectiveLanguageCount(value));
     }
   });
 });

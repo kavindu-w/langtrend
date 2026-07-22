@@ -25,6 +25,7 @@ import argparse
 import csv
 import json
 import re
+import subprocess
 import sys
 from collections import Counter
 from pathlib import Path
@@ -38,6 +39,7 @@ _STATS_START = "<!-- LANGTREND_STATS_START -->"
 _STATS_END = "<!-- LANGTREND_STATS_END -->"
 _WEEK_RE = re.compile(r"^\d{8}_to_\d{8}$")
 _CLASS_IDS = (0, 1, 2, 3, 4, 5)
+_JUDGE_EXIT_INCOMPLETE = 3
 _SUMMARY_FIELDNAMES = [
     "week_start", "week_end", "papers", "flagged_papers", "unique_languages",
     "total_language_mentions", "top_language", "top_language_count",
@@ -250,7 +252,28 @@ def write_badge_files(cumulative: dict, out_dir: Path) -> list[Path]:
     ]
 
 
-def render_stats_block(latest: dict, cumulative: dict) -> str:
+def is_latest_week_judge_pending(project_root: Path) -> bool | None:
+    """Whether the current/latest week still has papers waiting on the LLM judge.
+
+    Delegates to `judge_languages.py --check-only`, the same command the CI
+    workflows (langtrend.yml, judge-catchup.yml) use to gate deployment, so this
+    always agrees with whether the live site has actually picked up the week's
+    data yet. Returns True/False, or None if the check itself couldn't run
+    (e.g. no detected.jsonl yet for the window) — treated as "don't warn".
+    """
+    result = subprocess.run(
+        [sys.executable, str(project_root / "scripts" / "judge_languages.py"),
+         "--window-days", "7", "--check-only"],
+        cwd=project_root, capture_output=True, text=True,
+    )
+    if result.returncode == 0:
+        return False
+    if result.returncode == _JUDGE_EXIT_INCOMPLETE:
+        return True
+    return None
+
+
+def render_stats_block(latest: dict, cumulative: dict, judge_pending: bool | None = False) -> str:
     week_start = latest["week_start"] or "N/A"
     week_end = latest["week_end"] or "N/A"
     earliest_week_start = cumulative["earliest_week_start"] or "N/A"
@@ -261,6 +284,16 @@ def render_stats_block(latest: dict, cumulative: dict) -> str:
         "## Latest Run Summary",
         "",
         f"_Latest processed week: **{week_start} – {week_end}**._",
+    ]
+    if judge_pending:
+        lines += [
+            "",
+            "> ⚠️ **LLM judge in progress** — this week's papers are still being verified. "
+            "The live site won't show this week's data until judging completes, and the "
+            "*This week* counts below (and per-language/class breakdowns) may still change "
+            "as more verdicts come in.",
+        ]
+    lines += [
         "",
         "| Metric | This week | All-time |",
         "|--------|----------:|---------:|",
@@ -309,11 +342,13 @@ def main() -> None:
     badge_paths = write_badge_files(cumulative, processed_dir / "badges")
     summary_rows = build_weekly_summary_rows(week_manifests)
     summary_path = write_weekly_summary_csv(summary_rows, processed_dir / "weekly_summary.csv")
-    block = render_stats_block(latest, cumulative)
+    judge_pending = is_latest_week_judge_pending(_PROJECT_ROOT)
+    block = render_stats_block(latest, cumulative, judge_pending)
     changed = update_readme(block, args.readme)
 
     print(f"Latest week: {latest['week_start']} -> {latest['week_end']}")
     print(f"Cumulative: {cumulative}")
+    print(f"Judge pending: {judge_pending}")
     print(f"README changed: {changed}")
     print(f"Badge files written: {[str(p) for p in badge_paths]}")
     print(f"Weekly summary CSV: {summary_path} ({len(summary_rows)} rows)")

@@ -4,12 +4,7 @@ import { CLASS_LABELS, colorForIndex } from '../lib/data.js';
 import { languageBorderClass } from '../lib/language-colors.js';
 import {
   aggregateTrendPeriods,
-  assignBumpLaneOffsets,
-  buildBumpEdgeLeaderPath,
-  buildBumpFlyoverLeaderPath,
-  buildBumpSegmentPath,
   buildLinePath,
-  computeBumpFlyoverLaneY,
   buildPieSlices,
   classColorForId,
   classColorForLanguage,
@@ -237,8 +232,7 @@ const weeklyLanguageRowHeight = 28;
 const weeklyLanguageBarHeight = weeklyLanguageBarMargins.top + weeklyLanguageBarMargins.bottom + weeklyLanguageSeries.length * weeklyLanguageRowHeight;
 const weeklyLanguageTotalCount = Math.max(1, languageCounts.reduce((sum, item) => sum + item.count, 0));
 
-// Color palettes declared early so they can be used in data computations below
-const BUMP_RANK_COLORS = ['#1A2E19','#2C5C2D','#347032','#408941','#55B748','#78C26D','#8ABE80','#98CF90','#BCDEB4','#DCEDD9'];
+// Color palette declared early so it can be used in data computations below
 const TREND_LINE_COLORS = ['#1696d2','#000000','#d2d2d2','#fdbf11','#55b748','#ec008b','#0a4c6a','#db2b27','#5c5859','#a2d4ec'];
 
 const trendWeeks = [...allWeeksData].sort((left, right) => left.weekStart.localeCompare(right.weekStart));
@@ -255,10 +249,6 @@ type TrendPeriod = {
   languageCounts: LanguageCount[];
   classCounts: ClassCount[];
 };
-
-type BumpPoint = { x: number; y: number; rank: number; language: string };
-type BumpSegment = { d: string; color: string };
-type BumpWeek = { weekStart: string; rankedLanguages: BumpPoint[]; rankMap: Map<string, BumpPoint> };
 
 function computeTrendData(granularity: TrendGranularity) {
   const periods = aggregateTrendPeriods(trendWeeks, granularity);
@@ -372,98 +362,12 @@ function computeTrendData(granularity: TrendGranularity) {
     prevEndpointY = y;
   }
 
-  const bumpMaxRank = 10;
-  const bumpSvgHeight = 520;
-  const bumpMargins = { top: 24, right: 190, bottom: 74, left: 160 };
-  const bumpScrollPx = scrollableChartWidth(960, bumpMargins, periods.length);
-  const bumpSvgWidth = bumpScrollPx ?? 960;
-  const bumpInnerWidth = bumpSvgWidth - bumpMargins.left - bumpMargins.right;
-  const bumpInnerHeight = bumpSvgHeight - bumpMargins.top - bumpMargins.bottom;
-  const bumpRowSpacing = bumpInnerHeight / (bumpMaxRank - 1);
-  const bumpYScale = scaleLinear().domain([1, bumpMaxRank]).range([0, bumpInnerHeight]);
-  const bumpXScale = scaleBand().domain(periodLabels).range([0, bumpInnerWidth]).padding(0.42);
-  const bumpPeriods: BumpWeek[] = periods.map((period) => {
-    const rankedLanguages = [...(period.languageCounts || [])]
-      // Exclude languages that were only ever mentioned_only in this period —
-      // the bump chart ranks studied activity, not raw mentions.
-      .filter((item) => (item.studied ?? item.count) > 0)
-      .sort((left, right) => (right.studied ?? right.count) - (left.studied ?? left.count) || left.language.localeCompare(right.language))
-      .slice(0, bumpMaxRank)
-      .map((item, index) => {
-        const rank = index + 1;
-        const x = (bumpXScale(period.label) || 0) + bumpXScale.bandwidth() / 2;
-        return { x, y: bumpYScale(rank), rank, language: item.language };
-      });
-    return { weekStart: period.label, rankedLanguages, rankMap: new Map(rankedLanguages.map((item) => [item.language, item])) };
-  });
-  const bumpLanguageList = [...new Set(bumpPeriods.flatMap((w) => w.rankedLanguages.map((item) => item.language)))].sort((left, right) => {
-    const rt = langTotals.get(right) || 0;
-    const lt = langTotals.get(left) || 0;
-    return rt - lt || left.localeCompare(right);
-  });
-  const bumpSeriesData = bumpLanguageList.map((language, seriesIdx) => {
-    const points = bumpPeriods.map((w) => w.rankMap.get(language) ?? null);
-    const segments: BumpSegment[] = [];
-    let previousPoint: BumpPoint | null = null;
-    for (const point of points) {
-      if (!point) { previousPoint = null; continue; }
-      if (previousPoint) {
-        segments.push({
-          d: buildBumpSegmentPath(previousPoint, point),
-          color: BUMP_RANK_COLORS[previousPoint.rank - 1] || BUMP_RANK_COLORS[BUMP_RANK_COLORS.length - 1],
-        });
-      }
-      previousPoint = point;
-    }
-    const firstIdx = points.findIndex((point) => point !== null);
-    const lastIdx = points.length - 1 - [...points].reverse().findIndex((point) => point !== null);
-    const firstPt = firstIdx === -1 ? null : points[firstIdx];
-    const lastPt = firstIdx === -1 ? null : points[lastIdx];
-    const firstIsEdge = firstIdx === 0;
-    const lastIsEdge = lastIdx === points.length - 1;
-    const labelColor = langColorMap.get(language) || TREND_LINE_COLORS[seriesIdx] || colorForIndex(seriesIdx);
-    return { language, points, segments, firstPt, lastPt, firstIsEdge, lastIsEdge, labelColor };
-  });
-  const bumpSegments = bumpSeriesData.flatMap((series) => series.segments);
-  const bumpLeftLabelRaw = bumpSeriesData.map((series, idx) => ({ idx, naturalY: series.firstPt?.y ?? 0 }));
-  const bumpRightLabelRaw = bumpSeriesData.map((series, idx) => ({ idx, naturalY: series.lastPt?.y ?? 0 }));
-  const bumpLeftLabelY: number[] = new Array(bumpSeriesData.length).fill(0);
-  const bumpRightLabelY: number[] = new Array(bumpSeriesData.length).fill(0);
-  let bumpLeftPrevY = -Infinity;
-  for (const item of [...bumpLeftLabelRaw].sort((a, b) => a.naturalY - b.naturalY)) {
-    const y = Math.max(item.naturalY, bumpLeftPrevY + 16);
-    bumpLeftLabelY[item.idx] = y;
-    bumpLeftPrevY = y;
-  }
-  let bumpRightPrevY = -Infinity;
-  for (const item of [...bumpRightLabelRaw].sort((a, b) => a.naturalY - b.naturalY)) {
-    const y = Math.max(item.naturalY, bumpRightPrevY + 16);
-    bumpRightLabelY[item.idx] = y;
-    bumpRightPrevY = y;
-  }
-  const bumpLeftLaneY = bumpSeriesData.map((series, idx) =>
-    series.firstPt && !series.firstIsEdge
-      ? computeBumpFlyoverLaneY(series.firstPt.y, bumpLeftLabelY[idx], bumpRowSpacing, bumpInnerHeight)
-      : null
-  );
-  const bumpRightLaneY = bumpSeriesData.map((series, idx) =>
-    series.lastPt && !series.lastIsEdge
-      ? computeBumpFlyoverLaneY(series.lastPt.y, bumpRightLabelY[idx], bumpRowSpacing, bumpInnerHeight)
-      : null
-  );
-  // Left- and right-heading leaders can share the same lane (both travel its
-  // full width), so deconflict them together rather than per side.
-  const bumpCombinedLaneOffsets = assignBumpLaneOffsets([...bumpLeftLaneY, ...bumpRightLaneY]);
-  const bumpLeftLaneOffsets = bumpCombinedLaneOffsets.slice(0, bumpSeriesData.length);
-  const bumpRightLaneOffsets = bumpCombinedLaneOffsets.slice(bumpSeriesData.length);
-
   return {
     granularity, granularityLabel, periods, periodLabels, topLanguages, langColorMap, trendSeries, endpointLabelY,
     groupedHeight, groupedMargins, groupedScrollPx, groupedWidth, groupedInnerWidth, groupedInnerHeight, groupedScale, groupedMax, groupedY,
     topLangHeight, topLangMargins, topLangScrollPx, topLangWidth, topLangInnerWidth, topLangInnerHeight, topLangScale, topLangMax, topLangY,
     classHeight, classMargins, classScrollPx, classWidth, classInnerWidth, classInnerHeight, classScale, classBars,
     uniqueHeight, uniqueMargins, uniqueScrollPx, uniqueWidth, uniqueInnerWidth, uniqueInnerHeight, uniqueScale, uniqueMax, uniqueY,
-    bumpMaxRank, bumpSvgHeight, bumpMargins, bumpScrollPx, bumpSvgWidth, bumpInnerWidth, bumpInnerHeight, bumpRowSpacing, bumpYScale, bumpXScale, bumpPeriods, bumpSeriesData, bumpSegments, bumpLeftLabelY, bumpRightLabelY, bumpLeftLaneY, bumpLeftLaneOffsets, bumpRightLaneY, bumpRightLaneOffsets,
   };
 }
 
@@ -472,6 +376,22 @@ const trendDataByGranularity = {
   month: computeTrendData('month'),
   year: computeTrendData('year'),
 };
+
+// Minimal per-granularity periods for the client-rendered overall rank
+// trajectory (label + studied-only language counts). The client re-ranks and
+// re-labels these under the resource-class filter, matching the period panel's
+// bump chart. `count` here is the studied count (mentioned-only excluded).
+const overallBumpPeriods = Object.fromEntries(
+  (['week', 'month', 'year'] as TrendGranularity[]).map((gran) => [
+    gran,
+    trendDataByGranularity[gran].periods.map((period) => ({
+      label: period.label,
+      languageCounts: (period.languageCounts || [])
+        .filter((item) => (item.studied ?? 0) > 0)
+        .map((item) => ({ language: item.language, count: item.studied })),
+    })),
+  ]),
+);
 
 // Mirror ranking chart — independent top-10 lists for prev and current week
 // "Current" is whichever week this page is showing (not necessarily the
@@ -678,6 +598,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
 <section class="stats-stack">
   <script type="application/json" id="all-weeks-meta" is:inline set:html={JSON.stringify(allWeeksData.map(w => ({ weekStart: w.weekStart, papers: w.papers, flaggedPapers: w.flaggedPapers, uniqueLanguages: w.uniqueLanguages, languageCounts: w.languageCounts, classCounts: w.classCounts, dailySeries: w.dailySeries, coverageStats: w.coverageStats })))}></script>
   <script type="application/json" id="lang-classes-meta" is:inline set:html={JSON.stringify(langClasses)}></script>
+  <script type="application/json" id="overall-bump-periods" is:inline set:html={JSON.stringify(overallBumpPeriods)}></script>
   <details id="weekly-trends-panel" class="panel chart-panel wide-panel" open>
     <summary class="paper-collapse-summary">
       <div>
@@ -1184,9 +1105,22 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         <div class="chart-subpanel-head">
           <div>
             <h3>Language rank trajectory</h3>
-            <p>Rank 1 = most studied that week (mentioned-only sightings excluded). Tracks the languages that appear in each top 10 across the selected period.</p>
+            <p>Rank 1 = most studied that week (mentioned-only sightings excluded). Tracks the languages that appear in each top 10 across the selected period. Filter to a resource class to watch how languages move <em>within</em> that tier. Hover any point to trace a single language.</p>
           </div>
         </div>
+        <div class="bump-filter-bar">
+          <div class="trend-view-controls trend-view-controls-inline bump-class-chips" id="period-rank-class-chips" role="group" aria-label="Filter rank trajectory by resource class">
+            <span class="bump-filter-label">Resource class</span>
+            <button type="button" class="trend-view-chip is-active" data-rank-class="all" aria-pressed="true">All</button>
+            {CLASS_LABELS.map((_label, classId) => (
+              <button type="button" class="trend-view-chip bump-class-chip" data-rank-class={String(classId)} aria-pressed="false">
+                <span class="bump-class-swatch" style={`background:${classColorForId(classId)}`}></span>{classId}
+              </button>
+            ))}
+            <span class="chart-caption bump-class-caption">0 = lowest-resource · 5 = highest</span>
+          </div>
+        </div>
+        <p class="bump-most-improved" id="period-rank-most-improved" aria-live="polite"></p>
         <div class="chart-scroll bump-chart-scroll" id="period-rank-trajectory"></div>
       </article>
 
@@ -1269,24 +1203,6 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         uniqueScale: trendUniqueScale,
         uniqueMax: trendUniqueMax,
         uniqueY: trendUniqueY,
-        bumpMaxRank,
-        bumpSvgHeight,
-        bumpMargins,
-        bumpScrollPx,
-        bumpSvgWidth,
-        bumpInnerWidth,
-        bumpInnerHeight,
-        bumpRowSpacing,
-        bumpYScale,
-        bumpXScale,
-        bumpSeriesData,
-        bumpSegments,
-        bumpLeftLabelY,
-        bumpRightLabelY,
-        bumpLeftLaneY,
-        bumpLeftLaneOffsets,
-        bumpRightLaneY,
-        bumpRightLaneOffsets,
       } = trendDataByGranularity[gran];
       return (
         <div class="trend-granularity-pane" data-granularity={gran} style={gran !== 'week' ? 'display:none' : ''}>
@@ -1508,7 +1424,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
                       ))}
                     </svg>
                   )}
-                  <svg class="chart-svg" width={trendTopLanguageScrollPx === null ? "100%" : undefined} style={trendTopLanguageScrollPx !== null ? `width:${trendTopLanguageScrollPx}px;max-width:none` : undefined} height={trendTopLanguageScrollPx !== null ? trendTopLanguageHeight : undefined} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Line chart of top-language trends across ${trendGranularity}s`}>
+                  <svg class="chart-svg trend-line-svg" width={trendTopLanguageScrollPx === null ? "100%" : undefined} style={trendTopLanguageScrollPx !== null ? `width:${trendTopLanguageScrollPx}px;max-width:none` : undefined} height={trendTopLanguageScrollPx !== null ? trendTopLanguageHeight : undefined} viewBox={`0 0 ${trendTopLanguageWidth} ${trendTopLanguageHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Line chart of top-language trends across ${trendGranularity}s`}>
                     <g transform={`translate(${trendTopLanguageMargins.left} ${trendTopLanguageMargins.top})`}>
                       {trendTopLanguageY.ticks(6).map((tick) => (
                         <g transform={`translate(0 ${trendTopLanguageY(tick)})`}>
@@ -1520,8 +1436,9 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
                         const lastPt = series.points[series.points.length - 1];
                         const labelY = trendEndpointLabelY[idx];
                         return (
-                          <g>
-                            <path d={series.path} fill="none" stroke={series.color} stroke-width="2.5"></path>
+                          <g class="trend-series" data-lang={series.language}>
+                            <path class="trend-hit" d={series.path} fill="none" stroke="transparent" stroke-width="14"></path>
+                            <path class="trend-line" d={series.path} fill="none" stroke={series.color} stroke-width="2.5"></path>
                             {lastPt && lastPt.value > 0 && (
                               <g>
                                 <path d={`M ${lastPt.x + 14} ${lastPt.y} L ${trendTopLanguageInnerWidth + 10} ${labelY}`} fill="none" stroke={series.color} stroke-dasharray="3 4" stroke-width="1"></path>
@@ -1559,71 +1476,23 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             <div class="chart-subpanel-head">
               <div>
                 <h3>Language rank trajectory</h3>
-                <p>Rank 1 = most studied that period (mentioned-only sightings excluded). Tracks the languages that appear in each top 10 across the selected {trendGranularity} view.</p>
+                <p>Rank 1 = most studied that {trendGranularity} (mentioned-only sightings excluded). Filter to a resource class to watch how languages move <em>within</em> that tier. Hover any point to trace a single language.</p>
               </div>
             </div>
-            {trendPeriods.length >= 2 && bumpSeriesData.length > 0 ? (
-              <div class="chart-scroll bump-chart-scroll">
-                <svg class="chart-svg" width={bumpScrollPx === null ? "100%" : undefined} style={bumpScrollPx !== null ? `width:${bumpSvgWidth}px;max-width:none` : undefined} height={bumpScrollPx !== null ? bumpSvgHeight : undefined} viewBox={`0 0 ${bumpSvgWidth} ${bumpSvgHeight}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label={`Language rank bump chart across ${trendGranularity}s`}>
-                  <g transform={`translate(${bumpMargins.left} ${bumpMargins.top})`}>
-                    {Array.from({ length: bumpMaxRank }, (_, i) => i + 1).map((rank) => (
-                      <line x1="0" x2={bumpInnerWidth} y1={bumpYScale(rank)} y2={bumpYScale(rank)} class="chart-grid-line"></line>
-                    ))}
-                    {trendPeriods.map((period) => (
-                      <text x={(bumpXScale(period.label) || 0) + bumpXScale.bandwidth() / 2} y={bumpInnerHeight + 34} text-anchor="middle" class="chart-label">{period.label}</text>
-                    ))}
-                    {bumpSegments.map((segment) => (
-                      <path d={segment.d} fill="none" stroke={segment.color} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    ))}
-                    {bumpSeriesData.map((series, seriesIdx) => (
-                      <g>
-                        {series.firstPt && (
-                          <g>
-                            <path d={series.firstIsEdge
-                              ? buildBumpEdgeLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, bumpLeftLabelY[seriesIdx])
-                              : buildBumpFlyoverLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, bumpLeftLabelY[seriesIdx], (bumpLeftLaneY[seriesIdx] ?? 0) + bumpLeftLaneOffsets[seriesIdx])} fill="none" stroke={series.labelColor} stroke-dasharray="3 4" stroke-width="1"></path>
-                            {pfpWarn(series.language) ? (
-                              <g class="chart-warn-label" data-pfp-reason={pfpWarn(series.language)}>
-                                <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${series.labelColor};font-weight:700`}>{series.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan></text>
-                              </g>
-                            ) : (
-                              <text x={-16} y={bumpLeftLabelY[seriesIdx] + 5} text-anchor="end" class="chart-axis-label" style={`fill:${series.labelColor};font-weight:700`}>{series.language}</text>
-                            )}
-                          </g>
-                        )}
-                        {series.lastPt && (
-                          <g>
-                            <path d={series.lastIsEdge
-                              ? buildBumpEdgeLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerWidth + 14, bumpRightLabelY[seriesIdx])
-                              : buildBumpFlyoverLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerWidth + 14, bumpRightLabelY[seriesIdx], (bumpRightLaneY[seriesIdx] ?? 0) + bumpRightLaneOffsets[seriesIdx])} fill="none" stroke={series.labelColor} stroke-dasharray="3 4" stroke-width="1"></path>
-                            {pfpWarn(series.language) ? (
-                              <g class="chart-warn-label" data-pfp-reason={pfpWarn(series.language)}>
-                                <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${series.labelColor};font-weight:700`}>{series.language}<tspan class="warn-star-svg" dx="2" dy="-3" font-size="0.5em">★</tspan></text>
-                              </g>
-                            ) : (
-                              <text x={bumpInnerWidth + 16} y={bumpRightLabelY[seriesIdx] + 5} text-anchor="start" class="chart-axis-label" style={`fill:${series.labelColor};font-weight:700`}>{series.language}</text>
-                            )}
-                          </g>
-                        )}
-                        {series.points.map((point) => point && (() => {
-                          const rankColor = BUMP_RANK_COLORS[point.rank - 1] ?? BUMP_RANK_COLORS[BUMP_RANK_COLORS.length - 1];
-                          const isLight = point.rank >= 6;
-                          const textColor = isLight ? '#000' : '#fff';
-                          return (
-                            <g>
-                              <circle cx={point.x} cy={point.y} r="14" fill={rankColor} stroke="#000" stroke-width="1.5"></circle>
-                              <text x={point.x} y={point.y + 5} text-anchor="middle" style={`fill:${textColor};font-size:0.65rem;font-weight:700`}>{point.rank}</text>
-                            </g>
-                          );
-                        })())}
-                      </g>
-                    ))}
-                  </g>
-                </svg>
+            <div class="bump-filter-bar">
+              <div class="trend-view-controls trend-view-controls-inline bump-class-chips" id={`overall-rank-chips-${gran}`} role="group" aria-label="Filter rank trajectory by resource class">
+                <span class="bump-filter-label">Resource class</span>
+                <button type="button" class="trend-view-chip is-active" data-rank-class="all" aria-pressed="true">All</button>
+                {CLASS_LABELS.map((_label, classId) => (
+                  <button type="button" class="trend-view-chip bump-class-chip" data-rank-class={String(classId)} aria-pressed="false">
+                    <span class="bump-class-swatch" style={`background:${classColorForId(classId)}`}></span>{classId}
+                  </button>
+                ))}
+                <span class="chart-caption bump-class-caption">0 = lowest-resource · 5 = highest</span>
               </div>
-            ) : (
-              <p class="placeholder-text">Language rank trajectory will appear once multiple periods are available.</p>
-            )}
+            </div>
+            <p class="bump-most-improved" id={`overall-rank-stats-${gran}`}></p>
+            <div class="chart-scroll bump-chart-scroll" id={`overall-rank-trajectory-${gran}`}></div>
           </article>
         </div>
         </div>
@@ -1663,7 +1532,13 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         btn.classList.toggle('is-active', active);
         btn.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
-      try { history.replaceState(null, '', '?trend=' + mode); } catch {}
+      // Preserve other query params (notably `from`, which drives the period
+      // comparison panel) instead of overwriting the whole query string.
+      try {
+        const _p = new URLSearchParams(location.search);
+        _p.set('trend', mode);
+        history.replaceState(null, '', '?' + _p.toString());
+      } catch {}
       try { sessionStorage.setItem(trendModeStorageKey, mode); } catch {}
       var activePane = document.querySelector('.trend-granularity-pane[data-granularity="' + mode + '"]');
       requestAnimationFrame(function() { scrollChartsToEnd(activePane); });
@@ -1878,6 +1753,13 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       var langClassesMeta = {};
       try { langClassesMeta = JSON.parse(langClassesMetaEl && langClassesMetaEl.textContent || '{}'); } catch(e) { langClassesMeta = {}; }
 
+      // Returns -1 (not 0) for a language absent from the taxonomy map — this
+      // used to only feed chart coloring (where classColorForLanguage's
+      // `|| CLASS_COLORS_JS[0]` already falls back safely on an out-of-range
+      // index), but the resource-class filter now also calls this to decide
+      // tier membership. Defaulting an unclassified language to "0" would
+      // silently count it as lowest-resource in the Class 0 filter's stats;
+      // -1 never matches a real 0–5 filter, so it only shows under "All".
       function classIndexForLanguage(language) {
         for (var classIdStr in langClassesMeta) {
           if (!Object.prototype.hasOwnProperty.call(langClassesMeta, classIdStr)) continue;
@@ -1886,7 +1768,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             return Number(classIdStr);
           }
         }
-        return 0;
+        return -1;
       }
 
       function classColorForLanguage(language) {
@@ -1902,6 +1784,45 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
 
       var periodSwitcher = document.getElementById('period-week-switcher');
       var periodTrendsPanel = document.getElementById('period-trends-panel');
+
+      // Chart color palettes — declared here (before the period-only early
+      // return) because the always-on overall rank trajectory below needs them.
+      var CLASS_COLORS_JS = ['#cfe8f3','#a2d4ec','#73bfe2','#46abdb','#1696d2','#12719e'];
+      var CLASS_LABELS_JS = ['Class 0','Class 1','Class 2','Class 3','Class 4','Class 5'];
+      var TREND_LINE_COLORS_JS = ['#1696d2','#000000','#d2d2d2','#fdbf11','#55b748','#ec008b','#0a4c6a','#db2b27','#5c5859','#a2d4ec'];
+      var BUMP_RANK_COLORS_JS = ['#1A2E19','#2C5C2D','#347032','#408941','#55B748','#78C26D','#8ABE80','#98CF90','#BCDEB4','#DCEDD9'];
+
+      // Overall-trends rank trajectory — always rendered (not gated on the period
+      // `from` param), client-side so the resource-class filter re-ranks in place.
+      // One instance per granularity pane (week/month/year); each keeps its own
+      // filter state. Reuses the exact renderer/stats as the period panel.
+      (function() {
+        var obpEl = document.getElementById('overall-bump-periods');
+        var overallBumpPeriods = {};
+        try { overallBumpPeriods = JSON.parse(obpEl && obpEl.textContent || '{}'); } catch (e) { overallBumpPeriods = {}; }
+        ['week', 'month', 'year'].forEach(function(gran) {
+          var container = document.getElementById('overall-rank-trajectory-' + gran);
+          var statsEl = document.getElementById('overall-rank-stats-' + gran);
+          var chips = document.getElementById('overall-rank-chips-' + gran);
+          if (!container) return;
+          var periods = overallBumpPeriods[gran] || [];
+          var state = { filter: 'all' };
+          renderRankTrajectory(container, statsEl, periods, state.filter);
+          if (chips) {
+            chips.addEventListener('click', function(e) {
+              var btn = e.target.closest ? e.target.closest('button[data-rank-class]') : null;
+              if (!btn || !chips.contains(btn)) return;
+              state.filter = btn.getAttribute('data-rank-class');
+              chips.querySelectorAll('button[data-rank-class]').forEach(function(b) {
+                var active = b === btn;
+                b.classList.toggle('is-active', active);
+                b.setAttribute('aria-pressed', active ? 'true' : 'false');
+              });
+              renderRankTrajectory(container, statsEl, periods, state.filter);
+            });
+          }
+        });
+      }());
 
       if (!fromParam) return;
 
@@ -1919,11 +1840,7 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       }).filter(Boolean);
 
       // Week switcher: populate and wire change handler
-      // --- Chart re-rendering helpers ---
-      var CLASS_COLORS_JS = ['#cfe8f3','#a2d4ec','#73bfe2','#46abdb','#1696d2','#12719e'];
-      var CLASS_LABELS_JS = ['Class 0','Class 1','Class 2','Class 3','Class 4','Class 5'];
-      var TREND_LINE_COLORS_JS = ['#1696d2','#000000','#d2d2d2','#fdbf11','#55b748','#ec008b','#0a4c6a','#db2b27','#5c5859','#a2d4ec'];
-      var BUMP_RANK_COLORS_JS = ['#1A2E19','#2C5C2D','#347032','#408941','#55B748','#78C26D','#8ABE80','#98CF90','#BCDEB4','#DCEDD9'];
+      // --- Chart re-rendering helpers --- (color palettes declared above)
 
       function sectorPathSVG(cx, cy, r, innerR, startDeg, sweepDeg) {
         if (sweepDeg >= 360) sweepDeg = 359.99;
@@ -1941,50 +1858,6 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
       function buildBumpSegmentPath(start, end) {
         var midX = (start.x + end.x) / 2;
         return 'M ' + start.x + ' ' + start.y + ' C ' + midX + ' ' + start.y + ' ' + midX + ' ' + end.y + ' ' + end.x + ' ' + end.y;
-      }
-
-      function buildBumpEdgeLeaderPath(x1, y1, x2, y2) {
-        var midX = (x1 + x2) / 2;
-        var bow = 5;
-        return 'M ' + x1 + ' ' + y1 + ' C ' + midX + ' ' + (y1 - bow) + ' ' + midX + ' ' + (y2 - bow) + ' ' + x2 + ' ' + y2;
-      }
-
-      function computeBumpFlyoverLaneY(y1, y2, rowSpacing, plotHeight) {
-        var halfGap = rowSpacing / 2;
-        var canGoAbove = y1 - halfGap > 0.01;
-        var canGoBelow = y1 + halfGap < plotHeight - 0.01;
-        var goAbove = canGoAbove && (!canGoBelow || y2 <= y1);
-        return goAbove ? y1 - halfGap : y1 + halfGap;
-      }
-
-      function assignBumpLaneOffsets(laneYs, step) {
-        step = step || 7;
-        var groups = new Map();
-        laneYs.forEach(function(y, idx) {
-          if (y == null) return;
-          var key = Math.round(y);
-          if (!groups.has(key)) groups.set(key, []);
-          groups.get(key).push(idx);
-        });
-        var offsets = new Array(laneYs.length).fill(0);
-        groups.forEach(function(idxs) {
-          var n = idxs.length;
-          idxs.forEach(function(idx, i) { offsets[idx] = (i - (n - 1) / 2) * step; });
-        });
-        return offsets;
-      }
-
-      function buildBumpFlyoverLeaderPath(x1, y1, x2, y2, laneY) {
-        var r = Math.min(8, Math.abs(laneY - y1) / 2, Math.abs(x2 - x1) / 2);
-        var dx = x2 >= x1 ? 1 : -1;
-        var dy1 = laneY >= y1 ? 1 : -1;
-        var dy2 = y2 >= laneY ? 1 : -1;
-        return 'M ' + x1 + ' ' + y1 +
-          ' L ' + x1 + ' ' + (laneY - dy1 * r) +
-          ' Q ' + x1 + ' ' + laneY + ' ' + (x1 + dx * r) + ' ' + laneY +
-          ' L ' + (x2 - dx * r) + ' ' + laneY +
-          ' Q ' + x2 + ' ' + laneY + ' ' + x2 + ' ' + (laneY + dy2 * r) +
-          ' L ' + x2 + ' ' + y2;
       }
 
       function markerPathJs(shapeIdx, cx, cy, size) {
@@ -2238,6 +2111,10 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
         }).join(' ');
       }
 
+      // Rank-trajectory class filter state, shared across re-renders.
+      var rankClassFilter = 'all';
+      var lastRankPeriods = null;
+
       function renderPeriodTrendCharts(selectedPeriodData) {
         if (!selectedPeriodData || !selectedPeriodData.length) return;
 
@@ -2458,8 +2335,10 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           var trendSvg = trendSeries.map(function(series, index) {
             var lastPt = series.points[series.points.length - 1];
             var labelY = trendEndpointLabelY[index];
-            return '<g><path d="' + series.path + '" fill="none" stroke="' + series.color + '" stroke-width="2.5"></path>' +
-              (lastPt && lastPt.value > 0 ? '<g><path d="M ' + (lastPt.x + 14) + ' ' + lastPt.y + ' L ' + (trendInnerW + 10) + ' ' + labelY + '" fill="none" stroke="' + series.color + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="' + (trendInnerW + 14) + '" y="' + (labelY + 4) + '" class="chart-axis-label" style="fill:' + series.color + ';font-weight:700">' + series.language + ' · ' + lastPt.value + '</text></g>' : '') +
+            return '<g class="trend-series" data-lang="' + String(series.language).replace(/"/g, '&quot;') + '">' +
+              '<path class="trend-hit" d="' + series.path + '" fill="none" stroke="transparent" stroke-width="14"></path>' +
+              '<path class="trend-line" d="' + series.path + '" fill="none" stroke="' + series.color + '" stroke-width="2.5"></path>' +
+              (lastPt && lastPt.value > 0 ? '<g><path d="M ' + (lastPt.x + 14) + ' ' + lastPt.y + ' L ' + (trendInnerW + 10) + ' ' + labelY + '" fill="none" stroke="' + series.color + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="' + (trendInnerW + 14) + '" y="' + (labelY + 4) + '" class="chart-axis-label trend-line-label" style="fill:' + series.color + ';font-weight:700">' + series.language + ' · ' + lastPt.value + '</text></g>' : '') +
               series.points.map(function(point) { return '<path d="' + markerPathJs(index, point.x, point.y, 4) + '" fill="' + series.color + '" stroke="white" stroke-width="1.2"></path>'; }).join('') +
               '</g>';
           }).join('');
@@ -2467,37 +2346,100 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
           var trendOverlay = trendIsScrollable ? axisOverlaySvg(trendMargin.left, trendMargin.top, trendHeight, trendAxisTicks.map(function(tick) {
             return { y: trendY(tick), label: tick };
           })) : '';
-          topTrendsContainer.innerHTML = '<div class="chart-scroll trend-period-chart-scroll' + (trendIsScrollable ? ' chart-scroll-frozen' : '') + '">' + trendOverlay + '<svg class="chart-svg"' + (trendWidth !== 760 ? ' style="width:' + trendWidth + 'px;max-width:none"' : ' width="100%"') + (trendWidth !== 760 ? ' height="' + trendHeight + '"' : '') + ' viewBox="0 0 ' + trendWidth + ' ' + trendHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across selected period"><g transform="translate(' + trendMargin.left + ' ' + trendMargin.top + ')">' + trendAxis + trendSvg + periods.map(function(period) { return '<text x="' + ((periods.indexOf(period) * trendBand) + trendBand / 2) + '" y="' + (trendInnerH + 18) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>'; }).join('') + '</g></svg></div>';
+          topTrendsContainer.innerHTML = '<div class="chart-scroll trend-period-chart-scroll' + (trendIsScrollable ? ' chart-scroll-frozen' : '') + '">' + trendOverlay + '<svg class="chart-svg trend-line-svg"' + (trendWidth !== 760 ? ' style="width:' + trendWidth + 'px;max-width:none"' : ' width="100%"') + (trendWidth !== 760 ? ' height="' + trendHeight + '"' : '') + ' viewBox="0 0 ' + trendWidth + ' ' + trendHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Line chart of top-language trends across selected period"><g transform="translate(' + trendMargin.left + ' ' + trendMargin.top + ')">' + trendAxis + trendSvg + periods.map(function(period) { return '<text x="' + ((periods.indexOf(period) * trendBand) + trendBand / 2) + '" y="' + (trendInnerH + 18) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>'; }).join('') + '</g></svg></div>';
         }
 
-        var rankContainer = document.getElementById('period-rank-trajectory');
-        if (rankContainer && periods.length >= 2) {
-          var bumpMaxRank = 10;
-          var bumpHeight = 560;
-          var bumpMargin = { top: 24, right: 230, bottom: 84, left: 200 };
-          var bumpWidth = chartWidthForPeriods(960, bumpMargin, periods.length, 5);
-          var bumpInnerW = bumpWidth - bumpMargin.left - bumpMargin.right;
-          var bumpInnerH = bumpHeight - bumpMargin.top - bumpMargin.bottom;
-          var bumpBand = bumpInnerW / periods.length;
-          var bumpRowSpacing = bumpInnerH / Math.max(1, bumpMaxRank - 1);
-          var bumpY = function(rank) { return (rank - 1) * bumpRowSpacing; };
-          var bumpPeriods = periods.map(function(period, index) {
+        lastRankPeriods = periods;
+        renderRankTrajectory(document.getElementById('period-rank-trajectory'), document.getElementById('period-rank-most-improved'), periods, rankClassFilter);
+
+        requestAnimationFrame(function() { scrollChartsToEnd(document.getElementById('period-trends-panel')); });
+      }
+
+      // Rank trajectory (bump) chart — re-rendered on demand so the resource-class
+      // filter can re-rank languages *within* a tier without a page reload. When a
+      // class is selected, only that tier's studied languages are ranked (rank 1 =
+      // most studied in the tier), the rank axis shrinks to how many languages the
+      // tier actually has (never padding empty rows), and the "most improved"
+      // callout is scoped to that tier. This is the low-resource lens: a language
+      // that never cracks the overall top 10 can still lead its own class.
+      function renderRankTrajectory(rankContainer, improvedEl, periods, classFilter) {
+        if (!rankContainer) return;
+        if (!periods || periods.length < 2) {
+          rankContainer.innerHTML = '<p class="placeholder-text">Language rank trajectory will appear once multiple periods are available.</p>';
+          if (improvedEl) improvedEl.innerHTML = '';
+          return;
+        }
+
+        var classFilterNum = (classFilter == null || classFilter === 'all') ? null : Number(classFilter);
+        function passesClass(language) { return classFilterNum === null || classIndexForLanguage(language) === classFilterNum; }
+
+        // Overall studied totals across the window — used only to order the
+        // margin labels stably (most-studied first), independent of the filter.
+        var langTotals = new Map();
+        periods.forEach(function(period) {
+          period.languageCounts.forEach(function(item) {
+            if (!item.language) return;
+            langTotals.set(item.language, (langTotals.get(item.language) || 0) + item.count);
+          });
+        });
+
+        // Studied languages passing the class filter, ranked per period.
+        var perPeriodRanked = periods.map(function(period) {
+          return [...period.languageCounts]
             // Exclude languages that were only ever mentioned_only this week —
             // the bump chart ranks studied activity, not raw mentions.
-            var rankedLanguages = [...period.languageCounts]
-              .filter(function(item) { return item.count > 0; })
-              .sort(function(left, right) { return right.count - left.count || left.language.localeCompare(right.language); })
-              .slice(0, bumpMaxRank)
-              .map(function(item, rankIndex) {
-                return { x: index * bumpBand + bumpBand / 2, y: bumpY(rankIndex + 1), rank: rankIndex + 1, language: item.language };
-              });
-            return { label: period.label, rankedLanguages: rankedLanguages, rankMap: new Map(rankedLanguages.map(function(item) { return [item.language, item]; })) };
+            .filter(function(item) { return item.count > 0 && passesClass(item.language); })
+            .sort(function(left, right) { return right.count - left.count || left.language.localeCompare(right.language); });
+        });
+        var maxAvailable = perPeriodRanked.reduce(function(m, list) { return Math.max(m, list.length); }, 0);
+        if (maxAvailable === 0) {
+          rankContainer.innerHTML = '<p class="placeholder-text">No ' + (classFilterNum === null ? '' : 'Class ' + classFilterNum + ' ') + 'languages were studied in this period.</p>';
+          if (improvedEl) improvedEl.innerHTML = '';
+          return;
+        }
+
+        // Cap at top 10, but shrink the axis to the tier's real size so a
+        // sparse class never draws empty rank rows (misleading whitespace).
+        var bumpMaxRank = Math.min(10, maxAvailable);
+        var bumpRowGap = 50;
+        // top margin leaves room for a mid-entry label sitting above a rank-1
+        // node (node top −14, label baseline −19, ascent ~9 ⇒ needs ~32px).
+        var bumpMargin = { top: 36, right: 230, bottom: 84, left: 200 };
+        var bumpInnerH = Math.max(1, bumpMaxRank - 1) * bumpRowGap;
+        var bumpHeight = bumpInnerH + bumpMargin.top + bumpMargin.bottom;
+        var bumpWidth = chartWidthForPeriods(960, bumpMargin, periods.length, 5);
+        var bumpInnerW = bumpWidth - bumpMargin.left - bumpMargin.right;
+        var bumpBand = bumpInnerW / periods.length;
+        var bumpRowSpacing = bumpRowGap;
+        var bumpY = function(rank) { return (rank - 1) * bumpRowSpacing; };
+        var bumpPeriods = periods.map(function(period, index) {
+          var rankedLanguages = perPeriodRanked[index]
+            .slice(0, bumpMaxRank)
+            .map(function(item, rankIndex) {
+              return { x: index * bumpBand + bumpBand / 2, y: bumpY(rankIndex + 1), rank: rankIndex + 1, language: item.language, count: item.count };
+            });
+          return { label: period.label, rankedLanguages: rankedLanguages, rankMap: new Map(rankedLanguages.map(function(item) { return [item.language, item]; })) };
+        });
+
+        // Per-language weekly studied-count series (0 where absent), across every
+        // studied language in the tier — not just the top 10 that week — so the
+        // "fastest rising" stat below reflects a language's real trajectory even
+        // in weeks it sat just outside the visible ranks.
+        var weeklyCounts = new Map();
+        perPeriodRanked.forEach(function(list, weekIdx) {
+          list.forEach(function(item) {
+            var arr = weeklyCounts.get(item.language);
+            if (!arr) { arr = new Array(periods.length).fill(0); weeklyCounts.set(item.language, arr); }
+            arr[weekIdx] = item.count;
           });
+        });
+        {
           var bumpLanguageList = [...new Set(bumpPeriods.flatMap(function(item) { return item.rankedLanguages.map(function(lang) { return lang.language; }); }))].sort(function(left, right) {
             var leftTotal = langTotals.get(left) || 0;
             var rightTotal = langTotals.get(right) || 0;
             return rightTotal - leftTotal || left.localeCompare(right);
           });
+          updateRankStats(improvedEl, weeklyCounts, periods.length, periods[0].label, periods[periods.length - 1].label, classFilterNum);
           var bumpSeriesData = bumpLanguageList.map(function(language, seriesIdx) {
             var points = bumpPeriods.map(function(period) { return period.rankMap.get(language) ?? null; });
             var segments = [];
@@ -2519,64 +2461,172 @@ const overallCoverageUniqueText = `${trendOverallUniqueLanguages}`;
             var labelColor = TREND_LINE_COLORS_JS[seriesIdx] || CLASS_COLORS_JS[seriesIdx % CLASS_COLORS_JS.length];
             return { language: language, points: points, segments: segments, firstPt: firstPt, lastPt: lastPt, firstIsEdge: firstIsEdge, lastIsEdge: lastIsEdge, labelColor: labelColor };
           });
-          var bumpSegments = bumpSeriesData.flatMap(function(series) { return series.segments; });
-          var bumpLeftLabelRaw = bumpSeriesData.map(function(series, idx) { return { idx: idx, naturalY: series.firstPt ? series.firstPt.y : 0 }; }).sort(function(a, b) { return a.naturalY - b.naturalY; });
-          var bumpRightLabelRaw = bumpSeriesData.map(function(series, idx) { return { idx: idx, naturalY: series.lastPt ? series.lastPt.y : 0 }; }).sort(function(a, b) { return a.naturalY - b.naturalY; });
-          var bumpLeftLabelY = new Array(bumpSeriesData.length).fill(0);
-          var bumpRightLabelY = new Array(bumpSeriesData.length).fill(0);
-          var bumpLeftPrevY = -Infinity;
-          bumpLeftLabelRaw.forEach(function(item) { var y = Math.max(item.naturalY, bumpLeftPrevY + 16); bumpLeftLabelY[item.idx] = y; bumpLeftPrevY = y; });
-          var bumpRightPrevY = -Infinity;
-          bumpRightLabelRaw.forEach(function(item) { var y = Math.max(item.naturalY, bumpRightPrevY + 16); bumpRightLabelY[item.idx] = y; bumpRightPrevY = y; });
-          var bumpLeftLaneY = bumpSeriesData.map(function(series, idx) {
-            return series.firstPt && !series.firstIsEdge
-              ? computeBumpFlyoverLaneY(series.firstPt.y, bumpLeftLabelY[idx], bumpRowSpacing, bumpInnerH)
-              : null;
-          });
-          var bumpRightLaneY = bumpSeriesData.map(function(series, idx) {
-            return series.lastPt && !series.lastIsEdge
-              ? computeBumpFlyoverLaneY(series.lastPt.y, bumpRightLabelY[idx], bumpRowSpacing, bumpInnerH)
-              : null;
-          });
-          // Left- and right-heading leaders can share the same lane (both travel its
-          // full width), so deconflict them together rather than per side.
-          var bumpCombinedLaneOffsets = assignBumpLaneOffsets(bumpLeftLaneY.concat(bumpRightLaneY));
-          var bumpLeftLaneOffsets = bumpCombinedLaneOffsets.slice(0, bumpSeriesData.length);
-          var bumpRightLaneOffsets = bumpCombinedLaneOffsets.slice(bumpSeriesData.length);
           var bumpAxis = Array.from({ length: bumpMaxRank }, function(_, i) { return i + 1; }).map(function(rank) {
             return '<line x1="0" x2="' + bumpInnerW + '" y1="' + bumpY(rank) + '" y2="' + bumpY(rank) + '" class="chart-grid-line"></line>';
           }).join('');
           var bumpPoints = bumpPeriods.map(function(period, index) {
             return '<text x="' + (index * bumpBand + bumpBand / 2) + '" y="' + (bumpInnerH + 34) + '" text-anchor="middle" class="chart-label">' + period.label + '</text>';
           }).join('');
-          var bumpLines = bumpSegments.map(function(segment) { return '<path d="' + segment.d + '" fill="none" stroke="' + segment.color + '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>'; }).join('');
-          var bumpNodes = bumpSeriesData.map(function(series, seriesIdx) {
-            var leftY = bumpLeftLabelY[seriesIdx];
-            var rightY = bumpRightLabelY[seriesIdx];
-            var leftLeaderD = series.firstPt ? (series.firstIsEdge
-              ? buildBumpEdgeLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, leftY)
-              : buildBumpFlyoverLeaderPath(series.firstPt.x - 14, series.firstPt.y, -14, leftY, (bumpLeftLaneY[seriesIdx] ?? 0) + bumpLeftLaneOffsets[seriesIdx])) : '';
-            var leftLabel = series.firstPt ? '<g><path d="' + leftLeaderD + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="-16" y="' + (leftY + 5) + '" text-anchor="end" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
-            var rightLeaderD = series.lastPt ? (series.lastIsEdge
-              ? buildBumpEdgeLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerW + 14, rightY)
-              : buildBumpFlyoverLeaderPath(series.lastPt.x + 14, series.lastPt.y, bumpInnerW + 14, rightY, (bumpRightLaneY[seriesIdx] ?? 0) + bumpRightLaneOffsets[seriesIdx])) : '';
-            var rightLabel = series.lastPt ? '<g><path d="' + rightLeaderD + '" fill="none" stroke="' + series.labelColor + '" stroke-dasharray="3 4" stroke-width="1"></path><text x="' + (bumpInnerW + 16) + '" y="' + (rightY + 5) + '" text-anchor="start" class="chart-axis-label" style="fill:' + series.labelColor + ';font-weight:700">' + series.language + '</text></g>' : '';
-            return '<g>' + leftLabel + rightLabel +
-              series.points.map(function(point) {
-                if (!point) return '';
-                var rankColor = BUMP_RANK_COLORS_JS[point.rank - 1] || BUMP_RANK_COLORS_JS[BUMP_RANK_COLORS_JS.length - 1];
-                var textColor = point.rank >= 6 ? '#000' : '#fff';
-                return '<g><circle cx="' + point.x + '" cy="' + point.y + '" r="14" fill="' + rankColor + '" stroke="#000" stroke-width="1.5"></circle><text x="' + point.x + '" y="' + (point.y + 5) + '" text-anchor="middle" style="fill:' + textColor + ';font-size:0.65rem;font-weight:700">' + point.rank + '</text></g>';
-              }).join('') +
-              '</g>';
+          function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+          // Direct labeling instead of a leader-line tangle: label ONLY the first
+          // column's languages on the left and the last column's on the right,
+          // each anchored at its own node's row. Those rows are distinct (one
+          // language per rank per week), so labels never collide and need no
+          // dotted leaders. Every transient mid-window language is identified by
+          // hovering its circle (native <title>), and hovering any series
+          // highlights its whole path (see .bump-series CSS) — which is how you
+          // follow a single language through the tangle without leader lines.
+          var bumpNodes = bumpSeriesData.map(function(series) {
+            var labelParts = '';
+            if (series.firstIsEdge && series.firstPt) {
+              labelParts += '<text x="' + (series.firstPt.x - 20) + '" y="' + (series.firstPt.y + 4) + '" text-anchor="end" class="chart-axis-label bump-label">' + esc(series.language) + '</text>';
+            }
+            if (series.lastIsEdge && series.lastPt) {
+              labelParts += '<text x="' + (series.lastPt.x + 20) + '" y="' + (series.lastPt.y + 4) + '" text-anchor="start" class="chart-axis-label bump-label">' + esc(series.language) + '</text>';
+            }
+            // Languages that neither open in the first column nor survive to the
+            // last are invisible to the margin labels. Label each one right where
+            // it ENTERS the top ranks, above its first node — the ~22px inter-row
+            // gap has room, and since only one language occupies any (week, rank)
+            // cell these scatter across the grid instead of re-stacking. A white
+            // halo (see .bump-mid-label) keeps them legible over the lines.
+            if (!series.firstIsEdge && !series.lastIsEdge && series.firstPt) {
+              labelParts += '<text x="' + series.firstPt.x + '" y="' + (series.firstPt.y - 19) + '" text-anchor="middle" class="bump-mid-label">' + esc(series.language) + '</text>';
+            }
+            var lineParts = series.segments.map(function(segment) { return '<path class="bump-line" d="' + segment.d + '" fill="none" stroke="' + segment.color + '" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>'; }).join('');
+            var nodeParts = series.points.map(function(point, i) {
+              if (!point) return '';
+              var rankColor = BUMP_RANK_COLORS_JS[point.rank - 1] || BUMP_RANK_COLORS_JS[BUMP_RANK_COLORS_JS.length - 1];
+              var textColor = point.rank >= 6 ? '#000' : '#fff';
+              var weekLabel = bumpPeriods[i] ? bumpPeriods[i].label : '';
+              return '<g class="bump-node"><circle cx="' + point.x + '" cy="' + point.y + '" r="14" fill="' + rankColor + '" stroke="#000" stroke-width="1.5"><title>' + esc(series.language) + ' — rank ' + point.rank + ' · ' + esc(weekLabel) + '</title></circle><text x="' + point.x + '" y="' + (point.y + 5) + '" text-anchor="middle" style="fill:' + textColor + ';font-size:0.65rem;font-weight:700;pointer-events:none">' + point.rank + '</text></g>';
+            }).join('');
+            return '<g class="bump-series" data-lang="' + esc(series.language) + '">' + lineParts + nodeParts + labelParts + '</g>';
           }).join('');
-          rankContainer.innerHTML = '<svg class="chart-svg"' + (bumpWidth !== 960 ? ' style="width:' + bumpWidth + 'px;max-width:none"' : ' width="100%"') + ' height="' + bumpHeight + '" viewBox="0 0 ' + bumpWidth + ' ' + bumpHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Language rank bump chart across selected period"><g transform="translate(' + bumpMargin.left + ' ' + bumpMargin.top + ')">' + bumpAxis + bumpPoints + bumpLines + bumpNodes + '</g></svg>';
+          rankContainer.innerHTML = '<svg class="chart-svg bump-svg"' + (bumpWidth !== 960 ? ' style="width:' + bumpWidth + 'px;max-width:none"' : ' width="100%"') + ' height="' + bumpHeight + '" viewBox="0 0 ' + bumpWidth + ' ' + bumpHeight + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Language rank bump chart across selected period"><g transform="translate(' + bumpMargin.left + ' ' + bumpMargin.top + ')">' + bumpAxis + bumpPoints + bumpNodes + '</g></svg>';
         }
 
-        requestAnimationFrame(function() { scrollChartsToEnd(document.getElementById('period-trends-panel')); });
+        requestAnimationFrame(function() { rankContainer.scrollLeft = rankContainer.scrollWidth; });
+      }
+
+      // Rank-trajectory summary stats. Mirrors computeRankTrajectoryStats /
+      // formatEffectiveLanguageCount in web/src/lib/trend-charts.js (unit-tested
+      // there) — kept in sync manually rather than imported, matching this
+      // block's existing pattern of duplicating the bump-chart helpers for the
+      // non-module inline <script> (see buildBumpSegmentPath etc. above).
+      //
+      // All three stats use "share of studied mentions" (a language's studied
+      // count ÷ all studied mentions in the tier), which is volume-robust and
+      // measures representation directly — the equity question this project is
+      // about — and all three are computed over EVERY studied language in the
+      // tier, not just the ones visible in the chart's top-10 cutoff, so a
+      // fast-growing or dominant low-resource language can win even if it never
+      // cracks the top 10. All three respect the class filter.
+      //
+      //  • Fastest rising: the language whose share grew the most, comparing its
+      //    later-half average vs its earlier-half average (per-week averaged so
+      //    uneven halves stay comparable). Deliberately NOT an endpoint rank climb
+      //    (usually empty in churny low-resource tiers) nor an absolute-count rise
+      //    (confounded by submission volume — when arXiv dips, everything falls).
+      //  • Tier leader: the single language holding the largest share across the
+      //    whole window — who dominates, as a level to the rising stat's momentum.
+      //  • Diversity: the effective number of languages = exp(Shannon entropy) of
+      //    the window's share distribution — how many languages the tier studies
+      //    if attention were spread evenly (200 studied but 90% on 5 ⇒ ~6).
+      function computeRankTrajectoryStatsJs(weeklyCounts, weekCount) {
+        var mid = Math.floor(weekCount / 2);
+        var firstWeeks = mid;                 // weeks [0, mid)
+        var secondWeeks = weekCount - mid;    // weeks [mid, weekCount)
+        var weeklyTotals = new Array(weekCount).fill(0);
+        weeklyCounts.forEach(function(counts) {
+          for (var i = 0; i < weekCount; i++) weeklyTotals[i] += (counts[i] || 0);
+        });
+
+        var rising = null;
+        weeklyCounts.forEach(function(counts, language) {
+          var firstShare = 0, secondShare = 0;
+          for (var i = 0; i < weekCount; i++) {
+            var share = weeklyTotals[i] > 0 ? (counts[i] || 0) / weeklyTotals[i] : 0;
+            if (i < mid) firstShare += share; else secondShare += share;
+          }
+          var firstAvg = firstWeeks ? firstShare / firstWeeks : 0;
+          var secondAvg = secondWeeks ? secondShare / secondWeeks : 0;
+          var delta = secondAvg - firstAvg;
+          if (delta <= 0) return;
+          if (!rising || delta > rising.delta || (delta === rising.delta && secondAvg > rising.secondAvg)) {
+            rising = { language: language, delta: delta, firstAvg: firstAvg, secondAvg: secondAvg };
+          }
+        });
+
+        var totals = new Map();
+        var grandTotal = 0;
+        weeklyCounts.forEach(function(counts, language) {
+          var t = 0;
+          for (var i = 0; i < weekCount; i++) t += (counts[i] || 0);
+          if (t > 0) { totals.set(language, t); grandTotal += t; }
+        });
+        var leaderLanguage = null;
+        totals.forEach(function(t, language) { if (!leaderLanguage || t > totals.get(leaderLanguage)) leaderLanguage = language; });
+        var leader = leaderLanguage ? { language: leaderLanguage, share: grandTotal > 0 ? totals.get(leaderLanguage) / grandTotal : 0 } : null;
+
+        var entropy = 0;
+        if (grandTotal > 0) {
+          totals.forEach(function(t) { var p = t / grandTotal; if (p > 0) entropy -= p * Math.log(p); });
+        }
+        var diversityEffective = grandTotal > 0 ? Math.exp(entropy) : 0;
+
+        return { rising: rising, leader: leader, diversityEffective: diversityEffective };
+      }
+
+      function formatEffectiveLanguageCountJs(effective) {
+        var value = effective >= 10 ? Math.round(effective) : Number(effective.toFixed(1));
+        return { value: value, text: String(value), isSingular: value === 1 };
+      }
+
+      function updateRankStats(el, weeklyCounts, weekCount, firstLabel, lastLabel, classFilterNum) {
+        if (!el) return;
+        function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+        function pct(x) { var v = x * 100; return (Number.isInteger(v) ? String(v) : v.toFixed(1)) + '%'; }
+        var scope = classFilterNum === null ? '' : ' in Class ' + classFilterNum;
+
+        var stats = computeRankTrajectoryStatsJs(weeklyCounts, weekCount);
+        var rising = stats.rising;
+        var leader = stats.leader;
+        var diversity = formatEffectiveLanguageCountJs(stats.diversityEffective);
+
+        var risingHtml = rising
+          ? '<span class="bump-stat"><span class="bump-improved-badge">▲ Fastest rising</span> <strong>' + esc(rising.language) + '</strong> <span class="bump-improved-detail">grew to ' + pct(rising.secondAvg) + ' of studied-language mentions' + scope + ', up from ' + pct(rising.firstAvg) + ' (' + firstLabel + ' → ' + lastLabel + ')</span></span>'
+          : '<span class="bump-stat"><span class="bump-improved-badge bump-improved-badge-muted">▲ Fastest rising</span> <span class="bump-improved-detail">No language gained share of attention across ' + firstLabel + ' → ' + lastLabel + scope + '.</span></span>';
+        var leaderHtml = leader
+          ? '<span class="bump-stat"><span class="bump-improved-badge bump-badge-leader">★ Tier leader</span> <strong>' + esc(leader.language) + '</strong> <span class="bump-improved-detail">' + pct(leader.share) + ' of studied mentions' + scope + '</span></span>'
+          : '';
+        var diversityHtml = stats.diversityEffective > 0
+          ? '<span class="bump-stat"><span class="bump-improved-badge bump-badge-diversity">◇ Diversity</span> <span class="bump-improved-detail">~' + diversity.text + ' effective language' + (diversity.isSingular ? '' : 's') + scope + '</span>'
+            + '<span class="lang-chip-popover bump-info-popover"><span class="bump-info-icon" tabindex="0" role="button" aria-label="What does diversity mean?">&#9432;</span>'
+            + '<span class="review-popover-body" role="tooltip"><strong>Diversity — effective number of languages</strong><p>The number of <em>equally-common</em> languages that would give the same spread of studied attention (exp of the Shannon entropy of each language\'s share). It equals the raw count when attention is spread evenly across languages, and drops well below it when a few dominate — so higher means broader, more equitable representation.</p></span></span>'
+            + '</span>'
+          : '';
+
+        el.innerHTML = risingHtml + leaderHtml + diversityHtml;
       }
 
       renderPeriodTrendCharts(periodData);
+
+      // Resource-class filter chips for the rank trajectory chart.
+      var rankChipRow = document.getElementById('period-rank-class-chips');
+      if (rankChipRow) {
+        rankChipRow.addEventListener('click', function(e) {
+          var btn = e.target.closest ? e.target.closest('button[data-rank-class]') : null;
+          if (!btn || !rankChipRow.contains(btn)) return;
+          rankClassFilter = btn.getAttribute('data-rank-class');
+          rankChipRow.querySelectorAll('button[data-rank-class]').forEach(function(b) {
+            var active = b === btn;
+            b.classList.toggle('is-active', active);
+            b.setAttribute('aria-pressed', active ? 'true' : 'false');
+          });
+          if (lastRankPeriods) renderRankTrajectory(document.getElementById('period-rank-trajectory'), document.getElementById('period-rank-most-improved'), lastRankPeriods, rankClassFilter);
+        });
+      }
 
       function chartWidthForPeriods(baseWidth, margins, periodCount, maxVisible) {
         if (periodCount <= maxVisible) return baseWidth;

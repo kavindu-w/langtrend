@@ -372,3 +372,93 @@ export function markerPath(shapeIdx, cx, cy, size) {
     default: return `M ${cx - s},${cy - s} L ${cx + s},${cy - s} L ${cx},${cy + s} Z`; // triangle
   }
 }
+
+/**
+ * Rank-trajectory summary stats, computed from every language's per-week
+ * studied-count series (0 where absent) across the window — not just the
+ * languages that happen to be drawn in the chart's visible top 10. That's
+ * deliberate: "fastest rising", "tier leader", and "diversity" all describe
+ * the whole tier, and a real low-resource language growing fastest may never
+ * crack the top 10 that's plotted — the exact case this project's equity
+ * framing cares about, so it must still be eligible to win.
+ *
+ * @param {Map<string, number[]>} weeklyCounts language -> per-week studied count array (length weekCount, 0 where absent)
+ * @param {number} weekCount
+ * @returns {{
+ *   rising: { language: string, delta: number, firstAvg: number, secondAvg: number } | null,
+ *   leader: { language: string, share: number } | null,
+ *   diversityEffective: number,
+ * }}
+ */
+export function computeRankTrajectoryStats(weeklyCounts, weekCount) {
+  const mid = Math.floor(weekCount / 2);
+  const firstWeeks = mid;               // weeks [0, mid)
+  const secondWeeks = weekCount - mid;  // weeks [mid, weekCount)
+  const weeklyTotals = new Array(weekCount).fill(0);
+  weeklyCounts.forEach((counts) => {
+    for (let i = 0; i < weekCount; i++) weeklyTotals[i] += counts[i] || 0;
+  });
+
+  // Fastest rising: largest gain in average share, later half vs earlier half.
+  let rising = null;
+  weeklyCounts.forEach((counts, language) => {
+    let firstShare = 0;
+    let secondShare = 0;
+    for (let i = 0; i < weekCount; i++) {
+      const share = weeklyTotals[i] > 0 ? (counts[i] || 0) / weeklyTotals[i] : 0;
+      if (i < mid) firstShare += share; else secondShare += share;
+    }
+    const firstAvg = firstWeeks ? firstShare / firstWeeks : 0;
+    const secondAvg = secondWeeks ? secondShare / secondWeeks : 0;
+    const delta = secondAvg - firstAvg;
+    if (delta <= 0) return;
+    if (!rising || delta > rising.delta || (delta === rising.delta && secondAvg > rising.secondAvg)) {
+      rising = { language, delta, firstAvg, secondAvg };
+    }
+  });
+
+  // Tier leader + diversity: total share held across the whole window.
+  const totals = new Map();
+  let grandTotal = 0;
+  weeklyCounts.forEach((counts, language) => {
+    let total = 0;
+    for (let i = 0; i < weekCount; i++) total += counts[i] || 0;
+    if (total > 0) { totals.set(language, total); grandTotal += total; }
+  });
+  let leaderLanguage = null;
+  totals.forEach((total, language) => {
+    if (!leaderLanguage || total > totals.get(leaderLanguage)) leaderLanguage = language;
+  });
+  const leader = leaderLanguage
+    ? { language: leaderLanguage, share: grandTotal > 0 ? totals.get(leaderLanguage) / grandTotal : 0 }
+    : null;
+
+  // Diversity: effective number of languages = exp(Shannon entropy) of each
+  // language's total-window share. Equals the raw count when attention is
+  // spread evenly, and drops well below it when a few languages dominate.
+  let entropy = 0;
+  if (grandTotal > 0) {
+    totals.forEach((total) => {
+      const p = total / grandTotal;
+      if (p > 0) entropy -= p * Math.log(p);
+    });
+  }
+  const diversityEffective = grandTotal > 0 ? Math.exp(entropy) : 0;
+
+  return { rising, leader, diversityEffective };
+}
+
+/**
+ * Formats the "effective number of languages" diversity stat for display,
+ * rounding once and deriving both the text and the singular/plural check from
+ * that same rounded value — so "1 effective language" is reachable and never
+ * disagrees with the displayed number (e.g. a naive `.toFixed(1)` always
+ * prints "1.0", which can never equal the string "1").
+ *
+ * @param {number} effective
+ * @returns {{ value: number, text: string, isSingular: boolean }}
+ */
+export function formatEffectiveLanguageCount(effective) {
+  const value = effective >= 10 ? Math.round(effective) : Number(effective.toFixed(1));
+  return { value, text: String(value), isSingular: value === 1 };
+}

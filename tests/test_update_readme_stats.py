@@ -5,6 +5,7 @@ Run with: pytest tests/test_update_readme_stats.py -v
 """
 
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -400,3 +401,64 @@ def test_render_stats_block_handles_missing_latest_week_gracefully():
 
     block = urs.render_stats_block(latest, cumulative)
     assert "N/A" in block
+
+
+# ---------------------------------------------------------------------------
+# render_stats_block (judge-pending warning)
+# ---------------------------------------------------------------------------
+
+_LATEST = {"week_start": "2026-06-22", "week_end": "2026-06-29", "papers": 475,
+           "flagged_papers": 293, "unique_languages": 301}
+_CUMULATIVE = {"total_papers": 5400, "total_flagged_papers": 3274,
+               "total_unique_languages": 894, "weeks_tracked": 9, "earliest_week_start": "2026-04-27"}
+
+
+def test_render_stats_block_shows_warning_when_judge_pending():
+    block = urs.render_stats_block(_LATEST, _CUMULATIVE, judge_pending=True)
+    assert "LLM judge in progress" in block
+    # warning must land between the week line and the table
+    assert block.index("LLM judge in progress") > block.index("Latest processed week")
+    assert block.index("LLM judge in progress") < block.index("| Metric |")
+
+
+def test_render_stats_block_omits_warning_when_fully_judged():
+    block = urs.render_stats_block(_LATEST, _CUMULATIVE, judge_pending=False)
+    assert "LLM judge in progress" not in block
+
+
+def test_render_stats_block_omits_warning_when_pending_status_unknown():
+    block = urs.render_stats_block(_LATEST, _CUMULATIVE, judge_pending=None)
+    assert "LLM judge in progress" not in block
+
+
+def test_render_stats_block_default_omits_warning():
+    block = urs.render_stats_block(_LATEST, _CUMULATIVE)
+    assert "LLM judge in progress" not in block
+
+
+# ---------------------------------------------------------------------------
+# is_latest_week_judge_pending
+# ---------------------------------------------------------------------------
+
+def test_is_latest_week_judge_pending_true_on_exit_code_3(monkeypatch):
+    def fake_run(*args, **kwargs):
+        return subprocess.CompletedProcess(args, returncode=3)
+
+    monkeypatch.setattr(urs.subprocess, "run", fake_run)
+    assert urs.is_latest_week_judge_pending(Path("/tmp")) is True
+
+
+def test_is_latest_week_judge_pending_false_on_exit_code_0(monkeypatch):
+    def fake_run(*args, **kwargs):
+        return subprocess.CompletedProcess(args, returncode=0)
+
+    monkeypatch.setattr(urs.subprocess, "run", fake_run)
+    assert urs.is_latest_week_judge_pending(Path("/tmp")) is False
+
+
+def test_is_latest_week_judge_pending_none_on_unexpected_exit_code(monkeypatch):
+    def fake_run(*args, **kwargs):
+        return subprocess.CompletedProcess(args, returncode=1)
+
+    monkeypatch.setattr(urs.subprocess, "run", fake_run)
+    assert urs.is_latest_week_judge_pending(Path("/tmp")) is None
