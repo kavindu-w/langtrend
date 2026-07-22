@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.12341v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T05:50:38.753825+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3180,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The snippets show \"Col\" used as a variable name for column policies and column references in the paper’s formalism, not as a human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to a literal \"sentinel REFUSE\" token used to signal refusal in the decoder, not the human language Sentinel.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

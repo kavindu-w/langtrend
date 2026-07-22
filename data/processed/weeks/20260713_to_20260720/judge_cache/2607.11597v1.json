@@ -1,0 +1,84 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.11597v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T06:19:06.383934+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 11767,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Abusive / Non-abu- sive\" – the string \"Abu\" is part of the word \"Abusive\", not the language. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Achi": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Bangla word \"achhi\" (meaning \"is\"), so \"Achi\" is a fragment of a word, not the language. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "The snippet references \"Bangla detection\" and other terms; \"Bo\" appears as part of a word, not the language. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bole": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes the Bangla word \"Bole\" meaning \"say\", so it is a word fragment, not the language. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Boro": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Bangla word \"বড়\" (big), so \"Boro\" is a word fragment, not the language. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kala": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows the Bangla word \"কালা\" (black), so \"Kala\" is a word fragment, not the language. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Reli": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word \"Religion\"; \"Reli\" is part of that word, not the language. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The snippet refers to a Bengali language corpus and datasets for hate speech detection, indicating the paper studies Bangla. studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Hindi as a language in related work, but no experiments are conducted on it. mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Tamil in related work, but no experiments are conducted on it. mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word \"sarcastic\"; \"Sar\" is part of that word, not the language. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tumi": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses the Bangla pronoun \"Tumi\" meaning \"you\", so it is a word fragment, not the language. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Urdu as a low-resource South Asian language in the context of related work and transfer learning, not to a model or tool named Urdu.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet discusses Arabic as a language with high resources and mentions Arabic-specific models (AraBERT) in the context of related work, not a tool named Arabic.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references English as a high-resource language and provides English translations, indicating it is mentioned as a language, not a model or tool.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

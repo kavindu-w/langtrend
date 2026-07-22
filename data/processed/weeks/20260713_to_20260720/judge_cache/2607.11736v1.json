@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.11736v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T05:57:30.624100+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11936,
+  "verdicts": {
+    "Ama": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"English instance 854-ama\" which is an instance ID, not the language Ama.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Hindi as a language used in the dataset, experiments, and analysis (e.g., \"Hindi benefits the most broadly\", \"instances in Hindi\", \"adapted into Hindi\").",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets mention Chinese as a language used in the dataset, experiments, and analysis (e.g., \"instances in Chinese\", \"adapted into Chinese\").",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to Latin as a script type (Latin‑script languages) or language detection for Latin languages, not the language Latin itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Malay": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Malay as a language used in the dataset, experiments, and analysis (e.g., \"peak MCLASH gain for Malay\", \"adapted into Malay\").",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Korean as a language used in the dataset, experiments, and analysis (e.g., \"Korean shows an unusually high own-language gain\", \"adapted into Korean\").",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as a language used in the dataset, experiments, and analysis (e.g., \"instances in English\", \"adapted into English\").",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Spanish as a language used in the dataset, experiments, and analysis (e.g., \"Spanish is led by Relation-Based Authority\", \"adapted into Spanish\").",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

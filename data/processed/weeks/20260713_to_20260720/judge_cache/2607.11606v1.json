@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.11606v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T06:02:52.418403+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3976,
+  "verdicts": {
+    "Sake": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not contain the word \"Sake\"; the regex likely matched a variable or acronym, and there is no evidence that it refers to the human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "\"Sentinel\" is used to describe a special string chosen as a marker in the construction, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "\"Greek\" refers to Greek alphabets used to denote ordinal numbers, not the Greek language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

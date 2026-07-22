@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.12796v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T05:48:28.177126+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10027,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a model name (Anthropic model) in the snippets, so false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "Mango refers to the fruit in the snippets, so false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Esperanto": {
+      "verdict": "mentioned_only",
+      "reason": "Esperanto refers to the language itself as an answer in a category, so mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese refers to Chinese labs or Chinese-lab models in the snippets, so false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language used in the instrument and prompts, and the paper builds and evaluates on English data, so studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

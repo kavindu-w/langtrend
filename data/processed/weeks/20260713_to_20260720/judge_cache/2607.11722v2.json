@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.11722v2",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T06:01:43.364604+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8533,
+  "verdicts": {
+    "Tso": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"TSO\" as a secondary education level in Dutch degree mapping, not a language; thus it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is repeatedly referenced as the primary language of source resumes, dataset content, month names, and extraction prompts, indicating the paper uses Dutch data for training and evaluation; thus i",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the Hungarian algorithm for similarity scoring, not the Hungarian language; thus it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is mentioned as a language of datasets (OpenResume, JobHop v2) and used in training and evaluation; thus it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is cited as a language of source resumes, dataset content, and month names, and is used in training and evaluation; thus it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is cited as the language of the Karrierewege dataset and used in training and evaluation; thus it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.11279v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T06:00:17.541817+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10023,
+  "verdicts": {
+    "Amazigh": {
+      "verdict": "mentioned_only",
+      "reason": "refers to Amazigh varieties spoken in Algeria",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "moroccan Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "refers to Moroccan Arabic dialect as a potential target for adaptation",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "refers to the Latin alphabet/script used for Arabizi and French words",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "refers to Algerian Arabic (Darija) language studied in the dataset and models",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "refers to English as a high-resource language mentioned in motivation",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "refers to French language used in code-switching and stop-words",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

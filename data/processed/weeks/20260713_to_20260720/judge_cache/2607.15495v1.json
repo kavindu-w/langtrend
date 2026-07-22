@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.15495v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T05:47:41.756259+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10252,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to a type of sentence used in the experiment, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Ong": {
+      "verdict": "false_positive",
+      "reason": "Ong refers to an author name in the citation, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script used in the decoder output, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic refers to the Arabic script used in the decoder output, not the Arabic language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "Japanese refers to the Japanese script used in the decoder output, not the Japanese language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is the language the model switches to and is analyzed in language switching experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is the language used in prompts and internal representations, and is part of experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language used in prompts and internal representations, and is part of experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is the language whose words appear in the J-lens readouts and is part of language switching experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is the language used in template swapping experiments and is part of the study.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is the language used in prompts and language switching experiments and is part of the study.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

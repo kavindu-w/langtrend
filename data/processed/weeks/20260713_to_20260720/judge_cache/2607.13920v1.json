@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.13920v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T06:12:28.740140+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3524,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'sake' in the phrase 'for the sake of evaluation', which is not the language but a common English word.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'DR-Tulu', a model name, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Macedonian": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Spartan-Macedonian alliance', referring to the people/region, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a French composer, indicating nationality, not the language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

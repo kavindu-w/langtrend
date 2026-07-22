@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.12169v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T05:53:31.728108+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11359,
+  "verdicts": {
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "Ik is a Dutch word meaning 'I', appearing in rule examples and sentence snippets; it is not a language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is referenced as the L2 language in experiments and datasets, and the paper evaluates intercomprehension for Dutch; it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is referenced as the L2 language in experiments and datasets, and the paper evaluates intercomprehension for Italian; it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is referenced as the L2 language in experiments and datasets, and the paper evaluates intercomprehension for Ukrainian; it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is referenced as the L1 language for Ukrainian intercomprehension experiments and datasets; it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is referenced as the L1 language for Italian intercomprehension experiments and datasets; it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the L1 language for Dutch intercomprehension experiments and datasets; it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned only as an example of a non one-to-one mapping in the discussion; the paper does not study French.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

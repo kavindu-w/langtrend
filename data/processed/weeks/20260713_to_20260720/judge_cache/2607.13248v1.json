@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.13248v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T05:46:13.567078+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11827,
+  "verdicts": {
+    "Mina": {
+      "verdict": "false_positive",
+      "reason": "Mina is used as a personal name (translation of “Janet”) in the snippet, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic refers to Arabic numerals in the snippet, not the Arabic language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The paper creates a Bengali dataset, translates problems into Bengali, and evaluates models on Bengali mathematical reasoning tasks.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned as a high-resource language for comparison, but no experiments or data are presented for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned as a high-resource language for comparison, but no experiments or data are presented for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the source language of the original GSM-Plus dataset and as a baseline for comparison, but the study does not evaluate models on English data.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

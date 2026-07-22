@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.12831v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T05:49:09.612806+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6448,
+  "verdicts": {
+    "Lama": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to the LAMA benchmark dataset (a factual knowledge evaluation benchmark), not the human language Lama.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The matched text refers to English corpora and datasets used for pretraining and evaluation, indicating the paper works directly with the English language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

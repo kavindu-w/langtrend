@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.11871v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T06:02:11.753182+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2536,
+  "verdicts": {
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Deg.\" as a column header in a table, clearly an abbreviation for degradation/degree, not the human language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly mentions \"ASCII-only English answers\" in the context of tokenization and datasets, indicating the paper uses English data for its experiments; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

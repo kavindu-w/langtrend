@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.12185v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T06:14:43.725343+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3621,
+  "verdicts": {
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to the bird species 'crow', not the Crow language; false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Toro": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to author Toro-Hernández and not a language; false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The matched text refers to native Italian-speaking participants and dataset; the paper uses Italian language data; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.12787v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-22T05:47:47.121374+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5180,
+  "verdicts": {
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to multimodal emotion recognition (MER) as a task, not the human language Mer; it is a task acronym, so it is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet mentions \"both Chinese and English data\" in the datasets section, indicating that Chinese data is used in the experiments; thus the language is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions \"both Chinese and English data\" in the datasets section, indicating that English data is used in the experiments; thus the language is studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}
