@@ -11,9 +11,10 @@ per paper to <week_dir>/judge_cache/<safe_id>.json and folded into the
 manifest on the next build_manifest run.
 
 Configuration comes from LLM_JUDGE_* environment variables (see
-langtrend/llm_client.py or .env.example). Defaults target Cerebras's free
-tier (open-weight gpt-oss-120b). Groq and a local Ollama server both work as
-drop-in overrides.
+langtrend/llm_client.py or .env.example) — provider and model are whatever
+LLM_JUDGE_BASE_URL/LLM_JUDGE_MODEL point at (Cerebras, Groq, and OpenRouter
+free tiers, or a local Ollama server, all work as drop-in options; see
+.env.example for current tradeoffs).
 
 Exit codes: 0 = nothing left pending (either there was nothing to do, or
 every targeted paper got judged this run); 1 = hard error (bad config,
@@ -197,7 +198,7 @@ def _single_paper_mode(args, records, week_dir, config, classes) -> int:
     client = OpenAICompatClient(config)
     client.ping()
     judge_record = judge_paper(record, week_dir, client, config, classes=classes)
-    print(f"\nVerdicts from {config.model}:")
+    print(f"\nVerdicts from {judge_record['judge_model'] if judge_record else config.model}:")
     _print_verdicts(judge_record)
     if args.save:
         path = save_judge_record(week_dir, judge_record)
@@ -351,7 +352,14 @@ def main() -> None:
         print(f"Error: {exc}", file=sys.stderr)
         sys.exit(EXIT_ERROR)
 
-    print(f"Judge: {config.model} @ {config.base_url} "
+    fallback_note = ""
+    if config.fallback_models:
+        chain = " -> ".join(config.fallback_models)
+        fallback_note = (
+            f", fallback={chain}" if config.is_openrouter()
+            else f", fallback={chain} (IGNORED — LLM_JUDGE_BASE_URL isn't OpenRouter)"
+        )
+    print(f"Judge: {config.model} @ {config.base_url}{fallback_note} "
           f"(workers={config.workers}, rpm={config.rpm}, rph={config.rph}, "
           f"context≤{config.max_context_chars} chars)")
 

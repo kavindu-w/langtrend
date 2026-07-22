@@ -1,8 +1,11 @@
 """Minimal OpenAI-compatible chat client for the LLM judge stage.
 
-Works against any /chat/completions endpoint. Defaults target Groq's free
-tier (open-weight gpt-oss-120b) via its OpenAI-compatible endpoint. A local Ollama
-server is a drop-in override for quota-free testing:
+Works against any /chat/completions endpoint. Provider/model are entirely
+config-driven via LLM_JUDGE_BASE_URL/LLM_JUDGE_MODEL (see .env.example for
+currently-supported free-tier options — Cerebras, Groq, OpenRouter); DEFAULT_BASE_URL/
+DEFAULT_MODEL below are only the fallback used when those env vars are unset,
+not a recommendation. A local Ollama server is a drop-in override for
+quota-free testing:
 
     LLM_JUDGE_BASE_URL=http://localhost:11434/v1
     LLM_JUDGE_MODEL=qwen3:8b
@@ -18,6 +21,10 @@ Environment variables (all optional except the API key for hosted backends):
     LLM_JUDGE_WORKERS            parallel paper workers (default 4)
     LLM_JUDGE_RPM                max requests per minute across all workers (default 4)
     LLM_JUDGE_RPH                max requests per hour across all workers (default 150)
+    LLM_JUDGE_FALLBACK_MODELS    comma-separated fallback model IDs, tried in order if
+                                  LLM_JUDGE_MODEL errors (OpenRouter-only: sends its
+                                  "models" array instead of "model" — see
+                                  https://openrouter.ai/docs/guides/routing/model-fallbacks)
 """
 
 from __future__ import annotations
@@ -26,6 +33,7 @@ import json
 import re
 import threading
 import time
+import warnings
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -85,6 +93,7 @@ class LLMClientConfig:
     workers: int = 4
     rpm: int = 4
     rph: int = 150
+    fallback_models: tuple[str, ...] = ()
 
     @classmethod
     def from_env(cls) -> "LLMClientConfig":
@@ -96,6 +105,8 @@ class LLMClientConfig:
             load_dotenv(_PROJECT_ROOT / ".env")
         except ImportError:
             pass
+        fallback_raw = os.environ.get("LLM_JUDGE_FALLBACK_MODELS", "")
+        fallback_models = tuple(m.strip() for m in fallback_raw.split(",") if m.strip())
         return cls(
             base_url=os.environ.get("LLM_JUDGE_BASE_URL", DEFAULT_BASE_URL).rstrip("/"),
             api_key=os.environ.get("LLM_JUDGE_API_KEY", ""),
@@ -106,10 +117,14 @@ class LLMClientConfig:
             workers=int(os.environ.get("LLM_JUDGE_WORKERS", "4")),
             rpm=int(os.environ.get("LLM_JUDGE_RPM", "4")),
             rph=int(os.environ.get("LLM_JUDGE_RPH", "150")),
+            fallback_models=fallback_models,
         )
 
     def is_local(self) -> bool:
         return "localhost" in self.base_url or "127.0.0.1" in self.base_url
+
+    def is_openrouter(self) -> bool:
+        return "openrouter.ai" in self.base_url
 
 
 class _RpmThrottle:
@@ -155,6 +170,15 @@ class OpenAICompatClient:
         self.config = config
         self._throttle = _RpmThrottle(config.rpm, config.rph)
         self._local = threading.local()
+        if config.fallback_models and not config.is_openrouter():
+            warnings.warn(
+                f"LLM_JUDGE_FALLBACK_MODELS is set but LLM_JUDGE_BASE_URL "
+                f"({config.base_url}) doesn't look like OpenRouter — the "
+                "fallback list will be ignored (the 'models' array is an "
+                "OpenRouter-specific feature; other OpenAI-compatible APIs "
+                "would reject it).",
+                stacklevel=2,
+            )
 
     def _session(self) -> requests.Session:
         session = getattr(self._local, "session", None)
@@ -186,13 +210,30 @@ class OpenAICompatClient:
         if resp.status_code >= 500:
             raise LLMUnavailableError(f"Endpoint error at {url}: HTTP {resp.status_code}")
 
+    @property
+    def last_model_used(self) -> str:
+        """The model that actually served the most recent chat() call on this thread.
+
+        Falls back to config.model when no fallback list is configured, or before
+        any call has completed. judge_paper() reads this after finishing a paper
+        so the judge cache records which model really produced the verdicts,
+        not just the configured primary.
+        """
+        return getattr(self._local, "last_model_used", self.config.model)
+
     def chat(self, messages: list[dict], response_format_json: bool = True) -> str:
         """POST a chat completion; returns the assistant message content."""
         payload: dict = {
-            "model": self.config.model,
             "messages": messages,
             "temperature": self.config.temperature,
         }
+        if self.config.fallback_models and self.config.is_openrouter():
+            # OpenRouter-specific: "models" (priority-ordered list) replaces
+            # "model" and triggers automatic failover on error/rate-limit/downtime.
+            # https://openrouter.ai/docs/guides/routing/model-fallbacks
+            payload["models"] = [self.config.model, *self.config.fallback_models]
+        else:
+            payload["model"] = self.config.model
         if response_format_json:
             payload["response_format"] = {"type": "json_object"}
 
@@ -229,6 +270,7 @@ class OpenAICompatClient:
             resp.raise_for_status()
 
             data = resp.json()
+            self._local.last_model_used = data.get("model", self.config.model)
             try:
                 return data["choices"][0]["message"]["content"] or ""
             except (KeyError, IndexError, TypeError) as exc:

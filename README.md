@@ -17,6 +17,7 @@ Live site: [kavindu-w.github.io/langtrend](https://kavindu-w.github.io/langtrend
 ## Latest Run Summary
 
 _Latest processed week: **2026-07-13 – 2026-07-20**._
+_Judged with:_ `openai/gpt-oss-120b` (289)
 
 > ⚠️ **LLM judge in progress** — this week's papers are still being verified. The live site won't show this week's data until judging completes, and the *This week* counts below (and per-language/class breakdowns) may still change as more verdicts come in.
 
@@ -41,7 +42,7 @@ _Latest processed week: **2026-07-13 – 2026-07-20**._
 
 - **Acronym conflict detection** — When a paper defines an acronym that shares its name with a language (such as defining “GAN” in a paper that also mentions the Gan language), the detection is suppressed. In such cases, a warning appears in the dashboard, so users can check the paper themselves. Furthermore, the pipeline performs thorough text cleaning, such as removing mathematical artifacts, to minimize false positives without suppressing valid detections.
 
-- **LLM-as-judge verification** — After regex detection, an LLM judge (Groq free tier by default — open-weight gpt-oss-120b — or any OpenAI-compatible endpoint, including Cerebras or a local Ollama server) reviews each flagged paper and classifies every detected language as **studied** (part of the paper's experiments or artifacts), **mentioned-only** (a real language, but only referenced), or **false positive** (an acronym, author name, or word coincidence), with a one-line model-generated reason. False positives are excluded from the weekly counts and hidden from the chip row (still auditable in a popover and in the committed `judge_cache/`); mentioned-only languages stay counted but are visually dimmed. Nothing is ever deleted from the data — researchers can inspect every dropped detection.
+- **LLM-as-judge verification** — After regex detection, an LLM judge (any OpenAI-compatible endpoint — Cerebras, Groq, and OpenRouter free tiers, or a local Ollama server all work; see `.env.example` for the current provider/model) reviews each flagged paper and classifies every detected language as **studied** (part of the paper's experiments or artifacts), **mentioned-only** (a real language, but only referenced), or **false positive** (an acronym, author name, or word coincidence), with a one-line model-generated reason. False positives are excluded from the weekly counts and hidden from the chip row (still auditable in a popover and in the committed `judge_cache/`); mentioned-only languages stay counted but are visually dimmed. Nothing is ever deleted from the data — researchers can inspect every dropped detection. The "Latest Run Summary" table above reports which model(s) actually judged the current week.
 
 - **Search and filtering** — The dashboard lets you search papers by title/author, search or filter by language name, filter by resource class, and toggle which verdicts (studied / mentioned-only / false positive) are shown. Language and text search fold accents and typographic apostrophes, so searching "ache" or "n'ko" still finds "Aché" or "N’ko". The active filter combination is reflected in the URL, so a filtered view can be shared as a link.
 
@@ -164,7 +165,7 @@ make pipeline         # Steps 1, 2, 4 — full data run (judge runs separately)
 
 Every `make` target's output is also logged to `logs/<target>_<timestamp>.log` and fires a desktop/webhook notification on completion (see `scripts/notify.sh`; configure `NOTIFY_METHOD`/`NOTIFY_WEBHOOK_URL` in `.env`) — handy for long-running steps like `judge` or `process` over a full week.
 
-**LLM judge setup** — copy `.env.example` to `.env` and set `LLM_JUDGE_API_KEY` (free key from [console.groq.com](https://console.groq.com) by default; Cerebras is a drop-in OpenAI-compatible alternative — see `.env.example`). The judge only calls the model for papers that already have regex detections, one request per paper, throttled to the configured rate limit (`LLM_JUDGE_RPM`/`LLM_JUDGE_RPH`, tuned to the provider's free tier); re-runs skip papers with cached verdicts in `data/processed/weeks/<week>/judge_cache/`. For quota-free local testing, point `LLM_JUDGE_BASE_URL` at an Ollama server (see `.env.example`). Test single papers with:
+**LLM judge setup** — copy `.env.example` to `.env`, uncomment one provider block, and set `LLM_JUDGE_API_KEY` to a free key from that provider (Cerebras, Groq, and OpenRouter free tiers are all drop-in OpenAI-compatible options — see `.env.example` for current tradeoffs between them). The judge only calls the model for papers that already have regex detections, one request per paper, throttled to the configured rate limit (`LLM_JUDGE_RPM`/`LLM_JUDGE_RPH`, tuned to the provider's free tier); re-runs skip papers with cached verdicts in `data/processed/weeks/<week>/judge_cache/`. For quota-free local testing, point `LLM_JUDGE_BASE_URL` at an Ollama server (see `.env.example`). Test single papers with:
 
 ```bash
 python scripts/judge_languages.py --end-date 2026-05-25 --paper-id 1111.11111v1 --dry-run  # prompt preview
