@@ -252,6 +252,26 @@ def write_badge_files(cumulative: dict, out_dir: Path) -> list[Path]:
     ]
 
 
+def latest_judge_models(latest_manifest: dict | None) -> list[tuple[str, int]]:
+    """Every distinct `judge_model` across this week's judged language entries,
+    with its detection count, most-used first (ties broken alphabetically).
+
+    A single week can legitimately span more than one model: OpenRouter's
+    automatic fallback chain (LLM_JUDGE_FALLBACK_MODELS) can serve different
+    papers from different models within the same run if the primary errors
+    partway through — so report all of them rather than picking just one.
+    """
+    if not latest_manifest:
+        return []
+    counts: Counter[str] = Counter()
+    for paper in latest_manifest.get("flagged_papers", []):
+        for language in paper.get("languages", []):
+            model = language.get("judge_model")
+            if model:
+                counts[model] += 1
+    return sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+
+
 def is_latest_week_judge_pending(project_root: Path) -> bool | None:
     """Whether the current/latest week still has papers waiting on the LLM judge.
 
@@ -273,7 +293,12 @@ def is_latest_week_judge_pending(project_root: Path) -> bool | None:
     return None
 
 
-def render_stats_block(latest: dict, cumulative: dict, judge_pending: bool | None = False) -> str:
+def render_stats_block(
+    latest: dict,
+    cumulative: dict,
+    judge_pending: bool | None = False,
+    judge_models: list[tuple[str, int]] | None = None,
+) -> str:
     week_start = latest["week_start"] or "N/A"
     week_end = latest["week_end"] or "N/A"
     earliest_week_start = cumulative["earliest_week_start"] or "N/A"
@@ -285,6 +310,10 @@ def render_stats_block(latest: dict, cumulative: dict, judge_pending: bool | Non
         "",
         f"_Latest processed week: **{week_start} – {week_end}**._",
     ]
+    if judge_models:
+        label = "Judged with" if len(judge_models) == 1 else "Judged with (mixed — fallback used)"
+        rendered = ", ".join(f"`{model}` ({count:,})" for model, count in judge_models)
+        lines.append(f"_{label}:_ {rendered}")
     if judge_pending:
         lines += [
             "",
@@ -343,12 +372,14 @@ def main() -> None:
     summary_rows = build_weekly_summary_rows(week_manifests)
     summary_path = write_weekly_summary_csv(summary_rows, processed_dir / "weekly_summary.csv")
     judge_pending = is_latest_week_judge_pending(_PROJECT_ROOT)
-    block = render_stats_block(latest, cumulative, judge_pending)
+    judge_models = latest_judge_models(latest_manifest)
+    block = render_stats_block(latest, cumulative, judge_pending, judge_models)
     changed = update_readme(block, args.readme)
 
     print(f"Latest week: {latest['week_start']} -> {latest['week_end']}")
     print(f"Cumulative: {cumulative}")
     print(f"Judge pending: {judge_pending}")
+    print(f"Judge models: {judge_models}")
     print(f"README changed: {changed}")
     print(f"Badge files written: {[str(p) for p in badge_paths]}")
     print(f"Weekly summary CSV: {summary_path} ({len(summary_rows)} rows)")

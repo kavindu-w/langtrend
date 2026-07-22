@@ -494,13 +494,21 @@ class TestValidateVerdicts:
 class FakeClient:
     """Returns queued canned replies; records the prompts it saw."""
 
-    def __init__(self, replies):
+    def __init__(self, replies, model="fake-model", models=None):
+        """models, if given, is a per-call list of what last_model_used should
+        report right after that call — simulates an OpenRouter fallback chain
+        landing different calls on different models within one judge_paper() run."""
         self.replies = list(replies)
         self.calls = []
+        self.last_model_used = model
+        self._models = list(models) if models is not None else None
 
     def chat(self, messages, response_format_json=True):
         self.calls.append(messages)
-        return self.replies.pop(0)
+        reply = self.replies.pop(0)
+        if self._models:
+            self.last_model_used = self._models.pop(0)
+        return reply
 
 
 def _reply_for(targets_verdicts: dict) -> str:
@@ -578,6 +586,43 @@ class TestJudgePaper:
         retry_user_content = client.calls[1][1]["content"]
         assert "Lang5" in retry_user_content
         assert "Lang0" not in retry_user_content  # retry scoped to only the gap
+
+    def test_verdicts_attribute_model_per_call_not_per_paper(self, week_dir):
+        # Regression test: with an OpenRouter fallback chain, different calls
+        # for the same paper can land on different models (e.g. the primary
+        # batch succeeds, but the retry for a dropped language fails over).
+        # Each verdict must carry the model that actually produced it, not
+        # whatever the last call in the whole paper happened to use.
+        record = {
+            "paper_id": "http://arxiv.org/abs/2606.00006v1",
+            "paper": {"title": "t", "abstract": "a"},
+            "sections": {"abstract": {"source": "abstract", "detected_languages": [
+                {"language": f"Lang{i}", "class": 0} for i in range(12)
+            ]}},
+        }
+        first_reply = _reply_for({f"Lang{i}": "mentioned_only" for i in range(12) if i != 5})
+        retry_reply = _reply_for({"Lang5": "studied"})
+        client = FakeClient(
+            [first_reply, retry_reply],
+            models=["primary-model", "fallback-model"],
+        )
+        judge_record = judge_paper(record, week_dir, client, LLMClientConfig())
+        assert judge_record["verdicts"]["Lang0"]["model"] == "primary-model"
+        assert judge_record["verdicts"]["Lang5"]["model"] == "fallback-model"
+        # apply_judge_to_flagged must carry the per-verdict model through too.
+        flagged = [{
+            "paper": {"id": "http://arxiv.org/abs/2606.00006v1"},
+            "languages": [
+                {"language": "Lang0", "class": 0},
+                {"language": "Lang5", "class": 0},
+            ],
+            "sections": [],
+        }]
+        cache = {"2606.00006v1": judge_record}
+        apply_judge_to_flagged(flagged, cache)
+        langs = {l["language"]: l for l in flagged[0]["languages"]}
+        assert langs["Lang0"]["judge_model"] == "primary-model"
+        assert langs["Lang5"]["judge_model"] == "fallback-model"
 
     def test_dropped_language_retry_only_includes_its_own_snippet(self, tmp_path):
         # The retry for a missing language shouldn't resend every snippet

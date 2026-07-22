@@ -564,7 +564,15 @@ def _chat_for_verdicts(client: OpenAICompatClient, messages: list[dict], targets
             {"role": "user", "content": "Your previous reply was not valid JSON. Reply with ONLY the JSON object."},
         ]
         parsed = extract_json(client.chat(repair))
-    return validate_verdicts(parsed, targets)
+    # Read last_model_used right after this call's own chat()es complete, not
+    # at the end of judge_paper() — with an OpenRouter fallback chain, later
+    # batches/retries for the same paper can land on a different model than
+    # this one did, so attribution has to be scoped per call, not per paper.
+    model_used = client.last_model_used
+    verdicts = validate_verdicts(parsed, targets)
+    for verdict in verdicts.values():
+        verdict["model"] = model_used
+    return verdicts
 
 
 def judge_paper(
@@ -610,7 +618,7 @@ def judge_paper(
 
     return {
         "paper_id": record.get("paper_id", ""),
-        "judge_model": config.model,
+        "judge_model": client.last_model_used,
         "judged_at": datetime.now(timezone.utc).isoformat(),
         "context_coverage": context.coverage,
         "context_chars": context.total_chars,
@@ -668,7 +676,11 @@ def _apply_to_entry(entry: dict, verdicts: dict[str, dict], judge_record: dict) 
         return False
     entry["judge_verdict"] = verdict["verdict"]
     entry["judge_reason"] = verdict["reason"]
-    entry["judge_model"] = judge_record.get("judge_model", "")
+    # Prefer the per-verdict model (call-scoped, accurate under an OpenRouter
+    # fallback chain — see _chat_for_verdicts) over the paper-level field;
+    # fall back to the latter only for judge_cache files written before this
+    # per-verdict tracking existed.
+    entry["judge_model"] = verdict.get("model") or judge_record.get("judge_model", "")
     entry["judged_at"] = judge_record.get("judged_at", "")
     return True
 

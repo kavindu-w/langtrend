@@ -71,6 +71,11 @@ jobs:
       - name: Judge pending papers across every week (LLM)
         env:
           LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
+          LLM_JUDGE_BASE_URL: ${{ vars.LLM_JUDGE_BASE_URL }}
+          LLM_JUDGE_MODEL: ${{ vars.LLM_JUDGE_MODEL }}
+          LLM_JUDGE_FALLBACK_MODELS: ${{ vars.LLM_JUDGE_FALLBACK_MODELS }}
+          LLM_JUDGE_RPM: ${{ vars.LLM_JUDGE_RPM }}
+          LLM_JUDGE_RPH: ${{ vars.LLM_JUDGE_RPH }}
         run: |
           set +e
           python scripts/judge_languages.py --sweep-all-weeks --skip-if-unconfigured

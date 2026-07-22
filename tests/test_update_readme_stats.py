@@ -437,6 +437,74 @@ def test_render_stats_block_default_omits_warning():
 
 
 # ---------------------------------------------------------------------------
+# render_stats_block (judge model line)
+# ---------------------------------------------------------------------------
+
+def test_render_stats_block_shows_single_judge_model_when_given():
+    block = urs.render_stats_block(_LATEST, _CUMULATIVE, judge_models=[("openai/gpt-oss-20b:free", 42)])
+    assert "_Judged with:_ `openai/gpt-oss-20b:free` (42)" in block
+    assert "mixed" not in block
+    assert block.index("Judged with") > block.index("Latest processed week")
+    assert block.index("Judged with") < block.index("| Metric |")
+
+
+def test_render_stats_block_shows_all_models_and_flags_mixed():
+    block = urs.render_stats_block(
+        _LATEST, _CUMULATIVE,
+        judge_models=[("openai/gpt-oss-20b:free", 140), ("google/gemma-4-31b-it:free", 25)],
+    )
+    assert "Judged with (mixed — fallback used):" in block
+    assert "`openai/gpt-oss-20b:free` (140)" in block
+    assert "`google/gemma-4-31b-it:free` (25)" in block
+
+
+def test_render_stats_block_omits_judge_model_line_when_empty():
+    block = urs.render_stats_block(_LATEST, _CUMULATIVE, judge_models=[])
+    assert "Judged with" not in block
+
+
+def test_render_stats_block_omits_judge_model_line_when_none():
+    block = urs.render_stats_block(_LATEST, _CUMULATIVE, judge_models=None)
+    assert "Judged with" not in block
+
+
+# ---------------------------------------------------------------------------
+# latest_judge_models
+# ---------------------------------------------------------------------------
+
+def test_latest_judge_models_returns_empty_for_missing_manifest():
+    assert urs.latest_judge_models(None) == []
+
+
+def test_latest_judge_models_returns_empty_when_nothing_judged_yet():
+    manifest = {"flagged_papers": [{"languages": [{"language": "Yoruba"}]}]}
+    assert urs.latest_judge_models(manifest) == []
+
+
+def test_latest_judge_models_returns_all_models_most_used_first():
+    manifest = {"flagged_papers": [
+        {"languages": [{"language": "Hausa", "judge_model": "openai/gpt-oss-20b:free"}]},
+        {"languages": [{"language": "Swahili", "judge_model": "openai/gpt-oss-20b:free"}]},
+        {"languages": [{"language": "Yoruba", "judge_model": "google/gemma-4-31b-it:free"}]},
+    ]}
+    assert urs.latest_judge_models(manifest) == [
+        ("openai/gpt-oss-20b:free", 2),
+        ("google/gemma-4-31b-it:free", 1),
+    ]
+
+
+def test_latest_judge_models_breaks_ties_alphabetically():
+    manifest = {"flagged_papers": [
+        {"languages": [{"language": "Hausa", "judge_model": "openai/gpt-oss-20b:free"}]},
+        {"languages": [{"language": "Yoruba", "judge_model": "google/gemma-4-31b-it:free"}]},
+    ]}
+    assert urs.latest_judge_models(manifest) == [
+        ("google/gemma-4-31b-it:free", 1),
+        ("openai/gpt-oss-20b:free", 1),
+    ]
+
+
+# ---------------------------------------------------------------------------
 # is_latest_week_judge_pending
 # ---------------------------------------------------------------------------
 
