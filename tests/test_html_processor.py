@@ -537,15 +537,35 @@ class TestRawHtmlCaching:
 
     def test_confirmed_404_writes_unavailable_sentinel(self, tmp_path):
         with patch("langtrend.html_processor.fetch_arxiv_html", return_value=(None, "url", False, True)):
-            recheck_languages_from_html(
+            _detections, _is_complete, _conflicts, confirmed_missing = recheck_languages_from_html(
                 {"id": "2000.00007"},
                 lang_classes={},
                 languages_to_ignore=set(),
                 out_dir=tmp_path,
             )
+        assert confirmed_missing is True
         import json
         cache = json.loads((tmp_path / "2000.00007.json").read_text(encoding="utf-8"))
         assert cache.get("_unavailable") is True
+
+    def test_unavailable_json_cache_reports_confirmed_missing(self, tmp_path):
+        # Second (and later) calls hit the early-return cache-read path, not
+        # the fetch_arxiv_html branch — confirmed_missing must still surface
+        # there too, since callers rely on it to persist sources_checked
+        # correctly on every call, not just the first one that wrote the sentinel.
+        import json
+        (tmp_path / "2000.00010.json").write_text(
+            json.dumps({"_complete": False, "_unavailable": True}), encoding="utf-8"
+        )
+        with patch("langtrend.html_processor.fetch_arxiv_html") as mock_fetch:
+            _detections, _is_complete, _conflicts, confirmed_missing = recheck_languages_from_html(
+                {"id": "2000.00010"},
+                lang_classes={},
+                languages_to_ignore=set(),
+                out_dir=tmp_path,
+            )
+        mock_fetch.assert_not_called()
+        assert confirmed_missing is True
 
     def test_transient_failure_does_not_write_any_cache_file(self, tmp_path):
         # A rate limit / 5xx / timeout must NOT be treated the same as a
@@ -553,7 +573,7 @@ class TestRawHtmlCaching:
         # stays eligible for a real retry later (e.g. a CI retry job) instead
         # of being permanently written off based on a one-off hiccup.
         with patch("langtrend.html_processor.fetch_arxiv_html", return_value=(None, "url", False, False)):
-            detections, is_complete, conflicts = recheck_languages_from_html(
+            detections, is_complete, conflicts, confirmed_missing = recheck_languages_from_html(
                 {"id": "2000.00008"},
                 lang_classes={},
                 languages_to_ignore=set(),
@@ -561,6 +581,7 @@ class TestRawHtmlCaching:
             )
         assert detections == {}
         assert is_complete is False
+        assert confirmed_missing is False
         assert not (tmp_path / "2000.00008.json").exists()
         assert not (tmp_path / "2000.00008.html").exists()
 

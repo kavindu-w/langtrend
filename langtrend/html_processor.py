@@ -389,21 +389,28 @@ def recheck_languages_from_html(
     languages_to_ignore: set[str],
     out_dir: Path | None = None,
     remove_headings: list[str] | None = None,
-) -> tuple[dict[str, list[str]], bool, list[dict]]:
+) -> tuple[dict[str, list[str]], bool, list[dict], bool]:
     """Fetch arXiv HTML, extract sections, run language detection per section.
 
-    Returns (detections, is_html_complete) where:
+    Returns (detections, is_html_complete, acronym_conflicts, confirmed_missing) where:
     - detections maps section title -> list of detected language strings
     - is_html_complete=False means the HTML was a stalled/partial download
+    - confirmed_missing=True means arXiv has no HTML for this paper at all (a
+      definitive 404, not a transient failure) — see fetch_arxiv_html. Callers
+      should record this permanently (e.g. in a committed sources_checked
+      field) rather than relying on this function's local on-disk sentinel,
+      which lives in a gitignored cache dir and doesn't survive a fresh
+      checkout — see _needs_retry in process_papers.py for what happens if
+      that distinction is lost.
 
-    Saves a detailed JSON file to out_dir. Returns ({}, False) if HTML unavailable.
+    Saves a detailed JSON file to out_dir. Returns ({}, False, [], ...) if HTML unavailable.
     """
     if remove_headings is None:
         remove_headings = _REMOVE_HEADINGS_DEFAULT
 
     paper_id = paper_record.get("id") or paper_record.get("pdf_url") or paper_record.get("url")
     if not paper_id:
-        return {}, False
+        return {}, False, [], False
 
     if out_dir is None:
         out_dir = Path("data/processed/weeks/latest/html_cache")
@@ -423,12 +430,12 @@ def recheck_languages_from_html(
             with json_path.open("r", encoding="utf-8") as fh:
                 cached = json.load(fh)
             if cached.get("_unavailable"):
-                return {}, False, []  # HTML was tried before and not available — skip
+                return {}, False, [], True  # HTML was tried before and not available — skip
             is_complete = cached.get("_complete", True)  # older caches pre-date this field → assume complete
             if is_complete:
                 conflicts = cached.get("_acronym_conflicts", [])
                 sections_data = {k: v for k, v in cached.items() if not k.startswith("_")}
-                return {title: data.get("detected", []) for title, data in sections_data.items()}, is_complete, conflicts
+                return {title: data.get("detected", []) for title, data in sections_data.items()}, is_complete, conflicts, False
             known_incomplete = True  # fall through to retry the fetch below
         except Exception:
             pass  # fall through to re-fetch if cache is corrupt
@@ -458,7 +465,7 @@ def recheck_languages_from_html(
             # deliberately don't write any cache file, so the paper stays eligible
             # for a real retry (e.g. a CI retry job) instead of being permanently
             # written off based on a one-off hiccup.
-            return {}, False, []
+            return {}, False, [], confirmed_missing
         try:
             html_path.write_text(html, encoding="utf-8")
         except Exception:
@@ -516,4 +523,4 @@ def recheck_languages_from_html(
     except Exception:
         pass
 
-    return detections_per_section, is_complete, acronym_conflicts
+    return detections_per_section, is_complete, acronym_conflicts, False

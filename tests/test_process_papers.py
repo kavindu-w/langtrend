@@ -141,7 +141,7 @@ def test_process_single_paper_abstract_only_when_html_unavailable_and_no_pdf(lan
     pdf_dir, html_cache_dir, pdf_cache_dir = cache_dirs
     paper = {"id": "http://arxiv.org/abs/1", "abstract": "We study Arabic and Swahili data."}
 
-    with patch("process_papers.recheck_languages_from_html", return_value=(None, False, [])):
+    with patch("process_papers.recheck_languages_from_html", return_value=(None, False, [], False)):
         record = pp._process_single_paper(
             paper, lang_classes, languages_to_ignore, {}, pdf_dir, html_cache_dir, pdf_cache_dir, no_pdf=True
         )
@@ -150,12 +150,29 @@ def test_process_single_paper_abstract_only_when_html_unavailable_and_no_pdf(lan
     assert {d["language"] for d in record["sections"]["abstract"]["detected_languages"]} == {"Arabic", "Swahili"}
 
 
+def test_process_single_paper_records_html_confirmed_missing_marker(lang_classes, languages_to_ignore, cache_dirs):
+    # A definitive 404 (arXiv has no HTML for this paper) must be recorded
+    # permanently in sources_checked — not just the local html_cache/
+    # sentinel — so _needs_retry doesn't re-flag this paper as pending
+    # forever on a fresh checkout that lacks that gitignored cache file.
+    pdf_dir, html_cache_dir, pdf_cache_dir = cache_dirs
+    paper = {"id": "http://arxiv.org/abs/1", "abstract": "We study Arabic data."}
+
+    with patch("process_papers.recheck_languages_from_html", return_value=({}, False, [], True)):
+        record = pp._process_single_paper(
+            paper, lang_classes, languages_to_ignore, {}, pdf_dir, html_cache_dir, pdf_cache_dir, no_pdf=True
+        )
+
+    assert "html_confirmed_missing" in record["sources_checked"]
+    assert "html" not in record["sources_checked"]
+
+
 def test_process_single_paper_uses_html_when_complete_and_skips_pdf(lang_classes, languages_to_ignore, cache_dirs):
     pdf_dir, html_cache_dir, pdf_cache_dir = cache_dirs
     paper = {"id": "http://arxiv.org/abs/1"}
     html_cache = {"Introduction": ["Arabic"], "Experiments": ["Swahili"]}
 
-    with patch("process_papers.recheck_languages_from_html", return_value=(html_cache, True, [])), \
+    with patch("process_papers.recheck_languages_from_html", return_value=(html_cache, True, [], False)), \
          patch("process_papers._download_pdf") as mock_download:
         record = pp._process_single_paper(
             paper, lang_classes, languages_to_ignore, {}, pdf_dir, html_cache_dir, pdf_cache_dir, no_pdf=False
@@ -171,7 +188,7 @@ def test_process_single_paper_records_acronym_conflict_warnings(lang_classes, la
     paper = {"id": "http://arxiv.org/abs/1"}
     conflicts = [{"acronym": "GAN", "language": "Gan", "class": 2}]
 
-    with patch("process_papers.recheck_languages_from_html", return_value=({"Intro": ["Arabic"]}, True, conflicts)):
+    with patch("process_papers.recheck_languages_from_html", return_value=({"Intro": ["Arabic"]}, True, conflicts, False)):
         record = pp._process_single_paper(
             paper, lang_classes, languages_to_ignore, {}, pdf_dir, html_cache_dir, pdf_cache_dir, no_pdf=True
         )
@@ -214,7 +231,7 @@ def test_process_single_paper_uses_pdf_cache_hit_without_downloading(lang_classe
         json.dumps({"detected_languages": [{"language": "Sinhala", "class": 1}]}), encoding="utf-8"
     )
 
-    with patch("process_papers.recheck_languages_from_html", return_value=(None, False, [])), \
+    with patch("process_papers.recheck_languages_from_html", return_value=(None, False, [], False)), \
          patch("process_papers._download_pdf") as mock_download:
         record = pp._process_single_paper(
             paper, lang_classes, languages_to_ignore, {}, pdf_dir, html_cache_dir, pdf_cache_dir, no_pdf=False
@@ -231,7 +248,7 @@ def test_process_single_paper_downloads_and_extracts_pdf_on_success(lang_classes
     fake_pdf_path = tmp_path / "fake.pdf"
     fake_pdf_path.write_bytes(b"%PDF-fake")
 
-    with patch("process_papers.recheck_languages_from_html", return_value=(None, False, [])), \
+    with patch("process_papers.recheck_languages_from_html", return_value=(None, False, [], False)), \
          patch("process_papers._download_pdf", return_value=fake_pdf_path), \
          patch("process_papers.PDFProcessor") as MockProcessor:
         instance = MockProcessor.return_value
@@ -256,7 +273,7 @@ def test_process_single_paper_records_warning_when_pdf_download_fails(lang_class
     pdf_dir, html_cache_dir, pdf_cache_dir = cache_dirs
     paper = {"id": "http://arxiv.org/abs/2501.00003", "pdf_url": "http://arxiv.org/pdf/2501.00003"}
 
-    with patch("process_papers.recheck_languages_from_html", return_value=(None, False, [])), \
+    with patch("process_papers.recheck_languages_from_html", return_value=(None, False, [], False)), \
          patch("process_papers._download_pdf", return_value=None):
         record = pp._process_single_paper(
             paper, lang_classes, languages_to_ignore, {}, pdf_dir, html_cache_dir, pdf_cache_dir, no_pdf=False
@@ -271,7 +288,7 @@ def test_process_single_paper_uses_partial_html_when_pdf_also_fails(lang_classes
     paper = {"id": "http://arxiv.org/abs/2501.00004", "pdf_url": "http://arxiv.org/pdf/2501.00004"}
     partial_html = {"Introduction": ["Arabic"]}
 
-    with patch("process_papers.recheck_languages_from_html", return_value=(partial_html, False, [])), \
+    with patch("process_papers.recheck_languages_from_html", return_value=(partial_html, False, [], False)), \
          patch("process_papers._download_pdf", return_value=None):
         record = pp._process_single_paper(
             paper, lang_classes, languages_to_ignore, {}, pdf_dir, html_cache_dir, pdf_cache_dir, no_pdf=False
@@ -340,10 +357,14 @@ def test_reprocess_single_paper_preserves_unavailable_marker(lang_classes, langu
         json.dumps({"_complete": False, "_unavailable": True}), encoding="utf-8"
     )
 
-    pp._reprocess_single_paper(paper, lang_classes, languages_to_ignore, {}, html_cache_dir, pdf_cache_dir)
+    record = pp._reprocess_single_paper(paper, lang_classes, languages_to_ignore, {}, html_cache_dir, pdf_cache_dir)
 
     updated = json.loads((html_cache_dir / "2501.00010.json").read_text(encoding="utf-8"))
     assert updated.get("_unavailable") is True
+    # The confirmed-404 fact must also land in the committed sources_checked
+    # field, not just the local (gitignored) cache sentinel — otherwise
+    # _needs_retry re-flags this paper as pending on every fresh CI checkout.
+    assert "html_confirmed_missing" in record["sources_checked"]
 
 
 def test_reprocess_single_paper_recomputes_detections_from_pdf_cache_text(lang_classes, languages_to_ignore, cache_dirs):
@@ -708,3 +729,199 @@ def test_needs_retry_true_when_pdf_succeeded_but_html_never_cached():
     paper = {"id": "1"}
     detected_sources = {"1": ["abstract", "pdf"]}
     assert pp._needs_retry(paper, detected_sources, {}, set(), {"1"}, Path("/nonexistent")) is True
+
+
+# Regression tests for the "html_confirmed_missing" fix: on a fresh CI
+# checkout, cached_html_ids is always empty (the sentinel lives in a
+# gitignored html_cache/ dir) — before this fix, a paper whose HTML was
+# permanently 404'd and which resolved via PDF was flagged as "needs retry"
+# forever, since sources_checked never distinguished "confirmed absent" from
+# "never attempted." These pin down that it no longer does, for both the
+# no-detections and has-detections branches.
+
+def test_needs_retry_false_when_no_detections_html_confirmed_missing_pdf_succeeded_fresh_checkout():
+    paper = {"id": "1"}
+    no_det_sources = {"1": ["abstract", "html_confirmed_missing", "pdf"]}
+    # cached_html_ids=set() simulates a fresh checkout with no local html_cache/ —
+    # the exact scenario that caused the CI infinite-retry bug.
+    assert pp._needs_retry(paper, {}, no_det_sources, set(), set(), Path("/nonexistent")) is False
+
+
+def test_needs_retry_false_when_detected_html_confirmed_missing_pdf_succeeded_fresh_checkout():
+    paper = {"id": "1"}
+    detected_sources = {"1": ["abstract", "html_confirmed_missing", "pdf"]}
+    assert pp._needs_retry(paper, detected_sources, {}, set(), set(), Path("/nonexistent")) is False
+
+
+def test_needs_retry_true_when_html_confirmed_missing_but_pdf_never_attempted():
+    # html_confirmed_missing only settles the HTML question — PDF still
+    # needs its own real attempt if it hasn't had one yet.
+    paper = {"id": "1"}
+    detected_sources = {"1": ["abstract", "html_confirmed_missing"]}
+    assert pp._needs_retry(paper, detected_sources, {}, set(), set(), Path("/nonexistent")) is True
+
+
+# ---------------------------------------------------------------------------
+# _merge_retry_no_detection_record / _merge_retry_detected_record
+#
+# Regression coverage for a second bug found alongside the html_confirmed_missing
+# one: --retry-missing rebuilds a flagged paper's record entirely from scratch,
+# so a retry pass that runs with fewer capabilities than the original run (e.g.
+# --no-pdf, which the CI fetch-and-html-2 job always uses) produces a record
+# that's missing sources the paper already had. Before this fix, "last write
+# wins" merging let that weaker record silently overwrite the already-confirmed
+# one — observed for real on paper 2607.16021v1: sources_checked regressed from
+# ['abstract', 'pdf'] to ['abstract'] mid-run before a later job restored it.
+# ---------------------------------------------------------------------------
+
+def test_merge_no_detection_record_keeps_pdf_source_dropped_by_a_no_pdf_retry():
+    # This is the exact real-world shape: last week's committed record vs. what
+    # a --no-pdf retry pass rebuilds from scratch for the same paper.
+    old = {"paper_id": "2607.16021v1", "title": "T", "sources_checked": ["abstract", "pdf"], "warnings": []}
+    new = {"paper_id": "2607.16021v1", "title": "T", "sources_checked": ["abstract"], "warnings": []}
+    merged = pp._merge_retry_no_detection_record(old, new)
+    assert merged["sources_checked"] == ["abstract", "pdf"]
+
+
+def test_merge_no_detection_record_adopts_genuine_upgrades_from_new():
+    # The merge must still work the other direction — a retry that finds MORE
+    # than before (e.g. html newly resolved) should keep that upgrade.
+    old = {"paper_id": "1", "sources_checked": ["abstract"], "warnings": []}
+    new = {"paper_id": "1", "sources_checked": ["abstract", "html"], "warnings": []}
+    merged = pp._merge_retry_no_detection_record(old, new)
+    assert merged["sources_checked"] == ["abstract", "html"]
+
+
+def test_merge_no_detection_record_unions_warnings_without_duplicating():
+    old = {"paper_id": "1", "sources_checked": ["abstract"], "warnings": [{"step": "html", "error": "e1"}]}
+    new = {"paper_id": "1", "sources_checked": ["abstract"], "warnings": [{"step": "html", "error": "e1"}, {"step": "pdf", "error": "e2"}]}
+    merged = pp._merge_retry_no_detection_record(old, new)
+    assert merged["warnings"] == [{"step": "html", "error": "e1"}, {"step": "pdf", "error": "e2"}]
+
+
+def test_merge_detected_record_keeps_pdf_section_dropped_by_a_no_pdf_retry():
+    old = {
+        "paper_id": "1",
+        "sources_checked": ["abstract", "pdf"],
+        "sections": {"pdf_full_text": {"source": "pdf", "detected_languages": [{"language": "Chinese", "class": 5}]}},
+        "warnings": [],
+    }
+    new = {
+        "paper_id": "1",
+        "sources_checked": ["abstract"],
+        "sections": {},
+        "warnings": [],
+    }
+    merged = pp._merge_retry_detected_record(old, new)
+    assert merged["sources_checked"] == ["abstract", "pdf"]
+    assert merged["sections"]["pdf_full_text"]["detected_languages"] == [{"language": "Chinese", "class": 5}]
+
+
+def test_merge_detected_record_prefers_new_section_when_source_was_rechecked():
+    # If the new pass DID re-check a source, its (fresher) result wins over the
+    # old one for that source — the merge only backfills sources the new pass
+    # never touched, it doesn't prefer stale data.
+    old = {
+        "paper_id": "1",
+        "sources_checked": ["abstract", "html"],
+        "sections": {"Intro": {"source": "html", "detected_languages": [{"language": "Old", "class": 0}]}},
+        "warnings": [],
+    }
+    new = {
+        "paper_id": "1",
+        "sources_checked": ["abstract", "html"],
+        "sections": {"Intro": {"source": "html", "detected_languages": [{"language": "New", "class": 0}]}},
+        "warnings": [],
+    }
+    merged = pp._merge_retry_detected_record(old, new)
+    assert merged["sections"]["Intro"]["detected_languages"] == [{"language": "New", "class": 0}]
+
+
+def test_merge_detected_record_keeps_multiple_dropped_sections():
+    old = {
+        "paper_id": "1",
+        "sources_checked": ["abstract", "html", "pdf"],
+        "sections": {
+            "Intro": {"source": "html", "detected_languages": [{"language": "Swahili", "class": 0}]},
+            "pdf_full_text": {"source": "pdf", "detected_languages": [{"language": "Arabic", "class": 3}]},
+        },
+        "warnings": [],
+    }
+    new = {"paper_id": "1", "sources_checked": ["abstract"], "sections": {}, "warnings": []}
+    merged = pp._merge_retry_detected_record(old, new)
+    assert set(merged["sources_checked"]) == {"abstract", "html", "pdf"}
+    assert "Intro" in merged["sections"]
+    assert "pdf_full_text" in merged["sections"]
+
+
+# ---------------------------------------------------------------------------
+# main() --retry-missing CLI integration test
+#
+# The merge helpers above are covered in isolation, but the actual file-
+# rewriting wiring in main() (loading existing records, running
+# process_papers(), deduping/merging into detected.jsonl and
+# no_detections.json) was previously only exercised manually. This drives it
+# end-to-end through the real CLI entry point, reproducing the exact bug
+# scenario found on paper 2607.16021v1: a --no-pdf --retry-missing pass must
+# not erase an already-committed 'pdf' result.
+# ---------------------------------------------------------------------------
+
+def test_retry_missing_cli_preserves_pdf_source_through_no_pdf_pass(tmp_path, monkeypatch):
+    input_path = tmp_path / "week_input.jsonl"
+    paper = {
+        "id": "http://arxiv.org/abs/2607.16021v1",
+        "title": "Candidate Attended Dialogue State Tracking Using BERT",
+        "abstract": "We study BERT for dialogue state tracking.",
+    }
+    input_path.write_text(json.dumps(paper) + "\n", encoding="utf-8")
+
+    lang_data_path = tmp_path / "language_data.json"
+    lang_data_path.write_text(json.dumps({
+        "lang_classes": {"0": ["Swahili"]},
+        "languages_to_ignore": [],
+        "possible_false_positive_languages": {},
+    }), encoding="utf-8")
+
+    output_dir = tmp_path / "week_output"
+    output_dir.mkdir()
+    # Pre-seed the committed state exactly as it was on main before this run:
+    # already resolved, HTML confirmed missing (but not yet recorded as such —
+    # this is data from before the html_confirmed_missing fix), PDF checked,
+    # nothing detected.
+    no_det_path = output_dir / "week_input_no_detections.json"
+    no_det_path.write_text(json.dumps([{
+        "paper_id": "http://arxiv.org/abs/2607.16021v1",
+        "title": paper["title"],
+        "sources_checked": ["abstract", "pdf"],
+        "warnings": [],
+    }]), encoding="utf-8")
+
+    # Simulate exactly what a --no-pdf CI job step (fetch-and-html-2) sees:
+    # HTML confirmed missing, no local cache to prove it (fresh checkout).
+    monkeypatch.setattr(pp, "recheck_languages_from_html", lambda *a, **kw: ({}, False, [], True))
+
+    monkeypatch.setattr(sys, "argv", [
+        "process_papers.py",
+        "--input", str(input_path),
+        "--language-data", str(lang_data_path),
+        "--output-dir", str(output_dir),
+        "--workers", "1",
+        "--retry-missing",
+        "--no-pdf",
+    ])
+
+    # main() only calls sys.exit() on error or on the "nothing to do" early
+    # exit (empty subset) — neither applies here: the pre-seeded record lacks
+    # html_confirmed_missing, so _needs_retry correctly still flags this paper
+    # (matching the real bug — old data predates the fix), giving a non-empty
+    # subset that runs to completion and returns normally.
+    pp.main()
+
+    result = json.loads(no_det_path.read_text(encoding="utf-8"))
+    assert len(result) == 1
+    sources_checked = set(result[0]["sources_checked"])
+    # The regression this guards against: a naive "last write wins" merge
+    # would leave this as just {"abstract", "html_confirmed_missing"} — the
+    # already-committed 'pdf' result silently erased because the --no-pdf
+    # pass never re-checked it.
+    assert sources_checked == {"abstract", "pdf", "html_confirmed_missing"}

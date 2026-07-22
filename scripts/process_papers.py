@@ -153,7 +153,7 @@ def _process_single_paper(
     is_html_complete = False
     t_html = _time.monotonic()
     try:
-        html_cache, is_html_complete, acronym_conflicts = recheck_languages_from_html(
+        html_cache, is_html_complete, acronym_conflicts, html_confirmed_missing = recheck_languages_from_html(
             paper,
             lang_classes,
             languages_to_ignore,
@@ -185,7 +185,15 @@ def _process_single_paper(
                             "source": "html",
                             "detected_languages": detections,
                         }
+            elif html_confirmed_missing:
+                # Definitive 404 — arXiv has no HTML for this paper. Recorded
+                # permanently here (not just in the gitignored html_cache/
+                # sentinel) so _needs_retry doesn't re-flag this paper as
+                # pending forever on every fresh checkout that lacks that cache.
+                record["sources_checked"].append("html_confirmed_missing")
         else:
+            # recheck_languages_from_html always returns a dict (possibly
+            # empty), never None, but guard defensively in case that changes.
             tqdm.write(f"  [{paper_id}] HTML unavailable in {_time.monotonic()-t_html:.1f}s")
     except Exception as exc:
         html_cache = None
@@ -422,6 +430,12 @@ def _reprocess_single_paper(
                     dets = build_detections(languages, lang_classes, possible_false_positive_languages)
                     if dets:
                         record["sections"][section_title] = {"source": "html", "detected_languages": dets}
+            elif html_cached.get("_unavailable"):
+                # Same reasoning as _process_single_paper: persist the
+                # confirmed-404 fact into sources_checked (committed to git),
+                # not just the local cache sentinel, so _needs_retry doesn't
+                # re-flag this paper forever on a fresh checkout.
+                record["sources_checked"].append("html_confirmed_missing")
         except Exception as exc:
             tqdm.write(f"  [{paper_id}] HTML cache reprocess error: {type(exc).__name__}: {exc}")
             record["warnings"].append({"step": "html_reprocess", "error": str(exc)})
@@ -821,6 +835,19 @@ def _plain_run_would_clobber_existing_output(detected_path: Path) -> bool:
     return detected_path.exists() and detected_path.stat().st_size > 0
 
 
+def _html_checked(sources: list[str]) -> bool:
+    """True if HTML was genuinely checked for this paper — either a real fetch
+    ("html") or a definitive, permanent 404 ("html_confirmed_missing").
+
+    Both count as "done, never retry" for _needs_retry's purposes. Unlike a
+    local cache-directory check, this reads the persisted sources_checked
+    field (committed to git in detected.jsonl/no_detections.json), so it
+    survives a fresh CI checkout where the gitignored html_cache/ sentinel
+    that recheck_languages_from_html writes locally does not.
+    """
+    return "html" in sources or "html_confirmed_missing" in sources
+
+
 def _needs_retry(
     p: dict,
     detected_sources: dict[str, list[str]],
@@ -845,32 +872,40 @@ def _needs_retry(
         nd_sources = no_det_sources.get(pid)
         if nd_sources is None:
             return True  # never processed at all
-        # Paper confirmed no detections — skip if html actually succeeded
-        # (found nothing, trust it) or pdf succeeded AND html got a real
-        # cached attempt (confirmed 404, or a partial download not worth
-        # retrying again). Same gap as the detected-paper branch below: pdf
-        # succeeding alone doesn't mean html was ever actually attempted —
-        # a transient failure leaves no cache file at all (fetch_arxiv_html).
-        if "html" in nd_sources:
+        # Paper confirmed no detections — skip if html was genuinely checked
+        # (fetched, or confirmed permanently absent — trust either) or pdf
+        # succeeded AND html got a real cached attempt (confirmed 404, or a
+        # partial download not worth retrying again). Same gap as the
+        # detected-paper branch below: pdf succeeding alone doesn't mean html
+        # was ever actually attempted — a transient failure leaves no cache
+        # file at all (fetch_arxiv_html).
+        if _html_checked(nd_sources):
             return False
         if "pdf" in nd_sources:
             return safe_id not in cached_html_ids
         return True  # abstract-only → worth retrying with html/pdf
 
     # Paper has detections — check for crash leftovers / incomplete sources.
-    # PDF cache exists but detection entry never recorded pdf/html — crashed mid-run
+    # PDF cache exists but detection entry never recorded pdf/html — crashed
+    # mid-run. Deliberately the literal "html" here, not _html_checked: this
+    # only cares whether pdf's local cache outran what got recorded, which
+    # can still be true even when html_confirmed_missing was already noted.
     if safe_id in cached_pdf_ids and "pdf" not in sources and "html" not in sources:
         return True
-    # No cache at all AND only abstract-only detection — HTML/PDF was never
-    # successfully attempted. Skip this check if html/pdf is already in sources:
-    # the cache may simply be absent (e.g. gitignored on a fresh checkout) even
-    # though the paper was already fully processed.
+    # No cache at all AND neither html nor pdf recorded — worth a full retry
+    # since we genuinely don't know what's been tried. Deliberately the
+    # literal "html" here too: html_confirmed_missing means html is settled,
+    # but pdf may still be genuinely untried (e.g. a --no-pdf first pass) —
+    # that combination must still retry to give pdf its real shot.
     if safe_id not in cached_html_ids and safe_id not in cached_pdf_ids:
         if "html" not in sources and "pdf" not in sources:
             return True
     # HTML cache exists but is incomplete (_complete=False) — a stalled/partial
     # download that's worth retrying, UNLESS it's the permanent "_unavailable"
     # (confirmed 404) sentinel, which retrying would just waste a request on.
+    # Literal "html" here too: if this branch fires despite html_confirmed_missing
+    # already being recorded, the local cache read below still resolves it
+    # correctly via its own _unavailable check.
     if safe_id in cached_html_ids and "html" not in sources:
         try:
             cached = json.loads((html_cache_dir / f"{safe_id}.json").read_text(encoding="utf-8"))
@@ -883,9 +918,70 @@ def _needs_retry(
     # never got far enough to write anything (a transient failure before or
     # during the download, see fetch_arxiv_html), so it's never been given a
     # real shot. Worth retrying since HTML is the richer source when it works.
-    if safe_id not in cached_html_ids and "html" not in sources and "pdf" in sources:
+    if safe_id not in cached_html_ids and not _html_checked(sources) and "pdf" in sources:
         return True
     return False
+
+
+def _union_preserve_order(old: list[str], new: list[str]) -> list[str]:
+    """old ++ (new items not already in old), preserving old's original order."""
+    merged = list(old)
+    for item in new:
+        if item not in merged:
+            merged.append(item)
+    return merged
+
+
+def _merge_retry_no_detection_record(old: dict, new: dict) -> dict:
+    """Merge a freshly-reprocessed no-detection record with the one already on disk.
+
+    A --retry-missing pass rebuilds a paper's record from scratch each time,
+    so a pass run with --no-pdf (e.g. the fetch-and-html-2 CI job) produces a
+    genuinely weaker record than what's already committed if the paper was
+    previously resolved via PDF: sources_checked regresses from
+    ['abstract', 'pdf'] back down to just ['abstract']. Blindly letting the
+    newer write win (as a naive "last write wins" merge would) silently
+    discards the already-confirmed PDF result. Union the sources instead so
+    a source already checked successfully is never un-checked.
+    """
+    return {
+        **new,
+        "sources_checked": _union_preserve_order(old.get("sources_checked", []), new.get("sources_checked", [])),
+        "warnings": old.get("warnings", []) + [
+            w for w in new.get("warnings", []) if w not in old.get("warnings", [])
+        ],
+    }
+
+
+def _merge_retry_detected_record(old: dict, new: dict) -> dict:
+    """Merge a freshly-reprocessed detected record with the one already on disk.
+
+    Same regression this guards against as _merge_retry_no_detection_record,
+    but here a dropped source can also mean losing real section-level
+    detections (e.g. a whole "pdf_full_text" entry with its detected
+    languages) — not just a sources_checked list entry. For any source the
+    old record had that the new one doesn't, carry forward both the
+    sources_checked entry and every old section whose "source" matches it,
+    so a --no-pdf (or otherwise more limited) retry pass can never make
+    already-confirmed detections disappear.
+    """
+    old_sources = old.get("sources_checked", [])
+    new_sources = new.get("sources_checked", [])
+    dropped_sources = [s for s in old_sources if s not in new_sources]
+
+    merged_sections = dict(new.get("sections", {}))
+    for title, section in old.get("sections", {}).items():
+        if section.get("source") in dropped_sources and title not in merged_sections:
+            merged_sections[title] = section
+
+    return {
+        **new,
+        "sources_checked": _union_preserve_order(old_sources, new_sources),
+        "sections": merged_sections,
+        "warnings": old.get("warnings", []) + [
+            w for w in new.get("warnings", []) if w not in old.get("warnings", [])
+        ],
+    }
 
 
 def main() -> None:
@@ -1118,14 +1214,17 @@ def main() -> None:
             sys.exit(0)
         print(label)
 
-        # Load existing detected records so we can track what changes after the run.
+        # Load existing detected records so we can merge (not blindly overwrite)
+        # if this retry pass produces a weaker record for an already-processed
+        # paper — see _merge_retry_detected_record.
         existing_lines: list[str] = []
-        existing_by_id: dict[str, int] = {}  # paper_id → line index
+        existing_records: dict[str, dict] = {}  # paper_id → parsed record
         if detected_path.exists():
-            for i, line in enumerate(detected_path.read_text(encoding="utf-8").splitlines()):
+            for line in detected_path.read_text(encoding="utf-8").splitlines():
                 if line.strip():
                     existing_lines.append(line)
-                    existing_by_id[json.loads(line).get("paper_id", "")] = i
+                    rec = json.loads(line)
+                    existing_records[rec.get("paper_id", "")] = rec
         existing_count = len(existing_lines)
 
         # Re-initialize detected_path with existing records (clean deduplication),
@@ -1154,15 +1253,30 @@ def main() -> None:
             append_mode=True,
         )
 
-        # Deduplicate detected_path: new records were appended after existing ones, so the
-        # last occurrence of each paper_id is always the freshest (upgrade case handled automatically).
+        # Deduplicate detected_path: new records were appended after existing ones.
+        # For a paper_id seen twice (an existing record plus a freshly reprocessed
+        # one), merge them via _merge_retry_detected_record instead of letting
+        # whichever was written last silently win — a retry pass run with fewer
+        # capabilities (e.g. --no-pdf) must not be able to erase an
+        # already-confirmed detection just because it didn't re-check that source.
         all_lines = [l for l in detected_path.read_text(encoding="utf-8").splitlines() if l.strip()]
-        last_index: dict[str, int] = {}
-        for i, line in enumerate(all_lines):
-            last_index[json.loads(line).get("paper_id", "")] = i
-        _atomic_write_text(detected_path, "".join(all_lines[i] + "\n" for i in sorted(last_index.values())))
-        appended = sum(1 for pid in last_index if pid not in existing_by_id)
-        replaced = sum(1 for pid, idx in last_index.items() if pid in existing_by_id and idx >= existing_count)
+        merged_records: dict[str, dict] = {}
+        pid_order: list[str] = []
+        for line in all_lines:
+            rec = json.loads(line)
+            pid = rec.get("paper_id", "")
+            if pid in merged_records:
+                merged_records[pid] = _merge_retry_detected_record(merged_records[pid], rec)
+            else:
+                merged_records[pid] = rec
+                pid_order.append(pid)
+        _atomic_write_text(
+            detected_path,
+            "".join(json.dumps(merged_records[pid], ensure_ascii=False) + "\n" for pid in pid_order),
+        )
+        new_appended_pids = {json.loads(l).get("paper_id", "") for l in all_lines[existing_count:]}
+        appended = sum(1 for pid in new_appended_pids if pid not in existing_records)
+        replaced = sum(1 for pid in new_appended_pids if pid in existing_records)
         print(f"Merged {appended} new + {replaced} upgraded detection record(s) into {detected_path}")
 
         # Merge warnings
@@ -1178,14 +1292,17 @@ def main() -> None:
         # Build index of new no-det records so we can upgrade stale ones (e.g. abstract-only → abstract+pdf)
         new_nd_by_id = {r.get("paper_id"): r for r in new_no_det}
         # Papers now in detected must be removed from no-detections
-        now_detected_ids = set(last_index.keys())
+        now_detected_ids = set(pid_order)
         merged_no_det = []
         for r in existing_no_det:
             pid = r.get("paper_id")
             if pid in now_detected_ids:
                 continue  # promoted to detected — drop from no-detections
             if pid in new_nd_by_id:
-                merged_no_det.append(new_nd_by_id[pid])  # upgrade (e.g. sources_checked updated)
+                # Merge rather than blindly replace: a --no-pdf retry pass must
+                # not be able to un-check a source (e.g. "pdf") that a prior run
+                # already confirmed — see _merge_retry_no_detection_record.
+                merged_no_det.append(_merge_retry_no_detection_record(r, new_nd_by_id[pid]))
             else:
                 merged_no_det.append(r)
         # Append genuinely new no-det records not seen before
