@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-22T05:18:55.740968+00:00",
+  "generated_at": "2026-07-22T05:40:53.693325+00:00",
   "window_days": 7,
   "week_start": "2026-07-13",
   "week_end": "2026-07-20",
@@ -59447,615 +59447,6 @@
     },
     {
       "paper": {
-        "id": "http://arxiv.org/abs/2607.15209v1",
-        "title": "Expanding the Lexicon of Ge'ez Based African Languages: A Comparative Study of Amharic and Tigrinya",
-        "abstract": "Multilingual pre-trained language models (PLMs) exhibit degraded performance on low-resource, non-Latin-script languages, driven by high out-of-vocabulary (OOV) rates and excessive subword fragmentation that result from Latin-script-centric tokenizer training. We introduce VEXMLM, a vocabulary-extended variant of XLM-R targeting the two highest-resource Ge'ez-script languages, Amharic and Tigrinya, and further evaluated on 17 additional low-resource African languages (19 total). We train a language-specific SentencePiece tokenizer on curated Amharic and Tigrinya monolingual corpora, extend XLM-R's vocabulary with 30,000 Ge'ez-script subwords derived from this tokenizer, and initialize their embeddings by averaging the embeddings of their constituent subwords under XLM-R's original tokenizer. VEXMLM is trained in two stages: (1) continued masked language modeling over the extended vocabulary on the curated corpora, and (2) supervised fine-tuning on question answering (QA), named entity recognition (NER), and sentiment analysis (SA). On Amharic/Tigrinya QA, VEXMLM achieves 87.0 EM /90.0 F1, versus 66.0 EM/78.0 F1 for XLM-R and 74.0 EM/ 78.0 F1 for Glot500. On SA, VEXMLM reaches 80.0\\% accuracy versus 77.0\\% (XLM-R) and 46.0\\% (Glot500). On NER, VEXMLM raises OOV-token entity accuracy from 81.4\\% to 94.3\\%, averaged over 11 of the 19 evaluated languages for which OOV analysis was possible. Our contributions are: (i) a vocabulary-extension and embedding-initialization procedure tailored to Ge'ez script; (ii) a two-stage training strategy under which vocabulary and continued-pretraining gains on Amharic/Tigrinya transfer to 17 typologically related, unaugmented African languages; and (iii) an evaluation spanning both intrinsic tokenization metrics (vocabulary coverage, fertility, OOV rate) and extrinsic task performance across all 19 languages.",
-        "authors": [
-          "Hailay Kidu Teklehaymanot",
-          "Debela Desalegn Yadeta",
-          "Wolfgang Nejdl"
-        ],
-        "published": "2026-07-16T17:08:28Z",
-        "updated": "2026-07-16T17:08:28Z",
-        "categories": [
-          "cs.CL"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2607.15209v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Amharic",
-          "class": 2,
-          "sources": [
-            "abstract",
-            "pdf"
-          ]
-        },
-        {
-          "language": "Latin",
-          "class": 3,
-          "needs_review": true,
-          "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
-          "sources": [
-            "abstract",
-            "pdf"
-          ]
-        },
-        {
-          "language": "Greek",
-          "class": 3,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Korean",
-          "class": 4,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Afar",
-          "class": 0,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Harari",
-          "class": 0,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Oromo",
-          "class": 1,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Afrikaans",
-          "class": 2,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Arabic",
-          "class": 5,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "English",
-          "class": 5,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "German",
-          "class": 5,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Kinyarwanda",
-          "class": 2,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Swahili",
-          "class": 2,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Hausa",
-          "class": 2,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Igbo",
-          "class": 2,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Wolof",
-          "class": 2,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Yoruba",
-          "class": 2,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Tso",
-          "class": 0,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "moroccan Arabic",
-          "class": 2,
-          "sources": [
-            "pdf"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract",
-        "pdf"
-      ],
-      "sections_with_detections": [
-        "abstract",
-        "pdf_full_text"
-      ],
-      "sections": [
-        {
-          "name": "abstract",
-          "source": "abstract",
-          "detected_languages": [
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Latin",
-              "class": 3,
-              "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
-            }
-          ]
-        },
-        {
-          "name": "pdf_full_text",
-          "source": "pdf",
-          "detected_languages": [
-            {
-              "language": "Latin",
-              "class": 3,
-              "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
-            },
-            {
-              "language": "Latin",
-              "class": 3,
-              "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Latin",
-              "class": 3,
-              "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Greek",
-              "class": 3
-            },
-            {
-              "language": "Latin",
-              "class": 3,
-              "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Korean",
-              "class": 4
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Latin",
-              "class": 3,
-              "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Afar",
-              "class": 0
-            },
-            {
-              "language": "Harari",
-              "class": 0
-            },
-            {
-              "language": "Oromo",
-              "class": 1
-            },
-            {
-              "language": "Afrikaans",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Arabic",
-              "class": 5
-            },
-            {
-              "language": "English",
-              "class": 5
-            },
-            {
-              "language": "German",
-              "class": 5
-            },
-            {
-              "language": "English",
-              "class": 5
-            },
-            {
-              "language": "English",
-              "class": 5
-            },
-            {
-              "language": "Afar",
-              "class": 0
-            },
-            {
-              "language": "Harari",
-              "class": 0
-            },
-            {
-              "language": "Oromo",
-              "class": 1
-            },
-            {
-              "language": "Afrikaans",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Arabic",
-              "class": 5
-            },
-            {
-              "language": "German",
-              "class": 5
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "English",
-              "class": 5
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "English",
-              "class": 5
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Kinyarwanda",
-              "class": 2
-            },
-            {
-              "language": "Swahili",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Hausa",
-              "class": 2
-            },
-            {
-              "language": "Igbo",
-              "class": 2
-            },
-            {
-              "language": "Kinyarwanda",
-              "class": 2
-            },
-            {
-              "language": "Swahili",
-              "class": 2
-            },
-            {
-              "language": "Wolof",
-              "class": 2
-            },
-            {
-              "language": "Yoruba",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Kinyarwanda",
-              "class": 2
-            },
-            {
-              "language": "Swahili",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Harari",
-              "class": 0
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Latin",
-              "class": 3,
-              "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Hausa",
-              "class": 2
-            },
-            {
-              "language": "Wolof",
-              "class": 2
-            },
-            {
-              "language": "Arabic",
-              "class": 5
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Harari",
-              "class": 0
-            },
-            {
-              "language": "Tso",
-              "class": 0
-            },
-            {
-              "language": "Oromo",
-              "class": 1
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Hausa",
-              "class": 2
-            },
-            {
-              "language": "Igbo",
-              "class": 2
-            },
-            {
-              "language": "Kinyarwanda",
-              "class": 2
-            },
-            {
-              "language": "Swahili",
-              "class": 2
-            },
-            {
-              "language": "Wolof",
-              "class": 2
-            },
-            {
-              "language": "Yoruba",
-              "class": 2
-            },
-            {
-              "language": "moroccan Arabic",
-              "class": 2
-            },
-            {
-              "language": "Latin",
-              "class": 3,
-              "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
-            },
-            {
-              "language": "Arabic",
-              "class": 5
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            },
-            {
-              "language": "Amharic",
-              "class": 2
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
-        "id": "http://arxiv.org/abs/2607.14989v1",
-        "title": "OmniaBench: Benchmarking General AI Agents Across Diverse Scenarios",
-        "abstract": "Large language models are increasingly evolving from text generators into general agents capable of understanding user requests, invoking external tools, and completing complex tasks through interaction. However, existing agent benchmarks often focus on limited scenarios, tool ecosystems, or interaction formats, making it difficult to systematically characterize model capabilities across heterogeneous application settings. We introduce OmniaBench, a benchmark for evaluating general agents across diverse scenarios with explicit state spaces. We derive application-oriented scenario knowledge from app stores, product documents, industry resources, Web retrieval, and human refinement, forming a hierarchical taxonomy that spans ToC, ToB and ToE with 90 level-1 and 354 level-2 domains. Based on this taxonomy, we construct executable environments and synthesize single-turn and multi-turn tasks through four complementary routes: DAG, DAG-S, Solver, and Program. OmniaBench further introduces a ten-dimensional capability taxonomy and eight compositional atomic difficulty factors to support fine-grained evaluation and analysis. The resulting dataset contains 1,431 tasks, together with a challenging subset of 644 tasks designed to reduce evaluation cost and mitigate potential contamination of the full set after public release. The bench presents substantial challenges to current frontier models, with even Claude-Sonnet-5 and GPT-5.6-Sol achieving Overall Pass@1 scores of only 58.54 and 57.14, respectively. Further analyses reveal clear differences across domains and capabilities, as well as persistent limitations in planning, constraint maintenance, and adaptive correction. OmniaBench provides a broad and diagnostic benchmark for characterizing the capability boundaries of general agents.",
-        "authors": [
-          "Chengyu Shen",
-          "Yujie Fu",
-          "Gangtao Xin",
-          "Yanheng Hou",
-          "Wenlong Fei",
-          "Guojie Zhu",
-          "Jiawei Li",
-          "Hongcheng Gao",
-          "Runming He",
-          "Zhen Hao Wong",
-          "Meiyi Qiang",
-          "Hao Liang",
-          "Zhao Cao",
-          "Hao Jiang",
-          "Chong Chen",
-          "Wentao Zhang"
-        ],
-        "published": "2026-07-16T13:38:07Z",
-        "updated": "2026-07-16T13:38:07Z",
-        "categories": [
-          "cs.CL",
-          "cs.AI"
-        ],
-        "pdf_url": "https://arxiv.org/pdf/2607.14989v1",
-        "_fetch_source": "arxiv_direct"
-      },
-      "languages": [
-        {
-          "language": "Chong",
-          "class": 0,
-          "needs_review": true,
-          "flag_reason": "Possible false positive",
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Qiang",
-          "class": 0,
-          "sources": [
-            "pdf"
-          ]
-        },
-        {
-          "language": "Shan",
-          "class": 2,
-          "sources": [
-            "pdf"
-          ]
-        }
-      ],
-      "sources_checked": [
-        "abstract",
-        "pdf"
-      ],
-      "sections_with_detections": [
-        "pdf_full_text"
-      ],
-      "sections": [
-        {
-          "name": "pdf_full_text",
-          "source": "pdf",
-          "detected_languages": [
-            {
-              "language": "Chong",
-              "class": 0,
-              "needs_review": true,
-              "flag_reason": "Possible false positive"
-            },
-            {
-              "language": "Qiang",
-              "class": 0
-            },
-            {
-              "language": "Chong",
-              "class": 0,
-              "needs_review": true,
-              "flag_reason": "Possible false positive"
-            },
-            {
-              "language": "Shan",
-              "class": 2
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "paper": {
         "id": "http://arxiv.org/abs/2607.15232v1",
         "title": "In-Place Tokenizer Expansion for Pre-trained LLMs",
         "abstract": "A tokenizer fixed at the start of pre-training allocates vocabulary in proportion to the pre-training corpus, reflecting the deployment priorities at that time. When those priorities shift, languages added later are split into many more tokens per word, which can raise latency, compute, and energy consumption for users of those languages. Cloud models can afford a broad vocabulary because the embedding and LM-head matrices are a small fraction of their parameters. On a compact model those matrices are a material share of per-token decode bandwidth, so on-device models ship small vocabularies and accept fragmentation outside a fixed language set. We present tokenizer expansion, an in-place recipe for upgrading a pre-trained model's tokenizer when the model producer controls its design. We continue the existing tokenizer's BPE merges on a multilingual corpus, so most source tokens carry over unchanged as single tokens and every new token has an exact decomposition into source tokens. We copy the carried-over embedding rows unchanged and initialize new rows as the mean of their source sub-token embeddings. A two-stage adaptation, embedding-only training then full-model continued pre-training, recovers source-checkpoint quality. We apply the recipe to a continued pre-trained checkpoint of LFM2-8B-A1B, an 8B-parameter Mixture-of-Experts model, to help produce LFM2.5-8B-A1B with a 128K tokenizer. The expanded tokenizer encodes Hindi and Vietnamese in roughly $2.4\\times$ and $2.6\\times$ fewer tokens than the source (up to $4.0\\times$ on Thai). Combining these reductions with the measured per-token cost of the larger vocabulary, we estimate a $2.2$-$3.7\\times$ per-character decode speedup for these languages across our reference devices. We release the model weights and the expanded tokenizer, and report the negative findings that shaped the recipe.",
@@ -61096,6 +60487,615 @@
             {
               "language": "Spanish",
               "class": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2607.15209v1",
+        "title": "Expanding the Lexicon of Ge'ez Based African Languages: A Comparative Study of Amharic and Tigrinya",
+        "abstract": "Multilingual pre-trained language models (PLMs) exhibit degraded performance on low-resource, non-Latin-script languages, driven by high out-of-vocabulary (OOV) rates and excessive subword fragmentation that result from Latin-script-centric tokenizer training. We introduce VEXMLM, a vocabulary-extended variant of XLM-R targeting the two highest-resource Ge'ez-script languages, Amharic and Tigrinya, and further evaluated on 17 additional low-resource African languages (19 total). We train a language-specific SentencePiece tokenizer on curated Amharic and Tigrinya monolingual corpora, extend XLM-R's vocabulary with 30,000 Ge'ez-script subwords derived from this tokenizer, and initialize their embeddings by averaging the embeddings of their constituent subwords under XLM-R's original tokenizer. VEXMLM is trained in two stages: (1) continued masked language modeling over the extended vocabulary on the curated corpora, and (2) supervised fine-tuning on question answering (QA), named entity recognition (NER), and sentiment analysis (SA). On Amharic/Tigrinya QA, VEXMLM achieves 87.0 EM /90.0 F1, versus 66.0 EM/78.0 F1 for XLM-R and 74.0 EM/ 78.0 F1 for Glot500. On SA, VEXMLM reaches 80.0\\% accuracy versus 77.0\\% (XLM-R) and 46.0\\% (Glot500). On NER, VEXMLM raises OOV-token entity accuracy from 81.4\\% to 94.3\\%, averaged over 11 of the 19 evaluated languages for which OOV analysis was possible. Our contributions are: (i) a vocabulary-extension and embedding-initialization procedure tailored to Ge'ez script; (ii) a two-stage training strategy under which vocabulary and continued-pretraining gains on Amharic/Tigrinya transfer to 17 typologically related, unaugmented African languages; and (iii) an evaluation spanning both intrinsic tokenization metrics (vocabulary coverage, fertility, OOV rate) and extrinsic task performance across all 19 languages.",
+        "authors": [
+          "Hailay Kidu Teklehaymanot",
+          "Debela Desalegn Yadeta",
+          "Wolfgang Nejdl"
+        ],
+        "published": "2026-07-16T17:08:28Z",
+        "updated": "2026-07-16T17:08:28Z",
+        "categories": [
+          "cs.CL"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2607.15209v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Amharic",
+          "class": 2,
+          "sources": [
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "Latin",
+          "class": 3,
+          "needs_review": true,
+          "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+          "sources": [
+            "abstract",
+            "pdf"
+          ]
+        },
+        {
+          "language": "Greek",
+          "class": 3,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Korean",
+          "class": 4,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Afar",
+          "class": 0,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Harari",
+          "class": 0,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Oromo",
+          "class": 1,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Afrikaans",
+          "class": 2,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Arabic",
+          "class": 5,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "English",
+          "class": 5,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "German",
+          "class": 5,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Kinyarwanda",
+          "class": 2,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Swahili",
+          "class": 2,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Hausa",
+          "class": 2,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Igbo",
+          "class": 2,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Wolof",
+          "class": 2,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Yoruba",
+          "class": 2,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Tso",
+          "class": 0,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "moroccan Arabic",
+          "class": 2,
+          "sources": [
+            "pdf"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract",
+        "pdf"
+      ],
+      "sections_with_detections": [
+        "abstract",
+        "pdf_full_text"
+      ],
+      "sections": [
+        {
+          "name": "abstract",
+          "source": "abstract",
+          "detected_languages": [
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Latin",
+              "class": 3,
+              "needs_review": true,
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+            }
+          ]
+        },
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "Latin",
+              "class": 3,
+              "needs_review": true,
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+            },
+            {
+              "language": "Latin",
+              "class": 3,
+              "needs_review": true,
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Latin",
+              "class": 3,
+              "needs_review": true,
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Greek",
+              "class": 3
+            },
+            {
+              "language": "Latin",
+              "class": 3,
+              "needs_review": true,
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Korean",
+              "class": 4
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Latin",
+              "class": 3,
+              "needs_review": true,
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Afar",
+              "class": 0
+            },
+            {
+              "language": "Harari",
+              "class": 0
+            },
+            {
+              "language": "Oromo",
+              "class": 1
+            },
+            {
+              "language": "Afrikaans",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "German",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Afar",
+              "class": 0
+            },
+            {
+              "language": "Harari",
+              "class": 0
+            },
+            {
+              "language": "Oromo",
+              "class": 1
+            },
+            {
+              "language": "Afrikaans",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "German",
+              "class": 5
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "English",
+              "class": 5
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Kinyarwanda",
+              "class": 2
+            },
+            {
+              "language": "Swahili",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Hausa",
+              "class": 2
+            },
+            {
+              "language": "Igbo",
+              "class": 2
+            },
+            {
+              "language": "Kinyarwanda",
+              "class": 2
+            },
+            {
+              "language": "Swahili",
+              "class": 2
+            },
+            {
+              "language": "Wolof",
+              "class": 2
+            },
+            {
+              "language": "Yoruba",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Kinyarwanda",
+              "class": 2
+            },
+            {
+              "language": "Swahili",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Harari",
+              "class": 0
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Latin",
+              "class": 3,
+              "needs_review": true,
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Hausa",
+              "class": 2
+            },
+            {
+              "language": "Wolof",
+              "class": 2
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Harari",
+              "class": 0
+            },
+            {
+              "language": "Tso",
+              "class": 0
+            },
+            {
+              "language": "Oromo",
+              "class": 1
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Hausa",
+              "class": 2
+            },
+            {
+              "language": "Igbo",
+              "class": 2
+            },
+            {
+              "language": "Kinyarwanda",
+              "class": 2
+            },
+            {
+              "language": "Swahili",
+              "class": 2
+            },
+            {
+              "language": "Wolof",
+              "class": 2
+            },
+            {
+              "language": "Yoruba",
+              "class": 2
+            },
+            {
+              "language": "moroccan Arabic",
+              "class": 2
+            },
+            {
+              "language": "Latin",
+              "class": 3,
+              "needs_review": true,
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+            },
+            {
+              "language": "Arabic",
+              "class": 5
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            },
+            {
+              "language": "Amharic",
+              "class": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": {
+        "id": "http://arxiv.org/abs/2607.14989v1",
+        "title": "OmniaBench: Benchmarking General AI Agents Across Diverse Scenarios",
+        "abstract": "Large language models are increasingly evolving from text generators into general agents capable of understanding user requests, invoking external tools, and completing complex tasks through interaction. However, existing agent benchmarks often focus on limited scenarios, tool ecosystems, or interaction formats, making it difficult to systematically characterize model capabilities across heterogeneous application settings. We introduce OmniaBench, a benchmark for evaluating general agents across diverse scenarios with explicit state spaces. We derive application-oriented scenario knowledge from app stores, product documents, industry resources, Web retrieval, and human refinement, forming a hierarchical taxonomy that spans ToC, ToB and ToE with 90 level-1 and 354 level-2 domains. Based on this taxonomy, we construct executable environments and synthesize single-turn and multi-turn tasks through four complementary routes: DAG, DAG-S, Solver, and Program. OmniaBench further introduces a ten-dimensional capability taxonomy and eight compositional atomic difficulty factors to support fine-grained evaluation and analysis. The resulting dataset contains 1,431 tasks, together with a challenging subset of 644 tasks designed to reduce evaluation cost and mitigate potential contamination of the full set after public release. The bench presents substantial challenges to current frontier models, with even Claude-Sonnet-5 and GPT-5.6-Sol achieving Overall Pass@1 scores of only 58.54 and 57.14, respectively. Further analyses reveal clear differences across domains and capabilities, as well as persistent limitations in planning, constraint maintenance, and adaptive correction. OmniaBench provides a broad and diagnostic benchmark for characterizing the capability boundaries of general agents.",
+        "authors": [
+          "Chengyu Shen",
+          "Yujie Fu",
+          "Gangtao Xin",
+          "Yanheng Hou",
+          "Wenlong Fei",
+          "Guojie Zhu",
+          "Jiawei Li",
+          "Hongcheng Gao",
+          "Runming He",
+          "Zhen Hao Wong",
+          "Meiyi Qiang",
+          "Hao Liang",
+          "Zhao Cao",
+          "Hao Jiang",
+          "Chong Chen",
+          "Wentao Zhang"
+        ],
+        "published": "2026-07-16T13:38:07Z",
+        "updated": "2026-07-16T13:38:07Z",
+        "categories": [
+          "cs.CL",
+          "cs.AI"
+        ],
+        "pdf_url": "https://arxiv.org/pdf/2607.14989v1",
+        "_fetch_source": "arxiv_direct"
+      },
+      "languages": [
+        {
+          "language": "Chong",
+          "class": 0,
+          "needs_review": true,
+          "flag_reason": "Possible false positive",
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Qiang",
+          "class": 0,
+          "sources": [
+            "pdf"
+          ]
+        },
+        {
+          "language": "Shan",
+          "class": 2,
+          "sources": [
+            "pdf"
+          ]
+        }
+      ],
+      "sources_checked": [
+        "abstract",
+        "pdf"
+      ],
+      "sections_with_detections": [
+        "pdf_full_text"
+      ],
+      "sections": [
+        {
+          "name": "pdf_full_text",
+          "source": "pdf",
+          "detected_languages": [
+            {
+              "language": "Chong",
+              "class": 0,
+              "needs_review": true,
+              "flag_reason": "Possible false positive"
+            },
+            {
+              "language": "Qiang",
+              "class": 0
+            },
+            {
+              "language": "Chong",
+              "class": 0,
+              "needs_review": true,
+              "flag_reason": "Possible false positive"
+            },
+            {
+              "language": "Shan",
+              "class": 2
             }
           ]
         }
