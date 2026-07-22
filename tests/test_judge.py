@@ -790,6 +790,16 @@ class TestEnsureContextCache:
             ensure_context_cache(record, tmp_path, tmp_path / "pdfs", {}, set())
         mock_html.assert_not_called()
 
+    def test_does_not_fetch_html_for_confirmed_missing_source(self, tmp_path):
+        # "html_confirmed_missing" means arXiv definitively has no HTML for
+        # this paper (see process_papers.py's _needs_retry fix) — re-fetching
+        # it here would just waste a request re-confirming the same 404.
+        record = {"paper_id": "http://arxiv.org/abs/x1", "paper": {}, "sources_checked": ["abstract", "html_confirmed_missing", "pdf"]}
+        with patch("langtrend.html_processor.recheck_languages_from_html") as mock_html, \
+             patch("langtrend.pdf_processor.download_pdf", return_value=None):
+            ensure_context_cache(record, tmp_path, tmp_path / "pdfs", {}, set())
+        mock_html.assert_not_called()
+
     def test_html_fetch_failure_does_not_raise(self, tmp_path):
         record = {"paper_id": "http://arxiv.org/abs/x1", "paper": {}, "sources_checked": ["html"]}
         with patch("langtrend.html_processor.recheck_languages_from_html", side_effect=RuntimeError("boom")):

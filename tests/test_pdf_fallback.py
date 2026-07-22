@@ -355,7 +355,7 @@ class TestPDFFallbackChain:
         orig_html = pp.recheck_languages_from_html
 
         pp._download_pdf = lambda url, pdf_dir, pid: _SAMPLE_PDF
-        pp.recheck_languages_from_html = lambda *a, **kw: {}
+        pp.recheck_languages_from_html = lambda *a, **kw: ({}, False, [], False)
 
         try:
             record = pp._process_single_paper(
@@ -377,6 +377,13 @@ class TestPDFFallbackChain:
         # Verify the record structure, not a specific language count.
         assert "sections" in record
         assert isinstance(record.get("warnings", []), list)
+        # This test's mock must simulate a clean "HTML unavailable" result (a
+        # well-formed 4-tuple), not accidentally raise inside
+        # recheck_languages_from_html's unpacking — that would get silently
+        # caught by _process_single_paper's broad except and still trigger the
+        # PDF fallback for the wrong reason, making the "pdf" assertions above
+        # pass without actually exercising the unavailable-HTML path.
+        assert not any(w.get("step") == "html" for w in record["warnings"])
         # If pdf_full_text is present, check its structure
         pdf_section = record["sections"].get("pdf_full_text")
         if pdf_section is not None:
@@ -401,11 +408,11 @@ class TestPDFFallbackChain:
         orig_html = pp.recheck_languages_from_html
 
         pp._download_pdf = lambda url, pdf_dir, pid: _SAMPLE_PDF
-        pp.recheck_languages_from_html = lambda *a, **kw: {}
+        pp.recheck_languages_from_html = lambda *a, **kw: ({}, False, [], False)
 
         pdf_cache_dir = tmp_path / "pdf_cache"
         try:
-            pp._process_single_paper(
+            record = pp._process_single_paper(
                 paper=paper,
                 lang_classes=lang_classes,
                 languages_to_ignore=languages_to_ignore,
@@ -417,6 +424,12 @@ class TestPDFFallbackChain:
         finally:
             pp._download_pdf = orig_download
             pp.recheck_languages_from_html = orig_html
+
+        # See the equivalent assertion in test_process_single_paper_pdf_fallback:
+        # a malformed mock return would be silently caught and misreported as
+        # an "html" warning, making the PDF-cache assertions below pass for
+        # the wrong reason.
+        assert not any(w.get("step") == "html" for w in record["warnings"])
 
         cache_file = pdf_cache_dir / f"{paper_id}.json"
         assert cache_file.exists(), "PDF cache file was not written to pdf_cache_dir"
