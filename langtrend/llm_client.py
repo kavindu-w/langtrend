@@ -44,8 +44,8 @@ import requests
 
 _PROJECT_ROOT = Path(__file__).parent.parent
 
-DEFAULT_BASE_URL = "https://api.groq.com/openai/v1"
-DEFAULT_MODEL = "openai/gpt-oss-120b"
+DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
+DEFAULT_MODEL = "openai/gpt-oss-20b:free"
 
 _CHAT_RETRIES = 3
 _RETRY_BACKOFF = 2  # seconds; doubles each attempt
@@ -110,16 +110,20 @@ class LLMClientConfig:
             pass
         fallback_raw = os.environ.get("LLM_JUDGE_FALLBACK_MODELS", "")
         fallback_models = tuple(m.strip() for m in fallback_raw.split(",") if m.strip())
+        # `or` rather than dict.get(key, default): an env var set to an empty
+        # string (e.g. GitHub Actions' `${{ vars.X }}` evaluates to "" when
+        # the repo variable doesn't exist yet, rather than being unset) must
+        # still fall back to the default, not silently become "".
         return cls(
-            base_url=os.environ.get("LLM_JUDGE_BASE_URL", DEFAULT_BASE_URL).rstrip("/"),
+            base_url=(os.environ.get("LLM_JUDGE_BASE_URL") or DEFAULT_BASE_URL).rstrip("/"),
             api_key=os.environ.get("LLM_JUDGE_API_KEY", ""),
-            model=os.environ.get("LLM_JUDGE_MODEL", DEFAULT_MODEL),
-            timeout=int(os.environ.get("LLM_JUDGE_TIMEOUT", "180")),
-            temperature=float(os.environ.get("LLM_JUDGE_TEMPERATURE", "0")),
-            max_context_chars=int(os.environ.get("LLM_JUDGE_MAX_CONTEXT_CHARS", "12000")),
-            workers=int(os.environ.get("LLM_JUDGE_WORKERS", "4")),
-            rpm=int(os.environ.get("LLM_JUDGE_RPM", "4")),
-            rph=int(os.environ.get("LLM_JUDGE_RPH", "150")),
+            model=os.environ.get("LLM_JUDGE_MODEL") or DEFAULT_MODEL,
+            timeout=int(os.environ.get("LLM_JUDGE_TIMEOUT") or "180"),
+            temperature=float(os.environ.get("LLM_JUDGE_TEMPERATURE") or "0"),
+            max_context_chars=int(os.environ.get("LLM_JUDGE_MAX_CONTEXT_CHARS") or "12000"),
+            workers=int(os.environ.get("LLM_JUDGE_WORKERS") or "4"),
+            rpm=int(os.environ.get("LLM_JUDGE_RPM") or "4"),
+            rph=int(os.environ.get("LLM_JUDGE_RPH") or "150"),
             fallback_models=fallback_models,
         )
 

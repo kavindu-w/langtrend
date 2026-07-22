@@ -469,6 +469,11 @@ jobs:
       - name: Judge this week's detected languages (LLM)
         env:
           LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
+          LLM_JUDGE_BASE_URL: ${{ vars.LLM_JUDGE_BASE_URL }}
+          LLM_JUDGE_MODEL: ${{ vars.LLM_JUDGE_MODEL }}
+          LLM_JUDGE_FALLBACK_MODELS: ${{ vars.LLM_JUDGE_FALLBACK_MODELS }}
+          LLM_JUDGE_RPM: ${{ vars.LLM_JUDGE_RPM }}
+          LLM_JUDGE_RPH: ${{ vars.LLM_JUDGE_RPH }}
         run: |
           set +e
           python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured
@@ -576,6 +581,11 @@ jobs:
       - name: Judge this week's detected languages (LLM continuation)
         env:
           LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
+          LLM_JUDGE_BASE_URL: ${{ vars.LLM_JUDGE_BASE_URL }}
+          LLM_JUDGE_MODEL: ${{ vars.LLM_JUDGE_MODEL }}
+          LLM_JUDGE_FALLBACK_MODELS: ${{ vars.LLM_JUDGE_FALLBACK_MODELS }}
+          LLM_JUDGE_RPM: ${{ vars.LLM_JUDGE_RPM }}
+          LLM_JUDGE_RPH: ${{ vars.LLM_JUDGE_RPH }}
         run: |
           set +e
           python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured

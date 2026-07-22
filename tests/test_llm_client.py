@@ -17,6 +17,8 @@ PROJECT_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from langtrend.llm_client import (
+    DEFAULT_BASE_URL,
+    DEFAULT_MODEL,
     LLMClientConfig,
     OpenAICompatClient,
     QuotaExhaustedError,
@@ -230,3 +232,52 @@ class TestLastModelUsed:
             mock_session.return_value.post.return_value = _FakeResponse(200, text=json.dumps(body))
             client.chat([{"role": "user", "content": "hi"}])
         assert client.last_model_used == "fallback-default"
+
+
+# ---------------------------------------------------------------------------
+# LLMClientConfig.from_env: empty-string env vars must fall back to defaults,
+# not become "" — this is what GitHub Actions does for an unset `vars.X`
+# (${{ vars.X }} evaluates to "" rather than being omitted from `env:`).
+# ---------------------------------------------------------------------------
+
+class TestFromEnvEmptyStringFallback:
+    def test_empty_base_url_falls_back_to_default(self, monkeypatch):
+        monkeypatch.setenv("LLM_JUDGE_BASE_URL", "")
+        monkeypatch.delenv("LLM_JUDGE_MODEL", raising=False)
+        config = LLMClientConfig.from_env()
+        assert config.base_url == DEFAULT_BASE_URL
+
+    def test_empty_model_falls_back_to_default(self, monkeypatch):
+        monkeypatch.setenv("LLM_JUDGE_MODEL", "")
+        config = LLMClientConfig.from_env()
+        assert config.model == DEFAULT_MODEL
+
+    def test_nonempty_base_url_and_model_are_respected(self, monkeypatch):
+        monkeypatch.setenv("LLM_JUDGE_BASE_URL", "https://openrouter.ai/api/v1")
+        monkeypatch.setenv("LLM_JUDGE_MODEL", "openai/gpt-oss-20b:free")
+        config = LLMClientConfig.from_env()
+        assert config.base_url == "https://openrouter.ai/api/v1"
+        assert config.model == "openai/gpt-oss-20b:free"
+
+    def test_empty_numeric_vars_fall_back_to_defaults_instead_of_crashing(self, monkeypatch):
+        # int(os.environ.get("LLM_JUDGE_RPM", "4")) would call int("") and
+        # raise ValueError if the var is set-but-empty (same GitHub Actions
+        # ${{ vars.X }} gotcha as base_url/model, but worse here — it crashes
+        # the whole run instead of just misconfiguring it).
+        for name in ("LLM_JUDGE_TIMEOUT", "LLM_JUDGE_TEMPERATURE", "LLM_JUDGE_MAX_CONTEXT_CHARS",
+                     "LLM_JUDGE_WORKERS", "LLM_JUDGE_RPM", "LLM_JUDGE_RPH"):
+            monkeypatch.setenv(name, "")
+        config = LLMClientConfig.from_env()
+        assert config.timeout == 180
+        assert config.temperature == 0.0
+        assert config.max_context_chars == 12000
+        assert config.workers == 4
+        assert config.rpm == 4
+        assert config.rph == 150
+
+    def test_nonempty_rpm_rph_are_respected(self, monkeypatch):
+        monkeypatch.setenv("LLM_JUDGE_RPM", "20")
+        monkeypatch.setenv("LLM_JUDGE_RPH", "1000")
+        config = LLMClientConfig.from_env()
+        assert config.rpm == 20
+        assert config.rph == 1000
