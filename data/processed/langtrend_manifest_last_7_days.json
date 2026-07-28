@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-28T16:42:30.402813+00:00",
+  "generated_at": "2026-07-28T16:48:07.090793+00:00",
   "window_days": 7,
   "week_start": "2026-07-20",
   "week_end": "2026-07-27",
@@ -7,23 +7,23 @@
   "counts": {
     "papers": 347,
     "flagged_papers": 155,
-    "unique_languages": 106,
-    "unique_languages_mentioned_only": 8,
+    "unique_languages": 104,
+    "unique_languages_mentioned_only": 9,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 199,
-      "judged_languages": 751,
-      "studied": 381,
-      "mentioned_only": 152,
-      "false_positive": 218
+      "judged_papers": 200,
+      "judged_languages": 757,
+      "studied": 383,
+      "mentioned_only": 154,
+      "false_positive": 220
     }
   },
   "language_counts": [
     {
       "language": "English",
       "count": 135,
-      "studied": 88,
-      "mentioned_only": 47
+      "studied": 87,
+      "mentioned_only": 48
     },
     {
       "language": "Chinese",
@@ -110,12 +110,6 @@
       "mentioned_only": 1
     },
     {
-      "language": "Latin",
-      "count": 6,
-      "studied": 2,
-      "mentioned_only": 4
-    },
-    {
       "language": "Malayalam",
       "count": 6,
       "studied": 6,
@@ -144,6 +138,12 @@
       "count": 6,
       "studied": 6,
       "mentioned_only": 0
+    },
+    {
+      "language": "Latin",
+      "count": 5,
+      "studied": 1,
+      "mentioned_only": 4
     },
     {
       "language": "Telugu",
@@ -334,8 +334,8 @@
     {
       "language": "Swahili",
       "count": 2,
-      "studied": 1,
-      "mentioned_only": 1
+      "studied": 0,
+      "mentioned_only": 2
     },
     {
       "language": "Tibetan",
@@ -596,12 +596,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Pin",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Romani",
       "count": 1,
       "studied": 0,
@@ -707,8 +701,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 28,
-      "studied": 24,
+      "count": 27,
+      "studied": 23,
       "mentioned_only": 4
     },
     {
@@ -720,13 +714,13 @@
     {
       "class_id": 2,
       "count": 69,
-      "studied": 58,
-      "mentioned_only": 11
+      "studied": 57,
+      "mentioned_only": 12
     },
     {
       "class_id": 3,
-      "count": 68,
-      "studied": 56,
+      "count": 67,
+      "studied": 55,
       "mentioned_only": 12
     },
     {
@@ -738,8 +732,8 @@
     {
       "class_id": 5,
       "count": 272,
-      "studied": 177,
-      "mentioned_only": 95
+      "studied": 176,
+      "mentioned_only": 96
     }
   ],
   "daily_series": [
@@ -82267,7 +82261,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-07-28T16:48:06.357623+00:00"
         },
         {
           "language": "Swahili",
@@ -82275,21 +82273,33 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-07-28T16:48:06.357623+00:00"
         },
         {
           "language": "Gikuyu",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet refers to Kikuyu (Gikuyu) as a target language for ASR; the paper builds a Gikuyu model, so studied.",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-07-28T16:48:06.357623+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippets refer to English as a code-switched language and as a language of the researcher, but the paper does not build or evaluate an English ASR; it only mentions English, so mentioned_only.",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-07-28T16:48:06.357623+00:00"
         },
         {
           "language": "Latin",
@@ -82298,7 +82308,11 @@
           "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippet refers to Latin orthography/script used by Dholuo, not the Latin language; thus false_positive.",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-07-28T16:48:06.357623+00:00"
         },
         {
           "language": "Pin",
@@ -82307,7 +82321,11 @@
           "flag_reason": "Too short/generic — matches many common words",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippet refers to the software concept of pinning a commit revision; it is not a language, so false_positive.",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-07-28T16:48:06.357623+00:00"
         }
       ],
       "sources_checked": [
@@ -82385,11 +82403,19 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82399,31 +82425,59 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Gikuyu",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet refers to Kikuyu (Gikuyu) as a target language for ASR; the paper builds a Gikuyu model, so studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82433,11 +82487,19 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82447,11 +82509,19 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82461,7 +82531,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82471,7 +82545,11 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82481,7 +82559,11 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82491,19 +82573,35 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82513,15 +82611,27 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82531,11 +82641,19 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82545,7 +82663,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82555,23 +82677,43 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82581,7 +82723,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82591,19 +82737,35 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82613,7 +82775,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82623,7 +82789,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82633,11 +82803,19 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82647,7 +82825,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82657,7 +82839,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82667,7 +82853,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82677,7 +82867,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82687,43 +82881,83 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82733,31 +82967,59 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82767,7 +83029,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82777,11 +83043,19 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82791,27 +83065,51 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as a code-switched language and as a language of the researcher, but the paper does not build or evaluate an English ASR; it only mentions English, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82821,11 +83119,19 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82835,15 +83141,27 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as a code-switched language and as a language of the researcher, but the paper does not build or evaluate an English ASR; it only mentions English, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82853,7 +83171,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82863,19 +83185,35 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82885,7 +83223,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82895,7 +83237,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82905,11 +83251,19 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82919,11 +83273,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as a code-switched language and as a language of the researcher, but the paper does not build or evaluate an English ASR; it only mentions English, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82933,7 +83295,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as a code-switched language and as a language of the researcher, but the paper does not build or evaluate an English ASR; it only mentions English, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82943,7 +83309,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82953,7 +83323,11 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82963,7 +83337,11 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82973,7 +83351,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82983,7 +83365,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -82993,17 +83379,29 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet refers to Latin orthography/script used by Dholuo, not the Latin language; thus false_positive.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83013,17 +83411,29 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet refers to Latin orthography/script used by Dholuo, not the Latin language; thus false_positive.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83033,15 +83443,27 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83051,15 +83473,27 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83069,23 +83503,43 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83095,7 +83549,11 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83105,15 +83563,27 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83123,7 +83593,11 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83133,7 +83607,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83143,7 +83621,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83153,11 +83635,19 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as a code-switched language and as a language of the researcher, but the paper does not build or evaluate an English ASR; it only mentions English, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83167,11 +83657,19 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as a code-switched language and as a language of the researcher, but the paper does not build or evaluate an English ASR; it only mentions English, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83181,7 +83679,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83191,7 +83693,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83201,41 +83707,77 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Pin",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches many common words"
+              "flag_reason": "Too short/generic — matches many common words",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet refers to the software concept of pinning a commit revision; it is not a language, so false_positive.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83245,37 +83787,69 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Pin",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches many common words"
+              "flag_reason": "Too short/generic — matches many common words",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet refers to the software concept of pinning a commit revision; it is not a language, so false_positive.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83285,7 +83859,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83295,7 +83873,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83305,11 +83887,19 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83319,11 +83909,19 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83333,7 +83931,11 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to Swahili as a bridge checkpoint and code-switching language, but the paper does not train or evaluate a Swahili ASR; it only mentions Swahili, so mentioned_only.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         },
@@ -83343,7 +83945,11 @@
           "detected_languages": [
             {
               "language": "Dholuo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Dholuo training data, preparation, and ASR models; the paper adapts a model to Dholuo and reports Dholuo WER, so the language is studied.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-07-28T16:48:06.357623+00:00"
             }
           ]
         }
