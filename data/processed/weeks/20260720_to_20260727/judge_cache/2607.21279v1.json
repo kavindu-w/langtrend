@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.21279v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:06:01.043136+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2768,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a dataset named TULU-3 SFT, which is a general tasks dataset, not the Tulu language itself, so the match is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet states that source datasets are primarily written in English, indicating the language is mentioned but not studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

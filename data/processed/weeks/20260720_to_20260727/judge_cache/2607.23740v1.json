@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.23740v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:04:21.289524+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5993,
+  "verdicts": {
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "Tat refers to part of the phrase 'Tit-for-Tat', a game-theoretic strategy, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "Gan refers to author surname 'Gan Kairong'; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Shan": {
+      "verdict": "false_positive",
+      "reason": "Shan refers to author surname 'Shan Shiguang'; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in the ToMBench training split and in prompt examples; studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used in benchmarks, prompts, and translations; studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French refers to the surname of a person (French) in the concept 'French–Raven’s six bases', not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.23242v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T15:49:28.906172+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 6975,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Bengali word \"ami\" meaning \"I\", not the language name; thus it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Fore": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"fore\" as part of a phrase likely a typo or English word, not the language; thus it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Bengali word \"mon\" meaning \"heart\", not the language name; thus it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Odia": {
+      "verdict": "studied",
+      "reason": "The snippet lists Odia in the language distribution tables and mentions it as part of the corpus; the paper collects data for Odia, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Gujarati": {
+      "verdict": "studied",
+      "reason": "The snippet lists Gujarati in the language distribution tables and mentions it as part of the corpus; the paper collects data for Gujarati, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kannada": {
+      "verdict": "studied",
+      "reason": "The snippet lists Kannada in the language distribution tables and mentions it as part of the corpus; the paper collects data for Kannada, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "The snippet lists Malayalam in the language distribution tables and mentions it as part of the corpus; the paper collects data for Malayalam, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "The snippet lists Marathi in the language distribution tables and mentions it as part of the corpus; the paper collects data for Marathi, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "The snippet lists Telugu in the language distribution tables and mentions it as part of the corpus; the paper collects data for Telugu, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The snippet lists Bengali in the language distribution tables and mentions it as part of the corpus; the paper collects data for Bengali, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The snippet lists Hindi in the language distribution tables and mentions it as part of the corpus; the paper collects data for Hindi, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the Latin script used for Romanized variants, not the Latin language; thus it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "The snippets show \"Tamil\" as a language name in tables listing native script and Romanized variants, and in the corpus distribution, indicating it is a target language of the dataset.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to \"English\" as a language used in code-mixed dialogues, included in the corpus and evaluation tables, indicating it is a target language of the dataset.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.23538v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T15:49:40.191246+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5805,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Ami\" as part of the TV program title \"Ami Akhon Ki Korbo\", not a language name; thus it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The snippet refers to \"Bengali\" (and \"Bangla\") as the language of collected posts, datasets, and evaluation; the paper collects, translates, and evaluates data in this language, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to \"English\" as the language of prompts, translations, and datasets used in the study; the paper uses English data for evaluation, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

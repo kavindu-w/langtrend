@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.17849v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:40:07.477347+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9023,
+  "verdicts": {
+    "Nandi": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Nandi' appears as part of 'Xiaotun Nandi OBS', indicating a place or group name, not the Nandi language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Lao": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Lao' is used as a toponym/ethnonym in oracle bone inscriptions, not the Lao language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to modern Chinese characters, Chinese language models, and classical Chinese, indicating the paper discusses Chinese as a target language but does not build resources or conduct exp",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English-centric instruction-tuned models, indicating English is mentioned as a language model type but not studied.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

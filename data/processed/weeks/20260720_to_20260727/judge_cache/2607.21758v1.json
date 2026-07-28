@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.21758v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T15:59:26.835825+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3758,
+  "verdicts": {
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippets show \"AI polish\" and \"Human draft + AI polish\", which use Polish as a verb meaning to refine text, not the Polish language; no reference to the language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites \"non-native English writing\", explicitly referring to the English language; the paper only mentions it in context of writing quality, not studying it.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.21936v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T15:58:58.213221+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11355,
+  "verdicts": {
+    "Ari": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the model name ARI (Archive Restoration Intelligence) and its variants (ARI-32B, ARI-8B), not the human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippets discuss Korean historical documents, Korean experts, and Korean language data, indicating the paper works on Korean.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention Chinese classics, Chinese characters in tokenization, but the paper does not use Chinese data for restoration; it only references Chinese as context.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets cite English URLs and mention English in the introduction, but the paper does not study or process English language data.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

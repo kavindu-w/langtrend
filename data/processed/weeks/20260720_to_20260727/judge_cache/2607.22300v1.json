@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.22300v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T15:54:20.726663+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4011,
+  "verdicts": {
+    "Dari": {
+      "verdict": "studied",
+      "reason": "The snippet states \"Dari shares substantial lexical, grammatical, and orthographic overlap with Persian,\" referring to the Dari language; the paper uses Dari as a target language in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Pashto": {
+      "verdict": "studied",
+      "reason": "The snippet mentions \"Pashto and Sorani show greater morphological and orthographic divergence,\" referring to the Pashto language; the paper includes Pashto as a target language in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet contains the phrase \"Hindi language,\" referring to the Hindi language; the paper only mentions Hindi in passing and does not conduct experiments on it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "The snippet discusses \"Urdu benefits primarily from script overlap and extensive Persian/Arabic lexical borrowing,\" referring to the Urdu language; the paper uses Urdu as a target language in its expe",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "The snippet refers to \"English-to-Persian translation\" and discusses Persian as a pivot language with available biomedical data; the paper fine‑tunes adapters for Persian.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippet refers to \"English-to-Arabic translation\" and discusses Arabic as a pivot language; the paper fine‑tunes adapters for Arabic.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to \"English-to-Arabic\" and \"English-to-Persian\" translation, indicating English as the source language; the paper uses English in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

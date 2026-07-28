@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.22376v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T15:57:32.391456+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11963,
+  "verdicts": {
+    "Dakota": {
+      "verdict": "studied",
+      "reason": "Dakota refers to the language used as a proxy language for Mandan in the experiments, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Karas": {
+      "verdict": "false_positive",
+      "reason": "Karas refers to the Karas Islands, a place name, not a language, so it is a false_positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mandan": {
+      "verdict": "studied",
+      "reason": "Mandan refers to the low-resource language that the paper extracts data from, builds synthetic corpora for, and fine-tunes models on, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Wa": {
+      "verdict": "studied",
+      "reason": "Wa refers to the Wa language code used in synthetic data examples, indicating the language is part of the experiments, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Romansh": {
+      "verdict": "studied",
+      "reason": "Romansh refers to the language used as a proxy language for Tuatschin in the experiments, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian refers to the language used as a proxy language for Kalamang in the experiments, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the target language used in translation experiments and dictionary extraction, so it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

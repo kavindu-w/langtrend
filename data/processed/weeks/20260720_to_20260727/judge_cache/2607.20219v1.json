@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20219v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:20:04.113502+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8823,
+  "verdicts": {
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets contain Arabic questions, answers, and references, and the paper builds a benchmark for Arabic QA, so the language is genuinely studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions France as a country (in Arabic and English), not the French language; thus the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Germany and German unification, i.e., the country, not the German language; thus the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

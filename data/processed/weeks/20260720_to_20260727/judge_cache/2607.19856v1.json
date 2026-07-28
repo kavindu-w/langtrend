@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.19856v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:20:49.688373+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5225,
+  "verdicts": {
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The snippets describe the Hindi split of the dataset and mention Hindi financial multiple-choice resources; the language is used in the task, so it is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Arabic split of the dataset and Arabic accounting and finance resources; the language is used in the task, so it is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Chinese split of the dataset and Chinese financial exam questions; the language is used in the task, so it is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the English split of the dataset and English financial exam questions; the language is used in the task, so it is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The only mention of Latin is in the phrase \"non‑Latin scripts\", referring to the Latin alphabet, not the Latin language; thus it is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

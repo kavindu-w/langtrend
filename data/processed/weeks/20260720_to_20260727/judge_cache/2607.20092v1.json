@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20092v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:18:23.863361+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5479,
+  "verdicts": {
+    "Bats": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the animal \"bats\" as a distractor in a visual context, not the human language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Fur": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the animal’s fur (e.g., \"golden fur\") as a descriptive attribute, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the fruit \"mango\" as a distractor in a visual stream, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet states the dataset is English-only, indicating the paper collects and provides data in English; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.21447v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:01:30.157364+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4212,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"dia id\" as an identifier, not the language Dia.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Poke": {
+      "verdict": "false_positive",
+      "reason": "The snippet discusses \"poke fun\" as a verb meaning to tease, not the language Poke.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not contain any reference to the Mon language; the candidate appears only as a detected token without context.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions \"German folklore\" and \"Germanist\", referring to the German language/culture, but the paper does not work on German data.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The paper introduces RUMBA, a benchmark for long‑term conversational memory in Russian, and evaluates models on Russian data.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper provides an aligned English subset and evaluates models on English data, in addition to Russian.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

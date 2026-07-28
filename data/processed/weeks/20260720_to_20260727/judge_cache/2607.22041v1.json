@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.22041v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T15:56:21.918942+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 6639,
+  "verdicts": {
+    "Nding": {
+      "verdict": "false_positive",
+      "reason": "Nding refers to a typo 'nding' in the text, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Toma": {
+      "verdict": "false_positive",
+      "reason": "Toma refers to the Spanish word 'toma' meaning 'take', not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "Una refers to the Spanish article 'una', not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin America region, not the Latin language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic refers to prior validation in Arabic-speaking samples, not a language studied; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the original version of the scale, not a language studied; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish refers to the Spanish version of the scale, which is studied; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

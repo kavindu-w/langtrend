@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.23446v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T15:50:08.886582+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11478,
+  "verdicts": {
+    "Mina": {
+      "verdict": "false_positive",
+      "reason": "Mina refers to a model name (Gemini‑2.5‑Flash backend) in the snippet → false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian refers to Persian‑influenced terms in Bangladeshi legal language, not the language itself → mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali refers to the Bangla language used in the dataset and evaluation, and the paper builds resources for it → studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used in the dataset and evaluation, and the paper builds resources for it → studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

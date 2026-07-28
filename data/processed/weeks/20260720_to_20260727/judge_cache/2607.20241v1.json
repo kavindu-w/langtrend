@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20241v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:19:50.524095+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11764,
+  "verdicts": {
+    "Bun": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the word ‘bun’ as part of the Japanese term ‘饅頭’ (steamed bun), not the Bun language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses ‘carrier’ in the phrase ‘carrier of culture’, a common noun, not the Carrier language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Ito": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions ‘Ito’ as a person (translator) and ‘Ito Sohei’, not the Ito language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "The snippet references Greek mythology (Hades) in a cultural context, not the Greek language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet discusses Chinese as the source language, constructing a Chinese‑Japanese dataset and evaluating translations; the paper works with Chinese data.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions English as a language for readers and guidelines, but the paper does not use English data or build resources for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The snippet discusses Japanese as the target language, using Japanese translations, evaluating them; the paper works with Japanese data.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

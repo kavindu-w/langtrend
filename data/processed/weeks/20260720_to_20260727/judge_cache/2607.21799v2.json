@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.21799v2",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:00:58.043907+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2222,
+  "verdicts": {
+    "Hebrew": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Hebrew University, not the Hebrew language; thus the match is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to fluent English speakers and the study's language; the paper only mentions English as the language of instruction, not studying it",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.21774v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T15:59:19.751478+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6446,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions “Latin American cultural identities” and “Latin American” contexts, which refer to the region, not the Latin language; verdict false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "The snippet cites “Italian food” in the context of cuisine, not the Italian language; verdict false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Turkish": {
+      "verdict": "false_positive",
+      "reason": "The snippet cites “Turkish food” in the context of cuisine, not the Turkish language; verdict false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to “French universities” (France), not the French language; verdict false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "The snippet discusses a model representing a user as Russian (nationality), not the Russian language; verdict false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English prompts and analyzes internal representations for English; verdict studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The paper uses Spanish (Colombian Spanish) prompts and analyzes internal representations for Spanish; verdict studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.18934v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:34:46.174216+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10833,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the AMI Meeting Corpus and AMI test set, which are datasets, not the Ami language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain the abbreviation MAE for mean absolute error, a metric, not the Mae language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper trains on English verbatim data, evaluates on English datasets, and discusses English-only training, indicating active work on English.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper evaluates on German datasets, performs zero-shot German disfluency detection, and adds German verbatim samples, indicating active work on German.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

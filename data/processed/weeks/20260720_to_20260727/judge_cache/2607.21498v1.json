@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.21498v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:02:44.824765+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11939,
+  "verdicts": {
+    "Sera": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Corriere della Sera\", a newspaper name; \"Sera\" refers to the newspaper, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The text cites a \"Greek name\" and the Greek word \"epanórthōsis\", explicitly referring to the Greek language; the paper does not work on Greek data.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "The passage states \"In Latin the figure travels…\", directly referring to the Latin language; no experiments involve Latin.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions a \"French rhetorician\" and the French language; the paper does not study French data.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Multiple sections describe an Italian detector, Italian experiments, and Italian data; the paper collects and evaluates Italian data.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippet references \"Searle’s Chinese Room\", a thought experiment; it does not refer to the Chinese language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper conducts an English-language study, uses an English detector, and evaluates English data; it works on English data.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

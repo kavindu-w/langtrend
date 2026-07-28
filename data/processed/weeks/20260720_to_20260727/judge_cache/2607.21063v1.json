@@ -1,0 +1,74 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.21063v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:18:56.069318+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11843,
+  "verdicts": {
+    "Moi": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains French text where \"Moi\" is the French word for \"I\", not the Moi language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tiene": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains Spanish text where \"Tiene\" is the Spanish word for \"has\", not the Tiene language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains Spanish text where \"Una\" is the Spanish word for \"a\", not the Una language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains French text where \"Mon\" is the French word for \"my\", not the Mon language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions \"Dutch\" in the phrase \"German or Dutch standards\", referring to the Dutch language, but Dutch is not one of the eight languages studied in the experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippet discusses bias in Russian and lists Russian as one of the eight languages in the benchmark; Russian is part of the experimental evaluation.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet discusses bias in Chinese and lists Chinese as one of the eight languages in the benchmark; Chinese is part of the experimental evaluation.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The snippet discusses bias in Japanese and lists Japanese as one of the eight languages in the benchmark; Japanese is part of the experimental evaluation.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippet discusses bias in Arabic and lists Arabic as one of the eight languages in the benchmark; Arabic is part of the experimental evaluation.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippet discusses bias in French and lists French as one of the eight languages in the benchmark; French is part of the experimental evaluation.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet discusses bias in English and lists English as one of the eight languages in the benchmark; English is part of the experimental evaluation.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippet discusses bias in German and lists German as one of the eight languages in the benchmark; German is part of the experimental evaluation.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippet shows 'Probe (Spanish) ...', indicating the language Spanish is used in the probe; thus the paper studies Spanish.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

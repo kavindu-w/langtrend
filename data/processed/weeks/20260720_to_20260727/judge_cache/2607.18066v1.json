@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.18066v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:36:09.215415+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11203,
+  "verdicts": {
+    "Batak": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists \"Batak\" as one of the ethnicities of participants, not the language itself. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Minang": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists \"Minang\" as an ethnicity of participants, not the language. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Javanese": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists \"Javanese\" as an ethnicity of participants, not the language. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Cara": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"cara\" in the phrase \"cara pandang\" meaning \"perspective\". false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Diri": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"diri\" in the phrase \"Posisikan diri Anda\" meaning \"yourself\". false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Dari": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"dari\" meaning \"from\" in a sentence. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Lalu": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"lalu\" meaning \"then\" in a sentence. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Nama": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"nama\" meaning \"name\" in the context of replacing specific names. false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Indonesian language as the medium of the dataset, prompts, and evaluation, indicating the paper works with Indonesian data and models. studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention English only as a translation for readability, not as a target of study. mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

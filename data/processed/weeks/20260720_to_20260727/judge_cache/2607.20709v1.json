@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20709v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:21:47.886755+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7988,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the benchmark name ARC-AGI-3 and its components, not the human language Agi.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "The snippets mention the time of day \"noon\" in sentences like \"the meeting starts at noon,\" not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippets use \"pin\" in a technical context (e.g., \"at this pin\") referring to a code or hardware pin, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to URI (Uniform Resource Identifier) in technical descriptions, not the human language Uri.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

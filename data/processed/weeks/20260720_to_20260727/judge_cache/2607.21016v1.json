@@ -1,0 +1,79 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.21016v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:18:02.548907+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11697,
+  "verdicts": {
+    "Iyo": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Gemini- -flash-preview Iyo bener mangkane ...\" which is a Javanese utterance containing the word \"Iyo\" meaning \"yes\", not the language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kamu": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"kamu\" as the Indonesian pronoun meaning \"you\", not a language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"pol\" as part of a Javanese utterance, a word meaning \"pol\", not a language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sambal": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"sambal\" referring to chili paste, a common noun, not a language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Karo": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Karo\" as a word or name within an utterance, not the language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Uab Meto": {
+      "verdict": "studied",
+      "reason": "The snippet lists \"Uab Meto (aoz) West Papua\" as a covered language in the dataset, indicating it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Wamesa": {
+      "verdict": "studied",
+      "reason": "The snippet lists \"Wamesa (wad)\" as a covered language and mentions it in the introduction, indicating it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Aceh": {
+      "verdict": "studied",
+      "reason": "The snippet lists \"Aceh Acehnese (ace)\" as a covered language and mentions it in the introduction, indicating it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bali": {
+      "verdict": "studied",
+      "reason": "The snippet lists \"Bali Balinese (ban)\" as a covered language, indicating it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Minangkabau": {
+      "verdict": "studied",
+      "reason": "The snippet lists \"Minangkabau (min)\" as a covered language, indicating it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Javanese": {
+      "verdict": "studied",
+      "reason": "The snippet lists \"Javanese\" as a covered language and includes it in multiple tasks, indicating it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the Latin alphabet/script used in prompts, not the Latin language itself, making it a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Indonesian as the target language for dialogues, translation, and evaluation, indicating the paper works with Indonesian data and models.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain English text that is simply the language of the paper; there is no mention of English as a target language or subject of study.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

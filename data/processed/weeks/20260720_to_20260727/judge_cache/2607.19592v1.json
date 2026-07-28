@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.19592v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:29:15.121086+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10614,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to benchmark names such as ARC-AGI-1 and ARC-AGI-2, which are acronyms for artificial‑general‑intelligence tasks, not the human language Agi.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bada": {
+      "verdict": "false_positive",
+      "reason": "The matched text appears in a random string of tokens and the word \"bada\" is part of a dataset identifier, not a human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The matched text uses \"pin\" as a verb meaning to hard‑pin a model or to pin a signature; it is not a reference to the human language Pin.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to a sentinel marker (__NOT_SUBMITTED__) and a sentinel room in the protocol, not the human language Sentinel.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The matched text appears in the string \"pig‑latin\" and elsewhere as part of a task name; it does not refer to the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

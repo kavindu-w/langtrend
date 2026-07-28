@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.18102v2",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:38:57.172256+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4271,
+  "verdicts": {
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a URI-abstracted storage layer, i.e., Uniform Resource Identifier, not the human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show that the system translates non-English questions into concise English retrieval queries and rewrites queries in English, indicating the paper uses English as the language for queries",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

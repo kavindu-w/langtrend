@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.18867v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:28:53.783446+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5401,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a task type called 'carrier task', not the human language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'pin' as a verb meaning to lock or fix settings, not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to English prompts used in the study, but the paper does not build resources or evaluate English specifically; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

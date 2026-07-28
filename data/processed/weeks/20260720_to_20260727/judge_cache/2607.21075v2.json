@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.21075v2",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:08:33.151510+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3453,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the AMI meeting corpora (AMI-ihm, AMI-sdm), which are dataset names, not the language itself; thus the match is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention Chinese as a language in datasets and benchmarks (e.g., Fleurs-zh, Chinese benchmarks), but VibeVoice-ASR-BitNet is not evaluated on Chinese; the language is only mentioned",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"im col asym\" in a code context, referring to a variable or function name, not a language; thus it is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian appears in the dataset list as one of the six languages in MLC, but no evaluation results for Italian are shown; the language is only mentioned",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean appears in the dataset list as one of the six languages in MLC, but no evaluation results for Korean are shown; the language is only mentioned",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese appears in the dataset list as one of the six languages in MLC, but no evaluation results for Portuguese are shown; the language is only mentioned",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Vietnamese appears in the dataset list as one of the six languages in MLC, but no evaluation results for Vietnamese are shown; the language is only mentioned",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears in the dataset list as one of the six languages in MLC, but no evaluation results for French are shown; the language is only mentioned",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show English as a language in datasets, benchmarks, and a specific English speech clip used for benchmarking; VibeVoice-ASR-BitNet is evaluated on English data, so the language is studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.22794v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T15:57:36.862535+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4247,
+  "verdicts": {
+    "Toto": {
+      "verdict": "false_positive",
+      "reason": "Toto refers to the surname of an author (Toto et al.) and not the human language; thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian refers to the Italian language in the dataset description, model name ItalianBERT, and overall experiments; the paper uses Italian data and models, so studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

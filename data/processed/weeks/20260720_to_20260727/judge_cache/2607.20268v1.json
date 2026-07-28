@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20268v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-07-28T16:15:41.287459+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4810,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "The snippets show \"ARC-AGI-2\" and references to the ARC-AGI-2 benchmark; \"Agi\" is part of the benchmark name, not the human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain \"rotate it 90 deg\" and other uses of \"deg\" as an abbreviation for degree, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to \"Meta-Review Agent (Final Polish)\" and \"Final Polish\" as a verb phrase meaning to polish, not the Polish language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}
