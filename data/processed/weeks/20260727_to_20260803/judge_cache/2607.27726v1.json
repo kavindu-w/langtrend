@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.27726v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:57:24.666480+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11092,
+  "verdicts": {
+    "Sakata": {
+      "verdict": "false_positive",
+      "reason": "Sakata refers to a Japanese city (municipality) in the snippet, not the human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "Japanese refers to Japanese municipalities or Japanese-American populations in the snippet, not the language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "Tat appears only as part of the dataset name TAT-QA in the snippet, not as the human language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.28008v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:01:08.831492+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7042,
+  "verdicts": {
+    "Ari": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"ARI\" as the Adjusted Rand Index metric, not the language Ari.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word \"Dia\" in a Catalan sentence, not the language Dia.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sedang": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Indonesian word \"Sedang\" meaning \"currently\", not the language Sedang.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tibetan": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"Sino‑Tibetan phonemes\" in an English sentence, referring to a language family, not the Tibetan language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"Non‑Latin‑script\", referring to the Latin alphabet, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "The snippet is a Turkish sentence from a benchmark, indicating the paper uses Turkish text.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet is an English sentence about Vietnamese culture, not Vietnamese text.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet is an English sentence about learning Mandarin, not Chinese text.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet is an English sentence referencing the Japanese Zero fighter, not Japanese text.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists the dataset \"Dialectal‑Arabic‑MMLU\", indicating the paper mentions Arabic.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet describes using English verbalizers in the paper, indicating the paper uses English.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

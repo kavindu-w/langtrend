@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.27506v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:03:24.873742+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2663,
+  "verdicts": {
+    "Ukrainian": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the Ukrainian Soviet Socialist Republic, a place name, not the Ukrainian language; thus the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English Wikipedia text used for training, indicating the paper works with English data; thus the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

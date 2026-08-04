@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.29433v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:47:23.930366+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5807,
+  "verdicts": {
+    "Hebrew": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Hebrew script characters (U+0590–U+05FF) used to filter non-English personas, not the Hebrew language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Arabic script characters (U+0600–U+06FF) used to filter non-English personas, not the Arabic language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions Latin America as a cultural region, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses Japanese as a nationality substring for region classification, not the Japanese language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Thai": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a Thai dish (pad thai) in a culinary context, not the Thai language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses the verb \"polish\" (to refine an email), not the Polish language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet specifies that all generated snippets and tests are in English, indicating the paper uses English as the target language for its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

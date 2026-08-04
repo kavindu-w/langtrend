@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.01458v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:42:51.317552+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10384,
+  "verdicts": {
+    "Manta": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions “manta rays” and “sea turtles,” referring to marine animals, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Piedmontese": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to “Piedmontese cuisine” and local dishes, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Venetian": {
+      "verdict": "false_positive",
+      "reason": "The snippet talks about Venetian markets and Venice, referring to the city/region, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions “Latin American left‑leaning circles,” referring to Latin America, not the Latin language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Hindi as a non‑English instance that was translated to English, indicating the language is mentioned but not directly studied; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Portuguese as a non‑English instance that was translated to English, indicating the language is mentioned but not directly studied; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Italian as a non‑English instance that was translated to English, indicating the language is mentioned but not directly studied; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists French as a non‑English instance that was translated to English, indicating the language is mentioned but not directly studied; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper trains and evaluates models on English data, translating all non‑English instances to English; the language is directly studied; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

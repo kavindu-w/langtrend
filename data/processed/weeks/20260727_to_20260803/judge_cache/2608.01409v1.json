@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.01409v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:30:55.272985+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3216,
+  "verdicts": {
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Una\" as a label in the verdict set 𝒴={Sup,Con,Una}, meaning \"Unaddressed\", not the human language Una.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to \"French lay people\" and \"A French study\", indicating nationality or origin, not the French language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

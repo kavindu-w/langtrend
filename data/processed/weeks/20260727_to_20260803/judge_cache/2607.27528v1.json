@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.27528v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:03:18.613715+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3044,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"__back__ sentinel\" which is a tool or keyword in the system, not the human language; thus it is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"polish\" as a noun meaning refinement or polishing, not the language Polish; thus it is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

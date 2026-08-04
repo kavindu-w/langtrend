@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.27614v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:02:32.585918+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3696,
+  "verdicts": {
+    "Chinese Sign Language": {
+      "verdict": "studied",
+      "reason": "The snippet refers to Chinese Sign Language videos in the CSL‑Daily dataset, which the paper evaluates on, so it studies the language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German Sign Language": {
+      "verdict": "studied",
+      "reason": "The snippet refers to German Sign Language videos in the PHOENIX‑2014T dataset, which the paper evaluates on, so it studies the language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet refers to Chinese as the target spoken language for CSL‑Daily and uses a Chinese language model, so it studies the language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippet refers to German as the target spoken language for PHOENIX‑2014T and uses a German language model, so it studies the language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to English as a task instruction context, not as a target language for evaluation, so it is only mentioned",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

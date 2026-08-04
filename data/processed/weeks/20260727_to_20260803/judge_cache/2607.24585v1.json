@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.24585v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:25:16.335264+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4134,
+  "verdicts": {
+    "Fwe": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a filtering step named FWe-de (part of the prefiltering pipeline), not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Iban": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to IBAN (International Bank Account Number) placeholders, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the German pronoun 'Sie', not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bavarian": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Bavarian state authorities, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions English as a language in comparison to German; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippet describes training and evaluating a German language model; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

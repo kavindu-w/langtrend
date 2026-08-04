@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.28359v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:51:54.670074+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8557,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "bo appears as part of the Persian verb 'bo-kon', not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kam": {
+      "verdict": "false_positive",
+      "reason": "kam appears as part of a Persian phrase 'kam.kam', not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kei": {
+      "verdict": "false_positive",
+      "reason": "kei appears as part of a Persian phrase 'kei bezan', not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Rang": {
+      "verdict": "false_positive",
+      "reason": "Rang is a variable name in a table, not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Hebrew refers to the Hebrew language and the paper studies the Hebrew discourse marker 'axshav'; studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hungarian": {
+      "verdict": "mentioned_only",
+      "reason": "Hungarian refers to the Hungarian language but the paper only cites other studies on Hungarian; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language, mentioned in cross-linguistic comparison; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French refers to the French language, mentioned in cross-linguistic comparison; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "Persian refers to the Persian language, which is the focus of the study; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

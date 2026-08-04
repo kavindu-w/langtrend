@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.27595v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:02:16.879214+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3356,
+  "verdicts": {
+    "Duke": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'duke' as a title of a person (Emperor Wu's duke), not the language; thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mang": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Mang' as part of the name Wang Mang, a person, not a language; thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet refers to 'Chinese' as the language of the texts studied (Analects, Book of Han), indicating the paper works with Chinese; thus studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

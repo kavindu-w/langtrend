@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.27022v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:09:07.217752+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7444,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "The snippets show \"Macao MO\" and other region abbreviations; \"Mo\" is a regional abbreviation, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to \"Chinese prompts\" used to evaluate LLMs; the paper actively uses Chinese as a prompt language in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to \"English prompts\" used to evaluate LLMs; the paper actively uses English as a prompt language in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

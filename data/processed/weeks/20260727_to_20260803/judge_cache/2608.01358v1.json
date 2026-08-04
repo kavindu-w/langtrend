@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.01358v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:28:40.269634+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3531,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo refers to the person Bo Jackson, not the language Bo; thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to the metric Mean Absolute Error, not the language Mae; thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language as the nationality of a scientist in a question; the paper uses English-language questions but does not build resources for English, so it is only mentioned",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

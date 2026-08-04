@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.00207v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:49:04.208388+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11998,
+  "verdicts": {
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "The snippet shows \"Egyptian Arabic: [Translated conversation]\" as a target dialect in a translation prompt, indicating the paper collects and uses data in Egyptian Arabic.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets reference Arabic in data collection, evaluation tasks, alignment loss, and model probing, showing the paper uses Arabic data and evaluates Arabic performance.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets mention English as a baseline set, for machine translation, alignment loss, and evaluation, indicating the paper evaluates and uses English data.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned only as a source of medical terminology in code‑switching within Arabic dialect translations; no resources or models for French are built.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

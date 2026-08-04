@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.27379v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:02:12.892717+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3058,
+  "verdicts": {
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'polish' as a verb meaning to refine seed documents, not the Polish language; thus the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to 'English' as the language used in the fastText classifier to filter non-English text; the paper only mentions English, not studying it.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

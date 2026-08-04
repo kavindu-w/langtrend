@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.27155v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:03:38.484533+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3936,
+  "verdicts": {
+    "Ale": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the acronym 'Agents' Last Exam' (ALE), not the human language Ale.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the romanization system 'pinyin' for Chinese, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the currency 'Chinese yuan (CNY)', not the Chinese language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to the English language in examples (English abstracts), but the paper does not work on it.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

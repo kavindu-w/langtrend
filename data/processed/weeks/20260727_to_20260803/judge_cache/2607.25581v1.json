@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.25581v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:20:01.838599+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11437,
+  "verdicts": {
+    "Fon": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"fon\" as a phonetic realization of the English word \"phone\", not the language Fon; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains a section heading \"Nasal Disambiguation:\" referring to nasal phoneme disambiguation, not a language named Nasal; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The paper repeatedly discusses Hindi data, acoustic models, and code-mixed Hindi-English speech, indicating active work on Hindi; studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "Urdu is mentioned only as an example of loanwords in the discussion of code-mixing, with no experiments or data on Urdu; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English data, trains models, and evaluates forced alignment on English words within code-mixed speech, indicating active work on English; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

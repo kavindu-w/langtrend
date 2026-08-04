@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.00410v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:37:24.594744+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5801,
+  "verdicts": {
+    "Chin": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'chin' appears as a sense of the Turkish word 'çene', referring to the body part, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kol": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'kol' appears as a sense of the Turkish word 'kol', meaning arm, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'pole' appears as a sense of the English word 'pole', referring to the object, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "The snippets show Turkish as the language of the prompts, the word list, and the experiments on 25 Turkish words, indicating the paper studies Turkish.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show English as the language of the prompts, the word list, and the experiments on 100 English words, indicating the paper studies English.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippets show French as the language of the prompts, the word list, and the experiments on 25 French words, indicating the paper studies French.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

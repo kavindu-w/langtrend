@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.25294v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:21:27.406170+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2767,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'MAE', which refers to the metric Mean Absolute Error, not the language Mae; thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet states the financial-report prompt is originally written in Chinese; thus the paper uses Chinese, verdict studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet states an English equivalent is shown for readability; thus the paper uses English, verdict studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

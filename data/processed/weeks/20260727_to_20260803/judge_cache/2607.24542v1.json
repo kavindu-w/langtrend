@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.24542v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:24:14.396238+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 6131,
+  "verdicts": {
+    "Krahn": {
+      "verdict": "false_positive",
+      "reason": "The name refers to an author (K. Krahn) cited in the paper, not the Krahn language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Hebrew epistles', referring to texts written in Hebrew; the paper does not work on Hebrew itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "The name appears in the context of an Italian conference and location, not the Italian language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites a Chinese-English parallel corpus in a referenced work; the paper does not study Chinese.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as part of multilingual models used in the study, but the paper does not evaluate or build resources for English.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "Ancient Greek texts are the primary data used in the experiments; the paper builds and evaluates models for Greek.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "Latin texts are also the primary data used in the experiments; the paper builds and evaluates models for Latin.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

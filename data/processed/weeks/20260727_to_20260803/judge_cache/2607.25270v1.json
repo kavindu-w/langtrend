@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.25270v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:43:18.528964+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3083,
+  "verdicts": {
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet shows a task 'English-Chinese English-to-Chinese task: receive one English word and reply only with its Chinese translation', clearly referring to the Chinese language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet shows tasks involving English words and translations, e.g., 'English-Chinese English-to-Chinese task' and 'english-french English-to-French task', indicating the English language is used i",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippet contains 'english-french English-to-French task receive one English word and reply only with its French translation', directly referring to the French language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists 'Nationality task receive one celebrity name and reply only with their nationality Understood Albert Einstein German Isaac Newton British', where 'German' refers to the nationality, ",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.24515v2",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:24:03.120856+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3241,
+  "verdicts": {
+    "Lama": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the LLaMA model (e.g., \"Tamil Lama\" and \"LLaMA-based large language models\"), not the human language Lama.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "The snippets describe translation experiments, datasets, and models specifically for Tamil, indicating the paper works on Tamil data.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets mention English as part of the English‑Tamil translation experiments, showing the paper uses English data.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

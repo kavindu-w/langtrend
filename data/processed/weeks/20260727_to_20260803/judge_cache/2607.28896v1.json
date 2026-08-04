@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.28896v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:49:53.177183+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3165,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The snippets show \"gpt-5.6-luna\" and other model references, indicating Luna is part of a model name, not the human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The word appears in the phrase \"Distributional polish does not predict Coherence\", where it is used as a verb meaning refine, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The text states \"All tests are English-only\", explicitly referring to the English language as the test language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

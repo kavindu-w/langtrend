@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.27421v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:01:13.205574+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2532,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"ATIS col. = 5-shot accuracy\", where \"col.\" is an abbreviation for \"column\", not the human language Col.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet states \"All evaluations are English-only; multilingual evaluation is deferred to future work\", indicating the paper works on English data.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.29196v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:51:31.403164+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8178,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to the English phrase 'pin down', not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic refers to Arabic numerals, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in the benchmark and dialogues; studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English translation provided, not the language studied; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

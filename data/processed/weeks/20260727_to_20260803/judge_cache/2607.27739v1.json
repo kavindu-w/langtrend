@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.27739v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:59:32.647099+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2933,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Latin script (Latin-letter fraction), not the Latin language itself, so it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions a Portuguese-language legislation document, indicating the language is referenced but not studied, so it is mentioned_only.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet states that 119 documents are English, referencing the language in the dataset but not studying it, so it is mentioned_only.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

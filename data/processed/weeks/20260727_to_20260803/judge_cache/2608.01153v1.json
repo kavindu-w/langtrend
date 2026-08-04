@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.01153v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:30:34.584521+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11859,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to a postposition label in the morphology vocabulary, not the human language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol refers to a postposition label in the morphology vocabulary, not the human language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil refers to the Tamil language throughout the paper, and the paper builds and evaluates Tamil morphology and translation models; studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used as target and evaluation language in the Tamil-to-English translation experiments; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

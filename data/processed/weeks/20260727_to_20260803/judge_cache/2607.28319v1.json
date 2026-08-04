@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.28319v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:59:05.622900+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11991,
+  "verdicts": {
+    "Pero": {
+      "verdict": "mentioned_only",
+      "reason": "Snippet does not contain the word 'Pero'; cannot determine if it refers to the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Una": {
+      "verdict": "studied",
+      "reason": "Snippet contains the Spanish article 'Una' in a Spanish sentence, indicating the language is Spanish and the paper uses Spanish prompts and evaluation.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Wanda": {
+      "verdict": "false_positive",
+      "reason": "Snippet refers to 'Wanda [33]' as a model name, not the human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Catalan": {
+      "verdict": "mentioned_only",
+      "reason": "Snippet mentions 'Catalan' as part of the EsBBQ benchmark, indicating the language is referenced but not necessarily studied in experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "Multiple snippets show English prompts, evaluation, and experiments, indicating the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Multiple snippets show Spanish prompts, evaluation, and experiments, indicating the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

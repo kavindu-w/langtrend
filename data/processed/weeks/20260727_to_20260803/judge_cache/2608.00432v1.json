@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.00432v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:41:12.457242+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11862,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina is mentioned as a page‑extraction tool used in the DR‑Tulu protocol, not the human language, so the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu appears as part of the DR‑Tulu protocol and SFT recipe, a model/protocol name, not the human language, so the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is repeatedly referenced as the language of the DeepResearch Bench subset, the GPT‑5‑generated trajectories, and the FineWiki corpus, indicating the paper collects, evaluates, and fine‑tunes o",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.25765v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:17:05.465307+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3205,
+  "verdicts": {
+    "Sop": {
+      "verdict": "false_positive",
+      "reason": "SOP refers to a tool component (SOP-metadata converters) in the software section, not the human language; thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the dataset split used in the benchmark; the paper uses English data in its experiments, so studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

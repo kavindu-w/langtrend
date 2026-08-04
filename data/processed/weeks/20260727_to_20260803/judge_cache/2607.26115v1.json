@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.26115v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:22:00.117663+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3242,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to a 4-digit PIN code in the attack prompts, not a human language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the language Chinese in the user request for a response, but the paper only uses it as an example and does not study it; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French refers to the language French in the user request for a web scraper interface, but the paper only mentions it as an example and does not study it; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

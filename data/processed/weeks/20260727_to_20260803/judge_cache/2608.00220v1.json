@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.00220v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:44:17.264023+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3530,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Tulu 3.9 task mixture', which is a dataset/task mixture name, not the Tulu language. Thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to constraints that require responses in English (e.g., 'Write the entire English response in uppercase letters'), indicating the language is mentioned but not studied. Thus mention",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to constraints that require Japanese words (e.g., 'Make every N-th word Japanese'), indicating the language is mentioned but not studied. Thus mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

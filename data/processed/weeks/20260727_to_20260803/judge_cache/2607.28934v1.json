@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.28934v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:34:45.038183+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2946,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin square design (Graeco-Latin square) used in the experimental rotation, not the human language; thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the language of the GoFundMe campaigns used in the dataset, which the paper only mentions as the language of the data and does not study or build resources for; thus mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

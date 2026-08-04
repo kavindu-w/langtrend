@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.01204v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:26:50.094564+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3948,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "Dia appears in the phrase \"dia- logue logic\", referring to dialogue logic, not the human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel is listed as a persona type in the simulator (e.g., \"SENTINEL emphasizes capital preservation\"), not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in the dataset and evaluation (e.g., \"Experiments on the Chinese public fund market\"), indicating the paper works with Chinese data.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

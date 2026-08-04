@@ -1,0 +1,74 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.00837v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T16:42:12.155725+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8561,
+  "verdicts": {
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek is mentioned as a script in the pretokenization section, grouping non‑Latin Unicode word spans, so it refers to the Greek script, not the language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is referred to as a script in the pretokenization section, describing Latin word spans, so it refers to the Latin script.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "Finnish is listed as one of the languages in the multilingual component of Corpus I, indicating the paper includes Finnish text in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is listed as one of the languages in the multilingual component of Corpus I, indicating the paper includes German text in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is mentioned as a non‑Latin script in the introduction and as a language in Corpus II, indicating the paper includes Korean text in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is mentioned as a non‑Latin script in the introduction and as a language in Corpus II, indicating the paper includes Japanese text in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is listed as one of the languages in the multilingual component of Corpus I, indicating the paper includes Portuguese text in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is listed as one of the languages in the multilingual component of Corpus I, indicating the paper includes French text in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is listed as one of the languages in Corpus II, indicating the paper includes Russian text in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is listed as one of the languages in Corpus II, indicating the paper includes Arabic text in its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is explicitly mentioned as a language in the abstract, introduction, and corpus descriptions, and the experiments use Chinese text, indicating the paper studies Chinese.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is explicitly mentioned as a language in the abstract, introduction, and corpus descriptions, and the experiments use English text, indicating the paper studies English.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish refers to the Spanish language in the multilingual corpus; the paper only mentions it, not studies it.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

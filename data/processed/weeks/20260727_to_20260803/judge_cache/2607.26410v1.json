@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.26410v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:10:49.296373+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2467,
+  "verdicts": {
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet refers to Chinese (zh) as a source language in translation experiments, indicating the paper works with Chinese data.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions French only as a language not present in the dataset (FLEURS no French), so the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet describes English as the target language for translation hypotheses, showing the paper works with English data.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}
