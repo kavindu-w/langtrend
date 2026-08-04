@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.26555v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-04T17:50:12.740730+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5405,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae refers to the MAE model (Masked Autoencoders) used for visual feature extraction, not the human language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol refers to the Politics domain abbreviation in dataset statistics, not the human language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in the Weibo datasets and other Chinese datasets; studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used in the FineFake dataset; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

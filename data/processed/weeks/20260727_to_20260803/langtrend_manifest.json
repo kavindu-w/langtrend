@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-08-04T17:46:31.047907+00:00",
+  "generated_at": "2026-08-04T17:50:26.201536+00:00",
   "window_days": 7,
   "week_start": "2026-07-27",
   "week_end": "2026-08-03",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 429,
-    "flagged_papers": 166,
-    "unique_languages": 112,
+    "flagged_papers": 165,
+    "unique_languages": 106,
     "unique_languages_mentioned_only": 8,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 238,
-      "judged_languages": 929,
-      "studied": 498,
+      "judged_papers": 240,
+      "judged_languages": 937,
+      "studied": 500,
       "mentioned_only": 164,
-      "false_positive": 267
+      "false_positive": 273
     }
   },
   "language_counts": [
@@ -434,18 +434,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Adi",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Agi",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Albanian",
       "count": 1,
       "studied": 1,
@@ -477,12 +465,6 @@
     },
     {
       "language": "Burmese",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Bwa",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -560,12 +542,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Mae",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Maithili",
       "count": 1,
       "studied": 0,
@@ -624,18 +600,6 @@
       "count": 1,
       "studied": 0,
       "mentioned_only": 1
-    },
-    {
-      "language": "Pol",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Puma",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
     },
     {
       "language": "Sanskrit",
@@ -743,8 +707,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 26,
-      "studied": 20,
+      "count": 20,
+      "studied": 14,
       "mentioned_only": 6
     },
     {
@@ -812,7 +776,7 @@
     {
       "date": "2026-08-02",
       "papers": 48,
-      "flagged": 21
+      "flagged": 20
     }
   ],
   "papers": [
@@ -25691,28 +25655,44 @@
           "flag_reason": "AGI = Artificial General Intelligence — very common acronym in CS/NLP papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "AGI appears as part of a benchmark name (ARC-AGI-2) and refers to artificial general intelligence, not the language; false_positive",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-04T17:50:25.531862+00:00"
         },
         {
           "language": "Puma",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Puma refers to Puma Biotechnology, a company name, not the human language; false_positive",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-04T17:50:25.531862+00:00"
         },
         {
           "language": "Adi",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-04T17:50:25.531862+00:00"
         },
         {
           "language": "Bwa",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-04T17:50:25.531862+00:00"
         }
       ],
       "sources_checked": [
@@ -25746,7 +25726,11 @@
               "language": "Agi",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "AGI = Artificial General Intelligence — very common acronym in CS/NLP papers"
+              "flag_reason": "AGI = Artificial General Intelligence — very common acronym in CS/NLP papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "AGI appears as part of a benchmark name (ARC-AGI-2) and refers to artificial general intelligence, not the language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25758,7 +25742,11 @@
               "language": "Agi",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "AGI = Artificial General Intelligence — very common acronym in CS/NLP papers"
+              "flag_reason": "AGI = Artificial General Intelligence — very common acronym in CS/NLP papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "AGI appears as part of a benchmark name (ARC-AGI-2) and refers to artificial general intelligence, not the language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25768,11 +25756,19 @@
           "detected_languages": [
             {
               "language": "Puma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Puma refers to Puma Biotechnology, a company name, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Puma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Puma refers to Puma Biotechnology, a company name, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25782,7 +25778,11 @@
           "detected_languages": [
             {
               "language": "Puma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Puma refers to Puma Biotechnology, a company name, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25792,7 +25792,11 @@
           "detected_languages": [
             {
               "language": "Puma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Puma refers to Puma Biotechnology, a company name, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25802,7 +25806,11 @@
           "detected_languages": [
             {
               "language": "Puma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Puma refers to Puma Biotechnology, a company name, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25812,7 +25820,11 @@
           "detected_languages": [
             {
               "language": "Puma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Puma refers to Puma Biotechnology, a company name, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25822,7 +25834,11 @@
           "detected_languages": [
             {
               "language": "Puma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Puma refers to Puma Biotechnology, a company name, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25832,7 +25848,11 @@
           "detected_languages": [
             {
               "language": "Puma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Puma refers to Puma Biotechnology, a company name, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25842,43 +25862,83 @@
           "detected_languages": [
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25888,19 +25948,35 @@
           "detected_languages": [
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25910,11 +25986,19 @@
           "detected_languages": [
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25924,11 +26008,19 @@
           "detected_languages": [
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Adi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "ADI refers to a ticker symbol for a company (e.g., Analog Devices) in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25938,27 +26030,51 @@
           "detected_languages": [
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25968,15 +26084,27 @@
           "detected_languages": [
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         },
@@ -25986,15 +26114,27 @@
           "detected_languages": [
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             },
             {
               "language": "Bwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "BWA is a ticker symbol for a company in the tables, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:25.531862+00:00"
             }
           ]
         }
@@ -67573,21 +67713,33 @@
           "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Mae refers to the MAE model (Masked Autoencoders) used for visual feature extraction, not the human language; false_positive",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-04T17:50:12.740730+00:00"
         },
         {
           "language": "Chinese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Chinese refers to the Chinese language used in the Weibo datasets and other Chinese datasets; studied",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-04T17:50:12.740730+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English refers to the English language used in the FineFake dataset; studied",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-04T17:50:12.740730+00:00"
         },
         {
           "language": "Pol",
@@ -67596,7 +67748,11 @@
           "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Pol refers to the Politics domain abbreviation in dataset statistics, not the human language; false_positive",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-04T17:50:12.740730+00:00"
         }
       ],
       "sources_checked": [
@@ -67626,11 +67782,19 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mae refers to the MAE model (Masked Autoencoders) used for visual feature extraction, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese refers to the Chinese language used in the Weibo datasets and other Chinese datasets; studied",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         },
@@ -67642,7 +67806,11 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mae refers to the MAE model (Masked Autoencoders) used for visual feature extraction, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         },
@@ -67652,7 +67820,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese refers to the Chinese language used in the Weibo datasets and other Chinese datasets; studied",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         },
@@ -67662,7 +67834,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese refers to the Chinese language used in the Weibo datasets and other Chinese datasets; studied",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         },
@@ -67672,11 +67848,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese refers to the Chinese language used in the Weibo datasets and other Chinese datasets; studied",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language used in the FineFake dataset; studied",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         },
@@ -67686,11 +67870,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese refers to the Chinese language used in the Weibo datasets and other Chinese datasets; studied",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language used in the FineFake dataset; studied",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         },
@@ -67702,7 +67894,11 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mae refers to the MAE model (Masked Autoencoders) used for visual feature extraction, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         },
@@ -67714,7 +67910,11 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mae refers to the MAE model (Masked Autoencoders) used for visual feature extraction, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         },
@@ -67726,21 +67926,37 @@
               "language": "Pol",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)"
+              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Pol refers to the Politics domain abbreviation in dataset statistics, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             },
             {
               "language": "Pol",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)"
+              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Pol refers to the Politics domain abbreviation in dataset statistics, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese refers to the Chinese language used in the Weibo datasets and other Chinese datasets; studied",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese refers to the Chinese language used in the Weibo datasets and other Chinese datasets; studied",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         },
@@ -67752,7 +67968,11 @@
               "language": "Pol",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)"
+              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Pol refers to the Politics domain abbreviation in dataset statistics, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         },
@@ -67764,7 +67984,11 @@
               "language": "Pol",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)"
+              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Pol refers to the Politics domain abbreviation in dataset statistics, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         },
@@ -67776,7 +68000,11 @@
               "language": "Pol",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)"
+              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Pol refers to the Politics domain abbreviation in dataset statistics, not the human language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-04T17:50:12.740730+00:00"
             }
           ]
         }
