@@ -1,0 +1,84 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.02555v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:59:32.005106+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 11752,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"regularity also noted by Abu-\", which appears to be part of a word or name, not a language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Adi": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"adi et el adi et el\", which is part of a word or phrase, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"my friend mon ami\", where \"ami\" is a French word meaning \"friend\", not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Idi": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"idi et el\", which is part of a word or phrase, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Ila": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"ass ila\", which is part of a word or phrase, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"st mal\", which is part of a word or phrase, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Moi": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"me moi\" in a table, where \"moi\" is a French pronoun, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sou": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"sou-\", which is part of a word or phrase, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"mon ami\", where \"mon\" is a French possessive adjective, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "moroccan Arabic": {
+      "verdict": "studied",
+      "reason": "The paper explicitly studies Moroccan Arabic dialects and provides resources for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "The paper explicitly studies Egyptian Arabic dialects and provides resources for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Latin script forms, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the Arabic language used in the study’s resources (character-level alignment and parallel corpus) and is the target of the analysis.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as glosses for Arabic words in a table; the paper does not conduct experiments on English.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears as glosses for Arabic words in a table; the paper does not conduct experiments on French.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

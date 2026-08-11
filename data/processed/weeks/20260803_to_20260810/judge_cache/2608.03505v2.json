@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.03505v2",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:46:40.072727+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 6207,
+  "verdicts": {
+    "Kala": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'kala' as a Toki Pona word meaning fish, not a language; it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Lingua Franca": {
+      "verdict": "studied",
+      "reason": "The snippet lists 'Lingua Franca Nova' as a conlang and the paper trains models on it; it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Latin as a natural language related to Interlingua, but the paper does not work on it; it is mentioned only.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Chinese as a natural language that could be used for evaluation, but the paper does not work on it; it is mentioned only.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to French as a natural language that could be used for evaluation, but the paper does not work on it; it is mentioned only.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Esperanto": {
+      "verdict": "studied",
+      "reason": "The snippet lists Esperanto as a conlang and the paper trains models on it; it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet shows English used as the target language in conlang-English translation experiments; it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.07316v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:04:47.218984+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11638,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the abbreviation \"DASS-21\" (Depression Anxiety Stress Scales); the regex matched the first four letters \"Dass\" as a separate token, which is not the human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Fore": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes the word \"fore\" in the phrase \"to the fore\"; this is a common English word, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"leave-one-out\"; the regex matched the substring \"loo\", which is part of the phrase, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses the abbreviation \"MAE\" for mean absolute error; the regex matched \"Mae\" as a separate token, which is not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly mentions that the questionnaires were validated in Italian and that analyses were conducted in Italian, indicating the paper works with the Italian language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet states that the questionnaires were validated in English and that analyses were performed in English, showing the paper uses the English language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

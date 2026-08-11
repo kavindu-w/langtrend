@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.04405v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:34:46.569456+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5395,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "The snippets show \"En Dia\" as a task abbreviation for speaker identification, not a language; thus the match is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Fwe": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain \"FWE\" as a column header in an evaluation table, likely a metric, not a language; thus the match is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly mention Chinese as a language in the dataset description and benchmark tasks, and the paper evaluates on Chinese tasks; thus the language is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly mention English as a language in the dataset description and benchmark tasks, and the paper evaluates on English tasks; thus the language is studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

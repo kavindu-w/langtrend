@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.08059v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T15:48:11.067909+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3186,
+  "verdicts": {
+    "Sala": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'sala virtual' is a Spanish noun meaning 'virtual ward'; the match refers to a word, not the language itself, so it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Salas": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'salas virtuales' is the plural of the Spanish noun 'sala'; the match refers to a word, not the language itself, so it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly mentions 'English' as the source language of the dataset and discusses English–Spanish translation; the match refers to the human language and the paper uses it in its experimen",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly mentions 'Spanish' as the target language of the dataset and discusses Spanish–English translation; the match refers to the human language and the paper uses it in its experimen",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

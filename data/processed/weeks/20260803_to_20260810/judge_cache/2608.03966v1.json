@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.03966v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:36:47.847087+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6634,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "The matched text \"Abu\" appears in author names such as \"Ahmad bin Ali Abu Islam\" and \"Abu Abdullah Muhammad Ali Samak\", indicating it refers to a personal name, not the human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The matched text \"Arabic\" consistently refers to the Arabic language used for questions, answers, references, and dataset construction, indicating the paper works directly with this language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

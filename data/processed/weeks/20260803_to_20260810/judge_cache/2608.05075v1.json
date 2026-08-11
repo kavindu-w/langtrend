@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.05075v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:15:50.109292+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11938,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"dass\" as a German conjunction meaning \"that\", not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Sie\" as a German pronoun (formal you/she), not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Temi": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"TEMI\" as a variable name in a formula, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the \"Russian invasion of Ukraine\", i.e., the country Russia, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to English as the source language of dictionaries; the paper mentions it but does not study it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper collects German tweets and speeches, builds models, and analyzes German language usage.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

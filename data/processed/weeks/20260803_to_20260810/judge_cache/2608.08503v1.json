@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.08503v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T15:46:44.211771+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5720,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to a variable name used as a placeholder token in the contamination audit, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a comparison language for numerals, off-target generation, and prior work, but the paper does not study or build resources for it; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

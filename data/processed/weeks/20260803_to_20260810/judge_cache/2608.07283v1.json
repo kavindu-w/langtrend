@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.07283v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T15:56:03.995933+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 6480,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo is an Irish possessive pronoun meaning 'my', appearing in Irish sentences; it is not the language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Faroese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites previous work on Faroese translations, indicating the language is mentioned but not studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tibetan": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the phrase 'Sino‑Tibetan', where 'Tibetan' appears as part of a language family name, not as the language itself; no other reference to Tibetan is present.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet discusses Mandarin forms and Chinese data in translation experiments, referring to the Chinese language but not providing resources or experiments for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a baseline and source language in the experiments, but the paper does not develop resources for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned as part of the original corpus but not studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is mentioned as part of the original corpus but not studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Irish": {
+      "verdict": "studied",
+      "reason": "The paper develops an Irish treebank, evaluates translations and f‑structures for Irish, and builds resources for it.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

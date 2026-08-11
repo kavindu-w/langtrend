@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.05817v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:09:57.708281+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3976,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"MAE\" as a model name (Masked Autoencoder), not the human language; thus it is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets mention Chinese advertisements and Chinese language in datasets and benchmarks, indicating the paper works with Chinese data; thus it is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet shows English refers to the English language used in the dataset sources (English Twitter/Facebook posts, English product ads) and in the introduction table of datasets; the paper uses Eng",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

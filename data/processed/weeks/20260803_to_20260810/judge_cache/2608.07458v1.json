@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.07458v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T15:55:40.097500+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3933,
+  "verdicts": {
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "Sie appears as a pronoun in the snippet, not the German language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is mentioned as part of German titles and text in the snippet, but the paper does not study German specifically",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Irish": {
+      "verdict": "mentioned_only",
+      "reason": "Irish is mentioned as a language label for a name in the snippet, but the paper only uses it as an example passage, not studying it",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Romanian": {
+      "verdict": "false_positive",
+      "reason": "Romanian appears in the name of a charity project, not the Romanian language itself",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

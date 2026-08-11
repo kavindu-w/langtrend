@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.08869v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T15:46:02.238010+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7730,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippets show \"MAE\" as a metric (Mean Absolute Error) and not a language name; the capitalisation and context indicate a performance metric, not a human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tol": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain \"tol=1e-6\", a tolerance parameter in an algorithm, not a language name.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

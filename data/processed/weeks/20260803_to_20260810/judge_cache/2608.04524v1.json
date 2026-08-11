@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.04524v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:33:33.904506+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4543,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to the metric MAE (Mean Absolute Error) used in evaluation, not the human language; verdict false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sake": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not contain the word 'Sake', so we cannot confirm it refers to the language; verdict mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The matched text appears in a URL (www.cci.health.wa.gov.au) referring to Western Australia, not the language; verdict false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

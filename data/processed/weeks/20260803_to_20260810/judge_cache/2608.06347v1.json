@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.06347v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:08:39.105482+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9091,
+  "verdicts": {
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is the only African language available in the AfriMGSM dataset and is used as a target language for training separate adapted models.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French (FRA) is listed among target languages and is used in PolyMath evaluation; separate adapted models are trained for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese (JPN) is listed among target languages and is used in PolyMath evaluation; separate adapted models are trained for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish (SPA) is listed among target languages and is used in PolyMath evaluation; separate adapted models are trained for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is analyzed in CoT examples, used in PolyMath evaluation, and separate adapted models are trained for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the reference trace, English problem statements, and is evaluated for correctness; it is part of the experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

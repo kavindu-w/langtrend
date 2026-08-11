@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.06614v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:11:09.441672+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4908,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a sentinel token used in the generator output schema, not the human language Sentinel",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English clinical context, English machine-translated context, and English labels for ICD-10-CM codes, indicating the paper uses English data in experiments",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippet refers to Spanish offsets, Spanish clinical text, and Spanish references used for locating mentions, indicating the paper uses Spanish data in experiments",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.05850v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:14:09.628274+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11640,
+  "verdicts": {
+    "Oy": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"oy\" as a transliteration of the Yiddish letter vov‑yud, not the language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to \"YIVO Latin\" script, i.e., the Latin alphabet used for Yiddish, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Lithuanian": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions a \"Lithuanian town\" as a location entity, not the Lithuanian language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to an \"Italian woman\" and uses \"Italian\" as a nationality, not the Italian language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Yiddish": {
+      "verdict": "studied",
+      "reason": "The snippets repeatedly refer to Yiddish as the target language for corpus creation, model training, and evaluation benchmarks.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "The snippets discuss Hebrew as a related language used in data mixtures, lexicon construction, and morphological analysis, indicating active work on Hebrew.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "The snippets list Polish as part of the language mixture for continued pretraining, showing it is used in the experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippets include German in the training mixture and discuss its relevance, indicating it is used in the study.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippets mention Russian as part of the training mixture and in analysis, showing it is used in the experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as part of the training data, evaluation, and baseline comparisons, indicating it is used in the study.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

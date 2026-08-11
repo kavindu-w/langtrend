@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.03480v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:47:06.263896+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8464,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is mentioned as part of the phrase 'non‑Latin scripts', referring to the script family, not the language itself, so the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is repeatedly referenced as the target language in translation experiments (e.g., 'English → Arabic', 'Arabic morphological richness'), indicating the paper works on this language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is repeatedly referenced as the source language in translation experiments (e.g., 'English → Arabic', 'English–Arabic pair'), indicating the paper works on this language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

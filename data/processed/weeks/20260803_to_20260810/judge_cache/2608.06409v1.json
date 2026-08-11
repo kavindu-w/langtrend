@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.06409v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T17:09:21.515193+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3916,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"MAE/tol\" referring to mean absolute error and tolerance, not the Mae language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tol": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"MAE/tol\" referring to tolerance, not the Tol language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to a Latin‑square design and prompt variants, i.e., a Latin square, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly mentions \"four-way English emotion classification\", indicating the paper works on English data.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

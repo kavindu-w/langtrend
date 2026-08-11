@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.01810v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T17:13:04.255785+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 1656,
+  "verdicts": {
+    "Pear": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Pear\" as part of the word \"Pearson\" correlation, not a language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Yale": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Yale\" as part of the benchmark name \"Yale-Salesforce SummEval\", not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

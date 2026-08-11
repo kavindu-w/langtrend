@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.02971v2",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T17:01:11.669198+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9159,
+  "verdicts": {
+    "Carib": {
+      "verdict": "false_positive",
+      "reason": "Carib appears as a region label in a table (Caribbean), not the Carib language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hdi": {
+      "verdict": "false_positive",
+      "reason": "HDI refers to Human Development Index, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears as part of 'Latin America', referring to a region, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to Chinese language instructions used in the experiments; the paper evaluates the effect of Chinese instructions on model outputs.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

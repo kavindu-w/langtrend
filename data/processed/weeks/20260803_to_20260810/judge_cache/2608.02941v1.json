@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.02941v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T17:05:20.121759+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11956,
+  "verdicts": {
+    "Ache": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Ache\" as a Bangla word meaning \"is\" in a prompt template, not the language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tumi": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"Tumi\" as the Bangla word for \"you\" in a prompt, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Bangla word \"Ami\" meaning \"I\" in a prompt, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "The snippet references \"crow\" only as part of the Bangla word \"kauwa\" (crow) in parentheses, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"Chinese\" as a nationality adjective in \"Chinese stooge\", not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mae": {
+      "verdict": "mentioned_only",
+      "reason": "No snippet explicitly shows \"Mae\" or a context indicating the language; insufficient evidence to confirm a language mention.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Magi": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Bangla word \"magi\" meaning \"whore\" in a phrase, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Rom": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"Rom\" as an abbreviation for Romanization, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The paper studies Bangla derogatory speech and repeatedly refers to the Bangla language in experiments and results.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to Latin script or Latin‑script Banglish, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English as a baseline language for cross‑lingual comparison and evaluates models on English data, indicating active study of English.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

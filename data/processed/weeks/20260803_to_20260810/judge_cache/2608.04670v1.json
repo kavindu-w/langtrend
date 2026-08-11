@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.04670v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:22:39.150971+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5876,
+  "verdicts": {
+    "Dura": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Dura\" as part of an Italian proverb example (e.g., \"Il gioco è bello quando … C) dura molto\"). It is an Italian word, not a language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Oro": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Oro\" in the proverb \"Non è tutto oro…\" which is an Italian word meaning gold, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Una\" in the proverb \"Chi non beve in compagnia…\" which is an Italian word meaning one, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the phrase \"for sake of clarity\" in English, where \"sake\" is part of an English idiom, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions \"Chinese\" as a language that is prioritized in training data, but the paper does not evaluate or build resources for Chinese. It is only mentioned.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references \"English\" in the context of datasets and idioms, but the paper does not evaluate or build resources for English. It is only mentioned.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The paper introduces ProverbIT, a dataset of Italian proverbs, and evaluates models on Italian, so Italian is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

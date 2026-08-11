@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.03729v2",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:45:08.546766+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3680,
+  "verdicts": {
+    "Duke": {
+      "verdict": "false_positive",
+      "reason": "Duke refers to a noble title (Duke of Urbino) not the language; false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script, not the language; false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian refers to nationality of noblewoman, not the language; false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language in the prompt for classifying named entities; the paper uses this prompt, so English is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek refers to the Greek city Philadelphia, not the language; false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German refers to the German state Bavaria, not the language; false positive",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

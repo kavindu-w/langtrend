@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.08607v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T15:43:38.535095+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4807,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'aka' is the abbreviation for 'also known as', not the language Aka; thus the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tamahaq": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Tamahaq as one of the Berber varieties spoken by patients; the paper only mentions it as a language context, not as a target of study.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Latin America', not the Latin language; thus the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet discusses Arabic dialects and Modern Standard Arabic as languages of care and patient communication; the paper only mentions Arabic, not studying it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet notes French as the language of clinical work; the paper only mentions French, not studying it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references English-language data and transcripts; the paper only mentions English, not studying it.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

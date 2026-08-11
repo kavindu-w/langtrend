@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.05138v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:17:15.964314+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5113,
+  "verdicts": {
+    "Sake": {
+      "verdict": "mentioned_only",
+      "reason": "snippets do not show Sake; cannot determine if refers to language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "mentions Latin characters or answer letters, referring to Latin script, not the Latin language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "mentions English as a language in bilingual corpus and evaluation, but not studied directly",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "mentions Greek as language in corpus, evaluation, benchmark, and model training, indicating it is studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

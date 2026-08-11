@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.08477v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T15:47:40.778719+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7215,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin America region (Latin America, LATAM) in the snippets, not the Latin language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to English source material used in the dual English/Spanish pipeline for training and dataset construction; studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish refers to the Spanish language used as target, dataset, and model in the paper; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

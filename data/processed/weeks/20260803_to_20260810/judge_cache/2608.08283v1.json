@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.08283v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T15:51:42.896974+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11904,
+  "verdicts": {
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "Crow refers to a bird entity being mistranslated, not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Duke": {
+      "verdict": "false_positive",
+      "reason": "Duke refers to a title, not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin refers to the Latin language in a comparative statement; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to Classical Chinese as the source language in data and experiments; studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the target language in translations and metrics; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

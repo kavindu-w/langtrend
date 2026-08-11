@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.06652v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T17:21:08.190590+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4263,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Latin American Countries', i.e., the region Latin America, not the Latin language; thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the Russian Revolution and Bolshevik Party, i.e., historical events, not the Russian language; thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English-language data (tweets, LCC dataset) used for evaluation; thus the paper studies English",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.05148v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T16:19:10.110629+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3910,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'pin dependencies', referring to locking software dependencies, not the language Pin.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'sentinel for discarded examples', referring to a placeholder token, not the language Sentinel.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a Latin square, a combinatorial object, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English statements and an implicit English-language prior, indicating the paper generates and evaluates English text as part of its tasks.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

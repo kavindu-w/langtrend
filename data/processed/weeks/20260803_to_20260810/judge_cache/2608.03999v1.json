@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.03999v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-11T17:00:11.142372+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7433,
+  "verdicts": {
+    "Irish": {
+      "verdict": "false_positive",
+      "reason": "Irish refers to the musical style ‘Irish jig’ in the snippet, not the Irish language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to Chinese repertoire, Mandarin singing, and Chinese lyrics in the dataset; the paper collects data for Chinese, so studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language used for captions and dataset; the paper uses English captions and builds resources for English, so studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}
