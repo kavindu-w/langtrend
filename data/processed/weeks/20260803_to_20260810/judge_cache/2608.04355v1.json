@@ -1,8 +1,24 @@
 {
   "paper_id": "http://arxiv.org/abs/2608.04355v1",
   "judge_model": "openai/gpt-oss-20b:free",
-  "judged_at": "2026-08-11T16:38:42.480979+00:00",
+  "judged_at": "2026-08-11T18:18:50.276463+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 6948,
-  "verdicts": {}
+  "verdicts": {
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "The snippets show Loo as an abbreviation for Leave-One-Out cross-validation or statistical analysis (e.g., \"LOO power\", \"LOO point prediction\", \"LOO analysis\"), not a human language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae appears as \"MAE\" meaning Mean Absolute Error in the context of prediction error metrics, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a code variable or component name (e.g., \"Pin mlx-lm\" in a reproducibility checklist), not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
 }
