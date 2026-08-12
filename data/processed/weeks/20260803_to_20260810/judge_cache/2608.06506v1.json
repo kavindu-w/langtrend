@@ -1,7 +1,7 @@
 {
   "paper_id": "http://arxiv.org/abs/2608.06506v1",
   "judge_model": "openai/gpt-oss-20b:free",
-  "judged_at": "2026-08-11T18:19:29.208135+00:00",
+  "judged_at": "2026-08-12T14:27:21.480538+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 11735,
   "verdicts": {
@@ -62,32 +62,32 @@
     },
     "Cebuano": {
       "verdict": "studied",
-      "reason": "Cebuano is listed as a target language in the CLCG instrument table (ISO code ceb, script Latin, role Rising Stars Target), so the paper studies it.",
+      "reason": "The snippet lists \"Cebuano ceb Latin safe The Rising Stars Target\", indicating Cebuano is a target language in the study’s instrument.",
       "model": "openai/gpt-oss-20b:free"
     },
     "Georgian": {
       "verdict": "studied",
-      "reason": "Georgian is listed as a target language in the CLCG instrument table (ISO code ka, script Mkhedruli, role Rising Stars Target), so the paper studies it.",
+      "reason": "The snippet lists \"Georgian ka Mkhedruli safe The Rising Stars Target\", indicating Georgian is a target language in the study’s instrument.",
       "model": "openai/gpt-oss-20b:free"
     },
     "Latin": {
       "verdict": "false_positive",
-      "reason": "Latin appears only as the script designation for many languages in the instrument table and as a script indicator in analyses; it is not treated as a target language, so the match is a false positive.",
+      "reason": "The snippet uses \"Latin\" as the script designation for many languages (e.g., \"Latin safe\"), not as a language itself; no evidence of Latin being a target language.",
       "model": "openai/gpt-oss-20b:free"
     },
     "Basque": {
       "verdict": "studied",
-      "reason": "Basque is listed as a target language in the instrument table (ISO code eu, script Latin, role Underdogs Target), so the paper studies it.",
+      "reason": "The snippet lists \"Basque eu Latin vulnerable The Underdogs Target (optional)\", indicating Basque is a target language in the study’s instrument.",
       "model": "openai/gpt-oss-20b:free"
     },
     "Portuguese": {
       "verdict": "studied",
-      "reason": "Portuguese is used as the high-resource baseline language throughout the paper, referenced in the abstract and methods, so the paper studies it.",
+      "reason": "The snippet lists \"Portuguese pt Latin safe\" and many sections refer to Portuguese as the high‑resource baseline; it is a target language in the study.",
       "model": "openai/gpt-oss-20b:free"
     },
     "English": {
       "verdict": "studied",
-      "reason": "English is used as the reference language throughout the paper, referenced in the abstract and methods, so the paper studies it.",
+      "reason": "The snippet lists \"English en Latin — The Winners Reference\" and many sections refer to English as the reference language; it is a target language in the study.",
       "model": "openai/gpt-oss-20b:free"
     }
   }
