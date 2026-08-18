@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-18T17:39:55.203544+00:00",
+  "generated_at": "2026-08-18T18:25:59.560826+00:00",
   "window_days": 7,
   "week_start": "2026-08-10",
   "week_end": "2026-08-17",
@@ -7,23 +7,23 @@
   "counts": {
     "papers": 446,
     "flagged_papers": 189,
-    "unique_languages": 177,
+    "unique_languages": 176,
     "unique_languages_mentioned_only": 16,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 282,
-      "judged_languages": 1056,
+      "judged_papers": 284,
+      "judged_languages": 1062,
       "studied": 576,
-      "mentioned_only": 156,
-      "false_positive": 324
+      "mentioned_only": 159,
+      "false_positive": 327
     }
   },
   "language_counts": [
     {
       "language": "English",
       "count": 168,
-      "studied": 124,
-      "mentioned_only": 44
+      "studied": 123,
+      "mentioned_only": 45
     },
     {
       "language": "Chinese",
@@ -158,12 +158,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Latin",
-      "count": 6,
-      "studied": 2,
-      "mentioned_only": 4
-    },
-    {
       "language": "Malayalam",
       "count": 6,
       "studied": 3,
@@ -194,6 +188,12 @@
       "mentioned_only": 0
     },
     {
+      "language": "Latin",
+      "count": 5,
+      "studied": 1,
+      "mentioned_only": 4
+    },
+    {
       "language": "Persian",
       "count": 5,
       "studied": 4,
@@ -202,8 +202,8 @@
     {
       "language": "Polish",
       "count": 5,
-      "studied": 5,
-      "mentioned_only": 0
+      "studied": 4,
+      "mentioned_only": 1
     },
     {
       "language": "Sinhala",
@@ -298,8 +298,8 @@
     {
       "language": "Hebrew",
       "count": 3,
-      "studied": 3,
-      "mentioned_only": 0
+      "studied": 2,
+      "mentioned_only": 1
     },
     {
       "language": "Hungarian",
@@ -345,12 +345,6 @@
     },
     {
       "language": "Shona",
-      "count": 3,
-      "studied": 3,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Tat",
       "count": 3,
       "studied": 3,
       "mentioned_only": 0
@@ -609,6 +603,12 @@
     },
     {
       "language": "Tajik",
+      "count": 2,
+      "studied": 2,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Tat",
       "count": 2,
       "studied": 2,
       "mentioned_only": 0
@@ -944,12 +944,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Luna",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Luxembourgish",
       "count": 1,
       "studied": 1,
@@ -1181,8 +1175,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 69,
-      "studied": 65,
+      "count": 67,
+      "studied": 63,
       "mentioned_only": 4
     },
     {
@@ -1199,21 +1193,21 @@
     },
     {
       "class_id": 3,
-      "count": 118,
-      "studied": 100,
-      "mentioned_only": 18
+      "count": 117,
+      "studied": 98,
+      "mentioned_only": 19
     },
     {
       "class_id": 4,
       "count": 139,
-      "studied": 120,
-      "mentioned_only": 19
+      "studied": 119,
+      "mentioned_only": 20
     },
     {
       "class_id": 5,
       "count": 349,
-      "studied": 268,
-      "mentioned_only": 81
+      "studied": 267,
+      "mentioned_only": 82
     }
   ],
   "daily_series": [
@@ -91227,14 +91221,22 @@
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-18T17:45:19.289085+00:00"
         },
         {
           "language": "Hebrew",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "Hebrew is explicitly mentioned as a language that responses must be written in; the paper only references it, not studies it; mentioned_only",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-18T17:45:19.289085+00:00"
         },
         {
           "language": "Latin",
@@ -91243,7 +91245,11 @@
           "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Latin refers to the Latin alphabet (letter g) in the context of a letter-count requirement, not the Latin language; false_positive",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-18T17:45:19.289085+00:00"
         },
         {
           "language": "Tat",
@@ -91252,7 +91258,11 @@
           "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Tat appears in the phrase \"coup d’tat\" (a French expression) and is not a language; false_positive",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-18T17:45:19.289085+00:00"
         }
       ],
       "sources_checked": [
@@ -91293,7 +91303,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91303,7 +91317,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91313,7 +91331,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91323,7 +91345,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91333,11 +91359,19 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91347,7 +91381,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91357,11 +91395,19 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91371,7 +91417,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91381,11 +91431,19 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91395,7 +91453,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91405,7 +91467,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91415,7 +91481,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91425,7 +91495,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91435,39 +91509,75 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91477,23 +91587,43 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91503,15 +91633,27 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91521,7 +91663,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91531,7 +91677,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91541,7 +91691,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91551,7 +91705,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91561,61 +91719,113 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Hebrew",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Hebrew is explicitly mentioned as a language that responses must be written in; the paper only references it, not studies it; mentioned_only",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Latin refers to the Latin alphabet (letter g) in the context of a letter-count requirement, not the Latin language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Tat appears in the phrase \"coup d’tat\" (a French expression) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Hebrew",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Hebrew is explicitly mentioned as a language that responses must be written in; the paper only references it, not studies it; mentioned_only",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Latin refers to the Latin alphabet (letter g) in the context of a letter-count requirement, not the Latin language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91625,7 +91835,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91635,11 +91849,19 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91649,21 +91871,37 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Hebrew",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Hebrew is explicitly mentioned as a language that responses must be written in; the paper only references it, not studies it; mentioned_only",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Latin refers to the Latin alphabet (letter g) in the context of a letter-count requirement, not the Latin language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         },
@@ -91673,27 +91911,47 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a model name (e.g., gpt-5.6-luna) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Tat appears in the phrase \"coup d’tat\" (a French expression) and is not a language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Hebrew",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Hebrew is explicitly mentioned as a language that responses must be written in; the paper only references it, not studies it; mentioned_only",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Latin refers to the Latin alphabet (letter g) in the context of a letter-count requirement, not the Latin language; false_positive",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:45:19.289085+00:00"
             }
           ]
         }
@@ -106398,14 +106656,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippet mentions that authors are fluent English speakers, but does not indicate any study or resource creation for English.",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-18T17:43:29.497674+00:00"
         },
         {
           "language": "Polish",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippet refers to the Polish language used for writing and grammar correction, not a study of Polish.",
+          "judge_model": "openai/gpt-oss-20b:free",
+          "judged_at": "2026-08-18T17:43:29.497674+00:00"
         }
       ],
       "sources_checked": [
@@ -106423,7 +106689,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet mentions that authors are fluent English speakers, but does not indicate any study or resource creation for English.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:43:29.497674+00:00"
             }
           ]
         },
@@ -106433,7 +106703,11 @@
           "detected_languages": [
             {
               "language": "Polish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet refers to the Polish language used for writing and grammar correction, not a study of Polish.",
+              "judge_model": "openai/gpt-oss-20b:free",
+              "judged_at": "2026-08-18T17:43:29.497674+00:00"
             }
           ]
         }
