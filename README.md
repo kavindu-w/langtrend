@@ -16,15 +16,16 @@ Live site: [kavindu-w.github.io/langtrend](https://kavindu-w.github.io/langtrend
 
 ## Latest Run Summary
 
-_Latest processed week: **2026-08-03 – 2026-08-10**._
-_Judged with:_ `openai/gpt-oss-20b:free` (1,255)
+_Latest processed week: **2026-08-10 – 2026-08-17**._
+
+> ⚠️ **LLM judge in progress** — this week's papers are still being verified. The live site won't show this week's data until judging completes, and the *This week* counts below (and per-language/class breakdowns) may still change as more verdicts come in.
 
 | Metric | This week | All-time |
 |--------|----------:|---------:|
-| Papers scanned | 527 | 7,798 |
-| Papers with language mentions | 211 | 3,411 |
-| Unique languages detected | 120 | 394 |
-| Weeks tracked | — | 15 (since 2026-04-27) |
+| Papers scanned | 446 | 8,244 |
+| Papers with language mentions | 285 | 3,696 |
+| Unique languages detected | 308 | 525 |
+| Weeks tracked | — | 16 (since 2026-04-27) |
 
 <!-- LANGTREND_STATS_END -->
 
