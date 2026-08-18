@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12627v2",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:43:02.082099+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3331,
+  "verdicts": {
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "Noon refers to a time of day, not a language, so false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the language of the dataset, but the paper only translates it to English and does not build resources for Chinese, so mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the target language for translations and prompts; the paper uses English but does not build resources for it, so mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

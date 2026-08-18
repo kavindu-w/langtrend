@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12511v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:43:35.630046+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5129,
+  "verdicts": {
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "refers to Portuguese-language sentences used in compliance study",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "refers to Japanese companies, not the language itself",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "mentions English-language documents but does not study English",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

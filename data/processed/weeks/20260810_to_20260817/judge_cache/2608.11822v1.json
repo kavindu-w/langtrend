@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.11822v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:49:00.222999+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2999,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to a subset of worlds in the experiment, not the human language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the language of the original audit templates; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the language of the paper's translations; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

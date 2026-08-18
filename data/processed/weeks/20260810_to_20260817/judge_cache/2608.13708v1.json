@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.13708v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:30:10.361353+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5442,
+  "verdicts": {
+    "Kera": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'kera' as part of Bangla words in difficulty patterns, not a language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references English as a language in context of English-centric systems and input language options, but the paper does not build resources for English.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

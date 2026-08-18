@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.15428v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T14:58:16.379199+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6618,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to Latin letters A–D used as option labels (the Latin alphabet), not the Latin language itself, so false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Ukrainian text, Ukrainian legislation, Ukrainian prompts, and Ukrainian lawyers, indicating the language is used as the benchmark and in experiments, so studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English glosses, English instruction prompts, and English prompts for comparison, but no experiments on English language itself, so mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention German only as part of a split in prompts, not as a language studied, so mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

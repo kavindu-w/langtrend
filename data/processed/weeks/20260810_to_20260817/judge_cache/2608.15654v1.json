@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.15654v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:02:33.232600+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4235,
+  "verdicts": {
+    "Dano": {
+      "verdict": "studied",
+      "reason": "The snippet lists 'Dano–Norwegian Act I' as part of initial world seeds, indicating the language Dano is used in the benchmark.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "The snippet lists 'Dano–Norwegian Act I' as part of initial world seeds, indicating Norwegian is used in the benchmark.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippet lists several Russian plays (Uncle Vanya, Three Sisters, The Cherry Orchard) as part of initial world seeds, indicating Russian is used in the benchmark.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "The snippet lists 'The Father Swedish Opening of Act I' as part of initial world seeds, indicating Swedish is used in the benchmark.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet lists 'Bianjing CE Chinese Bianjing' and mentions Chinese as one of the instances, indicating Chinese is used in the benchmark.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet lists 'Smallville English Base simulation' and 'Hamlet English Act I', indicating English is used in the benchmark.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not contain the word 'Mae', so the match is likely a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

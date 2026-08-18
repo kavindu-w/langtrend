@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.13959v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:26:42.280634+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1628,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to a tool or acronym mentioned in the Experimental Setup and Scoring sections, not a human language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is explicitly referenced as a language in the abstract and multiple sections where models are evaluated on Korean items, indicating it is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian appears in Appendix C as a language name in the context of names that stay in English, but the paper does not evaluate or build resources for it",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a language in the abstract and throughout the paper where models are evaluated on English items, indicating it is studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

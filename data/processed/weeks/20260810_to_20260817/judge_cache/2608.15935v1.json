@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.15935v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T14:54:54.721734+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11996,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to \"AMI\" as a meeting corpus name (e.g., AMI product meetings), not the human language; thus the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as the language of the meeting corpora and the data used; the paper works on English data, so the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

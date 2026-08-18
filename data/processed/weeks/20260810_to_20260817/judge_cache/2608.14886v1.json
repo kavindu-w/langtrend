@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.14886v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:24:15.492660+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11780,
+  "verdicts": {
+    "Bari": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows a Bengali code 'bn' and no reference to Bari; thus Bari is not actually referenced, so false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The paper discusses Bengali queries, corpus, and evaluation in Bengali; thus Bengali is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper discusses English queries, cross-lingual conditions, and evaluation in English; thus English is studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

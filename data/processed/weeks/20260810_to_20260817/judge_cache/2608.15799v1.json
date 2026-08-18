@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.15799v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T14:48:41.398179+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4087,
+  "verdicts": {
+    "Maya": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a model named 'Maya' (Sesame’s Maya conversational speech model), not the Maya language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to the Greek language as the sole representative of the Hellenic language family in the dataset; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English as the language used in training data, evaluation, and as a baseline for token mapping; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

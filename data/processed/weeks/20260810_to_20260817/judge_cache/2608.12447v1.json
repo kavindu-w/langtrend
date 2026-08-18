@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12447v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:51:05.135445+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5983,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'carrier' as a concept in the paper (the carrier of F’s effect), not the human language Carrier.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Spanish article 'una', not the language Una.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Latin' in the phrase 'non-Latin script pairs', referring to script, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Korean as a language that uses spaces, part of the dataset; the paper only references it, not building resources.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Japanese as a language that uses spaces, part of the dataset; the paper only references it, not building resources.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Portuguese as part of Romance-language narrative prompts; the paper only references it, not building resources.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions French as part of Romance-language narrative prompts; the paper only references it, not building resources.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Spanish as part of Romance-language narrative prompts; the paper only references it, not building resources.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet discusses Chinese-language prompts and the model's behavior on them, indicating the paper studies Chinese.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet discusses English prompts and the model's behavior, indicating the paper studies English.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

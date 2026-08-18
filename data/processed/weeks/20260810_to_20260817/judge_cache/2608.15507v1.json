@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.15507v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:00:22.379640+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4678,
+  "verdicts": {
+    "Ere": {
+      "verdict": "false_positive",
+      "reason": "ERE appears as a token fragment of the word WERE, not the language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian refers to Italian PM, i.e., nationality, not the language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese refers to Chinese Zodiac, not the language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German refers to German Chancellor, i.e., nationality, not the language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the tasks and verb tense analysis, so the paper studies English",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

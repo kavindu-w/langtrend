@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12894v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:39:33.655065+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11989,
+  "verdicts": {
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol refers to a column header for the Polish language in a table of model accuracies, but the paper does not study Polish; thus false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bavarian": {
+      "verdict": "studied",
+      "reason": "Bavarian refers to the regional language variety being benchmarked and evaluated in the paper; thus studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to one of the three languages (English, German, Bavarian) used for translations and evaluation in the benchmark; thus studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to one of the three languages used for translations and evaluation; thus studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

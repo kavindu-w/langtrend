@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12875v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:42:38.394720+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7481,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the embedding model Jina‑v5, not the human language; therefore false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Lave": {
+      "verdict": "false_positive",
+      "reason": "Lave appears to be a model or dataset name, not a language; therefore false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Danish": {
+      "verdict": "studied",
+      "reason": "Danish is explicitly mentioned as the language of the TwitterHjerne dataset and used in retrieval tasks; therefore studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the STS benchmarks and used in semantic textual similarity tasks; therefore studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is the language of the FQuAD dataset and used in retrieval tasks; therefore studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is the language of the MassiveScenario dataset and used in classification tasks; therefore studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.11755v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:52:11.906990+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5609,
+  "verdicts": {
+    "Pam": {
+      "verdict": "false_positive",
+      "reason": "PAM is an acronym for a music evaluation benchmark, not the Pam language; thus the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The word 'polish' is used as a verb meaning to refine phrasing, not the Polish language; thus false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Chinese as the language of the songs in the dataset, prompts in Simplified Chinese, and Chinese vocal songs; the paper works with Chinese data, so the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as the language of the songs in the dataset and prompts; the paper works with English data, so the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

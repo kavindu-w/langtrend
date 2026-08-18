@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.14003v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:23:07.668781+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6840,
+  "verdicts": {
+    "Maa": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"MAA\" in the context of a dataset license, not a reference to the human language Maa; it is an acronym for a dataset or copyright notice.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Wanda": {
+      "verdict": "false_positive",
+      "reason": "All occurrences of Wanda refer to a static pruning method (e.g., \"Wanda and Griffin\"), not the human language; it is a method name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet explicitly mentions \"English-language polishing\" and refers to English as the language used for editing, but the paper does not build resources or models for English; it only mentions the ",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

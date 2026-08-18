@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12713v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:42:04.320390+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5837,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to the technical term for the sampled token distribution in watermark signals, not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Miami refers to the city in the text, not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek refers to the Greek language in the normalizer's override table, but the paper does not work on Greek; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin refers to the Latin script in the normalizer and homoglyph swaps, but no work on Latin language; mentioned_only",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

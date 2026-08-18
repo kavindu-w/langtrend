@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12756v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:39:44.093245+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2378,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to the verb 'pin' meaning to fix a cached revision, not the language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used in datasets like English Wikipedia and STS17; the paper evaluates on these English data, so it is studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

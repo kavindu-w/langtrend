@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12654v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:40:30.128977+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3197,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"pin a run\" meaning to fix a run; it is a verb, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "The snippet contains the scenario name \"gpt4o-swedish-bulgarian-translation-refusal-tier-a-010\", indicating a translation task involving Bulgarian; the paper includes this scenario in its benchmark.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippet contains the scenario name \"claude-opus-russian-prompts-aup-refusal-tier-a-002\", indicating Russian prompts; the paper includes this scenario in its benchmark.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "The snippet contains the scenario name \"gpt4o-swedish-bulgarian-translation-refusal-tier-a-010\", indicating a translation task involving Swedish; the paper includes this scenario in its benchmark.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

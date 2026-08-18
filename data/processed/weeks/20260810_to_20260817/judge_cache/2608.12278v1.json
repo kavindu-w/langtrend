@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12278v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:42:01.275420+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11827,
+  "verdicts": {
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "refers to the Bengali language as the focus of the study, with tokenization, training token deficit, etc.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "refers to Latin-script languages, not the Latin language; thus false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "refers to Tamil language in a comparative study of bilingual instruction; only mentioned.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "refers to English language as a comparison baseline; only mentioned.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

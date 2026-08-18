@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.13926v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:28:23.731869+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3936,
+  "verdicts": {
+    "Beaver": {
+      "verdict": "false_positive",
+      "reason": "BEAVER refers to a dataset of private warehouse query logs, not the human language; false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears in the phrase 'non-Latin script', referring to the Latin alphabet/script, not the language; false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the language of the schema and user queries in the experiments; the paper evaluates on English data, so it is studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

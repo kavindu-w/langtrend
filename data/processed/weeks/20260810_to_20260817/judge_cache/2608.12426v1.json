@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12426v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T15:55:30.508637+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7465,
+  "verdicts": {
+    "Ata": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'ATA 29' as an identifier for a mechanistic explanation, clearly an acronym or model name, not the human language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "The snippet references 'LOO folds' in cross‑validation, which is a statistical term, not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'MAE =0.2pp', which stands for mean absolute error, not a language; false_positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets discuss English as the target language for constraints (e.g., lipogram bans on letters with English frequency rank), indicating the paper builds and evaluates constraints on English; stud",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}
