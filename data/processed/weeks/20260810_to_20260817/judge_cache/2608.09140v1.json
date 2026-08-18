@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.09140v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T17:26:37.319094+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5714,
+  "verdicts": {
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'logo designing' as an occupation, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Ong": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Opsahl-Ong et al', a citation of authors, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Simba": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'SIMBA' optimizer from DSPy, a tool, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as the language of the dataset and prompts; the paper uses and evaluates on English data, thus it studies English.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

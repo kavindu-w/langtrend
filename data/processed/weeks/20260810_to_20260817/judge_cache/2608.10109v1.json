@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.10109v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T17:13:29.994033+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10949,
+  "verdicts": {
+    "Malayalam": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Malayalam–English as an example of other language pairs; the paper does not work on Malayalam.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Sinhala": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Sinhala–English as an example of other language pairs; the paper does not work on Sinhala.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Bengali–English as an example of other language pairs; the paper does not work on Bengali.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Hindi–English as an example of other language pairs; the paper does not work on Hindi.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Latin script, not the Latin language; thus the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "The snippet refers to Persian as the primary language in the Persian–English code‑mixing corpus; the paper builds a dataset and annotations for Persian.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English as the other language in the Persian–English code‑mixing; the paper builds a dataset and annotations for English words in code‑mixed context.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.10743v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T17:03:50.117778+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2536,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"Lt. Col. John Washington\", where \"Col\" is an abbreviation for the military rank Colonel, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "false_positive",
+      "reason": "The snippet states \"was an English rector\", using \"English\" as a nationality adjective for a person, not referring to the English language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.11361v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T16:47:14.806971+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2577,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"non‑Latin scripts\", referring to scripts rather than the Latin language; thus it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets state that tokenizers were trained on English FineWeb‑Edu, a curated English corpus, indicating the paper works directly with English data; thus it is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

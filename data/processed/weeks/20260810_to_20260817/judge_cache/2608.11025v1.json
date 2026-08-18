@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.11025v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T17:00:24.812969+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7706,
+  "verdicts": {
+    "Cham": {
+      "verdict": "false_positive",
+      "reason": "The matched token 'cham' appears among positive tokens but the snippet does not refer to the Cham language; it is likely a token or name, not the language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'non-Latin characters' and 'non-Latin tokens', indicating Latin as a script, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'polish non-Latin tokens', which is a verb form, not the Polish language; no reference to Polish language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet includes evaluation prompts and instructions in English, indicating the paper uses English data and evaluates English language models.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

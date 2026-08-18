@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.10296v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T17:12:54.882393+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3185,
+  "verdicts": {
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "The snippet cites \"Gu and Dao\" as authors, indicating Dao is a person, not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"LOO\" as an abbreviation for Leave-One-Out cross‑validation, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly mentions an English validation split and the International Corpus of English, showing the paper works with English data.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

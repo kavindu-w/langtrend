@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.09925v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T17:21:04.593858+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11987,
+  "verdicts": {
+    "Tii": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to TII as an organization (Falcon 3 7B Instruct from TII (UAE)), not the human language Tii, so it is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "All snippets explicitly mention Dutch as the target language for datasets, benchmarks, prompts, and evaluation, indicating the paper works with Dutch data and models, so the language is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention English only as the language of prompts, translations, and some English-centric models, but the paper does not evaluate or build resources for English itself, so it is only mentio",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

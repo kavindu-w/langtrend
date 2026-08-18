@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.11660v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T16:53:07.067399+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3197,
+  "verdicts": {
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to \"Polish statesman\" describing nationality, not the Polish language; thus the match is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to \"French Catholicism\" and \"Louis XV\" as a French national, not the French language; thus the match is a false positive",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

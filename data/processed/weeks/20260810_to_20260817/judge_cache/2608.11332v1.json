@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.11332v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T16:52:30.295390+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11773,
+  "verdicts": {
+    "Ata": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not contain the word 'Ata'; the regex likely matched a Turkish word meaning 'father', not a language. Snippets insufficient to confirm a language reference",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kur": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'kur' as a root word in Turkish morphological analysis, not a language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Yeni": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'yeni' as a Turkish word meaning 'new', not a language",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to 'English translations' of Turkish transcripts, indicating the English language is mentioned but not studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Turkish Sign Language": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly refers to Turkish Sign Language as the target of pretraining and evaluation, indicating the language is studied",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "The snippet refers to Turkish as the spoken language used for pseudo‑gloss construction and pretraining, indicating the language is studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

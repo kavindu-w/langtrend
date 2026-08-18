@@ -1,0 +1,79 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.09356v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T17:33:26.499792+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11845,
+  "verdicts": {
+    "Tat": {
+      "verdict": "studied",
+      "reason": "The snippet shows the ISO code \"tat\" in a transliteration configuration table, referring to the Tatar language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian appears in the candidate list but the snippet text does not contain it; it is likely mentioned as a script or language in the paper but not studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Karakalpak": {
+      "verdict": "studied",
+      "reason": "The snippet contains \"Karakalpak (kaa)\" in the table and mentions it as a fastText training language, indicating the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chuvash": {
+      "verdict": "studied",
+      "reason": "The snippet shows \"Chuvash (cv)\" in the transliteration table and references it in the methodology, so the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kyrgyz": {
+      "verdict": "studied",
+      "reason": "The snippet includes \"Kyrgyz (ky)\" in the table and mentions it in the methodology, indicating the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Turkmen": {
+      "verdict": "studied",
+      "reason": "The snippet lists \"Turkmen (tk)\" in the transliteration table, showing the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Uyghur": {
+      "verdict": "studied",
+      "reason": "The snippet contains \"Uyghur (ug)\" in the table and multiple mentions in the methodology and evaluation, indicating the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kazakh": {
+      "verdict": "studied",
+      "reason": "The snippet shows \"Kazakh (kk)\" in the table and mentions it in the methodology, indicating the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Latin as a script used in the transliteration pipeline, not as a language studied in the experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Tatar": {
+      "verdict": "studied",
+      "reason": "The snippet contains \"Tatar (tt)\" in the table and mentions it in the methodology, indicating the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Uzbek": {
+      "verdict": "studied",
+      "reason": "The snippet shows \"Uzbek (uz)\" in the table and references it in the methodology, indicating the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Azerbaijani": {
+      "verdict": "studied",
+      "reason": "The snippet contains \"Azerbaijani (az)\" in the table and mentions it in the methodology and evaluation, indicating the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Turkish as a language (e.g., Turkish (tr) Wikipedia, Turkish in POS data, etc.) and the paper trains fastText models and evaluates on Turkish data, so the language is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the Arabic script (Perso‑Arabic transliteration) rather than the Arabic language itself; no work is done on Arabic as a language, so it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

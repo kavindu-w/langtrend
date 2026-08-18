@@ -1,0 +1,119 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.11146v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T16:54:36.546119+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 11796,
+  "verdicts": {
+    "Adi": {
+      "verdict": "false_positive",
+      "reason": "The matched text contains the string \"adi\" as part of a Twi word, not the language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "No occurrence of the language name \"Aka\" appears in the snippets; the regex flag is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Bata": {
+      "verdict": "false_positive",
+      "reason": "The string \"bata\" appears as a Hausa verb, not the language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Daga": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not contain the language name \"Daga\"; the flag is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kare": {
+      "verdict": "false_positive",
+      "reason": "The string \"Kare\" appears as part of a Hausa word, not the language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kutu": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists \"Kutu\" as a candidate but does not use it in any context; it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Kwa": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists \"Kwa\" as a candidate but does not use it in any context; it is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Maka": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not contain the language name \"Maka\"; the flag is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The string \"pin\" appears in a sentence about self-harm, not as a language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Poke": {
+      "verdict": "false_positive",
+      "reason": "The string \"poke\" appears in a sentence about self-harm, not as a language name.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not contain the language name \"Wa\"; the flag is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Yawa": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not contain the language name \"Yawa\"; the flag is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "The snippets describe creating and evaluating Amharic versions of the Do-Not-Answer dataset and measuring safety transfer in Amharic, indicating the language is used in experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hausa": {
+      "verdict": "studied",
+      "reason": "Snippets mention constructing Hausa versions of the dataset, evaluating model behavior on Hausa prompts, and measuring safety transfer, showing Hausa is part of the experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Snippets detail Swahili prompts, dataset construction, and safety evaluation in Swahili, confirming it is used in the study.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English as the source language for safety prompts, evaluates English responses, and measures transfer from English to other languages, so English is studied.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Wolof": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet shows a model output that identifies a prompt as Wolof, but there is no evidence of dataset creation or evaluation involving Wolof; it is only mentioned.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Yoruba": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references Yoruba as a language the model switches to, but no dataset or evaluation is described for Yoruba; it is only mentioned.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to Latin as the script used for Hausa and Swahili, not as a language; thus the match is a false positive.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet notes Chinese as a language the model switches to for Amharic prompts, but there is no dataset or evaluation involving Chinese; it is only mentioned.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions French as a language the model switches to and shows a French output, but there is no dataset or evaluation involving French; it is only mentioned.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet notes Japanese as a language the model switches to for Amharic prompts, but no dataset or evaluation involves Japanese; it is only mentioned.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

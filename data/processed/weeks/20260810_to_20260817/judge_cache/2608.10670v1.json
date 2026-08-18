@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.10670v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T17:06:59.248282+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11653,
+  "verdicts": {
+    "Garhwali": {
+      "verdict": "studied",
+      "reason": "The snippets describe Garhwali as an Indo‑Aryan language and the paper builds an ASR benchmark and models for it.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is mentioned as a related language used for transfer learning and fine‑tuning in the experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "The term refers to a phonological class of nasal consonants in error analysis, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script used for stripping whitespace, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

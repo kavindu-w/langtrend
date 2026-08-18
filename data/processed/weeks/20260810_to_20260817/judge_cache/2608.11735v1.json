@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.11735v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T16:46:52.088541+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2253,
+  "verdicts": {
+    "Alabama": {
+      "verdict": "false_positive",
+      "reason": "The snippet references the state of Alabama and the movie title \"Sweet Home Alabama\", not the language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions \"Korean cinema\" (films such as Parasite, Oldboy), which refers to Korean cultural content but does not explicitly discuss the Korean language itself.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet states that all dialogues and recommendations are in English, indicating the paper uses English as the language for its experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

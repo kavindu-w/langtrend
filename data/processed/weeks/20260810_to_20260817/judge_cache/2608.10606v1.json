@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.10606v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T17:04:55.178392+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3715,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script used in mixed digit strings, not the language; false positive",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in news scripts, TTS, ASR; studied",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

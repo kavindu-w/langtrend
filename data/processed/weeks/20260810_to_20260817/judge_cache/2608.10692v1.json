@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.10692v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T17:05:41.768497+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2993,
+  "verdicts": {
+    "Miao": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"Miao Xu\" as a daughter’s name, not the Miao language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet contains Chinese text in the system prompt and user profile, indicating the paper uses Chinese as part of its benchmark.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet contains English text in the system prompt and user profile, indicating the paper uses English as part of its benchmark.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}

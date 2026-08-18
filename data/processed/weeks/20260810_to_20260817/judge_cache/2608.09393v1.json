@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.09393v1",
+  "judge_model": "openai/gpt-oss-20b:free",
+  "judged_at": "2026-08-18T17:26:33.077208+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6841,
+  "verdicts": {
+    "Ong": {
+      "verdict": "false_positive",
+      "reason": "The snippet cites Opsahl‑Ong et al. 2026, where Ong is an author surname, not a language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions Latin ordinals (bis, ter, quater) used in legal citations, not the Latin language.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The paper discusses French tax law, uses a French tax code corpus, and French case law, indicating active use of the French language in experiments.",
+      "model": "openai/gpt-oss-20b:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references German jurisdiction (German Federal Ministry of Justice) and a German study, but does not involve the German language in the paper’s methodology.",
+      "model": "openai/gpt-oss-20b:free"
+    }
+  }
+}
