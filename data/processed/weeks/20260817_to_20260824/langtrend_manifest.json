@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-08-28T15:44:32.031626+00:00",
+  "generated_at": "2026-08-28T15:58:08.085525+00:00",
   "window_days": 7,
   "week_start": "2026-08-17",
   "week_end": "2026-08-24",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 398,
-    "flagged_papers": 191,
+    "flagged_papers": 190,
     "unique_languages": 169,
     "unique_languages_mentioned_only": 0,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 135,
-      "judged_languages": 301,
+      "judged_papers": 136,
+      "judged_languages": 302,
       "studied": 148,
       "mentioned_only": 25,
-      "false_positive": 128
+      "false_positive": 129
     }
   },
   "language_counts": [
@@ -296,12 +296,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Pin",
-      "count": 3,
-      "studied": 3,
-      "mentioned_only": 0
-    },
-    {
       "language": "Tamil",
       "count": 3,
       "studied": 3,
@@ -429,6 +423,12 @@
     },
     {
       "language": "Oromo",
+      "count": 2,
+      "studied": 2,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Pin",
       "count": 2,
       "studied": 2,
       "mentioned_only": 0
@@ -1037,8 +1037,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 137,
-      "studied": 137,
+      "count": 136,
+      "studied": 136,
       "mentioned_only": 0
     },
     {
@@ -1106,7 +1106,7 @@
     {
       "date": "2026-08-23",
       "papers": 49,
-      "flagged": 24
+      "flagged": 23
     }
   ],
   "papers": [
@@ -13111,7 +13111,11 @@
           "flag_reason": "Too short/generic — matches many common words",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term 'pin' refers to a configuration setting ('pin thinkingLevel to low') for the Gemini model, not a human language. verdict: false_positive",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-28T15:49:04.678980+00:00"
         }
       ],
       "sources_checked": [
@@ -13131,7 +13135,11 @@
               "language": "Pin",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches many common words"
+              "flag_reason": "Too short/generic — matches many common words",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'pin' refers to a configuration setting ('pin thinkingLevel to low') for the Gemini model, not a human language. verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-28T15:49:04.678980+00:00"
             }
           ]
         },
@@ -13143,7 +13151,11 @@
               "language": "Pin",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches many common words"
+              "flag_reason": "Too short/generic — matches many common words",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'pin' refers to a configuration setting ('pin thinkingLevel to low') for the Gemini model, not a human language. verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-28T15:49:04.678980+00:00"
             }
           ]
         }
