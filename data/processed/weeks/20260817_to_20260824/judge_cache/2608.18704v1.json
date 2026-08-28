@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18704v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-28T17:13:10.490174+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1525,
+  "verdicts": {
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to prompt templates and system prompts, but 'Deg' is not identified as a language in this context; it is likely a fragment of a word or a technical label.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to prompt templates and system prompts, but 'Mon' is not identified as a language in this context; it is likely a fragment of a word or a technical label.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to retrieval planning and system prompts, but 'Noon' is not identified as a language in this context; it is likely a time reference or a fragment.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to prompt templates and corrector system prompts, suggesting the system is being tested or prompted in Chinese.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to implementation details and system prompts written in English, which is the primary language of the paper and its experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18931v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-28T17:05:05.849974+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3103,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The term 'MAE' refers to Mean Absolute Error, a common evaluation metric, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions Chinese items in the WritingBench dataset but explicitly filters them out to retain only English items.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper filters datasets (WritingBench and LEXam) to retain English items for its evaluation and experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions German items in the LEXam dataset but explicitly filters them out to retain only English items.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

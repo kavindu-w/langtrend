@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.16379v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-28T17:23:09.161472+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4378,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'bo' as a word within a Kurdish sentence ('tenaw bo kisirili'), not as a reference to the Bo language. false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Zazaki": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions Zazaki as one of the five Kurdish varieties in a background section. mentioned_only",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "kurdish (sorani)": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions Central Kurdish (Sorani) as a variety that speech technology has concentrated on. mentioned_only",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "kurdish (kurmanji)": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions Northern Kurdish (Kurmanji) as a variety that speech technology has concentrated on. mentioned_only",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The text refers to the Latin script/orthography used for the reference transcriptions. false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "The text refers to the Arabic script used by the model's output. false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

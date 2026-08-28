@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18888v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-28T16:52:09.624169+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11875,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The word 'dass' appears as a common German conjunction in a text snippet, not as a reference to a language; it is a false positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The word 'sie' appears as a common German pronoun in a text snippet, not as a reference to a language; it is a false positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to Mean Absolute Error, a common evaluation metric in the results tables, not a language; it is a false positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The word 'sake' appears in the English phrase 'for the sake of interpretability', not as a reference to a language; it is a false positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English for translations of adjective pairs and as a source language for machine translation experiments; it is studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper focuses on assessing the Quality of Experience for German NLG, creating a German dataset and using German language models; it is studied.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

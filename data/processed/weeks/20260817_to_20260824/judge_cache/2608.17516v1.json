@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.17516v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-28T17:14:07.177104+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3378,
+  "verdicts": {
+    "Fum": {
+      "verdict": "false_positive",
+      "reason": "The term 'FUM' refers to a specific answer order permutation (Female, Unknown, Male) in the BBQ benchmark, not a language; therefore, it is a false positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "The term 'mer' appears as part of a GitHub username (xenia-mer) in a URL, not as a reference to a language; therefore, it is a false positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper explicitly states that it uses English-language prompts for its experiments, meaning the language is studied/used.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.17987v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-28T17:48:06.299122+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3468,
+  "verdicts": {
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "The term 'political pole' refers to an ideological extreme, not the Polish language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Uda": {
+      "verdict": "false_positive",
+      "reason": "UDA refers to 'Unsupervised Domain Adaptation' as mentioned in the abstract and section A.4, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Ukrainian": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions the Ukrainian President and Ukraine in an example prompt, but does not study or use the Ukrainian language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper explicitly filters for and uses English-language articles and tweets for its datasets and analysis.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

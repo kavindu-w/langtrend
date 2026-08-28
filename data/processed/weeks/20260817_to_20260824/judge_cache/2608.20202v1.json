@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.20202v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-28T16:53:20.547111+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3381,
+  "verdicts": {
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'nasal trauma/obstruction' and the IN (intranasal) route of drug administration, a medical term, not the Nasal language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Saba": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'SABA (albuterol)', a medical acronym for Short-Acting Beta Agonist used in asthma treatment, not the Saba language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'sentinel injuries in non-mobile infants', a medical term for warning-sign injuries in child abuse screening, not the Sentinel language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet instructs converting a sentence into 'plain, non-jargony English,' referring to the English language as a target of a formatting task, but the paper does not study or build resources for E",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
