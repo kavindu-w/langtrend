@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.16467v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-28T12:27:28.696723+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5474,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'sake' as the Japanese alcoholic beverage in consumer reviews, not the Sake language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Chinese interview data in the context of Wen et al.'s related work, not the paper's own experiments; the language is referenced but not studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English as the dominant language of existing research and publication, noting its visibility and Western-context bias; the language is discussed but not studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The paper conducts preliminary studies in the Japanese marketing context and builds a domain-specialized LLM for Japanese qualitative data analysis; Japanese is part of the paper's experiments and met",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

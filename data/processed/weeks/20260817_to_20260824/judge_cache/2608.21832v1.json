@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.21832v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-28T12:41:05.745038+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4684,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The term 'carrier-template' refers to a template structure for instructions, not the Carrier language; false positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The term 'col' is an abbreviation for 'column' in the context of layout alignment; false positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The word 'pin' is used as a verb meaning to fix or freeze model identifiers; false positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper explicitly states that the benchmark covers English instructions and targets; studied",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

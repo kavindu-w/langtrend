@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18752v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-28T12:01:03.001311+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11762,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'Jina-v5-small', a multilingual dense retrieval encoder model used in experiments, not the Jina human language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "The snippets show Greek is the primary language of the benchmark: Greek bar exam questions, Greek statutory articles, Greek-specific preprocessing and stemmers are studied throughout the paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show English is used as a translation baseline where Greek queries and articles are translated into English and retrievers are evaluated on the translated benchmark, making it part of the",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

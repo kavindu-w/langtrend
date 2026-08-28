@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.16647v2",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-28T12:51:05.611229+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9614,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The word 'carrier' is used to describe instruction-following data serving as a medium for capability transfer, not the human language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper evaluates the student model's generalization on Chinese mathematical reasoning benchmarks (e.g., OlymMATH-ZH, LiveMathBench-ZH).",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English mathematical reasoning benchmarks (e.g., AMC2023, MATH-500) for training and evaluation.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}
