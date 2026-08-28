@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.22390v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-28T09:09:21.945706+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7136,
+  "verdicts": {
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'polish' as a common English word meaning visual refinement ('visual polish'), not referring to the Polish language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper builds a bilingual benchmark with Chinese (ZH) as one of the two evaluation languages, generating 1,000 tasks per scenario in Chinese and evaluating models on it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper builds a bilingual benchmark with English (EN) as one of the two evaluation languages, generating 1,000 tasks per scenario in English and evaluating models on it.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

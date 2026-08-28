@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.17804v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-28T10:29:21.381321+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3885,
+  "verdicts": {
+    "Kung": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'kung fu' as a martial art in the context of films, not the Kung language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Korean' as an adjective describing the origin of Taekwondo (a Korean system of unarmed combat), not referring to the Korean language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Japanese martial artists' as people of Japanese nationality, not the Japanese language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'GPT-5.6-luna', a model name used as the completion-audit judge, not the Luna language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show English is the working language of the evaluation framework, where a 'language_drift' label explicitly checks whether completions mix English with another language or switch away fro",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.22651v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-28T09:03:06.038173+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3677,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The term 'col' is used as a shorthand for 'column' in SQL syntax examples, not as a human language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Kam": {
+      "verdict": "false_positive",
+      "reason": "The term 'KAM' appears as an acronym for a business category (likely Key Account Manager) in a sample query about consumption, not as a human language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The term 'sentinel' refers to a special marker or token (<execute_result_N>) used in the model's output formatting, not as a human language.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.22622v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-28T09:32:30.033410+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7142,
+  "verdicts": {
+    "Bun": {
+      "verdict": "false_positive",
+      "reason": "BUN is a medical lab test acronym for Blood Urea Nitrogen, not a human language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "'Nasal' refers to the anatomical site (e.g., high-flow nasal cannula, nasal swab), not a human language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tee": {
+      "verdict": "false_positive",
+      "reason": "TEE is the acronym for Transesophageal Echocardiogram, a medical imaging procedure, not a human language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "'Language: English' in the prompt instructions genuinely refers to the English language as the output language for generated text, but the paper does not study or build resources for English as a lang",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
