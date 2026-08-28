@@ -69,6 +69,7 @@ jobs:
       # wherever the last run (weekly pipeline or a previous catch-up) left
       # off. Exit 3 (stopped early, e.g. quota exhausted) is expected.
       - name: Judge pending papers across every week (LLM)
+        id: judge
         env:
           LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
           LLM_JUDGE_BASE_URL: ${{ vars.LLM_JUDGE_BASE_URL }}
@@ -78,11 +79,35 @@ jobs:
           LLM_JUDGE_RPH: ${{ vars.LLM_JUDGE_RPH }}
         run: |
           set +e
-          python scripts/judge_languages.py --sweep-all-weeks --skip-if-unconfigured
-          code=$?
+          python scripts/judge_languages.py --sweep-all-weeks --skip-if-unconfigured 2>&1 | tee judge_output.log
+          code=${PIPESTATUS[0]}
           set -e
+          # Per-paper errors (e.g. a dead/retired model slug returning 404) are
+          # caught inside judge_languages.py and don't affect its exit code —
+          # only the "Failed: N" summary line reflects them.
+          failed=$(grep -oE 'Failed: [0-9]+' judge_output.log | tail -1 | grep -oE '[0-9]+' || true)
+          echo "failed_count=${failed:-0}" >> "$GITHUB_OUTPUT"
           if [ "$code" != "0" ] && [ "$code" != "3" ]; then
             exit "$code"
+          fi
+
+      - name: Notify on judge errors
+        if: always() && (steps.judge.outcome == 'failure' || (steps.judge.outputs.failed_count != '0' && steps.judge.outputs.failed_count != ''))
+        env:
+          NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        run: |
+          run_url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ "${{ steps.judge.outcome }}" = "failure" ]; then
+            title="LangTrend judge-catchup job FAILED"
+          else
+            title="LangTrend judge-catchup: ${{ steps.judge.outputs.failed_count }} paper(s) failed"
+          fi
+          errors=$(grep -E '  (ERROR|TIMEOUT):' judge_output.log 2>/dev/null | sort -u | tail -20 || true)
+          body=$(printf '%s\n\n%s\n\n%s\n' "$title" "$errors" "$run_url")
+          if [ -n "${NOTIFY_WEBHOOK_URL:-}" ] && [ -n "${NOTIFY_EMAIL:-}" ]; then
+            curl -fsS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" \
+              --data-binary "$body" "$NOTIFY_WEBHOOK_URL" >/dev/null 2>&1 || true
           fi
 
       # Same per-week gate as langtrend.yml's judge job — deploy shouldn't
@@ -169,3 +194,4 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       should_publish: true
+      fully_judged: ${{ needs.judge-catchup.outputs.fully_judged == 'true' }}

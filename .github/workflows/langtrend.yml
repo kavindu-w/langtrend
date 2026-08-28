@@ -467,6 +467,7 @@ jobs:
       # early, e.g. daily quota exhausted) is expected and must not fail the
       # job — only a real error (exit 1) should.
       - name: Judge this week's detected languages (LLM)
+        id: judge
         env:
           LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
           LLM_JUDGE_BASE_URL: ${{ vars.LLM_JUDGE_BASE_URL }}
@@ -476,11 +477,39 @@ jobs:
           LLM_JUDGE_RPH: ${{ vars.LLM_JUDGE_RPH }}
         run: |
           set +e
-          python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured
-          code=$?
+          python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured 2>&1 | tee judge_output.log
+          code=${PIPESTATUS[0]}
           set -e
+          # Per-paper errors (e.g. a dead/retired model slug returning 404) are
+          # caught inside judge_languages.py and don't affect its exit code —
+          # they only show up in this "Failed: N" summary line, so a plain
+          # step-failure check below would never see them.
+          failed=$(grep -oE 'Failed: [0-9]+' judge_output.log | tail -1 | grep -oE '[0-9]+' || true)
+          echo "failed_count=${failed:-0}" >> "$GITHUB_OUTPUT"
           if [ "$code" != "0" ] && [ "$code" != "3" ]; then
             exit "$code"
+          fi
+
+      # Covers both a hard failure (judge step exit code) and the softer case
+      # where the job "succeeds" but individual papers errored out (e.g. a
+      # retired/misconfigured model slug returning 404 on every call).
+      - name: Notify on judge errors
+        if: always() && (steps.judge.outcome == 'failure' || (steps.judge.outputs.failed_count != '0' && steps.judge.outputs.failed_count != ''))
+        env:
+          NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        run: |
+          run_url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ "${{ steps.judge.outcome }}" = "failure" ]; then
+            title="LangTrend judge job FAILED"
+          else
+            title="LangTrend judge: ${{ steps.judge.outputs.failed_count }} paper(s) failed"
+          fi
+          errors=$(grep -E '  (ERROR|TIMEOUT):' judge_output.log 2>/dev/null | sort -u | tail -20 || true)
+          body=$(printf '%s\n\n%s\n\n%s\n' "$title" "$errors" "$run_url")
+          if [ -n "${NOTIFY_WEBHOOK_URL:-}" ] && [ -n "${NOTIFY_EMAIL:-}" ]; then
+            curl -fsS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" \
+              --data-binary "$body" "$NOTIFY_WEBHOOK_URL" >/dev/null 2>&1 || true
           fi
 
       # Fold whatever verdicts landed this pass into the manifest so partial
@@ -579,6 +608,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Judge this week's detected languages (LLM continuation)
+        id: judge
         env:
           LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
           LLM_JUDGE_BASE_URL: ${{ vars.LLM_JUDGE_BASE_URL }}
@@ -588,11 +618,34 @@ jobs:
           LLM_JUDGE_RPH: ${{ vars.LLM_JUDGE_RPH }}
         run: |
           set +e
-          python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured
-          code=$?
+          python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured 2>&1 | tee judge_output.log
+          code=${PIPESTATUS[0]}
           set -e
+          failed=$(grep -oE 'Failed: [0-9]+' judge_output.log | tail -1 | grep -oE '[0-9]+' || true)
+          echo "failed_count=${failed:-0}" >> "$GITHUB_OUTPUT"
           if [ "$code" != "0" ] && [ "$code" != "3" ]; then
             exit "$code"
+          fi
+
+      # Same rationale as job 5 (judge) — per-paper errors don't change the
+      # exit code, so check the "Failed: N" summary too, not just outcome.
+      - name: Notify on judge errors
+        if: always() && (steps.judge.outcome == 'failure' || (steps.judge.outputs.failed_count != '0' && steps.judge.outputs.failed_count != ''))
+        env:
+          NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        run: |
+          run_url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ "${{ steps.judge.outcome }}" = "failure" ]; then
+            title="LangTrend judge-retry job FAILED"
+          else
+            title="LangTrend judge-retry: ${{ steps.judge.outputs.failed_count }} paper(s) failed"
+          fi
+          errors=$(grep -E '  (ERROR|TIMEOUT):' judge_output.log 2>/dev/null | sort -u | tail -20 || true)
+          body=$(printf '%s\n\n%s\n\n%s\n' "$title" "$errors" "$run_url")
+          if [ -n "${NOTIFY_WEBHOOK_URL:-}" ] && [ -n "${NOTIFY_EMAIL:-}" ]; then
+            curl -fsS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" \
+              --data-binary "$body" "$NOTIFY_WEBHOOK_URL" >/dev/null 2>&1 || true
           fi
 
       # if: always() on this and the two steps below — if the judge step above
@@ -759,3 +812,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       should_publish: ${{ github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_site) }}
+      # Passed through explicitly rather than assumed — this job can also run
+      # via the deploy_only/[deploy-only] bypass, where the judge gate never
+      # ran and this output stays false.
+      fully_judged: ${{ needs.judge-retry.outputs.fully_judged == 'true' }}
