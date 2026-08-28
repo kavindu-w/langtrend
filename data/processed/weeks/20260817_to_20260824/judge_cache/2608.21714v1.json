@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.21714v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-08-28T13:11:06.307435+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11871,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The name refers to a family of embedding models (jina-embeddings-v4) used in the experiments, not a human language, therefore the verdict is false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Luxembourgish": {
+      "verdict": "studied",
+      "reason": "The paper builds a benchmark (LëtzCross) specifically for Luxembourgish documents and evaluates retrieval performance on this language, therefore the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a query language and as the source language for translating queries into other languages in the benchmark, therefore the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is used as one of the query languages in the cross-lingual retrieval experiments, therefore the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is used as one of the query languages in the cross-lingual retrieval experiments, therefore the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

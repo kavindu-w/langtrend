@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.17941v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-28T13:48:09.107427+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7575,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'MAE' is an acronym for Mean Absolute Error, a metric used throughout the paper, not a reference to the Mae language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets describe datasets (OlympiadBench, NuminaMath) containing Chinese olympiad and high-school mathematics problems, and the paper uses these datasets in its experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet describes OlympiadBench covering English questions, and the paper uses this dataset in its experiments.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

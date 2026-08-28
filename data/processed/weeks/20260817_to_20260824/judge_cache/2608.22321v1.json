@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.22321v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-28T13:07:30.336249+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3039,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'col' as shorthand for 'column' (e.g., 'Empty (col)', 'col=0', 'Col zeroed'), referring to a numeric column in the dataset, not the Col language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'pin' as a verb meaning to fix a repository to a specific commit ('We pin each upstream repository to a specific commit'), not the Pin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'sentinel' in 'sentinel text' meaning a sentinel value (a placeholder value indicating absence of data), not the Sentinel language.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

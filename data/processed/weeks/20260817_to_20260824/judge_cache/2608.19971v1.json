@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.19971v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-28T13:24:16.620582+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3803,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to MAE (Mean Absolute Error), a regression evaluation metric used throughout the experiments, not a human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet states SIMS is a Chinese benchmark with annotated segments from movie/TV dialogues, and the paper evaluates its method on this dataset, so Chinese is part of the experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet states MOSI and MOSEI are English benchmarks used for evaluation, so English is part of the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

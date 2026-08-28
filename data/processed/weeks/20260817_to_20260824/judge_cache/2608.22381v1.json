@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.22381v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-28T13:05:56.738135+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3275,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'SD+LR MAE' refers to Mean Absolute Error, a metric acronym, not the Mae language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet says 'the identifiers remain readable English,' referring to the English language as the language of the identifiers; this is a passing mention, not a study of English.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references 'Bambara–French machine translation competition' as the topic of a paper in the corpus; French is mentioned as part of a paper title, not studied by this paper.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

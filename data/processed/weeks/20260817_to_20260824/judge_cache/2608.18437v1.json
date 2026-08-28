@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18437v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-28T14:09:05.432853+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2996,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'mo' as a fine-grained lexical label in a POS inventory, not a human language; false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to manuscripts held in 'Russian collections', referring to the location/origin of the archives rather than the language; false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions the 'Chinese Academy of Social Sciences' and texts 'translated from Chinese', indicating the language is used as a source for translation and research context; mentioned_only",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}
