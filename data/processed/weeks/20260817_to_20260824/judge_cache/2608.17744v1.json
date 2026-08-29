@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.17744v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-29T08:07:08.894999+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11889,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The term 'carrier' refers to the mechanism or channel (e.g., <think> tags or harmony channels) used to transport reasoning traces, not a human language. verdict: false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "The term 'Dao' refers to a person (Gu and Dao) in the context of a citation for state-space models. verdict: false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "The paper specifically fine-tunes models to reason in Greek and evaluates their performance and fluency in this language. verdict: studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The term 'Latin' refers to the Latin alphabet/script used for character stripping, not the Latin language. verdict: false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English datasets for training, compares Greek reasoning to English reasoning, and evaluates the models' ability to switch between the two. verdict: studied",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}
