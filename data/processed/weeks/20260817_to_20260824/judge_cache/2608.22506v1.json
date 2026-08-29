@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.22506v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-29T06:30:52.934361+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11737,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'col. 3 in Fig. 3' and 'col. 2 in Fig. 3', which are abbreviations for 'column' referring to figure columns, not the Col language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

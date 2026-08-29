@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-08-29T06:22:17.837230+00:00",
+  "generated_at": "2026-08-29T07:28:23.275185+00:00",
   "window_days": 7,
   "week_start": "2026-08-17",
   "week_end": "2026-08-24",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 398,
-    "flagged_papers": 178,
-    "unique_languages": 131,
+    "flagged_papers": 177,
+    "unique_languages": 130,
     "unique_languages_mentioned_only": 9,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 197,
-      "judged_languages": 525,
-      "studied": 252,
-      "mentioned_only": 70,
-      "false_positive": 203
+      "judged_papers": 200,
+      "judged_languages": 539,
+      "studied": 257,
+      "mentioned_only": 76,
+      "false_positive": 206
     }
   },
   "language_counts": [
     {
       "language": "English",
       "count": 147,
-      "studied": 127,
-      "mentioned_only": 20
+      "studied": 126,
+      "mentioned_only": 21
     },
     {
       "language": "Chinese",
@@ -34,14 +34,14 @@
     {
       "language": "German",
       "count": 32,
-      "studied": 28,
-      "mentioned_only": 4
+      "studied": 27,
+      "mentioned_only": 5
     },
     {
       "language": "Spanish",
       "count": 26,
-      "studied": 23,
-      "mentioned_only": 3
+      "studied": 22,
+      "mentioned_only": 4
     },
     {
       "language": "French",
@@ -76,8 +76,8 @@
     {
       "language": "Russian",
       "count": 12,
-      "studied": 11,
-      "mentioned_only": 1
+      "studied": 10,
+      "mentioned_only": 2
     },
     {
       "language": "Latin",
@@ -142,8 +142,8 @@
     {
       "language": "Polish",
       "count": 6,
-      "studied": 6,
-      "mentioned_only": 0
+      "studied": 5,
+      "mentioned_only": 1
     },
     {
       "language": "Carrier",
@@ -284,12 +284,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Col",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
       "language": "Danish",
       "count": 2,
       "studied": 2,
@@ -320,16 +314,10 @@
       "mentioned_only": 0
     },
     {
-      "language": "Ket",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
       "language": "Lithuanian",
       "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
+      "studied": 1,
+      "mentioned_only": 1
     },
     {
       "language": "Loo",
@@ -494,6 +482,12 @@
       "mentioned_only": 0
     },
     {
+      "language": "Col",
+      "count": 1,
+      "studied": 1,
+      "mentioned_only": 0
+    },
+    {
       "language": "Crow",
       "count": 1,
       "studied": 1,
@@ -603,6 +597,12 @@
     },
     {
       "language": "Kein",
+      "count": 1,
+      "studied": 1,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Ket",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -746,12 +746,6 @@
       "mentioned_only": 1
     },
     {
-      "language": "Sar",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Silesian",
       "count": 1,
       "studied": 1,
@@ -863,8 +857,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 77,
-      "studied": 73,
+      "count": 74,
+      "studied": 70,
       "mentioned_only": 4
     },
     {
@@ -882,27 +876,27 @@
     {
       "class_id": 3,
       "count": 71,
-      "studied": 62,
-      "mentioned_only": 9
+      "studied": 61,
+      "mentioned_only": 10
     },
     {
       "class_id": 4,
       "count": 110,
-      "studied": 102,
-      "mentioned_only": 8
+      "studied": 100,
+      "mentioned_only": 10
     },
     {
       "class_id": 5,
       "count": 324,
-      "studied": 282,
-      "mentioned_only": 42
+      "studied": 279,
+      "mentioned_only": 45
     }
   ],
   "daily_series": [
     {
       "date": "2026-08-17",
       "papers": 72,
-      "flagged": 33
+      "flagged": 32
     },
     {
       "date": "2026-08-18",
@@ -12197,21 +12191,33 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:28:53.086607+00:00"
         },
         {
           "language": "Lithuanian",
           "class": 3,
           "sources": [
             "abstract"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "Lithuanian is listed in the abstract alongside English, Spanish, and Polish as languages where metaphor detection has already been done, serving only as motivation for the Hindi work.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:28:53.086607+00:00"
         },
         {
           "language": "Polish",
           "class": 4,
           "sources": [
             "abstract"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "Polish is listed in the abstract as one of the major languages where automatic metaphor detection has been attempted, used only as motivation for the Hindi work.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:28:53.086607+00:00"
         },
         {
           "language": "English",
@@ -12219,7 +12225,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "English is mentioned in the abstract and sections as a major language with existing metaphor detection work and as an illustrative example of metaphorical usage, but the paper does not build resources",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:28:53.086607+00:00"
         },
         {
           "language": "Spanish",
@@ -12227,21 +12237,33 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "Spanish is mentioned in the abstract and section 3.1 as a language on which prior metaphor detection approaches were applied and tested, cited only as related work.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:28:53.086607+00:00"
         },
         {
           "language": "Russian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "Russian appears in section 3.1 as one of the languages on which Tsvetkov et al. 2014 tested their model, cited as prior work; the paper does not work on Russian itself.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:28:53.086607+00:00"
         },
         {
           "language": "German",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippet refers to 'Middle High German' in the context of Schneider et al. 2022's prior work on metaphor detection, not to the paper's own experiments on German.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:28:53.086607+00:00"
         }
       ],
       "sources_checked": [
@@ -12271,23 +12293,43 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Lithuanian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Lithuanian is listed in the abstract alongside English, Spanish, and Polish as languages where metaphor detection has already been done, serving only as motivation for the Hindi work.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Polish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Polish is listed in the abstract as one of the major languages where automatic metaphor detection has been attempted, used only as motivation for the Hindi work.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned in the abstract and sections as a major language with existing metaphor detection work and as an illustrative example of metaphorical usage, but the paper does not build resources",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Spanish is mentioned in the abstract and section 3.1 as a language on which prior metaphor detection approaches were applied and tested, cited only as related work.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12297,15 +12339,27 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned in the abstract and sections as a major language with existing metaphor detection work and as an illustrative example of metaphorical usage, but the paper does not build resources",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12315,15 +12369,27 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned in the abstract and sections as a major language with existing metaphor detection work and as an illustrative example of metaphorical usage, but the paper does not build resources",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12333,35 +12399,67 @@
           "detected_languages": [
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Russian appears in section 3.1 as one of the languages on which Tsvetkov et al. 2014 tested their model, cited as prior work; the paper does not work on Russian itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned in the abstract and sections as a major language with existing metaphor detection work and as an illustrative example of metaphorical usage, but the paper does not build resources",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Spanish is mentioned in the abstract and section 3.1 as a language on which prior metaphor detection approaches were applied and tested, cited only as related work.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Russian appears in section 3.1 as one of the languages on which Tsvetkov et al. 2014 tested their model, cited as prior work; the paper does not work on Russian itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned in the abstract and sections as a major language with existing metaphor detection work and as an illustrative example of metaphorical usage, but the paper does not build resources",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet refers to 'Middle High German' in the context of Schneider et al. 2022's prior work on metaphor detection, not to the paper's own experiments on German.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Spanish is mentioned in the abstract and section 3.1 as a language on which prior metaphor detection approaches were applied and tested, cited only as related work.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12371,31 +12469,59 @@
           "detected_languages": [
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Russian appears in section 3.1 as one of the languages on which Tsvetkov et al. 2014 tested their model, cited as prior work; the paper does not work on Russian itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned in the abstract and sections as a major language with existing metaphor detection work and as an illustrative example of metaphorical usage, but the paper does not build resources",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Spanish is mentioned in the abstract and section 3.1 as a language on which prior metaphor detection approaches were applied and tested, cited only as related work.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Russian appears in section 3.1 as one of the languages on which Tsvetkov et al. 2014 tested their model, cited as prior work; the paper does not work on Russian itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned in the abstract and sections as a major language with existing metaphor detection work and as an illustrative example of metaphorical usage, but the paper does not build resources",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet refers to 'Middle High German' in the context of Schneider et al. 2022's prior work on metaphor detection, not to the paper's own experiments on German.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Spanish is mentioned in the abstract and section 3.1 as a language on which prior metaphor detection approaches were applied and tested, cited only as related work.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12405,7 +12531,11 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12415,19 +12545,35 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12437,7 +12583,11 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12447,7 +12597,11 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12457,7 +12611,11 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12467,7 +12625,11 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12477,7 +12639,11 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12487,11 +12653,19 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         },
@@ -12501,7 +12675,11 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper builds the HiLeMe corpus from Hindi legal judgments, fine-tunes mBERT for Hindi metaphor detection, and evaluates models on Hindi data — Hindi is the primary language of study.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:28:53.086607+00:00"
             }
           ]
         }
@@ -15921,7 +16099,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:30:52.934361+00:00"
         },
         {
           "language": "Sar",
@@ -15930,28 +16112,44 @@
           "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:30:52.934361+00:00"
         },
         {
           "language": "French",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:30:52.934361+00:00"
         },
         {
           "language": "German",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:30:52.934361+00:00"
         },
         {
           "language": "Spanish",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:30:52.934361+00:00"
         },
         {
           "language": "Col",
@@ -15960,7 +16158,11 @@
           "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippets show 'col. 3 in Fig. 3' and 'col. 2 in Fig. 3', which are abbreviations for 'column' referring to figure columns, not the Col language.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T06:30:52.934361+00:00"
         }
       ],
       "sources_checked": [
@@ -15993,41 +16195,73 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16039,7 +16273,11 @@
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets show 'col. 3 in Fig. 3' and 'col. 2 in Fig. 3', which are abbreviations for 'column' referring to figure columns, not the Col language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16051,7 +16289,11 @@
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets show 'col. 3 in Fig. 3' and 'col. 2 in Fig. 3', which are abbreviations for 'column' referring to figure columns, not the Col language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16063,7 +16305,11 @@
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets show 'col. 3 in Fig. 3' and 'col. 2 in Fig. 3', which are abbreviations for 'column' referring to figure columns, not the Col language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16075,117 +16321,217 @@
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16197,31 +16543,51 @@
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16231,45 +16597,85 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16281,7 +16687,11 @@
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16293,7 +16703,11 @@
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16303,19 +16717,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16325,7 +16755,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16335,35 +16769,67 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the four languages on which the benchmarks (MUCH and Mu-Shroom) are evaluated, with results reported per language in figures and tables.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is one of the four languages evaluated in the experiments, with dedicated ROC/PR curves and discussion of its high-precision regime performance.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is one of the four languages evaluated across two benchmarks, with per-language results reported in figures and discussed in the generalization analysis.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16373,7 +16839,11 @@
           "detected_languages": [
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16383,7 +16853,11 @@
           "detected_languages": [
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is one of the four languages evaluated in the experiments, with dedicated ROC and PR curves; the Appendix C mention of 'French cities' is a category label but French is also genuinely studied a",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16395,49 +16869,81 @@
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16449,7 +16955,11 @@
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         },
@@ -16461,31 +16971,51 @@
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             },
             {
               "language": "Sar",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers"
+              "flag_reason": "SAR = Synthetic Aperture Radar or Segment-And-Recombine — common in vision/speech papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets consistently refer to 'SAR' as a baseline UQ method (e.g., 'SAR (gpu)', 'SAR (cpu)', 'SAR [8]') compared against KTC, not the Sar language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T06:30:52.934361+00:00"
             }
           ]
         }
@@ -76111,7 +76641,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T07:21:16.712031+00:00"
         }
       ],
       "sources_checked": [
@@ -76139,7 +76673,11 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         },
@@ -76149,11 +76687,19 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         },
@@ -76163,7 +76709,11 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         },
@@ -76173,7 +76723,11 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         },
@@ -76183,11 +76737,19 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         },
@@ -76197,11 +76759,19 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         },
@@ -76211,7 +76781,11 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         },
@@ -76221,23 +76795,43 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         },
@@ -76247,11 +76841,19 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         },
@@ -76261,15 +76863,27 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         },
@@ -76279,11 +76893,19 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         },
@@ -76293,11 +76915,19 @@
           "detected_languages": [
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             },
             {
               "language": "Ket",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to KET-RAG, a multi-hop retrieval system/method audited in the paper, not the Ket language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T07:21:16.712031+00:00"
             }
           ]
         }
