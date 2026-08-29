@@ -1,0 +1,30 @@
+name: Test notify webhook (temporary)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send test notification and show real response
+        env:
+          NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        run: |
+          echo "NOTIFY_WEBHOOK_URL set: $([ -n "${NOTIFY_WEBHOOK_URL:-}" ] && echo yes || echo no)"
+          echo "NOTIFY_EMAIL set: $([ -n "${NOTIFY_EMAIL:-}" ] && echo yes || echo no)"
+          if [ -z "${NOTIFY_WEBHOOK_URL:-}" ] || [ -z "${NOTIFY_EMAIL:-}" ]; then
+            echo "One or both secrets are empty — notify step would have silently no-op'd."
+            exit 0
+          fi
+          set +e
+          http_code=$(curl -sS -X POST -H "Title: LangTrend test notification" -H "X-Email: ${NOTIFY_EMAIL}" \
+            --data-binary "This is a manual test of the ntfy webhook, sent to verify email delivery." \
+            "$NOTIFY_WEBHOOK_URL" -o /tmp/curl_body.txt -w "%{http_code}")
+          curl_exit=$?
+          set -e
+          echo "curl exit code: $curl_exit"
+          echo "HTTP status: $http_code"
+          echo "Response body:"
+          cat /tmp/curl_body.txt
