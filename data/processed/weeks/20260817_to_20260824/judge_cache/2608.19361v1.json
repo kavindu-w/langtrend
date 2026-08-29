@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.19361v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-29T17:11:07.882105+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10879,
+  "verdicts": {
+    "Mizo": {
+      "verdict": "studied",
+      "reason": "The paper develops a speech corpus and fine-tunes ASR models specifically for the Mizo language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Meitei": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions that a model mistook Mizo speech for Meitei-lon (Manipuri language) during error analysis.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions that a model generated outputs in Hebrew script as an error during analysis.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions that some model errors seemed to approximate Hindi vocabulary.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions a Russian-based Whisper model used in a separate study on Kildin-Sami as motivation.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper mentions English in the context of translating data into Mizo and analyzing code-mixed English words in the speech.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}
