@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18988v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-28T23:39:04.326705+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5455,
+  "verdicts": {
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'Polish' as a verb meaning to refine/edit text for readability (e.g., 'Polish the section for readability', 'POLISH INTRO and OUTRO'), not referring to the Polish language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets show LoQA is built from a Chinese water-environment knowledge base with 500 books and over 100M characters, and DeepWeaver is evaluated on Chinese questions, making Chinese a language the",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show English prompt templates are used for each stage of DeepWeaver and English is listed as an instruction language alongside Chinese, indicating the paper uses English in its experiment",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Spanish only in an example Thought Block Chain about Netflix's adaptation of One Hundred Years of Solitude being filmed in Spanish, not as a language the paper studies or evaluate",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
