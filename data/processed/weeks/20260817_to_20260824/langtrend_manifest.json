@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-08-29T12:18:46.219792+00:00",
+  "generated_at": "2026-08-29T16:55:01.070575+00:00",
   "window_days": 7,
   "week_start": "2026-08-17",
   "week_end": "2026-08-24",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 398,
-    "flagged_papers": 171,
-    "unique_languages": 120,
+    "flagged_papers": 170,
+    "unique_languages": 117,
     "unique_languages_mentioned_only": 9,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 215,
-      "judged_languages": 594,
-      "studied": 286,
-      "mentioned_only": 78,
-      "false_positive": 230
+      "judged_papers": 219,
+      "judged_languages": 607,
+      "studied": 290,
+      "mentioned_only": 80,
+      "false_positive": 237
     }
   },
   "language_counts": [
     {
       "language": "English",
       "count": 147,
-      "studied": 126,
-      "mentioned_only": 21
+      "studied": 125,
+      "mentioned_only": 22
     },
     {
       "language": "Chinese",
@@ -34,8 +34,8 @@
     {
       "language": "German",
       "count": 32,
-      "studied": 27,
-      "mentioned_only": 5
+      "studied": 26,
+      "mentioned_only": 6
     },
     {
       "language": "French",
@@ -86,13 +86,13 @@
       "mentioned_only": 2
     },
     {
-      "language": "Latin",
-      "count": 10,
-      "studied": 10,
+      "language": "Korean",
+      "count": 9,
+      "studied": 9,
       "mentioned_only": 0
     },
     {
-      "language": "Korean",
+      "language": "Latin",
       "count": 9,
       "studied": 9,
       "mentioned_only": 0
@@ -278,12 +278,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Dass",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
       "language": "Estonian",
       "count": 2,
       "studied": 1,
@@ -306,12 +300,6 @@
       "count": 2,
       "studied": 1,
       "mentioned_only": 1
-    },
-    {
-      "language": "Mae",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
     },
     {
       "language": "Malayalam",
@@ -339,12 +327,6 @@
     },
     {
       "language": "Shona",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Sie",
       "count": 2,
       "studied": 2,
       "mentioned_only": 0
@@ -434,12 +416,6 @@
       "mentioned_only": 1
     },
     {
-      "language": "Carrier",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Cherokee",
       "count": 1,
       "studied": 1,
@@ -452,7 +428,7 @@
       "mentioned_only": 0
     },
     {
-      "language": "Deg",
+      "language": "Dass",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -536,12 +512,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Kein",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Ket",
       "count": 1,
       "studied": 1,
@@ -591,6 +561,12 @@
     },
     {
       "language": "Luxembourgish",
+      "count": 1,
+      "studied": 1,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Mae",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -678,6 +654,12 @@
       "count": 1,
       "studied": 0,
       "mentioned_only": 1
+    },
+    {
+      "language": "Sie",
+      "count": 1,
+      "studied": 1,
+      "mentioned_only": 0
     },
     {
       "language": "Silesian",
@@ -797,8 +779,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 54,
-      "studied": 50,
+      "count": 48,
+      "studied": 44,
       "mentioned_only": 4
     },
     {
@@ -815,8 +797,8 @@
     },
     {
       "class_id": 3,
-      "count": 70,
-      "studied": 60,
+      "count": 69,
+      "studied": 59,
       "mentioned_only": 10
     },
     {
@@ -828,8 +810,8 @@
     {
       "class_id": 5,
       "count": 322,
-      "studied": 275,
-      "mentioned_only": 47
+      "studied": 273,
+      "mentioned_only": 49
     }
   ],
   "daily_series": [
@@ -861,7 +843,7 @@
     {
       "date": "2026-08-22",
       "papers": 43,
-      "flagged": 20
+      "flagged": 19
     },
     {
       "date": "2026-08-23",
@@ -22288,7 +22270,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T16:15:09.072448+00:00"
         },
         {
           "language": "Mae",
@@ -22297,21 +22283,33 @@
           "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term 'MAE' in the snippets refers to Mean Absolute Error, a common evaluation metric for length, not a language.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T16:15:09.072448+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En, En-De), uses English datasets, and employs bilingual experts for evaluation.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T16:15:09.072448+00:00"
         },
         {
           "language": "German",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The paper performs machine translation experiments (En-De) and uses German datasets.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T16:15:09.072448+00:00"
         }
       ],
       "sources_checked": [
@@ -22345,21 +22343,37 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'MAE' in the snippets refers to Mean Absolute Error, a common evaluation metric for length, not a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En, En-De), uses English datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22369,7 +22383,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22381,7 +22399,11 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'MAE' in the snippets refers to Mean Absolute Error, a common evaluation metric for length, not a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22393,7 +22415,11 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'MAE' in the snippets refers to Mean Absolute Error, a common evaluation metric for length, not a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22403,11 +22429,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En, En-De), uses English datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22417,11 +22451,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En, En-De), uses English datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22431,27 +22473,51 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En, En-De), uses English datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-De) and uses German datasets.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En, En-De), uses English datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-De) and uses German datasets.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22461,15 +22527,27 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En, En-De), uses English datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-De) and uses German datasets.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22479,15 +22557,27 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En, En-De), uses English datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-De) and uses German datasets.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22499,19 +22589,31 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'MAE' in the snippets refers to Mean Absolute Error, a common evaluation metric for length, not a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'MAE' in the snippets refers to Mean Absolute Error, a common evaluation metric for length, not a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'MAE' in the snippets refers to Mean Absolute Error, a common evaluation metric for length, not a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22523,19 +22625,31 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'MAE' in the snippets refers to Mean Absolute Error, a common evaluation metric for length, not a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'MAE' in the snippets refers to Mean Absolute Error, a common evaluation metric for length, not a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'MAE' in the snippets refers to Mean Absolute Error, a common evaluation metric for length, not a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22545,7 +22659,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22555,7 +22673,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22565,7 +22687,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22575,7 +22701,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22585,7 +22715,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22595,7 +22729,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En, En-De), uses English datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         },
@@ -22605,11 +22743,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En), uses Chinese datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper performs machine translation experiments (En-Zh, Zh-En, En-De), uses English datasets, and employs bilingual experts for evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:15:09.072448+00:00"
             }
           ]
         }
@@ -25950,7 +26096,11 @@
           "flag_reason": "Likely matches 'degradation' or similar technical terms",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term 'deg.' in the table refers to 'degree' (a graph metric), not a human language",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T16:19:05.263349+00:00"
         }
       ],
       "sources_checked": [
@@ -25970,7 +26120,11 @@
               "language": "Deg",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Likely matches 'degradation' or similar technical terms"
+              "flag_reason": "Likely matches 'degradation' or similar technical terms",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'deg.' in the table refers to 'degree' (a graph metric), not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:19:05.263349+00:00"
             }
           ]
         },
@@ -25982,7 +26136,11 @@
               "language": "Deg",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Likely matches 'degradation' or similar technical terms"
+              "flag_reason": "Likely matches 'degradation' or similar technical terms",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'deg.' in the table refers to 'degree' (a graph metric), not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:19:05.263349+00:00"
             }
           ]
         }
@@ -34724,28 +34882,44 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The text refers to 'Latin characters' and 'Latin alphabet' rather than the Latin language.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T16:24:10.717316+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The paper uses the English-language TruthfulQA dataset for its experiments.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T16:24:10.717316+00:00"
         },
         {
           "language": "German",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The paper mentions German as an example of a language that can be written in Cyrillic characters.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T16:24:10.717316+00:00"
         },
         {
           "language": "Sie",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The word 'sie' is the German pronoun for 'they' or 'she', not a reference to a language.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T16:24:10.717316+00:00"
         },
         {
           "language": "Dass",
@@ -34754,14 +34928,22 @@
           "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The word 'dass' is the German conjunction for 'that', not a reference to a language.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T16:24:10.717316+00:00"
         },
         {
           "language": "Kein",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The word 'kein' is the German word for 'no' or 'none', not a reference to a language.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T16:24:10.717316+00:00"
         }
       ],
       "sources_checked": [
@@ -34791,7 +34973,11 @@
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'Latin characters' and 'Latin alphabet' rather than the Latin language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         },
@@ -34803,15 +34989,27 @@
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'Latin characters' and 'Latin alphabet' rather than the Latin language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses the English-language TruthfulQA dataset for its experiments.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The paper mentions German as an example of a language that can be written in Cyrillic characters.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         },
@@ -34821,7 +35019,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses the English-language TruthfulQA dataset for its experiments.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         },
@@ -34833,13 +35035,21 @@
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'Latin characters' and 'Latin alphabet' rather than the Latin language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'Latin characters' and 'Latin alphabet' rather than the Latin language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         },
@@ -34849,7 +35059,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses the English-language TruthfulQA dataset for its experiments.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         },
@@ -34859,11 +35073,19 @@
           "detected_languages": [
             {
               "language": "Sie",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'sie' is the German pronoun for 'they' or 'she', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "Sie",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'sie' is the German pronoun for 'they' or 'she', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         },
@@ -34875,31 +35097,55 @@
               "language": "Dass",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)"
+              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'dass' is the German conjunction for 'that', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "Dass",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)"
+              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'dass' is the German conjunction for 'that', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "Sie",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'sie' is the German pronoun for 'they' or 'she', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "Dass",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)"
+              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'dass' is the German conjunction for 'that', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "Sie",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'sie' is the German pronoun for 'they' or 'she', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "Sie",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'sie' is the German pronoun for 'they' or 'she', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         },
@@ -34909,7 +35155,11 @@
           "detected_languages": [
             {
               "language": "Sie",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'sie' is the German pronoun for 'they' or 'she', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         },
@@ -34921,11 +35171,19 @@
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'Latin characters' and 'Latin alphabet' rather than the Latin language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "Kein",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'kein' is the German word for 'no' or 'none', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         },
@@ -34937,19 +35195,31 @@
               "language": "Dass",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)"
+              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'dass' is the German conjunction for 'that', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "Dass",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)"
+              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'dass' is the German conjunction for 'that', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             },
             {
               "language": "Dass",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)"
+              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'dass' is the German conjunction for 'that', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         },
@@ -34961,7 +35231,11 @@
               "language": "Dass",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)"
+              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'dass' is the German conjunction for 'that', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         },
@@ -34973,7 +35247,11 @@
               "language": "Dass",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)"
+              "flag_reason": "DASS = Depression Anxiety Stress Scales (psychology tool acronym)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The word 'dass' is the German conjunction for 'that', not a reference to a language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T16:24:10.717316+00:00"
             }
           ]
         }
@@ -85064,7 +85342,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippet refers to the English language as the medium of the paper's limitations section, implying it is mentioned_only",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-08-29T16:53:05.687112+00:00"
         },
         {
           "language": "Carrier",
@@ -85073,7 +85355,11 @@
           "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term 'Carrier' in the snippet refers to a specific section or appendix title rather than a human language, implying a false positive",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-08-29T16:53:05.687112+00:00"
         }
       ],
       "sources_checked": [
@@ -85091,7 +85377,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet refers to the English language as the medium of the paper's limitations section, implying it is mentioned_only",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-08-29T16:53:05.687112+00:00"
             }
           ]
         },
@@ -85103,7 +85393,11 @@
               "language": "Carrier",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers"
+              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'Carrier' in the snippet refers to a specific section or appendix title rather than a human language, implying a false positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-08-29T16:53:05.687112+00:00"
             }
           ]
         }
