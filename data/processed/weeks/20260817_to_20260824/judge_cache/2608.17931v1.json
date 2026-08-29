@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.17931v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-29T12:02:12.716200+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1836,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "In speech synthesis and dataset construction contexts, 'carrier' refers to 'carrier phrase' or 'carrier sentence' — a standard phonetics term for a fixed frame sentence used to elicit speech samples —",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "In the context of a sentiment label set and speech analysis, 'nasal' refers to nasal phonetic features or nasal sounds in speech, not the Nasal language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language in which the SpeechSense dataset is constructed and evaluated, as indicated by its appearance in the dataset construction pipeline and limitations sections.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

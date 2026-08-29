@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-08-29T08:27:58.652543+00:00",
+  "generated_at": "2026-08-29T12:18:46.219792+00:00",
   "window_days": 7,
   "week_start": "2026-08-17",
   "week_end": "2026-08-24",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 398,
-    "flagged_papers": 172,
-    "unique_languages": 122,
+    "flagged_papers": 171,
+    "unique_languages": 120,
     "unique_languages_mentioned_only": 9,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 212,
-      "judged_languages": 584,
-      "studied": 281,
+      "judged_papers": 215,
+      "judged_languages": 594,
+      "studied": 286,
       "mentioned_only": 78,
-      "false_positive": 225
+      "false_positive": 230
     }
   },
   "language_counts": [
@@ -27,8 +27,8 @@
     },
     {
       "language": "Chinese",
-      "count": 51,
-      "studied": 42,
+      "count": 50,
+      "studied": 41,
       "mentioned_only": 9
     },
     {
@@ -266,12 +266,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Carrier",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
       "language": "Catalan",
       "count": 2,
       "studied": 2,
@@ -374,12 +368,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Wanda",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
       "language": "Yoruba",
       "count": 2,
       "studied": 2,
@@ -444,6 +432,12 @@
       "count": 1,
       "studied": 0,
       "mentioned_only": 1
+    },
+    {
+      "language": "Carrier",
+      "count": 1,
+      "studied": 1,
+      "mentioned_only": 0
     },
     {
       "language": "Cherokee",
@@ -596,12 +590,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Luna",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Luxembourgish",
       "count": 1,
       "studied": 1,
@@ -669,12 +657,6 @@
     },
     {
       "language": "Mor",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Nasal",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -752,6 +734,12 @@
       "mentioned_only": 0
     },
     {
+      "language": "Wanda",
+      "count": 1,
+      "studied": 1,
+      "mentioned_only": 0
+    },
+    {
       "language": "Welsh",
       "count": 1,
       "studied": 1,
@@ -809,8 +797,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 58,
-      "studied": 54,
+      "count": 54,
+      "studied": 50,
       "mentioned_only": 4
     },
     {
@@ -839,8 +827,8 @@
     },
     {
       "class_id": 5,
-      "count": 323,
-      "studied": 276,
+      "count": 322,
+      "studied": 275,
       "mentioned_only": 47
     }
   ],
@@ -863,7 +851,7 @@
     {
       "date": "2026-08-20",
       "papers": 62,
-      "flagged": 27
+      "flagged": 26
     },
     {
       "date": "2026-08-21",
@@ -40647,14 +40635,22 @@
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Luna refers to one of the GPT-5.6 model variants (alongside Sol and Terra) used as an evaluated system, not the human language.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T11:52:00.096600+00:00"
         },
         {
           "language": "Chinese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Chinese appears in 'Chinese yuan,' referring to the currency used for cost conversion, not the Chinese language.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T11:52:00.096600+00:00"
         },
         {
           "language": "Wanda",
@@ -40663,7 +40659,11 @@
           "flag_reason": "Wanda = unstructured weight pruning method — common in model compression papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Wanda refers to the OWL/Wanda pruning method for neural network sparsity, not the human language.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T11:52:00.096600+00:00"
         }
       ],
       "sources_checked": [
@@ -40686,23 +40686,43 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to one of the GPT-5.6 model variants (alongside Sol and Terra) used as an evaluated system, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to one of the GPT-5.6 model variants (alongside Sol and Terra) used as an evaluated system, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to one of the GPT-5.6 model variants (alongside Sol and Terra) used as an evaluated system, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to one of the GPT-5.6 model variants (alongside Sol and Terra) used as an evaluated system, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to one of the GPT-5.6 model variants (alongside Sol and Terra) used as an evaluated system, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             }
           ]
         },
@@ -40712,7 +40732,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to one of the GPT-5.6 model variants (alongside Sol and Terra) used as an evaluated system, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             }
           ]
         },
@@ -40722,19 +40746,35 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to one of the GPT-5.6 model variants (alongside Sol and Terra) used as an evaluated system, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to one of the GPT-5.6 model variants (alongside Sol and Terra) used as an evaluated system, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to one of the GPT-5.6 model variants (alongside Sol and Terra) used as an evaluated system, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to one of the GPT-5.6 model variants (alongside Sol and Terra) used as an evaluated system, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             }
           ]
         },
@@ -40744,7 +40784,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Chinese appears in 'Chinese yuan,' referring to the currency used for cost conversion, not the Chinese language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             }
           ]
         },
@@ -40754,7 +40798,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Chinese appears in 'Chinese yuan,' referring to the currency used for cost conversion, not the Chinese language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             }
           ]
         },
@@ -40766,7 +40814,11 @@
               "language": "Wanda",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Wanda = unstructured weight pruning method — common in model compression papers"
+              "flag_reason": "Wanda = unstructured weight pruning method — common in model compression papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Wanda refers to the OWL/Wanda pruning method for neural network sparsity, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             }
           ]
         },
@@ -40778,7 +40830,11 @@
               "language": "Wanda",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Wanda = unstructured weight pruning method — common in model compression papers"
+              "flag_reason": "Wanda = unstructured weight pruning method — common in model compression papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Wanda refers to the OWL/Wanda pruning method for neural network sparsity, not the human language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T11:52:00.096600+00:00"
             }
           ]
         }
@@ -46998,28 +47054,44 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T11:52:13.447995+00:00"
         },
         {
           "language": "Chinese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T11:52:13.447995+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T11:52:13.447995+00:00"
         },
         {
           "language": "Spanish",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-29T11:52:13.447995+00:00"
         }
       ],
       "sources_checked": [
@@ -47038,19 +47110,35 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             }
           ]
         },
@@ -47060,19 +47148,35 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             }
           ]
         },
@@ -47082,19 +47186,35 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the language as part of a multilingual evaluation or implementation, indicating it was used in experiments. verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-29T11:52:13.447995+00:00"
             }
           ]
         }
@@ -56258,7 +56378,11 @@
           "flag_reason": "Linguistic term 'nasal consonant' — not a language name; appears in phonology papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "In the context of a sentiment label set and speech analysis, 'nasal' refers to nasal phonetic features or nasal sounds in speech, not the Nasal language.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T12:02:12.716200+00:00"
         },
         {
           "language": "Carrier",
@@ -56267,14 +56391,22 @@
           "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "In speech synthesis and dataset construction contexts, 'carrier' refers to 'carrier phrase' or 'carrier sentence' — a standard phonetics term for a fixed frame sentence used to elicit speech samples —",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T12:02:12.716200+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English is the language in which the SpeechSense dataset is constructed and evaluated, as indicated by its appearance in the dataset construction pipeline and limitations sections.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T12:02:12.716200+00:00"
         }
       ],
       "sources_checked": [
@@ -56299,23 +56431,39 @@
               "language": "Nasal",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Linguistic term 'nasal consonant' — not a language name; appears in phonology papers"
+              "flag_reason": "Linguistic term 'nasal consonant' — not a language name; appears in phonology papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the context of a sentiment label set and speech analysis, 'nasal' refers to nasal phonetic features or nasal sounds in speech, not the Nasal language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T12:02:12.716200+00:00"
             },
             {
               "language": "Carrier",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers"
+              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In speech synthesis and dataset construction contexts, 'carrier' refers to 'carrier phrase' or 'carrier sentence' — a standard phonetics term for a fixed frame sentence used to elicit speech samples —",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T12:02:12.716200+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the language in which the SpeechSense dataset is constructed and evaluated, as indicated by its appearance in the dataset construction pipeline and limitations sections.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T12:02:12.716200+00:00"
             },
             {
               "language": "Carrier",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers"
+              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In speech synthesis and dataset construction contexts, 'carrier' refers to 'carrier phrase' or 'carrier sentence' — a standard phonetics term for a fixed frame sentence used to elicit speech samples —",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T12:02:12.716200+00:00"
             }
           ]
         },
@@ -56327,7 +56475,11 @@
               "language": "Nasal",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Linguistic term 'nasal consonant' — not a language name; appears in phonology papers"
+              "flag_reason": "Linguistic term 'nasal consonant' — not a language name; appears in phonology papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the context of a sentiment label set and speech analysis, 'nasal' refers to nasal phonetic features or nasal sounds in speech, not the Nasal language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T12:02:12.716200+00:00"
             }
           ]
         },
@@ -56339,11 +56491,19 @@
               "language": "Carrier",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers"
+              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In speech synthesis and dataset construction contexts, 'carrier' refers to 'carrier phrase' or 'carrier sentence' — a standard phonetics term for a fixed frame sentence used to elicit speech samples —",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T12:02:12.716200+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the language in which the SpeechSense dataset is constructed and evaluated, as indicated by its appearance in the dataset construction pipeline and limitations sections.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T12:02:12.716200+00:00"
             }
           ]
         },
@@ -56355,7 +56515,11 @@
               "language": "Carrier",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers"
+              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In speech synthesis and dataset construction contexts, 'carrier' refers to 'carrier phrase' or 'carrier sentence' — a standard phonetics term for a fixed frame sentence used to elicit speech samples —",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T12:02:12.716200+00:00"
             }
           ]
         },
@@ -56367,7 +56531,11 @@
               "language": "Carrier",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers"
+              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In speech synthesis and dataset construction contexts, 'carrier' refers to 'carrier phrase' or 'carrier sentence' — a standard phonetics term for a fixed frame sentence used to elicit speech samples —",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T12:02:12.716200+00:00"
             }
           ]
         },
@@ -56379,7 +56547,11 @@
               "language": "Carrier",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers"
+              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In speech synthesis and dataset construction contexts, 'carrier' refers to 'carrier phrase' or 'carrier sentence' — a standard phonetics term for a fixed frame sentence used to elicit speech samples —",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T12:02:12.716200+00:00"
             }
           ]
         },
@@ -56389,7 +56561,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the language in which the SpeechSense dataset is constructed and evaluated, as indicated by its appearance in the dataset construction pipeline and limitations sections.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T12:02:12.716200+00:00"
             }
           ]
         }
