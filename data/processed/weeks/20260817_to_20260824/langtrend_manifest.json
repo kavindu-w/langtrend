@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T00:13:58.760136+00:00",
+  "generated_at": "2026-08-29T02:23:34.211083+00:00",
   "window_days": 7,
   "week_start": "2026-08-17",
   "week_end": "2026-08-24",
@@ -7,23 +7,23 @@
   "counts": {
     "papers": 398,
     "flagged_papers": 181,
-    "unique_languages": 135,
+    "unique_languages": 134,
     "unique_languages_mentioned_only": 9,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 191,
-      "judged_languages": 504,
-      "studied": 242,
-      "mentioned_only": 68,
-      "false_positive": 194
+      "judged_papers": 194,
+      "judged_languages": 519,
+      "studied": 252,
+      "mentioned_only": 70,
+      "false_positive": 197
     }
   },
   "language_counts": [
     {
       "language": "English",
       "count": 147,
-      "studied": 128,
-      "mentioned_only": 19
+      "studied": 127,
+      "mentioned_only": 20
     },
     {
       "language": "Chinese",
@@ -46,8 +46,8 @@
     {
       "language": "French",
       "count": 25,
-      "studied": 21,
-      "mentioned_only": 4
+      "studied": 20,
+      "mentioned_only": 5
     },
     {
       "language": "Japanese",
@@ -74,16 +74,16 @@
       "mentioned_only": 0
     },
     {
-      "language": "Latin",
-      "count": 12,
-      "studied": 12,
-      "mentioned_only": 0
-    },
-    {
       "language": "Russian",
       "count": 12,
       "studied": 11,
       "mentioned_only": 1
+    },
+    {
+      "language": "Latin",
+      "count": 11,
+      "studied": 11,
+      "mentioned_only": 0
     },
     {
       "language": "Portuguese",
@@ -176,12 +176,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Hungarian",
-      "count": 4,
-      "studied": 4,
-      "mentioned_only": 0
-    },
-    {
       "language": "Persian",
       "count": 4,
       "studied": 4,
@@ -228,6 +222,12 @@
       "count": 3,
       "studied": 2,
       "mentioned_only": 1
+    },
+    {
+      "language": "Hungarian",
+      "count": 3,
+      "studied": 3,
+      "mentioned_only": 0
     },
     {
       "language": "Loo",
@@ -662,12 +662,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Lik",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Lingala",
       "count": 1,
       "studied": 1,
@@ -887,8 +881,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 83,
-      "studied": 79,
+      "count": 82,
+      "studied": 78,
       "mentioned_only": 4
     },
     {
@@ -905,21 +899,21 @@
     },
     {
       "class_id": 3,
-      "count": 72,
-      "studied": 63,
+      "count": 71,
+      "studied": 62,
       "mentioned_only": 9
     },
     {
       "class_id": 4,
-      "count": 112,
-      "studied": 104,
+      "count": 111,
+      "studied": 103,
       "mentioned_only": 8
     },
     {
       "class_id": 5,
       "count": 324,
-      "studied": 284,
-      "mentioned_only": 40
+      "studied": 282,
+      "mentioned_only": 42
     }
   ],
   "daily_series": [
@@ -21366,7 +21360,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:23:47.775736+00:00"
         },
         {
           "language": "Latin",
@@ -21375,14 +21373,22 @@
           "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippets refer to 'Latin character ratios' and 'Latin' as a script type alongside Bangla, meaning the Latin alphabet/script rather than the Latin language.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:23:47.775736+00:00"
         },
         {
           "language": "Lik",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The matched text 'prmpt lik akrmn bebohar kora theke' is Romanized Bangla where 'lik' is part of the Bangla verb 'likha' (to write), not a reference to the Lik language.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:23:47.775736+00:00"
         }
       ],
       "sources_checked": [
@@ -21408,7 +21414,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             }
           ]
         },
@@ -21418,11 +21428,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             }
           ]
         },
@@ -21432,39 +21450,71 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets refer to 'Latin character ratios' and 'Latin' as a script type alongside Bangla, meaning the Latin alphabet/script rather than the Latin language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets refer to 'Latin character ratios' and 'Latin' as a script type alongside Bangla, meaning the Latin alphabet/script rather than the Latin language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             }
           ]
         },
@@ -21474,7 +21524,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             }
           ]
         },
@@ -21484,11 +21538,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             }
           ]
         },
@@ -21500,13 +21562,21 @@
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets refer to 'Latin character ratios' and 'Latin' as a script type alongside Bangla, meaning the Latin alphabet/script rather than the Latin language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets refer to 'Latin character ratios' and 'Latin' as a script type alongside Bangla, meaning the Latin alphabet/script rather than the Latin language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             }
           ]
         },
@@ -21516,7 +21586,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             }
           ]
         },
@@ -21526,7 +21600,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             }
           ]
         },
@@ -21536,7 +21614,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             }
           ]
         },
@@ -21546,15 +21628,27 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "Lik",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text 'prmpt lik akrmn bebohar kora theke' is Romanized Bangla where 'lik' is part of the Bangla verb 'likha' (to write), not a reference to the Lik language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:23:47.775736+00:00"
             }
           ]
         }
@@ -31957,63 +32051,99 @@
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Italian is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:33:14.897165+00:00"
         },
         {
           "language": "Portuguese",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Portuguese is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:33:14.897165+00:00"
         },
         {
           "language": "Chinese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Chinese is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:33:14.897165+00:00"
         },
         {
           "language": "French",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "French is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:33:14.897165+00:00"
         },
         {
           "language": "German",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "German is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:33:14.897165+00:00"
         },
         {
           "language": "Japanese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Japanese is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:33:14.897165+00:00"
         },
         {
           "language": "Spanish",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Spanish is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:33:14.897165+00:00"
         },
         {
           "language": "Hungarian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippets refer to the 'Hungarian algorithm' for bipartite matching in the evaluation framework, not the Hungarian language.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:33:14.897165+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English is the language of the FUNSD dataset and is shown in qualitative analysis as a language on which the model is evaluated.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T01:33:14.897165+00:00"
         }
       ],
       "sources_checked": [
@@ -32037,35 +32167,67 @@
           "detected_languages": [
             {
               "language": "Italian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Italian is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Portuguese",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Portuguese is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Japanese is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets refer to the 'Hungarian algorithm' for bipartite matching in the evaluation framework, not the Hungarian language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             }
           ]
         },
@@ -32075,31 +32237,59 @@
           "detected_languages": [
             {
               "language": "Italian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Italian is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Portuguese",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Portuguese is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is listed as one of the seven languages in the XFUND multilingual benchmark on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Japanese is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             }
           ]
         },
@@ -32109,7 +32299,11 @@
           "detected_languages": [
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets refer to the 'Hungarian algorithm' for bipartite matching in the evaluation framework, not the Hungarian language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             }
           ]
         },
@@ -32119,7 +32313,11 @@
           "detected_languages": [
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets refer to the 'Hungarian algorithm' for bipartite matching in the evaluation framework, not the Hungarian language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             }
           ]
         },
@@ -32129,27 +32327,51 @@
           "detected_languages": [
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets refer to the 'Hungarian algorithm' for bipartite matching in the evaluation framework, not the Hungarian language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Japanese is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the language of the FUNSD dataset and is shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Japanese is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             }
           ]
         },
@@ -32159,7 +32381,11 @@
           "detected_languages": [
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets refer to the 'Hungarian algorithm' for bipartite matching in the evaluation framework, not the Hungarian language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             }
           ]
         },
@@ -32169,7 +32395,11 @@
           "detected_languages": [
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippets refer to the 'Hungarian algorithm' for bipartite matching in the evaluation framework, not the Hungarian language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             }
           ]
         },
@@ -32179,23 +32409,43 @@
           "detected_languages": [
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Japanese is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the language of the FUNSD dataset and is shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Japanese is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish is listed as one of the seven languages in the XFUND benchmark and shown in qualitative analysis as a language on which the model is evaluated.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T01:33:14.897165+00:00"
             }
           ]
         }
@@ -78627,21 +78877,33 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T02:20:05.943503+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "English is mentioned only as a language that code-switches with Tunisian Arabic in the dataset; the paper does not study or build resources for English itself.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T02:20:05.943503+00:00"
         },
         {
           "language": "French",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "French is mentioned only as a code-switching partner of Tunisian Arabic and as a reason for rejecting some synthetic utterances; the paper does not study or build resources for French itself.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T02:20:05.943503+00:00"
         }
       ],
       "sources_checked": [
@@ -78668,15 +78930,27 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned only as a language that code-switches with Tunisian Arabic in the dataset; the paper does not study or build resources for English itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French is mentioned only as a code-switching partner of Tunisian Arabic and as a reason for rejecting some synthetic utterances; the paper does not study or build resources for French itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             }
           ]
         },
@@ -78686,7 +78960,11 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             }
           ]
         },
@@ -78696,7 +78974,11 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             }
           ]
         },
@@ -78706,7 +78988,11 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             }
           ]
         },
@@ -78716,15 +79002,27 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French is mentioned only as a code-switching partner of Tunisian Arabic and as a reason for rejecting some synthetic utterances; the paper does not study or build resources for French itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             }
           ]
         },
@@ -78734,7 +79032,11 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             }
           ]
         },
@@ -78744,11 +79046,19 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French is mentioned only as a code-switching partner of Tunisian Arabic and as a reason for rejecting some synthetic utterances; the paper does not study or build resources for French itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             }
           ]
         },
@@ -78758,39 +79068,75 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned only as a language that code-switches with Tunisian Arabic in the dataset; the paper does not study or build resources for English itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French is mentioned only as a code-switching partner of Tunisian Arabic and as a reason for rejecting some synthetic utterances; the paper does not study or build resources for French itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned only as a language that code-switches with Tunisian Arabic in the dataset; the paper does not study or build resources for English itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French is mentioned only as a code-switching partner of Tunisian Arabic and as a reason for rejecting some synthetic utterances; the paper does not study or build resources for French itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned only as a language that code-switches with Tunisian Arabic in the dataset; the paper does not study or build resources for English itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French is mentioned only as a code-switching partner of Tunisian Arabic and as a reason for rejecting some synthetic utterances; the paper does not study or build resources for French itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             }
           ]
         },
@@ -78800,15 +79146,27 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned only as a language that code-switches with Tunisian Arabic in the dataset; the paper does not study or build resources for English itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French is mentioned only as a code-switching partner of Tunisian Arabic and as a reason for rejecting some synthetic utterances; the paper does not study or build resources for French itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             }
           ]
         },
@@ -78818,15 +79176,27 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned only as a language that code-switches with Tunisian Arabic in the dataset; the paper does not study or build resources for English itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French is mentioned only as a code-switching partner of Tunisian Arabic and as a reason for rejecting some synthetic utterances; the paper does not study or build resources for French itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             }
           ]
         },
@@ -78836,15 +79206,27 @@
           "detected_languages": [
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Arabic as a human language (Tunisian Arabic, dialectal Arabic, MSA) and the paper builds and evaluates SLU models for Tunisian Arabic speech, making it a core language of the pap",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is mentioned only as a language that code-switches with Tunisian Arabic in the dataset; the paper does not study or build resources for English itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French is mentioned only as a code-switching partner of Tunisian Arabic and as a reason for rejecting some synthetic utterances; the paper does not study or build resources for French itself.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T02:20:05.943503+00:00"
             }
           ]
         }

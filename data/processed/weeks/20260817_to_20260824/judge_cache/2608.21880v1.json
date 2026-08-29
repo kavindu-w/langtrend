@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.21880v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-29T01:23:47.775736+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6826,
+  "verdicts": {
+    "Lik": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'prmpt lik akrmn bebohar kora theke' is Romanized Bangla where 'lik' is part of the Bangla verb 'likha' (to write), not a reference to the Lik language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'Latin character ratios' and 'Latin' as a script type alongside Bangla, meaning the Latin alphabet/script rather than the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a human language used in code-mixed Bangla–English prompts, noun-only English substitutions, and response scoring for refusal phrases in English, making it part of the benchma",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
