@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.17168v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-29T06:09:13.657514+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4032,
+  "verdicts": {
+    "Kara": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Halit Kara v Türkiye', a person's name who is a party in a legal case, not the Kara language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Kula": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Kula v Turkey', a case name and party in an ECtHR case, not the Kula language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Turkish": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'Turkish' as an adjective referring to Turkish courts, authorities, and the Constitutional Court of Turkey, not the Turkish language itself; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
