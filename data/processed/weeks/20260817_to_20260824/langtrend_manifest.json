@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-29T17:38:04.964573+00:00",
+  "generated_at": "2026-08-29T23:27:00.764578+00:00",
   "window_days": 7,
   "week_start": "2026-08-17",
   "week_end": "2026-08-24",
@@ -7,15 +7,15 @@
   "counts": {
     "papers": 398,
     "flagged_papers": 168,
-    "unique_languages": 112,
+    "unique_languages": 111,
     "unique_languages_mentioned_only": 10,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 226,
-      "judged_languages": 625,
-      "studied": 296,
+      "judged_papers": 228,
+      "judged_languages": 628,
+      "studied": 298,
       "mentioned_only": 85,
-      "false_positive": 244
+      "false_positive": 245
     }
   },
   "language_counts": [
@@ -428,12 +428,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Dera",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Fam",
       "count": 1,
       "studied": 1,
@@ -755,8 +749,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 43,
-      "studied": 39,
+      "count": 42,
+      "studied": 38,
       "mentioned_only": 4
     },
     {
@@ -81293,7 +81287,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets show prompt instructions specifying that the model should write 'English medical' explanations and rationales, referring to the English language as the output language used in the paper's",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T23:24:21.762294+00:00"
         }
       ],
       "sources_checked": [
@@ -81311,15 +81309,27 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets show prompt instructions specifying that the model should write 'English medical' explanations and rationales, referring to the English language as the output language used in the paper's",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:24:21.762294+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets show prompt instructions specifying that the model should write 'English medical' explanations and rationales, referring to the English language as the output language used in the paper's",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:24:21.762294+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets show prompt instructions specifying that the model should write 'English medical' explanations and rationales, referring to the English language as the output language used in the paper's",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:24:21.762294+00:00"
             }
           ]
         },
@@ -81329,15 +81339,27 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets show prompt instructions specifying that the model should write 'English medical' explanations and rationales, referring to the English language as the output language used in the paper's",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:24:21.762294+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets show prompt instructions specifying that the model should write 'English medical' explanations and rationales, referring to the English language as the output language used in the paper's",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:24:21.762294+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets show prompt instructions specifying that the model should write 'English medical' explanations and rationales, referring to the English language as the output language used in the paper's",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:24:21.762294+00:00"
             }
           ]
         }
@@ -82858,14 +82880,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to the Japanese language as the language of the interview dialogue systems used in evaluation, with Japanese word tokenization via Sudachi, confirming the paper builds and evaluates",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T23:23:40.463497+00:00"
         },
         {
           "language": "Dera",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The matched text refers to 'Kiyomizu-dera Temple', a place name (a famous temple in Kyoto), not the Dera language.",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-29T23:23:40.463497+00:00"
         }
       ],
       "sources_checked": [
@@ -82886,19 +82916,35 @@
           "detected_languages": [
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the Japanese language as the language of the interview dialogue systems used in evaluation, with Japanese word tokenization via Sudachi, confirming the paper builds and evaluates",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:23:40.463497+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the Japanese language as the language of the interview dialogue systems used in evaluation, with Japanese word tokenization via Sudachi, confirming the paper builds and evaluates",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:23:40.463497+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the Japanese language as the language of the interview dialogue systems used in evaluation, with Japanese word tokenization via Sudachi, confirming the paper builds and evaluates",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:23:40.463497+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the Japanese language as the language of the interview dialogue systems used in evaluation, with Japanese word tokenization via Sudachi, confirming the paper builds and evaluates",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:23:40.463497+00:00"
             }
           ]
         },
@@ -82908,11 +82954,19 @@
           "detected_languages": [
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the Japanese language as the language of the interview dialogue systems used in evaluation, with Japanese word tokenization via Sudachi, confirming the paper builds and evaluates",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:23:40.463497+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the Japanese language as the language of the interview dialogue systems used in evaluation, with Japanese word tokenization via Sudachi, confirming the paper builds and evaluates",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:23:40.463497+00:00"
             }
           ]
         },
@@ -82922,7 +82976,11 @@
           "detected_languages": [
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the Japanese language as the language of the interview dialogue systems used in evaluation, with Japanese word tokenization via Sudachi, confirming the paper builds and evaluates",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:23:40.463497+00:00"
             }
           ]
         },
@@ -82932,7 +82990,11 @@
           "detected_languages": [
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the Japanese language as the language of the interview dialogue systems used in evaluation, with Japanese word tokenization via Sudachi, confirming the paper builds and evaluates",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:23:40.463497+00:00"
             }
           ]
         },
@@ -82942,11 +83004,19 @@
           "detected_languages": [
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the Japanese language as the language of the interview dialogue systems used in evaluation, with Japanese word tokenization via Sudachi, confirming the paper builds and evaluates",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:23:40.463497+00:00"
             },
             {
               "language": "Dera",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text refers to 'Kiyomizu-dera Temple', a place name (a famous temple in Kyoto), not the Dera language.",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-29T23:23:40.463497+00:00"
             }
           ]
         }

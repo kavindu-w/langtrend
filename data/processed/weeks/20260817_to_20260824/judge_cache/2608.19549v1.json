@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.19549v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-29T23:23:40.463497+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4752,
+  "verdicts": {
+    "Dera": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to 'Kiyomizu-dera Temple', a place name (a famous temple in Kyoto), not the Dera language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Japanese language as the language of the interview dialogue systems used in evaluation, with Japanese word tokenization via Sudachi, confirming the paper builds and evaluates",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
