@@ -497,7 +497,6 @@ jobs:
         if: always() && (steps.judge.outcome == 'failure' || (steps.judge.outputs.failed_count != '0' && steps.judge.outputs.failed_count != ''))
         env:
           NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
-          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
         run: |
           run_url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if [ "${{ steps.judge.outcome }}" = "failure" ]; then
@@ -507,14 +506,14 @@ jobs:
           fi
           errors=$(grep -E '  (ERROR|TIMEOUT):' judge_output.log 2>/dev/null | sort -u | tail -20 || true)
           body=$(printf '%s\n\n%s\n\n%s\n' "$title" "$errors" "$run_url")
-          if [ -n "${NOTIFY_WEBHOOK_URL:-}" ] && [ -n "${NOTIFY_EMAIL:-}" ]; then
-            # Visible diagnostics: swallowing the curl response entirely hid a
-            # real, persistent failure — ntfy.sh rejects X-Email on anonymous
-            # (unreserved) topics with HTTP 400 "anonymous email sending is
-            # not allowed". Surfacing status/body here so that (or any future
-            # delivery failure) shows up in the run log instead of no-op'ing.
+          if [ -n "${NOTIFY_WEBHOOK_URL:-}" ]; then
+            # Push only — email forwarding (X-Email) was removed: ntfy.sh
+            # rejects it on anonymous/unreserved topics with HTTP 400
+            # ("anonymous email sending is not allowed"), so it never worked.
+            # Diagnostics stay visible (status/body) instead of swallowed, in
+            # case delivery ever fails for another reason.
             set +e
-            http_code=$(curl -sS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" \
+            http_code=$(curl -sS -X POST -H "Title: ${title}" \
               --data-binary "$body" "$NOTIFY_WEBHOOK_URL" -o /tmp/notify_response.txt -w "%{http_code}")
             curl_exit=$?
             set -e
@@ -643,7 +642,6 @@ jobs:
         if: always() && (steps.judge.outcome == 'failure' || (steps.judge.outputs.failed_count != '0' && steps.judge.outputs.failed_count != ''))
         env:
           NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
-          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
         run: |
           run_url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if [ "${{ steps.judge.outcome }}" = "failure" ]; then
@@ -653,14 +651,14 @@ jobs:
           fi
           errors=$(grep -E '  (ERROR|TIMEOUT):' judge_output.log 2>/dev/null | sort -u | tail -20 || true)
           body=$(printf '%s\n\n%s\n\n%s\n' "$title" "$errors" "$run_url")
-          if [ -n "${NOTIFY_WEBHOOK_URL:-}" ] && [ -n "${NOTIFY_EMAIL:-}" ]; then
-            # Visible diagnostics: swallowing the curl response entirely hid a
-            # real, persistent failure — ntfy.sh rejects X-Email on anonymous
-            # (unreserved) topics with HTTP 400 "anonymous email sending is
-            # not allowed". Surfacing status/body here so that (or any future
-            # delivery failure) shows up in the run log instead of no-op'ing.
+          if [ -n "${NOTIFY_WEBHOOK_URL:-}" ]; then
+            # Push only — email forwarding (X-Email) was removed: ntfy.sh
+            # rejects it on anonymous/unreserved topics with HTTP 400
+            # ("anonymous email sending is not allowed"), so it never worked.
+            # Diagnostics stay visible (status/body) instead of swallowed, in
+            # case delivery ever fails for another reason.
             set +e
-            http_code=$(curl -sS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" \
+            http_code=$(curl -sS -X POST -H "Title: ${title}" \
               --data-binary "$body" "$NOTIFY_WEBHOOK_URL" -o /tmp/notify_response.txt -w "%{http_code}")
             curl_exit=$?
             set -e
