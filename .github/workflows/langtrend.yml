@@ -508,8 +508,18 @@ jobs:
           errors=$(grep -E '  (ERROR|TIMEOUT):' judge_output.log 2>/dev/null | sort -u | tail -20 || true)
           body=$(printf '%s\n\n%s\n\n%s\n' "$title" "$errors" "$run_url")
           if [ -n "${NOTIFY_WEBHOOK_URL:-}" ] && [ -n "${NOTIFY_EMAIL:-}" ]; then
-            curl -fsS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" \
-              --data-binary "$body" "$NOTIFY_WEBHOOK_URL" >/dev/null 2>&1 || true
+            # Visible diagnostics: swallowing the curl response entirely hid a
+            # real, persistent failure — ntfy.sh rejects X-Email on anonymous
+            # (unreserved) topics with HTTP 400 "anonymous email sending is
+            # not allowed". Surfacing status/body here so that (or any future
+            # delivery failure) shows up in the run log instead of no-op'ing.
+            set +e
+            http_code=$(curl -sS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" \
+              --data-binary "$body" "$NOTIFY_WEBHOOK_URL" -o /tmp/notify_response.txt -w "%{http_code}")
+            curl_exit=$?
+            set -e
+            echo "notify: curl exit=$curl_exit http_status=$http_code"
+            cat /tmp/notify_response.txt 2>/dev/null || true
           fi
 
       # Fold whatever verdicts landed this pass into the manifest so partial
@@ -644,8 +654,18 @@ jobs:
           errors=$(grep -E '  (ERROR|TIMEOUT):' judge_output.log 2>/dev/null | sort -u | tail -20 || true)
           body=$(printf '%s\n\n%s\n\n%s\n' "$title" "$errors" "$run_url")
           if [ -n "${NOTIFY_WEBHOOK_URL:-}" ] && [ -n "${NOTIFY_EMAIL:-}" ]; then
-            curl -fsS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" \
-              --data-binary "$body" "$NOTIFY_WEBHOOK_URL" >/dev/null 2>&1 || true
+            # Visible diagnostics: swallowing the curl response entirely hid a
+            # real, persistent failure — ntfy.sh rejects X-Email on anonymous
+            # (unreserved) topics with HTTP 400 "anonymous email sending is
+            # not allowed". Surfacing status/body here so that (or any future
+            # delivery failure) shows up in the run log instead of no-op'ing.
+            set +e
+            http_code=$(curl -sS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" \
+              --data-binary "$body" "$NOTIFY_WEBHOOK_URL" -o /tmp/notify_response.txt -w "%{http_code}")
+            curl_exit=$?
+            set -e
+            echo "notify: curl exit=$curl_exit http_status=$http_code"
+            cat /tmp/notify_response.txt 2>/dev/null || true
           fi
 
       # if: always() on this and the two steps below — if the judge step above

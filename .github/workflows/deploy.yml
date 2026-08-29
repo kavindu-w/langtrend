@@ -103,8 +103,18 @@ jobs:
           if [ -n "${NOTIFY_WEBHOOK_URL:-}" ] && [ -n "${NOTIFY_EMAIL:-}" ]; then
             # Markdown: yes — the stats block above is raw Markdown (a table,
             # bold, a blockquote); without this ntfy sends it as literal text.
-            curl -fsS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" -H "Markdown: yes" \
-              --data-binary "$body" "$NOTIFY_WEBHOOK_URL" >/dev/null 2>&1 || true
+            # Visible diagnostics: swallowing the curl response entirely hid a
+            # real, persistent failure — ntfy.sh rejects X-Email on anonymous
+            # (unreserved) topics with HTTP 400 "anonymous email sending is
+            # not allowed". Surfacing status/body here so that (or any future
+            # delivery failure) shows up in the run log instead of no-op'ing.
+            set +e
+            http_code=$(curl -sS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" -H "Markdown: yes" \
+              --data-binary "$body" "$NOTIFY_WEBHOOK_URL" -o /tmp/notify_response.txt -w "%{http_code}")
+            curl_exit=$?
+            set -e
+            echo "notify: curl exit=$curl_exit http_status=$http_code"
+            cat /tmp/notify_response.txt 2>/dev/null || true
           fi
 
       - name: Upload snapshot artifact (for debugging)
