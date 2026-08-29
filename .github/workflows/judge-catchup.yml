@@ -27,7 +27,13 @@ on:
     - cron: '0 13 * * *'
     - cron: '0 21 * * *'
     - cron: '0 5 * * *'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      test_notify_only:
+        description: 'TEMPORARY (for testing): skip judging, fake a failure to fire the notify step fast'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -75,6 +81,7 @@ jobs:
       # off. Exit 3 (stopped early, e.g. quota exhausted) is expected.
       - name: Judge pending papers across every week (LLM)
         id: judge
+        if: inputs.test_notify_only != true
         env:
           LLM_JUDGE_API_KEY: ${{ secrets.LLM_JUDGE_API_KEY }}
           LLM_JUDGE_BASE_URL: ${{ vars.LLM_JUDGE_BASE_URL }}
@@ -96,23 +103,44 @@ jobs:
             exit "$code"
           fi
 
+      # TEMPORARY: fakes a judge failure so the notify step below fires
+      # immediately, for testing webhook delivery without waiting on a full
+      # judging pass. Remove alongside the test_notify_only input above.
+      - name: Fake a judge failure (notify test)
+        id: judge_fake
+        if: inputs.test_notify_only == true
+        run: |
+          echo "  ERROR: [test-paper-id] RuntimeError: synthetic failure for notify testing" | tee judge_output.log
+          echo "Judged: 0  Failed: 1  Cached: 0  Mean latency: 0.0s" | tee -a judge_output.log
+          echo "failed_count=1" >> "$GITHUB_OUTPUT"
+
       - name: Notify on judge errors
-        if: always() && (steps.judge.outcome == 'failure' || (steps.judge.outputs.failed_count != '0' && steps.judge.outputs.failed_count != ''))
+        if: always() && (steps.judge.outcome == 'failure' || (steps.judge.outputs.failed_count != '0' && steps.judge.outputs.failed_count != '') || steps.judge_fake.outputs.failed_count == '1')
         env:
           NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
           NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
         run: |
+          failed_count="${{ steps.judge.outputs.failed_count || steps.judge_fake.outputs.failed_count }}"
           run_url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if [ "${{ steps.judge.outcome }}" = "failure" ]; then
             title="LangTrend judge-catchup job FAILED"
           else
-            title="LangTrend judge-catchup: ${{ steps.judge.outputs.failed_count }} paper(s) failed"
+            title="LangTrend judge-catchup: ${failed_count} paper(s) failed"
           fi
           errors=$(grep -E '  (ERROR|TIMEOUT):' judge_output.log 2>/dev/null | sort -u | tail -20 || true)
           body=$(printf '%s\n\n%s\n\n%s\n' "$title" "$errors" "$run_url")
+          echo "NOTIFY_WEBHOOK_URL set: $([ -n "${NOTIFY_WEBHOOK_URL:-}" ] && echo yes || echo no)"
+          echo "NOTIFY_EMAIL set: $([ -n "${NOTIFY_EMAIL:-}" ] && echo yes || echo no)"
           if [ -n "${NOTIFY_WEBHOOK_URL:-}" ] && [ -n "${NOTIFY_EMAIL:-}" ]; then
-            curl -fsS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" \
-              --data-binary "$body" "$NOTIFY_WEBHOOK_URL" >/dev/null 2>&1 || true
+            set +e
+            http_code=$(curl -sS -X POST -H "Title: ${title}" -H "X-Email: ${NOTIFY_EMAIL}" \
+              --data-binary "$body" "$NOTIFY_WEBHOOK_URL" -o /tmp/notify_response.txt -w "%{http_code}")
+            curl_exit=$?
+            set -e
+            echo "curl exit code: $curl_exit"
+            echo "HTTP status: $http_code"
+            echo "Response body:"
+            cat /tmp/notify_response.txt 2>/dev/null || true
           fi
 
       # Same per-week gate as langtrend.yml's judge job — deploy shouldn't
