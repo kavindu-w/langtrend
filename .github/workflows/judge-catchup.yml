@@ -4,10 +4,13 @@ name: LangTrend Judge Catch-up
 # at midnight UTC), which is comfortably enough for one week's worth of papers
 # but not always enough to also clear an existing backlog same-day. This
 # workflow retries whatever judge_languages.py left pending (any week, newest
-# first so the current week is prioritized over older backlog) once a day. It
-# shares the "deploy" concurrency group with langtrend.yml, so GitHub Actions
-# queues it behind the weekly pipeline automatically if they'd otherwise
-# overlap — no need to guess how long that pipeline will run.
+# first so the current week is prioritized over older backlog) three times a
+# day, 8 hours apart (13:00, 21:00, 05:00 UTC). It shares the "deploy"
+# concurrency group with langtrend.yml, so GitHub Actions queues it behind the
+# weekly pipeline automatically if they'd otherwise overlap — no need to guess
+# how long that pipeline will run. The same group also means these three daily
+# triggers queue behind each other rather than running concurrently if one is
+# still in progress when the next fires.
 #
 # Fires every day (including the same day as the weekly pipeline); this is
 # intentionally not special-cased around Tuesday, since judge_languages.py's
@@ -22,6 +25,8 @@ name: LangTrend Judge Catch-up
 on:
   schedule:
     - cron: '0 13 * * *'
+    - cron: '0 21 * * *'
+    - cron: '0 5 * * *'
   workflow_dispatch: {}
 
 permissions:
