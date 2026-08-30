@@ -72,7 +72,46 @@ jobs:
 
       # Resumable: already-judged papers are skipped, so this just continues
       # wherever the last run (weekly pipeline or a previous catch-up) left
-      # off. Exit 3 (stopped early, e.g. quota exhausted) is expected.
+      # off. Exit 3 (stopped early, e.g. quota exhausted) is expected — quota
+      # resets at midnight UTC, so retrying sooner wouldn't help; that case is
+      # left for the next scheduled run, same as before.
+      #
+      # Two different things call for a retry-within-this-run, both worth
+      # looping on since a paper that fails leaves no judge_cache file and so
+      # comes back as "pending" on the very next invocation — a fresh call is
+      # literally what "retry" means here:
+      #   - Exit 1: judge_languages.py couldn't even start — client.ping()
+      #     raised LLMUnavailableError (network unreachable, or a 5xx from
+      #     the endpoint) before a single paper was judged. Everything that
+      #     can go wrong once judging is underway already yields 0 or 3
+      #     instead.
+      #   - Exit 0 with "Failed: N" > 0: judging ran, but some papers'
+      #     individual chat() calls errored out (e.g. the endpoint died
+      #     partway through a big backlog) — judge_languages.py already
+      #     retries each one 3x with its own backoff/fallback-model chain
+      #     before giving up on it, logs it as "  ERROR: [id] ...", and
+      #     moves on rather than aborting the whole sweep.
+      # An auth failure (401/403) is deliberately NOT retried — a bad key
+      # won't fix itself by waiting. Otherwise there's no attempt cap: it
+      # just keeps rejudging whatever's still pending, with backoff (1/2/4/
+      # .../10 min, capped so a long outage still gets re-checked regularly)
+      # between passes, until either everything's judged, quota is hit, or a
+      # hard 5h50m wall-clock budget for this step runs out — 10 min of the
+      # 6h per-job ceiling held back for the steps after this one (check/
+      # rebuild-manifest/update-readme/commit), which are fast but still
+      # need to run rather than being left to GitHub's own job cancellation
+      # to trigger them. Every attempt (the first one included) runs under
+      # `timeout`, capped to whatever's left of the budget, so one pass
+      # can't blow past the cutoff by itself even if it hangs. This never
+      # interrupts a paper's own retries — each judge_languages.py
+      # invocation runs its full per-paper retry/fallback-model chain to
+      # completion undisturbed; only the budget's edge can cut a pass off
+      # mid-run, via SIGTERM (then SIGKILL after 30s if that doesn't land).
+      # That's safe because each paper's judge_cache file is written as soon
+      # as that paper finishes, so a cutoff only loses in-flight work, not
+      # anything already done. Whatever's still pending when this step ends
+      # — for any reason — is left for the if: always() steps below to
+      # commit, and the 13:00/21:00/05:00 UTC schedule to pick up next time.
       - name: Judge pending papers across every week (LLM)
         id: judge
         env:
@@ -84,15 +123,67 @@ jobs:
           LLM_JUDGE_RPH: ${{ vars.LLM_JUDGE_RPH }}
         run: |
           set +e
-          python scripts/judge_languages.py --sweep-all-weeks --skip-if-unconfigured 2>&1 | tee judge_output.log
-          code=${PIPESTATUS[0]}
+          budget_seconds=$((5 * 3600 + 50 * 60))  # 5h50m hard cutoff for this step
+          max_delay=600  # cap backoff at 10 min so a long outage still gets re-checked regularly
+          step_start=$(date +%s)
+          delay=60
+          code=0
+          : > judge_output.log  # accumulate across attempts (tee -a below) so no attempt's errors are lost
+          while true; do
+            remaining=$((budget_seconds - ($(date +%s) - step_start)))
+            if [ "$remaining" -le 0 ]; then
+              echo "Hit the ${budget_seconds}s retry budget — stopping so the save/deploy-gate steps still run before GitHub's 6h job ceiling."
+              code=124
+              break
+            fi
+
+            timeout -k 30s "${remaining}s" python scripts/judge_languages.py --sweep-all-weeks --skip-if-unconfigured 2>&1 | tee -a judge_output.log
+            code=${PIPESTATUS[0]}
+            failed=$(grep -oE 'Failed: [0-9]+' judge_output.log | tail -1 | grep -oE '[0-9]+' || true)
+            failed=${failed:-0}
+
+            if [ "$code" = "124" ]; then
+              echo "Judging pass hit the retry budget mid-run — stopping so the save/deploy-gate steps still run."
+              break
+            fi
+            if [ "$code" = "3" ]; then
+              break  # quota exhausted / other stop-early — next scheduled run picks it up
+            fi
+            if [ "$code" = "0" ] && [ "$failed" = "0" ]; then
+              break  # fully judged, nothing pending
+            fi
+            if [ "$code" != "0" ] && [ "$code" != "1" ]; then
+              break  # unexpected exit code — don't loop, fail normally
+            fi
+            if [ "$code" = "1" ] && ! grep -qE 'Error: (Cannot reach|Endpoint error)' judge_output.log; then
+              break  # exit 1 for a non-retryable reason (bad args, auth failure)
+            fi
+
+            remaining=$((budget_seconds - ($(date +%s) - step_start)))
+            if [ "$remaining" -le "$delay" ]; then
+              echo "Not enough of the retry budget left for another backoff sleep — stopping so the save/deploy-gate steps still run."
+              break
+            fi
+
+            echo "Retrying (exit=$code, failed=$failed) in ${delay}s..."
+            sleep "$delay"
+            delay=$((delay * 2))
+            if [ "$delay" -gt "$max_delay" ]; then
+              delay=$max_delay
+            fi
+          done
           set -e
           # Per-paper errors (e.g. a dead/retired model slug returning 404) are
           # caught inside judge_languages.py and don't affect its exit code —
           # only the "Failed: N" summary line reflects them.
           failed=$(grep -oE 'Failed: [0-9]+' judge_output.log | tail -1 | grep -oE '[0-9]+' || true)
           echo "failed_count=${failed:-0}" >> "$GITHUB_OUTPUT"
-          if [ "$code" != "0" ] && [ "$code" != "3" ]; then
+          # 124 = the retry loop's own 5h50m budget cutoff — a designed, graceful
+          # stop (same category as 3/quota-exhausted), not a real failure. Letting
+          # it through here would mark this step "failed" and make the Notify
+          # step below claim "job FAILED" on exactly the happy path this loop
+          # was built for.
+          if [ "$code" != "0" ] && [ "$code" != "3" ] && [ "$code" != "124" ]; then
             exit "$code"
           fi
 
@@ -107,8 +198,23 @@ jobs:
           else
             title="LangTrend judge-catchup: ${{ steps.judge.outputs.failed_count }} paper(s) failed"
           fi
-          errors=$(grep -E '  (ERROR|TIMEOUT):' judge_output.log 2>/dev/null | sort -u | tail -20 || true)
-          body=$(printf '%s\n\n%s\n\n%s\n' "$title" "$errors" "$run_url")
+          # One "=== week: N cached, N without targets, N pending ===" line per
+          # week tells us exactly what's still outstanding at a glance, without
+          # needing to open the run's log. judge_output.log now accumulates
+          # across every retry attempt (see the judge step above), and each
+          # attempt reprints this line for every week it swept — so dedupe to
+          # the last (most current) occurrence per week rather than showing
+          # stale counts from an earlier attempt.
+          summary=$(tac judge_output.log 2>/dev/null | awk '
+            /^=== .+: [0-9]+ cached, [0-9]+ without targets, [0-9]+ pending ===$/ {
+              split($0, a, ":")
+              if (!(a[1] in seen)) { seen[a[1]] = 1; print }
+            }
+          ' | tac || true)
+          total_pending=$(printf '%s\n' "$summary" | grep -oE '[0-9]+ pending ===$' | awk '{s+=$1} END {print s+0}')
+          weeks_with_pending=$(printf '%s\n' "$summary" | grep -oE '[0-9]+ pending ===$' | awk '$1>0{c++} END {print c+0}')
+          totals="Total pending: ${total_pending} paper(s) across ${weeks_with_pending} week(s)"
+          body=$(printf '%s\n\n%s\n\n%s\n\n%s\n' "$title" "$totals" "$summary" "$run_url")
           if [ -n "${NOTIFY_WEBHOOK_URL:-}" ]; then
             # Push only — email forwarding (X-Email) was removed: ntfy.sh
             # rejects it on anonymous/unreserved topics with HTTP 400
