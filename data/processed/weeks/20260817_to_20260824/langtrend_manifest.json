@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-08-29T23:27:00.764578+00:00",
+  "generated_at": "2026-08-30T14:59:36.295774+00:00",
   "window_days": 7,
   "week_start": "2026-08-17",
   "week_end": "2026-08-24",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 398,
-    "flagged_papers": 168,
-    "unique_languages": 111,
+    "flagged_papers": 167,
+    "unique_languages": 107,
     "unique_languages_mentioned_only": 10,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 228,
-      "judged_languages": 628,
-      "studied": 298,
-      "mentioned_only": 85,
-      "false_positive": 245
+      "judged_papers": 231,
+      "judged_languages": 636,
+      "studied": 300,
+      "mentioned_only": 87,
+      "false_positive": 249
     }
   },
   "language_counts": [
@@ -40,14 +40,14 @@
     {
       "language": "French",
       "count": 25,
-      "studied": 20,
-      "mentioned_only": 5
+      "studied": 19,
+      "mentioned_only": 6
     },
     {
       "language": "Spanish",
       "count": 25,
-      "studied": 20,
-      "mentioned_only": 5
+      "studied": 19,
+      "mentioned_only": 6
     },
     {
       "language": "Japanese",
@@ -380,12 +380,6 @@
       "mentioned_only": 1
     },
     {
-      "language": "Beaver",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Beng",
       "count": 1,
       "studied": 1,
@@ -411,12 +405,6 @@
     },
     {
       "language": "Cherokee",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Crow",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -512,12 +500,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Komodo",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Kyrgyz",
       "count": 1,
       "studied": 1,
@@ -567,12 +549,6 @@
     },
     {
       "language": "Maltese",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Manta",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -749,8 +725,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 42,
-      "studied": 38,
+      "count": 38,
+      "studied": 34,
       "mentioned_only": 4
     },
     {
@@ -780,15 +756,15 @@
     {
       "class_id": 5,
       "count": 322,
-      "studied": 273,
-      "mentioned_only": 49
+      "studied": 271,
+      "mentioned_only": 51
     }
   ],
   "daily_series": [
     {
       "date": "2026-08-17",
       "papers": 72,
-      "flagged": 31
+      "flagged": 30
     },
     {
       "date": "2026-08-18",
@@ -29094,14 +29070,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippets use the term 'Spanish' to describe the religion/origin of a person in a retrieval example, which implies the language is mentioned_only",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-08-30T14:43:07.371321+00:00"
         },
         {
           "language": "French",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippets use the term 'French' to describe the nationality of Brigitte Bardot in a retrieval example, which implies the language is mentioned_only",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-08-30T14:43:07.371321+00:00"
         }
       ],
       "sources_checked": [
@@ -29118,11 +29102,19 @@
           "detected_languages": [
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets use the term 'Spanish' to describe the religion/origin of a person in a retrieval example, which implies the language is mentioned_only",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-08-30T14:43:07.371321+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets use the term 'French' to describe the nationality of Brigitte Bardot in a retrieval example, which implies the language is mentioned_only",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-08-30T14:43:07.371321+00:00"
             }
           ]
         }
@@ -80740,7 +80732,11 @@
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term refers to the manta ray in a list of cues, not a human language",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-30T14:56:09.586553+00:00"
         },
         {
           "language": "Beaver",
@@ -80749,7 +80745,11 @@
           "flag_reason": "English word 'beaver' (animal) — appears as animal name in corpora, not a language name",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term refers to the animal in a list of cues, not a human language",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-30T14:56:09.586553+00:00"
         },
         {
           "language": "Crow",
@@ -80758,14 +80758,22 @@
           "flag_reason": "Crow is a Missouri Valley Siouan language , but can also matches bird keyword lists in corpus studies",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term refers to the bird in a list of cues, not a human language",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-30T14:56:09.586553+00:00"
         },
         {
           "language": "Komodo",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term refers to the Komodo dragon in a list of cues, not a human language",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-08-30T14:56:09.586553+00:00"
         }
       ],
       "sources_checked": [
@@ -80786,7 +80794,11 @@
           "detected_languages": [
             {
               "language": "Manta",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the manta ray in a list of cues, not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-30T14:56:09.586553+00:00"
             }
           ]
         },
@@ -80796,7 +80808,11 @@
           "detected_languages": [
             {
               "language": "Manta",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the manta ray in a list of cues, not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-30T14:56:09.586553+00:00"
             }
           ]
         },
@@ -80806,7 +80822,11 @@
           "detected_languages": [
             {
               "language": "Manta",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the manta ray in a list of cues, not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-30T14:56:09.586553+00:00"
             }
           ]
         },
@@ -80818,21 +80838,37 @@
               "language": "Beaver",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English word 'beaver' (animal) — appears as animal name in corpora, not a language name"
+              "flag_reason": "English word 'beaver' (animal) — appears as animal name in corpora, not a language name",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the animal in a list of cues, not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-30T14:56:09.586553+00:00"
             },
             {
               "language": "Crow",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Crow is a Missouri Valley Siouan language , but can also matches bird keyword lists in corpus studies"
+              "flag_reason": "Crow is a Missouri Valley Siouan language , but can also matches bird keyword lists in corpus studies",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the bird in a list of cues, not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-30T14:56:09.586553+00:00"
             },
             {
               "language": "Komodo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the Komodo dragon in a list of cues, not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-30T14:56:09.586553+00:00"
             },
             {
               "language": "Manta",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the manta ray in a list of cues, not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-30T14:56:09.586553+00:00"
             }
           ]
         },
@@ -80844,21 +80880,37 @@
               "language": "Beaver",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English word 'beaver' (animal) — appears as animal name in corpora, not a language name"
+              "flag_reason": "English word 'beaver' (animal) — appears as animal name in corpora, not a language name",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the animal in a list of cues, not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-30T14:56:09.586553+00:00"
             },
             {
               "language": "Crow",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Crow is a Missouri Valley Siouan language , but can also matches bird keyword lists in corpus studies"
+              "flag_reason": "Crow is a Missouri Valley Siouan language , but can also matches bird keyword lists in corpus studies",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the bird in a list of cues, not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-30T14:56:09.586553+00:00"
             },
             {
               "language": "Komodo",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the Komodo dragon in a list of cues, not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-30T14:56:09.586553+00:00"
             },
             {
               "language": "Manta",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the manta ray in a list of cues, not a human language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-08-30T14:56:09.586553+00:00"
             }
           ]
         }
@@ -83415,14 +83467,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-30T14:58:58.558034+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet refers to the English language as the language of the OntoNotes NER corpus and the flair NER model used for entity redaction in the medical intent classification evaluation, making English",
+          "judge_model": "z-ai/glm-5.2:free",
+          "judged_at": "2026-08-30T14:58:58.558034+00:00"
         }
       ],
       "sources_checked": [
@@ -83444,43 +83504,83 @@
           "detected_languages": [
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             }
           ]
         },
@@ -83490,23 +83590,43 @@
           "detected_languages": [
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             }
           ]
         },
@@ -83516,11 +83636,19 @@
           "detected_languages": [
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             }
           ]
         },
@@ -83530,11 +83658,19 @@
           "detected_languages": [
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to the German language as the language of three datasets (CodE Alltag emails, GraSCCo clinical texts, LER legal texts) on which the paper fine-tunes and evaluates PII detection mode",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             }
           ]
         },
@@ -83544,7 +83680,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet refers to the English language as the language of the OntoNotes NER corpus and the flair NER model used for entity redaction in the medical intent classification evaluation, making English",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             }
           ]
         },
@@ -83554,7 +83694,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet refers to the English language as the language of the OntoNotes NER corpus and the flair NER model used for entity redaction in the medical intent classification evaluation, making English",
+              "judge_model": "z-ai/glm-5.2:free",
+              "judged_at": "2026-08-30T14:58:58.558034+00:00"
             }
           ]
         }
