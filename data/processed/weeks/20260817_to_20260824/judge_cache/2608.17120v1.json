@@ -1,8 +1,34 @@
 {
   "paper_id": "http://arxiv.org/abs/2608.17120v1",
-  "judge_model": "google/gemma-4-26b-a4b-it:free",
-  "judged_at": "2026-08-28T17:21:07.183038+00:00",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-08-30T15:42:08.157711+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 11759,
-  "verdicts": {}
+  "verdicts": {
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "Refers to 'LOO' (Leave-One-Out), a model comparison method, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Refers to 'mo' as an abbreviation for months in a table column (horizon (mo)), not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "The paper uses a longitudinal dataset of Norwegian children to fit and evaluate the accelerating accumulator model.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses multiple English-language datasets of children and trains GPT-2 models on English child-directed speech.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The paper uses a longitudinal dataset of Japanese children to fit and evaluate the accelerating accumulator model.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
 }
