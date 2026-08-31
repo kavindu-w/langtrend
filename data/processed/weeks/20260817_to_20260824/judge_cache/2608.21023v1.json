@@ -1,64 +1,69 @@
 {
   "paper_id": "http://arxiv.org/abs/2608.21023v1",
   "judge_model": "google/gemma-4-26b-a4b-it:free",
-  "judged_at": "2026-08-29T07:51:04.094285+00:00",
+  "judged_at": "2026-08-31T11:28:03.527349+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 6380,
   "verdicts": {
     "Aer": {
       "verdict": "false_positive",
-      "reason": "Aer refers to the Alignment Error Rate metric, not a human language, therefore it is a false_positive",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "AER refers to Alignment Error Rate, a metric used to evaluate word alignment, not a language.",
+      "model": "google/gemma-4-31b-it:free"
     },
     "Col": {
       "verdict": "false_positive",
-      "reason": "Col refers to a programming code variable for column index, not a human language, therefore it is a false_positive",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "col refers to a column index in a similarity matrix within a Python function.",
+      "model": "google/gemma-4-31b-it:free"
     },
     "Omi": {
       "verdict": "false_positive",
-      "reason": "Omi refers to the abbreviation for omission errors in a table, not a human language, therefore it is a false_positive",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "omi refers to 'omission' errors in the context of MQM dataset statistics.",
+      "model": "google/gemma-4-31b-it:free"
     },
     "Greek": {
       "verdict": "studied",
-      "reason": "Greek refers to the Greek language used in the Latin-Greek language pair for evaluation, therefore it is studied",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The paper uses a Latin-Greek dataset for word alignment experiments.",
+      "model": "google/gemma-4-31b-it:free"
     },
     "Latin": {
       "verdict": "studied",
-      "reason": "Latin refers to the Latin language used in the Latin-Greek language pair for evaluation, therefore it is studied",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The paper uses a Latin-Greek dataset for word alignment experiments.",
+      "model": "google/gemma-4-31b-it:free"
     },
     "Czech": {
       "verdict": "studied",
-      "reason": "Czech refers to the Czech language used in the English-Czech language pair for evaluation, therefore it is studied",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The paper uses an English-Czech dataset for word alignment experiments.",
+      "model": "google/gemma-4-31b-it:free"
     },
     "Romanian": {
       "verdict": "studied",
-      "reason": "Romanian refers to the Romanian language used in the English-Romanian language pair for evaluation, therefore it is studied",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The paper uses an English-Romanian dataset for word alignment experiments.",
+      "model": "google/gemma-4-31b-it:free"
     },
     "Italian": {
       "verdict": "studied",
-      "reason": "Italian refers to the Italian language used in the English-Italian language pair for evaluation, therefore it is studied",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The paper evaluates semantic difference recognition on an English-Italian pair.",
+      "model": "google/gemma-4-31b-it:free"
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "Chinese refers to the Chinese language used in the English-Chinese and Japanese-Chinese language pairs for evaluation, therefore it is studied",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The paper uses English-Chinese and Japanese-Chinese datasets for experiments.",
+      "model": "google/gemma-4-31b-it:free"
     },
     "English": {
       "verdict": "studied",
-      "reason": "English refers to the English language used as a primary language in multiple evaluation pairs, therefore it is studied",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The paper uses English in multiple language pairs (e.g., en-fr, en-ro, en-ja, en-zh, en-cz, en-de, en-it) for experiments.",
+      "model": "google/gemma-4-31b-it:free"
     },
     "French": {
       "verdict": "studied",
-      "reason": "French refers to the French language used in the English-French language pair for evaluation, therefore it is studied",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The paper uses English-French datasets for word alignment and semantic difference experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper uses English-German datasets for translation coverage and semantic difference experiments.",
+      "model": "google/gemma-4-31b-it:free"
     },
     "Japanese": {
       "verdict": "studied",
