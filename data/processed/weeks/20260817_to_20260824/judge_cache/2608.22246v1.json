@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.22246v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-31T00:34:27.314668+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7552,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'dass' as the common German conjunction meaning 'that' (e.g., 'Entscheidend ist, dass eine konkrete Aufforderung'), not a human language name.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'Sie'/'sie' as the German pronoun meaning 'they/you' (e.g., 'stachelt sie an'), not a human language name.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'Tat' as the German noun meaning 'deed/act' (e.g., 'Gewalttat', 'die Tat ohne sie selbst zu verherrlichen'), not a human language name.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'POL' as an anonymisation token abbreviation for 'Polizei/Behörde' (police/authorities), not a human language name.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets show English only as a translation language for the German prompts (e.g., 'the German original is shown with an English translation', 'System (EN)'), not as a language the paper studies o",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper builds and evaluates a harmful-content detection system on German social-media tweets, with German-language prompts, German-native models, and German criminal-law class definitions throughou",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

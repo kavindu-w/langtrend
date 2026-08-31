@@ -1,8 +1,29 @@
 {
   "paper_id": "http://arxiv.org/abs/2608.19760v1",
-  "judge_model": "google/gemma-4-26b-a4b-it:free",
-  "judged_at": "2026-08-29T08:09:05.566060+00:00",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-30T23:15:59.322570+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 7257,
-  "verdicts": {}
+  "verdicts": {
+    "Aer": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'AER' as an acronym for a document/record file (e.g., 'AER carries only the SUPERSEDED pointer', 'AER:2399-2400 records the same order'), not the Aer language of Chad.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows '.pol' as a file extension for logprob dumps ('logprob dumps (.pol/.hind)'), not the Pol language of Papua New Guinea.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to 'Chinese-major' source documents that are written in the Chinese language and require English renderings, indicating the human language Chinese is referenced as the language of c",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to 'English rendering', 'English in Appendix A', and 'retrieval-record header, English' as the human language used for renderings and headers of source documents.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
 }

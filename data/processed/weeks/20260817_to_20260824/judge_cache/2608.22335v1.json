@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.22335v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-31T00:08:54.030695+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11870,
+  "verdicts": {
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The paper builds BanglaSafe, a benchmark of 879 Bengali prompts, evaluates 18 LLMs on Bengali safety, and analyzes Bengali registers and culturally grounded harms — Bengali is the central language of ",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "All matches refer to 'Latin-script density' or the 'Latin Unicode block,' i.e., the Latin alphabet/script used for code-mixing measurement, not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a cross-language baseline condition (ENDirect, ENInst) with authored prompts and evaluated LLM responses, making it part of the paper's experimental design and data collection.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

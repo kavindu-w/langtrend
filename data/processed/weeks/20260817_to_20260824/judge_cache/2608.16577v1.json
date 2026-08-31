@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.16577v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-31T03:52:03.789061+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11968,
+  "verdicts": {
+    "Kadai": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'Thai Tai-Kadai SVO', referring to the Tai-Kadai language family that Thai belongs to, not a language called 'Kadai' being studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tibetan": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'Sino-Tibetan' as the language family for Chinese, not the Tibetan language itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'Latin between words LTR' as the script/writing system used by English, Italian, and Vietnamese, referring to the Latin alphabet, not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is one of the eight languages evaluated in the experiments, with specific refusal rate improvements (17 pp) and Global MMLU scores reported.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is listed as one of the eight evaluated languages in the language selection and experiments, with results reported in Table 2 and Figure.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is listed as one of the eight languages in the evaluation set, with typological properties given in Table 2.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is listed as one of the eight languages in the evaluation set, with typological properties given in Table 2.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is listed as one of the eight languages in the evaluation set, mentioned in the multilingual safety gap and language selection sections.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is one of the eight evaluated languages, with specific refusal rate decreases reported for multiple models in the experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is one of the eight evaluated languages, with specific refusal rate increases (9 pp) and over-refusal results reported in the experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language from which steering vectors are derived and is also one of the eight evaluated languages, with baseline scores and safety rates reported throughout.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

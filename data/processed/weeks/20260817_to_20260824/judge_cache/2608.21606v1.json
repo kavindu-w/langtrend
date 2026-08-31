@@ -1,8 +1,49 @@
 {
   "paper_id": "http://arxiv.org/abs/2608.21606v1",
-  "judge_model": "google/gemma-4-26b-a4b-it:free",
-  "judged_at": "2026-08-28T11:33:09.850989+00:00",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-08-31T00:08:31.569765+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 6381,
-  "verdicts": {}
+  "verdicts": {
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is one of the seven languages into which forget-set questions are translated for multilingual probing experiments, with leak rates reported in Table results.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is one of the seven languages used in the multilingual probing evaluation, with its leak rate reported alongside other languages.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is one of the seven languages used in the multilingual probing experiments, with a reported leak rate remaining at a low level.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is one of the seven languages used in multilingual probing, with one Japanese probe rejected during back-translation quality check and no responses exceeding the leakage threshold.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the primary language of the TOFU dataset and adversarial attack suite; the paper evaluates adversarial English prompts and compares them against multilingual probes.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is one of the seven languages used in multilingual probing and exhibits the highest leak rate among all languages tested in the cross-lingual evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is one of the seven languages used in multilingual probing and shows the second-highest leak rate after German.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is one of the seven languages used in the multilingual probing experiments with reported leak rates; the Appendix mention of 'French literature prize' refers to the Prix Goncourt but French is ",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
 }
