@@ -1,0 +1,144 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.17325v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T03:49:05.009480+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11653,
+  "verdicts": {
+    "Bisa": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'kehabisan' and 'ke bisa n' are segmentation of an Indonesian wordform, not a reference to the Bisa language of West Africa.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'sen iket' is part of a segmented Hungarian wordform, not a reference to the Ik language of Uganda.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Ket": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'seni ket' is part of a segmented Hungarian wordform, not a reference to the Ket language of Siberia.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'mal' is the ISO 639 code for Malayalam in the language table, not a reference to the Mal language of Papua New Guinea.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Malayo": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'Malayo-Polynesian' is the name of a language family subbranch for Indonesian, not a reference to the Malayo language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Nek": {
+      "verdict": "false_positive",
+      "reason": "The snippets do not contain a clear reference to the Nek language; the match appears to be a substring coincidence in segmented text.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'perumahan' and 'per uma han' are segmentation of an Indonesian wordform, not a reference to the Uma language of Indonesia.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'mon' is the ISO 639 code for Mongolian in the language table, not a reference to the Mon language of Myanmar.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Kyrgyz": {
+      "verdict": "studied",
+      "reason": "Kyrgyz is explicitly listed as one of the 18 typologically diverse languages studied, with data from NewsCrawl and downstream evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Mongolian": {
+      "verdict": "studied",
+      "reason": "Mongolian is explicitly listed as one of the 18 studied languages with data from NLLB, categorized as agglutinative.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Sanskrit": {
+      "verdict": "studied",
+      "reason": "Sanskrit is explicitly listed as one of the 18 studied languages with data from NLLB, categorized as fusional.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "Malayalam is extensively discussed as one of the 18 studied languages, with data from NewsCrawl, used in morphological alignment experiments, fertility analysis, and downstream evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Sindhi": {
+      "verdict": "studied",
+      "reason": "Listed in Table 1 as one of the 18 studied languages (ISO snd, Arabic script, fusional typology) with data from NLLB, making it a studied language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Croatian": {
+      "verdict": "studied",
+      "reason": "Listed in Table 1 as one of the 18 studied languages (ISO hrv, Latin script, fusional typology) with data from NewsCrawl, making it a studied language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "Listed in Table 1 as one of the 18 studied languages (ISO fin, agglutinative typology) with data from NewsCrawl, making it a studied language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "Listed in Table 1 as one of the 18 studied languages (ISO fas, Arabic script, fusional typology) with data from NewsCrawl, making it a studied language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Listed in Table 1 as one of the 18 studied languages (ISO rus, Cyrillic script, fusional typology) with data from NewsCrawl, making it a studied language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Listed in Table 1 as a studied language (ISO tel, agglutinative) with NewsCrawl data, used in downstream evaluation (te mtg treebank, ACTSA dataset), and extensively discussed in results sections, mak",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Listed in Table 1 as a studied language (ISO heb, introflexive typology) with NLLB data, and discussed in results regarding morphological alignment and segmentation, making it studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Listed in Table 1 as a studied language (ISO hin, fusional typology) with NewsCrawl data, used in downstream evaluation (hi hdtb treebank), and extensively discussed in results, making it studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'Latin' to refer to the Latin script/alphabet (e.g., 'non-Latin languages', 'Latin languages saturates at lower contextual exponence'), not the Latin language itself, so this is a fal",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Listed in Table 1 as a studied language (ISO tam, agglutinative typology) with NewsCrawl data, and extensively discussed in results regarding alignment and convergence behavior, making it studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hungarian": {
+      "verdict": "studied",
+      "reason": "Listed in Table 1 as a studied language (ISO hun, agglutinative typology) with NewsCrawl data, and discussed in results regarding alignment trends, making it studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Listed in Table 1 as a studied language (ISO ind, agglutinative typology) with NewsCrawl data, and discussed in results regarding alignment and convergence behavior, making it studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Swedish appears in the language typology table and dataset source table as one of the 18 languages included in the study, with data sourced from NLLB, indicating it is part of the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is listed as one of the 18 studied languages, appears in the morphological alignment experiments (e.g., 'SSLMs show consistently higher alignment... in languages such as Malayalam and Turkish'",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the 18 languages in the study, used in downstream evaluation tasks (CoNLL for NER, SST for sentiment), appears in segmentation examples and experimental setup tables throughout the p",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
