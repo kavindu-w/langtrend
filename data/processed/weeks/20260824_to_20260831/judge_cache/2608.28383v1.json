@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28383v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T20:17:23.457867+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5618,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'Col' as shorthand for 'column-major' token serialization/layout in the model architecture, not the Col language of Colombia.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'wa' as an abbreviation in model configuration names (e.g., 'wa d sink') referring to window-attention variants, not the Wa language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "The snippet references 'Greek mythology' as the origin of the name Ariadne, which is a cultural reference, not a study or use of the Greek language.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

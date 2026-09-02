@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29326v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T18:59:12.258081+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5490,
+  "verdicts": {
+    "Fore": {
+      "verdict": "false_positive",
+      "reason": "The match is a line-break hyphenation of the English word 'before' ('be- fore acknowledgment'), not the Fore language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "The match is a variable subscript notation 'y ik' in a statistical formula, not the Ik language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The match uses 'Polish' as a verb meaning to refine text ('Polish stiff, templated... Chinese into more life-like phrasing'), not the Polish language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets repeatedly refer to the Chinese language as the target language of the StageWell corpus ('Chinese positive psychology dialogue', 'Chinese counseling data', 'Chinese naturalness'), which t",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29133v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T19:30:16.550549+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11958,
+  "verdicts": {
+    "Duke": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'Duke' as a translation of the Chinese title 沛公 (Pei Gong), meaning 'Duke or Lord of Pei' — a person's title, not the Duke language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'pinyin' referring to the Chinese romanization system ('Historical names use pinyin in Chinese order'), not a human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Lü": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'Lü Chen' and 'Lü' as personal names (吕公, 吕臣) of historical figures, not the Lü language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention 'Greek and Roman figures' in Plutarch's Parallel Lives as an example of another historiographical tradition; the paper does not process or study Greek language materials.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippets show Korean histories (Samguk Sagi, Goryeosa) are part of the platform's collections and the paper processes Korean historical texts alongside Chinese and Japanese ones.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The snippets show Japanese histories (Dai Nihonshi) are part of the platform's collections and the paper processes Japanese historical texts alongside Chinese and Korean ones.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets show the paper extensively processes Classical Chinese and modern Chinese historical texts (Shiji, Twenty-Four Histories), uses Chinese-language summaries, Chinese reign-title mappings, a",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets show English as the manuscript's working language and mention an 'English-language tradition' reference (Huxley's letters) and Chinese–English translation support, but the paper does not ",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

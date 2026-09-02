@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.27070v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T21:24:41.979018+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2048,
+  "verdicts": {
+    "Sari": {
+      "verdict": "false_positive",
+      "reason": "SARI appears in the Metric column of the dataset table (a text simplification metric), not as a human language; it is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears in the Language column for the C-STANCE dataset, which is used in the paper's experiments, so Chinese is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears in the Language column for multiple datasets (ScienceQA, FOMC, MeetingBank, NumGLUE-cm, NumGLUE-ds) used in the paper's experiments, so English is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German appears in the Language column for the 20Minuten dataset, which is used in the paper's experiments, so German is studied.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

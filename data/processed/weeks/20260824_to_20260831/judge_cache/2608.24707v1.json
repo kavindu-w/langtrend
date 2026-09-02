@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.24707v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T23:57:38.180017+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11818,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'Mi = Mild, Mo = Moderate, Se = Severe' — 'Mo' is an abbreviation for the Moderate severity level in a table, not a human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Kazakh": {
+      "verdict": "studied",
+      "reason": "Kazakh is one of the three languages for which the benchmark is built, with data collection, ASR, TTS, hallucination generation, and detection experiments all conducted in Kazakh.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is one of the three languages for which the benchmark is built, with data collection, ASR, TTS, hallucination generation, detection experiments, and provenance analysis all conducted in Russia",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the three languages for which the benchmark is built, with data collection, ASR, TTS, hallucination generation, and detection experiments all conducted in English.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29517v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T18:59:20.975953+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8184,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'pinning' datestamped versions of a hosted judge model, not the Pin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Lak": {
+      "verdict": "false_positive",
+      "reason": "The match is part of a URL (anonymous.4open.science/r/lak-27), likely an abbreviation for the LAK conference, not the Lak language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The snippets show the paper uses the ENEM/Essay-BR corpus of Portuguese-language student essays as its primary dataset, evaluating LLM judges on Portuguese essay scoring.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show the paper uses the ASAP corpus of English-language student essays as its secondary dataset, evaluating LLM judges on English essay scoring.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

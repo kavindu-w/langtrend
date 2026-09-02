@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29831v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T18:50:30.414305+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2569,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'pin' as a verb ('pin down the exact function'), not a reference to the Pin language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'uri' as in Uniform Resource Identifier (a technical term in code paths), not the Uri language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'sphinx/search/tr.py - Turkish search stemming', referring to the Turkish language in the context of a repository file listing within a case study; the paper does not study or bui",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

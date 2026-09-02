@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29591v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T19:14:49.221672+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10344,
+  "verdicts": {
+    "Ari": {
+      "verdict": "false_positive",
+      "reason": "In all snippets, 'ARI' refers to the Adjusted Rand Index, a clustering evaluation metric, not a human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as the language of the chat corpora the paper restricts to and analyzes ('English-language, first-turn', 'English-only conversations'), making it the language of the data",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet shows 'am fluent in German' inside an example advice-seeking prompt from the dataset; the paper does not study or build resources for the German language, it merely appears in an illustrat",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

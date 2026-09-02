@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29209v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T19:24:33.658966+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11535,
+  "verdicts": {
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "The match is the verb 'crow' in 'Roosters crow as the village wakes up,' referring to the sound a rooster makes, not the Crow language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "The match is the Portuguese feminine article 'uma' in 'participa de uma consulta de chapéu,' not the Uma language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hausa": {
+      "verdict": "studied",
+      "reason": "Hausa is one of the five African communities studied: stories were generated for Hausa personas, evaluated by Hausa culture representatives, and results are reported per community including Hausa.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is mentioned as the language used for generating Xichangana stories and as the formal communication language in Mozambique, but the paper does not study or build resources for Portuguese it",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language used for generating stories for Hausa, Kikuyu, Luo, and AmaXhosa personas and in prompts, but the paper does not study English as a language.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.27967v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T20:31:32.287391+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5054,
+  "verdicts": {
+    "Indonesian": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the Indonesian Government and the Indonesian National Cyber and Crypto Agency (BSSN) as a country/institution, not the Indonesian language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Chinese APT10', a threat actor group attributed to China, not the Chinese language; false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show 'train english event' and 'dataframe english event' referring to English-language CTI text data used for TF-IDF vectorization and BERT tokenization in the paper's experiments; studie",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

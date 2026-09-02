@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.24753v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T23:50:56.707550+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3384,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Refers to 'jinaai/jina-embeddings-v3', an embedding model used in the retrieval pipeline, not the Jina language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Refers to English stopwords and English stemmer settings in the BM25 retrieval configuration, mentioning the English language as a tool parameter but not studying it as a subject.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Refers to MAE (Mean Absolute Error), a metric reported in the sample allocation plot, not the Mae language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Used as a common verb ('insufficient to pin it down') in the discussion of entropy estimation, not a reference to the Pin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as the answer to an example QA prompt ('What nationality is Friedrich Merz? A: German'), mentioning German nationality/language as an illustrative example without studying it.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

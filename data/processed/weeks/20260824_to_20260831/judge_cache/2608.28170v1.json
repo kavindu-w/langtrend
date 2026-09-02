@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28170v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T20:25:15.064785+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10036,
+  "verdicts": {
+    "Berta": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'de Berta' and 'Berta germana sua', which are person names within the Latin manuscript text, not references to the Berta language of Sudan/Ethiopia.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Nisu": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'audaci nisu quandoque infringere temtavero', where 'nisu' is a Latin word meaning 'effort/endeavor' within the manuscript text, not the Nisu language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pero": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'crucem de Pero' and 'prope crucem de Pero', referring to a place name (the cross of Pero) in the Latin manuscript, not the Pero language of Ethiopia.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Ubi": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'in loco ubi dicitur Castellioni', where 'ubi' is the Latin word for 'where', not the Ubi language of Papua New Guinea.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites 'ancient Greek Riemenschneider and Frank, 2023' as related work on historical language models, mentioning the language without working on it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites 'Old Italian Aprosio et al., 2022' as related work; the paper's own data is from Bologna but the documents studied are in Latin, not Italian.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites 'ancient Chinese Wang et al., 2023' as related work on historical language models, mentioning the language without working on it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "The paper's dataset comprises 1,184 notarial documents produced in Latin at Bologna; models are evaluated on restoring Latin text, and the prompt instructs restoration of medieval Latin documents.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as the translation language provided alongside the Latin manuscript excerpts for the reader's benefit, not as a language the paper studies or builds resources for.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

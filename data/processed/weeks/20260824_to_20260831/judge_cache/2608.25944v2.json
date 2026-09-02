@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.25944v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T22:51:29.594967+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5194,
+  "verdicts": {
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The word 'Polish' in all snippets refers to the editing operation of polishing text (e.g., 'Polish-token', 'Polish-sentence', 'AI-Polishing', 'Point-wise Polishing'), not the Polish language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly states 'We evaluate three English datasets' (XSum, WritingPrompts, Reddit ELI5), confirming the paper runs experiments on English-language text.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippet states 'This appendix reports a (German) cross-language test for the two boundary conclusions in the main text', indicating the paper evaluates its detection method on German-language text",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

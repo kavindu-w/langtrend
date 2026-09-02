@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26060v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T22:29:38.920758+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9797,
+  "verdicts": {
+    "Baniwa": {
+      "verdict": "studied",
+      "reason": "The entire paper is about fine-tuning Whisper for ASR in Baniwa, collecting a Baniwa speech corpus, and evaluating recognition performance on Baniwa, making it the target language of the study.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is mentioned only as a language that Baniwa speakers are shifting toward in sociolinguistic context, not as a language the paper studies or builds resources for.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned only as a proxy language used to configure the Whisper tokenizer since Baniwa is not a predefined Whisper language token; the paper does not study or evaluate Spanish ASR.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

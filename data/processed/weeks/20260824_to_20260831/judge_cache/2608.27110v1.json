@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.27110v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T21:21:13.544599+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5458,
+  "verdicts": {
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Bengali as the language of the DocTalkBN dataset, its NER annotation, and the telemedicine conversations being studied and benchmarked; the paper builds resources and runs experi",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Chinese as the language of prior/comparison medical dialogue datasets (e.g., MZ Wei et al., CMDD, MedDialog-CN) and note RealMedDial is limited to Chinese; the paper does not wor",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English as the language for JSON keys/speaker labels in prompts and as part of code-mixed Bengali–English text samples; the paper does not study or build resources for English as",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

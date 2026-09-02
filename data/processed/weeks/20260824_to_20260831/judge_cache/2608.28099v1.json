@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28099v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T20:20:15.949688+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2724,
+  "verdicts": {
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The Nemotron Safety dataset used in the paper's evaluation is described as 'Arabic-heavy' with 'Arabic originals shipped in the dataset,' so Arabic is part of the paper's experimental data.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the primary language of task examples (VerIH) and as glosses for Arabic samples in the evaluation, so English is part of the paper's experimental data.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German appears only in a single VerIH task example where a user query asks how a phrase is 'said in German,' but the task evaluates instruction-following generally rather than working on German specif",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

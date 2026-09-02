@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29120v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T19:33:24.321252+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5515,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'AMI' as a dataset name (AMI Carletta et al. 2005, a multi-party meeting corpus), not the Ami (Amis) Austronesian language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Chinese college entrance exam' as the origin context of the Gaokao benchmark, but the actual audio content is in English; the Chinese language itself is not studied or used in th",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show the benchmark audio, transcripts, and dialogues are in English (English listening examinations, English transcripts, English short-conversation), and the paper evaluates models on th",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26921v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T21:34:38.160732+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9672,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Latin-script' meaning the Latin writing system/alphabet, not the Latin language itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The entire paper builds, annotates, and evaluates HTR models on historical Arabic manuscripts — Arabic is the core language of the dataset and all experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is only mentioned as the language of the IAM handwriting corpus, a related resource; the paper does not work on English.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is only mentioned as the language of the RIMES handwriting corpus, a related resource; the paper does not work on French.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

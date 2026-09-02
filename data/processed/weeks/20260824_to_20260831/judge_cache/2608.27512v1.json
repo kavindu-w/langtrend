@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.27512v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-01T21:47:47.438346+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3820,
+  "verdicts": {
+    "Dari": {
+      "verdict": "mentioned_only",
+      "reason": "Dari is mentioned as one of 'other low-resource pairs common in NATO theaters' with the note that 'extending empirical evaluation to those pairs remains future work', so it is not actually used in the",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pashto": {
+      "verdict": "mentioned_only",
+      "reason": "Pashto is mentioned alongside Dari as a low-resource NATO theater language pair for which empirical evaluation 'remains future work', so it is not actually used in the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is one half of the English-Ukrainian translation pair on which the attack is evaluated, with synthetically generated tactical communication datasets, making it an active experimental languag",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the other half of the English-Ukrainian translation pair actively evaluated in the paper's tactical machine translation experiments.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
