@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.27902v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-09-02T07:37:09.197711+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8475,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The term 'carrier' refers to structural or visual components of a webpage layout (e.g., 'Structural carrier'), not a language. false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "The term 'logo' refers to company brand images (e.g., 'customer logo list'), not a language. false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is mentioned as a keyword for filtering out multilingual content during dataset construction. mentioned_only",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned as a keyword for filtering out multilingual content during dataset construction. mentioned_only",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The term 'polish' is used exclusively to refer to the visual refinement and quality of a webpage's design (e.g., 'brand polish level', 'visual polish'), not the language. false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper specifies that generated text placeholders should be in 'Plain readable English'. studied",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

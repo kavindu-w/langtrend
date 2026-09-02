@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28916v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T11:31:40.497112+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4552,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'AMI' as the AMI Meeting Corpus (Carletta, 2007), a multi-party meeting speech dataset, not the Ami language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets consistently refer to English as the human language of the ASR benchmark's audio segments, transcription mode, and evaluation scope, which the paper builds and evaluates; this is studied.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

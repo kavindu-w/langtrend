@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29284v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T06:42:38.870485+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9362,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'jina-embeddings-v2-small', an embedding model used as a baseline, not the Jina language of Cameroon/Nigeria.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "All matches refer to the Latin script/alphabet (e.g., 'Latin script', 'Latin/Cyrillic transliteration'), not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Uzbek": {
+      "verdict": "studied",
+      "reason": "The paper builds benchmarks, fine-tunes an embedder (UTE-1), and deploys a full legal RAG system for Uzbek, making it the central language of study.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian QA pairs are included in the end-to-end benchmark and the system handles Russian text in production, so the paper evaluates on Russian data.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

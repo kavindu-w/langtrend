@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.22872v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T10:32:56.150979+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5837,
+  "verdicts": {
+    "Irish": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Irish English,' a regional variety/accent of English, not the Irish language (Gaeilge); it is cited as context for ASR disparities, so this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper synthesizes and evaluates ASR on four English accents (US, Indian, Filipino, Nigerian) across multiple benchmarks, making English the language being studied.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

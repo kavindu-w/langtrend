@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29890v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T06:22:55.528359+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11631,
+  "verdicts": {
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'ung thư gan' is Vietnamese for 'liver cancer', where 'gan' means 'liver' in Vietnamese, not the Gan language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "Thai is mentioned only as a future work target for extending the pipeline to other Southeast Asian languages, not studied in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Indonesian": {
+      "verdict": "mentioned_only",
+      "reason": "Indonesian is mentioned only as a future work target for extending the pipeline to other Southeast Asian languages, not studied in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is a core language of the En-ViMedNER parallel corpus; the paper builds, evaluates, and benchmarks NER models on Vietnamese biomedical text.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language of the parallel corpus and is used in cross-lingual NER experiments (English-input/Vietnamese-output); the paper actively works with English data.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

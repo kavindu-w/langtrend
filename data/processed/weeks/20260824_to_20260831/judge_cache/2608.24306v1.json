@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.24306v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-09-02T09:16:05.860192+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3133,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The name refers to a module/tool used in the system's codebase, not a human language, so the verdict is false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions Chinese as a language included in certain domains but notes that the current experiments only use English, so the verdict is mentioned_only",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper explicitly states that the experiments and queries used are in English, so the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

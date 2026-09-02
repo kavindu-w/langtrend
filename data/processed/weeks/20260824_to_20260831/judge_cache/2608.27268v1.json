@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.27268v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T07:45:56.806317+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11645,
+  "verdicts": {
+    "Ket": {
+      "verdict": "false_positive",
+      "reason": "The word 'Ket' does not appear in the provided snippet as a reference to the Ket language; it is likely a false substring match, possibly from fragments like 'bracket' or similar text.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Greek letters' as mathematical symbols (e.g., alpha, beta) that need to be linearized during normalization, not the Greek language itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Korean experiments [31]' in related work on Braille systems, referencing prior work on Korean Braille without the paper itself working on Korean.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Low-resource Chinese Braille systems' in related work, describing prior work on Chinese Braille without the paper itself working on Chinese.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Japanese Braille' in related work on prompted LLMs for pronunciation choices, without the paper itself working on Japanese.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the primary base language of the benchmark; all five source datasets are in English, and the paper evaluates English-to-Braille and Braille-to-English comprehension across all experiments.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

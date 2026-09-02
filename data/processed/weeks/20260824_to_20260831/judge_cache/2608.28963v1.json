@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28963v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T06:58:37.689495+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7831,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'mo:Track' is an RDF ontology class prefix (Music Ontology), not the Mo language; it appears alongside other ontology prefixes like chebi:Compound and swc:Paper in knowledge graph dat",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to 'URI authority' (Uniform Resource Identifier) in the RDF/SPARQL context, not the Uri language; it is a technical term used throughout the paper for source selection and prov",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

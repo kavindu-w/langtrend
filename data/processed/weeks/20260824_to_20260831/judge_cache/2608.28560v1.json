@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28560v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-09-02T07:09:05.561492+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5583,
+  "verdicts": {
+    "Mum": {
+      "verdict": "false_positive",
+      "reason": "The term 'MUM' appears in a diagram label and notation section referring to variables M, U, and C in a communication model, not a language; false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The word 'polish' is used as a verb meaning to refine the writing, not as the Polish language; false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper uses a Mandarin Chinese pro-drop dataset to evaluate its theoretical bounds on meaning inference; studied",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

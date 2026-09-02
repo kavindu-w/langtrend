@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28053v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-09-02T07:22:10.069254+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11960,
+  "verdicts": {
+    "Gua": {
+      "verdict": "false_positive",
+      "reason": "The candidate 'Gua' appears in the snippets as part of the phrase '雨女无瓜' (yu nv wu gua), which is a Chinese neologism, not the Gua language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Pinyin": {
+      "verdict": "studied",
+      "reason": "The paper evaluates LLMs on 'Pinyin Abbr', which are abbreviations based on the Pinyin romanization of Chinese, and treats it as a core linguistic mechanism to be studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The text refers to 'Latin letters' and 'Latin-letter string' to describe the script used for abbreviations, not the Latin language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper focuses on diagnosing LLMs on Chinese neologisms and uses Chinese for prompts and data collection.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper evaluates 'English Abbr' (English abbreviations used in Chinese contexts) as a comparative baseline against Pinyin abbreviations.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions Japanese as the source language for certain borrowed expressions (e.g., '哈基米' and '文化祭') in the taxonomy.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

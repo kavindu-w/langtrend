@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29239v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T11:21:25.513848+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11704,
+  "verdicts": {
+    "Sama": {
+      "verdict": "false_positive",
+      "reason": "The matches refer to 'SAMA-ASR' or 'SAMA-', the name of the proposed model (Semantic Anchor Multimodal ASR), not the Sama language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hakka": {
+      "verdict": "studied",
+      "reason": "Hakka is one of the two low-resource Sinitic varieties on which the paper builds and evaluates ASR models using the Hakka Across Taiwan corpus.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is used as one of the auxiliary languages in the multilingual translation-composition diagnostic experiments, where Mandarin translations are translated into Hindi and evaluated.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese characters are the transcription notation for both datasets, and Mandarin (a Chinese variety) serves as the primary auxiliary translation language in all experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as an auxiliary language in the multilingual diagnostic experiments and provides English glosses in the case study, making it part of the paper's experimental evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is used as one of the auxiliary languages in the multilingual translation-composition diagnostic experiments, where it is shown to yield stronger gains than English on both datasets.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is used as one of the auxiliary languages in the multilingual translation-composition diagnostic experiments, evaluated alongside English and French.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

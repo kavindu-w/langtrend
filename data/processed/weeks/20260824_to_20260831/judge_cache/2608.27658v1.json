@@ -1,0 +1,69 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.27658v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T07:38:24.078379+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11835,
+  "verdicts": {
+    "Magahi": {
+      "verdict": "studied",
+      "reason": "Magahi is one of the five target Indic languages evaluated in POS tagging and NER experiments using the mag-mgtb treebank, with results showing H-Net gains over subword baselines.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Bhojpuri": {
+      "verdict": "studied",
+      "reason": "Bhojpuri is one of the five target Indic languages evaluated in POS tagging and NER using the bho-bhtb treebank, with quantitative tokenization mismatch analysis and experimental results.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "Marathi is one of the five target Indic languages evaluated in POS tagging, NER, and sentiment analysis using the mr-ufal treebank, with experimental results reported.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Sanskrit": {
+      "verdict": "studied",
+      "reason": "Sanskrit is one of the five target Indic languages evaluated in POS tagging and NER using the sa-ufal treebank, described as the most morphologically complex language in the study with reported experi",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is mentioned only in the Limitations/Script coverage section as an example of a non-Latin script for which H-Net's effectiveness remains untested, not evaluated in any experiment.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "Tamil is mentioned only in the Limitations/Script coverage section as an example of a non-Latin script not covered by the evaluation, not studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only in the Limitations/Script coverage section as an example of a non-Latin script for which H-Net's effectiveness remains untested, not evaluated.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is the source adaptation language used for training and cross-lingual transfer, with Hindi sentences from the hin Deva subset used for adaptation and Hindi treebanks (hi-hdtb) used for tagging a",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'non-Latin scripts' to refer to the Latin alphabet/script system, not the Latin language; this is a script reference, not a language study.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu is one of the five target Indic languages evaluated in POS tagging, NER, and sentiment analysis using the ur-udtb treebank, with results showing zero-shot accuracy despite different script.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is mentioned only in the Models section as a language whose script (Nastaliq) is shared with Urdu, explaining pretraining coverage; it is not evaluated in any experiment.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned only in the Models section as a language whose script (Nastaliq) is also used by Urdu, explaining why Urdu is likely covered in pretraining corpora; it is not evaluated in any expe",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29241v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T06:51:29.846572+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4760,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The term 'sentinel' refers to a control token (ENDCONVERSATION) used in the agent's prompt to signal end of conversation, not a human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly state the evaluation operates in English and conversations must be conducted in English, making it the language the paper's experiments are built and evaluated in.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
