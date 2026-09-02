@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.25005v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T17:16:24.394275+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5571,
+  "verdicts": {
+    "Maya": {
+      "verdict": "false_positive",
+      "reason": "Maya is used as a person's name in the example sentences ('Maya was walking to the station'), not as a reference to the Mayan language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Salish": {
+      "verdict": "mentioned_only",
+      "reason": "Refers to 'several Salish languages' mentioned as languages that permit non-culminating interpretations of accomplishment predicates, discussed only as a cross-linguistic contrast.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Listed among languages that permit non-culminating interpretations of accomplishment predicates, discussed only as a cross-linguistic contrast without any experiments or data collection.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "Listed among languages that permit non-culminating interpretations of accomplishment predicates, discussed only as a cross-linguistic contrast without any experiments or data collection.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Mandarin Chinese is discussed with an example sentence illustrating weak culmination inferences, serving as a cross-linguistic contrast to English; no experiments or models are built for Chinese.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper's NLI benchmark, minimal-pair constructions, and human annotation are all in English, and English semantics (telicity, aspectual coercion) is the core subject of study.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

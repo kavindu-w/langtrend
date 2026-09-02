@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.24748v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T17:22:33.208396+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3909,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The matched text is the common English phrase 'for the sake of technology,' not a reference to the Sake language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Irish": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to 'The Irish Times,' a newspaper name, not the Irish language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to 'the Chinese government' as a political entity, not the Chinese language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets describe the study's corpora as English newspapers/documents and interviews conducted in English, making English the language of the data collected and analyzed.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

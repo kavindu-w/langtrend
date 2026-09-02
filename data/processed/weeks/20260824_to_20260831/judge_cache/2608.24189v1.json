@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.24189v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T14:34:45.881177+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4831,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "The match is a substring of 'LoCoMo', the name of a dataset by Maharana et al. (2024), not a reference to the Mo language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the English language as the language of the study's participants and their conversations ('proficient English speakers', 'write around 2,000 English words per month'), making it ",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to the Japanese consumer market, Japanese statutory minimum wage, and Japanese artists in example content, but the study's conversations are conducted in English; Japanese is refere",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

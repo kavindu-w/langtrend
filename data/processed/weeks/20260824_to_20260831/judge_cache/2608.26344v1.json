@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26344v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T16:50:41.649599+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10989,
+  "verdicts": {
+    "Gor": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'GOR' refers to a loss function term (e.g., 'a GOR term is added to the loss'), not the Gor language of Côte d'Ivoire.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The matched text is the common English phrase 'for the sake of comparability,' not the Sake language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "The paper builds, trains, and evaluates a ColBERT retrieval model specifically for Turkish, using Turkish corpora, Turkish BEIR datasets, and a Turkish tokenizer throughout.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as a comparison point (e.g., how English distributes inflection across words) and as a domain filtered out of training data, not as a language the paper works on.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only in relation to the JaColBERT line of work as a motivating example of monolingual encoders, not as a language the paper studies.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23448v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T17:42:33.282800+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5469,
+  "verdicts": {
+    "Moklen": {
+      "verdict": "mentioned_only",
+      "reason": "Moklen is mentioned as the subject of a prior study by Spencer and Kongborrirak on LFG XLE grammars for this low-resource language, not worked on in this paper itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Nai": {
+      "verdict": "false_positive",
+      "reason": "The word 'Nai' does not appear in the provided snippet text; the regex likely matched a substring of another word, so the snippets are insufficient to identify any reference to the Nai language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Irish": {
+      "verdict": "mentioned_only",
+      "reason": "Irish is mentioned in the context of related work by Lam and Uí Dhonnchadha (2026) on generating f-structures from Cantonese and Irish sentences, but the present paper's own experiments focus on Canto",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is mentioned only as an example of a mature broad-coverage ParGram grammar alongside English and German, not used in the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only as a comparison point (Mandarin Chinese 把 equivalent to Cantonese 將) in explaining an object-fronting construction.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is mentioned only as an example of a mature broad-coverage ParGram grammar alongside English and Polish, not used in the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a baseline condition in the paper's controlled experiments, with an English toy grammar included in prompts and English ParGram resources serving as gold standards.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

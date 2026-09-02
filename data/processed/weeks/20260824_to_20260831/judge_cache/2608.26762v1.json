@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26762v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-09-02T16:52:06.244426+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5603,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The candidate refers to 'jina-reranker-v3', which is a purpose-built reranking model, not a human language, implying a false positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets state that all collections used in the study are English, implying the language is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

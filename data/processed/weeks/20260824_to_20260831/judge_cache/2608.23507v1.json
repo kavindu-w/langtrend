@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23507v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T14:50:38.309541+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10431,
+  "verdicts": {
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'LOO reports the range of paired gains after removing each entity in turn,' referring to Leave-One-Out cross-validation, not the Loo language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The snippets consistently refer to 'GPT-5.6 Luna,' a model variant evaluated in the paper's experiments, not the Luna language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Sanskrit": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Sanskrit literary entities' as an example of historical NLP resources in related work, not a language the paper studies or builds resources for.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet says 'non-Latin historical text,' referring to the Latin script/alphabet rather than the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention 'Historical Chinese newspapers' as related work and 'Chinese-character renderings' as one of several script traditions for Mongol-world names, but the paper does not study or buil",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
