@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23780v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T19:46:02.114636+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6987,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a student's name (a Latina girl in the classroom), not a human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Haitian Creole": {
+      "verdict": "mentioned_only",
+      "reason": "Haitian Creole is mentioned as a language one student (Destiny) knows but does not use at school; it is not part of the study's data collection or analysis.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of instruction and the primary language of the transcripts; utterances in the validation set are explicitly tagged as English, making it part of the study's data and LLM evalua",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is referenced as a home language for students, the author uses it for communication, and utterances in the validation set are explicitly tagged for English, Spanish, or both, making it part of",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

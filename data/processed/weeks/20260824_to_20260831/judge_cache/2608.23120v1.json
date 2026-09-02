@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23120v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T22:30:54.985849+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10905,
+  "verdicts": {
+    "Bodo": {
+      "verdict": "mentioned_only",
+      "reason": "Bodo is listed as one of the Northeast Indian languages with prior MT studies, used for comparison/motivation only, not worked on in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Mizo": {
+      "verdict": "mentioned_only",
+      "reason": "Mizo is listed alongside Bodo as a Northeast Indian language with prior MT studies, mentioned for comparison only.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Khasi": {
+      "verdict": "mentioned_only",
+      "reason": "Khasi is mentioned as a linguistically related language and a source of code-mixing in Pnar text, and prior Khasi-English SMT work is cited for comparison, but no Khasi system or data is built in this",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pnar": {
+      "verdict": "studied",
+      "reason": "Pnar is one of the two languages in the English-Pnar MT pair; the paper builds a parallel corpus, trains SMT systems, and evaluates translation quality for Pnar.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The matched 'wa' is a Pnar lexical item appearing in sample translation sentences (e.g., 'wa Dalmia'), not a reference to the Wa language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Yei": {
+      "verdict": "false_positive",
+      "reason": "The matched 'yei' is a Pnar word appearing in sample translation sentences (e.g., 'yei yakhih'), not a reference to the Yei language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the two languages in the English-Pnar MT pair; the paper builds and evaluates SMT systems for both Pnar→English and English→Pnar directions.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

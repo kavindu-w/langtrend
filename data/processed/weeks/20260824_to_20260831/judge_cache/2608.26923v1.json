@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26923v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T18:46:27.350062+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1468,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to 'column' (abbreviated) in the context of table structure, column types, and column embeddings, not a human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Kinyarwanda": {
+      "verdict": "studied",
+      "reason": "The paper builds TabuLM, a language model pre-trained on Kinyarwanda tabular data, creates the TabQA-kin benchmark, and evaluates models on Kinyarwanda, making it the central studied language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "Swahili appears in the Introduction and Contributions sections as a related language mention, but the paper does not build resources or run experiments for it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced in the context of challenges, templates, and data examples as a comparison or auxiliary language, but the paper's experiments and artifacts focus on Kinyarwanda.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

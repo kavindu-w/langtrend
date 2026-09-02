@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.22817v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T20:24:43.313922+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4609,
+  "verdicts": {
+    "Pana": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'Pana' as an abbreviation for 'Panasonic' in model names like 'Qwen-Pana-Qwen' and 'Qwen-Pana-Claude' and in 'Panasonic metrics', referring to the company whose technical reports are",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show 'English' referring to the human language: prompt templates instruct generating 'an English question q* and a corresponding response a*', and the OmniDocBench benchmark is evaluated ",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

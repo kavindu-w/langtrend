@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23719v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T22:21:45.054890+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3878,
+  "verdicts": {
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The word 'polish' in the snippet is the verb meaning to refine/improve text ('GPT-5 was used to polish the appendix language'), not a reference to the Polish language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets show Chinese is the language used for data generation ('Use standard, professional, natural Chinese by default'), evaluation ('evaluates education-value alignment in Chinese'), and the pa",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet only mentions 'short English spans that are necessary for fidelity' to be preserved within Chinese text, referring to the English language as a secondary element in code-switching, not as ",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

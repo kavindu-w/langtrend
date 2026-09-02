@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26563v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T23:42:35.104559+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8214,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'Tulu 3 SFT,' which is an instruction-tuning dataset/mixture (cited as Lambert et al. 2024), not the Tulu language spoken in India.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'basic Latin letters' as a Unicode script used for language-composition proxy, not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean is mentioned only as part of a CJK script-share proxy for corpus composition; the paper does not study or build resources for the Korean language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only as part of a CJK script-share proxy for corpus composition; the paper does not study or build resources for the Japanese language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The Limitations section states 'Our main experiments cover English and Chinese data,' and APTBench evaluation includes 'Chinese closed-ended action tasks,' indicating Chinese is used in the paper's ex",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The Limitations section states 'Our main experiments cover English and Chinese data,' and APTBench evaluation includes 'English closed-ended action tasks,' indicating English is used in the paper's ex",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

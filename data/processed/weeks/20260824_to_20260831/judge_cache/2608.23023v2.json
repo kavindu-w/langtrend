@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23023v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T20:20:02.786332+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11997,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'GPT-5.6 Luna' / 'gpt_5_6_luna', which is a model name in the model pool, not a human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'pin' to mean a fixed configuration point ('aggregation rules were pinned', 'a translation-checking pin', 'pin time'), not a human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is one of the three language conditions (Korean, English, Hindi) used in the experiments; the paper evaluates models on Hindi items and reports per-language results.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is one of the three language conditions in the study; the paper evaluates models on Korean items and reports per-language results.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the three language conditions in the study and the source language for translations; the paper evaluates models on English items and reports per-language results.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

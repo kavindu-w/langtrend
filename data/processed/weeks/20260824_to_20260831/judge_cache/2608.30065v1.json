@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30065v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T20:37:11.542576+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11961,
+  "verdicts": {
+    "Beaver": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to 'Beaver-Dam-7B' (a moderation classifier model) and 'BeaverTails' (a dataset name), not the Beaver human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "The paper builds and evaluates a human-validated Urdu benchmark suite (PakAlpaca, PakBeaverTails, PakTruthfulQA) with Urdu translations, annotations, and zero-shot evaluations, making Urdu a core lang",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used throughout as the source/baseline language for comparison against Urdu in all experiments, with English versions of datasets and model outputs explicitly evaluated alongside Urdu.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

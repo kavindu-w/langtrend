@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.27505v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T23:42:25.895484+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4434,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'DR Tulu' as a method/model name (cited as Shao et al., 2026) alongside other method names like HiPER and RubricEM, not to the Tulu language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Korean as a human language, specifically discussing jondaetmal (honorific usage) as a language-specific quality dimension absent from English-centric rubrics, but the paper does ",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Arabic as a human language, specifically citing Arabic diglossia as a language-specific quality dimension absent from English-centric rubrics, but the paper does not build or eva",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English as the dominant language that rubric-guided RL is optimized for and that reward models are trained on, but the paper does not study English as a target language in its ow",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Japanese as a human language, specifically discussing keigo (honorific system) as a language-specific quality dimension absent from English-centric rubrics, but the paper does no",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30052v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T20:37:02.827481+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11738,
+  "verdicts": {
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'Logo' as a Turkish accounting software brand name (e.g., 'Paraşüt Logo Mikro'), not the Logo programming language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Estonian": {
+      "verdict": "studied",
+      "reason": "Estonian is one of the six query languages used in the paper's experiments, with queries run from Tallinn and results analyzed for local vs. global supplier presence; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "Norwegian is used as a query language from Oslo in the experiments, with supplier results analyzed; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is used as a query language from Tallinn in the experiments, with results showing it names Estonian suppliers in 4 of 6 runs; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is used as a query language from Istanbul and Berlin in the experiments, with supplier results analyzed across cells; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a query language across all four exit countries in the experiments and its behavior as a 'global signal' is analyzed; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is used as a query language from Berlin in the experiments, with supplier results analyzed; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29170v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T20:51:39.192364+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8688,
+  "verdicts": {
+    "Iau": {
+      "verdict": "false_positive",
+      "reason": "The matched text '⟨ iau ⟩' is a romanization symbol/final in the MandRomZJ1 scheme, not a reference to the Iau language of Papua New Guinea.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Lü": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'Pinyin ⟨ lü ⟩' is a Pinyin romanization symbol for a Mandarin syllable, not a reference to the Lü language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Mand": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'Mand Val' is an abbreviation for 'Mandarin Value' in a tone notation table, not a reference to the Mand language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Nabi": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'Baise-Nabi' is a place name in Guangxi, China, referring to a variety of Yue Chinese, not the Nabi language of Papua New Guinea.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'syllabic nasal' is a linguistic term for a type of sound unit in romanization schemes, not a reference to a language called Nasal.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Ong": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'Pinyin ⟨ ong ⟩' is a romanization symbol/final in the Pinyin system, not a reference to the Ong language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Chinese characters, Chinese linguistics, Yue Chinese languages, and Chinese dialects; the paper builds romanization schemes for Sinitic/Chinese languages including Mandarin and C",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions English only as a motivating example for the orthographic choice of ⟨ea⟩ to represent [ɛ]-like vowels, not as a language the paper works on.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Manda": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'Manda-rin' is a line-break hyphenation of 'Mandarin' in the abstract, not a reference to the Manda language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin is a romanization system for Mandarin Chinese, not a human language; it is used throughout as a baseline romanization scheme.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hakka": {
+      "verdict": "studied",
+      "reason": "The snippet states the paper applies its design framework to develop romanization schemes for 'Meixian Hakka' among other Sinitic languages, making it a language the paper builds resources for.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'Latin script', 'Latin letter', and 'Latin-script representations' — the Latin alphabet/script, not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

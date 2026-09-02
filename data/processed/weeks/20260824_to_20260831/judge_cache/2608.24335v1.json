@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.24335v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T19:33:39.619299+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1785,
+  "verdicts": {
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "No text snippets were provided; in an ML paper context 'Loo' most likely refers to LOO (Leave-One-Out) cross-validation rather than the Loo language of Vanuatu, so this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The abstract references 'prospectively registered language controls' and the section discusses 'prospective positive controls,' indicating English is used as a language control in the paper's experime",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The abstract references 'prospectively registered language controls' and the section discusses 'prospective positive controls,' indicating French is used as a language control in the paper's experimen",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

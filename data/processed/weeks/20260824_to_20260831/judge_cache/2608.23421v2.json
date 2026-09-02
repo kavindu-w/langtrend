@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23421v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T20:00:55.494667+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1722,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "In an Arabic NLP bibliometric study, 'Abu' almost certainly refers to a person's name (common Arabic name prefix) appearing in author or affiliation discussions, not the Papuan Abu language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Syriac": {
+      "verdict": "mentioned_only",
+      "reason": "Appears in topic modeling results; likely mentioned as a related Semitic language or script in the context of Arabic NLP topics, but the paper does not study or build resources for Syriac itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Appears in topic modeling results; likely mentioned as a script or related language in the context of Arabic NLP topic analysis, not studied as a target language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "Egyptian Arabic is explicitly analyzed in the dialect analysis sections (4.10, 4.11) as one of the Arabic dialects studied in the paper's task-dialect gap analysis.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The entire paper is a bibliometric and topic-based analysis of Arabic NLP research, studying 7,120 Arabic NLP papers, their trends, dialects, and research gaps.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears in methodology and results sections likely as a comparison language, the language of publication, or in translation contexts, but the paper does not study English NLP itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears in topic modeling results, likely in the context of Maghrebi Arabic dialects (North Africa where French is widely used) or as a related language, but the paper does not study French NLP",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
