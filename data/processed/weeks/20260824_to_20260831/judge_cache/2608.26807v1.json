@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26807v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T02:40:53.279033+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3735,
+  "verdicts": {
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'Japanese/Korean Cuisine' refers to a cuisine category in the POI database, not the Korean language itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'Japanese/Korean Cuisine' refers to a cuisine category in the POI database, not the Japanese language itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to data sourced from a Chinese online travel platform, Chinese travel cities, and Chinese food categories; the benchmark is built on Chinese-language platform data and Chinese-conte",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

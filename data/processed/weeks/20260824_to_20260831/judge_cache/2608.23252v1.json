@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23252v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T05:43:02.416118+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3615,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Latin-American query recipes,' meaning the Latin American region, not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The paper uses a corpus of Spanish-origin recipes and evaluates rewriting with Spanish culinary practices and ingredients as a non-English open-domain stress test, making Spanish part of the experimen",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as a human language: 'non-English open-domain check,' 'In plain English,' and 'all-mpnet-base-v2 for English tasks,' with English tasks (ASQA, QAMPARI, ELI5) being part o",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

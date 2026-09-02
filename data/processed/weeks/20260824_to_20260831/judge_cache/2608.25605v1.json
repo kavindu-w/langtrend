@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.25605v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T03:35:28.910791+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7887,
+  "verdicts": {
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is one of the languages used in the cross-lingual transfer experiments (HASOC19, HateCheck), where the model's performance is evaluated on Hindi hate speech tasks.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is only listed in the Background section as an example of a language for which hate speech detection resources exist, with no experiments conducted on it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is only listed in the Background section as an example of a language for which hate speech detection resources exist, with no experiments conducted on it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is only listed in the Background section as an example of a language for which hate speech detection resources exist, with no experiments conducted on it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is only listed in the Background section as an example of a language for which hate speech detection resources exist, with no experiments conducted on it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is both mentioned in the Background as a language with hate speech resources and evaluated in the cross-lingual transfer experiments where its performance on HateCheck is discussed.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is evaluated in the cross-lingual transfer experiments, with its performance on HateCheck discussed relative to other languages.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the primary language of the paper; the model is trained on 36 English hate speech datasets and evaluated extensively on English benchmarks.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German appears in the cross-lingual evaluation results (HASOC19 tasks for German are discussed in section 4.2), indicating it is part of the cross-lingual experiments.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

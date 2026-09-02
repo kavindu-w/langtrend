@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23263v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T05:08:28.354586+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6316,
+  "verdicts": {
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to 'URI' (Uniform Resource Identifier), a technical web identifier concept used throughout the pipeline, not the Uri language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Greek-language metadata values in the archaeological records being processed by the pipeline, mentioned as part of evaluation data rather than studied as a language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Romanian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Romanian-language metadata values and records from Romanian providers in the evaluation corpus, not to Romanian as a language being studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to the language code 'en'/'English' being misclassified to an art-historical concept (English Baroque), a boundary classification failure, not a study of the English language.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

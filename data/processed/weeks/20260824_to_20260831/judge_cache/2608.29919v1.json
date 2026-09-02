@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29919v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T00:40:11.939364+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11788,
+  "verdicts": {
+    "Mala": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'Kavya Mala' and 'Sahodara Kavya Mala' are names of Hindi poetry collections/books, not references to the Mala language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Mili": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'Sharafath Nahi Mili' is the title of a Hindi poem, not a reference to the Mili language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu is one of the three languages for which the IndicDetect benchmark collects human-written and LLM-generated texts, builds misspelling/alternative-spelling dictionaries, and evaluates detectors.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is one of the three languages for which the IndicDetect benchmark collects human-written and LLM-generated texts, builds misspelling/alternative-spelling dictionaries, and evaluates detectors.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is one of the three languages for which the IndicDetect benchmark collects human-written and LLM-generated texts, builds misspelling/alternative-spelling dictionaries, and evaluates detectors.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only as a pivot language in the back-translation paraphrase attack pipeline (Original→Chinese→Original), not studied as a target language for detection.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only in the context of current benchmarks being 'English-centric', serving as motivation for the work on Indic languages.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

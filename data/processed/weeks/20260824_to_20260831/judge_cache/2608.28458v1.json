@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28458v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T01:22:01.600787+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3453,
+  "verdicts": {
+    "Dair": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'DAIR' as a team/system name (e.g., 'DAIR's SFT-only system', 'DAIR sft-dpo'), not a reference to the Dair human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'pin'/'pinned' referring to fixing dataset/evaluation revisions (e.g., 'pinned development run', 'Evaluation Pins'), not the Pin human language.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

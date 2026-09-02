@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.24780v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T04:04:02.970576+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4143,
+  "verdicts": {
+    "Fore": {
+      "verdict": "false_positive",
+      "reason": "The snippet reads 'Fore supervised detectors we select...' — this is the common word 'for' (likely a typo or truncation of 'Furthermore'), not the Fore language of Papua New Guinea.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as a language subset in the MultiSocial benchmark used to analyze cross-lingual transfer (e.g., ru→zh), meaning the paper evaluates its detectors on Chinese language data.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses the English split of the TSM benchmark for training and testing, and discusses performance on non-English languages in MultiSocial, making English a language the paper evaluates on.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

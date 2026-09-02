@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23391v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-02T05:34:44.613021+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5317,
+  "verdicts": {
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'deg' refers to the wind direction unit (degrees) in OpenWeather API data fields ('wind speed deg gust'), not the Deg language of Ghana.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The matched text 'Chinese dynasty' and 'historical Chinese state' uses 'Chinese' as an adjective describing the Qin dynasty's cultural/national identity in a Wikidata example, not referring to the Chi",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show the paper's objective is to generate English text from structured data, uses WebNLG English text pairs for training, and annotators evaluate English-language outputs, making English ",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
