@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28327v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T00:14:37.403691+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4509,
+  "verdicts": {
+    "Tee": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'TEE Trusted Execution Environment' in a glossary table, referring to a hardware security concept, not the Tee language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet describes SafetyBench as containing questions 'in English and Chinese,' referring to the human language coverage of a benchmark, but the paper does not study or build resources for Chinese",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets note that benchmark coverage is 'predominantly English,' referring to the human language of existing evaluation datasets, but the paper does not study or build resources for English itsel",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29610v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T00:28:32.245437+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1882,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the common English phrase 'for the sake of' (e.g., 'for the sake of exploration'), not the Sake language of Papua New Guinea.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Irish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets are from the Hindsight chapter and Artificial Response Generation appendix, where 'Irish' likely appears as a nationality or example label without the paper building resources or running ",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets are from the Hindsight chapter and Artificial Response Generation appendix, where 'French' may appear as an example or label without the paper building resources or running experiments on",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the primary language of the docstrings and code generation experiments in ReCode, where natural transformations and back-translation are applied to English-language inputs, making it part o",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German appears in the ReCode methodology sections on Natural Transformations on Docstrings and BackTranslation, indicating it is used as a target/intermediate language in the back-translation data aug",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

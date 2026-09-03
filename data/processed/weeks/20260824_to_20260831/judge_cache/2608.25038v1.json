@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.25038v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T00:44:56.477699+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 2936,
+  "verdicts": {
+    "Jaya": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Jaya' as a proper name (a mythological figure, alongside Vijaya), not a human language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show English translations are used as input pairs alongside Sanskrit slokas in the benchmark and task definition, making English part of the paper's experimental setup.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Sanskrit": {
+      "verdict": "studied",
+      "reason": "The snippets show Sanskrit is the core language of the paper: it builds a benchmark of Sanskrit sloka-translation-glossary triples, evaluates models on Sanskrit phrase recovery, and analyzes Sanskrit ",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

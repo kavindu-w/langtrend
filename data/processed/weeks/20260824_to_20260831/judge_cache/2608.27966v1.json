@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.27966v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T02:00:55.469282+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11756,
+  "verdicts": {
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "The matched text '다오 dao' is the Korean imperative surface form of 달다 ('ask for, request'), not a reference to the Dao language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The matched text '와 wa' is the Korean contracted surface form of {오+아} ('come'), not a reference to the Wa language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The paper is entirely about Korean predicate morphology, analyzing Korean surface realization, irregular conjugation, and lexical disambiguation using Korean corpus data (KLUE).",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
