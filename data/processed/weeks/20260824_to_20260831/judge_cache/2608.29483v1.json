@@ -1,0 +1,114 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.29483v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T20:04:51.189295+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11911,
+  "verdicts": {
+    "Kei": {
+      "verdict": "false_positive",
+      "reason": "Appears as 'tokyo kei' in TF-IDF descriptors, referring to a place/area name in Tokyo, not the Kei language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "Appears as 'google logo' referring to the Google Street View interface logo, not the Logo language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Soi": {
+      "verdict": "false_positive",
+      "reason": "Appears as 'bangkok soi' referring to the Thai word for a side street/lane common in Bangkok place names, not the Soi language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Khmer": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as 'khmer script' and 'khmer' in geographic descriptors for Cambodia, referring to the Khmer language/script as a visual cue models use for geolocalization.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as 'bengali script' and 'bengali' in geographic descriptors for Bangladesh and India, referring to the Bengali language/script as a visual cue in the geolocalization analysis.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Georgian": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as 'georgian' alongside 'georgia caucasus tbilisi' as a geographic descriptor for the country Georgia, referring to the Georgian language/people as a model cue.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as 'hindi script', 'hindi signage', and 'hindi' in geographic descriptors for India, referring to the Hindi language/script as a visual cue in the analysis.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Appears as 'latin american' referring to the Latin American region, not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Finnish": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as 'finnish' alongside 'finland nordic birch' as a geographic descriptor for Finland, referring to the Finnish language/people as a model cue.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Norwegian": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as 'norwegian road', 'norwegian oslo', 'norwegian scandinavian' as geographic descriptors for Norway, referring to the Norwegian language/people as a model cue.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as 'thai script', 'thai thailand', 'thai monument' in geographic descriptors for Thailand, and Thai locations are mentioned as being misclassified as Vietnamese, referring to the Thai language",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pano": {
+      "verdict": "false_positive",
+      "reason": "Appears as 'pano id' referring to Google Street View panorama IDs, not the Pano language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as a geographic descriptor in TF-IDF tables for Brazil (e.g., 'portuguese signage', 'portuguese language'), indicating the VLMs use it as a cue for country identification, not that the paper s",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as a geographic descriptor in TF-IDF tables for Egypt (e.g., 'arabic script', 'arabic middle eastern'), used as a visual cue by VLMs for geolocalization, not studied as a language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as a geographic descriptor in TF-IDF tables for China, Taiwan, and Switzerland (e.g., 'chinese characters'), serving as a visual/script cue for VLM geolocalization reasoning, not studied as a ",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as a geographic descriptor in TF-IDF tables for France and Switzerland (e.g., 'french signage', 'french language'), used as a cue by VLMs for country identification, not studied as a language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as a geographic descriptor in TF-IDF tables for Argentina and Chile (e.g., 'spanish speaking', 'spanish text'), used as a cue by VLMs for geolocalization, not studied as a language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as a geographic descriptor in TF-IDF tables for Vietnam and is mentioned in the reasoning vocabulary analysis as a misclassification target for Thai locations, not studied as a language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as a geographic descriptor in TF-IDF tables for Germany and Switzerland, and is noted in the reasoning vocabulary analysis as the leading term Gemma uses for Switzerland, not studied as a lang",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Appears as a geographic descriptor in TF-IDF tables for Japan and Taiwan, and is noted in the reasoning vocabulary analysis as the leading term Claude Haiku uses for Taiwan, not studied as a language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned in the TF-IDF preprocessing methodology ('removing English stop words') and appears as a geographic descriptor for some countries in the tables, but the paper does not study or build resourc",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

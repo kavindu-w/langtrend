@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23809v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T18:49:14.435040+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2543,
+  "verdicts": {
+    "Ende": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain no reference to the Ende language; this is likely a regex false positive matching the language code 'en' followed by 'de' or the German word 'Ende' (meaning 'end'), not the human ",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is one of the six languages in the MGSM dataset used for experiments, with prompts and reasoning traces collected and analyzed in the paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is one of the six languages in the MGSM dataset used for experiments, with prompts shown in the appendix and reasoning traces replayed through models.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the six languages in the MGSM dataset used for experiments, with system prompts and reasoning traces collected and analyzed.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is one of the six languages in the MGSM dataset used for experiments, with system prompts shown in the appendix.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is one of the six languages in the MGSM dataset used for experiments, with system prompts shown in the appendix.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is one of the six languages in the MGSM dataset used for experiments, as stated in the abstract.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

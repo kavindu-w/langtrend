@@ -1,0 +1,79 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.25089v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T20:30:54.028195+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11244,
+  "verdicts": {
+    "Gujarati": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned only as an example of a language with very few items (7) in MultiBLiMP, illustrating data availability issues; not part of the paper's own experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Khmer": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as an example of a script whose characters require three UTF bytes, illustrating byte premium; not part of the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tibetan": {
+      "verdict": "false_positive",
+      "reason": "The match is from 'Sino-Tibetan,' the name of a language family for Chinese in the typological table, not a reference to the Tibetan language itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Refers to the Latin script/alphabet (e.g., 'Latin characters require only one byte,' 'Alphabetic (Latin)'), not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "One of the ten languages in the parallel corpus used to train and evaluate monolingual models in the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "One of the ten languages in the parallel corpus used in the paper's experiments; also referenced via the KMMLU benchmark.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "One of the ten languages in the parallel corpus used to train and evaluate models in the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Used in the parallel corpus, MultiBLiMP evaluation, and FLORES-200 multilingual LLM experiments as one of the paper's evaluated languages.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "One of the ten languages in the parallel corpus used in the paper's experiments; also cited as an example of morphologically-rich languages in the tokenization discussion.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Used in both Parallel-10 and Parallel-3 corpora, FLORES-200 multilingual LLM evaluation, and MultiBLiMP; a core language in the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Used extensively in the paper's experiments (Parallel-10, Parallel-3, FLORES-200, ZhoBLiMP) and discussed in metric bias analysis as a logographic language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "A core language throughout the paper's experiments, used as a reference language and in parallel corpora, paraphrase experiments, and multilingual LLM evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is one of the ten languages in the Parallel-10 corpus used to train GPT2 models and is listed in the typological properties table; it is part of the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is one of the ten languages in Parallel-10 and is specifically used in Experiment 2 for paraphrase/translation alternative comparisons with English; it is part of the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

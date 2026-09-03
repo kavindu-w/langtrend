@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28009v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T18:13:15.844236+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7501,
+  "verdicts": {
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'Pol.' as a column abbreviation in a benchmark comparison table alongside 'Gen.' and 'Rew.', referring to the text polishing task, not the Pol language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "All snippets use 'Polish' to refer to a text manipulation/rewriting task (e.g., 'Generate Polish Rewrite', 'MIRAGE-Polish', 'Paraphrase & Polish'), not the Polish language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as the language of the texts used in the benchmark (filtering out 'non-English texts', evaluation 'constrained to English-language texts'), making it the language the pap",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

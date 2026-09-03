@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23390v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T18:01:57.975720+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11958,
+  "verdicts": {
+    "Maya": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to 'Maya Angelou,' a person's name used as an example biography subject, not the Maya language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to 'Ying Wa Girls School,' a school name in a biography example, not the Wa language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Azerbaijani": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Azerbaijani language as one of the three non-English languages in the CLAW-4L benchmark, for which biographies are collected, translated, and evaluated.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Chinese language as one of the three non-English languages in the CLAW-4L benchmark, with biography pairs, translation evaluation, and enrichment experiments conducted for it",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the French language as one of the three non-English languages in the CLAW-4L benchmark, with biography pairs, translation model selection, and enrichment experiments conducted fo",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as the target language whose biographies are enriched using non-English sources; the paper builds benchmarks, extraction pipelines, and evaluation frameworks centered on ",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

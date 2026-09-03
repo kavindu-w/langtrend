@@ -1,0 +1,124 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26449v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T22:45:44.206301+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11880,
+  "verdicts": {
+    "Odia": {
+      "verdict": "studied",
+      "reason": "Odia appears in the bound tables (Appendix A, Section 8) as an abugida language with a computed shatter ratio of 4.14×, so the paper evaluates it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Burmese": {
+      "verdict": "studied",
+      "reason": "Burmese appears in the bound tables with a computed shatter ratio of 7.58× and is discussed as an abugida language, so the paper evaluates it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Gujarati": {
+      "verdict": "studied",
+      "reason": "Gujarati appears in the bound tables with a computed shatter ratio of 3.51× as an abugida language, so the paper evaluates it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Kannada": {
+      "verdict": "studied",
+      "reason": "Kannada appears in the bound tables with a computed shatter ratio of 4.86× as an abugida language, so the paper evaluates it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "Marathi appears in the bound tables with a computed shatter ratio of 4.25× as an abugida language, so the paper evaluates it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Sinhala": {
+      "verdict": "studied",
+      "reason": "Sinhala appears in the bound tables with a computed shatter ratio of 3.25× as an abugida language, so the paper evaluates it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu appears in the bound tables with a computed shatter ratio of 4.57× as an abugida language, so the paper evaluates it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Khmer": {
+      "verdict": "studied",
+      "reason": "Khmer appears in the bound tables with a computed shatter ratio of 5.11× and is noted in Section 2 as a language where whitespace does not delimit words, so the paper evaluates it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Lao": {
+      "verdict": "studied",
+      "reason": "Lao appears in the bound tables with a computed shatter ratio of 5.95× and is noted in Section 2 as a language where whitespace does not delimit words, so the paper evaluates it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "Malayalam is one of the five trained language pairs with matched tokenizer experiments, a measured fertility table row, and a computed bound, so the paper studies it directly.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "Nepali is the primary language of the paper: it has a full training-free bound, a corpus sweep, trained 268M models, and a released 65,536-entry Nepali-English tokenizer.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tibetan": {
+      "verdict": "studied",
+      "reason": "Tibetan appears in the bound tables with a computed shatter ratio of 1.47× and receives a dedicated discussion as a partial exception due to the tsheg delimiter, so the paper evaluates it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is one of the five languages for which matched tokenizer pairs are trained and evaluated, with measured fertility and bound reported in tables; it is actively studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is one of the five trained matched pairs with measured fertility and bound, and is discussed as the language with the smallest predicted effect; it is actively studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is one of the five trained matched pairs with measured fertility and bound reported in tables; it is actively studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "Hebrew is discussed as a 'dormant case' where the defect does not manifest in modern undiacritized text, but no models are trained or evaluated on it; it is mentioned only.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is discussed as a 'dormant case' whose diacritics are absent in modern prose, with a bound of 1.08× reported, but no models are trained on it; it is mentioned only.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets use 'Latin' to refer to the Latin script/alphabet (contrasted with Cyrillic, Hangul, Han), not the Latin language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Punjabi": {
+      "verdict": "studied",
+      "reason": "Punjabi appears in the 26-language bound table and the defect-scope table with a computed shatter ratio of 2.87×, making it one of the evaluated abugida languages; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is reported with the highest shatter ratio (9.02×) in the abstract and tables, and its bound is computed across FLORES data; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only as a script that does not use whitespace delimitation and as a contrast case at 1.00×, with no experiments or analysis focused on it; it is mentioned only.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the control channel in all trained pairs (50/50 with each target language), its fertility cost is measured, and a Nepali–English tokenizer is released; it is actively studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only as a logographic script that does not delimit words with spaces and sits at 1.00×, with no experiments focused on it; it is mentioned only.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

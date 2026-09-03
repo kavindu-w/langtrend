@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23873v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T20:35:27.141240+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6035,
+  "verdicts": {
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is used as a held-out target language in generalization experiments testing whether the adapter can produce text in Italian when trained only on French and Polish; it is part of the paper's ex",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is one of the trained transform-overlay target languages used in the generalization experiments, where the adapter is trained on French and Polish and then tested on Italian.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is a trained transform-overlay target language used in the experiments; the adapter is trained on French and Polish, and French is also the nearest-neighbor substitution when the model fails on",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the baseline/default language of the experimental replies; overlays transform specific spans into other languages within an otherwise English response, making it part of the experimental se",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is a trained transform-overlay target language; the paper trains and evaluates an overlay that causes the model to respond in German, with compliance measured at 81% using a language detector v",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is a trained transform-overlay target language used throughout the experiments; the paper trains, evaluates, and reports compliance results (74% by language detector) for a Spanish overlay tha",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

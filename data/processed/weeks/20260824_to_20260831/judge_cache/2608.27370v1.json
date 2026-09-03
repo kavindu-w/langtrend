@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.27370v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T20:11:24.332997+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11942,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'endpoint MAE is 0.0067', which is Mean Absolute Error, a metric, not the Mae language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'AI-MO NuminaMath-CoT', where Mo is part of the dataset name AI-MO, not the Mo language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'production revision to pin', using the verb 'pin' to fix a version, not the Pin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'Tulu-3 SFT source' and 'tulu--sft-mixture' by AllenAI, which is a dataset/mixture name, not the Tulu language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets show Chinese data is included in the pretraining mixture (51.34B/88.48B tokens), evaluated via C-Eval and CMMLU benchmarks, and tracked as a capability axis, making Chinese a studied lang",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show English as the largest domain in the pretraining data recipe (321.31B tokens in Phase 1, 557.52B in Phase 2) and as a tracked capability axis, making English a studied language.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

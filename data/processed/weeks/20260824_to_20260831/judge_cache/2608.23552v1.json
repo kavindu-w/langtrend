@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23552v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T19:44:54.594455+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4464,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to 'ARC-AGI-3', a benchmark name (Abstraction and Reasoning Corpus for AGI), not the Agi language of South Sudan.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tol": {
+      "verdict": "false_positive",
+      "reason": "The matched text is 'tol=1e-9', a tolerance parameter in a differential_evolution function call, not the Tol language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The matched text is 'polish=True', a boolean parameter in a differential_evolution function call, not the Polish language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet shows 'LongBench Pro (English)', a benchmark evaluated in the paper that tests comprehension in the English language, making English a studied language.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
