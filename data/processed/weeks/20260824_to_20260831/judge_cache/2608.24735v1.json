@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.24735v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T14:30:50.586254+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9944,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "All matches refer to 'ARC-AGI-2', a benchmark dataset name (Abstraction and Reasoning Corpus for AGI), not the Agi language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Both matches refer to the 'Hungarian algorithm', a well-known combinatorial optimization algorithm, not the Hungarian language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to LawBench as a 'Chinese legal classification' benchmark and mention switching to 'Chinese prompts', meaning the paper evaluates its system on Chinese-language legal text data; thi",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The match is 'Plain English' in a notation glossary table, referring to English as the descriptive medium for symbols, not as an object of study or evaluation; this is mentioned only.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

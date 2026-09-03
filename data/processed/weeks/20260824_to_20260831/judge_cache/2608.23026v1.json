@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23026v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T10:55:01.437120+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8158,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The match refers to 'Quartier Latin', a place name (the Latin Quarter in Paris), not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese (ZH) is one of the three languages in which LLM outputs are generated, analyzed, and compared across experiments throughout the paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English (EN) is one of the three languages in which LLM outputs are generated, analyzed, and compared; it also serves as the translation target for surface-cue controls.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French (FR) is one of the three languages in which LLM outputs are generated, analyzed, and compared across experiments throughout the paper.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
