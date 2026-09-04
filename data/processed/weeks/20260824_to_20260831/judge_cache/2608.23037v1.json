@@ -1,0 +1,89 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.23037v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-03T23:56:19.703237+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8223,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the 'sentinel approach' described in Raman et al. (2022), a technique for generative seq2seq FSP, not the Sentinel language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tal": {
+      "verdict": "false_positive",
+      "reason": "The match is on the word 'total' split across a line break ('to- tal'), not a reference to the Tal language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is mentioned as an existing frame annotation effort for low-resource languages that could be integrated in future work, but it is not part of the mFNC experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is mentioned as a potential future extension via PropBank-annotated datasets, not part of the mFNC itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned both as an existing frame annotation effort and as a potential PropBank-based extension, but is not part of the mFNC experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latvian": {
+      "verdict": "studied",
+      "reason": "Latvian is one of the ten languages included in the mFNC corpus, with data collected, harmonized, and used for training and evaluating FSP models.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is one of the ten languages included in the mFNC corpus, with data collected, harmonized, and used for training and evaluating FSP models.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is one of the ten languages included in the mFNC corpus, with data collected, harmonized, and used for training and evaluating FSP models.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is one of the ten languages included in the mFNC corpus, with data collected, harmonized, and used for training and evaluating FSP models.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Brazilian Portuguese is one of the ten languages included in the mFNC corpus, with data collected, harmonized, and used for training and evaluating FSP models.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Swedish is one of the ten languages included in the mFNC corpus, with data collected, harmonized, and used for training and evaluating FSP models.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is one of the ten languages included in the mFNC corpus, with data collected, harmonized, and used for training and evaluating FSP models.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the base language of the Berkeley FrameNet and one of the ten languages included in the mFNC; the paper trains and evaluates FSP models on English data, making it a studied language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is one of the ten languages included in the mFNC corpus, with annotated documents and experimental results reported on it, making it a studied language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is one of the ten languages included in the mFNC corpus, with experimental results showing significant improvements when trained on multilingual data, making it a studied language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only as the source of the Japanese FrameNet used to expand the Korean FrameNet via cross-language projection; it is not one of the ten languages in the mFNC and is not experiment",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

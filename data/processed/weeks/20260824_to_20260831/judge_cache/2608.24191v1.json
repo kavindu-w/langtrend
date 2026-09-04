@@ -1,0 +1,99 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.24191v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-04T01:53:11.022612+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 7037,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "No snippet contains 'Dia' as a reference to a human language; it is likely a substring match or false positive with insufficient evidence.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Amharic": {
+      "verdict": "mentioned_only",
+      "reason": "Amharic is mentioned alongside Urdu and Yoruba as a language urgently requiring technological support in related work, but is not studied in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hausa": {
+      "verdict": "mentioned_only",
+      "reason": "Hausa is cited in related work as a low-resource African language with parallel challenges, serving as a structural analog, but is not studied in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Yoruba": {
+      "verdict": "mentioned_only",
+      "reason": "Yoruba is mentioned alongside Urdu and Amharic as a language urgently requiring technological support, but is not studied in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is mentioned in the WOAH literature survey as equally absent and in the language ranking table, but is not studied in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi appears in the WOAH paper-ranking table and in references to other cross-lingual studies, but is not studied in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'Latin script' and 'Latin-script transliteration,' meaning the Latin alphabet, not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch is mentioned in the WOAH paper-ranking table as having multiple dedicated papers, but is not studied in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is mentioned in the WOAH paper-ranking table as having multiple dedicated papers, but is not studied in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is mentioned as one of the Central and South Asian languages written in the Perso-Arabic Nastaliq script, but is not studied in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is mentioned in the WOAH paper-ranking table and in references to other cross-lingual studies, but is not studied in this paper.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu is the central language of this paper: it is evaluated across five LLMs, six datasets, and multiple script conditions to measure safety inconsistency and Missed-in-Urdu rates.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian appears in the WOAH paper-ranking table and as one of the top-ten most spoken languages left unevaluated in a prior cross-lingual study; it is referenced in related work, not experimented on —",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic appears in the ranking table of WOAH papers and in a list of top-ten languages evaluated in prior work; 'Perso-Arabic script' refers to the script name, not the language — the language itself i",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears in the WOAH paper-ranking table and in a list of top-ten languages covered by a prior cross-lingual prompting study; it is referenced in related work, not experimented on — mentioned_on",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German appears in the WOAH paper-ranking table as a language with multiple dedicated papers; it is cited in related work to illustrate the resource gap, not experimented on — mentioned_only.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears in the WOAH paper-ranking table and in a list of top-ten languages covered by a prior study; it is referenced in related work, not experimented on — mentioned_only.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a control and comparison language throughout the paper's experiments — datasets include an English-only control (HateXplain) and an English-translation classification condition (C2)",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

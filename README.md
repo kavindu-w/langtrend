@@ -17,15 +17,15 @@ Live site: [kavindu-w.github.io/langtrend](https://kavindu-w.github.io/langtrend
 ## Latest Run Summary
 
 _Latest processed week: **2026-08-24 – 2026-08-31**._
-_Judged with (mixed — fallback used):_ `z-ai/glm-5.2:free` (838), `google/gemma-4-31b-it:free` (72), `google/gemma-4-26b-a4b-it:free` (69)
+_Judged with (mixed — fallback used):_ `z-ai/glm-5.2:free` (894), `google/gemma-4-31b-it:free` (72), `google/gemma-4-26b-a4b-it:free` (69)
 
 > ⚠️ **LLM judge in progress** — this week's papers are still being verified. The live site won't show this week's data until judging completes, and the *This week* counts below (and per-language/class breakdowns) may still change as more verdicts come in.
 
 | Metric | This week | All-time |
 |--------|----------:|---------:|
 | Papers scanned | 593 | 9,235 |
-| Papers with language mentions | 278 | 4,045 |
-| Unique languages detected | 317 | 538 |
+| Papers with language mentions | 277 | 4,044 |
+| Unique languages detected | 311 | 533 |
 | Weeks tracked | — | 18 (since 2026-04-27) |
 
 <!-- LANGTREND_STATS_END -->

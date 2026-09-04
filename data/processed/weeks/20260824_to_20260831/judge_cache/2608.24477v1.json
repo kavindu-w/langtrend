@@ -1,0 +1,84 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.24477v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-04T04:15:19.008816+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11970,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'jina-embeddings-' which is an embedding model name, not the Jina language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'Polish (POL)' where 'Pol' is an abbreviation/code for Polish, not a separate language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Bosnian": {
+      "verdict": "studied",
+      "reason": "Bosnian is evaluated as one of the Slavic languages in the benchmark analysis, with evidence strength, task coverage, and cross-task results reported; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Belarusian": {
+      "verdict": "studied",
+      "reason": "Belarusian is listed among the East Slavic languages and appears in task coverage and evidence strength analysis as a low-resource language with benchmark data; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "Bulgarian is extensively evaluated across multiple tasks with task coverage, evidence strength, transfer consistency, and appendix-level cross-task analysis; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Croatian": {
+      "verdict": "studied",
+      "reason": "Croatian is evaluated across tasks with evidence strength, task coverage, and cross-task transfer consistency results reported; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'the coexistence of Latin and Cyrillic scripts,' meaning the Latin alphabet/script, not the Latin language; this is a false positive.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Macedonian": {
+      "verdict": "studied",
+      "reason": "Macedonian is evaluated across tasks with evidence strength, task coverage, classification, retrieval, and cross-task transfer consistency results; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Slovak": {
+      "verdict": "studied",
+      "reason": "Slovak is evaluated across tasks with evidence strength, task coverage, classification, and cross-task transfer consistency results reported; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Slovene": {
+      "verdict": "studied",
+      "reason": "Slovene is evaluated across tasks with evidence strength, task coverage, classification, retrieval, and cross-task transfer consistency results; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech is extensively evaluated across multiple tasks with task coverage, evidence strength, clustering, retrieval, and cross-task transfer consistency results; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is extensively evaluated with the strongest evidence profile, full task coverage analysis, cross-task transfer consistency, and a dedicated appendix section; it is studied.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is one of the Slavic languages evaluated throughout the paper's experiments, with full task coverage, the highest evidence strength, and detailed per-task and cross-task analysis results repor",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Serbian": {
+      "verdict": "studied",
+      "reason": "Serbian is one of the Slavic languages evaluated in the paper, appearing in retrieval, reranking, bitext mining, and cross-task transfer consistency analyses with reported benchmark results.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is listed among the Slavic languages evaluated in the study, appearing in retrieval, bitext mining, and cross-task generalization analyses, though noted as having low task coverage.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
