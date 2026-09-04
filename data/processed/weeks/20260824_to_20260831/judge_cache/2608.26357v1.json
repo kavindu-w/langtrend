@@ -1,0 +1,99 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26357v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-04T21:11:53.599620+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11613,
+  "verdicts": {
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'Leave-one-language-out' (LOO), an experimental protocol acronym, not a human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tibetan": {
+      "verdict": "false_positive",
+      "reason": "The snippets only contain 'Sino-Tibetan' as a language family label for Chinese, not a reference to the Tibetan language itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Saya": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'Saya kosongkan kantong saya' which is Indonesian for 'I emptied my pocket' — 'saya' is the Indonesian first-person pronoun, not a language name.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The provided snippets do not contain any clear reference to the Wa language; the match is likely a common-word coincidence.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Estonian": {
+      "verdict": "studied",
+      "reason": "Estonian is used as an evaluation language in the XCOPA case study, with CIF predictions analyzed on Estonian examples.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian is used as an evaluation language in the XCOPA case study, with CIF predictions analyzed on Indonesian examples.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is evaluated on XCOPA and XNLI, with a detailed case study and per-language gain analysis.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is extensively evaluated across multiple benchmarks (XCSR, XNLI, FLORES) and used in representation-level alignment analysis with English–Hindi sentence pairs.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets only use 'Latin' in the phrase 'non-Latin script', referring to the Latin alphabet/writing system, not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is used as a held-out evaluation language in XCOPA leave-one-language-out experiments and is analyzed in the centroid-drop analysis.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is listed as an evaluation language on XNLI with per-language gains reported in the appendix.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu is listed as a target evaluation language on XCSR and XNLI with per-language gains reported, and included in the centroid construction language pairs.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is listed as an evaluation target language on XNLI (described as 'Turkic') with reported CIF gains, making it part of the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is used as an evaluation target across XCSR, XNLI, and FLORES benchmarks with reported per-language gains (e.g., +11.45 pp on XCSR, +5.25 BLEU on FLORES), making it part of the paper's experime",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is used as an evaluation target in XCOPA, XNLI, FLORES, and XCSR, and is included in leave-one-language-out transfer experiments, making it part of the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is an evaluation target across XCOPA, FLORES, XCSR, and XNLI with detailed discussion of its regression on FLORES and its role in leave-one-language-out experiments, making it part of the pape",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language in all cross-lingual transfer experiments; projections map from target languages to English, and English–Hindi sentence pairs are used for representation-level alignment",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is listed as an evaluation target on XCSR (described as 'Japonic, non-Latin script') and is identified as the most frequently removed language on WMT in the centroid-drop analysis, making it ",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

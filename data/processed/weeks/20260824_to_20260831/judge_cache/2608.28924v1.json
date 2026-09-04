@@ -1,0 +1,109 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28924v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-04T19:33:23.486784+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11874,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The word 'dass' appears as a German word in a sentence template ('Ich weiß dass was sie'), not as a language name. False positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "The word 'Ik' appears as a Dutch word in a sentence template ('Ik weet dat'), not as a language name. False positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The word 'sie' appears as a German word in a sentence template ('was sie'), not as a language name. False positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Tem": {
+      "verdict": "false_positive",
+      "reason": "The snippets do not contain the word 'Tem' as a language; it likely refers to a Portuguese word ('tem têm') in the templates. False positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Tiene": {
+      "verdict": "false_positive",
+      "reason": "The word 'tiene' appears as a Spanish word in a sentence template ('alacena tiene tienen'), not as a language name. False positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "The paper explicitly lists Bulgarian as one of the fifteen languages studied for syntactic constructions and evaluates model performance on it. Studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Galician": {
+      "verdict": "studied",
+      "reason": "The paper explicitly lists Galician as one of the fifteen languages studied for syntactic constructions. Studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "The paper explicitly lists Dutch as one of the fifteen languages studied for syntactic constructions. Studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The paper explicitly lists Italian as one of the fifteen languages studied for syntactic constructions. Studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The paper explicitly lists Korean as one of the fifteen languages studied for syntactic constructions. Studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The paper explicitly lists Portuguese as one of the fifteen languages studied for syntactic constructions. Studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Romanian": {
+      "verdict": "studied",
+      "reason": "The paper explicitly lists Romanian as one of the fifteen languages studied for syntactic constructions. Studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is one of the fifteen languages for which minimal pairs are constructed and used in cross-lingual intervention experiments across all three syntactic constructions.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is one of the fifteen languages studied; it appears in the stimulus tables and metric coverage, though excluded from some constructions due to lacking grammatical number.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is one of the core seven languages with minimal pairs across constructions and is used in the cross-lingual intervention experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is one of the fifteen languages for which minimal pairs are constructed and included in the experiments and metric coverage tables.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is only mentioned in Limitations as an example of a language with dual number marking to discuss potential methodological limitations; no experiments are run on it.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is a core language used throughout all experiments as both a training and evaluation language for cross-lingual interventions.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is one of the core seven languages with minimal pairs in the experiments, and its elision phenomenon is specifically discussed in the methodology.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is one of the fifteen languages with minimal pairs constructed for the experiments and appears in the stimulus and metric coverage tables.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

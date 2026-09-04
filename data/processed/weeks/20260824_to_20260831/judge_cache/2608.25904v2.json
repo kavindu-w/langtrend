@@ -1,0 +1,94 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.25904v2",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-04T19:11:49.863483+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11748,
+  "verdicts": {
+    "Mal": {
+      "verdict": "studied",
+      "reason": "Abbreviation for Malayalam in the 'tam–mal' language pair, one of the eight pretraining languages the paper trains and evaluates models on.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Pol": {
+      "verdict": "studied",
+      "reason": "Abbreviation for Polish in the 'rus–pol' language pair, one of the eight pretraining languages the paper trains and evaluates models on.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Rom": {
+      "verdict": "false_positive",
+      "reason": "Refers to the romanized text representation (e.g., 'Text→Rom', 'Text Rom'), not a human language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "Explicitly named as one of the eight pretraining languages in the Tamil–Malayalam pair, used in pretraining and downstream evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Named as an unseen evaluation language the paper finetunes on to test generalization beyond pretraining distributions.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "Named as an unseen evaluation language the paper finetunes on to test generalization beyond pretraining distributions.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Explicitly named as one of the eight pretraining languages in the Hindi–Urdu pair, used in pretraining and downstream evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "All references denote the Latin script/alphabet (e.g., 'Latin-scripted', 'non-Latin-script languages'), not the Latin language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Explicitly named as one of the eight pretraining languages in the Tamil–Malayalam pair, used in pretraining and downstream evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Explicitly named as one of the eight pretraining languages in the Hindi–Urdu pair, used in pretraining and downstream evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Explicitly named as one of the eight pretraining languages in the Russian–Polish pair, used in pretraining and downstream evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Explicitly named as one of the eight pretraining languages in the Russian–Polish pair, used in pretraining and downstream evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "In Section 3.6, Arabic is explicitly listed as an unseen language the authors finetune and evaluate on; in Section 3.1 'Arabic' refers to the script of Urdu, but the evaluation usage confirms the lang",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned in Section 6 Limitations only as an example of a logographic writing system not represented in the study.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the eight pretraining languages in the English–Spanish pair, used throughout all experiments, pretraining, and evaluation.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "In Section 3.6, French is explicitly listed as an unseen language the authors finetune on to test generalization beyond training distributions.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is one of the eight pretraining languages in the English–Spanish pair, used throughout all experiments and evaluations.",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}

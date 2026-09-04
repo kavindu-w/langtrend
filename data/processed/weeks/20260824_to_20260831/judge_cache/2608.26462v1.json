@@ -1,0 +1,74 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26462v1",
+  "judge_model": "z-ai/glm-5.2:free",
+  "judged_at": "2026-09-04T19:41:50.703504+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8536,
+  "verdicts": {
+    "Oro": {
+      "verdict": "false_positive",
+      "reason": "The token 'oro' appears in a multilingual reference text table alongside color words like 'gold', 'rosa', 'blanc' — it is the Italian/Spanish word for 'gold', not a reference to the Oro language of Pa",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The snippets describe evaluating 'Hindi-language responses' for reward model biases such as penalizing English loanwords, making Hindi a language used in the paper's auditing games experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'scientific (Latin) name' for plants, i.e. Latin binomial nomenclature, not the Latin language itself.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Hungarian notation' in PHP code, a programming naming convention, not the Hungarian language.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippet describes evaluating 'Korean-language responses' for reward model biases, making Korean a language used in the paper's auditing games experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippet describes evaluating 'Arabic-language responses' for reward model biases, making Arabic a language used in the paper's auditing games experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippet describes evaluating 'German-language responses' for reward model biases, making German a language used in the paper's auditing games experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The snippet describes evaluating 'Japanese responses' for reward model biases including keigo usage, making Japanese a language used in the paper's auditing games experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The snippets describe evaluating 'Portuguese responses' for reward model biases and NMF topic modeling capturing Portuguese word endings, making Portuguese a language used in the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets describe evaluating 'Chinese-language responses' for reward model biases and NMF topics capturing cake-baking techniques in Chinese, making Chinese a language used in the paper's experime",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets describe evaluating English-language responses and NMF topics capturing English word endings, making English a language used throughout the paper's experiments.",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippets describe evaluating 'French-language responses' for reward model biases and 'French' appearing as a token in the multilingual reference text, making French a language used in the paper's ",
+      "model": "z-ai/glm-5.2:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippets show Spanish-language reference text and Spanish-language responses being used as experimental material in auditing games and multilingual reference corpora, making Spanish part of the pa",
+      "model": "z-ai/glm-5.2:free"
+    }
+  }
+}
