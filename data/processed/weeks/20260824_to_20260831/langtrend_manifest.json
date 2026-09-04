@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-09-04T04:45:24.460890+00:00",
+  "generated_at": "2026-09-04T15:08:20.516525+00:00",
   "window_days": 7,
   "week_start": "2026-08-24",
   "week_end": "2026-08-31",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 593,
-    "flagged_papers": 277,
-    "unique_languages": 311,
+    "flagged_papers": 276,
+    "unique_languages": 307,
     "unique_languages_mentioned_only": 5,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 367,
-      "judged_languages": 1035,
-      "studied": 449,
+      "judged_papers": 369,
+      "judged_languages": 1056,
+      "studied": 463,
       "mentioned_only": 225,
-      "false_positive": 361
+      "false_positive": 368
     }
   },
   "language_counts": [
@@ -111,8 +111,8 @@
     },
     {
       "language": "Latin",
-      "count": 13,
-      "studied": 10,
+      "count": 12,
+      "studied": 9,
       "mentioned_only": 3
     },
     {
@@ -746,12 +746,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Sentinel",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
       "language": "Shan",
       "count": 2,
       "studied": 2,
@@ -782,12 +776,6 @@
       "mentioned_only": 1
     },
     {
-      "language": "Tee",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
       "language": "Umbundu",
       "count": 2,
       "studied": 2,
@@ -801,12 +789,6 @@
     },
     {
       "language": "Aka",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Akwa",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -1268,19 +1250,7 @@
       "mentioned_only": 0
     },
     {
-      "language": "Koma",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Korowai",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Kwa",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -1652,6 +1622,12 @@
       "mentioned_only": 0
     },
     {
+      "language": "Sentinel",
+      "count": 1,
+      "studied": 1,
+      "mentioned_only": 0
+    },
+    {
       "language": "Sicilian",
       "count": 1,
       "studied": 1,
@@ -1743,6 +1719,12 @@
     },
     {
       "language": "Tay",
+      "count": 1,
+      "studied": 1,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Tee",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -1868,12 +1850,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Yale",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Yali",
       "count": 1,
       "studied": 1,
@@ -1919,8 +1895,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 184,
-      "studied": 174,
+      "count": 178,
+      "studied": 168,
       "mentioned_only": 10
     },
     {
@@ -1937,8 +1913,8 @@
     },
     {
       "class_id": 3,
-      "count": 192,
-      "studied": 164,
+      "count": 191,
+      "studied": 163,
       "mentioned_only": 28
     },
     {
@@ -1968,7 +1944,7 @@
     {
       "date": "2026-08-26",
       "papers": 96,
-      "flagged": 31
+      "flagged": 30
     },
     {
       "date": "2026-08-27",
@@ -99395,112 +99371,176 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "French",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "French is included in the dataset selection as part of the francophone contexts, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Oromo",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Oromo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Afrikaans",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Akan",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Amharic",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Hausa",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Igbo",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Kinyarwanda",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Kinyarwanda is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Shona",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Shona is listed as one of the languages included in the AfriSwitch corpus statistics and selection, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Swahili",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Wolof",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Yoruba",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Zulu",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Zulu is listed as one of the languages in the dataset selection and corpus statistics, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Koma",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The text refers to 'koma' as a localized variant of the word 'comma' for punctuation normalization; verdict: false_positive",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Akwa",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The text refers to 'akwa' as a word in the Igbo language with multiple meanings, not as a separate language; verdict: false_positive",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Sentinel",
@@ -99509,7 +99549,11 @@
           "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The text refers to a 'sentinel token' used in the scoring pipeline; verdict: false_positive",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Kwa",
@@ -99518,7 +99562,11 @@
           "flag_reason": "Often matches RL/ML technical terms",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The text uses 'kwa' as a word within a Swahili utterance; verdict: false_positive",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Yale",
@@ -99527,7 +99575,11 @@
           "flag_reason": "Possible false positive — Yale University",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The text refers to 'Yale University' as a proper noun in a transcription example; verdict: false_positive",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         },
         {
           "language": "Latin",
@@ -99536,7 +99588,11 @@
           "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Latin refers to the Latin script used for writing certain words, not the Latin language itself, implying a false positive.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-04T11:18:08.704939+00:00"
         }
       ],
       "sources_checked": [
@@ -99580,7 +99636,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -99590,19 +99650,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is included in the dataset selection as part of the francophone contexts, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -99612,7 +99688,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -99622,143 +99702,283 @@
           "detected_languages": [
             {
               "language": "Oromo",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Oromo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Kinyarwanda",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kinyarwanda is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Shona",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Shona is listed as one of the languages included in the AfriSwitch corpus statistics and selection, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Zulu",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Zulu is listed as one of the languages in the dataset selection and corpus statistics, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is included in the dataset selection as part of the francophone contexts, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Oromo",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Oromo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Kinyarwanda",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kinyarwanda is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Shona",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Shona is listed as one of the languages included in the AfriSwitch corpus statistics and selection, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Zulu",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Zulu is listed as one of the languages in the dataset selection and corpus statistics, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is included in the dataset selection as part of the francophone contexts, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -99768,55 +99988,107 @@
           "detected_languages": [
             {
               "language": "Oromo",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Oromo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Kinyarwanda",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kinyarwanda is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Shona",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Shona is listed as one of the languages included in the AfriSwitch corpus statistics and selection, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Zulu",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Zulu is listed as one of the languages in the dataset selection and corpus statistics, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is included in the dataset selection as part of the francophone contexts, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -99826,7 +100098,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -99836,7 +100112,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -99846,7 +100126,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -99856,83 +100140,163 @@
           "detected_languages": [
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Oromo",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Oromo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Kinyarwanda",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kinyarwanda is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Shona",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Shona is listed as one of the languages included in the AfriSwitch corpus statistics and selection, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Zulu",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Zulu is listed as one of the languages in the dataset selection and corpus statistics, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is included in the dataset selection as part of the francophone contexts, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -99942,181 +100306,349 @@
           "detected_languages": [
             {
               "language": "Koma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'koma' as a localized variant of the word 'comma' for punctuation normalization; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'akwa' as a word in the Igbo language with multiple meanings, not as a separate language; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is included in the dataset selection as part of the francophone contexts, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Sentinel",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens"
+              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to a 'sentinel token' used in the scoring pipeline; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Kinyarwanda",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kinyarwanda is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Zulu",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Zulu is listed as one of the languages in the dataset selection and corpus statistics, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Kwa",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Often matches RL/ML technical terms"
+              "flag_reason": "Often matches RL/ML technical terms",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text uses 'kwa' as a word within a Swahili utterance; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yale",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive — Yale University"
+              "flag_reason": "Possible false positive — Yale University",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'Yale University' as a proper noun in a transcription example; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yale",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive — Yale University"
+              "flag_reason": "Possible false positive — Yale University",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'Yale University' as a proper noun in a transcription example; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Latin refers to the Latin script used for writing certain words, not the Latin language itself, implying a false positive.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100126,49 +100658,93 @@
           "detected_languages": [
             {
               "language": "Koma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'koma' as a localized variant of the word 'comma' for punctuation normalization; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'akwa' as a word in the Igbo language with multiple meanings, not as a separate language; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is included in the dataset selection as part of the francophone contexts, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Sentinel",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens"
+              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to a 'sentinel token' used in the scoring pipeline; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100178,11 +100754,19 @@
           "detected_languages": [
             {
               "language": "Koma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'koma' as a localized variant of the word 'comma' for punctuation normalization; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100192,7 +100776,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100202,31 +100790,59 @@
           "detected_languages": [
             {
               "language": "Akwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'akwa' as a word in the Igbo language with multiple meanings, not as a separate language; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is included in the dataset selection as part of the francophone contexts, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100238,7 +100854,11 @@
               "language": "Sentinel",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens"
+              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to a 'sentinel token' used in the scoring pipeline; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100248,67 +100868,131 @@
           "detected_languages": [
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Kinyarwanda",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kinyarwanda is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Zulu",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Zulu is listed as one of the languages in the dataset selection and corpus statistics, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100318,7 +101002,11 @@
           "detected_languages": [
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100328,7 +101016,11 @@
           "detected_languages": [
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100338,59 +101030,115 @@
           "detected_languages": [
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Akan is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Kinyarwanda",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kinyarwanda is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Zulu",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Zulu is listed as one of the languages in the dataset selection and corpus statistics, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100400,11 +101148,19 @@
           "detected_languages": [
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100414,63 +101170,115 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Kwa",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Often matches RL/ML technical terms"
+              "flag_reason": "Often matches RL/ML technical terms",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text uses 'kwa' as a word within a Swahili utterance; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yale",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive — Yale University"
+              "flag_reason": "Possible false positive — Yale University",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'Yale University' as a proper noun in a transcription example; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yale",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive — Yale University"
+              "flag_reason": "Possible false positive — Yale University",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'Yale University' as a proper noun in a transcription example; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Latin refers to the Latin script used for writing certain words, not the Latin language itself, implying a false positive.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100480,21 +101288,37 @@
           "detected_languages": [
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Kwa",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Often matches RL/ML technical terms"
+              "flag_reason": "Often matches RL/ML technical terms",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text uses 'kwa' as a word within a Swahili utterance; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is explicitly included in the dataset selection and evaluated for ASR performance, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100504,37 +101328,65 @@
           "detected_languages": [
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yale",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive — Yale University"
+              "flag_reason": "Possible false positive — Yale University",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'Yale University' as a proper noun in a transcription example; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yale",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive — Yale University"
+              "flag_reason": "Possible false positive — Yale University",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to 'Yale University' as a proper noun in a transcription example; verdict: false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Latin refers to the Latin script used for writing certain words, not the Latin language itself, implying a false positive.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100544,11 +101396,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100558,7 +101418,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as a language for code-switching in the benchmark and is part of the evaluation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100568,27 +101432,51 @@
           "detected_languages": [
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100598,7 +101486,11 @@
           "detected_languages": [
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         },
@@ -100608,23 +101500,43 @@
           "detected_languages": [
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Igbo is listed as one of the languages covered in the AfriSwitch dataset and benchmarked; verdict: studied",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Wolof",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Wolof is listed as a language in the dataset selection and discussed regarding diacritic preservation, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is part of the dataset selection and its performance and orthography are analyzed, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T11:18:08.704939+00:00"
             }
           ]
         }
@@ -117361,7 +118273,11 @@
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term refers to Trusted Execution Environments (TEE), a hardware security technology, not a human language, implying a false positive",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-04T10:25:06.534950+00:00"
         }
       ],
       "sources_checked": [
@@ -117380,7 +118296,11 @@
           "detected_languages": [
             {
               "language": "Tee",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to Trusted Execution Environments (TEE), a hardware security technology, not a human language, implying a false positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T10:25:06.534950+00:00"
             }
           ]
         },
@@ -117390,7 +118310,11 @@
           "detected_languages": [
             {
               "language": "Tee",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to Trusted Execution Environments (TEE), a hardware security technology, not a human language, implying a false positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T10:25:06.534950+00:00"
             }
           ]
         },
@@ -117400,7 +118324,11 @@
           "detected_languages": [
             {
               "language": "Tee",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to Trusted Execution Environments (TEE), a hardware security technology, not a human language, implying a false positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-04T10:25:06.534950+00:00"
             }
           ]
         }
