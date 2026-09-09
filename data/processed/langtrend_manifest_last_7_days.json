@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-09-08T19:08:17.690400+00:00",
+  "generated_at": "2026-09-09T15:17:38.920696+00:00",
   "window_days": 7,
   "week_start": "2026-08-31",
   "week_end": "2026-09-07",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 592,
-    "flagged_papers": 385,
-    "unique_languages": 304,
+    "flagged_papers": 384,
+    "unique_languages": 303,
     "unique_languages_mentioned_only": 0,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 0,
-      "judged_languages": 0,
-      "studied": 0,
+      "judged_papers": 5,
+      "judged_languages": 10,
+      "studied": 5,
       "mentioned_only": 0,
-      "false_positive": 0
+      "false_positive": 5
     }
   },
   "language_counts": [
@@ -63,8 +63,8 @@
     },
     {
       "language": "Latin",
-      "count": 31,
-      "studied": 31,
+      "count": 30,
+      "studied": 30,
       "mentioned_only": 0
     },
     {
@@ -81,8 +81,8 @@
     },
     {
       "language": "Arabic",
-      "count": 26,
-      "studied": 26,
+      "count": 25,
+      "studied": 25,
       "mentioned_only": 0
     },
     {
@@ -129,18 +129,18 @@
     },
     {
       "language": "Col",
-      "count": 13,
-      "studied": 13,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Luna",
-      "count": 13,
-      "studied": 13,
+      "count": 12,
+      "studied": 12,
       "mentioned_only": 0
     },
     {
       "language": "Greek",
+      "count": 12,
+      "studied": 12,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Luna",
       "count": 12,
       "studied": 12,
       "mentioned_only": 0
@@ -1640,12 +1640,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Saya",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Scottish Gaelic",
       "count": 1,
       "studied": 1,
@@ -1847,8 +1841,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 390,
-      "studied": 390,
+      "count": 387,
+      "studied": 387,
       "mentioned_only": 0
     },
     {
@@ -1865,8 +1859,8 @@
     },
     {
       "class_id": 3,
-      "count": 141,
-      "studied": 141,
+      "count": 140,
+      "studied": 140,
       "mentioned_only": 0
     },
     {
@@ -1877,8 +1871,8 @@
     },
     {
       "class_id": 5,
-      "count": 494,
-      "studied": 494,
+      "count": 493,
+      "studied": 493,
       "mentioned_only": 0
     }
   ],
@@ -1886,7 +1880,7 @@
     {
       "date": "2026-08-31",
       "papers": 184,
-      "flagged": 117
+      "flagged": 116
     },
     {
       "date": "2026-09-01",
@@ -54109,14 +54103,22 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-09T11:35:10.307340+00:00"
         },
         {
           "language": "Saya",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The text 'tin hajaar ek saya pacchis' refers to the Nepali word for 'one hundred' (saya), not the Saya language, implying a false positive",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-09T11:35:10.307340+00:00"
         }
       ],
       "sources_checked": [
@@ -54144,7 +54146,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         },
@@ -54154,11 +54160,19 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         },
@@ -54168,7 +54182,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         },
@@ -54178,7 +54196,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         },
@@ -54188,15 +54210,27 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             },
             {
               "language": "Saya",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text 'tin hajaar ek saya pacchis' refers to the Nepali word for 'one hundred' (saya), not the Saya language, implying a false positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         },
@@ -54206,15 +54240,27 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             },
             {
               "language": "Saya",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text 'tin hajaar ek saya pacchis' refers to the Nepali word for 'one hundred' (saya), not the Saya language, implying a false positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         },
@@ -54224,11 +54270,19 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         },
@@ -54238,11 +54292,19 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         },
@@ -54252,19 +54314,35 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         },
@@ -54274,7 +54352,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         },
@@ -54284,7 +54366,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         },
@@ -54294,7 +54380,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper introduces a new dataset, fine-tunes a model, and evaluates performance specifically for the Nepali language, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T11:35:10.307340+00:00"
             }
           ]
         }
@@ -71734,14 +71824,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet uses 'Chinese' to describe a culture-specific persona used in the evaluation framework, implying the language is part of the study's cultural context, therefore the verdict is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-09T12:28:08.029147+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet states that all prompts are formulated in English to serve as a unified baseline for the experiments, therefore the verdict is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-09T12:28:08.029147+00:00"
         }
       ],
       "sources_checked": [
@@ -71762,7 +71860,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet uses 'Chinese' to describe a culture-specific persona used in the evaluation framework, implying the language is part of the study's cultural context, therefore the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T12:28:08.029147+00:00"
             }
           ]
         },
@@ -71772,7 +71874,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet uses 'Chinese' to describe a culture-specific persona used in the evaluation framework, implying the language is part of the study's cultural context, therefore the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T12:28:08.029147+00:00"
             }
           ]
         },
@@ -71782,7 +71888,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet states that all prompts are formulated in English to serve as a unified baseline for the experiments, therefore the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T12:28:08.029147+00:00"
             }
           ]
         },
@@ -71792,7 +71902,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet states that all prompts are formulated in English to serve as a unified baseline for the experiments, therefore the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T12:28:08.029147+00:00"
             }
           ]
         },
@@ -71802,7 +71916,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet states that all prompts are formulated in English to serve as a unified baseline for the experiments, therefore the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T12:28:08.029147+00:00"
             }
           ]
         }
@@ -95907,7 +96025,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-09T13:39:07.209330+00:00"
         }
       ],
       "sources_checked": [
@@ -95932,27 +96054,51 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             }
           ]
         },
@@ -95962,15 +96108,27 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             }
           ]
         },
@@ -95980,7 +96138,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             }
           ]
         },
@@ -95990,7 +96152,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             }
           ]
         },
@@ -96000,7 +96166,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             }
           ]
         },
@@ -96010,7 +96180,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             }
           ]
         },
@@ -96020,7 +96194,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             }
           ]
         },
@@ -96030,7 +96208,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             }
           ]
         },
@@ -96040,7 +96222,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets contain instructions for agents to write content in the English language, and the paper's methodology involves generating English-language attack trajectories, implying the language is st",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T13:39:07.209330+00:00"
             }
           ]
         }
@@ -106326,7 +106512,11 @@
           "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term 'Col' refers to the abbreviation for 'column' in the context of grid-based game coordinates, not a human language, implying a false_positive",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-09T14:38:07.126906+00:00"
         }
       ],
       "sources_checked": [
@@ -106347,25 +106537,41 @@
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'Col' refers to the abbreviation for 'column' in the context of grid-based game coordinates, not a human language, implying a false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:38:07.126906+00:00"
             },
             {
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'Col' refers to the abbreviation for 'column' in the context of grid-based game coordinates, not a human language, implying a false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:38:07.126906+00:00"
             },
             {
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'Col' refers to the abbreviation for 'column' in the context of grid-based game coordinates, not a human language, implying a false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:38:07.126906+00:00"
             },
             {
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'Col' refers to the abbreviation for 'column' in the context of grid-based game coordinates, not a human language, implying a false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:38:07.126906+00:00"
             }
           ]
         },
@@ -106377,13 +106583,21 @@
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'Col' refers to the abbreviation for 'column' in the context of grid-based game coordinates, not a human language, implying a false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:38:07.126906+00:00"
             },
             {
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'Col' refers to the abbreviation for 'column' in the context of grid-based game coordinates, not a human language, implying a false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:38:07.126906+00:00"
             }
           ]
         },
@@ -106395,13 +106609,21 @@
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'Col' refers to the abbreviation for 'column' in the context of grid-based game coordinates, not a human language, implying a false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:38:07.126906+00:00"
             },
             {
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'Col' refers to the abbreviation for 'column' in the context of grid-based game coordinates, not a human language, implying a false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:38:07.126906+00:00"
             }
           ]
         }
@@ -109013,21 +109235,33 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-09T14:48:10.252494+00:00"
         },
         {
           "language": "Luna",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Luna refers to a specific model version (GPT-5.6-Luna) used to draft control items, not a human language, so the verdict is false_positive",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-09T14:48:10.252494+00:00"
         },
         {
           "language": "Arabic",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Arabic refers to the type of numerals (Arabic numerals) used in the text, not the Arabic language, so the verdict is false_positive",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-09T14:48:10.252494+00:00"
         },
         {
           "language": "Latin",
@@ -109036,7 +109270,11 @@
           "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Latin refers to the Latin alphabet/script used for labeling, not the Latin language, so the verdict is false_positive",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-09T14:48:10.252494+00:00"
         }
       ],
       "sources_checked": [
@@ -109073,11 +109311,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109087,35 +109333,67 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific model version (GPT-5.6-Luna) used to draft control items, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109125,11 +109403,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109139,19 +109425,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific model version (GPT-5.6-Luna) used to draft control items, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109161,7 +109463,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109171,11 +109477,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109185,7 +109499,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109195,7 +109513,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109205,19 +109527,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific model version (GPT-5.6-Luna) used to draft control items, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109227,15 +109565,27 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Arabic refers to the type of numerals (Arabic numerals) used in the text, not the Arabic language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109245,15 +109595,27 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109263,7 +109625,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109273,7 +109639,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109283,7 +109653,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109295,7 +109669,11 @@
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Latin refers to the Latin alphabet/script used for labeling, not the Latin language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109307,7 +109685,11 @@
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Latin refers to the Latin alphabet/script used for labeling, not the Latin language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109317,7 +109699,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109327,11 +109713,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109341,7 +109735,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109351,11 +109749,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         },
@@ -109365,7 +109771,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is one of the two primary languages used for the bilingual legal dataset and evaluation, so the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-09T14:48:10.252494+00:00"
             }
           ]
         }
