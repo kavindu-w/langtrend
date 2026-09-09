@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-09-09T15:17:38.920696+00:00",
+  "generated_at": "2026-09-09T22:55:55.727971+00:00",
   "window_days": 7,
   "week_start": "2026-08-31",
   "week_end": "2026-09-07",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 592,
-    "flagged_papers": 384,
-    "unique_languages": 303,
+    "flagged_papers": 381,
+    "unique_languages": 301,
     "unique_languages_mentioned_only": 0,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 5,
-      "judged_languages": 10,
-      "studied": 5,
+      "judged_papers": 9,
+      "judged_languages": 20,
+      "studied": 8,
       "mentioned_only": 0,
-      "false_positive": 5
+      "false_positive": 12
     }
   },
   "language_counts": [
@@ -27,8 +27,8 @@
     },
     {
       "language": "Chinese",
-      "count": 76,
-      "studied": 76,
+      "count": 75,
+      "studied": 75,
       "mentioned_only": 0
     },
     {
@@ -117,8 +117,8 @@
     },
     {
       "language": "Mae",
-      "count": 18,
-      "studied": 18,
+      "count": 17,
+      "studied": 17,
       "mentioned_only": 0
     },
     {
@@ -158,18 +158,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Pol",
-      "count": 9,
-      "studied": 9,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Sentinel",
-      "count": 9,
-      "studied": 9,
-      "mentioned_only": 0
-    },
-    {
       "language": "Vietnamese",
       "count": 9,
       "studied": 9,
@@ -200,7 +188,19 @@
       "mentioned_only": 0
     },
     {
+      "language": "Pol",
+      "count": 8,
+      "studied": 8,
+      "mentioned_only": 0
+    },
+    {
       "language": "Pole",
+      "count": 8,
+      "studied": 8,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Sentinel",
       "count": 8,
       "studied": 8,
       "mentioned_only": 0
@@ -782,12 +782,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Tat",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
       "language": "Tol",
       "count": 2,
       "studied": 2,
@@ -1208,12 +1202,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Hawaiian",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Hehe",
       "count": 1,
       "studied": 1,
@@ -1443,12 +1431,6 @@
     },
     {
       "language": "Manchu",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Manta",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -1730,6 +1712,12 @@
       "mentioned_only": 0
     },
     {
+      "language": "Tat",
+      "count": 1,
+      "studied": 1,
+      "mentioned_only": 0
+    },
+    {
       "language": "Tem",
       "count": 1,
       "studied": 1,
@@ -1841,14 +1829,14 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 387,
-      "studied": 387,
+      "count": 382,
+      "studied": 382,
       "mentioned_only": 0
     },
     {
       "class_id": 1,
-      "count": 33,
-      "studied": 33,
+      "count": 32,
+      "studied": 32,
       "mentioned_only": 0
     },
     {
@@ -1871,8 +1859,8 @@
     },
     {
       "class_id": 5,
-      "count": 493,
-      "studied": 493,
+      "count": 492,
+      "studied": 492,
       "mentioned_only": 0
     }
   ],
@@ -1885,7 +1873,7 @@
     {
       "date": "2026-09-01",
       "papers": 143,
-      "flagged": 95
+      "flagged": 94
     },
     {
       "date": "2026-09-02",
@@ -1895,12 +1883,12 @@
     {
       "date": "2026-09-03",
       "papers": 112,
-      "flagged": 75
+      "flagged": 74
     },
     {
       "date": "2026-09-04",
       "papers": 59,
-      "flagged": 40
+      "flagged": 39
     }
   ],
   "papers": [
@@ -16971,7 +16959,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term 'Chinese' refers to the Chinese Academy of Sciences, an institution, not the use or study of the Chinese language",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-09T17:16:08.118736+00:00"
         },
         {
           "language": "Pol",
@@ -16980,7 +16972,11 @@
           "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term 'pol.' in 'dynamic nuclear pol.' refers to nuclear polarization in a physics context, not the Polish language",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-09T17:16:08.118736+00:00"
         }
       ],
       "sources_checked": [
@@ -16998,7 +16994,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'Chinese' refers to the Chinese Academy of Sciences, an institution, not the use or study of the Chinese language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T17:16:08.118736+00:00"
             }
           ]
         },
@@ -17010,7 +17010,11 @@
               "language": "Pol",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)"
+              "flag_reason": "Matches 'polarity' prefix in sentiment analysis papers (polarization, political, etc.)",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'pol.' in 'dynamic nuclear pol.' refers to nuclear polarization in a physics context, not the Polish language",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T17:16:08.118736+00:00"
             }
           ]
         }
@@ -65615,7 +65619,11 @@
           "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "abstract"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term 'MAE' refers to Mean Absolute Error, a common evaluation metric for regression, not a human language.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-09T19:42:07.726262+00:00"
         }
       ],
       "sources_checked": [
@@ -65634,7 +65642,11 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'MAE' refers to Mean Absolute Error, a common evaluation metric for regression, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T19:42:07.726262+00:00"
             }
           ]
         }
@@ -71950,7 +71962,11 @@
           "sources": [
             "abstract",
             "pdf"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The paper describes the tool's interface catalogs in Catalan and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-09T20:02:11.457232+00:00"
         },
         {
           "language": "Turkish",
@@ -71958,7 +71974,11 @@
           "sources": [
             "abstract",
             "pdf"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The paper describes the tool's interface catalogs in Turkish and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-09T20:02:11.457232+00:00"
         },
         {
           "language": "English",
@@ -71966,7 +71986,11 @@
           "sources": [
             "abstract",
             "pdf"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The paper uses English as the source language for the tool's UI and as the basis for the localization teaching activity.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-09T20:02:11.457232+00:00"
         }
       ],
       "sources_checked": [
@@ -71985,15 +72009,27 @@
           "detected_languages": [
             {
               "language": "Catalan",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper describes the tool's interface catalogs in Catalan and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "Turkish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper describes the tool's interface catalogs in Turkish and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English as the source language for the tool's UI and as the basis for the localization teaching activity.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             }
           ]
         },
@@ -72003,59 +72039,115 @@
           "detected_languages": [
             {
               "language": "Catalan",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper describes the tool's interface catalogs in Catalan and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "Catalan",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper describes the tool's interface catalogs in Catalan and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "Turkish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper describes the tool's interface catalogs in Turkish and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English as the source language for the tool's UI and as the basis for the localization teaching activity.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English as the source language for the tool's UI and as the basis for the localization teaching activity.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "Catalan",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper describes the tool's interface catalogs in Catalan and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "Turkish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper describes the tool's interface catalogs in Turkish and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English as the source language for the tool's UI and as the basis for the localization teaching activity.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English as the source language for the tool's UI and as the basis for the localization teaching activity.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "Catalan",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper describes the tool's interface catalogs in Catalan and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English as the source language for the tool's UI and as the basis for the localization teaching activity.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "Catalan",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper describes the tool's interface catalogs in Catalan and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "Turkish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper describes the tool's interface catalogs in Turkish and uses them as material for a localization assignment, meaning the language is part of the tool's artifacts and student activities.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English as the source language for the tool's UI and as the basis for the localization teaching activity.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T20:02:11.457232+00:00"
             }
           ]
         }
@@ -101843,21 +101935,33 @@
           "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-09T21:39:11.264856+00:00"
         },
         {
           "language": "Hawaiian",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Refers to the Hawaiian islands, people, and the Hawaiian Environmental Council in a fictional scenario, not the language. false_positive",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-09T21:39:11.264856+00:00"
         },
         {
           "language": "Manta",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Refers to 'MantaSync' and 'manta ray filtration units' in a fictional scenario, not the language. false_positive",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-09T21:39:11.264856+00:00"
         },
         {
           "language": "Sentinel",
@@ -101866,7 +101970,11 @@
           "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Refers to 'Plastic Sentinel strains' of algae in a fictional scenario, not the language. false_positive",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-09T21:39:11.264856+00:00"
         }
       ],
       "sources_checked": [
@@ -101896,19 +102004,31 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         },
@@ -101920,13 +102040,21 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         },
@@ -101938,7 +102066,11 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         },
@@ -101950,7 +102082,11 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         },
@@ -101962,7 +102098,11 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         },
@@ -101974,31 +102114,51 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         },
@@ -102010,13 +102170,21 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         },
@@ -102028,13 +102196,21 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         },
@@ -102046,7 +102222,11 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         },
@@ -102056,21 +102236,37 @@
           "detected_languages": [
             {
               "language": "Hawaiian",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to the Hawaiian islands, people, and the Hawaiian Environmental Council in a fictional scenario, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Manta",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'MantaSync' and 'manta ray filtration units' in a fictional scenario, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Sentinel",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens"
+              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Plastic Sentinel strains' of algae in a fictional scenario, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Hawaiian",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to the Hawaiian islands, people, and the Hawaiian Environmental Council in a fictional scenario, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         },
@@ -102080,21 +102276,37 @@
           "detected_languages": [
             {
               "language": "Hawaiian",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to the Hawaiian islands, people, and the Hawaiian Environmental Council in a fictional scenario, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Manta",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'MantaSync' and 'manta ray filtration units' in a fictional scenario, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Sentinel",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens"
+              "flag_reason": "sentinel token = standard NLP/ML term for mask/placeholder tokens",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Plastic Sentinel strains' of algae in a fictional scenario, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Hawaiian",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to the Hawaiian islands, people, and the Hawaiian Environmental Council in a fictional scenario, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         },
@@ -102106,61 +102318,101 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             },
             {
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Refers to 'Table as Thought (TaT)', a baseline method for LLM reasoning, not the language. false_positive",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-09T21:39:11.264856+00:00"
             }
           ]
         }
