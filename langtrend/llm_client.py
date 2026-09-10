@@ -29,6 +29,13 @@ Environment variables (all optional except the API key for hosted backends):
                                   first's per-model quota is spent). Each model in the
                                   chain gets up to _CHAT_RETRIES attempts of its own
                                   before chat() moves on to the next.
+
+ping() cross-checks LLM_JUDGE_MODEL/LLM_JUDGE_FALLBACK_MODELS against the
+provider's GET /models catalog and prints a "  ERROR: [config]" line for any it
+can't find (CI greps for that prefix). It is deliberately advisory: a catalog
+can be paginated, key-scoped, or spell IDs differently from what
+/chat/completions accepts, so it never fails the run — the real chat() call
+stays the authority on whether a model works.
 """
 
 from __future__ import annotations
@@ -65,12 +72,44 @@ class QuotaExhaustedError(LLMUnavailableError):
     """
 
 
+class AuthenticationError(LLMUnavailableError):
+    """The endpoint rejected the API key (HTTP 401/403) — stop, don't fall back.
+
+    Distinct from a per-model failure (a retired slug 404ing, a per-model quota
+    running dry): those are worth retrying against the next model in the chain,
+    but a rejected key is account-wide, so walking the whole fallback chain just
+    spends one throttled round-trip per model per paper to be told "no" again.
+    chat() re-raises this immediately instead.
+    """
+
+
 class JSONParseError(Exception):
     """The model reply could not be parsed into a JSON object."""
 
 
 _DAILY_QUOTA_MARKERS = ("per day", "rpd", "daily limit", "requests per day", "tokens per day")
 _DAILY_QUOTA_RETRY_AFTER_THRESHOLD = 300  # seconds; longer than this implies a daily-reset wait, not per-minute
+
+
+def _normalize_model_id(model_id: str) -> str:
+    """Reduce a model ID to a form comparable across a provider's list and chat APIs.
+
+    Several OpenAI-compatible providers spell the same model differently in
+    GET /models than /chat/completions accepts, so a raw string comparison
+    reports a working model as missing:
+      * Gemini's compat endpoint lists "models/gemini-2.5-flash" but chats on
+        "gemini-2.5-flash";
+      * Ollama lists "qwen3:latest" while "qwen3" is the usual way to ask for it.
+    Anything left over (case, surrounding whitespace) is normalized too. This is
+    deliberately lenient: the check it feeds only ever warns, so a false *match*
+    costs nothing while a false *mismatch* would cry wolf on every run.
+    """
+    name = model_id.strip().lower()
+    if name.startswith("models/"):
+        name = name[len("models/"):]
+    if name.endswith(":latest"):
+        name = name[: -len(":latest")]
+    return name
 
 
 def _looks_like_daily_quota_exhausted(response_text: str, retry_after: str | None) -> bool:
@@ -186,7 +225,13 @@ class OpenAICompatClient:
         return session
 
     def ping(self) -> None:
-        """Fail fast if the endpoint is unreachable or the key is rejected."""
+        """Fail fast if the endpoint is unreachable or the key is rejected.
+
+        Also cross-checks the configured model(s) against the provider's
+        /models catalog and *warns* (never raises) when one is missing — e.g. a
+        free-tier model was retired or renamed. That's a diagnostic, not a gate:
+        see _check_configured_models_exist for why it must not stop the run.
+        """
         url = f"{self.config.base_url}/models"
         try:
             resp = self._session().get(url, timeout=min(self.config.timeout, 30))
@@ -198,12 +243,62 @@ class OpenAICompatClient:
             )
             raise LLMUnavailableError(f"Cannot reach {url}: {exc}. {hint}") from exc
         if resp.status_code in (401, 403):
-            raise LLMUnavailableError(
+            raise AuthenticationError(
                 f"Authentication failed at {url} (HTTP {resp.status_code}). "
                 "Check LLM_JUDGE_API_KEY."
             )
         if resp.status_code >= 500:
             raise LLMUnavailableError(f"Endpoint error at {url}: HTTP {resp.status_code}")
+
+        self._check_configured_models_exist(resp)
+
+    def _check_configured_models_exist(self, models_resp: "requests.Response") -> None:
+        """Warn (never raise) when a configured model is absent from /models.
+
+        This is advisory only. A provider's catalog is not a reliable oracle for
+        what /chat/completions will accept: it can be paginated, scoped to the
+        key's own grants, omit gated/private models, or spell IDs differently
+        (see _normalize_model_id). Failing the run on that evidence would break
+        working, documented setups — so the authority on whether a model works
+        stays where it always was, the actual chat() call, which already falls
+        over to the next model in the chain on a 404 and reports per-paper
+        failures through the "Failed: N" summary the CI notify steps parse.
+
+        The "  ERROR: [config]" prefix below is load-bearing: langtrend.yml and
+        judge-catchup.yml grep for it verbatim to raise a notification. Keep it
+        in sync with tests/test_llm_client.py::TestConfiguredModelCheck.
+        """
+        # Only meaningful for the standard OpenAI {"data": [{"id": ...}, ...]}
+        # shape; anything else (or an empty list) tells us nothing, so skip.
+        try:
+            payload = models_resp.json()
+            available = {
+                _normalize_model_id(m["id"])
+                for m in payload["data"]
+                if isinstance(m, dict) and isinstance(m.get("id"), str)
+            }
+        except (ValueError, KeyError, TypeError):
+            return
+        if not available:
+            return
+
+        configured = [self.config.model, *self.config.fallback_models]
+        missing = [m for m in configured if _normalize_model_id(m) not in available]
+        if not missing:
+            return
+        if len(missing) == len(configured):
+            detail = (
+                "no configured model is listed, so every call may 404 — the run "
+                "continues in case the catalog is incomplete"
+            )
+        else:
+            detail = "the rest of the fallback chain can still serve the run"
+        print(
+            f"  ERROR: [config] model(s) not found in {self.config.base_url}/models "
+            f"({detail}): {', '.join(missing)}. Check LLM_JUDGE_MODEL / "
+            "LLM_JUDGE_FALLBACK_MODELS against the provider's current catalog — a "
+            "free-tier model may have been retired or renamed."
+        )
 
     @property
     def last_model_used(self) -> str:
@@ -225,7 +320,10 @@ class OpenAICompatClient:
         _CHAT_RETRIES attempts (with backoff, including on a malformed/
         unparseable response) before chat() moves on to the next one in the
         chain; only once every model has exhausted its retries does this
-        raise. A QuotaExhaustedError from a non-final model just triggers
+        raise. An AuthenticationError (401/403) short-circuits the chain
+        instead: a rejected key is account-wide, so the remaining models would
+        each burn a throttled round-trip to be rejected identically.
+        A QuotaExhaustedError from a non-final model just triggers
         fallback to the next one (useful when quota is tracked per-model, e.g.
         Groq's per-model TPD); only a QuotaExhaustedError from the last model
         propagates, so callers can still stop the run cleanly on genuine
@@ -239,15 +337,18 @@ class OpenAICompatClient:
         just a documentation nuance.
         """
         models_to_try = [self.config.model, *self.config.fallback_models]
-        last_error: Exception | None = None
         for index, model in enumerate(models_to_try):
             is_last_model = index == len(models_to_try) - 1
             try:
                 return self._chat_one_model(model, messages, response_format_json)
-            except (LLMUnavailableError, JSONParseError) as exc:
-                last_error = exc
+            except AuthenticationError:
+                # Account-wide, not per-model: every fallback would spend its
+                # own throttled round-trip to be rejected the same way.
+                raise
+            except (LLMUnavailableError, JSONParseError):
                 if is_last_model:
                     raise
+        raise LLMUnavailableError("chat() called with no models configured")
 
     def _chat_one_model(self, model: str, messages: list[dict], response_format_json: bool) -> str:
         payload: dict = {
@@ -288,7 +389,18 @@ class OpenAICompatClient:
                 last_error = requests.HTTPError(f"HTTP {resp.status_code}: {resp.text[:200]}")
                 time.sleep(min(delay, 120))
                 continue
-            resp.raise_for_status()
+            try:
+                resp.raise_for_status()
+            except requests.HTTPError as exc:
+                # An unhandled status (401/403/404/422/...) won't fix itself on
+                # retry — raise an LLMUnavailableError immediately so chat()'s
+                # except clause sees it and falls over to the next model in the
+                # chain, instead of the bare HTTPError propagating straight out
+                # of chat() and aborting the whole paper on the first bad model.
+                # 401/403 is the exception: a rejected key is account-wide, so
+                # it raises the no-fallback subclass instead.
+                error_cls = AuthenticationError if resp.status_code in (401, 403) else LLMUnavailableError
+                raise error_cls(f"HTTP {resp.status_code} for {model}: {resp.text[:200]}") from exc
 
             data = resp.json()
             try:
