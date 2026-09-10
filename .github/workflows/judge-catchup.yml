@@ -137,8 +137,15 @@ jobs:
               break
             fi
 
-            timeout -k 30s "${remaining}s" python scripts/judge_languages.py --sweep-all-weeks --skip-if-unconfigured 2>&1 | tee -a judge_output.log
+            # tee to a per-attempt file, then append: the retryable-reason
+            # check below must look at *this* attempt only. Grepping the
+            # accumulated log let a "Cannot reach" from an earlier, transient
+            # failure keep matching forever, so a later non-retryable exit 1
+            # (bad args, a config the run can't recover from) would be retried
+            # until the 5h50m budget ran out instead of stopping at once.
+            timeout -k 30s "${remaining}s" python scripts/judge_languages.py --sweep-all-weeks --skip-if-unconfigured 2>&1 | tee judge_attempt.log
             code=${PIPESTATUS[0]}
+            cat judge_attempt.log >> judge_output.log
             failed=$(grep -oE 'Failed: [0-9]+' judge_output.log | tail -1 | grep -oE '[0-9]+' || true)
             failed=${failed:-0}
 
@@ -155,7 +162,7 @@ jobs:
             if [ "$code" != "0" ] && [ "$code" != "1" ]; then
               break  # unexpected exit code — don't loop, fail normally
             fi
-            if [ "$code" = "1" ] && ! grep -qE 'Error: (Cannot reach|Endpoint error)' judge_output.log; then
+            if [ "$code" = "1" ] && ! grep -qE 'Error: (Cannot reach|Endpoint error)' judge_attempt.log; then
               break  # exit 1 for a non-retryable reason (bad args, auth failure)
             fi
 
@@ -178,6 +185,15 @@ jobs:
           # only the "Failed: N" summary line reflects them.
           failed=$(grep -oE 'Failed: [0-9]+' judge_output.log | tail -1 | grep -oE '[0-9]+' || true)
           echo "failed_count=${failed:-0}" >> "$GITHUB_OUTPUT"
+          # ping()'s model-catalog check (llm_client.py) prints this before any
+          # paper is processed when a configured model is missing from the
+          # provider's /models list. It is advisory only — it never fails the
+          # run and never bumps Failed — so without its own notify trigger
+          # below it would go unnoticed on the runs where the fallback chain
+          # quietly absorbs the gap. Note the retry loop above reprints it once
+          # per attempt, hence the `sort -u` where the body is assembled.
+          config_gap=$(grep -c '  ERROR: \[config\]' judge_output.log || true)
+          echo "config_gap_count=${config_gap:-0}" >> "$GITHUB_OUTPUT"
           # 124 = the retry loop's own 5h50m budget cutoff — a designed, graceful
           # stop (same category as 3/quota-exhausted), not a real failure. Letting
           # it through here would mark this step "failed" and make the Notify
@@ -188,16 +204,22 @@ jobs:
           fi
 
       - name: Notify on judge errors
-        if: always() && (steps.judge.outcome == 'failure' || (steps.judge.outputs.failed_count != '0' && steps.judge.outputs.failed_count != ''))
+        if: always() && (steps.judge.outcome == 'failure' || (steps.judge.outputs.failed_count != '0' && steps.judge.outputs.failed_count != '') || (steps.judge.outputs.config_gap_count != '0' && steps.judge.outputs.config_gap_count != ''))
         env:
           NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
         run: |
           run_url="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if [ "${{ steps.judge.outcome }}" = "failure" ]; then
             title="LangTrend judge-catchup job FAILED"
+          elif [ "${{ steps.judge.outputs.config_gap_count }}" != "0" ] && [ -n "${{ steps.judge.outputs.config_gap_count }}" ]; then
+            # Keep the paper count in the title: a missing model is usually
+            # *why* papers failed, and this body carries no per-paper error
+            # lines, so dropping it lost the count entirely.
+            title="LangTrend judge-catchup: configured model missing from provider (${{ steps.judge.outputs.failed_count }} paper(s) failed)"
           else
             title="LangTrend judge-catchup: ${{ steps.judge.outputs.failed_count }} paper(s) failed"
           fi
+          config_errors=$(grep -E '  ERROR: \[config\]' judge_output.log 2>/dev/null | sort -u || true)
           # One "=== week: N cached, N without targets, N pending ===" line per
           # week tells us exactly what's still outstanding at a glance, without
           # needing to open the run's log. judge_output.log now accumulates
@@ -214,7 +236,7 @@ jobs:
           total_pending=$(printf '%s\n' "$summary" | grep -oE '[0-9]+ pending ===$' | awk '{s+=$1} END {print s+0}')
           weeks_with_pending=$(printf '%s\n' "$summary" | grep -oE '[0-9]+ pending ===$' | awk '$1>0{c++} END {print c+0}')
           totals="Total pending: ${total_pending} paper(s) across ${weeks_with_pending} week(s)"
-          body=$(printf '%s\n\n%s\n\n%s\n\n%s\n' "$title" "$totals" "$summary" "$run_url")
+          body=$(printf '%s\n\n%s\n\n%s\n\n%s\n\n%s\n' "$title" "$config_errors" "$totals" "$summary" "$run_url")
           if [ -n "${NOTIFY_WEBHOOK_URL:-}" ]; then
             # Push only — email forwarding (X-Email) was removed: ntfy.sh
             # rejects it on anonymous/unreserved topics with HTTP 400
