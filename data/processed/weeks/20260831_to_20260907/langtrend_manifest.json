@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-09-09T22:55:55.727971+00:00",
+  "generated_at": "2026-09-10T19:06:48.694166+00:00",
   "window_days": 7,
   "week_start": "2026-08-31",
   "week_end": "2026-09-07",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 592,
-    "flagged_papers": 381,
+    "flagged_papers": 380,
     "unique_languages": 301,
     "unique_languages_mentioned_only": 0,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 9,
-      "judged_languages": 20,
-      "studied": 8,
-      "mentioned_only": 0,
-      "false_positive": 12
+      "judged_papers": 14,
+      "judged_languages": 26,
+      "studied": 11,
+      "mentioned_only": 1,
+      "false_positive": 14
     }
   },
   "language_counts": [
@@ -39,8 +39,8 @@
     },
     {
       "language": "Spanish",
-      "count": 37,
-      "studied": 37,
+      "count": 36,
+      "studied": 36,
       "mentioned_only": 0
     },
     {
@@ -136,8 +136,8 @@
     {
       "language": "Greek",
       "count": 12,
-      "studied": 12,
-      "mentioned_only": 0
+      "studied": 11,
+      "mentioned_only": 1
     },
     {
       "language": "Luna",
@@ -230,12 +230,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Hungarian",
-      "count": 7,
-      "studied": 7,
-      "mentioned_only": 0
-    },
-    {
       "language": "Indonesian",
       "count": 7,
       "studied": 7,
@@ -255,6 +249,12 @@
     },
     {
       "language": "Gan",
+      "count": 6,
+      "studied": 6,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Hungarian",
       "count": 6,
       "studied": 6,
       "mentioned_only": 0
@@ -1848,19 +1848,19 @@
     {
       "class_id": 3,
       "count": 140,
-      "studied": 140,
-      "mentioned_only": 0
+      "studied": 139,
+      "mentioned_only": 1
     },
     {
       "class_id": 4,
-      "count": 240,
-      "studied": 240,
+      "count": 239,
+      "studied": 239,
       "mentioned_only": 0
     },
     {
       "class_id": 5,
-      "count": 492,
-      "studied": 492,
+      "count": 491,
+      "studied": 491,
       "mentioned_only": 0
     }
   ],
@@ -1873,7 +1873,7 @@
     {
       "date": "2026-09-01",
       "papers": 143,
-      "flagged": 94
+      "flagged": 93
     },
     {
       "date": "2026-09-02",
@@ -43070,7 +43070,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet refers to writing tasks performed in the English language, which implies the verdict is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-10T15:07:14.194314+00:00"
         }
       ],
       "sources_checked": [
@@ -43088,7 +43092,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet refers to writing tasks performed in the English language, which implies the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-10T15:07:14.194314+00:00"
             }
           ]
         },
@@ -43098,7 +43106,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet refers to writing tasks performed in the English language, which implies the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-10T15:07:14.194314+00:00"
             }
           ]
         }
@@ -43476,7 +43488,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet uses English as a domain category to contrast with Non-English, implying the language is being used as a domain for study, therefore the verdict is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-10T15:10:06.066166+00:00"
         }
       ],
       "sources_checked": [
@@ -43494,7 +43510,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet uses English as a domain category to contrast with Non-English, implying the language is being used as a domain for study, therefore the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-10T15:10:06.066166+00:00"
             }
           ]
         },
@@ -43504,7 +43524,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet uses English as a domain category to contrast with Non-English, implying the language is being used as a domain for study, therefore the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-10T15:10:06.066166+00:00"
             }
           ]
         }
@@ -71199,7 +71223,11 @@
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term refers to the Hungarian algorithm (Munkres algorithm) used for optimal matching, not the human language, therefore it is a false positive",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-10T16:40:05.935753+00:00"
         }
       ],
       "sources_checked": [
@@ -71217,7 +71245,11 @@
           "detected_languages": [
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the Hungarian algorithm (Munkres algorithm) used for optimal matching, not the human language, therefore it is a false positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-10T16:40:05.935753+00:00"
             }
           ]
         },
@@ -71227,7 +71259,11 @@
           "detected_languages": [
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term refers to the Hungarian algorithm (Munkres algorithm) used for optimal matching, not the human language, therefore it is a false positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-10T16:40:05.935753+00:00"
             }
           ]
         }
@@ -78711,14 +78747,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The text refers to the nationality of the scholar Francisco Suárez, implying the language is a false_positive",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-10T17:05:06.879775+00:00"
         },
         {
           "language": "Greek",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The text refers to Greek as a language in which traditions of the Book of the Watchers survive, implying the language is mentioned_only",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-10T17:05:06.879775+00:00"
         }
       ],
       "sources_checked": [
@@ -78737,7 +78781,11 @@
           "detected_languages": [
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The text refers to the nationality of the scholar Francisco Suárez, implying the language is a false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-10T17:05:06.879775+00:00"
             }
           ]
         },
@@ -78747,7 +78795,11 @@
           "detected_languages": [
             {
               "language": "Greek",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The text refers to Greek as a language in which traditions of the Book of the Watchers survive, implying the language is mentioned_only",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-10T17:05:06.879775+00:00"
             }
           ]
         },
@@ -78757,7 +78809,11 @@
           "detected_languages": [
             {
               "language": "Greek",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The text refers to Greek as a language in which traditions of the Book of the Watchers survive, implying the language is mentioned_only",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-10T17:05:06.879775+00:00"
             }
           ]
         }
@@ -89857,7 +89913,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text refers to the use of Chinese first-instance civil and administrative judgments as part of the expert artifact corpora for the framework's experiments, implying the language is studied.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-09-10T17:38:07.162178+00:00"
         }
       ],
       "sources_checked": [
@@ -89875,7 +89935,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The text refers to the use of Chinese first-instance civil and administrative judgments as part of the expert artifact corpora for the framework's experiments, implying the language is studied.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-10T17:38:07.162178+00:00"
             }
           ]
         },
@@ -89885,7 +89949,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The text refers to the use of Chinese first-instance civil and administrative judgments as part of the expert artifact corpora for the framework's experiments, implying the language is studied.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-09-10T17:38:07.162178+00:00"
             }
           ]
         }
