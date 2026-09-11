@@ -234,28 +234,37 @@ class TestStopEarlyExitCodes:
         assert jl.EXIT_QUOTA != jl.EXIT_INCOMPLETE
         assert jl.EXIT_QUOTA not in (jl.EXIT_OK, jl.EXIT_ERROR)
 
-    def _week(self, root, slug, papers=1):
+    def _week(self, root, slug, papers=1, languages=("Swahili",), language_sets=None):
+        """One week of detections.
+
+        `languages` gives every paper the same language list; `language_sets`
+        gives one paper per entry with its own list, for tests that need
+        papers of differing sizes in the same run.
+        """
         week_dir = root / "weeks" / slug
         week_dir.mkdir(parents=True)
+        per_paper = list(language_sets) if language_sets is not None else [languages] * papers
         records = [
             {
                 "paper_id": f"http://arxiv.org/abs/{slug}.{n}",
                 "paper": {"id": f"http://arxiv.org/abs/{slug}.{n}", "title": "t", "abstract": "a"},
                 "sections": {"abstract": {"source": "abstract", "detected_languages": [
-                    {"language": "Swahili", "class": 0},
+                    {"language": lang, "class": 0} for lang in langs
                 ]}},
             }
-            for n in range(papers)
+            for n, langs in enumerate(per_paper)
         ]
         (week_dir / f"arxiv_papers_{slug}_detected.jsonl").write_text(
             "".join(json.dumps(r) + "\n" for r in records), encoding="utf-8")
         return week_dir
 
-    def _run_with_judge(self, tmp_path, monkeypatch, judge_side_effect, papers=1):
+    def _run_with_judge(self, tmp_path, monkeypatch, judge_side_effect, papers=1,
+                        languages=("Swahili",), language_sets=None):
         """Drive main()'s judging path with everything network-bound stubbed out."""
         monkeypatch.setattr(jl, "_PROCESSED_DIR", tmp_path)
         monkeypatch.setattr(jl, "_METADATA_DIR", tmp_path / "raw")
-        self._week(tmp_path, "20260427_to_20260504", papers=papers)
+        self._week(tmp_path, "20260427_to_20260504", papers=papers,
+                   languages=languages, language_sets=language_sets)
         monkeypatch.setenv("LLM_JUDGE_API_KEY", "test-key")
         monkeypatch.setattr(jl, "_load_language_data", lambda path: ({1: {"Swahili"}}, set()))
         monkeypatch.setattr(jl, "OpenAICompatClient", lambda config: type(
@@ -297,6 +306,11 @@ class TestStopEarlyExitCodes:
 class TestCancellationWiring(TestStopEarlyExitCodes):
     def test_watchdog_cancels_the_papers_it_times_out(self, tmp_path, monkeypatch, capsys):
         monkeypatch.setattr(jl, "_PER_PAPER_TIMEOUT", 0.2)
+        # The watchdog's actual wait is scaled by batches_needed * _PER_BATCH_BUDGET
+        # (floored at _PER_PAPER_TIMEOUT) — this test's one-language paper only
+        # needs 1 batch, but the unpatched default budget (60s) would still leave
+        # the wait far longer than the 10s bound below, so it must come down too.
+        monkeypatch.setattr(jl, "_PER_BATCH_BUDGET", 0.2)
         handed = {}
 
         def blocks_until_cancelled(record, week_dir, client, config, classes=None, cancel_event=None):
@@ -338,6 +352,87 @@ class TestCancellationWiring(TestStopEarlyExitCodes):
         assert code == jl.EXIT_QUOTA
         assert len(handed) == 2
         assert all(event.is_set() for event in handed)
+
+    # --- watchdog timeout arithmetic -------------------------------------
+    #
+    # These stub wait() rather than really waiting: the value main() passes it
+    # is the whole behaviour under test, and reporting "nothing done" drives
+    # the run straight into the TIMEOUT branch, so each run calls wait()
+    # exactly once. The real worker threads still run (executor.submit does
+    # not know wait() is a stub); their results are irrelevant here.
+
+    _HARMLESS = {"judge_model": "m", "judged_at": "t", "verdicts": {}}
+
+    def _spy_on_watchdog(self, monkeypatch):
+        """Capture the timeout main() hands wait(). Returns the capture list."""
+        captured = []
+
+        def spying_wait(fs, timeout=None, return_when=None):
+            captured.append(timeout)
+            return set(), fs
+
+        monkeypatch.setattr(jl, "wait", spying_wait)
+        return captured
+
+    def _budget(self, monkeypatch, floor=100, per_batch=50, cap=100_000):
+        monkeypatch.setattr(jl, "_PER_PAPER_TIMEOUT", floor)
+        monkeypatch.setattr(jl, "_PER_BATCH_BUDGET", per_batch)
+        monkeypatch.setattr(jl, "_PER_PAPER_TIMEOUT_CAP", cap)
+
+    def test_watchdog_timeout_grows_with_batches_needed(self, tmp_path, monkeypatch):
+        # judge_paper sends _MAX_LANGUAGES_PER_CALL languages per chat() call,
+        # so a many-language paper costs several sequential round-trips and
+        # must get proportionally more time than a one-language paper.
+        self._budget(monkeypatch)
+        captured = self._spy_on_watchdog(monkeypatch)
+
+        languages = tuple(f"Lang{i}" for i in range(30))  # ceil(30/12) == 3 batches
+        code = self._run_with_judge(tmp_path, monkeypatch, lambda *a, **k: self._HARMLESS,
+                                    languages=languages)
+
+        assert code == jl.EXIT_INCOMPLETE
+        assert captured == [100 + 2 * 50]  # floor + the 2 batches beyond the first
+
+    def test_watchdog_timeout_is_the_floor_for_single_batch_papers(self, tmp_path, monkeypatch):
+        self._budget(monkeypatch)
+        captured = self._spy_on_watchdog(monkeypatch)
+
+        # One language is one batch, so nothing is added on top of the floor.
+        code = self._run_with_judge(tmp_path, monkeypatch, lambda *a, **k: self._HARMLESS)
+
+        assert code == jl.EXIT_INCOMPLETE
+        assert captured == [100]
+
+    def test_watchdog_timeout_follows_the_largest_paper_in_flight(self, tmp_path, monkeypatch):
+        """The wait is a whole-batch stall detector, so it must be scaled by the
+        biggest paper still running — not the smallest, and not the first."""
+        self._budget(monkeypatch)
+        captured = self._spy_on_watchdog(monkeypatch)
+
+        code = self._run_with_judge(
+            tmp_path, monkeypatch, lambda *a, **k: self._HARMLESS,
+            language_sets=[
+                ("Swahili",),                                  # 1 batch
+                tuple(f"Lang{i}" for i in range(30)),          # 3 batches
+                ("Yoruba", "Zulu"),                            # 1 batch
+            ],
+        )
+
+        assert code == jl.EXIT_INCOMPLETE
+        # 3 batches wins over the two 1-batch papers sharing the run.
+        assert captured == [100 + 2 * 50]
+
+    def test_watchdog_timeout_caps_for_extreme_papers(self, tmp_path, monkeypatch):
+        self._budget(monkeypatch, cap=1000)
+        captured = self._spy_on_watchdog(monkeypatch)
+
+        # ceil(300/12) == 25 batches -> 100 + 24*50 == 1300, capped to 1000.
+        languages = tuple(f"Lang{i}" for i in range(300))
+        code = self._run_with_judge(tmp_path, monkeypatch, lambda *a, **k: self._HARMLESS,
+                                    languages=languages)
+
+        assert code == jl.EXIT_INCOMPLETE
+        assert captured == [1000]
 
     def test_each_paper_gets_its_own_event(self, tmp_path, monkeypatch):
         handed = []

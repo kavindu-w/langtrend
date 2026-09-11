@@ -17,6 +17,7 @@ and merged into the manifest by scripts/build_manifest.py.
 from __future__ import annotations
 
 import json
+import math
 import re
 import threading
 from dataclasses import dataclass, field
@@ -85,6 +86,22 @@ def collect_target_languages(record: dict, classes: set[int] | None = None) -> l
             if section_name not in target["sections"]:
                 target["sections"].append(section_name)
     return sorted(by_key.values(), key=lambda t: (t["class"], t["language"]))
+
+
+def batches_needed(record: dict, classes: set[int] | None = None) -> int:
+    """How many sequential chat() calls judge_paper will make for this record.
+
+    judge_paper sends _MAX_LANGUAGES_PER_CALL languages per call, one batch at
+    a time, so this is the number of round-trips a paper costs. Exported so
+    callers can budget time per paper (see judge_languages.py's watchdog)
+    without importing the batch size or re-deriving the batching rule — if the
+    batching here ever changes, this changes with it.
+
+    Always at least 1. A record with no targets makes no calls at all
+    (judge_paper returns None immediately), so treat this as a ceiling.
+    """
+    targets = collect_target_languages(record, classes=classes)
+    return max(1, math.ceil(len(targets) / _MAX_LANGUAGES_PER_CALL))
 
 
 # ---------------------------------------------------------------------------

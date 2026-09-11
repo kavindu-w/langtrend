@@ -52,6 +52,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from langtrend.judge import (
     build_messages,
     assemble_context,
+    batches_needed,
     collect_target_languages,
     ensure_context_cache,
     judge_cache_path,
@@ -76,17 +77,39 @@ _DEFAULT_PDF_DIR = _PROJECT_ROOT / "data/raw/pdfs"
 _WEEK_RE = re.compile(r"^\d{8}_to_\d{8}$")
 
 # Seconds to wait for *any* in-flight paper before giving up on the whole
-# remaining batch (see the `wait(..., timeout=_PER_PAPER_TIMEOUT)` watchdog
-# below). Worst case for one paper is several full chat() attempts across a
-# multi-model fallback chain (default LLM_JUDGE_TIMEOUT=180s per attempt,
-# _CHAT_RETRIES=3 per model) — a degraded-but-not-dead free-tier endpoint can
-# genuinely take a few minutes per paper without ever erroring out, and 300s
-# left little room for that (observed mean latency on a slow endpoint: 438s).
-# Set generously since a timeout here is now cheap: the abandoned worker
-# receives a cancel_event (see ChatCancelled) and bails at its next
-# attempt/model boundary instead of continuing to retry for however long the
-# process happens to stay alive.
+# remaining batch (see the `wait(..., timeout=...)` watchdog below). Worst
+# case for one paper is several full chat() attempts across a multi-model
+# fallback chain (default LLM_JUDGE_TIMEOUT=180s per attempt, _CHAT_RETRIES=3
+# per model) — a degraded-but-not-dead free-tier endpoint can genuinely take
+# a few minutes per paper without ever erroring out, and 300s left little
+# room for that (observed mean latency on a slow endpoint: 438s). Set
+# generously since a timeout here is now cheap: the abandoned worker receives
+# a cancel_event (see ChatCancelled) and bails at its next attempt/model
+# boundary instead of continuing to retry for however long the process
+# happens to stay alive. This is a floor, not the whole story — see
+# _PER_BATCH_BUDGET below for papers that need much longer than this alone
+# would allow.
 _PER_PAPER_TIMEOUT = 600
+
+# judge_paper() sends its chat() calls one batch at a time, sequentially (see
+# judge.batches_needed). Most papers need one batch, but some — a survey
+# mentioning a hundred-plus languages — need a dozen or more, each its own
+# throttled round-trip, so each is another chance to snag on a slow or
+# retried call. _PER_PAPER_TIMEOUT alone is the budget for a single-batch
+# paper; every *additional* batch buys _PER_BATCH_BUDGET more on top, so the
+# allowance grows with the work the paper actually represents rather than
+# being a flat number that fits the median and starves the tail.
+#
+# Deliberately additive rather than `max(floor, batches * budget)`: with a
+# 600s floor and a 60s budget, that form only exceeds the floor past 10
+# batches, which measured over ~6.3k real papers is 3 of them (0.05%) — it
+# would leave the entire p99 (3 batches) on exactly the flat timeout this is
+# meant to replace. Additive, the same constants give 720s at 3 batches,
+# 1080s at 9, and 1620s at the largest paper on record (207 languages, 18
+# batches). The cap then bites past ~21 batches, so one outlier still can't
+# stall a whole week indefinitely.
+_PER_BATCH_BUDGET = 60
+_PER_PAPER_TIMEOUT_CAP = 1800
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -430,6 +453,13 @@ def main() -> None:
         # the lookups below can't desync from `futures`, and declared out here
         # so the finally block can still reach it if submission itself raises.
         cancel_events: dict = {}
+        # How many sequential chat() round-trips each paper will cost, so the
+        # watchdog below can scale its patience to the work actually in
+        # flight. Precomputed here rather than in the worker because the
+        # watchdog runs on this thread. Cheap: judge.batches_needed is
+        # in-memory over the record's own detections, the same walk
+        # _partition_pending already did above.
+        batches_by_future: dict = {}
         try:
             futures = {}
             for record in pending:
@@ -437,10 +467,21 @@ def main() -> None:
                 future = executor.submit(_judge_one, record, cancel_event)
                 futures[future] = record
                 cancel_events[future] = cancel_event
+                batches_by_future[future] = batches_needed(record, classes=classes)
             remaining = set(futures.keys())
             with tqdm(total=len(futures), desc=f"Judging {stem}") as pbar:
                 while remaining:
-                    done, remaining = wait(remaining, timeout=_PER_PAPER_TIMEOUT, return_when=FIRST_COMPLETED)
+                    # Scaled to the largest paper still in flight: wait() is a
+                    # whole-batch stall detector (it only fires when *nothing*
+                    # completes), so the run can afford to be as patient as its
+                    # slowest legitimate member. Recomputed each pass, so the
+                    # allowance drops back as the big papers finish.
+                    max_batches = max(batches_by_future[f] for f in remaining)
+                    watchdog_timeout = min(
+                        _PER_PAPER_TIMEOUT_CAP,
+                        _PER_PAPER_TIMEOUT + (max_batches - 1) * _PER_BATCH_BUDGET,
+                    )
+                    done, remaining = wait(remaining, timeout=watchdog_timeout, return_when=FIRST_COMPLETED)
                     if not done:
                         # These papers are only *marked* failed here; the
                         # cancel_events that actually stop their workers are
@@ -448,11 +489,13 @@ def main() -> None:
                         # straight into and which covers the quota stop too.
                         for future in list(remaining):
                             pid = futures[future].get("paper_id", "unknown")
-                            tqdm.write(f"  TIMEOUT: [{pid}] no response after {_PER_PAPER_TIMEOUT}s — skipping")
+                            tqdm.write(f"  TIMEOUT: [{pid}] no response after {watchdog_timeout}s "
+                                       f"({batches_by_future[future]} batch(es) needed) — skipping")
                             warnings.append({
                                 "paper_id": pid,
                                 "step": "judge_timeout",
-                                "error": f"no response after {_PER_PAPER_TIMEOUT}s",
+                                "error": f"no response after {watchdog_timeout}s "
+                                         f"({batches_by_future[future]} batch(es) needed)",
                                 "timestamp": datetime.now().isoformat(),
                             })
                             total_failed += 1
