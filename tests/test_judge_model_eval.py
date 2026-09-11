@@ -214,6 +214,7 @@ class TestJudgeModelEval:
     @pytest.fixture(scope="class")
     def client(self):
         config = LLMClientConfig.from_env()
+        print(f"\n[judge model eval] base_url={config.base_url!r} model={config.model!r}")
         client = OpenAICompatClient(config)
         client.ping()
         return client
