@@ -87,6 +87,19 @@ class JSONParseError(Exception):
     """The model reply could not be parsed into a JSON object."""
 
 
+class ChatCancelled(LLMUnavailableError):
+    """A caller-supplied cancel_event was set — stop, don't try another attempt or model.
+
+    Raised between attempts/models, never mid-request: an in-flight `requests.post`
+    can't be aborted from another thread, so a request already sent still runs to
+    completion. This only stops chat() from *starting more work* once its caller has
+    given up on the result — see judge_languages.py's per-paper 300s watchdog, which
+    sets the event for any paper it stops waiting on so the abandoned worker thread
+    exits at the next attempt/model boundary instead of silently working (and
+    potentially succeeding, uncounted) for minutes after being marked failed.
+    """
+
+
 _DAILY_QUOTA_MARKERS = ("per day", "rpd", "daily limit", "requests per day", "tokens per day")
 _DAILY_QUOTA_RETRY_AFTER_THRESHOLD = 300  # seconds; longer than this implies a daily-reset wait, not per-minute
 
@@ -311,7 +324,12 @@ class OpenAICompatClient:
         """
         return getattr(self._local, "last_model_used", self.config.model)
 
-    def chat(self, messages: list[dict], response_format_json: bool = True) -> str:
+    def chat(
+        self,
+        messages: list[dict],
+        response_format_json: bool = True,
+        cancel_event: threading.Event | None = None,
+    ) -> str:
         """POST a chat completion; returns the assistant message content.
 
         Tries config.model first, then each of config.fallback_models in order
@@ -335,12 +353,27 @@ class OpenAICompatClient:
         backoff schedule (~2+4s between the 3 attempts) before falling over,
         per paper per worker — a real slowdown during a provider outage, not
         just a documentation nuance.
+
+        `cancel_event`, if given, is checked before each model and each
+        attempt (see ChatCancelled) — not mid-request, since an in-flight
+        `requests.post` can't be interrupted from another thread. It bounds
+        how much *more* work chat() starts once a caller has given up on the
+        result, rather than guaranteeing an immediate return.
         """
         models_to_try = [self.config.model, *self.config.fallback_models]
         for index, model in enumerate(models_to_try):
+            if cancel_event is not None and cancel_event.is_set():
+                raise ChatCancelled("cancelled before trying model " + model)
             is_last_model = index == len(models_to_try) - 1
             try:
-                return self._chat_one_model(model, messages, response_format_json)
+                return self._chat_one_model(model, messages, response_format_json, cancel_event)
+            except ChatCancelled:
+                # Must come before the LLMUnavailableError clause it subclasses:
+                # falling through to the next model would be the one thing
+                # cancellation exists to prevent. (The top-of-loop check above
+                # would re-raise on the next iteration anyway, but relying on
+                # that leaves cancellation working only by accident.)
+                raise
             except AuthenticationError:
                 # Account-wide, not per-model: every fallback would spend its
                 # own throttled round-trip to be rejected the same way.
@@ -350,7 +383,13 @@ class OpenAICompatClient:
                     raise
         raise LLMUnavailableError("chat() called with no models configured")
 
-    def _chat_one_model(self, model: str, messages: list[dict], response_format_json: bool) -> str:
+    def _chat_one_model(
+        self,
+        model: str,
+        messages: list[dict],
+        response_format_json: bool,
+        cancel_event: threading.Event | None = None,
+    ) -> str:
         payload: dict = {
             "model": model,
             "messages": messages,
@@ -362,6 +401,8 @@ class OpenAICompatClient:
         url = f"{self.config.base_url}/chat/completions"
         last_error: Exception | None = None
         for attempt in range(1, _CHAT_RETRIES + 1):
+            if cancel_event is not None and cancel_event.is_set():
+                raise ChatCancelled(f"cancelled before attempt {attempt} of {model}")
             self._throttle.acquire()
             try:
                 resp = self._session().post(url, json=payload, timeout=self.config.timeout)

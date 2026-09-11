@@ -39,6 +39,7 @@ import argparse
 import json
 import re
 import sys
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 from datetime import datetime, timedelta
@@ -59,7 +60,13 @@ from langtrend.judge import (
     safe_paper_id,
     save_judge_record,
 )
-from langtrend.llm_client import LLMClientConfig, LLMUnavailableError, OpenAICompatClient, QuotaExhaustedError
+from langtrend.llm_client import (
+    ChatCancelled,
+    LLMClientConfig,
+    LLMUnavailableError,
+    OpenAICompatClient,
+    QuotaExhaustedError,
+)
 
 _PROJECT_ROOT = Path(__file__).parent.parent
 _METADATA_DIR = _PROJECT_ROOT / "data/raw/extracted_papers_metadata"
@@ -68,7 +75,18 @@ _DEFAULT_LANG_DATA = _PROCESSED_DIR / "language_data.json"
 _DEFAULT_PDF_DIR = _PROJECT_ROOT / "data/raw/pdfs"
 _WEEK_RE = re.compile(r"^\d{8}_to_\d{8}$")
 
-_PER_PAPER_TIMEOUT = 300  # seconds before a stuck judge call is skipped
+# Seconds to wait for *any* in-flight paper before giving up on the whole
+# remaining batch (see the `wait(..., timeout=_PER_PAPER_TIMEOUT)` watchdog
+# below). Worst case for one paper is several full chat() attempts across a
+# multi-model fallback chain (default LLM_JUDGE_TIMEOUT=180s per attempt,
+# _CHAT_RETRIES=3 per model) — a degraded-but-not-dead free-tier endpoint can
+# genuinely take a few minutes per paper without ever erroring out, and 300s
+# left little room for that (observed mean latency on a slow endpoint: 438s).
+# Set generously since a timeout here is now cheap: the abandoned worker
+# receives a cancel_event (see ChatCancelled) and bails at its next
+# attempt/model boundary instead of continuing to retry for however long the
+# process happens to stay alive.
+_PER_PAPER_TIMEOUT = 600
 
 EXIT_OK = 0
 EXIT_ERROR = 1
@@ -392,10 +410,10 @@ def main() -> None:
 
         warnings: list[dict] = []
 
-        def _judge_one(record: dict) -> dict | None:
+        def _judge_one(record: dict, cancel_event: threading.Event) -> dict | None:
             t0 = time.monotonic()
             ensure_context_cache(record, week_dir, args.pdf_dir, lang_classes, languages_to_ignore)
-            judge_record = judge_paper(record, week_dir, client, config, classes=classes)
+            judge_record = judge_paper(record, week_dir, client, config, classes=classes, cancel_event=cancel_event)
             if judge_record is not None:
                 save_judge_record(week_dir, judge_record)
                 latencies.append(time.monotonic() - t0)
@@ -403,13 +421,31 @@ def main() -> None:
 
         executor = ThreadPoolExecutor(max_workers=config.workers)
         week_quota_hit = False
+        # One cancel_event per paper: a request already in flight can't be
+        # aborted from another thread, but setting this lets an abandoned
+        # worker notice at its next attempt/model boundary (see ChatCancelled)
+        # and stop, instead of continuing to retry — and potentially
+        # succeeding, uncounted — long after its result stopped being
+        # collected. Keyed by future (not by the record, or by id() of it) so
+        # the lookups below can't desync from `futures`, and declared out here
+        # so the finally block can still reach it if submission itself raises.
+        cancel_events: dict = {}
         try:
-            futures = {executor.submit(_judge_one, record): record for record in pending}
+            futures = {}
+            for record in pending:
+                cancel_event = threading.Event()
+                future = executor.submit(_judge_one, record, cancel_event)
+                futures[future] = record
+                cancel_events[future] = cancel_event
             remaining = set(futures.keys())
             with tqdm(total=len(futures), desc=f"Judging {stem}") as pbar:
                 while remaining:
                     done, remaining = wait(remaining, timeout=_PER_PAPER_TIMEOUT, return_when=FIRST_COMPLETED)
                     if not done:
+                        # These papers are only *marked* failed here; the
+                        # cancel_events that actually stop their workers are
+                        # set in the finally below, which this break falls
+                        # straight into and which covers the quota stop too.
                         for future in list(remaining):
                             pid = futures[future].get("paper_id", "unknown")
                             tqdm.write(f"  TIMEOUT: [{pid}] no response after {_PER_PAPER_TIMEOUT}s — skipping")
@@ -449,6 +485,18 @@ def main() -> None:
                     if week_quota_hit:
                         break
         finally:
+            # Cancel everything before shutting down, not just the papers the
+            # watchdog timed out: a quota stop (`week_quota_hit` above) leaves
+            # its in-flight workers running too, and QuotaExhaustedError is an
+            # LLMUnavailableError, so chat() walks each one's whole remaining
+            # fallback chain rather than stopping. Setting an already-finished
+            # paper's event is a no-op, so this is safe on the happy path.
+            #
+            # shutdown(wait=False) does NOT detach those threads — the
+            # interpreter joins them at exit — so without this, sys.exit()
+            # blocks until every abandoned worker finishes its chain.
+            for cancel_event in cancel_events.values():
+                cancel_event.set()
             executor.shutdown(wait=False, cancel_futures=True)
             if warnings:
                 warnings_path = week_dir / f"{stem}_judge_warnings.json"

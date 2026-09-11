@@ -18,12 +18,13 @@ from __future__ import annotations
 
 import json
 import re
+import threading
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from langtrend.llm_client import JSONParseError, OpenAICompatClient, LLMClientConfig, extract_json
+from langtrend.llm_client import ChatCancelled, JSONParseError, OpenAICompatClient, LLMClientConfig, extract_json
 from langtrend.text_cleaning import _compiled_pattern
 
 VERDICTS = {"studied", "mentioned_only", "false_positive"}
@@ -553,8 +554,13 @@ def validate_verdicts(parsed: dict, targets: list[dict]) -> dict[str, dict]:
 # Judging
 # ---------------------------------------------------------------------------
 
-def _chat_for_verdicts(client: OpenAICompatClient, messages: list[dict], targets: list[dict]) -> dict[str, dict]:
-    reply = client.chat(messages)
+def _chat_for_verdicts(
+    client: OpenAICompatClient,
+    messages: list[dict],
+    targets: list[dict],
+    cancel_event: threading.Event | None = None,
+) -> dict[str, dict]:
+    reply = client.chat(messages, cancel_event=cancel_event)
     try:
         parsed = extract_json(reply)
     except JSONParseError:
@@ -563,7 +569,7 @@ def _chat_for_verdicts(client: OpenAICompatClient, messages: list[dict], targets
             {"role": "assistant", "content": reply},
             {"role": "user", "content": "Your previous reply was not valid JSON. Reply with ONLY the JSON object."},
         ]
-        parsed = extract_json(client.chat(repair))
+        parsed = extract_json(client.chat(repair, cancel_event=cancel_event))
     # Read last_model_used right after this call's own chat()es complete, not
     # at the end of judge_paper() — with an OpenRouter fallback chain, later
     # batches/retries for the same paper can land on a different model than
@@ -581,11 +587,16 @@ def judge_paper(
     client: OpenAICompatClient,
     config: LLMClientConfig,
     classes: set[int] | None = None,
+    cancel_event: threading.Event | None = None,
 ) -> dict | None:
     """Judge one paper. Returns the judge-cache record, or None if no targets.
 
     Raises on unrecoverable model/parse failure — callers record a warning and
-    leave the paper unjudged.
+    leave the paper unjudged. `cancel_event`, if given, is checked before each
+    batch and passed down into every chat() call — see ChatCancelled and
+    judge_languages.py's per-paper watchdog, which sets it once it stops
+    waiting on this paper so a stalled call doesn't keep working (and
+    potentially succeeding, uncounted) after being marked failed.
     """
     targets = collect_target_languages(record, classes=classes)
     if not targets:
@@ -594,9 +605,11 @@ def judge_paper(
     context = assemble_context(record, week_dir, targets, max_chars=config.max_context_chars)
     verdicts: dict[str, dict] = {}
     for start in range(0, len(targets), _MAX_LANGUAGES_PER_CALL):
+        if cancel_event is not None and cancel_event.is_set():
+            raise ChatCancelled("cancelled before judging next batch")
         batch = targets[start : start + _MAX_LANGUAGES_PER_CALL]
         messages = build_messages(context, batch)
-        verdicts.update(_chat_for_verdicts(client, messages, batch))
+        verdicts.update(_chat_for_verdicts(client, messages, batch, cancel_event))
 
         # A valid JSON reply can still just omit a requested language (models
         # asked for N keys in one object sometimes drop one) — that's not a
@@ -614,7 +627,7 @@ def judge_paper(
                 snippets=[s for s in context.snippets if missing_names & set(s.languages)],
             )
             retry_messages = build_messages(retry_context, missing)
-            verdicts.update(_chat_for_verdicts(client, retry_messages, missing))
+            verdicts.update(_chat_for_verdicts(client, retry_messages, missing, cancel_event))
 
     return {
         "paper_id": record.get("paper_id", ""),

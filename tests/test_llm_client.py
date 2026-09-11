@@ -8,6 +8,7 @@ Run with: pytest tests/test_llm_client.py -v
 
 import json
 import sys
+import threading
 from pathlib import Path
 from unittest.mock import patch
 
@@ -21,6 +22,7 @@ from langtrend.llm_client import (
     DEFAULT_BASE_URL,
     DEFAULT_MODEL,
     AuthenticationError,
+    ChatCancelled,
     LLMClientConfig,
     OpenAICompatClient,
     QuotaExhaustedError,
@@ -446,3 +448,84 @@ class TestAuthErrorShortCircuitsFallbackChain:
             ]
             assert client.chat([{"role": "user", "content": "hi"}]) == "hi"
         assert mock_session.return_value.post.call_count == 2
+
+
+# ---------------------------------------------------------------------------
+# cancel_event: stop starting new work once a caller has given up, without
+# aborting a request already in flight (see judge_languages.py's per-paper
+# watchdog, which sets this on an abandoned worker instead of just discarding
+# its result).
+# ---------------------------------------------------------------------------
+
+class TestCancelEvent:
+    def test_cancelled_before_first_attempt_makes_no_request(self):
+        config = _config(model="primary", fallback_models=("fb1",))
+        client = OpenAICompatClient(config)
+        event = threading.Event()
+        event.set()
+        with patch.object(OpenAICompatClient, "_session") as mock_session:
+            with pytest.raises(ChatCancelled):
+                client.chat([{"role": "user", "content": "hi"}], cancel_event=event)
+        assert mock_session.return_value.post.call_count == 0
+
+    def test_cancelled_between_retries_stops_before_next_attempt(self):
+        # The event is set by the *test*, standing in for the main thread's
+        # watchdog — chat() can't abort the attempt already in flight, but
+        # must not start a second one once cancelled.
+        config = _config(model="primary", fallback_models=("fb1",))
+        client = OpenAICompatClient(config)
+        event = threading.Event()
+
+        def _fail_and_cancel(*args, **kwargs):
+            event.set()
+            return _error_response(500)
+
+        with patch.object(OpenAICompatClient, "_session") as mock_session, patch("time.sleep"):
+            mock_session.return_value.post.side_effect = _fail_and_cancel
+            with pytest.raises(ChatCancelled):
+                client.chat([{"role": "user", "content": "hi"}], cancel_event=event)
+        assert mock_session.return_value.post.call_count == 1
+
+    def test_cancelled_between_models_stops_before_fallback(self):
+        config = _config(model="primary", fallback_models=("fb1",))
+        client = OpenAICompatClient(config)
+        event = threading.Event()
+        calls = {"n": 0}
+
+        def _exhaust_primary_then_cancel(*args, **kwargs):
+            calls["n"] += 1
+            if calls["n"] == 3:  # primary's last of its own 3 retries
+                event.set()
+            return _error_response(500)
+
+        with patch.object(OpenAICompatClient, "_session") as mock_session, patch("time.sleep"):
+            mock_session.return_value.post.side_effect = _exhaust_primary_then_cancel
+            with pytest.raises(ChatCancelled):
+                client.chat([{"role": "user", "content": "hi"}], cancel_event=event)
+        # Primary burned its whole retry budget (3), but fb1 was never tried.
+        assert mock_session.return_value.post.call_count == 3
+
+    def test_no_cancel_event_behaves_like_before(self):
+        config = _config(model="primary")
+        client = OpenAICompatClient(config)
+        with patch.object(OpenAICompatClient, "_session") as mock_session:
+            mock_session.return_value.post.return_value = _ok_response("primary")
+            assert client.chat([{"role": "user", "content": "hi"}]) == "hi"
+
+    def test_chat_cancelled_does_not_fall_through_to_the_next_model(self):
+        """ChatCancelled subclasses LLMUnavailableError, which chat() otherwise
+        treats as "try the next model". Its handler must therefore come first.
+
+        The event is deliberately left *unset* so this tests the handler
+        ordering alone: with the broad clause winning, chat() would swallow the
+        cancellation and call _chat_one_model a second time for the fallback,
+        since the top-of-loop event check would find nothing set.
+        """
+        config = _config(model="primary", fallback_models=("fb1",))
+        client = OpenAICompatClient(config)
+        with patch.object(OpenAICompatClient, "_chat_one_model") as mock_one:
+            mock_one.side_effect = ChatCancelled("cancelled mid-chain")
+            with pytest.raises(ChatCancelled):
+                client.chat([{"role": "user", "content": "hi"}],
+                            cancel_event=threading.Event())
+        assert mock_one.call_count == 1
