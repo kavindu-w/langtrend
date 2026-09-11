@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.00581v2",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T01:26:33.469816+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4403,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "“Pin” is used as the common verb meaning to localize unsupported content, not as the name of a human language, implying false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "“Hungarian” refers to the Hungarian assignment/matching algorithm, not the Hungarian language, implying false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is explicitly identified as the language of evaluated datasets, English Wikipedia used to construct EnokiQA, and English grammatical rules, implying studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

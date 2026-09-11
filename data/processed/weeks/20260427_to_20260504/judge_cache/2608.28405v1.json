@@ -1,269 +1,269 @@
 {
   "paper_id": "http://arxiv.org/abs/2608.28405v1",
-  "judge_model": "google/gemma-4-26b-a4b-it:free",
-  "judged_at": "2026-09-05T09:46:05.927607+00:00",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T02:47:54.442021+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 11836,
   "verdicts": {
     "Ainu": {
       "verdict": "studied",
-      "reason": "The candidate refers to an indigenous identity/language in the persona universe table, implying the paper studies it as part of its cultural identities, verdict: studied",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "Ainu is listed in the persona table as a native-language identity for the benchmark, so it is a human language used in the dataset; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Batak": {
       "verdict": "studied",
-      "reason": "The candidate refers to a specific ethnic/linguistic identity used in the dialogue examples, implying the paper studies it, verdict: studied",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "Batak is listed as a native-language/persona identity and appears in a Batak church-wedding dialogue example, so it is a language used in the benchmark; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Belait": {
       "verdict": "false_positive",
-      "reason": "The candidate refers to a specific location/region in Brunei mentioned in a dialogue example, implying it is a geographic context rather than the language itself, verdict: false_positive",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "Belait is a place in Brunei in the dialogue metadata, not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Bisa": {
       "verdict": "false_positive",
-      "reason": "The candidate appears to be a substring of 'bisa' (can/able) in the Indonesian dialogue snippet, not a language, verdict: false_positive",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "Bisa is used in the Indonesian dialogue as the common word meaning “can/able,” not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Gula": {
       "verdict": "false_positive",
-      "reason": "The candidate refers to 'gula' (sugar) in the Indonesian dialogue snippet, not a language, verdict: false_positive",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "Gula is used in the Indonesian phrase “rendah gula,” meaning low sugar, not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Ibu": {
       "verdict": "false_positive",
-      "reason": "The candidate refers to 'ibu' (mother/elder) in the Indonesian dialogue snippet, not a language, verdict: false_positive",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "Ibu is used as an Indonesian kinship or honorific term for an elder or mother, not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Iyo": {
-      "verdict": "false_positive",
-      "reason": "The candidate is a substring of 'Ilocano' or other words in the snippets and does not clearly refer to a language, verdict: false_positive",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "verdict": "mentioned_only",
+      "reason": "No referent for Iyo is shown in the provided snippets; insufficient to establish a human-language mention, so mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kadar": {
       "verdict": "false_positive",
-      "reason": "The candidate refers to 'kadar' (level/amount) in the Indonesian dialogue snippet, not a language, verdict: false_positive",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "Kadar is used in the Indonesian phrase “kadar gula,” meaning sugar level, not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Brunei": {
-      "verdict": "studied",
-      "reason": "The candidate refers to the country/region used to define the identity and language context (Brunei Malay), implying the paper studies the associated language, verdict: studied",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "verdict": "false_positive",
+      "reason": "Brunei is a country/region and persona metadata label, not the language name; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Dari": {
-      "verdict": "false_positive",
-      "reason": "The candidate is a substring of 'additional' or other words in the snippets and does not clearly refer to a language, verdict: false_positive",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "verdict": "mentioned_only",
+      "reason": "No referent for Dari is shown in the provided snippets; insufficient to establish a human-language mention, so mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Goreng": {
       "verdict": "false_positive",
-      "reason": "The candidate refers to 'goreng' (fried) in the Malay dialogue snippet, not a language, verdict: false_positive",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "Goreng is used in “ikan goreng,” meaning fried fish, not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Isnag": {
       "verdict": "mentioned_only",
-      "reason": "The candidate is mentioned in the context of system prompts but the snippets do not provide enough evidence to confirm it refers to the language rather than a persona/identity, verdict: mentioned_only",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "No referent for Isnag is shown in the provided snippets; insufficient to establish a human-language mention, so mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kami": {
       "verdict": "false_positive",
-      "reason": "The word 'kami' appears in an Indonesian dialogue snippet meaning 'we/our', not referring to the Kami language. false_positive",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "In the Indonesian dialogue, kami is the pronoun meaning we/our, not a language name; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kamu": {
       "verdict": "false_positive",
-      "reason": "The word 'kamu' appears in an Indonesian dialogue snippet meaning 'you', not referring to the Kamu language. false_positive",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "In the Indonesian dialogue, kamu is the pronoun meaning you, not a language name; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Mang": {
       "verdict": "false_positive",
-      "reason": "The snippets do not contain the word 'Mang'; it is likely a false positive from a regex scanner. false_positive",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Mang is only an incidental lexical/name token in the Indonesian dialogue, not a language label; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Mo": {
       "verdict": "false_positive",
-      "reason": "The snippets do not contain the word 'Mo'; it is likely a false positive from a regex scanner. false_positive",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Mo is an incidental substring in ordinary Indonesian wording such as omong-omong, not a language name; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Muda": {
       "verdict": "false_positive",
-      "reason": "The word 'muda' appears in an Indonesian dialogue snippet meaning 'young', not referring to the Muda language. false_positive",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "In the Indonesian dialogue, muda is the adjective meaning young, not a language name; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Nila": {
       "verdict": "false_positive",
-      "reason": "The snippets do not contain the word 'Nila'; it is likely a false positive from a regex scanner. false_positive",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Nila is only an incidental lexical/name token in the Indonesian dialogue, not a language label; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Lola": {
       "verdict": "false_positive",
-      "reason": "The snippets provided for Appendix G are missing, but the word does not appear in other snippets; however, based on the provided text, there is no evidence of the Lola language. false_positive",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Lola is an example or personal name in the system-prompt material, not a language label; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Nama": {
       "verdict": "false_positive",
-      "reason": "The word 'nama' appears in Indonesian/Malay snippets meaning 'name', not referring to the Nama language. false_positive",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "In the sample message, nama is the Indonesian word/name placeholder, not the Nama language; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Okinawan": {
-      "verdict": "studied",
-      "reason": "Okinawan is listed as a native language for the Ryukyuan identity in the persona universe table used for the benchmark. studied",
-      "model": "google/gemma-4-31b-it:free"
+      "verdict": "false_positive",
+      "reason": "Okinawan is an identity label in the persona table under Japanese, not a language being used or evaluated; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Pattani": {
       "verdict": "false_positive",
-      "reason": "The snippets provided for Appendix G are missing, and the word does not appear in other snippets. false_positive",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Pattani is a regional/place reference in the prompt, not a language label; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Sake": {
       "verdict": "false_positive",
-      "reason": "The snippets provided for Appendix G are missing, and the word does not appear in other snippets. false_positive",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Sake is a Japanese drink/cultural item in the prompt, not a language name; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Sambal": {
       "verdict": "false_positive",
-      "reason": "The word 'sambal' refers to a chili paste/sauce in the context of food and recipes, not a language. false_positive",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Sambal is a chili condiment in the menu/dialogue, not a language name; false_positive",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Saya": {
-      "verdict": "false_positive",
-      "reason": "The candidate is not present in the provided snippets; however, the snippets for Appendix G mention 'Native Language' scripts. Without a specific match in the text, but given the context of the 'Bluep",
-      "model": "google/gemma-4-31b-it:free"
+      "verdict": "mentioned_only",
+      "reason": "The supplied snippets are insufficient to establish what \"Saya\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Toba": {
-      "verdict": "false_positive",
-      "reason": "The candidate is not present in the provided snippets; however, the snippets for Appendix N mention 'Batak church-wedding', and Toba is a Batak language. But the word 'Toba' itself does not appear in ",
-      "model": "google/gemma-4-31b-it:free"
+      "verdict": "mentioned_only",
+      "reason": "The supplied snippets are insufficient to establish what \"Toba\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Sila": {
-      "verdict": "false_positive",
-      "reason": "The word 'Sila' appears in the snippet 'Silakan makan Encik' as part of an Indonesian/Malay phrase meaning 'please', not as a reference to the Sila language.",
-      "model": "google/gemma-4-31b-it:free"
+      "verdict": "mentioned_only",
+      "reason": "The supplied snippets are insufficient to establish what \"Sila\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tay": {
-      "verdict": "false_positive",
-      "reason": "The candidate 'Tay' does not appear in the provided snippets.",
-      "model": "google/gemma-4-31b-it:free"
+      "verdict": "mentioned_only",
+      "reason": "The supplied snippets are insufficient to establish what \"Tay\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tira": {
-      "verdict": "false_positive",
-      "reason": "The candidate 'Tira' does not appear in the provided snippets.",
-      "model": "google/gemma-4-31b-it:free"
+      "verdict": "mentioned_only",
+      "reason": "The supplied snippets are insufficient to establish what \"Tira\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Wa": {
       "verdict": "false_positive",
-      "reason": "The word 'WA' appears in the snippet 'buat versi WA utk grup keluarga', referring to WhatsApp, not the Wa language.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "In the dialogue, \"WA\" is an abbreviation for WhatsApp, not the Wa language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Akan": {
       "verdict": "false_positive",
-      "reason": "The candidate 'Akan' does not appear in the provided snippets.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Here \"akan\" is an Indonesian auxiliary meaning \"will\" in phrases such as \"akan merayakan,\" not the Akan language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tho": {
-      "verdict": "false_positive",
-      "reason": "The candidate 'Tho' does not appear in the provided snippets.",
-      "model": "google/gemma-4-31b-it:free"
+      "verdict": "mentioned_only",
+      "reason": "The supplied snippets are insufficient to establish what \"Tho\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Ilocano": {
       "verdict": "studied",
-      "reason": "Ilocano is listed as a native language for personas in the Philippines and is part of the native language scripts the paper generates.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Ilocano is listed as a native language and persona identity in the benchmark, which uses native-language dialogue generation and evaluation; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Minangkabau": {
       "verdict": "studied",
-      "reason": "Minangkabau is listed as a native language for personas in Indonesia in the persona universe table.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Minangkabau is listed as a native language in the benchmark's persona universe and native-language routing; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Khmer": {
       "verdict": "studied",
-      "reason": "Khmer is listed as a native language for personas in Vietnam (Khmer Krom) in the persona universe table.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Khmer is listed as a native language in the benchmark's persona universe and native-language routing; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Javanese": {
       "verdict": "studied",
-      "reason": "Javanese is listed as a native language for personas in Indonesia and is used in the persona universe and evaluation scenarios.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "Javanese is listed as a native language and persona identity in the benchmark, which uses native-language dialogue generation and evaluation; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Mongolian": {
       "verdict": "studied",
-      "reason": "Listed as a native language for personas in the benchmark dataset, implying it is studied.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "The persona-universe table lists Mongolian as a native-language route for the benchmark, so it is part of the released/generated artifact; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tagalog": {
       "verdict": "studied",
-      "reason": "Listed as a native language for personas and included in the system prompts for native language generation, implying it is studied.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "The persona table and shard prompt list Tagalog as a native language and require native-language shard versions, so it is used in the benchmark; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tibetan": {
       "verdict": "studied",
-      "reason": "Listed as a native language for personas and included in the system prompts for native language generation, implying it is studied.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "The shard prompt explicitly maps Tibetan identities to Tibetan script/native-language output, so the harness generates and evaluates Tibetan; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Uyghur": {
       "verdict": "studied",
-      "reason": "Listed as a native language for personas and included in the system prompts for native language generation, implying it is studied.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "The shard prompt explicitly maps Uyghur identities to Uyghur script/native-language output, so the harness generates and evaluates Uyghur; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Cebuano": {
       "verdict": "studied",
-      "reason": "The snippets only mention 'Visayan Catholic Filipino' in the persona table and 'Tagalog'/'Ilocano' in prompts; 'Cebuano' is not explicitly present in the provided snippets, but the candidate list clai",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "The G.3/G.3.1 shard-generator language-routing prompt treats Cebuano as a native-language option for a Philippine persona, so it is part of the harness's language coverage; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Hindi": {
-      "verdict": "mentioned_only",
-      "reason": "The snippets do not show Hindi text or explicit mention of Hindi as a studied language, only that it was detected in 'Additional Dialogue Examples'. Given the context of the paper's focus on East and ",
-      "model": "google/gemma-4-31b-it:free"
+      "verdict": "false_positive",
+      "reason": "The N.1 hit is a common-word collision in dialogue text, specifically Tagalog hindi meaning not/no, not a reference to the Hindi language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Latin": {
       "verdict": "false_positive",
-      "reason": "The candidate is detected in 'Blueprint Generator' prompts, but there is no evidence it refers to the Latin language; it is likely a false positive (e.g., referring to Latin script or a technical term",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "The G.2 hit denotes the Latin writing script in the blueprint instructions, not the Latin language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Malay": {
       "verdict": "studied",
-      "reason": "Listed as a native language for personas and used in generated dialogue examples, implying it is studied.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "The persona table and shard prompt list Malay/Bahasa Melayu as native-language routes and generate native-language shards in it; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tamil": {
       "verdict": "studied",
-      "reason": "Listed as a native language for personas and included in the system prompts for native language generation, implying it is studied.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "The persona table and shard prompt list Tamil and Tamil-script native-language output, so it is used in the harness; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Thai": {
       "verdict": "studied",
-      "reason": "Listed as a native language for personas and included in the system prompts for native language generation, implying it is studied.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "The persona table and shard prompt list Thai and Thai-script native-language output, so it is used in the harness; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Indonesian": {
       "verdict": "studied",
-      "reason": "Listed as a native language for personas and used in native-language dialogue examples, implying it is studied.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "The persona table and shard prompt list Indonesian/Bahasa Indonesia as native-language routes and include native-language dialogue generation; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Korean": {
       "verdict": "studied",
-      "reason": "Listed as a native language for personas and included in the system prompts for native language generation, implying it is studied.",
-      "model": "google/gemma-4-31b-it:free"
+      "reason": "The persona table and shard prompt list Korean and Korean-script native-language output, so it is used in the harness; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Vietnamese": {
       "verdict": "studied",
-      "reason": "The candidate refers to the native language of the Vietnamese persona used in the benchmark, implying the paper studies it. ",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The snippets identify Vietnamese as the native language for Vietnam personas and require Vietnamese-language shards and evaluation episodes; it is part of the multilingual benchmark, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "The candidate refers to the native language of various Chinese personas used in the benchmark, implying the paper studies it.",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The snippets identify Chinese/Mandarin as a native language for multiple regional personas and specify Simplified Chinese scripts; it is used in the benchmark, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "English": {
       "verdict": "studied",
-      "reason": "The candidate refers to the language used for the global instructions and as a primary evaluation language in the benchmark, implying the paper studies it.",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The snippets identify English as the global language for prompts and as the language of benchmark episodes; it is used in the paper's construction and evaluation, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Japanese": {
       "verdict": "studied",
-      "reason": "The candidate refers to the native language of the Japanese persona used in the benchmark, implying the paper studies it.",
-      "model": "google/gemma-4-26b-a4b-it:free"
+      "reason": "The snippets identify Japanese as the native language for Japan personas and require Japanese-language shards; it is part of the multilingual benchmark, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     }
   }
 }

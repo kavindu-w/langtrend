@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.31016v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T01:46:38.085995+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5062,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to model pins in a reproducibility lock file, not the Pin language; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Rom": {
+      "verdict": "false_positive",
+      "reason": "The matched text uses ROM as the medical abbreviation for range of motion, not the Rom language; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The matched text explicitly describes the paper's benchmark corpus as English-language clinical-care data, which the paper uses and evaluates; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

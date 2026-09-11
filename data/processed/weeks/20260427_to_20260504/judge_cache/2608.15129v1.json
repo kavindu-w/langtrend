@@ -1,549 +1,549 @@
 {
   "paper_id": "http://arxiv.org/abs/2608.15129v1",
-  "judge_model": "openai/gpt-oss-20b:free",
-  "judged_at": "2026-08-21T14:07:06.228334+00:00",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T03:05:22.250463+00:00",
   "context_coverage": "abstract+html",
-  "context_chars": 11956,
+  "context_chars": 11987,
   "verdicts": {
     "Agob": {
-      "verdict": "studied",
-      "reason": "the Agob-Ende-Kawam language refers to a constructed artificial language used in the experiments",
-      "model": "openai/gpt-oss-20b:free"
+      "verdict": "mentioned_only",
+      "reason": "Agob occurs only within the compound name Agob-Ende-Kawam language, a human language used as a typological example rather than evaluated; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Ende": {
-      "verdict": "studied",
-      "reason": "the Agob-Ende-Kawam language refers to a constructed artificial language used in the experiments",
-      "model": "openai/gpt-oss-20b:free"
+      "verdict": "mentioned_only",
+      "reason": "Ende occurs only within the compound name Agob-Ende-Kawam language, a human language used as a typological example rather than evaluated; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Aka": {
-      "verdict": "studied",
-      "reason": "Akan aka refers to the Akan language, one of the natural languages evaluated in the study",
-      "model": "openai/gpt-oss-20b:free"
+      "verdict": "false_positive",
+      "reason": "Aka appears only as the FLORES code aka in the Akan row, not as a reference to the Aka language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Awa": {
-      "verdict": "studied",
-      "reason": "awa Deva refers to the Awa language written in Devanagari script, part of the natural language evaluation",
-      "model": "openai/gpt-oss-20b:free"
+      "verdict": "false_positive",
+      "reason": "Awa appears only as the FLORES code awa in an excluded-variety list, not as an explicit Awa-language mention; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Beng": {
-      "verdict": "studied",
-      "reason": "Beng refers to Bengali, a natural language included in the evaluation",
-      "model": "openai/gpt-oss-20b:free"
+      "verdict": "false_positive",
+      "reason": "Beng is the script label in rows such as Assamese asm Beng and Bengali ben Beng, not a separate human language name; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Fon": {
       "verdict": "studied",
-      "reason": "Fon refers to the Fon language, a natural language evaluated in the study",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Fon is listed as a FLORES evaluation language with model coverage and a word-order label, so it is part of the paper's natural-language experiments; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kadai": {
-      "verdict": "mentioned_only",
-      "reason": "no snippet provided to confirm whether Kadai refers to a language; could be a language family mention",
-      "model": "openai/gpt-oss-20b:free"
+      "verdict": "false_positive",
+      "reason": "Kadai occurs only in the family name Tai-Kadai for Thai, not as the Kadai language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kam": {
-      "verdict": "mentioned_only",
-      "reason": "no snippet provided to confirm whether Kam refers to a language; could be a language family or other mention",
-      "model": "openai/gpt-oss-20b:free"
+      "verdict": "false_positive",
+      "reason": "Kam appears only as the FLORES code kam in the excluded-variety list, not as an explicit Kam-language mention; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Mal": {
-      "verdict": "studied",
-      "reason": "Mal refers to Malayalam (ISO code mal) in the table, a natural language evaluated in the study",
-      "model": "openai/gpt-oss-20b:free"
+      "verdict": "false_positive",
+      "reason": "Mal occurs as the FLORES code mal in the Malayalam row and as a substring of Malayalam or Maltese, not as a named Mal language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Orya": {
-      "verdict": "studied",
-      "reason": "Orya refers to the Orya language in the table, a natural language evaluated in the study",
-      "model": "openai/gpt-oss-20b:free"
+      "verdict": "false_positive",
+      "reason": "Orya is the script label in the Odia row, not the language name; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Pol": {
-      "verdict": "studied",
-      "reason": "Pol refers to Polish (ISO code pol) in the table, a natural language evaluated in the study",
-      "model": "openai/gpt-oss-20b:free"
+      "verdict": "false_positive",
+      "reason": "Pol appears as the FLORES code pol in the Polish row, not as a separate Pol language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tat": {
-      "verdict": "studied",
-      "reason": "Tat refers to Tatar (ISO code tat) in the table, a natural language evaluated in the study",
-      "model": "openai/gpt-oss-20b:free"
+      "verdict": "false_positive",
+      "reason": "Tat appears as the FLORES code tat in the Tatar row, not as a separate Tat language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tha": {
       "verdict": "studied",
-      "reason": "The snippet shows \"Thai tha Thai SVO-RRRRR\", indicating the ISO code \"tha\" for the Thai language; the paper evaluates Goldfish models on Thai, so the language is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Tha is the FLORES code beside Thai in the evaluation-language table, which gives its word-order label and model coverage; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tso": {
       "verdict": "studied",
-      "reason": "The snippet contains \"Tsonga tso Latn SVO-RR R\", showing the ISO code \"tso\" for Tsonga; the paper includes this language in its evaluation, so it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Tso is the FLORES code beside Tsonga in the evaluation-language table, which gives its word-order label and model coverage; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Northern Sotho": {
       "verdict": "studied",
-      "reason": "The snippet lists \"Northern Sotho nso Latn SVO-R\", indicating the language Northern Sotho is part of the evaluated set; thus it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Northern Sotho appears as a model language in the evaluation-language table with a FLORES label and word-order analysis; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Odia": {
       "verdict": "studied",
-      "reason": "The snippet shows \"Odia ory Orya - NLLN\", referring to the Odia language in the evaluation table; it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Odia appears as a model language in the evaluation-language table with a FLORES label and word-order analysis; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tumbuka": {
       "verdict": "studied",
-      "reason": "The snippet contains \"Tumbuka tum Latn SVO-R\", indicating Tumbuka is included in the Goldfish model coverage; it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Tumbuka appears as a model language in the evaluation-language table with a FLORES label and word-order analysis; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Akan": {
       "verdict": "studied",
-      "reason": "The snippet lists \"Akan aka Latn SVO-RNLR\", showing Akan is part of the evaluated languages; it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Akan appears as a model language in the evaluation-language table with a FLORES label and word-order analysis; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Amharic": {
       "verdict": "studied",
-      "reason": "The snippet shows \"Amharic amh Ethi -LLRLL\", indicating Amharic is included in the evaluation; it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Amharic appears as a model language in the evaluation-language table with a FLORES label and word-order analysis; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Assamese": {
       "verdict": "studied",
-      "reason": "The snippet contains \"Assamese asm Beng -L L\", indicating Assamese is part of the evaluated languages; it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Assamese appears as a model language in the evaluation-language table with a FLORES label and word-order analysis; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Bosnian": {
       "verdict": "studied",
-      "reason": "The snippet lists \"Bosnian bos Latn SVO-RRRLR\", showing Bosnian is included in the evaluation; it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Bosnian appears as a model language in the evaluation-language table with a FLORES label and word-order analysis; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Ganda": {
       "verdict": "studied",
-      "reason": "The snippet shows \"Ganda lug Latn SVO-RRRRR\", indicating Ganda is part of the evaluated languages; it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Ganda appears as a model language in the evaluation-language table with a FLORES label and word-order analysis; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Afrikaans": {
       "verdict": "studied",
-      "reason": "The snippet contains \"Afrikaans afr Latn NoDom-RRRLR\" and the Limitations section discusses Afrikaans; the language is evaluated in the study, so it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Afrikaans appears in the evaluation-language table and is discussed as an example of mixed adposition order in the limitations; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Burmese": {
       "verdict": "studied",
-      "reason": "The snippet shows \"Burmese mya Mymr -LNLRL\" and the methodology mentions a Burmese model; thus Burmese is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Burmese appears in the evaluation-language table, and the paper describes training a dedicated Burmese Goldfish model; it is therefore a studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Gujarati": {
       "verdict": "studied",
-      "reason": "The snippet lists Gujarati as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Gujarati as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Haitian Creole": {
       "verdict": "studied",
-      "reason": "The snippet lists Haitian Creole as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Haitian Creole as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Hausa": {
       "verdict": "studied",
-      "reason": "The snippet lists Hausa as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Hausa as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Icelandic": {
       "verdict": "studied",
-      "reason": "The snippet lists Icelandic as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Icelandic as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Igbo": {
       "verdict": "studied",
-      "reason": "The snippet lists Igbo as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Igbo as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Javanese": {
       "verdict": "studied",
-      "reason": "The snippet lists Javanese as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Javanese as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kannada": {
       "verdict": "studied",
-      "reason": "The snippet lists Kannada as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Kannada as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kinyarwanda": {
       "verdict": "studied",
-      "reason": "The snippet lists Kinyarwanda as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Kinyarwanda as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kyrgyz": {
       "verdict": "studied",
-      "reason": "The snippet lists Kyrgyz as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Kyrgyz as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Lingala": {
       "verdict": "studied",
-      "reason": "The snippet lists Lingala as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Lingala as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Malayalam": {
       "verdict": "studied",
-      "reason": "The snippet lists Malayalam as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Malayalam as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Maltese": {
       "verdict": "studied",
-      "reason": "The snippet lists Maltese as a language in the Goldfish Model Coverage table, indicating it is part of the natural language experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The snippet lists Maltese as a Model Language/FLORES evaluation language with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Marathi": {
       "verdict": "studied",
-      "reason": "The snippet lists 'Marathi mar Deva -RNLLL Indo-European' in a table of Goldfish model coverage, indicating the language itself is referenced and used in experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Marathi is listed in the evaluation-language table with a FLORES label, word-order classification, and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Mongolian": {
       "verdict": "studied",
-      "reason": "The snippet lists 'Mongolian khk Cyrl -LLLLL Mongolic' in a table of Goldfish model coverage, indicating the language itself is referenced and used in experiments.",
-      "model": "openai/gpt-oss-20b:free"
-    },
-    "Quechua": {
-      "verdict": "studied",
-      "reason": "The snippet lists 'Quechua quy Latn -L LLL Quechuan' in a table of Goldfish model coverage, indicating the language itself is referenced and used in experiments.",
-      "model": "openai/gpt-oss-20b:free"
-    },
-    "Rundi": {
-      "verdict": "studied",
-      "reason": "The snippet lists 'Rundi run Latn SVO-RRRRR Niger-Congo' in a table of Goldfish model coverage, indicating the language itself is referenced and used in experiments.",
-      "model": "openai/gpt-oss-20b:free"
-    },
-    "Shona": {
-      "verdict": "studied",
-      "reason": "The snippet lists 'Shona sna Latn SVO-RRRRR Niger-Congo' in a table of Goldfish model coverage, indicating the language itself is referenced and used in experiments.",
-      "model": "openai/gpt-oss-20b:free"
-    },
-    "Sinhala": {
-      "verdict": "studied",
-      "reason": "The snippet lists 'Sinhala sin Sinh -LLLLL Indo-European' in a table of Goldfish model coverage, indicating the language itself is referenced and used in experiments.",
-      "model": "openai/gpt-oss-20b:free"
-    },
-    "Somali": {
-      "verdict": "studied",
-      "reason": "The snippet lists 'Somali som Latn -LRNRR Afro-Asiatic' in a table of Goldfish model coverage, indicating the language itself is referenced and used in experiments.",
-      "model": "openai/gpt-oss-20b:free"
-    },
-    "Southern Sotho": {
-      "verdict": "studied",
-      "reason": "The snippet lists 'Southern Sotho sot Latn SVO-RRRRR Niger-Congo' in a table of Goldfish model coverage, indicating the language itself is referenced and used in experiments.",
-      "model": "openai/gpt-oss-20b:free"
-    },
-    "Swahili": {
-      "verdict": "studied",
-      "reason": "The snippet lists 'Swahili swh Latn SVO-RRRRR Niger-Congo' in a table of Goldfish model coverage, indicating the language itself is referenced and used in experiments.",
-      "model": "openai/gpt-oss-20b:free"
-    },
-    "Tagalog": {
-      "verdict": "studied",
-      "reason": "The snippet lists 'Tagalog tgl Latn VSO-RRRNR Austronesian' in a table of Goldfish model coverage, indicating the language itself is referenced and used in experiments.",
-      "model": "openai/gpt-oss-20b:free"
-    },
-    "Tajik": {
-      "verdict": "studied",
-      "reason": "The snippet lists 'Tajik tgk Cyrl -LRRRR Indo-European' in a table of Goldfish model coverage, indicating the language itself is referenced and used in experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Halh Mongolian is listed as an evaluation language with a FLORES label and word-order classification, so Mongolian is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Nepali": {
       "verdict": "studied",
-      "reason": "The snippet lists Nepali (npi) as a language in the FLORES‑200 coverage table, indicating it is part of the natural language data used for evaluation, so the paper studies Nepali.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Nepali is listed in the evaluation-language table with a FLORES label and word-order classification, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Quechua": {
+      "verdict": "studied",
+      "reason": "Ayacucho Quechua is listed as an evaluation language with a FLORES label and word-order classification, so Quechua is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Rundi": {
+      "verdict": "studied",
+      "reason": "Rundi is listed in the evaluation-language table with a FLORES label and word-order classification, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Shona": {
+      "verdict": "studied",
+      "reason": "Shona is listed in the evaluation-language table with a FLORES label and word-order classification, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sinhala": {
+      "verdict": "studied",
+      "reason": "Sinhala is listed in the evaluation-language table with a FLORES label and word-order classification, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Somali": {
+      "verdict": "studied",
+      "reason": "Somali is listed in the evaluation-language table with a FLORES label and word-order classification, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Southern Sotho": {
+      "verdict": "studied",
+      "reason": "Southern Sotho is listed in the evaluation-language table with a FLORES label and word-order classification, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is listed in the evaluation-language table with a FLORES label and word-order classification, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tagalog": {
+      "verdict": "studied",
+      "reason": "Tagalog is listed in the evaluation-language table with a FLORES label and word-order classification, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tajik": {
+      "verdict": "studied",
+      "reason": "Tajik is listed in the evaluation-language table with a FLORES label and word-order classification, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Telugu": {
       "verdict": "studied",
-      "reason": "The snippet lists \"Telugu tel Telu -LLLLL Dravidian\", indicating the human language Telugu as a model language in the Goldfish coverage table; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Telugu is listed in the FLORES evaluation-language table with a FLORES code, script, family, resource level, and Goldfish model; the paper evaluates models on these languages, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tibetan": {
       "verdict": "studied",
-      "reason": "The snippet shows \"Tibetan tib ...\" in the Goldfish coverage table, referring to the human language Tibetan; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Tibetan is listed in the FLORES evaluation-language table as a model/evaluation language; the paper evaluates models on these languages, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tsonga": {
       "verdict": "studied",
-      "reason": "The snippet contains \"Tsonga tso ...\" in the Goldfish coverage table, referring to the human language Tsonga; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Tsonga is listed in the FLORES evaluation-language table with a FLORES code, script, family, resource level, and Goldfish model; the paper evaluates models on these languages, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Turkmen": {
       "verdict": "studied",
-      "reason": "The snippet lists \"Turkmen tuk ...\" in the Goldfish coverage table, referring to the human language Turkmen; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Turkmen is listed in the FLORES evaluation-language table with a FLORES code, script, family, resource level, and Goldfish model; the paper evaluates models on these languages, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Wolof": {
       "verdict": "studied",
-      "reason": "The snippet shows \"Wolof wol ...\" in the Goldfish coverage table, referring to the human language Wolof; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Wolof is listed in the FLORES evaluation-language table with a FLORES code, script, family, resource level, and Goldfish model; the paper evaluates models on these languages, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Xhosa": {
       "verdict": "studied",
-      "reason": "The snippet contains \"Xhosa xho ...\" in the Goldfish coverage table, referring to the human language Xhosa; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Xhosa is listed in the FLORES evaluation-language table with a FLORES code, script, family, resource level, and Goldfish model; the paper evaluates models on these languages, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Yoruba": {
       "verdict": "studied",
-      "reason": "The snippet lists \"Yoruba yor ...\" in the Goldfish coverage table, referring to the human language Yoruba; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Yoruba is listed in the FLORES evaluation-language table with a FLORES code, script, family, resource level, and Goldfish model; the paper evaluates models on these languages, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Zulu": {
       "verdict": "studied",
-      "reason": "The snippet shows \"Zulu zul ...\" in the Goldfish coverage table, referring to the human language Zulu; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Zulu is listed in the FLORES evaluation-language table with a FLORES code, script, family, resource level, and Goldfish model; the paper evaluates models on these languages, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Armenian": {
       "verdict": "studied",
-      "reason": "The snippet contains \"Armenian hye ...\" in the Goldfish coverage table, referring to the human language Armenian; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Armenian is listed in the FLORES evaluation-language table with a FLORES code, script, family, resource level, and Goldfish model; the paper evaluates models on these languages, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Bengali": {
       "verdict": "studied",
-      "reason": "The snippet lists \"Bengali ben ...\" in the Goldfish coverage table, referring to the human language Bengali; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Bengali is listed in the FLORES evaluation-language table with a FLORES code, script, family, resource level, and Goldfish model; the paper evaluates models on these languages, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Bulgarian": {
       "verdict": "studied",
-      "reason": "The snippet shows \"Bulgarian bul ...\" in the Goldfish coverage table, referring to the human language Bulgarian; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Bulgarian is listed in the FLORES evaluation-language table with a FLORES code, script, family, resource level, and Goldfish model; the paper evaluates models on these languages, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Belarusian": {
       "verdict": "studied",
-      "reason": "The snippet lists \"Belarusian bel ...\" in the Goldfish coverage table, referring to the human language Belarusian; studied",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Belarusian is listed in the FLORES evaluation-language table as a model/evaluation language and is also discussed in the Limitations section; it is part of the paper's evaluation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Croatian": {
       "verdict": "studied",
-      "reason": "The snippet shows Croatian (hrv) in a table of Goldfish model coverage on FLORES-200, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Croatian is listed as an evaluation language with a FLORES label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Danish": {
       "verdict": "studied",
-      "reason": "The snippet shows Danish (dan) in the same table of Goldfish model coverage on FLORES-200, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Danish is listed as an evaluation language with a FLORES label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Esperanto": {
       "verdict": "studied",
-      "reason": "The snippet shows Esperanto (epo) in the Goldfish model coverage table, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Esperanto is listed as an evaluation language with a FLORES label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Estonian": {
       "verdict": "studied",
-      "reason": "The snippet shows Estonian (est) in the Goldfish model coverage table, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Estonian is listed as an evaluation language with a FLORES label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Galician": {
       "verdict": "studied",
-      "reason": "The snippet shows Galician (glg) in the Goldfish model coverage table, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Galician is listed as an evaluation language with a FLORES label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Georgian": {
       "verdict": "studied",
-      "reason": "The snippet shows Georgian (kat) in the Goldfish model coverage table, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Georgian is listed as an evaluation language with a FLORES label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Greek": {
       "verdict": "studied",
-      "reason": "The snippet shows Greek (ell) in the Goldfish model coverage table, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Greek is listed as an evaluation language with a FLORES label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Hebrew": {
       "verdict": "studied",
-      "reason": "The snippet shows Hebrew (heb) in the Goldfish model coverage table, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Hebrew is listed as an evaluation language with a FLORES label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Hindi": {
       "verdict": "studied",
-      "reason": "The snippet shows Hindi (hin) in the Goldfish model coverage table, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Hindi is listed as an evaluation language with a FLORES label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kazakh": {
       "verdict": "studied",
-      "reason": "The snippet shows Kazakh (kaz) in the Goldfish model coverage table, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Kazakh is listed as an evaluation language with a FLORES label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Latvian": {
       "verdict": "studied",
-      "reason": "The snippet shows Latvian (lvs) in the Goldfish model coverage table, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Std Latvian is listed as an evaluation language with a FLORES label and model coverage, so Latvian is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Lithuanian": {
       "verdict": "studied",
-      "reason": "The snippet shows Lithuanian (lit) in the Goldfish model coverage table, indicating the paper evaluates a monolingual model for this language.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Lithuanian is listed as an evaluation language with a FLORES label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Macedonian": {
       "verdict": "studied",
-      "reason": "The snippet lists Macedonian in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Macedonian as an evaluation/model language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Malay": {
       "verdict": "studied",
-      "reason": "The snippet lists Malay in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Std Malay as an evaluation language, so Malay is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Slovak": {
       "verdict": "studied",
-      "reason": "The snippet lists Slovak in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Slovak as an evaluation/model language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tamil": {
       "verdict": "studied",
-      "reason": "The snippet lists Tamil in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Tamil as an evaluation/model language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tatar": {
       "verdict": "studied",
-      "reason": "The snippet lists Tatar in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Tatar as an evaluation/model language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Thai": {
       "verdict": "studied",
-      "reason": "The snippet lists Thai in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Thai as an evaluation/model language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Urdu": {
       "verdict": "studied",
-      "reason": "The snippet lists Urdu in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Urdu as an evaluation/model language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Uzbek": {
       "verdict": "studied",
-      "reason": "The snippet lists Uzbek in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Northern Uzbek as an evaluation language, so Uzbek is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Welsh": {
       "verdict": "studied",
-      "reason": "The snippet lists Welsh in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Welsh as an evaluation/model language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Basque": {
       "verdict": "studied",
-      "reason": "The snippet lists Basque in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Basque as an evaluation/model language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Catalan": {
       "verdict": "studied",
-      "reason": "The snippet lists Catalan in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Catalan as an evaluation/model language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Czech": {
       "verdict": "studied",
-      "reason": "The snippet lists Czech in a table of Goldfish model coverage, indicating the language is used in the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "The FLORES table lists Czech as an evaluation/model language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Dutch": {
       "verdict": "studied",
-      "reason": "The snippet lists Dutch (nld) as a language in the Goldfish model coverage table, indicating it is a target language for evaluation.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Dutch is listed as a human FLORES evaluation language (nld) in the model-coverage table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Finnish": {
       "verdict": "studied",
-      "reason": "Finnish (fin) appears in the table as a language with a specific model and order label, showing it is evaluated.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Finnish is listed as a human FLORES evaluation language (fin) in the model-coverage table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Hungarian": {
       "verdict": "studied",
-      "reason": "Hungarian (hun) is listed in the table as a language with a model and order label, indicating it is part of the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Hungarian is listed as a human FLORES evaluation language (hun) in the model-coverage table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Italian": {
       "verdict": "studied",
-      "reason": "Italian (ita) is shown in the table as a language with a model and order label, meaning it is evaluated.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Italian is listed as a human FLORES evaluation language (ita) in the model-coverage table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Korean": {
       "verdict": "studied",
-      "reason": "Korean (kor) appears in the table as a language with a model and order label, so it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Korean is listed as a human FLORES evaluation language (kor) in the model-coverage table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Norwegian": {
       "verdict": "studied",
-      "reason": "Norwegian (nob) is listed in the table as a language with a model and order label, indicating it is evaluated.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Norwegian is represented by the human language variety Norwegian Bokmål (nob) in the evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Persian": {
       "verdict": "studied",
-      "reason": "Persian (pes) is shown in the table as a language with a model and order label, meaning it is part of the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Persian is represented by Western Persian (pes) in the evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Polish": {
       "verdict": "studied",
-      "reason": "Polish (pol) appears in the table as a language with a model and order label, so it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Polish is listed as a human FLORES evaluation language (pol) in the model-coverage table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Portuguese": {
       "verdict": "studied",
-      "reason": "Portuguese (por) is listed in the table as a language with a model and order label, indicating it is evaluated.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Portuguese is listed as a human FLORES evaluation language (por) in the model-coverage table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Romanian": {
       "verdict": "studied",
-      "reason": "Romanian (ron) appears in the table as a language with a model and order label, so it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Romanian is listed as a human FLORES evaluation language (ron) in the model-coverage table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Indonesian": {
       "verdict": "studied",
-      "reason": "Indonesian (ind) is shown in the table as a language with a model and order label, meaning it is part of the experiments.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Indonesian is listed as a human FLORES evaluation language (ind) and its Goldfish models are analyzed in the results, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Russian": {
       "verdict": "studied",
-      "reason": "Russian (rus) appears in the table as a language with a model and order label, so it is studied.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Russian is listed as a human FLORES evaluation language (rus) and discussed in the limitations, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Serbian": {
       "verdict": "studied",
-      "reason": "The snippet lists Serbian as a language with a Goldfish model (Serbian srp Cyrl SVO-RRRLR Indo-European), indicating the paper evaluates models on Serbian.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Serbian is listed as a FLORES/Goldfish evaluation language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Swedish": {
       "verdict": "studied",
-      "reason": "The snippet lists Swedish as a language with a Goldfish model (Swedish swe Latn SVO-RRRLR Indo-European), indicating the paper evaluates models on Swedish.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Swedish is listed as a FLORES/Goldfish evaluation language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Turkish": {
       "verdict": "studied",
-      "reason": "The snippet lists Turkish as a language with a Goldfish model (Turkish tur Latn -LLLLL Turkic), indicating the paper evaluates models on Turkish.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Turkish is listed as a FLORES/Goldfish evaluation language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Ukrainian": {
       "verdict": "studied",
-      "reason": "The snippet lists Ukrainian as a language with a Goldfish model (Ukrainian ukr Cyrl SVO-RRRLR Indo-European), indicating the paper evaluates models on Ukrainian.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Ukrainian is listed as a FLORES/Goldfish evaluation language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Vietnamese": {
       "verdict": "studied",
-      "reason": "The snippet lists Vietnamese as a language with a Goldfish model (Vietnamese vie Latn SVO-RRRRR Austroasiatic), indicating the paper evaluates models on Vietnamese.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Vietnamese is listed as a FLORES/Goldfish evaluation language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "French": {
       "verdict": "studied",
-      "reason": "The snippet lists French as a language with a Goldfish model (French fra Latn SVO-RRRRR Indo-European), indicating the paper evaluates models on French.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "French is listed as a FLORES/Goldfish evaluation language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Spanish": {
       "verdict": "studied",
-      "reason": "The snippet lists Spanish as a language with a Goldfish model (Spanish spa Latn SVO-RRRRR Indo-European), indicating the paper evaluates models on Spanish.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Spanish is listed as a FLORES/Goldfish evaluation language with a word-order label, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "The snippet lists Arabic as a language with a Goldfish model and discusses Modern Standard Arabic in Limitations, indicating the paper evaluates models on Arabic.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Modern Standard Arabic is included as an evaluation language and discussed in the word-order classification limitations, so Arabic is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "German": {
       "verdict": "studied",
-      "reason": "The snippet lists German as a language with a Goldfish model and discusses German classification in Limitations, indicating the paper evaluates models on German.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "German is listed as a FLORES/Goldfish evaluation language and discussed in the word-order classification limitations, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "The snippet lists Chinese (Simplified and Traditional) as languages with Goldfish models and mentions Chinese in the introduction, indicating the paper evaluates models on Chinese.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Simplified and Traditional Chinese are listed as evaluation languages, with Mandarin Chinese also used as a natural-language comparison, so Chinese is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "English": {
       "verdict": "studied",
-      "reason": "The snippet contains multiple references to English, including Goldfish model coverage and evaluation, indicating the paper evaluates models on English.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "English is used as a FLORES/Goldfish evaluation language and as the reference for cross-language perplexity normalization, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Japanese": {
       "verdict": "studied",
-      "reason": "The snippet lists Japanese as a language with a Goldfish model and uses it as a base order in artificial languages, indicating the paper evaluates models on Japanese.",
-      "model": "openai/gpt-oss-20b:free"
+      "reason": "Japanese is listed as a FLORES/Goldfish evaluation language and used in word-order examples and comparisons, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
     }
   }
 }

@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.01936v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T01:34:24.763861+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11612,
+  "verdicts": {
+    "Dla": {
+      "verdict": "false_positive",
+      "reason": "“DLA” denotes Direct Logit Attribution, not the Dla language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "“Latin” refers to the Latin script used to write tokens, not the Latin language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippet identifies Russian-language tokens in the model's unembedding-row feature audit, so Russian is analyzed as part of the paper's artifact; this is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "The snippet identifies Vietnamese-language tokens in the model's unembedding-row feature audit, so Vietnamese is analyzed as part of the paper's artifact; this is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The snippet identifies Japanese-language error tokens in the model's unembedding-row feature audit, so Japanese is analyzed as part of the paper's artifact; this is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese prompts, corpora, fitted lenses, token readings, and feature agreement are directly compared in the experiments; this is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English prompts, corpora, fitted lenses, token readings, and feature agreement are directly compared in the experiments; this is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German prompts, a German fitting corpus and lens, token readings, and English–German comparisons are directly analyzed; this is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.27115v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T02:00:18.414847+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11746,
+  "verdicts": {
+    "Tucano": {
+      "verdict": "false_positive",
+      "reason": "Tucano refers to the Tucano-1B PT model, with PT denoting Portuguese, rather than to the Tucano human language; this is a model-name false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "Amharic refers to the human language Amharic (amh), which is evaluated as a low-resource language paired with English in the alignment experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tagalog": {
+      "verdict": "studied",
+      "reason": "Tagalog refers to the human language Tagalog (tgl), which is evaluated as a low-resource language paired with English in the alignment experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Uzbek": {
+      "verdict": "studied",
+      "reason": "Uzbek refers to the human language Northern Uzbek (uzn), which is evaluated as a low-resource language paired with English in the alignment experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili refers to the human language Swahili (swh), which is evaluated in cross-lingual alignment and training-corpus contamination audits.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi refers to the human language Hindi (hin), which is included among the 36 evaluated language pairs and in the corpus contamination audit.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian refers to the human language Russian (rus), whose representations are evaluated in cross-lingual reconstruction with English.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the human language Arabic (arb), including Standard Arabic, which is evaluated in alignment, reconstruction, and corpus audits.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the human language Chinese (zho), which is evaluated across model architectures, reconstruction, and factual patching experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language English (eng), which is a central source language throughout the paper's alignment, reconstruction, patching, and contamination experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to the human language French (fra), which is evaluated in cross-lingual alignment, reconstruction, and factual patching experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the human language German (deu), which is evaluated in alignment and cross-model factual-content patching experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is one of the six human languages used to construct and evaluate the paper's country-capital factual probes, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is one of the six human languages used to construct and evaluate the paper's country-capital factual probes, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}
