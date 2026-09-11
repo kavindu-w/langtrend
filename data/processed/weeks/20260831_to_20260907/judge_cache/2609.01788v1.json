@@ -1,0 +1,104 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.01788v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T21:42:50.422194+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11817,
+  "verdicts": {
+    "Bada": {
+      "verdict": "false_positive",
+      "reason": "In the Punjabi example, bada is an adverb meaning quite or very, not a language name; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bana": {
+      "verdict": "false_positive",
+      "reason": "In the Hindi MCQ sentence khana bahut achha bana hai, bana means made or cooked, not a language name; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Maa": {
+      "verdict": "false_positive",
+      "reason": "In the Hindi MCQ prompt, Maa is a kinship term meaning mother, not a language name; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Inga": {
+      "verdict": "false_positive",
+      "reason": "In the Tamil option Inga saapida sonnanga, inga means here, not a language name; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Intha": {
+      "verdict": "false_positive",
+      "reason": "In the Tamil phrase intha poosani, intha is a demonstrative meaning this, not a language name; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Karo": {
+      "verdict": "false_positive",
+      "reason": "In the Hindi instruction anuvad karo, karo is the imperative do in translate, not a language name; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Samay": {
+      "verdict": "false_positive",
+      "reason": "In the Hindi phrase samay par pahunch gaya, samay means time or on time, not a language name; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Khana": {
+      "verdict": "false_positive",
+      "reason": "In the Hindi prompts Khana taiyaar hai, khana means food, not a language name; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tha": {
+      "verdict": "false_positive",
+      "reason": "In Hindi phrases such as gaya tha, tha is a past-tense auxiliary meaning had or was, not a language name; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mili": {
+      "verdict": "false_positive",
+      "reason": "In the Punjabi premise meri maasi mili, mili means met, not a language name; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Wala": {
+      "verdict": "false_positive",
+      "reason": "In the Hindi phrase beech wala, wala means the one or forms an attributive expression, not a language name; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "Malayalam is explicitly one of the four languages covered by the VakyArth benchmark and is used in its data, model evaluation, and analysis; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sanskrit": {
+      "verdict": "mentioned_only",
+      "reason": "“Vakya” and “Arth” are identified as words from Sanskrit used to form the benchmark name; Sanskrit is not among the evaluated languages.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is one of the four languages covered by VakyArth, with authored items, prompts, and model results.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "“Latin” modifies “transliterated source text,” referring to the Latin/Roman script rather than the Latin language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malay": {
+      "verdict": "false_positive",
+      "reason": "The table’s “Malay” is a truncated label for Malayalam in the four-language Hindi–Punjabi–Tamil–Malayalam row, not the Malay language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Punjabi": {
+      "verdict": "studied",
+      "reason": "Punjabi is one of the four languages covered by VakyArth, with authored items, error analyses, and model evaluations.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is one of the four languages covered by VakyArth, with authored items, error analyses, and model evaluations.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used for code-mixing and human-authored reference translations in the translation subcorpus, making it part of the benchmark artifacts.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

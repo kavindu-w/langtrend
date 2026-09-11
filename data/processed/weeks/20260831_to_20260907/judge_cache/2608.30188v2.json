@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30188v2",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T00:31:47.572267+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4866,
+  "verdicts": {
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "The match is the abbreviation “deg” for degrees in “deg C,” not the Deg language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "The match is “URI,” meaning upper respiratory infection, not the Uri language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly identify English as the language of the clinical records, prompts, and physicians’ documentation, and the benchmark is built and evaluated using English-language data; this is ",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

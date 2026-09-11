@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.02108v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T21:41:10.945709+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3689,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to the mean absolute error metric used to evaluate length predictions, not the Mae language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language of the C4 text samples and web corpus used to construct and train the length probe, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

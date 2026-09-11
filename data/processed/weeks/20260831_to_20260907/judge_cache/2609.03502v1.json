@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.03502v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T20:31:01.582997+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1629,
+  "verdicts": {
+    "Wayu": {
+      "verdict": "false_positive",
+      "reason": "Wayu is part of the model name Wayu-Paxa-TTS-Edge, not a reference to the Wayu human language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin-script text or characters in the phoneme/frontend contexts, not the Latin language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "The paper builds and evaluates a Thai TTS corpus and model, including Thai CER and challenge-set results; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned in corpus or phoneme-frontend discussion without evidence of Chinese data, experiments, evaluation, or a dedicated resource; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper handles Thai-English code-switching, uses a bilingual frontend, and reports English CER; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned in student-model or phoneme-frontend discussion without evidence of Japanese data, experiments, evaluation, or a dedicated resource; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

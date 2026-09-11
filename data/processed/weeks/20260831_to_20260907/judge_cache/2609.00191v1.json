@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.00191v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T22:58:16.920923+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11976,
+  "verdicts": {
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Hebrew as a language used by a helpline and in its chats, but only as related work; Hebrew is not part of this paper's experiments or artifacts.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Chinese as the language of previously studied hotlines, but only in related work; Chinese is not part of this paper's experiments or artifacts.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swedish": {
+      "verdict": "false_positive",
+      "reason": "The match is part of the organization name \"Swedish Council on Health Technology Assessment,\" not a reference to the Swedish language, making it a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets describe Arabic and Levantine Arabic crisis-call transcripts, an Arabic corpus, and models evaluated on that corpus, so Arabic is directly studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets describe English translations of the calls, an English corpus, and models evaluated on that corpus, so English is directly studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

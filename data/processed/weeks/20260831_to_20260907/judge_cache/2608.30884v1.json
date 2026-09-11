@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30884v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T23:17:28.880890+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4805,
+  "verdicts": {
+    "Ende": {
+      "verdict": "false_positive",
+      "reason": "ENDE appears only as part of the XLM-CLM-ENDE and XLM-MLM-ENDE model names, denoting English-German variants rather than the Ende language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "Hebrew is listed among languages evaluated in related work, but this paper does not use or build resources for it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is listed among languages evaluated in related work, but this paper does not use or build resources for it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Norwegian": {
+      "verdict": "mentioned_only",
+      "reason": "Norwegian refers to the language of a related WinoQueer dataset, which is discussed but not used in this paper's experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is listed among languages evaluated in related work, but this paper does not use or build resources for it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned as a grammatically gendered language in related work, but the paper's own dataset and evaluations focus on German and English.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one of the languages in the paper's German-English benchmark and multilingual model evaluations.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is central to the paper's benchmark, dataset, and evaluation of monolingual and multilingual language models.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.03985v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T20:08:59.483551+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9815,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to Jina CLIP v2, a vision-language model used as a multilingual control, not a human language; the candidate is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Katla": {
+      "verdict": "false_positive",
+      "reason": "Katla refers to a freshwater fish category in the dataset, not a human language; the candidate is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali refers to the Bengali language, whose names and prompts are evaluated in the experiments; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin refers to Latin scientific-name strings discussed in the introduction, but the snippets show no evaluation of Latin as a language; it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language, whose common-name prompts and labels are evaluated in the experiments; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

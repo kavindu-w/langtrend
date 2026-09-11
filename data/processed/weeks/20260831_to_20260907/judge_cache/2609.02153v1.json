@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.02153v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T21:31:40.114188+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10545,
+  "verdicts": {
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "In 'cong-dao,' dao is the romanized Chinese location/path marker 到, not the Dao language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is explicitly named as the language in the example 'speak French,' but it is only used as an illustration rather than studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin is the romanization and input system used to classify sound-related character substitutions, not a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese, specified as Modern Standard Mandarin, is the target language of the learner-error taxonomy, corpus analysis, and evaluation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language for which ERRANT was established and for the examples' glosses, but the paper does not work on English.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is the language of the Falko learner corpus cited as a methodological precedent, but it is not studied in the paper's experiments or artifacts.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

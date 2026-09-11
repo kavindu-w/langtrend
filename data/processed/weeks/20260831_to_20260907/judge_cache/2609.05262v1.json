@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.05262v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T19:22:41.357567+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3414,
+  "verdicts": {
+    "Mama": {
+      "verdict": "false_positive",
+      "reason": "The match is the early babble sequence /mama/, not a human language, so the verdict is false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned as a colonial language whose borrowings may affect lexical similarity, but it is not used or evaluated as a paper artifact, so the verdict is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tibetan": {
+      "verdict": "false_positive",
+      "reason": "The match occurs only within Sino-Tibetan, the name of a language family, and does not refer specifically to the Tibetan language, so the verdict is false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

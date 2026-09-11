@@ -1,0 +1,74 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30725v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T00:16:18.145881+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11714,
+  "verdicts": {
+    "Maori": {
+      "verdict": "mentioned_only",
+      "reason": "Maori is named as a language excluded from the pool because it fails the translator-quality bar; it is mentioned but not used in the experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "Hebrew is named as a language excluded from the pool because it lacks coverage in the protocol; it is mentioned but not used in the experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is listed as a high-resource language in the pool used for the multilingual retrieval experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is an evaluated low-resource language whose retrieval performance is measured and improved by the paper's interventions.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu is listed as a low-resource language in the paper's multilingual language pool and retrieval evaluation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is listed as a low-resource language in the paper's multilingual language pool and retrieval evaluation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is included in the trained language pool and its translation quality and downstream evaluation are examined.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script in the phrase \"non-Latin-script languages,\" not to the Latin language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is included in the multilingual pool and is analyzed in per-language retrieval and generalization experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the central reference language used throughout the retrieval, patching, calibration, and control experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is included in the high-resource pool and used as a parallel-language source in patching experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is included in the high-resource pool and its retrieval performance and calibration results are analyzed.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippet lists Spanish (es) as a language in the paper's multilingual language pool and experiments, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

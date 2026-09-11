@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.03273v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T20:47:33.917720+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11724,
+  "verdicts": {
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "“Nasal” refers to nasal assimilation, a phonological phenomenon, not a human language, implying false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "“Sentinel” refers to special sentinel tokens used during model decoding, not a human language, implying false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sinhala": {
+      "verdict": "mentioned_only",
+      "reason": "“Sinhala” refers to the Sinhala human language in a cited Sinhala–Tamil correction environment, which is only discussed as previous work, implying mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Telugu": {
+      "verdict": "mentioned_only",
+      "reason": "“Telugu” refers to the Telugu human language in prior spell-correction work, which this paper does not evaluate or build resources for, implying mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "“Hindi” refers to the Hindi human language in comparisons and prior grammatical or spelling-correction work, implying mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "“Tamil” refers to the Tamil human language and is the language of the paper’s dataset, fine-tuning, evaluation, and Tamil-adapted model experiments, implying studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "“English” refers to the English human language through removed English words and English-language prompts, with no English-language task evaluation or resource development, implying mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.01113v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T22:08:05.986272+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8818,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "The matches are the person reference 'Abu Mohammed' and the place name 'Abu Dhabi', not the Abu language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Amara": {
+      "verdict": "false_positive",
+      "reason": "The match is part of the person's name 'Sherin Amara', not the Amara language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "The isolated 'IK' tokens occur as garbled OCR/transcription within a YouTube-channel list, not as a reference to the Ik language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mba": {
+      "verdict": "false_positive",
+      "reason": "The match is the academic degree 'MBA' in an annotator-background table, not the Mba language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mor": {
+      "verdict": "studied",
+      "reason": "MOR is the abbreviation for Moroccan Arabic, one of the five dialects covered by the EDRAC benchmark.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sama": {
+      "verdict": "false_positive",
+      "reason": "The matches are media/channel names such as 'Sama Art International' and 'Sama Dubai', not the Sama language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch is named as the language of a legal-domain QA benchmark in related work, without Dutch being used in this paper's experiments or artifacts.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "Egyptian Arabic is explicitly evaluated through EDRAC data, naturalness criteria, and spelling examples.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is genuinely referenced through source datasets and reader-facing translations, but it is not a language studied by the paper's benchmark.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned as the language of a historical-data QA benchmark in related work, without being used in this paper's experiments or artifacts.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic genuinely refers to Modern Standard Arabic, Dialectal Arabic, and the Arabic dialects for which the paper constructs and evaluates the EDRAC benchmark.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

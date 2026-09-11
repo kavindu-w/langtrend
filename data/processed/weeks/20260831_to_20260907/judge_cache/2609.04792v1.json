@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.04792v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T19:40:15.408601+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3056,
+  "verdicts": {
+    "Hehe": {
+      "verdict": "false_positive",
+      "reason": "“hehe” is a laughter/interjection in the sample output, not the Hehe language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "“for fucks sake” is an English exclamation, not the Sake language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English-language datasets, American and British English, and generalization beyond English; the paper experiments with these English materials, so English is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30853v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T23:23:23.892721+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1032,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The supplied context identifies an AI-usage-card citation, not a reference to a human language; Luna is therefore a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean is a human language in the paper's first-language-background discussion, but the supplied evidence only places it in the Introduction and does not show experiments or resources for it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swedish": {
+      "verdict": "mentioned_only",
+      "reason": "Swedish is a human language in the paper's first-language-background discussion, but the supplied evidence only places it in the Introduction and does not show experiments or resources for it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language of the speech-recognition systems, speech data, and analyses studied throughout the paper.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

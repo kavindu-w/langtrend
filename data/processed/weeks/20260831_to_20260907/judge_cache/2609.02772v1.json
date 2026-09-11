@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.02772v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T00:58:09.291995+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4337,
+  "verdicts": {
+    "Elu": {
+      "verdict": "false_positive",
+      "reason": "ELU refers to an activation function compared in the model experiments, not the Elu language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Poke": {
+      "verdict": "false_positive",
+      "reason": "Poke is used as the ordinary verb phrase \"poke around on the ground,\" not as the name of a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets state that the experiments use English corpora and English-language news datasets, so the paper studies and evaluates English.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

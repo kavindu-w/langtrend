@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30716v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T23:48:25.114209+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4695,
+  "verdicts": {
+    "Kara": {
+      "verdict": "false_positive",
+      "reason": "Kara refers to a synthetic protagonist/character in the game and video-processing segments, not a human language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "Uri appears as URI, the technical term for a raw video resource identifier, not a human language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek is used only in the anonymized entity labels Agent Greek and Subject Greek, not to refer to the human language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "Russian occurs in the chapter title phrase Russian roulette, not as a reference to the human language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English genuinely describes the language of the interactive narrative game from which the benchmark is built; this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

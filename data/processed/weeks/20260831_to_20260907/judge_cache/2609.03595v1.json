@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.03595v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T20:29:05.827898+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11846,
+  "verdicts": {
+    "Manchu": {
+      "verdict": "mentioned_only",
+      "reason": "Manchu is a human language referenced in prior work on synthetic OCR transfer, so it is only mentioned.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is a human language referenced in prior work on document reconstruction, so it is only mentioned.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is a human language mentioned in a comparison of benchmark coverage and transfer, so it is only mentioned.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is the common verb in the algorithm comment 'pin their span first,' not a language reference.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Wayu": {
+      "verdict": "false_positive",
+      "reason": "Wayu is part of the model name Wayu-Paxa-OCR-Zero, not a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is the human language used for the paper's OCR data, experiments, and model adaptation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the human language of source documents and some retained OCR labels used in the reconstruction experiments, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

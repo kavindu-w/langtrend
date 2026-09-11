@@ -1,0 +1,259 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30541v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T00:11:33.380321+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11744,
+  "verdicts": {
+    "Ari": {
+      "verdict": "false_positive",
+      "reason": "ARI is a clustering-quality metric/acronym in the validation table, not a language mention; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Beng": {
+      "verdict": "false_positive",
+      "reason": "Beng is the script code in the Bengali row ('Bengali ben Beng'), not the human-language name; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mal": {
+      "verdict": "studied",
+      "reason": "Mal is the ISO language code paired with Malayalam in the PBC validation table, so it refers to Malayalam; its visual-similarity metrics are reported, making it studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tha": {
+      "verdict": "studied",
+      "reason": "Tha is the ISO language code paired with Thai in the PBC validation table, so it refers to Thai; its visual-similarity metrics are reported, making it studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "Amharic is a language entry in the PBC table with reported rendering-level visual-similarity metrics, so it is part of the paper's validation artifact; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Gujarati": {
+      "verdict": "studied",
+      "reason": "Gujarati is a language entry in the PBC table with reported rendering-level visual-similarity metrics, so it is part of the paper's validation artifact; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kannada": {
+      "verdict": "studied",
+      "reason": "Kannada is a language entry in the PBC table with reported rendering-level visual-similarity metrics, so it is part of the paper's validation artifact; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kyrgyz": {
+      "verdict": "studied",
+      "reason": "Kyrgyz is a language entry in the PBC table with reported rendering-level visual-similarity metrics, so it is part of the paper's validation artifact; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bo": {
+      "verdict": "studied",
+      "reason": "Bo is the code paired with Tibetan ('Tibetan (bo)' and the 'bo baseline'), and Tibetan is the paper's adaptation case study; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Burmese": {
+      "verdict": "studied",
+      "reason": "Burmese is a main auxiliary/transfer language with sourced data and reported adaptation results; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dzongkha": {
+      "verdict": "studied",
+      "reason": "Dzongkha is a main auxiliary/transfer language with collected data and reported adaptation results; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Khmer": {
+      "verdict": "studied",
+      "reason": "Khmer is used in the follow-up auxiliary-language continued-pretraining experiment and its similarity/performance is analyzed; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lao": {
+      "verdict": "studied",
+      "reason": "Lao appears as an ISO- and script-tagged entry in the language-validation table used to assess visual-similarity metrics, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "Malayalam appears as an ISO- and script-tagged entry in the language-validation table used to assess visual-similarity metrics, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "Marathi appears as an ISO- and script-tagged entry in the language-validation table used to assess visual-similarity metrics, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sinhala": {
+      "verdict": "studied",
+      "reason": "Sinhala appears as an ISO- and script-tagged entry in the language-validation table used to assess visual-similarity metrics, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu appears as an ISO- and script-tagged entry in the language-validation table used to assess visual-similarity metrics, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Armenian": {
+      "verdict": "studied",
+      "reason": "Armenian appears as an ISO- and script-tagged entry in the language-validation table used to assess visual-similarity metrics, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali appears as an ISO- and script-tagged entry in the language-validation table used to assess visual-similarity metrics, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "Bulgarian appears as an ISO- and script-tagged entry in the language-validation table used to assess visual-similarity metrics, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Georgian": {
+      "verdict": "studied",
+      "reason": "Georgian appears as an ISO- and script-tagged entry in the language-validation table used to assess visual-similarity metrics, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mongolian": {
+      "verdict": "mentioned_only",
+      "reason": "The supplied snippets do not show a Mongolian match or establish what it refers to; the evidence is insufficient, so it is treated as mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "Nepali is selected as a transfer language, assigned rendered training data for continued pre-training, and evaluated on downstream tasks, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tibetan": {
+      "verdict": "studied",
+      "reason": "Tibetan is the paper's central case-study language, with collected training data, model adaptation, metric analysis, and downstream evaluation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "Greek refers to the Greek language in the language-validation table with ISO code ell and Grek script; the paper computes visual-similarity metrics for it, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Hebrew refers to Ancient Hebrew in the language-validation table with ISO code hbo and Hebr script; the paper computes visual-similarity metrics for it, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Macedonian": {
+      "verdict": "studied",
+      "reason": "Macedonian refers to the Macedonian language in the language-validation table with ISO code mkd and Cyrl script; the paper computes visual-similarity metrics for it, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Punjabi": {
+      "verdict": "studied",
+      "reason": "Punjabi refers to the Punjabi language in the language-validation table with ISO code pan and Guru script; the paper computes visual-similarity metrics for it, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil refers to the Tamil language in the language-validation table with ISO code tam and Taml script; the paper computes visual-similarity metrics for it, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai refers to the Thai language in the language-validation table with ISO code tha and Thai script; the paper computes visual-similarity metrics for it, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch refers to the Dutch language in the language-validation table with ISO code nld and Latn script; the paper computes visual-similarity metrics for it, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "Finnish refers to the Finnish language in the language-validation table with ISO code fin and Latn script; the paper computes visual-similarity metrics for it, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi refers to the Hindi language in the language-validation table with ISO code hin and Deva script; the paper computes visual-similarity metrics for it, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script or Latin characters, shown as Latn script codes and filtered Latin characters, not the Latin language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian refers to the Italian language in the language-validation table with ISO code ita and Latn script; the paper computes visual-similarity metrics for it, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean refers to the Korean language in the language-validation table with ISO code kor and Hang script; the paper computes visual-similarity metrics for it, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is a human language (ISO por) listed in the Parallel Bible Corpus language-validation table, where rendering-level visual-similarity metrics are computed; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is a human language (ISO rus) listed in the language-validation table with script and visual-similarity metrics; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Serbian": {
+      "verdict": "studied",
+      "reason": "Serbian is a human language (ISO srp) listed in the language-validation table with script and visual-similarity metrics; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Swedish is a human language (ISO swe) listed in the language-validation table with script and visual-similarity metrics; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is a human language (ISO tur) listed in the language-validation table with script and visual-similarity metrics; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is a human language (ISO vie) listed in the language-validation table with script and visual-similarity metrics; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is a human language (ISO arb) listed in the language-validation table with script and visual-similarity metrics; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is a human language (ISO ukr) listed in the language-validation table with script and visual-similarity metrics; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is a human language (ISO zho) used in the visual-similarity validation and in follow-up continued pre-training experiments; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is a human language (ISO eng) listed in the language-validation table with script and visual-similarity metrics; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is a human language (ISO fra) listed in the language-validation table with script and visual-similarity metrics; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is a human language (ISO deu) listed in the language-validation table with script and visual-similarity metrics; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The provided snippets do not show the Japanese match, so its referent and role are insufficiently clear; treated as mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish (spa) is listed as a human language in the Parallel Bible Corpus validation table, where rendering-level visual-similarity metrics are computed; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

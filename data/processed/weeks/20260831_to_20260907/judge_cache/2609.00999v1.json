@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.00999v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T22:41:25.308219+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11986,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "The matched text is part of the place name Abu Dhabi, not a reference to the Abu language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lama": {
+      "verdict": "false_positive",
+      "reason": "The matched text lists Lama as an Arab female personal name, not the Lama language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mina": {
+      "verdict": "false_positive",
+      "reason": "The matched text lists Mina as a Christian Arab male personal name, not the Mina language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tala": {
+      "verdict": "false_positive",
+      "reason": "The matched text lists Tala as an Arab female personal name, not the Tala language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sama": {
+      "verdict": "false_positive",
+      "reason": "The matched text uses SAMA as an acronym concerning a Shariah-disclosure mandate and regulatory framing, not as the Sama language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is explicitly used as one of the evaluation languages and in bilingual datasets and translation prompts, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is explicitly used as one of the evaluation languages and in bilingual datasets and translation prompts, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

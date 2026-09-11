@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.31037v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T23:28:21.698609+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4559,
+  "verdicts": {
+    "Adi": {
+      "verdict": "false_positive",
+      "reason": "\"Sicherman and Adi [35]\" refers to an author name, not the Adi language, implying a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "\"Col.\" abbreviates the table category \"collapse\" in \"Col./Exp./Neu.,\" not a human language, implying a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is one of the languages in the multilingual TrIJEK speech corpus on which all 13 codecs are evaluated, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is one of the languages in the multilingual TrIJEK speech corpus on which all 13 codecs are evaluated, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is represented by the LJSpeech and VoxCeleb corpora and as part of TrIJEK, all used to evaluate the codecs, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

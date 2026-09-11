@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30856v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T23:39:56.934229+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4581,
+  "verdicts": {
+    "Mama": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses “mama” as a common kinship term in an English query, not a human-language name; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a “safety pin,” an object, not a human language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Vili": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses “Vili” as a person’s name in the query, not a human language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows “Pol.” as an abbreviated column label in a rationale-distribution table, not a human language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses “pole” figuratively to mean an endpoint of a spectrum, not a human language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly identifies the prompts as English-language prompts used in the paper’s query sampling and evaluation; English is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

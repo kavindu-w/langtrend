@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.05022v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T19:20:37.785023+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11690,
+  "verdicts": {
+    "Bun": {
+      "verdict": "false_positive",
+      "reason": "The snippets use “bun” as an Irish prefix meaning “primary/elementary/basic,” not as the name of a human language, implying a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Irish": {
+      "verdict": "studied",
+      "reason": "The paper develops the Irish-language MoirfEolas dataset, evaluates tokenizers for Irish morphology, and proposes CríochScore for Irish, implying the language is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Turkish as a highly agglutinative language and as the source language for prior morphological metrics adapted to Irish, without conducting Turkish experiments, implying it is men",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English data used in cited gaBERT work and English entries removed while cleaning the Irish dataset, without developing or evaluating resources for English, implying it is mentio",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

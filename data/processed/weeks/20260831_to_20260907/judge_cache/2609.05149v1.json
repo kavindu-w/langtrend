@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.05149v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T19:17:06.888402+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6942,
+  "verdicts": {
+    "Maia": {
+      "verdict": "false_positive",
+      "reason": "MAIA refers to the benchmark and its subsets used in the experiments, not a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian refers to the language of the original MAIA caption–foil data, which the paper analyzes and uses in its experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to translations of the MAIA data on which the paper repeats its attention-knockout experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

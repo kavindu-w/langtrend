@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.00605v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T22:58:11.626781+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2603,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The match is in the phrase \"[non-Latin token],\" referring to a script/token classification rather than the Latin human language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly describe the QA pairs and benchmark data as English-language or in English, and the paper uses these data in its experiments, so English is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

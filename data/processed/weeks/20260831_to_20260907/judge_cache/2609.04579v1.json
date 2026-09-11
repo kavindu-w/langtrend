@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.04579v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T00:38:57.069610+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2974,
+  "verdicts": {
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "\"corpus uri\" refers to a URI field, not the Uri language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Vale": {
+      "verdict": "false_positive",
+      "reason": "\"Apple Vale\" is a named object/entity, not the Vale language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "\"English Wikipedia table-text corpus\" refers to the English language, and the paper empirically studies this English corpus, so English is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

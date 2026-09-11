@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.04409v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T20:02:37.074206+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11808,
+  "verdicts": {
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "The match is the time of day “noon” in an example answer list, not the Noon language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi refers to the human language in English–Hindi query pairs evaluated with linear probes, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "Persian refers to the human language in an English–Persian evaluation pair whose Persian accuracy is measured, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language used throughout the paper’s benchmarks, training setups, alignment methods, and evaluations, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the human language in a cultural-response example and in the paper’s language-pair coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

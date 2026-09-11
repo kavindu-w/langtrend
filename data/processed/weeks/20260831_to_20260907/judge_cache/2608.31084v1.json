@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.31084v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T23:08:46.658264+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6243,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to the fixed prompt, carrier layer, reader, and model forward pass used to extract concept vectors, not the Carrier language; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the multi-word expressions, words, and short phrases used in the paper's dataset and experiments; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

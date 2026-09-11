@@ -1,0 +1,129 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30107v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T00:50:27.215171+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9728,
+  "verdicts": {
+    "Acholi": {
+      "verdict": "studied",
+      "reason": "The snippet lists Acholi among the language(s) of an NLP dataset, so it is a human language covered by the paper’s dataset inventory.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ateso": {
+      "verdict": "studied",
+      "reason": "The snippet lists Ateso among the language(s) of an NLP dataset, so it is a human language covered by the paper’s dataset inventory.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lugbara": {
+      "verdict": "studied",
+      "reason": "The snippet lists Lugbara among the language(s) of an NLP dataset, so it is a human language covered by the paper’s dataset inventory.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Basaa": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly lists Basaa among the audited languages in the AtlasNLP inventories.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Guinea-Bissau Creole": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly lists Guinea-Bissau Creole among the audited languages in the AtlasNLP inventories.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Inuinnaqtun": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly lists Inuinnaqtun among the audited languages in the AtlasNLP inventories.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Motu": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Hiri Motu, not standalone Motu; the candidate is only a substring of that language name.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Myene": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly lists Myene among the audited languages in the AtlasNLP inventories.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Brunei": {
+      "verdict": "false_positive",
+      "reason": "Brunei appears in a list of countries and entities in the AtlasNLP country ontology, not as a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kiribati": {
+      "verdict": "false_positive",
+      "reason": "Kiribati appears in a list of countries and entities in the AtlasNLP country ontology, not as a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mali": {
+      "verdict": "false_positive",
+      "reason": "Mali appears in a list of countries and entities in the AtlasNLP country ontology, not as a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Marino": {
+      "verdict": "false_positive",
+      "reason": "Marino appears only as part of the country name San Marino in the country ontology, not as a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tonga": {
+      "verdict": "false_positive",
+      "reason": "Tonga is listed as a country/entity in the AtlasNLP country ontology, not as a language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lingala": {
+      "verdict": "studied",
+      "reason": "Although 'lingala' appears in a dataset name, the table explicitly lists Lingala in the Language(s) field, so it is a language in an AtlasNLP dataset example; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is explicitly listed in a dataset's Language(s) field and discussed in the geographic-attribution analysis, so it is part of the paper's resource/analysis; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin occurs only in the phrase Latin America, a geographic region, not the Latin language; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Czech": {
+      "verdict": "false_positive",
+      "reason": "Czech appears in the country name Czech Republic during country-name normalization, not as a language; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is analyzed through represented dataset records associated with Brazil and Portugal, so it is part of the paper's empirical analysis; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is a genuine language name in the policy lists, but the supplied snippets show it only as a general policy category/example of a broadly distributed language and do not show an Arabic-specific ",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is analyzed through represented dataset records associated with France, Switzerland, and Canada, so it is part of the paper's empirical analysis; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "egyptian arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Egyptian Arabic is a genuine language variety used only as an illustrative country-specific signal for Egypt; the supplied snippets show no language-specific dataset or evaluation, so mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is explicitly discussed as Chinese-language records with a country-concentration percentage, so it is part of the paper's empirical analysis; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears in dataset-language metadata and in the analysis of represented and unattributed records, so it is part of the paper's resource/analysis; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is a genuine language name used in an introductory example and general attribution-policy lists, but the supplied snippets show no Spanish-specific dataset or evaluation; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

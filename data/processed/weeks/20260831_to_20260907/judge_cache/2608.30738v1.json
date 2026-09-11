@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30738v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T23:36:12.471671+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5837,
+  "verdicts": {
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "The match occurs in the German phrase \"noch mal,\" where \"mal\" is a common word rather than a reference to the Mal language, implying a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The match is the capitalized German formal pronoun \"Sie\" in \"fragen Sie,\" not a reference to the Sie language, implying a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly describe a German voice assistant, German utterances and models, and German-speaking annotators, showing that German is part of the paper's dataset and evaluation, implying stu",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

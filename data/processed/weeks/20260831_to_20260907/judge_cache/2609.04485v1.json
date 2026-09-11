@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.04485v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T20:06:52.317190+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11632,
+  "verdicts": {
+    "Slovak": {
+      "verdict": "false_positive",
+      "reason": "The snippets use Slovak to describe respondents, personas, and cultural profiles from Slovakia, not the Slovak language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "One snippet explicitly refers to technology for the Polish language, but the study uses Slovak proxy data and only proposes future work with Polish data; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippets use Chinese to describe personas, survey responses, secularity, and a model's country of origin, not the Chinese language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet uses English-speaking to identify populations by language, but only as contextual discussion without working on English; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.30397v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T00:17:08.358896+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3552,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "DR-Tulu is the name of a model or filtering pipeline, not a reference to the Tulu language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets discuss English-language cases and filter out non-English queries, so English is used in the paper's experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

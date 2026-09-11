@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.04434v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T19:50:29.367727+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4702,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "\"Col\" abbreviates \"column\" in the table references, not a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is used as a target language in the language-control experiments and demonstrations.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is evaluated as an output and reasoning language and used for the source questions.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is used as a target output language in the causal case studies.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is used as a target output language in the state-swap and mixed-memory experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.04180v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T20:15:43.195384+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2275,
+  "verdicts": {
+    "Lama": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses “LAMA-style probes” as the name of a probing methodology, not the Lama language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to extracting valid English-language targets from source sentences used in the paper’s probe-generation pipeline; English is therefore studied as part of the experimental data.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

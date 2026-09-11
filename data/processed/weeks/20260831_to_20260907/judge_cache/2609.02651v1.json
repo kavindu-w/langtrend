@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.02651v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T21:29:16.068299+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1477,
+  "verdicts": {
+    "Ashe": {
+      "verdict": "false_positive",
+      "reason": "The Dataset Translation match is a non-language lexical occurrence in the translation text, not the Ashe language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "The Dutch survey text uses 'ik' as the first-person pronoun 'I', not the Ik language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "The title, abstract, dataset, and model sections explicitly concern Dutch-language data and models, which the paper builds and evaluates.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean is mentioned as a language in the multilingual/cross-cultural bias discussion, but no Korean-specific data or model evaluation is shown.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The survey-design text uses 'polish' as the verb meaning refine, not the Polish language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish is mentioned as a language in the bias-related discussion, but no Turkish-specific data or model evaluation is shown.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned as a language in the bias-related discussion, but no French-specific data or model evaluation is shown.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned as a language in the bias-related discussion, but no Spanish-specific data or model evaluation is shown.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language of the WinoQueer benchmark used to create and compare the Dutch dataset, so it is part of the paper's artifact and experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

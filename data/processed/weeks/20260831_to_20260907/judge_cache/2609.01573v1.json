@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.01573v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T22:00:48.688980+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1276,
+  "verdicts": {
+    "Tol": {
+      "verdict": "false_positive",
+      "reason": "The match occurs in an ablation-study section and is a common substring of the paper’s tolerance terminology, not a reference to the Tol language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "In the experimental-details context, Tulu refers to a model family rather than the Tulu language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not establish a non-language referent for English, so it is conservatively treated as a language mention only; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

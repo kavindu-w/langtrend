@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.03181v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T20:56:21.746527+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7936,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "\"Multi-col\" refers to multi-column documents or a benchmark category, not the Col language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "\"Jina\" is part of the name Jina-OCR-v1, a document-parsing model, not the Jina language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the human language through Chinese prompt variants and Chinese PDFs used for language coverage in the training data.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language through English prompt variants used in the training data.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the human language through Japanese wild-text samples added to the training corpora.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

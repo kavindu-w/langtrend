@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.03597v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T20:41:26.709915+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11903,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to the mean absolute error evaluation metric, not a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ganda": {
+      "verdict": "false_positive",
+      "reason": "Ganda is a subunit in the Ana-Ganda-Kora-Kranti-Til base-16 fraction system, not a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali refers to the language used in the records and required for legal-QA responses, and the benchmark evaluates models on Bengali data, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic refers to Western Arabic digits, a numeral-script notation, rather than the Arabic language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

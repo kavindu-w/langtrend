@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.03511v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T20:29:27.775863+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 6568,
+  "verdicts": {
+    "Anal": {
+      "verdict": "false_positive",
+      "reason": "The match is part of the words “analyses” or “analyse,” not the Anal language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Archi": {
+      "verdict": "false_positive",
+      "reason": "The match is part of the hyphenated word “architectural,” not the Archi language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bine": {
+      "verdict": "false_positive",
+      "reason": "The match is part of the hyphenated word “combine,” not the Bine language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The match is a romanized Hindi word meaning “those who,” not the Jina language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malay": {
+      "verdict": "false_positive",
+      "reason": "The match is part of the hyphenated name “Malayalam,” not the Malay language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish is cited only as an example of a relatively free-word-order language, not included in the paper’s experiments or artifacts; it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is discussed as the language of the original GSM8K data and as dominant in LLM pretraining, but it is not evaluated in this study; it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is cited only as an example of a relatively free-word-order language, not included in the paper’s experiments or artifacts; it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "The paper constructs structurally perturbed Malayalam datasets and evaluates multilingual LLMs on Malayalam mathematical reasoning; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The paper constructs structurally perturbed Hindi datasets and evaluates multilingual LLMs on Hindi mathematical reasoning; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

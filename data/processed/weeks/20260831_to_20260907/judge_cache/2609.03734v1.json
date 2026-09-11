@@ -1,0 +1,74 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.03734v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T20:50:14.864074+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10442,
+  "verdicts": {
+    "Amara": {
+      "verdict": "false_positive",
+      "reason": "“River Amara” is a river or place name, not the Amara language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese Sign Language": {
+      "verdict": "studied",
+      "reason": "Chinese Sign Language is the signed language represented by the CSL-Daily benchmark used in the paper’s experiments, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German Sign Language": {
+      "verdict": "studied",
+      "reason": "German Sign Language is the signed language represented by the Phoenix-2014T benchmark evaluated in the paper, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "“Sentinel” denotes a fixed “not stated” option in the QA pipeline, not a language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "Finnish is one of the ten languages used by the paper’s QA-generation protocol, for which a language-specific sentinel is provided, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is one of the ten languages used by the paper’s QA-generation protocol, for which a language-specific sentinel is provided, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is used in the paper’s per-language tokenization, coverage, and validation evaluations, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is used in the paper’s per-language OpusParcus validation comparisons, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Swedish is used in the paper’s per-language OpusParcus validation comparisons, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is the written target language of CSL-Daily and is preprocessed, tagged, translated, and evaluated in the paper, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used in the paper’s evaluations and as the translation language for Chinese and German content-unit assessment, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is the spoken-language side of Phoenix-2014T and is used in the paper’s tagging, translation, prompting, and evaluation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the Japanese language in per-language validation and tokenizer settings; the paper evaluates QA and BLEU-4 correlations for it, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

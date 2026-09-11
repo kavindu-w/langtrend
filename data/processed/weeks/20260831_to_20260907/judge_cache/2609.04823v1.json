@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.04823v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T19:22:16.018221+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 12000,
+  "verdicts": {
+    "Sari": {
+      "verdict": "false_positive",
+      "reason": "SARI is an automatic text-simplification metric, not a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "Una appears as the Catalan indefinite article in “Rebràs una frase,” not as a language name.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Catalan": {
+      "verdict": "studied",
+      "reason": "Catalan is the target language of the simplification task, corpus subset, translated datasets, and evaluations.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is mentioned only as a language represented in the iDEM corpus; the paper states that only its Catalan subset was used.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the original ASSET corpus and of a post-trained and evaluated model variant.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is the language of a translated ASSET version used for post-training and evaluation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.02343v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T00:58:06.171363+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2474,
+  "verdicts": {
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "In the sample caption, “dutch translation” refers to a translation into the Dutch language; it is only an example and not a language the paper works on, so Dutch is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "“Chinese text” refers to actual Chinese-language generated captions that are translated during post-processing; this makes Chinese part of the dataset pipeline, so Chinese is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "“English” refers to the target language used for the translated captions; it is part of the dataset/post-processing artifact, so English is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

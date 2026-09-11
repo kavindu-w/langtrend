@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.04484v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T00:44:48.166784+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5105,
+  "verdicts": {
+    "Cara": {
+      "verdict": "false_positive",
+      "reason": "Cara appears in a list of ROC person names used for augmentation, not as a human language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Cora": {
+      "verdict": "false_positive",
+      "reason": "Cora appears in a list of ROC person names used for augmentation, not as a human language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lola": {
+      "verdict": "false_positive",
+      "reason": "Lola appears in a list of ROC person names used for augmentation, not as a human language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sonia": {
+      "verdict": "false_positive",
+      "reason": "Sonia appears in a list of ROC person names used for augmentation, not as a human language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "Mon occurs in the label “Dative Mon-match,” evidently part of the non-match condition terminology rather than referring to the Mon language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language used in the corpus preferences, model baseline, semantic scorer, and English-only experiments; the paper studies it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.02859v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T00:54:28.043503+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2653,
+  "verdicts": {
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The match is the common English word “polish” in “stylistic polish,” not the Polish language; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The text explicitly filters the experimental data to “English conversations,” so English is the language of data used in the experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears only as an example of a possible user request for a translation in annotation guidelines, without Spanish data or evaluation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

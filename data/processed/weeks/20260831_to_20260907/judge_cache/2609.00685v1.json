@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.00685v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T22:49:22.227388+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11928,
+  "verdicts": {
+    "Chong": {
+      "verdict": "false_positive",
+      "reason": "Chong is an author surname in the citation 'Chong and Druckman (2007),' not a reference to a human language; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kein": {
+      "verdict": "false_positive",
+      "reason": "Kein appears only as the German word in the dataset label 'Kein Bezug (unrelated),' not as a language name; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "Tat occurs only within the common phrase 'tit-for-tat,' not as a reference to a human language; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian is one of the translated K-News-Stance-MM versions on which VFStance is evaluated; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is one of the translated K-News-Stance-MM versions on which VFStance is evaluated; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is one of the translated K-News-Stance-MM versions on which VFStance is evaluated; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is the language of the primary corpus and prompts and is used in the paper's model evaluation and user study; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used for a translated K-News-Stance-MM version and VFStance evaluation, as well as translated prompts and articles; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is the language of the CheeSE dataset on which the paper evaluates VFStance; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

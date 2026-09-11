@@ -1,0 +1,74 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.04391v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T19:56:38.671793+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9669,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin here refers to a romanization system used for Chinese, not a human language, so the candidate is a false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek refers to the human language for which a prior Soundex-like encoding technique was designed, but this paper only cites that related work, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the human language for which pinyin is used in a cited example, but it is not evaluated or used as a dataset in this paper, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Icelandic": {
+      "verdict": "studied",
+      "reason": "Icelandic is one of the languages whose writing system and transcriptions are evaluated in the paper's multilingual dataset, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Esperanto": {
+      "verdict": "studied",
+      "reason": "Esperanto is one of the languages whose writing system and transcriptions are evaluated in the paper's multilingual dataset, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is one of the languages whose writing system and transcriptions are evaluated in the paper's multilingual dataset, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "Finnish is one of the languages whose writing system and transcriptions are evaluated in the paper's multilingual dataset, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is one of the languages whose writing system and transcriptions are evaluated in the paper's multilingual dataset, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Romanian": {
+      "verdict": "studied",
+      "reason": "Romanian is one of the languages whose writing system and transcriptions are evaluated in the paper's multilingual dataset, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Swedish is a target language with phonetic encoders and transcriptions evaluated in the paper's experiments, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is a target language with phonetic encoders and transcriptions evaluated in the paper's experiments, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is a target language with phonetic encoders, transcriptions, and examples evaluated throughout the paper's experiments, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is one of the four languages whose transcriptions and phonetic encoders are evaluated in the experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

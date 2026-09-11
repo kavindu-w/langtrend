@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.02526v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T21:25:05.017369+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3757,
+  "verdicts": {
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet explicitly asks which other language respondents speak besides English, referring to the English language; it is only mentioned in a survey question, not studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet explicitly asks which other language respondents speak besides English or Spanish, referring to the Spanish language; it is only mentioned in a survey question, not studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "The snippets use German as an adjective for Germany-related survey data and institutions, not to refer to the German language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

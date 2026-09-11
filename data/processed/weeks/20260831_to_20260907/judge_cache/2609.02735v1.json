@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.02735v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-10T21:08:22.895510+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11100,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The candidate is the verb \"pin\" in \"pin the regression,\" not a human-language name, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Shor": {
+      "verdict": "false_positive",
+      "reason": "The candidate is the surname in the citation \"Shor et al.,\" not a human-language name, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "The candidate refers to Dutch dysarthric speech and speakers in cited prior work, which is mentioned but not studied by this paper.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hungarian": {
+      "verdict": "studied",
+      "reason": "The candidate refers to the participant's language, the Hungarian training and evaluation data, a Hungarian-fine-tuned ASR base, and a Hungarian language token, all used in the paper's experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The candidate refers to Russian as one of the languages of fragments hallucinated by an evaluated ASR model, without Russian being studied as a target language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The candidate refers to English as one of the languages of fragments hallucinated by an evaluated ASR model, without English being studied as a target language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}
