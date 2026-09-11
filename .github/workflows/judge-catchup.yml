@@ -72,11 +72,18 @@ jobs:
 
       # Resumable: already-judged papers are skipped, so this just continues
       # wherever the last run (weekly pipeline or a previous catch-up) left
-      # off. Exit 3 (stopped early, e.g. quota exhausted) is expected — quota
-      # resets at midnight UTC, so retrying sooner wouldn't help; that case is
-      # left for the next scheduled run, same as before.
+      # off. The two stop-early reasons carry distinct exit codes so this
+      # loop can act on them without parsing log prose:
+      #   - Exit 4 (EXIT_QUOTA): the provider's daily quota is spent. It
+      #     resets at midnight UTC, so retrying sooner wouldn't help — left
+      #     for the next scheduled run, same as before.
+      #   - Exit 3 (EXIT_INCOMPLETE): the 300s watchdog gave up waiting on
+      #     the whole in-flight batch (see judge_languages.py's
+      #     `_PER_PAPER_TIMEOUT` wait loop) — a slow or briefly-hung
+      #     endpoint, not exhausted quota, so it's retried within this run
+      #     like exit 1 below rather than deferred for hours.
       #
-      # Two different things call for a retry-within-this-run, both worth
+      # Three different things call for a retry-within-this-run, all worth
       # looping on since a paper that fails leaves no judge_cache file and so
       # comes back as "pending" on the very next invocation — a fresh call is
       # literally what "retry" means here:
@@ -91,6 +98,8 @@ jobs:
       #     retries each one 3x with its own backoff/fallback-model chain
       #     before giving up on it, logs it as "  ERROR: [id] ...", and
       #     moves on rather than aborting the whole sweep.
+      #   - Exit 3, the per-paper timeout (see above): the papers it gave up
+      #     on come back as pending, same as an exit-0 failure.
       # An auth failure (401/403) is deliberately NOT retried — a bad key
       # won't fix itself by waiting. Otherwise there's no attempt cap: it
       # just keeps rejudging whatever's still pending, with backoff (1/2/4/
@@ -153,13 +162,13 @@ jobs:
               echo "Judging pass hit the retry budget mid-run — stopping so the save/deploy-gate steps still run."
               break
             fi
-            if [ "$code" = "3" ]; then
-              break  # quota exhausted / other stop-early — next scheduled run picks it up
+            if [ "$code" = "4" ]; then
+              break  # quota exhausted — resets at midnight UTC, next scheduled run picks it up
             fi
             if [ "$code" = "0" ] && [ "$failed" = "0" ]; then
               break  # fully judged, nothing pending
             fi
-            if [ "$code" != "0" ] && [ "$code" != "1" ]; then
+            if [ "$code" != "0" ] && [ "$code" != "1" ] && [ "$code" != "3" ]; then
               break  # unexpected exit code — don't loop, fail normally
             fi
             if [ "$code" = "1" ] && ! grep -qE 'Error: (Cannot reach|Endpoint error)' judge_attempt.log; then
@@ -195,11 +204,11 @@ jobs:
           config_gap=$(grep -c '  ERROR: \[config\]' judge_output.log || true)
           echo "config_gap_count=${config_gap:-0}" >> "$GITHUB_OUTPUT"
           # 124 = the retry loop's own 5h50m budget cutoff — a designed, graceful
-          # stop (same category as 3/quota-exhausted), not a real failure. Letting
+          # stop (same category as 3/timeout and 4/quota), not a real failure. Letting
           # it through here would mark this step "failed" and make the Notify
           # step below claim "job FAILED" on exactly the happy path this loop
           # was built for.
-          if [ "$code" != "0" ] && [ "$code" != "3" ] && [ "$code" != "124" ]; then
+          if [ "$code" != "0" ] && [ "$code" != "3" ] && [ "$code" != "4" ] && [ "$code" != "124" ]; then
             exit "$code"
           fi
 
@@ -334,6 +343,14 @@ jobs:
       pages: write
       id-token: write
     uses: ./.github/workflows/deploy.yml
+    # Reusable workflow calls get no secrets by default — without this,
+    # deploy.yml's NOTIFY_WEBHOOK_URL resolves empty and the "site is live"
+    # push silently no-ops (its `if -n` guard swallows it). Passed explicitly
+    # rather than via `secrets: inherit` so deploy.yml sees only what it uses
+    # (not LLM_JUDGE_API_KEY), and so a rename fails loudly instead of
+    # quietly going silent again.
+    secrets:
+      NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
     with:
       should_publish: true
       fully_judged: ${{ needs.judge-catchup.outputs.fully_judged == 'true' }}

@@ -18,9 +18,12 @@ free tiers, or a local Ollama server, all work as drop-in options; see
 
 Exit codes: 0 = nothing left pending (either there was nothing to do, or
 every targeted paper got judged this run); 1 = hard error (bad config,
-missing detected.jsonl); 3 = stopped early with papers still pending
-(daily quota exhausted, per-paper timeout, or --limit reached) — safe to
-re-run later, already-judged papers are skipped.
+missing detected.jsonl); 3 = stopped early with papers still pending for a
+reason worth retrying soon (per-paper timeout or --limit reached); 4 =
+stopped early because the provider's daily quota is spent, which retrying
+before it resets at midnight UTC cannot fix. 3 and 4 are both safe to re-run
+later — already-judged papers are skipped — but CI tells them apart to decide
+whether to retry within the same run (3) or defer to the next one (4).
 
 Usage:
     python scripts/judge_languages.py --end-date 2026-05-25
@@ -69,7 +72,8 @@ _PER_PAPER_TIMEOUT = 300  # seconds before a stuck judge call is skipped
 
 EXIT_OK = 0
 EXIT_ERROR = 1
-EXIT_INCOMPLETE = 3  # stopped early — papers still pending, safe to re-run later
+EXIT_INCOMPLETE = 3  # stopped early, retryable now — papers still pending, safe to re-run
+EXIT_QUOTA = 4  # stopped early on daily quota — retrying before midnight UTC won't help
 
 
 def _last_monday_midnight() -> datetime:
@@ -473,6 +477,12 @@ def main() -> None:
     else:
         print("Run 'make manifest' (or python scripts/build_manifest.py) to fold verdicts into the manifest.")
 
+    # Quota gets its own exit code rather than sharing 3: judge-catchup.yml's
+    # retry loop must tell "retry this within the run" from "the provider is
+    # done with us until midnight UTC", and keying that off a machine-readable
+    # status beats grepping the human-readable message printed just above.
+    if quota_exhausted:
+        sys.exit(EXIT_QUOTA)
     sys.exit(EXIT_INCOMPLETE if stopped_early else EXIT_OK)
 
 

@@ -218,3 +218,63 @@ class TestCheckOnly:
         with pytest.raises(SystemExit) as exc_info:
             jl.main()
         assert exc_info.value.code == jl.EXIT_INCOMPLETE  # not EXIT_ERROR from the missing-key check
+
+
+# ---------------------------------------------------------------------------
+# Stop-early exit codes (EXIT_QUOTA vs EXIT_INCOMPLETE)
+#
+# judge-catchup.yml's retry loop branches on these two codes to decide whether
+# to retry within the same run (3) or defer to the next scheduled run (4), so
+# they must stay distinct and must not be collapsed back into one.
+# ---------------------------------------------------------------------------
+
+class TestStopEarlyExitCodes:
+    def test_quota_and_incomplete_are_distinct(self):
+        assert jl.EXIT_QUOTA != jl.EXIT_INCOMPLETE
+        assert jl.EXIT_QUOTA not in (jl.EXIT_OK, jl.EXIT_ERROR)
+
+    def _week(self, root, slug):
+        week_dir = root / "weeks" / slug
+        week_dir.mkdir(parents=True)
+        record = {
+            "paper_id": f"http://arxiv.org/abs/{slug}",
+            "paper": {"id": f"http://arxiv.org/abs/{slug}", "title": "t", "abstract": "a"},
+            "sections": {"abstract": {"source": "abstract", "detected_languages": [
+                {"language": "Swahili", "class": 0},
+            ]}},
+        }
+        (week_dir / f"arxiv_papers_{slug}_detected.jsonl").write_text(
+            json.dumps(record) + "\n", encoding="utf-8")
+        return week_dir
+
+    def _run_with_judge(self, tmp_path, monkeypatch, judge_side_effect):
+        """Drive main()'s judging path with everything network-bound stubbed out."""
+        monkeypatch.setattr(jl, "_PROCESSED_DIR", tmp_path)
+        monkeypatch.setattr(jl, "_METADATA_DIR", tmp_path / "raw")
+        self._week(tmp_path, "20260427_to_20260504")
+        monkeypatch.setenv("LLM_JUDGE_API_KEY", "test-key")
+        monkeypatch.setattr(jl, "_load_language_data", lambda path: ({1: {"Swahili"}}, set()))
+        monkeypatch.setattr(jl, "OpenAICompatClient", lambda config: type(
+            "FakeClient", (), {"ping": lambda self: None})())
+        monkeypatch.setattr(jl, "ensure_context_cache",
+                            lambda *args, **kwargs: None)
+        monkeypatch.setattr(jl, "save_judge_record", lambda *args, **kwargs: None)
+        monkeypatch.setattr(jl, "judge_paper", judge_side_effect)
+        monkeypatch.setattr(sys, "argv", ["judge_languages.py", "--sweep-all-weeks"])
+
+        with pytest.raises(SystemExit) as exc_info:
+            jl.main()
+        return exc_info.value.code
+
+    def test_quota_exhausted_exits_4(self, tmp_path, monkeypatch, capsys):
+        def boom(*args, **kwargs):
+            raise jl.QuotaExhaustedError("daily limit reached")
+
+        code = self._run_with_judge(tmp_path, monkeypatch, boom)
+        assert code == jl.EXIT_QUOTA
+        assert "daily quota likely exhausted" in capsys.readouterr().out
+
+    def test_clean_full_run_exits_0(self, tmp_path, monkeypatch):
+        verdict = {"judge_model": "m", "judged_at": "t", "verdicts": {}}
+        code = self._run_with_judge(tmp_path, monkeypatch, lambda *a, **k: verdict)
+        assert code == jl.EXIT_OK

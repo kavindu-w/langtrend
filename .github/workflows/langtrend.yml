@@ -429,7 +429,7 @@ jobs:
 # mentioned_only / false_positive) and fold verdicts into the manifest.
 # Skips cleanly when the LLM_JUDGE_API_KEY secret is unset (forks), leaving
 # detections unjudged. On free-tier rate limits, judge_languages.py stops
-# cleanly (exit 3) rather than failing — the only thing that legitimately cuts
+# cleanly (exit 4) rather than failing — the only thing that legitimately cuts
 # a run short. No explicit timeout-minutes: this only falls back to GitHub's
 # 360 min per-job ceiling, since the sole real stop condition is the
 # provider's daily quota, not a self-imposed one. Job 6 (judge-retry) still
@@ -463,9 +463,9 @@ jobs:
           pip install -r requirements.txt
 
       # Resumable: papers with cached verdicts are skipped, so a re-run after a
-      # rate-limit stop or timeout picks up where it left off. Exit 3 (stopped
-      # early, e.g. daily quota exhausted) is expected and must not fail the
-      # job — only a real error (exit 1) should.
+      # rate-limit stop or timeout picks up where it left off. Exits 3 (stopped
+      # early on a timeout/--limit) and 4 (daily quota exhausted) are both
+      # expected and must not fail the job — only a real error (exit 1) should.
       - name: Judge this week's detected languages (LLM)
         id: judge
         env:
@@ -494,7 +494,10 @@ jobs:
           # runs where the fallback chain quietly absorbs the gap.
           config_gap=$(grep -c '  ERROR: \[config\]' judge_output.log || true)
           echo "config_gap_count=${config_gap:-0}" >> "$GITHUB_OUTPUT"
-          if [ "$code" != "0" ] && [ "$code" != "3" ]; then
+          # 3 = stopped early, retryable (timeout/--limit); 4 = daily quota
+          # spent. Both are designed, graceful stops that leave papers pending
+          # for judge-retry/judge-catchup — not failures for this step.
+          if [ "$code" != "0" ] && [ "$code" != "3" ] && [ "$code" != "4" ]; then
             exit "$code"
           fi
 
@@ -651,7 +654,10 @@ jobs:
           echo "failed_count=${failed:-0}" >> "$GITHUB_OUTPUT"
           config_gap=$(grep -c '  ERROR: \[config\]' judge_output.log || true)
           echo "config_gap_count=${config_gap:-0}" >> "$GITHUB_OUTPUT"
-          if [ "$code" != "0" ] && [ "$code" != "3" ]; then
+          # 3 = stopped early, retryable (timeout/--limit); 4 = daily quota
+          # spent. Both are designed, graceful stops that leave papers pending
+          # for judge-retry/judge-catchup — not failures for this step.
+          if [ "$code" != "0" ] && [ "$code" != "3" ] && [ "$code" != "4" ]; then
             exit "$code"
           fi
 
@@ -856,6 +862,14 @@ jobs:
       pages: write
       id-token: write
     uses: ./.github/workflows/deploy.yml
+    # Reusable workflow calls get no secrets by default — without this,
+    # deploy.yml's NOTIFY_WEBHOOK_URL resolves empty and the "site is live"
+    # push silently no-ops (its `if -n` guard swallows it). Passed explicitly
+    # rather than via `secrets: inherit` so deploy.yml sees only what it uses
+    # (not LLM_JUDGE_API_KEY), and so a rename fails loudly instead of
+    # quietly going silent again.
+    secrets:
+      NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
     with:
       should_publish: ${{ github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_site) }}
       # Passed through explicitly rather than assumed — this job can also run
