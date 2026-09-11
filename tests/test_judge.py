@@ -31,6 +31,7 @@ from langtrend.judge import (
     _relocate_to_raw_text,
 )
 from langtrend.llm_client import (
+    ChatCancelled,
     JSONParseError,
     LLMClientConfig,
     LLMUnavailableError,
@@ -502,9 +503,11 @@ class FakeClient:
         self.calls = []
         self.last_model_used = model
         self._models = list(models) if models is not None else None
+        self.seen_events = []  # every cancel_event chat() was handed, in order
 
-    def chat(self, messages, response_format_json=True):
+    def chat(self, messages, response_format_json=True, cancel_event=None):
         self.calls.append(messages)
+        self.seen_events.append(cancel_event)
         reply = self.replies.pop(0)
         if self._models:
             self.last_model_used = self._models.pop(0)
@@ -686,6 +689,103 @@ class TestJudgePaper:
         assert len(client.calls) == 2
         assert "Lang5" not in judge_record["verdicts"]
         assert len(judge_record["verdicts"]) == 11
+
+
+# ---------------------------------------------------------------------------
+# judge_paper + cancel_event: stop before the next batch once a caller (the
+# per-paper watchdog in judge_languages.py) has given up on this paper.
+# ---------------------------------------------------------------------------
+
+class _CancelAfterCall:
+    """FakeClient variant that sets a threading.Event right after each chat() call.
+
+    Stands in for the main thread's watchdog firing while this "worker" is
+    mid-call — chat() can't be interrupted in flight, but judge_paper() must
+    not start the next batch once the event is set.
+    """
+
+    def __init__(self, replies, event):
+        self.replies = list(replies)
+        self.calls = []
+        # Every cancel_event chat() was handed, so a test can assert
+        # judge_paper actually forwards it rather than only checking it
+        # itself between batches.
+        self.seen_events = []
+        self.last_model_used = "fake-model"
+        self._event = event
+
+    def chat(self, messages, response_format_json=True, cancel_event=None):
+        self.calls.append(messages)
+        self.seen_events.append(cancel_event)
+        reply = self.replies.pop(0)
+        self._event.set()
+        return reply
+
+
+class TestJudgePaperCancellation:
+    def test_cancel_event_stops_before_next_batch(self, week_dir):
+        record = {
+            "paper_id": "http://arxiv.org/abs/2606.00005v1",
+            "paper": {"title": "t", "abstract": "a"},
+            "sections": {"abstract": {"source": "abstract", "detected_languages": [
+                {"language": f"Lang{i}", "class": 0} for i in range(15)
+            ]}},
+        }
+        event = threading.Event()
+        # Targets are sorted alphabetically by collect_target_languages, so
+        # cover all 15 in the one reply — batch 1 (whichever 12 sort first)
+        # is then fully satisfied and no "missing language" retry fires,
+        # isolating this test to the cancel check between batches.
+        client = _CancelAfterCall(
+            [_reply_for({f"Lang{i}": "mentioned_only" for i in range(15)})],
+            event,
+        )
+        with pytest.raises(ChatCancelled):
+            judge_paper(record, week_dir, client, LLMClientConfig(), cancel_event=event)
+        # Only the first batch's call happened — the second batch never
+        # started once the event was set.
+        assert len(client.calls) == 1
+        # ...and the event reached chat() itself, not just judge_paper's own
+        # between-batch check. Without this, dropping the cancel_event
+        # argument from _chat_for_verdicts would leave per-paper cancellation
+        # dead while every test still passed.
+        assert client.seen_events == [event]
+
+    def test_cancel_event_reaches_the_missing_language_retry_call(self, week_dir):
+        """judge_paper has a second _chat_for_verdicts call site (the retry for
+        languages the model omitted) that forwards cancel_event separately."""
+        record = {
+            "paper_id": "http://arxiv.org/abs/2606.00007v1",
+            "paper": {"title": "t", "abstract": "a"},
+            "sections": {"abstract": {"source": "abstract", "detected_languages": [
+                {"language": "Swahili", "class": 0},
+                {"language": "Yoruba", "class": 0},
+            ]}},
+        }
+        event = threading.Event()
+        client = FakeClient([
+            _reply_for({"Swahili": "studied"}),            # Yoruba omitted -> retry
+            _reply_for({"Yoruba": "mentioned_only"}),
+        ])
+        judge_paper(record, week_dir, client, LLMClientConfig(), cancel_event=event)
+        assert client.seen_events == [event, event]
+
+    def test_no_cancel_event_processes_all_batches(self, week_dir):
+        # Regression: cancel_event defaulting to None must not change behavior.
+        record = {
+            "paper_id": "http://arxiv.org/abs/2606.00006v1",
+            "paper": {"title": "t", "abstract": "a"},
+            "sections": {"abstract": {"source": "abstract", "detected_languages": [
+                {"language": f"Lang{i}", "class": 0} for i in range(15)
+            ]}},
+        }
+        client = FakeClient([
+            _reply_for({f"Lang{i}": "mentioned_only" for i in range(15)}),
+            _reply_for({f"Lang{i}": "mentioned_only" for i in range(15)}),
+        ])
+        judge_record = judge_paper(record, week_dir, client, LLMClientConfig())
+        assert len(client.calls) == 2
+        assert len(judge_record["verdicts"]) == 15
 
 
 # ---------------------------------------------------------------------------

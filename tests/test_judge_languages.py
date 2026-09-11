@@ -6,6 +6,7 @@ Run with: pytest tests/test_judge_languages.py -v
 
 import json
 import sys
+import threading
 from pathlib import Path
 from unittest.mock import patch
 
@@ -233,25 +234,28 @@ class TestStopEarlyExitCodes:
         assert jl.EXIT_QUOTA != jl.EXIT_INCOMPLETE
         assert jl.EXIT_QUOTA not in (jl.EXIT_OK, jl.EXIT_ERROR)
 
-    def _week(self, root, slug):
+    def _week(self, root, slug, papers=1):
         week_dir = root / "weeks" / slug
         week_dir.mkdir(parents=True)
-        record = {
-            "paper_id": f"http://arxiv.org/abs/{slug}",
-            "paper": {"id": f"http://arxiv.org/abs/{slug}", "title": "t", "abstract": "a"},
-            "sections": {"abstract": {"source": "abstract", "detected_languages": [
-                {"language": "Swahili", "class": 0},
-            ]}},
-        }
+        records = [
+            {
+                "paper_id": f"http://arxiv.org/abs/{slug}.{n}",
+                "paper": {"id": f"http://arxiv.org/abs/{slug}.{n}", "title": "t", "abstract": "a"},
+                "sections": {"abstract": {"source": "abstract", "detected_languages": [
+                    {"language": "Swahili", "class": 0},
+                ]}},
+            }
+            for n in range(papers)
+        ]
         (week_dir / f"arxiv_papers_{slug}_detected.jsonl").write_text(
-            json.dumps(record) + "\n", encoding="utf-8")
+            "".join(json.dumps(r) + "\n" for r in records), encoding="utf-8")
         return week_dir
 
-    def _run_with_judge(self, tmp_path, monkeypatch, judge_side_effect):
+    def _run_with_judge(self, tmp_path, monkeypatch, judge_side_effect, papers=1):
         """Drive main()'s judging path with everything network-bound stubbed out."""
         monkeypatch.setattr(jl, "_PROCESSED_DIR", tmp_path)
         monkeypatch.setattr(jl, "_METADATA_DIR", tmp_path / "raw")
-        self._week(tmp_path, "20260427_to_20260504")
+        self._week(tmp_path, "20260427_to_20260504", papers=papers)
         monkeypatch.setenv("LLM_JUDGE_API_KEY", "test-key")
         monkeypatch.setattr(jl, "_load_language_data", lambda path: ({1: {"Swahili"}}, set()))
         monkeypatch.setattr(jl, "OpenAICompatClient", lambda config: type(
@@ -278,3 +282,73 @@ class TestStopEarlyExitCodes:
         verdict = {"judge_model": "m", "judged_at": "t", "verdicts": {}}
         code = self._run_with_judge(tmp_path, monkeypatch, lambda *a, **k: verdict)
         assert code == jl.EXIT_OK
+
+
+# ---------------------------------------------------------------------------
+# Per-paper cancellation wiring
+#
+# The worker-side half of this lives in langtrend/{judge,llm_client}.py and is
+# covered by their own tests; what's tested here is the main-thread half —
+# that judge_languages.py actually *sets* the events on every path where it
+# stops collecting a worker's result. Neither path is observable from the exit
+# code alone, so both assert on the event the worker was handed.
+# ---------------------------------------------------------------------------
+
+class TestCancellationWiring(TestStopEarlyExitCodes):
+    def test_watchdog_cancels_the_papers_it_times_out(self, tmp_path, monkeypatch, capsys):
+        monkeypatch.setattr(jl, "_PER_PAPER_TIMEOUT", 0.2)
+        handed = {}
+
+        def blocks_until_cancelled(record, week_dir, client, config, classes=None, cancel_event=None):
+            handed["event"] = cancel_event
+            # Bounded so a regression fails the test instead of hanging it.
+            if not cancel_event.wait(10):
+                raise AssertionError("watchdog never set the cancel event")
+            raise jl.ChatCancelled("cancelled")
+
+        code = self._run_with_judge(tmp_path, monkeypatch, blocks_until_cancelled)
+
+        assert code == jl.EXIT_INCOMPLETE
+        assert "TIMEOUT" in capsys.readouterr().out
+        assert handed["event"].is_set()
+
+    def test_quota_stop_cancels_the_workers_still_in_flight(self, tmp_path, monkeypatch):
+        """Regression: the quota break used to leave in-flight workers running.
+
+        QuotaExhaustedError is an LLMUnavailableError, so chat() walks each
+        abandoned worker's whole remaining fallback chain — and because
+        shutdown(wait=False) doesn't detach those threads, the interpreter
+        joins them at exit and sys.exit() blocks behind them.
+        """
+        handed = []
+        first = threading.Event()
+
+        def quota_on_first_other_blocks(record, week_dir, client, config, classes=None, cancel_event=None):
+            handed.append(cancel_event)
+            if not first.is_set():
+                first.set()
+                raise jl.QuotaExhaustedError("daily limit reached")
+            if not cancel_event.wait(10):
+                raise AssertionError("quota stop never cancelled this worker")
+            raise jl.ChatCancelled("cancelled")
+
+        code = self._run_with_judge(
+            tmp_path, monkeypatch, quota_on_first_other_blocks, papers=2)
+
+        assert code == jl.EXIT_QUOTA
+        assert len(handed) == 2
+        assert all(event.is_set() for event in handed)
+
+    def test_each_paper_gets_its_own_event(self, tmp_path, monkeypatch):
+        handed = []
+
+        def record_event(record, week_dir, client, config, classes=None, cancel_event=None):
+            handed.append(cancel_event)
+            return {"judge_model": "m", "judged_at": "t", "verdicts": {}}
+
+        code = self._run_with_judge(tmp_path, monkeypatch, record_event, papers=3)
+
+        assert code == jl.EXIT_OK
+        assert len(handed) == 3
+        assert len({id(event) for event in handed}) == 3, "events must not be shared between papers"
+
