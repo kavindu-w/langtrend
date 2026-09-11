@@ -27,6 +27,14 @@ on:
         required: false
         default: true
         type: boolean
+    secrets:
+      NOTIFY_WEBHOOK_URL:
+        description: >-
+          ntfy.sh topic URL for the "site is live" push. Must be declared here
+          for callers to pass it explicitly; a reusable workflow gets no
+          secrets from its caller otherwise. Optional — the notify step below
+          no-ops when it's empty, so a fork without the secret still deploys.
+        required: false
 
 permissions:
   contents: read

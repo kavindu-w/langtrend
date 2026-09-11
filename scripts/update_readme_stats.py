@@ -272,7 +272,10 @@ def latest_judge_models(latest_manifest: dict | None) -> list[tuple[str, int]]:
     return sorted(counts.items(), key=lambda item: (-item[1], item[0]))
 
 
-def is_latest_week_judge_pending(project_root: Path) -> bool | None:
+def is_latest_week_judge_pending(
+    project_root: Path,
+    check: JudgeCheck | None = None,
+) -> bool | None:
     """Whether the current/latest week still has papers waiting on the LLM judge.
 
     Delegates to `judge_languages.py --check-only`, the same command the CI
@@ -280,17 +283,89 @@ def is_latest_week_judge_pending(project_root: Path) -> bool | None:
     always agrees with whether the live site has actually picked up the week's
     data yet. Returns True/False, or None if the check itself couldn't run
     (e.g. no detected.jsonl yet for the window) — treated as "don't warn".
+
+    Pass `check` to reuse a result from `run_judge_check` instead of spawning the
+    subprocess again; main() does this so the single-week check runs once per
+    invocation rather than once per caller.
+    """
+    if check is None:
+        check = run_judge_check(project_root, "--window-days", "7")
+    code, _, _ = check
+    if code == 0:
+        return False
+    if code == _JUDGE_EXIT_INCOMPLETE:
+        return True
+    return None
+
+
+_PENDING_SUMMARY_RE = re.compile(r"^(\d+) paper\(s\) still pending across (\d+) week\(s\)", re.MULTILINE)
+
+# (exit code, pending papers, weeks affected). The two counts are None whenever
+# they couldn't be read — either the run failed outright, or it exited "pending"
+# without a parseable summary line.
+JudgeCheck = tuple[int, int | None, int | None]
+
+
+def run_judge_check(project_root: Path, *extra_args: str) -> JudgeCheck:
+    """Run `judge_languages.py --check-only` and parse its one-line summary.
+
+    File-I/O only — no network, no LLM calls — so it stays cheap even with
+    --sweep-all-weeks across ~20 weeks. Exit 0 means fully judged, which is
+    reported as (0, 0, 0) rather than (0, None, None) so callers can treat the
+    counts uniformly.
     """
     result = subprocess.run(
         [sys.executable, str(project_root / "scripts" / "judge_languages.py"),
-         "--window-days", "7", "--check-only"],
+         "--check-only", *extra_args],
         cwd=project_root, capture_output=True, text=True,
     )
     if result.returncode == 0:
-        return False
-    if result.returncode == _JUDGE_EXIT_INCOMPLETE:
-        return True
-    return None
+        return (0, 0, 0)
+    if result.returncode != _JUDGE_EXIT_INCOMPLETE:
+        return (result.returncode, None, None)
+    match = _PENDING_SUMMARY_RE.search(result.stdout or "")
+    if match is None:
+        return (result.returncode, None, None)
+    return (result.returncode, int(match.group(1)), int(match.group(2)))
+
+
+def older_week_judge_backlog(
+    project_root: Path,
+    current_check: JudgeCheck | None = None,
+) -> tuple[int, int] | None:
+    """Papers still pending an LLM judge verdict in weeks *other* than the current one.
+
+    The current week already gets its own loud banner via is_latest_week_judge_pending
+    — this is the quieter historical backlog that judge-catchup.yml's daily sweep
+    clears in the background (see that workflow's comments). Checks the single current
+    week and then --sweep-all-weeks, and subtracts, since --check-only's summary line
+    reports an aggregate total/week-count with no per-week breakdown.
+
+    Returns (pending_papers, weeks_affected), or None if either check couldn't run
+    (e.g. no detected.jsonl yet) — treated as "don't report", same as the current-week
+    check. Pass `current_check` to reuse an already-run single-week result.
+    """
+    if current_check is None:
+        current_check = run_judge_check(project_root, "--window-days", "7")
+    current_code, current_pending, _ = current_check
+    if current_code not in (0, _JUDGE_EXIT_INCOMPLETE) or current_pending is None:
+        return None
+
+    total_code, total_pending, total_weeks = run_judge_check(project_root, "--sweep-all-weeks")
+    if total_code == 0:
+        return (0, 0)
+    if total_code != _JUDGE_EXIT_INCOMPLETE or total_pending is None or total_weeks is None:
+        return None
+
+    # Clamped at 0: the two checks are separate subprocesses, so a judge run
+    # committing verdicts between them could leave the sweep reporting fewer
+    # pending papers than the current-week check just did. Reporting a negative
+    # backlog would be worse than reporting none.
+    older_pending = max(total_pending - current_pending, 0)
+    older_weeks = max(total_weeks - (1 if current_pending > 0 else 0), 0)
+    if older_pending == 0 or older_weeks == 0:
+        return (0, 0)
+    return (older_pending, older_weeks)
 
 
 def render_stats_block(
@@ -298,6 +373,7 @@ def render_stats_block(
     cumulative: dict,
     judge_pending: bool | None = False,
     judge_models: list[tuple[str, int]] | None = None,
+    older_backlog: tuple[int, int] | None = None,
 ) -> str:
     week_start = latest["week_start"] or "N/A"
     week_end = latest["week_end"] or "N/A"
@@ -330,6 +406,16 @@ def render_stats_block(
         f"| Papers with language mentions | {latest['flagged_papers']:,} | {cumulative['total_flagged_papers']:,} |",
         f"| Unique languages detected | {latest['unique_languages']:,} | {cumulative['total_unique_languages']:,} |",
         f"| Weeks tracked | — | {cumulative['weeks_tracked']:,} (since {earliest_week_start}) |",
+    ]
+    if older_backlog and older_backlog[0] > 0:
+        pending_papers, pending_weeks = older_backlog
+        lines += [
+            "",
+            f"_{pending_papers:,} paper(s) across {pending_weeks} earlier week(s) are still "
+            "awaiting an LLM judge verdict — backfilling in the background, with each "
+            "catch-up run improving those weeks' \"studied\" counts._",
+        ]
+    lines += [
         "",
         _STATS_END,
     ]
@@ -371,14 +457,20 @@ def main() -> None:
     badge_paths = write_badge_files(cumulative, processed_dir / "badges")
     summary_rows = build_weekly_summary_rows(week_manifests)
     summary_path = write_weekly_summary_csv(summary_rows, processed_dir / "weekly_summary.csv")
-    judge_pending = is_latest_week_judge_pending(_PROJECT_ROOT)
+    # One single-week check, shared by both consumers below — running it twice
+    # would duplicate the subprocess and, across a Monday-midnight boundary,
+    # could even resolve two different "current" weeks.
+    current_check = run_judge_check(_PROJECT_ROOT, "--window-days", "7")
+    judge_pending = is_latest_week_judge_pending(_PROJECT_ROOT, current_check)
     judge_models = latest_judge_models(latest_manifest)
-    block = render_stats_block(latest, cumulative, judge_pending, judge_models)
+    older_backlog = older_week_judge_backlog(_PROJECT_ROOT, current_check)
+    block = render_stats_block(latest, cumulative, judge_pending, judge_models, older_backlog)
     changed = update_readme(block, args.readme)
 
     print(f"Latest week: {latest['week_start']} -> {latest['week_end']}")
     print(f"Cumulative: {cumulative}")
     print(f"Judge pending: {judge_pending}")
+    print(f"Older-week judge backlog: {older_backlog}")
     print(f"Judge models: {judge_models}")
     print(f"README changed: {changed}")
     print(f"Badge files written: {[str(p) for p in badge_paths]}")

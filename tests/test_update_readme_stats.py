@@ -530,3 +530,207 @@ def test_is_latest_week_judge_pending_none_on_unexpected_exit_code(monkeypatch):
 
     monkeypatch.setattr(urs.subprocess, "run", fake_run)
     assert urs.is_latest_week_judge_pending(Path("/tmp")) is None
+
+
+# ---------------------------------------------------------------------------
+# render_stats_block (older-week backlog footnote)
+# ---------------------------------------------------------------------------
+
+def test_render_stats_block_shows_backlog_footnote_when_present():
+    block = urs.render_stats_block(_LATEST, _CUMULATIVE, older_backlog=(9, 2))
+    assert "9 paper(s) across 2 earlier week(s)" in block
+    # footnote must land after the table, not between the week line and it
+    assert block.index("9 paper(s) across 2 earlier week(s)") > block.index("| Metric |")
+
+
+def test_render_stats_block_omits_backlog_footnote_when_zero():
+    block = urs.render_stats_block(_LATEST, _CUMULATIVE, older_backlog=(0, 0))
+    assert "earlier week(s)" not in block
+
+
+def test_render_stats_block_omits_backlog_footnote_when_none():
+    block = urs.render_stats_block(_LATEST, _CUMULATIVE, older_backlog=None)
+    assert "earlier week(s)" not in block
+
+
+def test_render_stats_block_default_omits_backlog_footnote():
+    block = urs.render_stats_block(_LATEST, _CUMULATIVE)
+    assert "earlier week(s)" not in block
+
+
+# ---------------------------------------------------------------------------
+# older_week_judge_backlog
+# ---------------------------------------------------------------------------
+
+def test_older_week_judge_backlog_subtracts_current_week(monkeypatch):
+    def fake_run(args, **kwargs):
+        if "--sweep-all-weeks" in args:
+            return subprocess.CompletedProcess(
+                args, returncode=3,
+                stdout="58 paper(s) still pending across 3 week(s): "
+                       "20260831_to_20260907, 20260824_to_20260831, 20260810_to_20260817\n",
+            )
+        return subprocess.CompletedProcess(
+            args, returncode=3,
+            stdout="49 paper(s) still pending across 1 week(s): arxiv_papers_20260831_to_20260907\n",
+        )
+
+    monkeypatch.setattr(urs.subprocess, "run", fake_run)
+    assert urs.older_week_judge_backlog(Path("/tmp")) == (9, 2)
+
+
+def test_older_week_judge_backlog_zero_when_fully_judged(monkeypatch):
+    def fake_run(args, **kwargs):
+        return subprocess.CompletedProcess(args, returncode=0, stdout="Fully judged — no pending papers.\n")
+
+    monkeypatch.setattr(urs.subprocess, "run", fake_run)
+    assert urs.older_week_judge_backlog(Path("/tmp")) == (0, 0)
+
+
+def test_older_week_judge_backlog_counts_pending_weeks_with_none_pending_currently(monkeypatch):
+    def fake_run(args, **kwargs):
+        if "--sweep-all-weeks" in args:
+            return subprocess.CompletedProcess(
+                args, returncode=3,
+                stdout="8 paper(s) still pending across 1 week(s): 20260824_to_20260831\n",
+            )
+        return subprocess.CompletedProcess(args, returncode=0, stdout="Fully judged — no pending papers.\n")
+
+    monkeypatch.setattr(urs.subprocess, "run", fake_run)
+    assert urs.older_week_judge_backlog(Path("/tmp")) == (8, 1)
+
+
+def test_older_week_judge_backlog_none_on_unexpected_exit_code(monkeypatch):
+    def fake_run(args, **kwargs):
+        if "--sweep-all-weeks" in args:
+            return subprocess.CompletedProcess(args, returncode=1, stdout="")
+        return subprocess.CompletedProcess(args, returncode=0, stdout="Fully judged — no pending papers.\n")
+
+    monkeypatch.setattr(urs.subprocess, "run", fake_run)
+    assert urs.older_week_judge_backlog(Path("/tmp")) is None
+
+
+# ---------------------------------------------------------------------------
+# run_judge_check (shared by both judge-status helpers)
+# ---------------------------------------------------------------------------
+
+def test_run_judge_check_reports_zero_counts_when_fully_judged(monkeypatch):
+    monkeypatch.setattr(urs.subprocess, "run", lambda args, **kwargs: subprocess.CompletedProcess(
+        args, returncode=0, stdout="Fully judged — no pending papers.\n"))
+    assert urs.run_judge_check(Path("/tmp")) == (0, 0, 0)
+
+
+def test_run_judge_check_parses_pending_summary(monkeypatch):
+    monkeypatch.setattr(urs.subprocess, "run", lambda args, **kwargs: subprocess.CompletedProcess(
+        args, returncode=3,
+        stdout="Sweeping 2 week(s), newest first: a, b\n"
+               "12 paper(s) still pending across 2 week(s): a, b\n"))
+    assert urs.run_judge_check(Path("/tmp")) == (3, 12, 2)
+
+
+def test_run_judge_check_returns_none_counts_when_summary_unparseable(monkeypatch):
+    """Exit 3 is still reported, so is_latest_week_judge_pending stays correct
+    even when the summary line can't be read — only the counts go None."""
+    monkeypatch.setattr(urs.subprocess, "run", lambda args, **kwargs: subprocess.CompletedProcess(
+        args, returncode=3, stdout="something unexpected\n"))
+    assert urs.run_judge_check(Path("/tmp")) == (3, None, None)
+
+
+def test_run_judge_check_tolerates_missing_stdout(monkeypatch):
+    monkeypatch.setattr(urs.subprocess, "run", lambda args, **kwargs: subprocess.CompletedProcess(
+        args, returncode=3, stdout=None))
+    assert urs.run_judge_check(Path("/tmp")) == (3, None, None)
+
+
+def test_run_judge_check_passes_through_extra_args(monkeypatch):
+    seen = []
+    monkeypatch.setattr(urs.subprocess, "run", lambda args, **kwargs: (
+        seen.append(args) or subprocess.CompletedProcess(args, returncode=0, stdout="")))
+    urs.run_judge_check(Path("/tmp"), "--sweep-all-weeks")
+    assert "--check-only" in seen[0] and "--sweep-all-weeks" in seen[0]
+
+
+# ---------------------------------------------------------------------------
+# Reusing a precomputed check (main() runs the single-week check only once)
+# ---------------------------------------------------------------------------
+
+def test_is_latest_week_judge_pending_reuses_precomputed_check(monkeypatch):
+    def explode(*args, **kwargs):
+        raise AssertionError("should not spawn a subprocess when given a check")
+
+    monkeypatch.setattr(urs.subprocess, "run", explode)
+    assert urs.is_latest_week_judge_pending(Path("/tmp"), (3, 5, 1)) is True
+    assert urs.is_latest_week_judge_pending(Path("/tmp"), (0, 0, 0)) is False
+    assert urs.is_latest_week_judge_pending(Path("/tmp"), (1, None, None)) is None
+
+
+def test_older_week_judge_backlog_reuses_precomputed_check(monkeypatch):
+    calls = []
+
+    def fake_run(args, **kwargs):
+        calls.append(args)
+        assert "--sweep-all-weeks" in args, "single-week check should not be re-run"
+        return subprocess.CompletedProcess(
+            args, returncode=3, stdout="20 paper(s) still pending across 3 week(s): a, b, c\n")
+
+    monkeypatch.setattr(urs.subprocess, "run", fake_run)
+    assert urs.older_week_judge_backlog(Path("/tmp"), (3, 8, 1)) == (12, 2)
+    assert len(calls) == 1
+
+
+def test_older_week_judge_backlog_none_when_current_week_check_failed(monkeypatch):
+    """No detected.jsonl for the window yet -> judge_languages.py exits 1."""
+    def fake_run(args, **kwargs):
+        raise AssertionError("sweep should not run once the current-week check failed")
+
+    monkeypatch.setattr(urs.subprocess, "run", fake_run)
+    assert urs.older_week_judge_backlog(Path("/tmp"), (1, None, None)) is None
+
+
+def test_older_week_judge_backlog_none_when_current_counts_unparseable(monkeypatch):
+    monkeypatch.setattr(urs.subprocess, "run", lambda args, **kwargs: (_ for _ in ()).throw(
+        AssertionError("sweep should not run without a usable current-week count")))
+    assert urs.older_week_judge_backlog(Path("/tmp"), (3, None, None)) is None
+
+
+def test_older_week_judge_backlog_clamps_instead_of_reporting_negative(monkeypatch):
+    """A judge run committing verdicts between the two checks can leave the
+    sweep reporting fewer pending papers than the current-week check did."""
+    monkeypatch.setattr(urs.subprocess, "run", lambda args, **kwargs: subprocess.CompletedProcess(
+        args, returncode=3, stdout="2 paper(s) still pending across 1 week(s): a\n"))
+    assert urs.older_week_judge_backlog(Path("/tmp"), (3, 9, 1)) == (0, 0)
+
+
+# ---------------------------------------------------------------------------
+# main() wiring
+# ---------------------------------------------------------------------------
+
+def test_main_runs_the_single_week_check_once_and_renders_backlog(monkeypatch, tmp_path):
+    """Regression guard: the single-week check used to run twice (once per
+    helper), which duplicated the subprocess and could straddle a Monday
+    boundary and resolve two different "current" weeks."""
+    single_week_calls = []
+
+    def fake_run(args, **kwargs):
+        if "--sweep-all-weeks" in args:
+            return subprocess.CompletedProcess(
+                args, returncode=3, stdout="11 paper(s) still pending across 2 week(s): a, b\n")
+        single_week_calls.append(args)
+        return subprocess.CompletedProcess(args, returncode=0, stdout="Fully judged.\n")
+
+    readme = tmp_path / "README.md"
+    readme.write_text(f"{urs._STATS_START}\nold\n{urs._STATS_END}\n", encoding="utf-8")
+    monkeypatch.setattr(urs.subprocess, "run", fake_run)
+    monkeypatch.setattr(urs, "load_manifest", lambda *a, **k: None)
+    monkeypatch.setattr(urs, "find_week_manifests", lambda *a, **k: [])
+    monkeypatch.setattr(urs, "compute_latest_stats", lambda *a, **k: _LATEST)
+    monkeypatch.setattr(urs, "compute_cumulative_stats", lambda *a, **k: _CUMULATIVE)
+    monkeypatch.setattr(urs, "write_badge_files", lambda *a, **k: [])
+    monkeypatch.setattr(urs, "build_weekly_summary_rows", lambda *a, **k: [])
+    monkeypatch.setattr(urs, "write_weekly_summary_csv", lambda *a, **k: tmp_path / "s.csv")
+    monkeypatch.setattr(sys, "argv", ["update_readme_stats.py", "--readme", str(readme)])
+
+    urs.main()
+
+    assert len(single_week_calls) == 1
+    assert "11 paper(s) across 2 earlier week(s)" in readme.read_text(encoding="utf-8")
