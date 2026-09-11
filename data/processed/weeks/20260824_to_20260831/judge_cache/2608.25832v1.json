@@ -1,0 +1,889 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.25832v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T11:10:41.640437+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11759,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "The match is the `aka` code/name string for Akan in the inventory, not a standalone Aka language: false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Awa": {
+      "verdict": "false_positive",
+      "reason": "The match is the `awa` code for Awadhi in the inventory, not a standalone Awa language: false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bemba": {
+      "verdict": "studied",
+      "reason": "Bemba is listed as a Track B language with an NLLB localization and fidelity/coverage fields, so it is part of the paper's localization artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Beng": {
+      "verdict": "false_positive",
+      "reason": "The match is the `Beng` script/code field in the Bengali row, not the Beng language name: false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chhattisgarhi": {
+      "verdict": "studied",
+      "reason": "Chhattisgarhi is explicitly listed as a Track B language with localization, fidelity, and coverage data: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chokwe": {
+      "verdict": "studied",
+      "reason": "Chokwe is explicitly listed as a Track B language with a Toucan localization and verification data: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Fon": {
+      "verdict": "studied",
+      "reason": "Fon is explicitly listed as a Track B language with an NLLB localization and fidelity/coverage data: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Fur": {
+      "verdict": "false_positive",
+      "reason": "The match is the `fur` ISO code for Friulian in the inventory, not the Fur language: false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Gana": {
+      "verdict": "false_positive",
+      "reason": "The match is the Spanish verb `gana` (“wins”) in the Nim translation, not a language name: false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Jingpho": {
+      "verdict": "studied",
+      "reason": "Jingpho is explicitly listed as a Track B language with an NLLB localization and fidelity/coverage data: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kabuverdianu": {
+      "verdict": "studied",
+      "reason": "Kabuverdianu is explicitly listed as a Track B language with an NLLB localization and fidelity/coverage data: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kam": {
+      "verdict": "false_positive",
+      "reason": "The match is the `kam` ISO code for Kamba in the inventory, not the Kam language: false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kamba": {
+      "verdict": "studied",
+      "reason": "Kamba appears as a Track B language entry (ISO kam) in the multilingual UI-localization inventory, making it part of the paper's localization artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kanuri": {
+      "verdict": "studied",
+      "reason": "Central Kanuri appears as a Track B language entry (ISO knc) in the multilingual UI-localization inventory, making it part of the paper's localization artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kimbundu": {
+      "verdict": "studied",
+      "reason": "Kimbundu appears as a Track B language entry (ISO kmb) in the multilingual UI-localization inventory, making it part of the paper's localization artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Luba-Kasai": {
+      "verdict": "studied",
+      "reason": "Luba-Kasai appears as a Track B language entry (ISO lua) in the multilingual UI-localization inventory, making it part of the paper's localization artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Magahi": {
+      "verdict": "studied",
+      "reason": "Magahi appears as a Track B language entry (ISO mag) in the multilingual UI-localization inventory, making it part of the paper's localization artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "The match is the ISO code or substring “mal” in the Malayalam row, not a distinct reference to a human language named Mal: false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mizo": {
+      "verdict": "studied",
+      "reason": "Mizo appears as a Track B language entry (ISO lus) in the multilingual UI-localization inventory, making it part of the paper's localization artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Nuer": {
+      "verdict": "studied",
+      "reason": "Nuer appears as a Track B language entry (ISO nus) in the multilingual UI-localization inventory, making it part of the paper's localization artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Orya": {
+      "verdict": "false_positive",
+      "reason": "Orya is the script name in the Script column for Odia, not a human-language reference: false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "“pol” is the ISO code in the Polish row, not a standalone reference to a human language named Pol: false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Samoan": {
+      "verdict": "studied",
+      "reason": "Samoan appears as a Track B language entry (ISO smo) in the multilingual UI-localization inventory, making it part of the paper's localization artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kein": {
+      "verdict": "false_positive",
+      "reason": "“kein” is a common German word meaning “no/none” in the translated Kuhn Poker prompt, not a human language: false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses “sentinel” for an ordered preservation token in the determinism layer, not a human language; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tamasheq": {
+      "verdict": "studied",
+      "reason": "Tamasheq is listed as a language entry with ISO code “taq” in the multilingual UI-localization inventory; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tamazight": {
+      "verdict": "studied",
+      "reason": "Central Atlas Tamazight is listed as a language entry with ISO code “tzm” in the inventory; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists Tatar with ISO code “tat”; “Tat” is only the code or substring, not a language entry; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tha": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists Thai with ISO code “tha”; “Tha” is only the code, not a language entry; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tso": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists Tsonga with ISO code “tso”; “Tso” is only the code, not a language entry; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Umbundu": {
+      "verdict": "studied",
+      "reason": "Umbundu is listed as a language entry with ISO code “umb” in the inventory; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Asturian": {
+      "verdict": "studied",
+      "reason": "Asturian is listed as a language entry with ISO code “ast” in the inventory; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Awadhi": {
+      "verdict": "studied",
+      "reason": "Awadhi is listed as a language entry with ISO code “awa” in the inventory; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Banjar": {
+      "verdict": "studied",
+      "reason": "Banjar is listed as a language entry with ISO code “bjn” in the inventory; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bhojpuri": {
+      "verdict": "studied",
+      "reason": "Bhojpuri is listed as a language entry with ISO code “bho” in the inventory; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The match is the Spanish word “una” (“one/a”) in the Nim prompt, not a language name; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Crimean Tatar": {
+      "verdict": "studied",
+      "reason": "The snippet lists Crimean Tatar as a Language row in the multilingual UI-localization inventory, with ISO/script/translator fields; it is a human language covered by the paper's localization artifact,",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dinka": {
+      "verdict": "studied",
+      "reason": "The snippet lists Southwestern Dinka as a Language row in the multilingual UI-localization inventory; it is a human-language variety covered by the paper's localization artifact, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Friulian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Friulian as a Language row in the multilingual UI-localization inventory, with ISO/script/translator fields; it is a human language covered by the paper's localization artifact, so s",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ilocano": {
+      "verdict": "studied",
+      "reason": "The snippet lists Ilocano as a Language row in the multilingual UI-localization inventory, with ISO/script/translator fields; it is a human language covered by the paper's localization artifact, so st",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latgalian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Latgalian as a Language row in the multilingual UI-localization inventory, with ISO/script/translator fields; it is a human language covered by the paper's localization artifact, so ",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ligurian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Ligurian as a Language row in the multilingual UI-localization inventory, with ISO/script/translator fields; it is a human language covered by the paper's localization artifact, so s",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lombard": {
+      "verdict": "studied",
+      "reason": "The snippet lists Lombard as a Language row in the multilingual UI-localization inventory, with ISO/script/translator fields; it is a human language covered by the paper's localization artifact, so st",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Meitei": {
+      "verdict": "studied",
+      "reason": "The snippet lists Meitei as a Language row in the multilingual UI-localization inventory, with ISO/script/translator fields; it is a human language covered by the paper's localization artifact, so stu",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Minangkabau": {
+      "verdict": "studied",
+      "reason": "The snippet lists Minangkabau as a Language row in the multilingual UI-localization inventory, with ISO/script/translator fields; it is a human language covered by the paper's localization artifact, s",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The apparent match is the token `mon` in the ISO column of the Mongolian row, not a reference to the Mon language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Northern Sotho": {
+      "verdict": "studied",
+      "reason": "The snippet lists Northern Sotho as a Language row in the multilingual UI-localization inventory, with ISO/script/translator fields; it is a human language covered by the paper's localization artifact",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Odia": {
+      "verdict": "studied",
+      "reason": "The snippet lists Odia as a Language row in the multilingual UI-localization inventory, with ISO/script/translator fields; it is a human language covered by the paper's localization artifact, so studi",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Oromo": {
+      "verdict": "studied",
+      "reason": "Oromo is represented by West Central Oromo (ISO gaz) in the multilingual UI localization language inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pangasinan": {
+      "verdict": "studied",
+      "reason": "Pangasinan is explicitly listed as a language with ISO code pag in the multilingual UI localization inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pashto": {
+      "verdict": "studied",
+      "reason": "Pashto is explicitly listed as a language with ISO code pus in the multilingual UI localization inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Silesian": {
+      "verdict": "studied",
+      "reason": "Silesian is explicitly listed as a language with ISO code szl in the multilingual UI localization inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tok Pisin": {
+      "verdict": "studied",
+      "reason": "Tok Pisin is explicitly listed as a language with ISO code tpi in the multilingual UI localization inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tumbuka": {
+      "verdict": "studied",
+      "reason": "Tumbuka is explicitly listed as a language with ISO code tum in the multilingual UI localization inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Venetian": {
+      "verdict": "studied",
+      "reason": "Venetian is explicitly listed as a language with ISO code vec in the multilingual UI localization inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Waray": {
+      "verdict": "studied",
+      "reason": "Waray is explicitly listed as a language with ISO code war in the multilingual UI localization inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Afrikaans": {
+      "verdict": "studied",
+      "reason": "Afrikaans is explicitly listed as a language with ISO code afr in the multilingual UI localization inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Akan": {
+      "verdict": "studied",
+      "reason": "Akan is explicitly listed as a language with ISO code aka in the multilingual UI localization inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Albanian": {
+      "verdict": "studied",
+      "reason": "Albanian is explicitly listed as a language with ISO code sqi in the multilingual UI localization inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "Amharic is explicitly listed as a language with ISO code amh in the multilingual UI localization inventory, so it is part of the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Assamese": {
+      "verdict": "studied",
+      "reason": "Assamese is listed as a Track B language with ISO code asm, Bengali script, NLLB translation, and fidelity/coverage measures, so it is part of the localization experiment.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Aymara": {
+      "verdict": "studied",
+      "reason": "Aymara is listed as a language in the Track B localization inventory, with an ISO code, script, translator, and evaluation metadata, so it is part of the experiment.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Burmese": {
+      "verdict": "studied",
+      "reason": "Burmese is listed as a Track B language with ISO code mya, Myanmar script, NLLB translation, and fidelity/coverage measures, so it is part of the localization experiment.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dzongkha": {
+      "verdict": "studied",
+      "reason": "Dzongkha is listed as a Track B language with ISO code dzo, Tibetan script, NLLB translation, and evaluation metadata, so it is part of the localization experiment.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Faroese": {
+      "verdict": "studied",
+      "reason": "Faroese is listed as a Track B language with ISO code fao, NLLB translation, and evaluation metadata, so it is part of the localization experiment.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Fijian": {
+      "verdict": "studied",
+      "reason": "Fijian is listed as a Track B language with ISO code fij, NLLB translation, and evaluation metadata, so it is part of the localization experiment.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ganda": {
+      "verdict": "studied",
+      "reason": "Ganda is listed as a Track B language with ISO code lug, NLLB translation, and evaluation metadata, so it is part of the localization experiment.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Gujarati": {
+      "verdict": "studied",
+      "reason": "Gujarati is listed as a Track B language with ISO code guj, Gujarati script, NLLB translation, and fidelity/coverage measures, so it is part of the localization experiment.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Haitian Creole": {
+      "verdict": "studied",
+      "reason": "Haitian Creole is listed as a Track B language with ISO code hat, NLLB translation, and evaluation metadata, so it is part of the localization experiment.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Icelandic": {
+      "verdict": "studied",
+      "reason": "Icelandic is listed as a Track B language with ISO code isl, NLLB translation, and evaluation metadata, so it is part of the localization experiment.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Igbo": {
+      "verdict": "studied",
+      "reason": "Igbo is listed as a Track B language with ISO code ibo, NLLB translation, and fidelity/coverage measures, so it is part of the localization experiment.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hausa": {
+      "verdict": "studied",
+      "reason": "Hausa is listed as a Track B language with ISO code hau and NLLB translation, and it is also used in the reader-free verification analysis, so it is part of the experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Irish": {
+      "verdict": "studied",
+      "reason": "Irish is explicitly listed as a Track B human language (ISO gle) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Javanese": {
+      "verdict": "studied",
+      "reason": "Javanese is explicitly listed as a Track B human language (ISO jav) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kannada": {
+      "verdict": "studied",
+      "reason": "Kannada is explicitly listed as a Track B human language (ISO kan) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kashmiri": {
+      "verdict": "studied",
+      "reason": "Kashmiri is explicitly listed as a Track B human language (ISO kas) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Khmer": {
+      "verdict": "studied",
+      "reason": "Khmer is explicitly listed as a Track B human language (ISO khm) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kinyarwanda": {
+      "verdict": "studied",
+      "reason": "Kinyarwanda is explicitly listed as a Track B human language (ISO kin) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kyrgyz": {
+      "verdict": "studied",
+      "reason": "Kyrgyz is explicitly listed as a Track B human language (ISO kir) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lao": {
+      "verdict": "studied",
+      "reason": "Lao is explicitly listed as a Track B human language (ISO lao) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Limburgish": {
+      "verdict": "studied",
+      "reason": "Limburgish is explicitly listed as a Track B human language (ISO lim) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lingala": {
+      "verdict": "studied",
+      "reason": "Lingala is explicitly listed as a Track B human language (ISO lin) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Luxembourgish": {
+      "verdict": "studied",
+      "reason": "Luxembourgish is explicitly listed as a Track B human language (ISO ltz) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Maithili": {
+      "verdict": "studied",
+      "reason": "Maithili is explicitly listed as a Track B human language (ISO mai) with localization metadata, so it is covered by the paper's multilingual UI artifact: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malagasy": {
+      "verdict": "studied",
+      "reason": "The snippet lists Malagasy (mlg) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for it: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "The snippet lists Malayalam (mal) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for it: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Maltese": {
+      "verdict": "studied",
+      "reason": "The snippet lists Maltese (mlt) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for it: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Maori": {
+      "verdict": "studied",
+      "reason": "The snippet lists Maori (mri) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for it: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "The snippet lists Marathi (mar) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for it: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mongolian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Mongolian (mon) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for it: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "The snippet lists Nepali (nep) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for it: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Occitan": {
+      "verdict": "studied",
+      "reason": "The snippet lists Occitan (oci) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for it: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Quechua": {
+      "verdict": "studied",
+      "reason": "The snippet lists Ayacucho Quechua (quy) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for this Quechua variety: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Rundi": {
+      "verdict": "studied",
+      "reason": "The snippet lists Rundi (run) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for it: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sango": {
+      "verdict": "studied",
+      "reason": "The snippet lists Sango (sag) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for it: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sanskrit": {
+      "verdict": "studied",
+      "reason": "The snippet lists Sanskrit (san) as a Track B language in the multilingual UI localization inventory, indicating that the paper builds a translation for it: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sardinian": {
+      "verdict": "studied",
+      "reason": "Sardinian refers to the human language listed with ISO code srd in the paper's multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper's arti",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Scottish Gaelic": {
+      "verdict": "studied",
+      "reason": "Scottish Gaelic refers to the human language listed with ISO code gla in the multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper's artifa",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Shan": {
+      "verdict": "studied",
+      "reason": "Shan refers to the human language listed with ISO code shn and Myanmar script in the multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper'",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Shona": {
+      "verdict": "studied",
+      "reason": "Shona refers to the human language listed with ISO code sna in the multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper's artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sicilian": {
+      "verdict": "studied",
+      "reason": "Sicilian refers to the human language listed with ISO code scn in the multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper's artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sindhi": {
+      "verdict": "studied",
+      "reason": "Sindhi refers to the human language listed with ISO code snd in the multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper's artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sinhala": {
+      "verdict": "studied",
+      "reason": "Sinhala refers to the human language listed with ISO code sin in the multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper's artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Somali": {
+      "verdict": "studied",
+      "reason": "Somali refers to the human language listed with ISO code som in the multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper's artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Southern Sotho": {
+      "verdict": "studied",
+      "reason": "Southern Sotho refers to the human language listed with ISO code sot in the multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper's artifac",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili refers to the human language listed with ISO code swa in the multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper's artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swati": {
+      "verdict": "studied",
+      "reason": "Swati refers to the human language listed with ISO code ssw in the multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper's artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tajik": {
+      "verdict": "studied",
+      "reason": "Tajik refers to the human language listed with ISO code tgk in the multilingual UI localization inventory; the table records localization metadata for it, so it is part of the paper's artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "The snippet lists Telugu in a language inventory table used for the study's multilingual localization, implying it is studied. ",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Tibetan": {
+      "verdict": "studied",
+      "reason": "The snippet lists Tibetan in a language inventory table used for the study's multilingual localization, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Tsonga": {
+      "verdict": "studied",
+      "reason": "The snippet lists Tsonga in a language inventory table used for the study's multilingual localization, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Turkmen": {
+      "verdict": "studied",
+      "reason": "The snippet lists Turkmen in a language inventory table used for the study's multilingual localization, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Uyghur": {
+      "verdict": "studied",
+      "reason": "The snippet lists Uyghur in a language inventory table used for the study's multilingual localization, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Wolof": {
+      "verdict": "studied",
+      "reason": "The snippet lists Wolof in a language inventory table used for the study's multilingual localization, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Xhosa": {
+      "verdict": "studied",
+      "reason": "The snippet lists Xhosa in a language inventory table used for the study's multilingual localization, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Yiddish": {
+      "verdict": "studied",
+      "reason": "The snippet lists Yiddish in a language inventory table used for the study's multilingual localization, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Zulu": {
+      "verdict": "studied",
+      "reason": "The snippet lists Zulu in a language inventory table used for the study's multilingual localization, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "moroccan Arabic": {
+      "verdict": "studied",
+      "reason": "The snippet lists Moroccan Arabic in a language inventory table used for the study's multilingual localization, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Armenian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Armenian in a language inventory table used for the study's multilingual localization, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Yoruba": {
+      "verdict": "studied",
+      "reason": "The snippet lists Yoruba in a language inventory table and discusses its back-translation reliability, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Belarusian": {
+      "verdict": "studied",
+      "reason": "Belarusian is listed as a language row with ISO code, script, and translator details in the paper's multilingual UI localization inventory, making it part of the localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is listed as a language row with ISO code, script, and translator details in the paper's multilingual UI localization inventory, making it part of the localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "Bulgarian is listed as a language row with ISO code, script, and translator details in the paper's multilingual UI localization inventory, making it part of the localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Cebuano": {
+      "verdict": "studied",
+      "reason": "Cebuano is listed as a language row with ISO code, script, and translator details in the paper's multilingual UI localization inventory, making it part of the localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Croatian": {
+      "verdict": "studied",
+      "reason": "Croatian is listed as a language row with ISO code, script, and translator details in the paper's multilingual UI localization inventory, making it part of the localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Danish": {
+      "verdict": "studied",
+      "reason": "Danish is listed as a language row with ISO code, script, and translator details in the paper's multilingual UI localization inventory, making it part of the localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Esperanto": {
+      "verdict": "studied",
+      "reason": "Esperanto is listed as a language row with ISO code, script, and translator details in the paper's multilingual UI localization inventory, making it part of the localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Estonian": {
+      "verdict": "studied",
+      "reason": "Estonian is listed as a language row with ISO code, script, and translator details in the paper's multilingual UI localization inventory, making it part of the localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Galician": {
+      "verdict": "studied",
+      "reason": "Galician is listed as a language row with ISO code, script, and translator details in the paper's multilingual UI localization inventory, making it part of the localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Georgian": {
+      "verdict": "studied",
+      "reason": "Georgian is listed as a language row with ISO code, script, and translator details in the paper's multilingual UI localization inventory, making it part of the localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "Greek is listed as a language row with ISO code, script, and translator details in the paper's multilingual UI localization inventory, making it part of the localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Hebrew denotes the human language used in the translated Nim prompt and localization inventory and is explicitly compared in the model results, so it is part of the experiments and artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi appears as a human language in the multilingual localization inventory (ISO hin, Devanagari script), making it part of the paper's localized experimental resources: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kazakh": {
+      "verdict": "studied",
+      "reason": "Kazakh appears as a human language in the multilingual localization inventory (ISO kaz, Cyrillic script), making it part of the paper's localized experimental resources: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latvian": {
+      "verdict": "studied",
+      "reason": "Latvian appears as a human language in the multilingual localization inventory (ISO lav, Latin script), making it part of the paper's localized experimental resources: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lithuanian": {
+      "verdict": "studied",
+      "reason": "Lithuanian appears as a human language in the multilingual localization inventory (ISO lit, Latin script), making it part of the paper's localized experimental resources: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Macedonian": {
+      "verdict": "studied",
+      "reason": "Macedonian appears as a human language in the multilingual localization inventory (ISO mkd, Cyrillic script), making it part of the paper's localized experimental resources: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Punjabi": {
+      "verdict": "studied",
+      "reason": "Punjabi appears as a human language in the multilingual localization inventory (ISO pan, Gurmukhi script), making it part of the paper's localized experimental resources: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Slovak": {
+      "verdict": "studied",
+      "reason": "Slovak appears as a human language in the multilingual localization inventory (ISO slk, Latin script), making it part of the paper's localized experimental resources: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil appears as a human language in the multilingual localization inventory (ISO tam, Tamil script), making it part of the paper's localized experimental resources: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tatar": {
+      "verdict": "studied",
+      "reason": "Tatar appears as a human language in the multilingual localization inventory (ISO tat, Cyrillic script), making it part of the paper's localized experimental resources: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai appears as a human language in the multilingual localization inventory (ISO tha, Thai script), making it part of the paper's localized experimental resources: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The match is the script code “Latn” used throughout the inventory to denote the Latin script, not the Latin language: false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malay": {
+      "verdict": "studied",
+      "reason": "Malay appears as a human language in the multilingual localization inventory (ISO msa, Latin script), making it part of the paper's localized experimental resources: studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "The snippet lists Urdu as one of the languages in the multilingual UI localization inventory, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Uzbek": {
+      "verdict": "studied",
+      "reason": "The snippet lists Uzbek in the language inventory used for the multilingual UI localization, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Welsh": {
+      "verdict": "studied",
+      "reason": "The snippet lists Welsh in the language inventory used for the multilingual UI localization, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Azerbaijani": {
+      "verdict": "studied",
+      "reason": "The snippet lists Azerbaijani in the language inventory used for the multilingual UI localization, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Basque": {
+      "verdict": "studied",
+      "reason": "The snippet lists Basque in the language inventory used for the multilingual UI localization, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Catalan": {
+      "verdict": "studied",
+      "reason": "The snippet lists Catalan in the language inventory used for the multilingual UI localization, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "The snippet lists Czech in the language inventory used for the multilingual UI localization, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "The snippet lists Dutch in the language inventory used for the multilingual UI localization, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "The snippet lists Finnish in the language inventory used for the multilingual UI localization, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Hungarian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Hungarian in the language inventory used for the multilingual UI localization, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Indonesian in the language inventory used for the multilingual UI localization, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Italian in the language inventory used for the multilingual UI localization, implying it is part of the study's evaluated languages.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippet lists Korean in the multilingual UI localization inventory with ISO code kor and the Korean script, so it is a language covered by the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "The inventory lists the Norwegian standards Norwegian Bokmål and Norwegian Nynorsk as localized languages, so the match genuinely concerns Norwegian.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Persian in the multilingual UI localization inventory with ISO code fas and Arabic script, so it is covered by the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "The snippet lists Polish in the multilingual UI localization inventory with ISO code pol and Latin script, so it is covered by the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The snippet lists Portuguese in the multilingual UI localization inventory with ISO code por and Latin script, so it is covered by the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Romanian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Romanian in the multilingual UI localization inventory with ISO code ron and Latin script, so it is covered by the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Russian in the multilingual UI localization inventory with ISO code rus and Cyrillic script, so it is covered by the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Serbian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Serbian (Cyrillic) in the multilingual UI localization inventory with ISO code srp, so it genuinely concerns the Serbian language and is covered by the artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "The snippet lists Swedish in the multilingual UI localization inventory with ISO code swe and Latin script, so it is covered by the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "The snippet lists Turkish in the multilingual UI localization inventory with ISO code tur and Latin script, so it is covered by the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Ukrainian in the multilingual UI localization inventory with ISO code ukr and Cyrillic script, so it is covered by the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "The snippet lists Vietnamese in the multilingual UI localization inventory with ISO code vie and Latin script, so it is covered by the paper's localization artifact.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "egyptian arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet names Egyptian Arabic only as an entry in the broader Track B language inventory, not as one of the eight languages evaluated in the experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is listed among the eight selected high-resource evaluation languages in the multilingual inventory, so the paper evaluates it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is listed among the eight selected evaluation languages and is also discussed as a right-to-left language in the localization setup, so the paper evaluates it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is listed among the eight selected evaluation languages in the multilingual inventory, so the paper evaluates it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is listed among the eight selected evaluation languages, and the results directly discuss model performance across English, so the paper evaluates it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is listed among the eight selected evaluation languages in the multilingual inventory, so the paper evaluates it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is listed among the eight selected evaluation languages, and the introduction presents a typical game played in German, so the paper evaluates it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is listed among the eight selected evaluation languages, and a localized Spanish Nim prompt is provided, so the paper evaluates it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

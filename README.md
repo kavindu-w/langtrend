@@ -23,10 +23,8 @@ _Judged with (mixed — fallback used):_ `nex-agi/nex-n2.5-pro:free` (1,357), `g
 |--------|----------:|---------:|
 | Papers scanned | 592 | 9,827 |
 | Papers with language mentions | 274 | 4,317 |
-| Unique languages detected | 124 | 534 |
+| Unique languages detected | 124 | 485 |
 | Weeks tracked | — | 19 (since 2026-04-27) |
-
-_7 paper(s) across 2 earlier week(s) are still awaiting an LLM judge verdict — backfilling in the background, with each catch-up run improving those weeks' "studied" counts._
 
 <!-- LANGTREND_STATS_END -->
 

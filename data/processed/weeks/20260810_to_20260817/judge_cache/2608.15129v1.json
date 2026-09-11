@@ -1,0 +1,549 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.15129v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-11T12:11:21.720059+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11987,
+  "verdicts": {
+    "Agob": {
+      "verdict": "mentioned_only",
+      "reason": "Agob is part of the human-language name “Agob-Ende-Kawam,” which is used only as a typological example; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ende": {
+      "verdict": "mentioned_only",
+      "reason": "Ende is part of the human-language name “Agob-Ende-Kawam,” which is used only as a typological example; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "aka is a FLORES code in the Akan row, not a reference to the Aka language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Awa": {
+      "verdict": "false_positive",
+      "reason": "awa is a FLORES code in the excluded-varieties list, not an explicit reference to the Awa language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Beng": {
+      "verdict": "false_positive",
+      "reason": "Beng is the Bengali script code, not the Beng language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Fon": {
+      "verdict": "studied",
+      "reason": "Fon is listed as an evaluation language with a FLORES label and word-order data; this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kadai": {
+      "verdict": "false_positive",
+      "reason": "Kadai appears only as part of the Tai-Kadai language-family name, not as the Kadai language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kam": {
+      "verdict": "false_positive",
+      "reason": "kam is a FLORES code in the excluded-varieties list, not an explicit reference to the Kam language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "mal is the FLORES code for Malayalam, not the Mal language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Orya": {
+      "verdict": "false_positive",
+      "reason": "Orya is the script label for Odia, not the Orya language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "pol is the FLORES code for Polish, not the Pol language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "tat is the FLORES code for Tatar, not the Tat language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tha": {
+      "verdict": "studied",
+      "reason": "“Tha” is the FLORES code in the row explicitly naming Thai, which is listed as an evaluated language; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tso": {
+      "verdict": "studied",
+      "reason": "“Tso” is the FLORES code in the row explicitly naming Tsonga, which is listed as an evaluated language; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Northern Sotho": {
+      "verdict": "studied",
+      "reason": "Northern Sotho is explicitly listed as a model/evaluation language with a base-word-order label; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Odia": {
+      "verdict": "studied",
+      "reason": "Odia is explicitly listed as a model/evaluation language with a FLORES label and model-coverage entry; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tumbuka": {
+      "verdict": "studied",
+      "reason": "Tumbuka is explicitly listed as a model/evaluation language with a FLORES label and model-coverage entry; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Akan": {
+      "verdict": "studied",
+      "reason": "Akan is explicitly listed as a model/evaluation language with a base-word-order label; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "Amharic is explicitly listed as a model/evaluation language with a FLORES label and model-coverage entry; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Assamese": {
+      "verdict": "studied",
+      "reason": "Assamese is explicitly listed as a model/evaluation language with a FLORES label and model-coverage entry; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bosnian": {
+      "verdict": "studied",
+      "reason": "Bosnian is explicitly listed as a model/evaluation language with a base-word-order label; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ganda": {
+      "verdict": "studied",
+      "reason": "Ganda is explicitly listed as a model/evaluation language with a FLORES label and model-coverage entry; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Afrikaans": {
+      "verdict": "studied",
+      "reason": "Afrikaans is explicitly listed as an evaluated language and discussed as an example of word-order variation; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Burmese": {
+      "verdict": "studied",
+      "reason": "Burmese is explicitly listed as an evaluated language, and a Burmese Goldfish model is described as being trained and evaluated; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Gujarati": {
+      "verdict": "studied",
+      "reason": "The snippet lists Gujarati as a FLORES-200 evaluation language (guj) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Haitian Creole": {
+      "verdict": "studied",
+      "reason": "The snippet lists Haitian Creole as a FLORES-200 evaluation language (hat) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hausa": {
+      "verdict": "studied",
+      "reason": "The snippet lists Hausa as a FLORES-200 evaluation language (hau) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Icelandic": {
+      "verdict": "studied",
+      "reason": "The snippet lists Icelandic as a FLORES-200 evaluation language (isl) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Igbo": {
+      "verdict": "studied",
+      "reason": "The snippet lists Igbo as a FLORES-200 evaluation language (ibo) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Javanese": {
+      "verdict": "studied",
+      "reason": "The snippet lists Javanese as a FLORES-200 evaluation language (jav) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kannada": {
+      "verdict": "studied",
+      "reason": "The snippet lists Kannada as a FLORES-200 evaluation language (kan) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kinyarwanda": {
+      "verdict": "studied",
+      "reason": "The snippet lists Kinyarwanda as a FLORES-200 evaluation language (kin) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kyrgyz": {
+      "verdict": "studied",
+      "reason": "The snippet lists Kyrgyz as a FLORES-200 evaluation language (kir) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lingala": {
+      "verdict": "studied",
+      "reason": "The snippet lists Lingala as a FLORES-200 evaluation language (lin) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "The snippet lists Malayalam as a FLORES-200 evaluation language (mal) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Maltese": {
+      "verdict": "studied",
+      "reason": "The snippet lists Maltese as a FLORES-200 evaluation language (mlt) with a word-order label and model coverage, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "Marathi is listed as a FLORES evaluation language with a word-order label and model-coverage information, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mongolian": {
+      "verdict": "studied",
+      "reason": "Halh Mongolian is listed as a FLORES evaluation variety with a word-order label and model-coverage information, so Mongolian is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "Nepali is listed as a FLORES evaluation language with a word-order label and model-coverage information, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Quechua": {
+      "verdict": "studied",
+      "reason": "Ayacucho Quechua is listed as a FLORES evaluation variety with a word-order label and model-coverage information, so Quechua is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Rundi": {
+      "verdict": "studied",
+      "reason": "Rundi is listed as a FLORES evaluation language with a word-order label and model-coverage information, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Shona": {
+      "verdict": "studied",
+      "reason": "Shona is listed as a FLORES evaluation language with a word-order label and model-coverage information, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sinhala": {
+      "verdict": "studied",
+      "reason": "Sinhala is listed as a FLORES evaluation language with a word-order label and model-coverage information, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Somali": {
+      "verdict": "studied",
+      "reason": "Somali is listed as a FLORES evaluation language with a word-order label and model-coverage information, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Southern Sotho": {
+      "verdict": "studied",
+      "reason": "Southern Sotho is listed as a FLORES evaluation language with a word-order label and model-coverage information, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is listed as a FLORES evaluation language with a word-order label and model-coverage information, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tagalog": {
+      "verdict": "studied",
+      "reason": "Tagalog is listed as a FLORES evaluation language with a word-order label and model-coverage information, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tajik": {
+      "verdict": "studied",
+      "reason": "Tajik is listed as a FLORES evaluation language with a word-order label and model-coverage information, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu is listed as a FLORES evaluation language with a model, script, family, resource level, and word-order label, so it is evaluated in the study.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tibetan": {
+      "verdict": "studied",
+      "reason": "Tibetan is included among the appendix's FLORES evaluation/model languages, so it is part of the natural-language evaluation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tsonga": {
+      "verdict": "studied",
+      "reason": "Tsonga is listed as a FLORES evaluation language with a model, script, family, resource level, and word-order label, so it is evaluated in the study.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Turkmen": {
+      "verdict": "studied",
+      "reason": "Turkmen is listed as a FLORES evaluation language with a model, script, family, resource level, and word-order label, so it is evaluated in the study.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Wolof": {
+      "verdict": "studied",
+      "reason": "Wolof is listed as a FLORES evaluation language with a model, script, family, resource level, and word-order label, so it is evaluated in the study.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Xhosa": {
+      "verdict": "studied",
+      "reason": "Xhosa is listed as a FLORES evaluation language with a model, script, family, resource level, and word-order label, so it is evaluated in the study.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Yoruba": {
+      "verdict": "studied",
+      "reason": "Yoruba is listed as a FLORES evaluation language with a model, script, family, resource level, and word-order label, so it is evaluated in the study.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Zulu": {
+      "verdict": "studied",
+      "reason": "Zulu is listed as a FLORES evaluation language with a model, script, family, resource level, and word-order label, so it is evaluated in the study.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Armenian": {
+      "verdict": "studied",
+      "reason": "Armenian is listed as a FLORES evaluation language with a model, script, family, resource level, and word-order label, so it is evaluated in the study.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is listed as a FLORES evaluation language with a model, script, family, resource level, and word-order label, so it is evaluated in the study.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "Bulgarian is listed as a FLORES evaluation language with a model, script, family, resource level, and word-order label, so it is evaluated in the study.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Belarusian": {
+      "verdict": "studied",
+      "reason": "Belarusian is listed as a FLORES evaluation language with a model, script, family, resource level, and word-order label, and its classification is also discussed in the limitations, so it is evaluated",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Croatian": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Danish": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Esperanto": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Estonian": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Galician": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Georgian": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Kazakh": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Latvian": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Lithuanian": {
+      "verdict": "studied",
+      "reason": "Listed in a table of evaluation languages used for base word order analysis in Goldfish models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Macedonian": {
+      "verdict": "studied",
+      "reason": "Macedonian is a human language listed in the paper's FLORES-200 evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malay": {
+      "verdict": "studied",
+      "reason": "Malay refers to the evaluated Std Malay entry in the FLORES-200 table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Slovak": {
+      "verdict": "studied",
+      "reason": "Slovak is a human language listed in the FLORES-200 evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is a human language listed in the FLORES-200 evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tatar": {
+      "verdict": "studied",
+      "reason": "Tatar is a human language listed in the FLORES-200 evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is a human language listed in the FLORES-200 evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu is a human language listed in the FLORES-200 evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Uzbek": {
+      "verdict": "studied",
+      "reason": "Uzbek refers to the evaluated Northern Uzbek entry in the FLORES-200 table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Welsh": {
+      "verdict": "studied",
+      "reason": "Welsh is a human language listed in the FLORES-200 evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Basque": {
+      "verdict": "studied",
+      "reason": "Basque is a human language listed in the FLORES-200 evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Catalan": {
+      "verdict": "studied",
+      "reason": "Catalan is a human language listed in the FLORES-200 evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech is a human language listed in the FLORES-200 evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is listed as a FLORES model/evaluation language with a word-order label, so it is part of the paper's natural-language experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "Finnish is listed as a FLORES model/evaluation language with a word-order label, so it is part of the paper's natural-language experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hungarian": {
+      "verdict": "studied",
+      "reason": "Hungarian is listed as a FLORES model/evaluation language with a word-order label, so it is part of the paper's natural-language experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is listed as a FLORES model/evaluation language with a word-order label, so it is part of the paper's natural-language experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is listed as a FLORES model/evaluation language with a word-order label, so it is part of the paper's natural-language experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "Norwegian Bokmål is listed as a FLORES model/evaluation language with a word-order label, so Norwegian is part of the paper's natural-language experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "Western Persian is listed as a FLORES evaluation language with a word-order label, so Persian is part of the paper's natural-language experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is listed as a FLORES model/evaluation language with a word-order label, so it is part of the paper's natural-language experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is listed as a FLORES model/evaluation language with a word-order label, so it is part of the paper's natural-language experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Romanian": {
+      "verdict": "studied",
+      "reason": "Romanian is listed as a FLORES model/evaluation language with a word-order label, so it is part of the paper's natural-language experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian is listed as a FLORES evaluation language, and its Goldfish models' BPEC is analyzed across training-data scales, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is listed as a FLORES model/evaluation language with a word-order label and is also discussed in the limitations, so it is part of the paper's experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Serbian": {
+      "verdict": "studied",
+      "reason": "The snippets list Serbian (srp) as a FLORES/model language with a base-word-order label in the evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "The snippets list Swedish (swe) as a FLORES/model language with a base-word-order label in the evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "The snippets list Turkish (tur) as a FLORES/model language with a base-word-order label in the evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "The snippets list Ukrainian (ukr) as a FLORES/model language with a base-word-order label in the evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "The snippets list Vietnamese (vie) as a FLORES/model language with a base-word-order label in the evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippets list French (fra) as a FLORES/model language with a base-word-order label in the evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippets list Spanish (spa) as a FLORES/model language with a base-word-order label in the evaluation-language table, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Standard/Modern Standard Arabic (arb), including its word-order classification and model/FLORES coverage, so Arabic is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippets list German (deu) as an evaluation/model language and discuss its word-order classification, so German is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets list Simplified and Traditional Chinese as evaluation/model languages and discuss Mandarin Chinese word order, so Chinese is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets use English as a word-order example, evaluation baseline, and model language, so English is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The snippets use Japanese as a natural-language SOV example and as the target of an artificial-language approximation, so Japanese is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}
