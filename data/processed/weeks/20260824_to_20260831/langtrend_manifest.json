@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T22:36:24.547253+00:00",
+  "generated_at": "2026-09-11T08:52:48.958132+00:00",
   "window_days": 7,
   "week_start": "2026-08-24",
   "week_end": "2026-08-31",
@@ -7,15 +7,15 @@
   "counts": {
     "papers": 593,
     "flagged_papers": 276,
-    "unique_languages": 299,
+    "unique_languages": 297,
     "unique_languages_mentioned_only": 5,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 374,
-      "judged_languages": 1139,
-      "studied": 528,
-      "mentioned_only": 227,
-      "false_positive": 384
+      "judged_papers": 376,
+      "judged_languages": 1193,
+      "studied": 578,
+      "mentioned_only": 228,
+      "false_positive": 387
     }
   },
   "language_counts": [
@@ -27,8 +27,8 @@
     },
     {
       "language": "Chinese",
-      "count": 86,
-      "studied": 63,
+      "count": 85,
+      "studied": 62,
       "mentioned_only": 23
     },
     {
@@ -352,8 +352,8 @@
     {
       "language": "Tibetan",
       "count": 5,
-      "studied": 5,
-      "mentioned_only": 0
+      "studied": 4,
+      "mentioned_only": 1
     },
     {
       "language": "Uzbek",
@@ -1124,12 +1124,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Hoti",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Ibu",
       "count": 1,
       "studied": 1,
@@ -1742,12 +1736,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Tucano",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Tumbuka",
       "count": 1,
       "studied": 1,
@@ -1847,8 +1835,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 168,
-      "studied": 158,
+      "count": 166,
+      "studied": 156,
       "mentioned_only": 10
     },
     {
@@ -1860,8 +1848,8 @@
     {
       "class_id": 2,
       "count": 218,
-      "studied": 204,
-      "mentioned_only": 14
+      "studied": 203,
+      "mentioned_only": 15
     },
     {
       "class_id": 3,
@@ -1877,8 +1865,8 @@
     },
     {
       "class_id": 5,
-      "count": 497,
-      "studied": 362,
+      "count": 496,
+      "studied": 361,
       "mentioned_only": 135
     }
   ],
@@ -67591,14 +67579,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets explicitly use English for translations and tokens in the puzzle setup, so English is a human language used in the experimental artifacts; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Hoti",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The matched text is the Pali word hoti, meaning “is,” not the Hoti language; false_positive.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Pali",
@@ -67607,266 +67603,418 @@
           "flag_reason": "Possible false positive",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Pali is the human language of a UKLO puzzle used in the paper's deletion analysis, including analysis of the word hoti.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Karelian",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Karelian is the language of a UKLO puzzle whose model performance is analyzed under deletion strategies; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Cherokee",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets discuss the Cherokee puzzle and report model performance changes after context deletion; it is evaluated in the paper's experiments, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Waama",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet explicitly identifies Waama as the language of a UKLO Match-Up puzzle and presents that puzzle as an example; it is part of the paper's puzzle artifacts, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Chinese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The match occurs in “Chinese Characters Puzzle,” described as a writing-system puzzle, so it refers to Chinese characters/script rather than the Chinese language; false_positive.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Tibetan",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The supplied snippets do not show what the Tibetan match refers to, so its referent is insufficiently established.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Longgu",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Longgu is explicitly identified as a UKLO linguistic puzzle and its language family, and the puzzle is evaluated; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Haruai",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Haruai is one of the two languages in the explicitly named Korowai and Haruai UKLO puzzle, which is used in the experiments; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Korowai",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Korowai is one of the two languages in the explicitly named Korowai and Haruai UKLO puzzle, which is used in the experiments; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Ainu",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Ainu is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Amele",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Amele is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Choctaw",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Choctaw is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Coptic",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Coptic is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Kavalan",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Kavalan is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Lardil",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Lardil is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Mayangna",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Mayangna is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Ndebele",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet lists Ndebele as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Nhanda",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet lists Nhanda as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Nung",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet lists Nung as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Pular",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet lists Pular as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Saisiyat",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet lists Saisiyat as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Tadaksahak",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet lists Tadaksahak as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Tawala",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet lists Tawala as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Ulwa",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet lists Ulwa as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Yidiny",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet lists Yidiny as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Zuni",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet lists Zuni as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Navajo",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Navajo is the named UKLO puzzle/language entry evaluated in the LLM judge verdict table.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Nepali",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Nepali is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Xhosa",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Xhosa is the named UKLO puzzle/language entry evaluated in the LLM judge verdict table.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Yoruba",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Yoruba is the named UKLO puzzle/language entry evaluated in the LLM judge verdict table.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Bulgarian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Bulgarian is the named UKLO puzzle/language entry evaluated in the LLM judge verdict table.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Estonian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Estonian is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Lithuanian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Lithuanian is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Malay",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Malay is the named UKLO puzzle/language entry evaluated in the LLM judge verdict table.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Welsh",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Welsh is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Basque",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Basque is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Swedish",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets list Swedish as a UKLO puzzle name in the evaluated judge-verdict tables, so it is a language used in the experiments; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         },
         {
           "language": "Turkish",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets list Turkish as a UKLO puzzle name in the evaluated judge-verdict tables, so it is a language used in the experiments; studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:11:15.277159+00:00"
         }
       ],
       "sources_checked": [
@@ -67892,7 +68040,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets explicitly use English for translations and tokens in the puzzle setup, so English is a human language used in the experimental artifacts; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             }
           ]
         },
@@ -67902,33 +68054,57 @@
           "detected_languages": [
             {
               "language": "Hoti",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text is the Pali word hoti, meaning “is,” not the Hoti language; false_positive.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Pali",
               "class": 2,
               "needs_review": true,
-              "flag_reason": "Possible false positive"
+              "flag_reason": "Possible false positive",
+              "judge_verdict": "studied",
+              "judge_reason": "Pali is the human language of a UKLO puzzle used in the paper's deletion analysis, including analysis of the word hoti.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Hoti",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text is the Pali word hoti, meaning “is,” not the Hoti language; false_positive.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Pali",
               "class": 2,
               "needs_review": true,
-              "flag_reason": "Possible false positive"
+              "flag_reason": "Possible false positive",
+              "judge_verdict": "studied",
+              "judge_reason": "Pali is the human language of a UKLO puzzle used in the paper's deletion analysis, including analysis of the word hoti.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Hoti",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text is the Pali word hoti, meaning “is,” not the Hoti language; false_positive.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Pali",
               "class": 2,
               "needs_review": true,
-              "flag_reason": "Possible false positive"
+              "flag_reason": "Possible false positive",
+              "judge_verdict": "studied",
+              "judge_reason": "Pali is the human language of a UKLO puzzle used in the paper's deletion analysis, including analysis of the word hoti.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             }
           ]
         },
@@ -67938,13 +68114,21 @@
           "detected_languages": [
             {
               "language": "Hoti",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The matched text is the Pali word hoti, meaning “is,” not the Hoti language; false_positive.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Pali",
               "class": 2,
               "needs_review": true,
-              "flag_reason": "Possible false positive"
+              "flag_reason": "Possible false positive",
+              "judge_verdict": "studied",
+              "judge_reason": "Pali is the human language of a UKLO puzzle used in the paper's deletion analysis, including analysis of the word hoti.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             }
           ]
         },
@@ -67954,19 +68138,35 @@
           "detected_languages": [
             {
               "language": "Karelian",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Karelian is the language of a UKLO puzzle whose model performance is analyzed under deletion strategies; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Cherokee",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets discuss the Cherokee puzzle and report model performance changes after context deletion; it is evaluated in the paper's experiments, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Karelian",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Karelian is the language of a UKLO puzzle whose model performance is analyzed under deletion strategies; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Cherokee",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets discuss the Cherokee puzzle and report model performance changes after context deletion; it is evaluated in the paper's experiments, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             }
           ]
         },
@@ -67976,19 +68176,35 @@
           "detected_languages": [
             {
               "language": "Karelian",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Karelian is the language of a UKLO puzzle whose model performance is analyzed under deletion strategies; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Cherokee",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets discuss the Cherokee puzzle and report model performance changes after context deletion; it is evaluated in the paper's experiments, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Karelian",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Karelian is the language of a UKLO puzzle whose model performance is analyzed under deletion strategies; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Cherokee",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets discuss the Cherokee puzzle and report model performance changes after context deletion; it is evaluated in the paper's experiments, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             }
           ]
         },
@@ -68000,57 +68216,109 @@
               "language": "Pali",
               "class": 2,
               "needs_review": true,
-              "flag_reason": "Possible false positive"
+              "flag_reason": "Possible false positive",
+              "judge_verdict": "studied",
+              "judge_reason": "Pali is the human language of a UKLO puzzle used in the paper's deletion analysis, including analysis of the word hoti.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Pali",
               "class": 2,
               "needs_review": true,
-              "flag_reason": "Possible false positive"
+              "flag_reason": "Possible false positive",
+              "judge_verdict": "studied",
+              "judge_reason": "Pali is the human language of a UKLO puzzle used in the paper's deletion analysis, including analysis of the word hoti.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Waama",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet explicitly identifies Waama as the language of a UKLO Match-Up puzzle and presents that puzzle as an example; it is part of the paper's puzzle artifacts, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Waama",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet explicitly identifies Waama as the language of a UKLO Match-Up puzzle and presents that puzzle as an example; it is part of the paper's puzzle artifacts, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The match occurs in “Chinese Characters Puzzle,” described as a writing-system puzzle, so it refers to Chinese characters/script rather than the Chinese language; false_positive.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Tibetan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The supplied snippets do not show what the Tibetan match refers to, so its referent is insufficiently established.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The match occurs in “Chinese Characters Puzzle,” described as a writing-system puzzle, so it refers to Chinese characters/script rather than the Chinese language; false_positive.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Longgu",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Longgu is explicitly identified as a UKLO linguistic puzzle and its language family, and the puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Longgu",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Longgu is explicitly identified as a UKLO linguistic puzzle and its language family, and the puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Haruai",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Haruai is one of the two languages in the explicitly named Korowai and Haruai UKLO puzzle, which is used in the experiments; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Korowai",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Korowai is one of the two languages in the explicitly named Korowai and Haruai UKLO puzzle, which is used in the experiments; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Haruai",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Haruai is one of the two languages in the explicitly named Korowai and Haruai UKLO puzzle, which is used in the experiments; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Korowai",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Korowai is one of the two languages in the explicitly named Korowai and Haruai UKLO puzzle, which is used in the experiments; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             }
           ]
         },
@@ -68060,15 +68328,27 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets explicitly use English for translations and tokens in the puzzle setup, so English is a human language used in the experimental artifacts; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets explicitly use English for translations and tokens in the puzzle setup, so English is a human language used in the experimental artifacts; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets explicitly use English for translations and tokens in the puzzle setup, so English is a human language used in the experimental artifacts; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             }
           ]
         },
@@ -68078,7 +68358,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets explicitly use English for translations and tokens in the puzzle setup, so English is a human language used in the experimental artifacts; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             }
           ]
         },
@@ -68088,7 +68372,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets explicitly use English for translations and tokens in the puzzle setup, so English is a human language used in the experimental artifacts; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             }
           ]
         },
@@ -68098,235 +68386,463 @@
           "detected_languages": [
             {
               "language": "Ainu",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Ainu is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Amele",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Amele is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Choctaw",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Choctaw is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Coptic",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Coptic is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Karelian",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Karelian is the language of a UKLO puzzle whose model performance is analyzed under deletion strategies; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Kavalan",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Kavalan is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Lardil",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Lardil is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Mayangna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Mayangna is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Ndebele",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Ndebele as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Nhanda",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Nhanda as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Nung",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Nung as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Pular",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Pular as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Saisiyat",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Saisiyat as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Tadaksahak",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Tadaksahak as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Tawala",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Tawala as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Ulwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Ulwa as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Yidiny",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Yidiny as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Zuni",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Zuni as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Cherokee",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets discuss the Cherokee puzzle and report model performance changes after context deletion; it is evaluated in the paper's experiments, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Navajo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Navajo is the named UKLO puzzle/language entry evaluated in the LLM judge verdict table.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Nepali is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Pali",
               "class": 2,
               "needs_review": true,
-              "flag_reason": "Possible false positive"
+              "flag_reason": "Possible false positive",
+              "judge_verdict": "studied",
+              "judge_reason": "Pali is the human language of a UKLO puzzle used in the paper's deletion analysis, including analysis of the word hoti.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Xhosa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Xhosa is the named UKLO puzzle/language entry evaluated in the LLM judge verdict table.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Yoruba",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Yoruba is the named UKLO puzzle/language entry evaluated in the LLM judge verdict table.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Bulgarian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bulgarian is the named UKLO puzzle/language entry evaluated in the LLM judge verdict table.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Estonian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Estonian is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Lithuanian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Lithuanian is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Malay is the named UKLO puzzle/language entry evaluated in the LLM judge verdict table.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Welsh",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Welsh is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Basque",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Basque is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Swedish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Swedish as a UKLO puzzle name in the evaluated judge-verdict tables, so it is a language used in the experiments; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Turkish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Turkish as a UKLO puzzle name in the evaluated judge-verdict tables, so it is a language used in the experiments; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets explicitly use English for translations and tokens in the puzzle setup, so English is a human language used in the experimental artifacts; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Choctaw",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Choctaw is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Coptic",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Coptic is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Karelian",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Karelian is the language of a UKLO puzzle whose model performance is analyzed under deletion strategies; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Kavalan",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Kavalan is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Mayangna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Mayangna is the name of a UKLO puzzle/language in the LLM judge verdict table, and that puzzle is evaluated; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Nhanda",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Nhanda as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Pular",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Pular as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Saisiyat",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Saisiyat as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Yidiny",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Yidiny as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Cherokee",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets discuss the Cherokee puzzle and report model performance changes after context deletion; it is evaluated in the paper's experiments, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Pali",
               "class": 2,
               "needs_review": true,
-              "flag_reason": "Possible false positive"
+              "flag_reason": "Possible false positive",
+              "judge_verdict": "studied",
+              "judge_reason": "Pali is the human language of a UKLO puzzle used in the paper's deletion analysis, including analysis of the word hoti.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Estonian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Estonian is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Welsh",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Welsh is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Basque",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Basque is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Swedish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Swedish as a UKLO puzzle name in the evaluated judge-verdict tables, so it is a language used in the experiments; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Turkish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Turkish as a UKLO puzzle name in the evaluated judge-verdict tables, so it is a language used in the experiments; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets explicitly use English for translations and tokens in the puzzle setup, so English is a human language used in the experimental artifacts; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Nung",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Nung as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Tadaksahak",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Tadaksahak as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Ulwa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Ulwa as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Zuni",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Zuni as the name of a UKLO puzzle in the LLM judge-verdict table; the language represented by that puzzle is evaluated in the paper, so studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Nepali is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Lithuanian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Lithuanian is the named UKLO puzzle/language entry evaluated in the judge-verdict and deletion-effect tables.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             },
             {
               "language": "Swedish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Swedish as a UKLO puzzle name in the evaluated judge-verdict tables, so it is a language used in the experiments; studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:11:15.277159+00:00"
             }
           ]
         }
@@ -80419,7 +80935,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "German",
@@ -80427,91 +80947,143 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "French",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "Hindi",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Hindi is a human language used in the main alignment analysis and corpus audit, so it is studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "Arabic",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Arabic denotes the human language, including Standard Arabic, in alignment, reconstruction, and corpus-audit analyses, so it is studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "Chinese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "Amharic",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Amharic is a low-resource human language paired with English in the CKA evaluation, so it is studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "Swahili",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Swahili is a human language evaluated with English and audited in its training corpus, so it is studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "Tagalog",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Tagalog is a low-resource human language paired with English in the CKA evaluation, so it is studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "Uzbek",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Uzbek refers to Northern Uzbek, a human language paired with English in the CKA evaluation, so it is studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "Tucano",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Tucano appears as the name of the Tucano-1B PT model, not as the Tucano human language, so this is a false positive.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "Japanese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets list Japanese as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "Spanish",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets list Spanish as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         },
         {
           "language": "Russian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Russian is a human language paired with English in the reconstruction analysis, so it is studied.",
+          "judge_model": "nex-agi/nex-n2.5-pro:free",
+          "judged_at": "2026-09-11T05:01:20.064619+00:00"
         }
       ],
       "sources_checked": [
@@ -80561,11 +81133,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80575,19 +81155,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80597,83 +81193,163 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Hindi is a human language used in the main alignment analysis and corpus audit, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Arabic denotes the human language, including Standard Arabic, in alignment, reconstruction, and corpus-audit analyses, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is a low-resource human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is a human language evaluated with English and audited in its training corpus, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Tagalog",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Tagalog is a low-resource human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Uzbek",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Uzbek refers to Northern Uzbek, a human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Tucano",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Tucano appears as the name of the Tucano-1B PT model, not as the Tucano human language, so this is a false positive.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80683,7 +81359,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80693,7 +81373,11 @@
           "detected_languages": [
             {
               "language": "Tucano",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Tucano appears as the name of the Tucano-1B PT model, not as the Tucano human language, so this is a false positive.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80703,67 +81387,131 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Hindi is a human language used in the main alignment analysis and corpus audit, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Arabic denotes the human language, including Standard Arabic, in alignment, reconstruction, and corpus-audit analyses, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is a low-resource human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is a human language evaluated with English and audited in its training corpus, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Tagalog",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Tagalog is a low-resource human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Uzbek",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Uzbek refers to Northern Uzbek, a human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80773,27 +81521,51 @@
           "detected_languages": [
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Hindi is a human language used in the main alignment analysis and corpus audit, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Arabic denotes the human language, including Standard Arabic, in alignment, reconstruction, and corpus-audit analyses, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80803,27 +81575,51 @@
           "detected_languages": [
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is a low-resource human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is a human language evaluated with English and audited in its training corpus, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Tagalog",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Tagalog is a low-resource human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Uzbek",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Uzbek refers to Northern Uzbek, a human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80833,15 +81629,27 @@
           "detected_languages": [
             {
               "language": "Tucano",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Tucano appears as the name of the Tucano-1B PT model, not as the Tucano human language, so this is a false positive.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80851,19 +81659,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80873,19 +81697,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80895,43 +81735,83 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Japanese as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Spanish as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80941,27 +81821,51 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Japanese as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Spanish as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -80971,27 +81875,51 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Japanese as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Spanish as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81001,19 +81929,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81023,11 +81967,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81037,15 +81989,27 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81055,7 +82019,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81065,11 +82033,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81079,23 +82055,43 @@
           "detected_languages": [
             {
               "language": "Amharic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Amharic is a low-resource human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is a human language evaluated with English and audited in its training corpus, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Tagalog",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Tagalog is a low-resource human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Uzbek",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Uzbek refers to Northern Uzbek, a human language paired with English in the CKA evaluation, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81105,7 +82101,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81115,23 +82115,43 @@
           "detected_languages": [
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Russian is a human language paired with English in the reconstruction analysis, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Arabic denotes the human language, including Standard Arabic, in alignment, reconstruction, and corpus-audit analyses, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81141,7 +82161,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81151,23 +82175,43 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Tucano",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Tucano appears as the name of the Tucano-1B PT model, not as the Tucano human language, so this is a false positive.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81177,19 +82221,35 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81199,7 +82259,11 @@
           "detected_languages": [
             {
               "language": "Tucano",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Tucano appears as the name of the Tucano-1B PT model, not as the Tucano human language, so this is a false positive.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81209,39 +82273,75 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Arabic denotes the human language, including Standard Arabic, in alignment, reconstruction, and corpus-audit analyses, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is a human language evaluated with English and audited in its training corpus, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Hindi is a human language used in the main alignment analysis and corpus audit, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Arabic denotes the human language, including Standard Arabic, in alignment, reconstruction, and corpus-audit analyses, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81251,31 +82351,59 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Russian is a human language paired with English in the reconstruction analysis, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Arabic denotes the human language, including Standard Arabic, in alignment, reconstruction, and corpus-audit analyses, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81285,11 +82413,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81299,23 +82435,43 @@
           "detected_languages": [
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Russian is a human language paired with English in the reconstruction analysis, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Arabic denotes the human language, including Standard Arabic, in alignment, reconstruction, and corpus-audit analyses, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81325,43 +82481,83 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Japanese as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Spanish as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81371,27 +82567,51 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese denotes the human language of Goldfish Chinese and Zh-Pythia models and of multiple alignment and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Japanese as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets list Spanish as one of six languages used for hand-curated country-to-capital factual prompts and answers, so it is evaluated as part of the paper's experiments.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81401,19 +82621,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German is a human language used in alignment, causal patching, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         },
@@ -81423,11 +82659,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the central source human language used throughout the alignment, reconstruction, and patching experiments, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French is a human language used in alignment, reconstruction, contamination-audit, and factual-probe evaluations, so it is studied.",
+              "judge_model": "nex-agi/nex-n2.5-pro:free",
+              "judged_at": "2026-09-11T05:01:20.064619+00:00"
             }
           ]
         }
