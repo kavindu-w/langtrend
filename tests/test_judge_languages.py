@@ -234,7 +234,8 @@ class TestStopEarlyExitCodes:
         assert jl.EXIT_QUOTA != jl.EXIT_INCOMPLETE
         assert jl.EXIT_QUOTA not in (jl.EXIT_OK, jl.EXIT_ERROR)
 
-    def _week(self, root, slug, papers=1, languages=("Swahili",), language_sets=None):
+    def _week(self, root, slug, papers=1, languages=("Swahili",), language_sets=None,
+              extra_records=None):
         """One week of detections.
 
         `languages` gives every paper the same language list; `language_sets`
@@ -244,6 +245,7 @@ class TestStopEarlyExitCodes:
         week_dir = root / "weeks" / slug
         week_dir.mkdir(parents=True)
         per_paper = list(language_sets) if language_sets is not None else [languages] * papers
+        extra = list(extra_records or [])
         records = [
             {
                 "paper_id": f"http://arxiv.org/abs/{slug}.{n}",
@@ -255,16 +257,16 @@ class TestStopEarlyExitCodes:
             for n, langs in enumerate(per_paper)
         ]
         (week_dir / f"arxiv_papers_{slug}_detected.jsonl").write_text(
-            "".join(json.dumps(r) + "\n" for r in records), encoding="utf-8")
+            "".join(json.dumps(r) + "\n" for r in records + extra), encoding="utf-8")
         return week_dir
 
     def _run_with_judge(self, tmp_path, monkeypatch, judge_side_effect, papers=1,
-                        languages=("Swahili",), language_sets=None):
+                        languages=("Swahili",), language_sets=None, extra_records=None):
         """Drive main()'s judging path with everything network-bound stubbed out."""
         monkeypatch.setattr(jl, "_PROCESSED_DIR", tmp_path)
         monkeypatch.setattr(jl, "_METADATA_DIR", tmp_path / "raw")
         self._week(tmp_path, "20260427_to_20260504", papers=papers,
-                   languages=languages, language_sets=language_sets)
+                   languages=languages, language_sets=language_sets, extra_records=extra_records)
         monkeypatch.setenv("LLM_JUDGE_API_KEY", "test-key")
         monkeypatch.setattr(jl, "_load_language_data", lambda path: ({1: {"Swahili"}}, set()))
         monkeypatch.setattr(jl, "OpenAICompatClient", lambda config: type(
@@ -447,3 +449,95 @@ class TestCancellationWiring(TestStopEarlyExitCodes):
         assert len(handed) == 3
         assert len({id(event) for event in handed}) == 3, "events must not be shared between papers"
 
+
+# ---------------------------------------------------------------------------
+# Malformed detections: abort loudly, with enough detail to find the record
+# ---------------------------------------------------------------------------
+
+_BAD_RECORD = {
+    "paper_id": "http://arxiv.org/abs/2606.0BAD",
+    "paper": {"id": "http://arxiv.org/abs/2606.0BAD", "title": "t", "abstract": "a"},
+    "sections": {"abstract": {"source": "abstract", "detected_languages": [
+        {"language": "Swahili", "class": "n/a"},
+    ]}},
+}
+
+
+class TestMalformedAbort(TestStopEarlyExitCodes):
+    def _run(self, tmp_path, monkeypatch, judged):
+        def record_judged(record, *args, **kwargs):
+            judged.append(record["paper_id"])
+            return {"judge_model": "m", "judged_at": "t", "verdicts": {}}
+
+        return self._run_with_judge(tmp_path, monkeypatch, record_judged,
+                                    papers=2, extra_records=[_BAD_RECORD])
+
+    def test_aborts_instead_of_judging_anything(self, tmp_path, monkeypatch):
+        judged = []
+        assert self._run(tmp_path, monkeypatch, judged) == jl.EXIT_ERROR
+        # Fails before the executor starts, so no paper is half-judged and no
+        # judge_cache file is written from a run we already know is suspect.
+        assert judged == []
+
+    def test_abort_message_locates_the_record(self, tmp_path, monkeypatch, capsys):
+        self._run(tmp_path, monkeypatch, [])
+        err = capsys.readouterr().err
+
+        # The whole point of the abort over a bare traceback: file, line,
+        # paper, and the offending value.
+        assert "_detected.jsonl" in err
+        assert "line 3" in err  # two generated papers, then the bad one
+        assert _BAD_RECORD["paper_id"] in err
+        assert "Swahili" in err and "n/a" in err
+
+    def test_abort_message_says_retrying_will_not_help(self, tmp_path, monkeypatch, capsys):
+        """EXIT_ERROR is classified non-retryable by judge-catchup.yml's loop;
+        the message has to tell a human what to actually do."""
+        self._run(tmp_path, monkeypatch, [])
+        err = capsys.readouterr().err
+        assert "re-running won't fix it" in err
+        assert "retry-missing" in err or "reprocess" in err
+
+    def test_clean_weeks_are_unaffected(self, tmp_path, monkeypatch, capsys):
+        judged = []
+        code = self._run_with_judge(
+            tmp_path, monkeypatch,
+            lambda record, *a, **k: judged.append(record["paper_id"]) or {
+                "judge_model": "m", "judged_at": "t", "verdicts": {}},
+            papers=2)
+        assert code == jl.EXIT_OK
+        assert len(judged) == 2
+        assert "can't be read" not in capsys.readouterr().err
+
+
+class TestAbortOnMalformedHelper:
+    def _bad(self, n):
+        return {"paper_id": f"p{n}", "sections": {"a": "not-an-object"}}
+
+    def test_returns_quietly_for_clean_records(self, tmp_path, capsys):
+        path = tmp_path / "x_detected.jsonl"
+        path.write_text("", encoding="utf-8")
+        jl._abort_on_malformed("week", path, [{"paper_id": "ok", "sections": {}}])
+        assert capsys.readouterr().err == ""
+
+    def test_caps_the_listing_but_counts_every_record(self, tmp_path, capsys):
+        over = jl._MALFORMED_REPORT_LIMIT + 5
+        path = tmp_path / "x_detected.jsonl"
+        path.write_text("", encoding="utf-8")  # no line numbers available
+        with pytest.raises(SystemExit) as exc_info:
+            jl._abort_on_malformed("week", path, [self._bad(n) for n in range(over)])
+
+        assert exc_info.value.code == jl.EXIT_ERROR
+        err = capsys.readouterr().err
+        assert f"has {over} record(s)" in err
+        assert err.count("not-an-object") == 0  # the value itself isn't echoed
+        assert err.count("[p") == jl._MALFORMED_REPORT_LIMIT
+        assert "...and 5 more record(s) in week" in err
+
+    def test_falls_back_gracefully_when_line_numbers_are_unavailable(self, tmp_path, capsys):
+        """The re-read is best-effort — a missing/unreadable file must not turn
+        a clear data error into an IOError from the error handler itself."""
+        missing = tmp_path / "gone_detected.jsonl"
+        with pytest.raises(SystemExit):
+            jl._abort_on_malformed("week", missing, [self._bad(1)])
+        assert "line ?" in capsys.readouterr().err

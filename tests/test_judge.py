@@ -25,6 +25,7 @@ from langtrend.judge import (
     ensure_context_cache,
     judge_paper,
     load_judge_cache,
+    malformed_detections,
     needs_judging,
     safe_paper_id,
     save_judge_record,
@@ -1007,3 +1008,57 @@ class TestBatchesNeeded:
         judge_paper(record, week_dir, client, LLMClientConfig())
         assert len(client.calls) == expected == 3
 
+
+# ---------------------------------------------------------------------------
+# Malformed records
+#
+# collect_target_languages deliberately does NOT guard these shapes: it raises,
+# and judge_languages.py turns that into an abort with a useful message. The
+# alternative (skip the bad detection and carry on) was rejected because the
+# realistic cause is a schema change in process_papers.py, which affects every
+# record — silently dropping them all would republish the site with collapsed
+# counts instead of failing. malformed_detections() is the diagnostic that
+# makes the abort readable.
+# ---------------------------------------------------------------------------
+
+_MALFORMED_SHAPES = {
+    "class is not a number": {"sections": {"a": {"detected_languages": [
+        {"language": "Swahili", "class": "n/a"}]}}},
+    "section is a string": {"sections": {"a": "oops"}},
+    "sections is a list": {"sections": [{"detected_languages": []}]},
+    "detected_languages is an object": {"sections": {"a": {"detected_languages": {"Swahili": 0}}}},
+    "detection entry is a string": {"sections": {"a": {"detected_languages": ["Swahili"]}}},
+}
+
+
+class TestMalformedRecords:
+    @pytest.mark.parametrize("shape", list(_MALFORMED_SHAPES), ids=list(_MALFORMED_SHAPES))
+    def test_collect_target_languages_raises_rather_than_skipping(self, shape):
+        with pytest.raises((TypeError, ValueError, AttributeError)):
+            collect_target_languages(_MALFORMED_SHAPES[shape])
+
+    @pytest.mark.parametrize("shape", list(_MALFORMED_SHAPES), ids=list(_MALFORMED_SHAPES))
+    def test_every_malformed_shape_has_a_diagnostic(self, shape):
+        """Whatever collect_target_languages chokes on, the abort must be able
+        to describe — otherwise the run dies with a bare traceback again."""
+        problems = malformed_detections(_MALFORMED_SHAPES[shape])
+        assert problems, f"{shape} raises but produces no diagnostic"
+        assert all(isinstance(problem, str) and problem for problem in problems)
+
+    def test_diagnostic_names_the_section_language_and_value(self):
+        record = {"sections": {"abstract": {"detected_languages": [
+            {"language": "Swahili", "class": "n/a"}]}}}
+        (problem,) = malformed_detections(record)
+        assert "abstract" in problem and "Swahili" in problem and "n/a" in problem
+
+    def test_well_formed_records_have_no_diagnostic(self):
+        record = {"sections": {"abstract": {"source": "abstract", "detected_languages": [
+            {"language": "Swahili", "class": 0}, {"language": "Yoruba", "class": 3}]}}}
+        assert malformed_detections(record) == []
+        assert len(collect_target_languages(record)) == 2
+
+    def test_absent_or_empty_sections_are_not_malformed(self):
+        # A paper with no detections at all is normal, not a data problem.
+        for record in ({}, {"sections": {}}, {"sections": {"a": {}}}):
+            assert malformed_detections(record) == []
+            assert collect_target_languages(record) == []

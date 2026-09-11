@@ -57,6 +57,7 @@ from langtrend.judge import (
     ensure_context_cache,
     judge_cache_path,
     judge_paper,
+    malformed_detections,
     needs_judging,
     safe_paper_id,
     save_judge_record,
@@ -277,6 +278,61 @@ def _partition_pending(
     return pending, cached_count, no_target_count
 
 
+_MALFORMED_REPORT_LIMIT = 10
+
+
+def _abort_on_malformed(stem: str, detected_path: Path, records: list[dict]) -> None:
+    """Stop the run if any record's detections can't be read, saying exactly where.
+
+    Deliberately fatal rather than skip-and-continue. The realistic way a bad
+    shape reaches detected.jsonl is a schema change in process_papers.py, which
+    affects every record rather than one — and silently dropping every detection
+    would rebuild the manifest with collapsed counts, pass the deploy gate, and
+    publish wrong numbers. A stopped run is the cheaper failure.
+
+    What this adds over just letting collect_target_languages raise is the
+    message: the bare "ValueError: invalid literal for int() with base 10" it
+    throws from inside _partition_pending names no file, no line, and no paper,
+    leaving thousands of records to bisect by hand.
+
+    Exits EXIT_ERROR, which judge-catchup.yml's retry loop already classifies as
+    non-retryable — correct, since re-running cannot change what is on disk.
+    """
+    offenders = [(record, malformed_detections(record)) for record in records]
+    offenders = [(record, problems) for record, problems in offenders if problems]
+    if not offenders:
+        return
+
+    # Only now pay for a re-read, to point at exact line numbers. Nothing on the
+    # happy path touches the file twice.
+    line_of: dict[str, int] = {}
+    try:
+        for number, line in enumerate(detected_path.read_text(encoding="utf-8").splitlines(), 1):
+            if not line.strip():
+                continue
+            try:
+                line_of.setdefault(json.loads(line).get("paper_id"), number)
+            except json.JSONDecodeError:
+                continue
+    except OSError:
+        pass
+
+    print(f"Error: {detected_path} has {len(offenders)} record(s) whose detections "
+          f"can't be read:", file=sys.stderr)
+    for record, problems in offenders[:_MALFORMED_REPORT_LIMIT]:
+        paper_id = record.get("paper_id", "unknown")
+        where = f"line {line_of[paper_id]}" if paper_id in line_of else "line ?"
+        for problem in problems:
+            print(f"  {where} [{paper_id}] {problem}", file=sys.stderr)
+    if len(offenders) > _MALFORMED_REPORT_LIMIT:
+        print(f"  ...and {len(offenders) - _MALFORMED_REPORT_LIMIT} more record(s) "
+              f"in {stem}", file=sys.stderr)
+    print("\nThis is a data problem, not a transient one — re-running won't fix it.\n"
+          "Regenerate the affected paper's detections (make retry-missing, or make\n"
+          "reprocess) and commit the result.", file=sys.stderr)
+    sys.exit(EXIT_ERROR)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Judge regex language detections with an LLM (studied / mentioned_only / false_positive)",
@@ -415,6 +471,9 @@ def main() -> None:
         if not detected_path.exists():
             continue
         records = _load_detected(detected_path)
+        # Before partitioning, which is where an unreadable record would
+        # otherwise surface as a bare traceback from collect_target_languages.
+        _abort_on_malformed(stem, detected_path, records)
         pending, cached_count, no_target_count = _partition_pending(records, week_dir, classes, args.force)
         total_cached += cached_count
         total_no_target += no_target_count
