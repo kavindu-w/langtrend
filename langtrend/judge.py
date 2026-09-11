@@ -17,6 +17,7 @@ and merged into the manifest by scripts/build_manifest.py.
 from __future__ import annotations
 
 import json
+import math
 import re
 import threading
 from dataclasses import dataclass, field
@@ -64,6 +65,59 @@ def safe_paper_id(paper_id: str) -> str:
 # Target collection
 # ---------------------------------------------------------------------------
 
+def malformed_detections(record: dict) -> list[str]:
+    """Reasons collect_target_languages would fail to read this record.
+
+    Empty for a well-formed record. collect_target_languages deliberately does
+    *not* guard these shapes — it raises, and judge_languages.py aborts the run
+    (see _abort_on_malformed). This exists so that abort can say which paper,
+    which section and which value, instead of surfacing the bare TypeError or
+    AttributeError from four frames down.
+
+    Skipping bad shapes instead was considered and rejected: the realistic way
+    one reaches detected.jsonl is a schema change in process_papers.py, which
+    affects every record — and silently dropping every detection would rebuild
+    the manifest with collapsed counts and publish them. A stopped run is the
+    cheaper failure. (Truncated writes produce invalid JSON, which
+    _load_detected already skips line by line; this is for JSON that parses but
+    isn't shaped like a record.)
+    """
+    problems: list[str] = []
+    sections = record.get("sections")
+    if sections is None:
+        return problems
+    if not isinstance(sections, dict):
+        return [f"'sections' is {type(sections).__name__}, expected object"]
+    for section_name, section in sections.items():
+        if not isinstance(section, dict):
+            problems.append(f"section '{section_name}' is {type(section).__name__}, expected object")
+            continue
+        detections = section.get("detected_languages")
+        if detections is None:
+            continue
+        if not isinstance(detections, list):
+            problems.append(
+                f"section '{section_name}': 'detected_languages' is "
+                f"{type(detections).__name__}, expected array")
+            continue
+        for position, det in enumerate(detections):
+            if not isinstance(det, dict):
+                problems.append(
+                    f"section '{section_name}' entry {position} is "
+                    f"{type(det).__name__}, expected object")
+                continue
+            class_id = det.get("class")
+            if class_id is None:
+                continue
+            try:
+                int(class_id)
+            except (TypeError, ValueError):
+                problems.append(
+                    f"section '{section_name}' entry {position} "
+                    f"({det.get('language', '?')}): 'class' is {class_id!r}, expected a number")
+    return problems
+
+
 def collect_target_languages(record: dict, classes: set[int] | None = None) -> list[dict]:
     """Dedupe a detected.jsonl record's languages into judge targets.
 
@@ -85,6 +139,22 @@ def collect_target_languages(record: dict, classes: set[int] | None = None) -> l
             if section_name not in target["sections"]:
                 target["sections"].append(section_name)
     return sorted(by_key.values(), key=lambda t: (t["class"], t["language"]))
+
+
+def batches_needed(record: dict, classes: set[int] | None = None) -> int:
+    """How many sequential chat() calls judge_paper will make for this record.
+
+    judge_paper sends _MAX_LANGUAGES_PER_CALL languages per call, one batch at
+    a time, so this is the number of round-trips a paper costs. Exported so
+    callers can budget time per paper (see judge_languages.py's watchdog)
+    without importing the batch size or re-deriving the batching rule — if the
+    batching here ever changes, this changes with it.
+
+    Always at least 1. A record with no targets makes no calls at all
+    (judge_paper returns None immediately), so treat this as a ceiling.
+    """
+    targets = collect_target_languages(record, classes=classes)
+    return max(1, math.ceil(len(targets) / _MAX_LANGUAGES_PER_CALL))
 
 
 # ---------------------------------------------------------------------------

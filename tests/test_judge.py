@@ -19,15 +19,18 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from langtrend.judge import (
     apply_judge_to_flagged,
     assemble_context,
+    batches_needed,
     build_messages,
     collect_target_languages,
     ensure_context_cache,
     judge_paper,
     load_judge_cache,
+    malformed_detections,
     needs_judging,
     safe_paper_id,
     save_judge_record,
     validate_verdicts,
+    _MAX_LANGUAGES_PER_CALL,
     _relocate_to_raw_text,
 )
 from langtrend.llm_client import (
@@ -949,3 +952,113 @@ class TestEnsureContextCache:
         cached = json.loads(cache_path.read_text(encoding="utf-8"))
         assert "Hausa" in cached["screened_text"]
         assert cached["detected_languages"] == []  # not recomputed by the JIT fetch
+
+
+# ---------------------------------------------------------------------------
+# batches_needed
+#
+# Exported for judge_languages.py's watchdog, which budgets wall-clock per
+# paper from it. It must stay in step with judge_paper's own batching loop —
+# these assert both against _MAX_LANGUAGES_PER_CALL rather than a hardcoded 12.
+# ---------------------------------------------------------------------------
+
+class TestBatchesNeeded:
+    @staticmethod
+    def _record(n):
+        return {"sections": {"abstract": {"source": "abstract", "detected_languages": [
+            {"language": f"Lang{i}", "class": 0} for i in range(n)
+        ]}}}
+
+    def test_one_batch_up_to_the_call_limit(self):
+        assert batches_needed(self._record(1)) == 1
+        assert batches_needed(self._record(_MAX_LANGUAGES_PER_CALL)) == 1
+
+    def test_rolls_to_a_second_batch_one_past_the_limit(self):
+        assert batches_needed(self._record(_MAX_LANGUAGES_PER_CALL + 1)) == 2
+
+    def test_scales_with_language_count(self):
+        assert batches_needed(self._record(_MAX_LANGUAGES_PER_CALL * 4)) == 4
+        assert batches_needed(self._record(_MAX_LANGUAGES_PER_CALL * 4 + 1)) == 5
+
+    def test_never_returns_zero_for_a_paper_with_no_targets(self):
+        # judge_paper returns early on these, so 1 is a ceiling, not a promise.
+        assert batches_needed({"sections": {}}) == 1
+        assert batches_needed({}) == 1
+
+    def test_respects_the_class_filter_like_judge_paper_does(self):
+        record = {"sections": {"abstract": {"source": "abstract", "detected_languages": [
+            {"language": f"Lang{i}", "class": 0 if i < 5 else 3} for i in range(20)
+        ]}}}
+        assert batches_needed(record) == 2               # all 20 -> 2 batches
+        assert batches_needed(record, classes={0}) == 1  # only the 5 class-0 ones
+
+    def test_matches_the_number_of_chat_calls_judge_paper_actually_makes(self, week_dir):
+        """The contract this exists for: the count must equal the real thing."""
+        n = _MAX_LANGUAGES_PER_CALL * 2 + 1
+        record = {
+            "paper_id": "http://arxiv.org/abs/2606.00009v1",
+            "paper": {"title": "t", "abstract": "a"},
+            "sections": {"abstract": {"source": "abstract", "detected_languages": [
+                {"language": f"Lang{i}", "class": 0} for i in range(n)
+            ]}},
+        }
+        expected = batches_needed(record)
+        # One reply per batch, each covering every language so no retry fires.
+        client = FakeClient([_reply_for({f"Lang{i}": "mentioned_only" for i in range(n)})] * expected)
+        judge_paper(record, week_dir, client, LLMClientConfig())
+        assert len(client.calls) == expected == 3
+
+
+# ---------------------------------------------------------------------------
+# Malformed records
+#
+# collect_target_languages deliberately does NOT guard these shapes: it raises,
+# and judge_languages.py turns that into an abort with a useful message. The
+# alternative (skip the bad detection and carry on) was rejected because the
+# realistic cause is a schema change in process_papers.py, which affects every
+# record — silently dropping them all would republish the site with collapsed
+# counts instead of failing. malformed_detections() is the diagnostic that
+# makes the abort readable.
+# ---------------------------------------------------------------------------
+
+_MALFORMED_SHAPES = {
+    "class is not a number": {"sections": {"a": {"detected_languages": [
+        {"language": "Swahili", "class": "n/a"}]}}},
+    "section is a string": {"sections": {"a": "oops"}},
+    "sections is a list": {"sections": [{"detected_languages": []}]},
+    "detected_languages is an object": {"sections": {"a": {"detected_languages": {"Swahili": 0}}}},
+    "detection entry is a string": {"sections": {"a": {"detected_languages": ["Swahili"]}}},
+}
+
+
+class TestMalformedRecords:
+    @pytest.mark.parametrize("shape", list(_MALFORMED_SHAPES), ids=list(_MALFORMED_SHAPES))
+    def test_collect_target_languages_raises_rather_than_skipping(self, shape):
+        with pytest.raises((TypeError, ValueError, AttributeError)):
+            collect_target_languages(_MALFORMED_SHAPES[shape])
+
+    @pytest.mark.parametrize("shape", list(_MALFORMED_SHAPES), ids=list(_MALFORMED_SHAPES))
+    def test_every_malformed_shape_has_a_diagnostic(self, shape):
+        """Whatever collect_target_languages chokes on, the abort must be able
+        to describe — otherwise the run dies with a bare traceback again."""
+        problems = malformed_detections(_MALFORMED_SHAPES[shape])
+        assert problems, f"{shape} raises but produces no diagnostic"
+        assert all(isinstance(problem, str) and problem for problem in problems)
+
+    def test_diagnostic_names_the_section_language_and_value(self):
+        record = {"sections": {"abstract": {"detected_languages": [
+            {"language": "Swahili", "class": "n/a"}]}}}
+        (problem,) = malformed_detections(record)
+        assert "abstract" in problem and "Swahili" in problem and "n/a" in problem
+
+    def test_well_formed_records_have_no_diagnostic(self):
+        record = {"sections": {"abstract": {"source": "abstract", "detected_languages": [
+            {"language": "Swahili", "class": 0}, {"language": "Yoruba", "class": 3}]}}}
+        assert malformed_detections(record) == []
+        assert len(collect_target_languages(record)) == 2
+
+    def test_absent_or_empty_sections_are_not_malformed(self):
+        # A paper with no detections at all is normal, not a data problem.
+        for record in ({}, {"sections": {}}, {"sections": {"a": {}}}):
+            assert malformed_detections(record) == []
+            assert collect_target_languages(record) == []
