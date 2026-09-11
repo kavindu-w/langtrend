@@ -1,268 +1,268 @@
 {
   "paper_id": "http://arxiv.org/abs/2608.28405v1",
   "judge_model": "nex-agi/nex-n2.5-pro:free",
-  "judged_at": "2026-09-11T02:47:54.442021+00:00",
+  "judged_at": "2026-09-11T04:46:38.337140+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 11836,
   "verdicts": {
     "Ainu": {
-      "verdict": "studied",
-      "reason": "Ainu is listed in the persona table as a native-language identity for the benchmark, so it is a human language used in the dataset; studied.",
+      "verdict": "false_positive",
+      "reason": "Ainu appears as an Indigenous Japanese persona/identity label in the table, not as the Ainu language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Batak": {
-      "verdict": "studied",
-      "reason": "Batak is listed as a native-language/persona identity and appears in a Batak church-wedding dialogue example, so it is a language used in the benchmark; studied.",
+      "verdict": "false_positive",
+      "reason": "Batak refers to a Christian ethnic/religious persona identity and a Batak church context, not the Batak language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Belait": {
       "verdict": "false_positive",
-      "reason": "Belait is a place in Brunei in the dialogue metadata, not a language; false_positive.",
+      "reason": "Belait refers to a place from which the sisters are traveling, not the Belait language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Bisa": {
       "verdict": "false_positive",
-      "reason": "Bisa is used in the Indonesian dialogue as the common word meaning “can/able,” not a language; false_positive.",
+      "reason": "Bisa is an Indonesian word meaning “can” in the dialogue, not the Bisa language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Gula": {
       "verdict": "false_positive",
-      "reason": "Gula is used in the Indonesian phrase “rendah gula,” meaning low sugar, not a language; false_positive.",
+      "reason": "Gula is part of the Indonesian/Malay phrase “rendah gula” meaning low sugar, not the Gula language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Ibu": {
       "verdict": "false_positive",
-      "reason": "Ibu is used as an Indonesian kinship or honorific term for an elder or mother, not a language; false_positive.",
+      "reason": "Ibu is an Indonesian honorific for an elder or woman, not the Ibu language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Iyo": {
       "verdict": "mentioned_only",
-      "reason": "No referent for Iyo is shown in the provided snippets; insufficient to establish a human-language mention, so mentioned_only.",
+      "reason": "The snippets do not establish what Iyo refers to; they are insufficient to identify it as the Iyo language, so it is treated as mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kadar": {
       "verdict": "false_positive",
-      "reason": "Kadar is used in the Indonesian phrase “kadar gula,” meaning sugar level, not a language; false_positive.",
+      "reason": "Kadar is part of the Indonesian/Malay phrase “kadar gula” meaning sugar level, not the Kadar language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Brunei": {
       "verdict": "false_positive",
-      "reason": "Brunei is a country/region and persona metadata label, not the language name; false_positive.",
+      "reason": "Brunei refers to the country/region and modifies identities such as Brunei Malay, not a human language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Dari": {
       "verdict": "mentioned_only",
-      "reason": "No referent for Dari is shown in the provided snippets; insufficient to establish a human-language mention, so mentioned_only.",
+      "reason": "The snippets do not show a referent for Dari; they are insufficient to establish that it denotes the Dari language, so it is treated as mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Goreng": {
       "verdict": "false_positive",
-      "reason": "Goreng is used in “ikan goreng,” meaning fried fish, not a language; false_positive.",
+      "reason": "Goreng is an Indonesian/Malay word meaning fried in “ikan goreng,” not the Goreng language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Isnag": {
       "verdict": "mentioned_only",
-      "reason": "No referent for Isnag is shown in the provided snippets; insufficient to establish a human-language mention, so mentioned_only.",
+      "reason": "The snippets do not show a referent for Isnag; they are insufficient to establish that it denotes the Isnag language, so it is treated as mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kami": {
       "verdict": "false_positive",
-      "reason": "In the Indonesian dialogue, kami is the pronoun meaning we/our, not a language name; false_positive",
+      "reason": "In the Indonesian dialogue, \"kami\" is the first-person plural pronoun, not a language name; this is a common-word false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Kamu": {
       "verdict": "false_positive",
-      "reason": "In the Indonesian dialogue, kamu is the pronoun meaning you, not a language name; false_positive",
+      "reason": "In the Indonesian dialogue, \"kamu\" is the second-person pronoun, not a language name; this is a common-word false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Mang": {
       "verdict": "false_positive",
-      "reason": "Mang is only an incidental lexical/name token in the Indonesian dialogue, not a language label; false_positive",
+      "reason": "Here, \"Mang\" is a short address/name token in the dialogue rather than a language label; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Mo": {
       "verdict": "false_positive",
-      "reason": "Mo is an incidental substring in ordinary Indonesian wording such as omong-omong, not a language name; false_positive",
+      "reason": "Here, \"Mo\" is only a short token/substring in the multilingual text and is not identified as the Mo language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Muda": {
       "verdict": "false_positive",
-      "reason": "In the Indonesian dialogue, muda is the adjective meaning young, not a language name; false_positive",
+      "reason": "In the Indonesian text, \"muda\" means young and describes a person, not a language; this is a common-word false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Nila": {
       "verdict": "false_positive",
-      "reason": "Nila is only an incidental lexical/name token in the Indonesian dialogue, not a language label; false_positive",
+      "reason": "Here, \"nila\" is a common Indonesian lexical item/name rather than a language label; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Lola": {
       "verdict": "false_positive",
-      "reason": "Lola is an example or personal name in the system-prompt material, not a language label; false_positive",
+      "reason": "Here, \"Lola\" is a family-role or personal-name token in the prompts, not a language name; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Nama": {
       "verdict": "false_positive",
-      "reason": "In the sample message, nama is the Indonesian word/name placeholder, not the Nama language; false_positive",
+      "reason": "Here, \"nama\" is the Indonesian/Malay word for name, including the placeholder \"[Nama]\", not a language name; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Okinawan": {
       "verdict": "false_positive",
-      "reason": "Okinawan is an identity label in the persona table under Japanese, not a language being used or evaluated; false_positive",
+      "reason": "Here, \"Okinawan\" is part of the identity label \"Ryukyuan Okinawan\" while the table routes the persona to Japanese, so it does not refer to the Okinawan language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Pattani": {
       "verdict": "false_positive",
-      "reason": "Pattani is a regional/place reference in the prompt, not a language label; false_positive",
+      "reason": "Here, \"Pattani\" is a regional identity in \"Pattani Malay Muslim,\" not the language being modeled; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Sake": {
       "verdict": "false_positive",
-      "reason": "Sake is a Japanese drink/cultural item in the prompt, not a language name; false_positive",
+      "reason": "Here, \"sake\" refers to an alcoholic beverage in the cultural material, not to a language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Sambal": {
       "verdict": "false_positive",
-      "reason": "Sambal is a chili condiment in the menu/dialogue, not a language name; false_positive",
+      "reason": "Here, \"sambal\" refers to a chili condiment in the food dialogue, not to a language; this is a false positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Saya": {
       "verdict": "mentioned_only",
-      "reason": "The supplied snippets are insufficient to establish what \"Saya\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "reason": "The supplied snippets do not include the G.2 match or otherwise show what “Saya” refers to, so its referent is insufficiently clear; this is mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Toba": {
       "verdict": "mentioned_only",
-      "reason": "The supplied snippets are insufficient to establish what \"Toba\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "reason": "The supplied snippets do not include the G.2 match or otherwise show what “Toba” refers to, so its referent is insufficiently clear; this is mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Sila": {
       "verdict": "mentioned_only",
-      "reason": "The supplied snippets are insufficient to establish what \"Sila\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "reason": "The Appendix N snippet does not show a clear referent for “Sila,” so its referent is insufficiently clear; this is mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tay": {
       "verdict": "mentioned_only",
-      "reason": "The supplied snippets are insufficient to establish what \"Tay\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "reason": "The Appendix N snippet does not show a clear referent for “Tay,” so its referent is insufficiently clear; this is mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tira": {
       "verdict": "mentioned_only",
-      "reason": "The supplied snippets are insufficient to establish what \"Tira\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "reason": "The Appendix N snippet does not show a clear referent for “Tira,” so its referent is insufficiently clear; this is mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Wa": {
       "verdict": "false_positive",
-      "reason": "In the dialogue, \"WA\" is an abbreviation for WhatsApp, not the Wa language; this is a false positive.",
+      "reason": "In the Appendix N dialogue, “WA” denotes a WhatsApp/group-chat format, not the Wa language; this is false_positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Akan": {
       "verdict": "false_positive",
-      "reason": "Here \"akan\" is an Indonesian auxiliary meaning \"will\" in phrases such as \"akan merayakan,\" not the Akan language; this is a false positive.",
+      "reason": "In the Appendix N dialogue, “akan” is an Indonesian grammatical word in phrases such as “akan merayakan,” not the Akan language; this is false_positive.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tho": {
       "verdict": "mentioned_only",
-      "reason": "The supplied snippets are insufficient to establish what \"Tho\" refers to or that it denotes a human language; it is therefore treated as mentioned only.",
+      "reason": "The supplied snippets do not include the G.4 match or otherwise show what “Tho” refers to, so its referent is insufficiently clear; this is mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Ilocano": {
       "verdict": "studied",
-      "reason": "Ilocano is listed as a native language and persona identity in the benchmark, which uses native-language dialogue generation and evaluation; it is studied.",
+      "reason": "“Ilocano” is explicitly listed as a native language for a Filipino identity and in the native-language routing instructions used to construct the dataset; this is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Minangkabau": {
       "verdict": "studied",
-      "reason": "Minangkabau is listed as a native language in the benchmark's persona universe and native-language routing; it is studied.",
+      "reason": "“Minangkabau” is explicitly listed as a native language in the benchmark’s persona universe, which defines the dataset’s language routing; this is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Khmer": {
       "verdict": "studied",
-      "reason": "Khmer is listed as a native language in the benchmark's persona universe and native-language routing; it is studied.",
+      "reason": "“Khmer” is explicitly listed as a native language in the benchmark’s persona universe, which defines the dataset’s language routing; this is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Javanese": {
       "verdict": "studied",
-      "reason": "Javanese is listed as a native language and persona identity in the benchmark, which uses native-language dialogue generation and evaluation; it is studied.",
+      "reason": "“Javanese” is explicitly listed as a native language in the benchmark’s persona universe, which defines the dataset’s language routing; this is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Mongolian": {
       "verdict": "studied",
-      "reason": "The persona-universe table lists Mongolian as a native-language route for the benchmark, so it is part of the released/generated artifact; studied.",
+      "reason": "The persona table lists Mongolian as a native language paired with a Mongolian Buddhist identity, so it is part of the benchmark's language routing and is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tagalog": {
       "verdict": "studied",
-      "reason": "The persona table and shard prompt list Tagalog as a native language and require native-language shard versions, so it is used in the benchmark; studied.",
+      "reason": "The persona table and system prompt identify Tagalog as a native language for Filipino personas and require native-language dialogue, so it is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tibetan": {
       "verdict": "studied",
-      "reason": "The shard prompt explicitly maps Tibetan identities to Tibetan script/native-language output, so the harness generates and evaluates Tibetan; studied.",
+      "reason": "The persona table lists Tibetan as a native language, and the prompt provides Tibetan script for native-language shards, so it is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Uyghur": {
       "verdict": "studied",
-      "reason": "The shard prompt explicitly maps Uyghur identities to Uyghur script/native-language output, so the harness generates and evaluates Uyghur; studied.",
+      "reason": "The persona table lists Uyghur as a native language, and the prompt provides Uyghur script for native-language shards, so it is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Cebuano": {
-      "verdict": "studied",
-      "reason": "The G.3/G.3.1 shard-generator language-routing prompt treats Cebuano as a native-language option for a Philippine persona, so it is part of the harness's language coverage; studied.",
+      "verdict": "mentioned_only",
+      "reason": "The supplied snippets do not show what Cebuano refers to, so its referent is insufficiently clear; following the stated preference, it is treated as mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Hindi": {
-      "verdict": "false_positive",
-      "reason": "The N.1 hit is a common-word collision in dialogue text, specifically Tagalog hindi meaning not/no, not a reference to the Hindi language; false_positive.",
+      "verdict": "mentioned_only",
+      "reason": "The supplied snippets do not contain or identify Hindi, so its referent is insufficiently clear; following the stated preference, it is treated as mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Latin": {
-      "verdict": "false_positive",
-      "reason": "The G.2 hit denotes the Latin writing script in the blueprint instructions, not the Latin language; false_positive.",
+      "verdict": "mentioned_only",
+      "reason": "The supplied snippets do not show whether Latin denotes the human language, a script, or another entity, so it is treated as mentioned_only.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Malay": {
       "verdict": "studied",
-      "reason": "The persona table and shard prompt list Malay/Bahasa Melayu as native-language routes and generate native-language shards in it; studied.",
+      "reason": "The persona table lists Malay as a native language, and the prompt specifies Bahasa Melayu for native-language shards, so it is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Tamil": {
       "verdict": "studied",
-      "reason": "The persona table and shard prompt list Tamil and Tamil-script native-language output, so it is used in the harness; studied.",
+      "reason": "The persona table and system prompt identify Tamil as a native language and provide Tamil script for native-language shards, so it is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Thai": {
       "verdict": "studied",
-      "reason": "The persona table and shard prompt list Thai and Thai-script native-language output, so it is used in the harness; studied.",
+      "reason": "The persona table lists Thai as a native language, and the prompt specifies Thai and its script for native-language shards, so it is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Indonesian": {
       "verdict": "studied",
-      "reason": "The persona table and shard prompt list Indonesian/Bahasa Indonesia as native-language routes and include native-language dialogue generation; studied.",
+      "reason": "The persona table lists Indonesian as a native language, and the prompt specifies Bahasa Indonesia for native-language shards, so it is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Korean": {
       "verdict": "studied",
-      "reason": "The persona table and shard prompt list Korean and Korean-script native-language output, so it is used in the harness; studied.",
+      "reason": "The persona table lists Korean as a native language, and the prompt specifies Korean and its script for native-language shards, so it is studied.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Vietnamese": {
       "verdict": "studied",
-      "reason": "The snippets identify Vietnamese as the native language for Vietnam personas and require Vietnamese-language shards and evaluation episodes; it is part of the multilingual benchmark, so studied.",
+      "reason": "The snippets identify Vietnamese/Tiếng Việt as a native-language route and require full Vietnamese-script shard versions; it is part of the constructed and evaluated dataset.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "The snippets identify Chinese/Mandarin as a native language for multiple regional personas and specify Simplified Chinese scripts; it is used in the benchmark, so studied.",
+      "reason": "The snippets identify Chinese/Mandarin, including Simplified Chinese, as a native-language route for personas and generated shards; it is part of the constructed and evaluated dataset.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "English": {
       "verdict": "studied",
-      "reason": "The snippets identify English as the global language for prompts and as the language of benchmark episodes; it is used in the paper's construction and evaluation, so studied.",
+      "reason": "The snippets identify English as the global-language version and label English benchmark episodes; it is generated and evaluated in the dataset.",
       "model": "nex-agi/nex-n2.5-pro:free"
     },
     "Japanese": {
       "verdict": "studied",
-      "reason": "The snippets identify Japanese as the native language for Japan personas and require Japanese-language shards; it is part of the multilingual benchmark, so studied.",
+      "reason": "The snippets identify Japanese/日本語 as a native-language route and require full Japanese-script shard versions; it is part of the constructed and evaluated dataset.",
       "model": "nex-agi/nex-n2.5-pro:free"
     }
   }
