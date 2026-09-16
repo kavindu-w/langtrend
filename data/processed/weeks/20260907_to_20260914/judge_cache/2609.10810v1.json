@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.10810v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T23:01:37.622867+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4572,
+  "verdicts": {
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "The matched name refers to Mango Co., a company in the prompt examples, not the Mango language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Vietnamese": {
+      "verdict": "false_positive",
+      "reason": "The matched word describes the Vietnamese education and study system, meaning Vietnam's education system rather than the Vietnamese language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly state that all prompts target English minimal-edit GEC and that evaluations use English learner essays, so English is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

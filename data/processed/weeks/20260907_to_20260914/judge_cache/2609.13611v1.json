@@ -1,0 +1,84 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.13611v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T21:08:17.061857+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11626,
+  "verdicts": {
+    "Tha": {
+      "verdict": "studied",
+      "reason": "“Tha” is the ISO-style code for Thai in the eng→tha pair tables, whose candidates and wrong-language selections are analyzed; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Armenian": {
+      "verdict": "studied",
+      "reason": "Armenian is an eng→hye target language whose wrong-script, wrong-language, and language-correct outputs are evaluated; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Belarusian": {
+      "verdict": "studied",
+      "reason": "Belarusian is an eng→bel target language for which confusable Ukrainian and Russian outputs and selection behavior are evaluated; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kazakh": {
+      "verdict": "studied",
+      "reason": "Kazakh is an eng→kaz target language whose candidates, worked examples, language errors, and penalized selection are evaluated; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "“Latin” refers to the Latin script in “non-Latin targets,” not the Latin language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malay": {
+      "verdict": "studied",
+      "reason": "Malay is a target language confused with Indonesian by the paper's language identifier, and this confusion is experimentally assessed; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian is an eng→ind target language whose language-identification errors, artifacts, and selection penalties are analyzed; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech is the source language in the Czech→German pair included in the paper's pseudo-reference construction data; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is a target language in the translation and post-editing prompt, identified through its Hangul script; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is the fluent wrong-language output analyzed, identified, and penalized in several target-language experiments; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is a wrong-language output identified and quantified for target pairs such as English→Belarusian; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is the Simplified Chinese source language in the Chinese→Japanese pair and is also examined in script-based language confusion; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is a source language in the 14 English-source MT pairs and is also used for media captions and required analysis prompts.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is the target language in the Czech→German pair included in pseudo-reference construction.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is a target language in English→Japanese and Simplified Chinese→Japanese pairs and is analyzed for language identification and post-editing.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

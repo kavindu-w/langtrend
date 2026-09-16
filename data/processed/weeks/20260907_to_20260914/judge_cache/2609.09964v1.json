@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.09964v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T23:41:53.856642+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11879,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "The match is the final element of the Bangla future-tense suffix '-bo', not a reference to the Bo language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kuna": {
+      "verdict": "false_positive",
+      "reason": "'kuna' is identified as a Rangpur dialect quantifier meaning 'some', not the Kuna language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chittagonian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Chittagonian language and Chittagonian-language sources used in collecting and studying the paper's Chittagong dialect data.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "'nasal' describes phonemic distinctions in the causal analysis, not the Nasal language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sylheti": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Sylheti language and use Sylheti-language sources and the Sylhet dialect in the benchmark.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Assamese": {
+      "verdict": "mentioned_only",
+      "reason": "Assamese is mentioned as a contact influence on the Sylhet dialect, but the snippets show no work using or building resources for Assamese.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is the human language of the dialects, scripts, translations, prompts, and normalization tasks evaluated in the paper.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is mentioned only as the language of loan-paragraphs discarded during filtering, with no Hindi data or experiments reported.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script used for Romanized Bangla, not the Latin language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the human language used for the dataset's translations and the dialect-to-English machine-translation evaluation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

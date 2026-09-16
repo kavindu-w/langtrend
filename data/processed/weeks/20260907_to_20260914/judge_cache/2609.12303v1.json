@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.12303v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T21:51:30.942618+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6515,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The matched text is a BPE-token fragment in illustrative distractors for the word “tiramisu,” not the human language; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Isu": {
+      "verdict": "false_positive",
+      "reason": "The matched text is the BPE token “isu,” a segment of “tiramisu,” not the human language; therefore it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is evaluated as a source and target language in English–German machine-translation experiments; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is evaluated as a source and target language in English–German machine-translation experiments; therefore it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

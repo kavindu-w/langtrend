@@ -1,0 +1,109 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.09113v2",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-16T01:14:54.424365+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11998,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "Dia occurs in Portuguese probe phrases such as 'Bom dia' and 'todos os dias,' meaning 'day,' not the Dia language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dime": {
+      "verdict": "false_positive",
+      "reason": "Dime is the coin in the English phrase 'a silver dime,' not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Foi": {
+      "verdict": "false_positive",
+      "reason": "Foi is the Portuguese verb 'was' in 'A reunião foi adiada,' not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Nai": {
+      "verdict": "false_positive",
+      "reason": "Nai is the Galician word for 'mother' in 'miña nai,' not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "Una is the Spanish indefinite article in 'una brisa,' not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Fur": {
+      "verdict": "false_positive",
+      "reason": "Fur is a common English cue word in the judge rubric ('fur or tail'), not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is the name of an agent/model configuration in the results and tables, not the Luna language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pela": {
+      "verdict": "false_positive",
+      "reason": "Pela is a Portuguese contraction in 'Obrigado pela ajuda,' not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sou": {
+      "verdict": "false_positive",
+      "reason": "Sou is the Portuguese verb 'am' in 'Eu sou,' not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "Uma is the Portuguese article in 'Uma is a Portuguese article' and the probe text, not a language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Galician": {
+      "verdict": "studied",
+      "reason": "Galician is explicitly labeled as a translation/probe language and appears in Galician probe text used in the experiments; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "Latin is explicitly the target human language in the steering-output rubric and task inventory, so it is used as an evaluation language; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Catalan": {
+      "verdict": "studied",
+      "reason": "The snippets label a Catalan sentence as a Catalan control probe used in the Portuguese feature investigation, making Catalan part of the experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is mentioned only as nearby text that judges should not mistake for Portuguese or Spanish, with no Italian data or evaluation shown.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The snippets describe four Portuguese investigations, Portuguese probe and evaluation texts, feature selections, and Portuguese steering outputs.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly include a criterion for coherent grammatical Turkish-language output in the steering evaluation rubric, making Turkish an evaluated output language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets use English probe texts, translations, and discussion as controls in activation and steering experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "A French probe input about Brazil is included among the authored texts measured in the Portuguese feature investigation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The steering rubric explicitly evaluates whether outputs are coherent grammatical German, making German part of the experimental evaluation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish translations and Spanish evaluation texts are used as probe inputs and hard negatives in the experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

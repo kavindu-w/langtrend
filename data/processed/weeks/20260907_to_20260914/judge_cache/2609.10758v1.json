@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.10758v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T23:03:46.773163+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11975,
+  "verdicts": {
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "“Crow” is part of the story title “The Thirsty Crow,” not a language name; therefore false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "“Sar” is the first element of the transliterated Urdu title “Sar Kaṭā Sawār” (“The Headless Horseman”), not a language name; therefore false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is the language paired with Devanagari intrusion and analyzed as cross-script leakage in generated Urdu; it is part of the paper’s error evaluation, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin denotes the Latin script in “Latin Script Intrusion” and “Latin-script English words,” not the Latin language; therefore false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Punjabi": {
+      "verdict": "studied",
+      "reason": "Punjabi is a human language whose phrases are identified as mixed into otherwise Urdu narratives and treated as an error pattern; therefore studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu is the target language of the generated story corpus and the LLM evaluation; therefore studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is named only in comparison with Urdu’s retroflex phonemes; no Persian data or evaluation is shown, so mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned in connection with an Arabic loanword and in comparison with Urdu phonology, but no Arabic corpus or evaluation is shown; therefore mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is the language of lexical intrusions embedded in generated Urdu and analyzed in the script-contamination evaluation; therefore studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used for a control corpus and comparison and analyzed in English-mediated errors and English-word intrusions; therefore studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

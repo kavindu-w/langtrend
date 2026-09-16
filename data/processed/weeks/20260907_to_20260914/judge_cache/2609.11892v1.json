@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.11892v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T21:43:33.440232+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9451,
+  "verdicts": {
+    "Adi": {
+      "verdict": "false_positive",
+      "reason": "ADI refers to the ADI-17 dialect-identification dataset/task acronym, not the Adi human language; this implies a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is the language of the speech corpus, instruction tuning, and evaluation for the paper's Nuha-Speech models; this implies it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only as a language covered by demos, test cases, and evaluations of existing models; this implies it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the target language in the Arabic-to-English speech-translation data and generated translations used for training and evaluation; this implies it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

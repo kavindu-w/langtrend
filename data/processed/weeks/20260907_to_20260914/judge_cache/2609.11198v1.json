@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.11198v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T23:05:20.529554+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6022,
+  "verdicts": {
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "SAR denotes synthetic aperture radar in terms such as SAR Interferometry and SAR Analysis, not the Sar language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to the special None placeholder used during response post-processing, not the Sentinel language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "WA is part of the method acronym WA-PLS (weighted averaging partial least squares), not the Wa language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "GAN denotes generative adversarial networks and models such as CycleGAN and StyleGAN, not the Gan language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language whose plural-stripping rules are applied during the paper’s text-normalization methodology.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

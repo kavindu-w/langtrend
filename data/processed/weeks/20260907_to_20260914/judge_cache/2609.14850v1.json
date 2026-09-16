@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.14850v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T20:44:18.011778+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3131,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "“aka” means “also known as” and identifies Pasta-SFT, not a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "“pin(name)” is a runtime command for caching context, not a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "“Japanese” modifies a business joint venture to indicate its national affiliation, not the Japanese language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

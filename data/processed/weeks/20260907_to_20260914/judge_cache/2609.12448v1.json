@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.12448v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T21:56:44.000982+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7032,
+  "verdicts": {
+    "Mba": {
+      "verdict": "false_positive",
+      "reason": "“MBA” denotes a Master of Business Administration degree, not a language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly identify English comments as dataset material and require outputs in English, so English is used in the paper’s experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "“Spanish-speaking region” refers to Spanish as the language spoken in a region, but only as an example of a generic descriptor rather than data or an evaluated language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.08609v2",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-16T01:30:43.846433+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11764,
+  "verdicts": {
+    "Musi": {
+      "verdict": "false_positive",
+      "reason": "“Musi” appears in the example-studies field after the Italian GDLI row rather than as a language label, so it is a citation/name false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Newar": {
+      "verdict": "mentioned_only",
+      "reason": "“Newar” is listed as the language of the DACON corpus in the surveyed-corpora table; the paper only surveys it and does not work on Newar.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Slavonic": {
+      "verdict": "mentioned_only",
+      "reason": "“Slavonic” is the table’s language label for Old Church Slavonic and Kiev-era Old East Slavic corpora; these languages are surveyed but not analyzed by the paper.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Faroese": {
+      "verdict": "mentioned_only",
+      "reason": "“Faroese” is listed as the language of the FarPaHC corpus in the surveyed-corpora table and is not part of the paper’s experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Icelandic": {
+      "verdict": "mentioned_only",
+      "reason": "“Icelandic” is listed as the language of several surveyed diachronic corpora, but the paper does not use or evaluate Icelandic data.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Irish": {
+      "verdict": "mentioned_only",
+      "reason": "“Irish” is listed as the language of the Pre-Standard Irish corpus in the surveyed-corpora table and is not studied experimentally.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Armenian": {
+      "verdict": "mentioned_only",
+      "reason": "“Armenian” is listed as the language of the PROIEL-Armenian corpus in the surveyed-corpora table; it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Danish": {
+      "verdict": "mentioned_only",
+      "reason": "“Danish” is listed as the language of the Menota-Danish corpus in the surveyed-corpora table and is not used in the paper’s experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Georgian": {
+      "verdict": "mentioned_only",
+      "reason": "“Georgian” is listed as the language of the GNC corpus in the surveyed-corpora table; the paper only mentions it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pali": {
+      "verdict": "mentioned_only",
+      "reason": "“Pali” refers to code-mixed passages retained in one corpus version and removed during post-processing; the paper does not build or evaluate resources for Pali.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sanskrit": {
+      "verdict": "mentioned_only",
+      "reason": "“Sanskrit” refers to code-mixed passages that are retained in one corpus version and removed from the Sinhala dataset; it is not a target language of the study.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sinhala": {
+      "verdict": "studied",
+      "reason": "“Sinhala” is the human language whose diachronic corpus, embeddings, taggers, continual pretraining, and semantic-change evaluations the paper develops and analyzes.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language label for the PROIEL-Ancient Greek corpus in the surveyed literature table; the paper does not work on Greek, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language label for the LLODIA-Hebrew corpus in the surveyed literature table; the paper does not work on Hebrew, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language label for the LatinISE and PROIEL-Latin corpora, not the Latin script; the paper does not work on Latin, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lithuanian": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language label for the SLIEKKAS corpus in the surveyed literature table; the paper does not work on Lithuanian, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Slovene": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language label for the IMP-sl corpus in the surveyed literature table; the paper does not work on Slovene, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language label for the DIAKORP corpus in the surveyed literature table; the paper does not work on Czech, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language label for the EDGeS-Dutch corpus in the surveyed literature table; the paper does not work on Dutch, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hungarian": {
+      "verdict": "mentioned_only",
+      "reason": "The name appears as a language label for the HGDS diachronic corpus in the surveyed semantic-change literature, not as a language studied by this paper; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "The name appears as a language label for the DiaCORIS and GDLI corpora in the surveyed semantic-change literature, not as a language studied by this paper; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Norwegian": {
+      "verdict": "mentioned_only",
+      "reason": "The name appears as a language label for the Menota-Norwegian corpus in the surveyed semantic-change literature, not as a language studied by this paper; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "The name appears as a language label for several Portuguese corpora in the surveyed semantic-change literature, not as a language studied by this paper; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Romanian": {
+      "verdict": "mentioned_only",
+      "reason": "The name appears as a language label for the RoDICA corpus in the surveyed semantic-change literature, not as a language studied by this paper; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The matched text labels RuShiftEval and related diachronic corpora as being in the Russian language in a surveyed corpus table, without experiments on Russian, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swedish": {
+      "verdict": "mentioned_only",
+      "reason": "The matched text labels several diachronic corpora as Swedish in a surveyed corpus table, without conducting experiments on Swedish, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The matched text labels CHIALL and related datasets as Chinese in a surveyed corpus table, without conducting experiments on Chinese, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The matched text labels FREALL and related diachronic corpora as French in a surveyed corpus table, without conducting experiments on French, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The matched text labels GERALL and related diachronic corpora as German in a surveyed corpus table, without conducting experiments on German, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The matched text labels CORDE and related diachronic corpora as Spanish in a surveyed corpus table, without conducting experiments on Spanish, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The matched text identifies corpora as English and separately lists English as code-mixed content removed from the Sinhala corpus; it does not study English, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

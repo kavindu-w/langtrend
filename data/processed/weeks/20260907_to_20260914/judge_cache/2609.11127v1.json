@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.11127v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T22:31:33.626918+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2830,
+  "verdicts": {
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "The match is the surname in the person name 'Qi Gan,' not the Gan language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The match refers to Latin letters as a script category, not the Latin language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The match refers to the English language, whose dominant-language outputs are handled in the paper's length and n-gram evaluation metrics, so English is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

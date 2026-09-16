@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.08936v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-16T01:03:18.481013+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7848,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo appears only as part of the person name Liefeng Bo in the acknowledgements, not as a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Shan": {
+      "verdict": "false_positive",
+      "reason": "Shan appears only as part of the person name Shan Yang in the acknowledgements, not as a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lipo": {
+      "verdict": "false_positive",
+      "reason": "Lipo refers to the LiPO ordinal listwise objective/method, not a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin refers to a romanization/transcription level used for checking Chinese lyric replacements, not a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "Gan refers to the GAN/least-squares GAN objective, an ML acronym, not a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the human language used in lyric editing, benchmark evaluation, prompt construction, and de-accent data, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language used in lyric editing, benchmark evaluation, prompt construction, and cross-lingual transfer examples, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese refers to a Japanese accent in English speech, not to Japanese-language data or evaluation, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

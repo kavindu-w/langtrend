@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.10049v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T23:52:43.147228+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11844,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to GPT-Luna, the model used to author English synthetic notes, not a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch refers to the language of the clinical datasets, benchmarks, annotation guidelines, and trained de-identification models evaluated in the paper.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of synthetic clinical datasets and benchmarks used to evaluate transfer of the de-identification workflow.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French refers to prior research and French name, place, and institution lists, without French being used as an experimental language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German refers to prior clinical-text annotation frameworks and de-identification studies, without German being evaluated or developed in this paper.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

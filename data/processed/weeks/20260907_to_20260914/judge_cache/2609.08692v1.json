@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.08692v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-16T00:35:34.099267+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7963,
+  "verdicts": {
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "Dao is an author surname in the citations to Gu and Dao (2024), not a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lama": {
+      "verdict": "false_positive",
+      "reason": "Lama is part of the acronym LAMA, the name of a dataset used in the experiments, not a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Romanian": {
+      "verdict": "false_positive",
+      "reason": "Romanian modifies Space Agency in the phrase Romanian Space Agency, referring to a national organization rather than the Romanian language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is explicitly identified as a language in an Australian English example from the English-language LAMA TREx data used to evaluate the models, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

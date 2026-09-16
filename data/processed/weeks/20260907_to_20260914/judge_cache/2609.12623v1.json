@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.12623v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T21:27:46.072156+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5796,
+  "verdicts": {
+    "Irish": {
+      "verdict": "false_positive",
+      "reason": "Irish refers to an accent label in speaker metadata, not the Irish language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin American in an accent-label list, not the Latin language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish refers to the quality of spoken delivery, not the Polish language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is explicitly the language of the paper's spoken-dialogue evaluation and SteerBench steering benchmark; this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.12791v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T21:29:10.734887+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4040,
+  "verdicts": {
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "“Korean” refers to the Korean War, not the Korean language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English-language Wikidata labels and descriptions, an English Wikipedia corpus, and an English QA dataset subset used by the system; English is therefore studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "“German” is the nationality answer in a QA example, not a reference to the German language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

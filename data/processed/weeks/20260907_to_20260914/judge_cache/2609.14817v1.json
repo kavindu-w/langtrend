@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.14817v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T20:01:26.518921+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5477,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "“Carrier” is a common noun referring to a tone-containing clip, not the Carrier language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hausa": {
+      "verdict": "mentioned_only",
+      "reason": "Hausa is discussed as a human language whose orthography does not mark tone, but it is not used in the paper’s experiments or artifacts; it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Igbo": {
+      "verdict": "mentioned_only",
+      "reason": "Igbo is discussed as a human language with partially marked tone and downstep, but it is not used in the paper’s experiments or artifacts; it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is the human language used as a non-tonal control, including model fine-tuning and CER evaluation; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

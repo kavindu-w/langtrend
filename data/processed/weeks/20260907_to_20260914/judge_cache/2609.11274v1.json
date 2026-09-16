@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.11274v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T22:17:35.922331+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7156,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to the AMI meeting corpus and its AMI-SDM and AMI-IHM subsets, not the Ami language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The text explicitly identifies Chinese speech corpora and evaluates the model on Chinese test sets, so Chinese is part of the paper's experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The text explicitly identifies English speech corpora and evaluates the model on English test sets, so English is part of the paper's experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

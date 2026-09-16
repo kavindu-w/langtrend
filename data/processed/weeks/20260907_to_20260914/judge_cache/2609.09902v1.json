@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.09902v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T23:30:41.866422+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6974,
+  "verdicts": {
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "The matched word refers to the positive or negative end of a contrastive axis, not a human language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Reel": {
+      "verdict": "false_positive",
+      "reason": "The matched word is a predicted token in a fishing-related sense, not a human language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tera": {
+      "verdict": "false_positive",
+      "reason": "The matched text is a sub-word token fragment in a table, not a human language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The matched text refers to English prose sentences used as the baseline in the paper's method; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The matched text names French in an experimental prompt, but the paper does not use or evaluate the French language itself; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The matched text names Japanese in an experimental prompt, but the paper does not use or evaluate the Japanese language itself; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

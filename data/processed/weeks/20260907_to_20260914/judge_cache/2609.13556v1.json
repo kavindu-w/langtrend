@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.13556v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T20:52:53.280967+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5349,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The matched text uses “carrier” as part of the technical phrase “carrier concentration” in a materials-science abstract, not as the name of a human language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly refer to English vocabulary and state that the study examined English jargon usages, so English is a human language studied in the paper’s benchmarks and analysis.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The matched text uses “French” to describe the size of a medical catheter (“5-French” or “French Sos catheter”), not the human language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

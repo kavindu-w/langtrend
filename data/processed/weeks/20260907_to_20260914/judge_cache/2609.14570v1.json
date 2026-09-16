@@ -1,0 +1,84 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.14570v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T20:19:34.718826+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9343,
+  "verdicts": {
+    "Tat": {
+      "verdict": "studied",
+      "reason": "The snippets show 'tat' used as a language code for Tatar in evaluation tables and dataset details, which is part of the studied languages.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "The paper evaluates emotion detection on Marathi as one of the nine target languages.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Tibetan": {
+      "verdict": "false_positive",
+      "reason": "The snippets mention 'Sino-Tibetan' as a language family, not Tibetan as a studied or mentioned language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is mentioned as a 'closest sibling' proxy for Marathi in the transfer policy.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is mentioned as a proxy for Tatar via script overlap.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Ukrainian": {
+      "verdict": "mentioned_only",
+      "reason": "Ukrainian is mentioned as a proxy for Tatar via script overlap.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Zulu": {
+      "verdict": "studied",
+      "reason": "The paper evaluates emotion detection on Zulu as one of the nine target languages.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "moroccan Arabic": {
+      "verdict": "studied",
+      "reason": "The paper evaluates emotion detection on Moroccan Arabic as one of the nine target languages.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The paper evaluates emotion detection on Mozambican Portuguese as one of the nine target languages.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the 'Latin' script used by several languages, not the Latin language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Tatar": {
+      "verdict": "studied",
+      "reason": "The paper evaluates emotion detection on Tatar as one of the nine target languages.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "The paper evaluates emotion detection on Indonesian as one of the nine target languages.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The matches include the Arabic script label, but also Moroccan and Maghrebi Arabic, which is one of the nine evaluated languages with per-language results; this language use implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears both in the script phrase Chinese characters and as Mandarin Chinese, one of the nine languages evaluated with per-language results; this language use implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to English-only evaluation, English benchmarks, and English pretraining coverage rather than an evaluated target language, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

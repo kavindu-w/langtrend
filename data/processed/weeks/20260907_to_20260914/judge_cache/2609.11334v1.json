@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.11334v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T22:01:03.179491+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5146,
+  "verdicts": {
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "The match refers to a Russian camp and Russia as a geographic place, not the Russian language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The matches refer to the English language in English NLI datasets and Arabic-and-English pretrained text, and the paper uses these English-language resources, so English is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The matches refer to the Arabic language in the paper's Arabic textual-entailment benchmarks, datasets, and model evaluation, so Arabic is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

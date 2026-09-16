@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.07965v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-16T01:48:33.830985+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4044,
+  "verdicts": {
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "The matched “mal” is a common German adverb meaning “sometimes” or “once,” not the Mal language; this implies a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The matched “sie” is the German pronoun “they/you,” not the Sie language; this implies a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "“Chinese” refers to the Chinese Sign Language translation dataset CSL-Daily, which the paper evaluates, so Chinese is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

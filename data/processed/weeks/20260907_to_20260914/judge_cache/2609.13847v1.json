@@ -1,0 +1,94 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.13847v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T20:26:57.580270+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11938,
+  "verdicts": {
+    "Awara": {
+      "verdict": "false_positive",
+      "reason": "The word 'awara' appears in the snippets as a word within a Xichangana/Tsonga translation example, not as a language name. False positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mahali": {
+      "verdict": "false_positive",
+      "reason": "The word 'mahali' appears in the snippets as a word within a Xichangana translation example, not as a language name. False positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Pela": {
+      "verdict": "false_positive",
+      "reason": "The word 'pela' appears in the snippets as a Portuguese word ('pela intrigante vila') in a translation example. False positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Vale": {
+      "verdict": "false_positive",
+      "reason": "The word 'Vale' appears in the snippets as a Portuguese word ('Vale a pena') in a translation example. False positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Wara": {
+      "verdict": "false_positive",
+      "reason": "The word 'wara' appears in the snippets as a word within a Xichangana translation example, not as a language name. False positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Caka": {
+      "verdict": "false_positive",
+      "reason": "The word 'caka' appears as a lexical example of an orthographic difference ('caka chaka') between Mozambican Nyanja and Chichewa, not as a language. False positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Ronga": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as part of the 'Tswa–Ronga group' to which Xichangana belongs. Mentioned only.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Tswa": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as part of the 'Tswa–Ronga group' to which Xichangana belongs. Mentioned only.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Sena": {
+      "verdict": "studied",
+      "reason": "The paper extends FLORES+ with evaluation sets for Sena and evaluates translation systems for it. Studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Tso": {
+      "verdict": "studied",
+      "reason": "Used as the ISO code for Tsonga/Xichangana in the experimental setup and fine-tuning. Studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chichewa": {
+      "verdict": "studied",
+      "reason": "Used as a sibling reference for Mozambican Nyanja and evaluated as a target language. Studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as a language supported by the CATfrica tool in the appendix. Mentioned only.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Tsonga": {
+      "verdict": "studied",
+      "reason": "Tsonga refers to the South African Xitsonga/Tsonga reference language compared with Xichangana and evaluated in the Portuguese-to-target experiments; this is part of the paper's evaluation artifacts.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Xhosa": {
+      "verdict": "mentioned_only",
+      "reason": "Xhosa refers to the human language listed as supported by an English—Xhosa bilingual dictionary in the CATfrica tool appendix; the snippets do not show experiments or data collection for Xhosa.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese refers to the source language of the evaluation sets and Portuguese-to-target translation experiments; the paper collects and evaluates Portuguese-source data.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic refers to Sudanese Arabic in a related-work motivation sentence; the snippets do not show the paper working on Arabic.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to English reference sentences, English as a borrowing source, and an English—Xhosa dictionary entry; the snippets do not show English as an evaluated target or studied language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.13980v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T20:17:18.561889+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8351,
+  "verdicts": {
+    "Saba": {
+      "verdict": "false_positive",
+      "reason": "Saba is the name of the Mistral Saba model in the evaluated model list, not a human language; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Persian": {
+      "verdict": "false_positive",
+      "reason": "Persian refers only to Persian-derived orthographic letters used for Iraqi phonemes, not to the Persian language; false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to Arabic, including Modern Standard Arabic and Iraqi Arabic, which are the benchmark's tracks and evaluated varieties; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to a language supported by the bilingual platform, with no English evaluation or resource work shown; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

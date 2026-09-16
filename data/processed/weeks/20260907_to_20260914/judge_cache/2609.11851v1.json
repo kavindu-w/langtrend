@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.11851v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T21:46:33.063529+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5748,
+  "verdicts": {
+    "Gujarati": {
+      "verdict": "studied",
+      "reason": "The snippets identify Gujarati as one of the human languages in the parallel corpora, generated code-mixing instructions, and ENG-HIN-GUJ training configuration, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The snippets identify Bengali as one of the human languages in the parallel corpora, code-mixed datasets, and ENG-HIN-BEN training configuration, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The snippets identify Hindi as one of the human languages in the parallel corpora, code-mixed datasets, and both three-language training configurations, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets use Latin to mean the Latin alphabet or Latin-script transliteration, not the Latin language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets identify English as a human language used as a source language and as the ENG component in the code-mixed datasets and training configurations, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

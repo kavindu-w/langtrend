@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.09090v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-16T00:36:33.077908+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3471,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The match is the common phrase \"for the sake of argument,\" not the Sake language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Vietnamese": {
+      "verdict": "false_positive",
+      "reason": "The match refers to \"Vietnamese people\" and a stereotype about them, not the Vietnamese language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The prompt explicitly instructs the proxy to speak in natural, colloquial English, so the benchmark uses English in its experimental setup; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

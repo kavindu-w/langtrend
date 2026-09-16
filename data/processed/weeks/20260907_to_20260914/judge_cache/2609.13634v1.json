@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.13634v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T20:48:12.318134+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3762,
+  "verdicts": {
+    "Pali": {
+      "verdict": "mentioned_only",
+      "reason": "Pali in 'Pali Canon' denotes the Pali language of the Theravāda canon; the paper only identifies this source corpus, so mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sanskrit": {
+      "verdict": "mentioned_only",
+      "reason": "Sanskrit in 'Sanskrit Udānavarga' denotes the language of that textual recension; the paper only identifies it as a source, so mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin modifies 'Church' and 'West' to denote Latin-rite or Western Christianity rather than the Latin language, so false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the commentary and the benchmark corpus, which the paper explicitly says is English only and evaluates, so studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

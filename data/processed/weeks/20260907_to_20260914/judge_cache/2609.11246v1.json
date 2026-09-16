@@ -1,0 +1,94 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.11246v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T22:14:21.191217+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8354,
+  "verdicts": {
+    "Laki": {
+      "verdict": "mentioned_only",
+      "reason": "Laki is named as a Kurdish language variety in the paper's background, with no experiments or resources for it; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin denotes the Mandarin romanization and syllable system in 'Mandarin pinyin syllables with tone numbers,' not a human language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Zazaki": {
+      "verdict": "mentioned_only",
+      "reason": "Zazaki is named as a Kurdish language variety in the paper's background, with no experiments or resources for it; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is listed as one of the hardcoded ASR recognizer branches, not evaluated or developed in this paper; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek denotes a script or character inventory in vocab.txt alongside Cyrillic and other scripts, not the Greek language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hebrew": {
+      "verdict": "false_positive",
+      "reason": "Hebrew denotes a script or character inventory in vocab.txt, not the Hebrew language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin denotes the Latin script in references to 'extended Latin' and writing 'in Latin,' not the Latin language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malay": {
+      "verdict": "mentioned_only",
+      "reason": "Malay is listed as one of the hardcoded ASR recognizer branches, not evaluated or developed in this paper; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Thai": {
+      "verdict": "false_positive",
+      "reason": "Thai denotes a script or character inventory in vocab.txt, not the Thai language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "'Korean hangul' denotes the Hangul writing script, not the Korean language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic genuinely appears in 'Tunisian Arabic,' a human-language recognizer branch, while other occurrences denote Arabic script; it is only mentioned, so mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese denotes a language in the upstream Chinese-and-English pretraining corpus, with no direct Chinese experiment or resource in the snippets; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English as a model-pretraining language and a point of comparison with established linguistic resources, but the paper does not work on English itself; this implies mentioned_onl",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to German as a comparison language with extensive descriptive resources, without using or evaluating German data; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippets refer to French as the language of four utterances in the bundled smoke test and as a recognizer-configuration option; the paper evaluates that test artifact, so this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The matched term is Japanese kana, a writing script appearing in the model vocabulary, rather than the Japanese language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Spanish only as one of several hardcoded automatic-speech-recognition branches, with no Spanish data or evaluation; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

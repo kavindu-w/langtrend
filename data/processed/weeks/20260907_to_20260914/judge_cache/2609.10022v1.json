@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.10022v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T23:16:20.924853+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5066,
+  "verdicts": {
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "HiFi-GAN is a vocoder/model name, not the Gan language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Modern Greek as the target language for data curation, model adaptation, and evaluation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned as a pretraining language and a phonologically similar cross-lingual transfer prior, but no Spanish data or experiments are reported, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

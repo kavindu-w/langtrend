@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.09791v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T23:40:37.771352+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5945,
+  "verdicts": {
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The matched text is the German pronoun \"sie\" within social-media examples, not a reference to a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to prior English-language datasets and settings; the paper does not study or build resources for English.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippets identify a corpus of German-language tweets and German-language tasks used in the paper's experiments and retrieval setup.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

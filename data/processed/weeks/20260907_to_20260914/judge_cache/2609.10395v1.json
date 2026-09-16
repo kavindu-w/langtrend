@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.10395v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T22:52:29.529486+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5437,
+  "verdicts": {
+    "moroccan Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Moroccan Arabic as one of the Arabic dialect communities targeted/evaluated by the translation system, so it is part of the experiments; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets use Latin to mean the Latin script/form of tokens, not the Latin language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly use Egyptian Arabic (Cairene) as a translation target and evaluate Egyptian Arabic model outputs, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the human language whose dialects are the translation targets, including evaluation of Arabic-dialect outputs, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language of the dialogue turns translated into specified Arabic dialects, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

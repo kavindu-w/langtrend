@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.09887v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-15T23:28:59.160997+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3226,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"Latin America\" as a geographic region, not the Latin language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Chinese civil-law cases, meaning cases from China or its legal system rather than the Chinese language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet says the human-evaluation explanations are given in plain English, and English is used in the paper's evaluation materials, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}
