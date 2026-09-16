@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.07589v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-16T02:40:43.005037+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4915,
+  "verdicts": {
+    "Chukchi": {
+      "verdict": "false_positive",
+      "reason": "“Chukchi Sea” denotes a geographic sea, not the Chukchi language, so this is a false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "“Thai language” explicitly denotes the Thai human language, but it appears only as a DBpedia triple in the validation examples, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "“logo” denotes the dbo:logo property and logo metadata, not a language, so this is a false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "“South Pole” denotes a geographic place, not a language, so this is a false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "“Bengali language” denotes the Bengali human language, but it appears only as an entity in the pilot-assessment list, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Emilian": {
+      "verdict": "mentioned_only",
+      "reason": "“Emilian dialect” denotes the Emilian human language variety, but it appears only as a DBpedia triple in the validation examples, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Irish": {
+      "verdict": "mentioned_only",
+      "reason": "“Irish Vicipéid” denotes the Irish-language Wikipedia edition, but the paper only proposes assessing other editions in future work, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "“Greek language” denotes the Greek human language, but it appears only as a DBpedia entity in an example triple, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "“English DBpedia” denotes the English-language DBpedia edition used as the paper’s main data resource, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.06898v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-16T03:01:04.557063+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6336,
+  "verdicts": {
+    "Alabama": {
+      "verdict": "false_positive",
+      "reason": "The match is the token or place name “Alabama” in a list of retained vocabulary items, not the Alabama human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tay": {
+      "verdict": "false_positive",
+      "reason": "The match is an incomplete English token stem, contrasted with the fuller token “Taylor,” not the Tay human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to Chinese-language training and evaluation corpora, evaluation subsets, and retained-token patterns that the paper analyzes, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to English-language training and evaluation corpora, evaluation subsets, and retained-token patterns that the paper analyzes, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.06970v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-16T03:07:50.161610+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11788,
+  "verdicts": {
+    "Kam": {
+      "verdict": "false_positive",
+      "reason": "Kam is part of the company name Kam Kee Catering, not the Kam language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin denotes the Latin alphabet or Latin-script writing system in the constraints and script classifier, not the Latin language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is a human language represented by prompts sampled into the supervised replay training data, so it is used in the paper's training mixture.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is a human language represented by prompts sampled into the supervised replay training data, so it is used in the paper's training mixture.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is a human language represented by prompts sampled into the supervised replay training data, so it is used in the paper's training mixture.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is a human language represented by prompts sampled into the supervised replay training data, so it is used in the paper's training mixture.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to written Chinese and Chinese-language data used in corpus construction, supervised training, reinforcement learning, and evaluation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language used in replay data, benchmarks, translations, and constraint environments during training and evaluation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is a human language represented by prompts sampled into the supervised replay training data, in addition to being named in related work, so it is used in the training mixture.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}
