@@ -77,6 +77,15 @@ jobs:
         if: inputs.should_publish
         uses: actions/configure-pages@v5
 
+      # Publishes the commit this build was made from, so judge-catchup.yml can
+      # tell whether the live site is behind main. The deployments API can't
+      # answer that: it records the run's trigger-time github.sha, not what was
+      # checked out and built — a catch-up run that commits verdicts and then
+      # deploys them gets recorded under the commit *before* its own push.
+      - name: Record the deployed commit
+        if: inputs.should_publish
+        run: git rev-parse HEAD > web/dist/deploy-sha.txt
+
       - name: Upload Pages artifact
         if: inputs.should_publish
         uses: actions/upload-pages-artifact@v3

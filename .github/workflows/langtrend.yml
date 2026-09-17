@@ -466,6 +466,15 @@ jobs:
       # rate-limit stop or timeout picks up where it left off. Exits 3 (stopped
       # early on a timeout/--limit) and 4 (daily quota exhausted) are both
       # expected and must not fail the job — only a real error (exit 1) should.
+      #
+      # Wrapped in `timeout -k 30s 21000s` (5h50m, same budget judge-catchup.yml
+      # uses) so a first-time/huge backlog stops itself gracefully instead of
+      # running into GitHub's own 6h job ceiling. That ceiling force-cancels
+      # this step with no exit code of our own to interpret — the step (and so
+      # the job, and so the whole run/badge) is marked "cancelled" even though
+      # judge-retry picks up right where this left off and finishes the week.
+      # Self-stopping first, with exit 124 treated the same as 3/4 below, keeps
+      # this step (and the run) "success" in that case.
       - name: Judge this week's detected languages (LLM)
         id: judge
         env:
@@ -477,7 +486,7 @@ jobs:
           LLM_JUDGE_RPH: ${{ vars.LLM_JUDGE_RPH }}
         run: |
           set +e
-          python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured 2>&1 | tee judge_output.log
+          timeout -k 30s 21000s python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured 2>&1 | tee judge_output.log
           code=${PIPESTATUS[0]}
           set -e
           # Per-paper errors (e.g. a dead/retired model slug returning 404) are
@@ -485,6 +494,15 @@ jobs:
           # they only show up in this "Failed: N" summary line, so a plain
           # step-failure check below would never see them.
           failed=$(grep -oE 'Failed: [0-9]+' judge_output.log | tail -1 | grep -oE '[0-9]+' || true)
+          # On exit 124 the timeout killed Python before it could print that
+          # summary line, so fall back to counting the per-paper ERROR/TIMEOUT
+          # lines it did log — otherwise a self-timed-out pass would report
+          # Failed: 0 and never notify, however many papers errored. [config]
+          # lines are excluded: those are the advisory model-catalog check,
+          # counted separately as config_gap below.
+          if [ -z "$failed" ] && [ "$code" = "124" ]; then
+            failed=$(grep -E '  (ERROR|TIMEOUT): \[' judge_output.log | grep -vc '\[config\]' || true)
+          fi
           echo "failed_count=${failed:-0}" >> "$GITHUB_OUTPUT"
           # ping()'s model-catalog check (llm_client.py) prints this before any
           # paper is processed when a configured model is missing from the
@@ -495,9 +513,11 @@ jobs:
           config_gap=$(grep -c '  ERROR: \[config\]' judge_output.log || true)
           echo "config_gap_count=${config_gap:-0}" >> "$GITHUB_OUTPUT"
           # 3 = stopped early, retryable (timeout/--limit); 4 = daily quota
-          # spent. Both are designed, graceful stops that leave papers pending
-          # for judge-retry/judge-catchup — not failures for this step.
-          if [ "$code" != "0" ] && [ "$code" != "3" ] && [ "$code" != "4" ]; then
+          # spent; 124 = hit this step's own 5h50m self-imposed budget before
+          # GitHub's job ceiling would. All three are designed, graceful stops
+          # that leave papers pending for judge-retry/judge-catchup — not
+          # failures for this step.
+          if [ "$code" != "0" ] && [ "$code" != "3" ] && [ "$code" != "4" ] && [ "$code" != "124" ]; then
             exit "$code"
           fi
 
@@ -636,6 +656,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # Wrapped the same way as job 5's judge step — see its comment. A large
+      # backlog here would otherwise run into GitHub's 6h job ceiling and get
+      # force-cancelled with no exit code of our own, marking this job (and
+      # the whole run/badge) "cancelled" instead of "success".
       - name: Judge this week's detected languages (LLM continuation)
         id: judge
         env:
@@ -647,17 +671,28 @@ jobs:
           LLM_JUDGE_RPH: ${{ vars.LLM_JUDGE_RPH }}
         run: |
           set +e
-          python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured 2>&1 | tee judge_output.log
+          timeout -k 30s 21000s python scripts/judge_languages.py --window-days 7 --skip-if-unconfigured 2>&1 | tee judge_output.log
           code=${PIPESTATUS[0]}
           set -e
           failed=$(grep -oE 'Failed: [0-9]+' judge_output.log | tail -1 | grep -oE '[0-9]+' || true)
+          # On exit 124 the timeout killed Python before it could print that
+          # summary line, so fall back to counting the per-paper ERROR/TIMEOUT
+          # lines it did log — otherwise a self-timed-out pass would report
+          # Failed: 0 and never notify, however many papers errored. [config]
+          # lines are excluded: those are the advisory model-catalog check,
+          # counted separately as config_gap below.
+          if [ -z "$failed" ] && [ "$code" = "124" ]; then
+            failed=$(grep -E '  (ERROR|TIMEOUT): \[' judge_output.log | grep -vc '\[config\]' || true)
+          fi
           echo "failed_count=${failed:-0}" >> "$GITHUB_OUTPUT"
           config_gap=$(grep -c '  ERROR: \[config\]' judge_output.log || true)
           echo "config_gap_count=${config_gap:-0}" >> "$GITHUB_OUTPUT"
           # 3 = stopped early, retryable (timeout/--limit); 4 = daily quota
-          # spent. Both are designed, graceful stops that leave papers pending
-          # for judge-retry/judge-catchup — not failures for this step.
-          if [ "$code" != "0" ] && [ "$code" != "3" ] && [ "$code" != "4" ]; then
+          # spent; 124 = hit this step's own 5h50m self-imposed budget before
+          # GitHub's job ceiling would. All three are designed, graceful stops
+          # that leave papers pending for judge-catchup — not failures for
+          # this step.
+          if [ "$code" != "0" ] && [ "$code" != "3" ] && [ "$code" != "4" ] && [ "$code" != "124" ]; then
             exit "$code"
           fi
 

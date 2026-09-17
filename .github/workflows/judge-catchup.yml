@@ -45,6 +45,7 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     outputs:
       fully_judged: ${{ steps.check.outputs.exit_code == '0' }}
+      site_behind: ${{ steps.site.outputs.behind == 'true' }}
 
     steps:
       # ref: explicit branch name, not the default github.sha — this job waits
@@ -328,16 +329,77 @@ jobs:
             git push origin HEAD:main
           }
 
+      # Whether the deploy job below has anything to publish: compares the
+      # commit the live site was built from (deploy-sha.txt, written by
+      # deploy.yml) against main as it stands after this run's own push.
+      #
+      # That, not "did this run commit anything", is the right question. Most
+      # runs have nothing left to judge and shouldn't rebuild an unchanged
+      # site — but a run that pushed nothing can still find the site behind:
+      # a PR merge whose own langtrend.yml run was superseded while pending in
+      # the shared "deploy" concurrency group (PR #58 and #59 both were), or
+      # an earlier deploy that failed. Gating on this run's own commit would
+      # leave either one stale indefinitely once everything is judged.
+      #
+      # judge_warnings.json files are excluded from the comparison: the site
+      # never reads them, and a paper that keeps erroring appends to one on
+      # every run, which would otherwise redeploy an identical site each time.
+      #
+      # Any doubt resolves to "behind" — no marker yet (the first deploy after
+      # this landed), Pages briefly unreachable, a deployed commit that no
+      # longer exists. A redundant deploy is the cheap mistake; a stale site
+      # nobody is told about is the expensive one.
+      - name: Check whether the live site is behind main
+        id: site
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          behind() { echo "$1"; echo "behind=true" >> "$GITHUB_OUTPUT"; exit 0; }
+
+          git fetch --quiet --depth=1 origin main \
+            || behind "Couldn't fetch main — assuming the live site is behind."
+          head=$(git rev-parse FETCH_HEAD)
+
+          pages_url=$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq .html_url)
+          [ -n "$pages_url" ] \
+            || behind "Couldn't look up the Pages URL — assuming the live site is behind."
+          deployed=$(curl -fsS --max-time 30 "${pages_url%/}/deploy-sha.txt?t=$(date +%s)" | tr -d '[:space:]')
+          [[ "$deployed" =~ ^[0-9a-f]{40}$ ]] \
+            || behind "No readable deploy-sha.txt on the live site — assuming it's behind."
+
+          if [ "$deployed" = "$head" ]; then
+            echo "Live site is already built from main ($head)."
+            echo "behind=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch --quiet --depth=1 origin "$deployed" \
+            || behind "Deployed commit $deployed can't be fetched from origin — assuming the live site is behind."
+          if git diff --quiet "$deployed" "$head" -- . \
+               ':(exclude)data/processed/weeks/*/arxiv_papers_*_judge_warnings.json'; then
+            echo "Only judge_warnings.json changed since $deployed — nothing the site reads."
+            echo "behind=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Live site ($deployed) is behind main ($head)."
+            echo "behind=true" >> "$GITHUB_OUTPUT"
+          fi
+
   # Only deploys once the current/latest week has zero pending papers — if
   # that week isn't judged yet, tomorrow's scheduled run tries again. Older
   # weeks keep backfilling in the background across runs regardless. No
   # "result != 'cancelled'" guard — see the equivalent comment in
   # langtrend.yml; fully_judged already comes from an if: always() step, so
   # it alone is sufficient and correctly false whenever judging isn't done.
+  #
+  # Also requires the live site to actually be behind main (see the "Check
+  # whether the live site is behind main" step) — everything being fully
+  # judged is the steady state most runs land in, three times a day, and
+  # without this the site was rebuilding and redeploying on every one of them.
   deploy:
     needs:
       - judge-catchup
-    if: always() && needs.judge-catchup.outputs.fully_judged == 'true'
+    if: always() && needs.judge-catchup.outputs.fully_judged == 'true' && needs.judge-catchup.outputs.site_behind == 'true'
     permissions:
       contents: read
       pages: write
