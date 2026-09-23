@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.21362v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T20:26:21.497533+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11776,
+  "verdicts": {
+    "Iau": {
+      "verdict": "false_positive",
+      "reason": "The match is the IPA sequence /iau/ for a Pinyin final, not a reference to the Iau language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kwa": {
+      "verdict": "false_positive",
+      "reason": "The match is the IPA sequence /kwa/ in a Vietnamese orthography example, not a reference to the Kwa language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tay": {
+      "verdict": "false_positive",
+      "reason": "The match is the Vietnamese example word tay, not a reference to the Tay language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "The match refers to a nasal phonological feature or coda, not a human language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ong": {
+      "verdict": "false_positive",
+      "reason": "The match is an orthographic form in Vietnamese examples, not a reference to the Ong language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin is identified as a phonological notation and romanization system with initials and finals, not a human language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tha": {
+      "verdict": "false_positive",
+      "reason": "The match is the example syllable tha in orthography-to-phonology tables, not a reference to the Tha language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The match is the Pinyin/example syllable wa or its IPA form, not a reference to the Wa language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin-based orthography, alphabet, and conventional letter values, not the Latin language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is the human language for which the paper develops and evaluates a tokenizer and PhonemicBERT using Vietnamese data and benchmarks; this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is the human language used for the paper's tokenizer and PhonemicBERT pretraining and downstream evaluations; this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

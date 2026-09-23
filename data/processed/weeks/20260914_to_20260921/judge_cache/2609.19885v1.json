@@ -1,0 +1,79 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.19885v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T21:01:56.437151+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11876,
+  "verdicts": {
+    "Betawi": {
+      "verdict": "mentioned_only",
+      "reason": "Betawi is named as a Malay variety accepted by the language-identification check for Indonesian targets; it is only mentioned and is not a benchmark or evaluation language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malay": {
+      "verdict": "mentioned_only",
+      "reason": "Malay is named as a language whose identification may be accepted for Indonesian targets; it is only mentioned and is not itself evaluated in the benchmark.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bisa": {
+      "verdict": "false_positive",
+      "reason": "Bisa is the Indonesian word meaning ‘can’ in the phrase ‘saya tidak bisa’; it does not refer to the Bisa language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dari": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets do not show Dari as a human language or otherwise make its referent clear; under the insufficient-evidence rule, it is treated as mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Kamu": {
+      "verdict": "false_positive",
+      "reason": "Kamu is the Indonesian pronoun meaning ‘you’ in the example sentence; it does not refer to the Kamu language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae corresponds to the acronym MAE, a calibration metric, rather than the Mae language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Saya": {
+      "verdict": "false_positive",
+      "reason": "Saya is the Indonesian first-person pronoun meaning ‘I’ in the example and prompt phrase; it does not refer to the Saya language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Akan": {
+      "verdict": "false_positive",
+      "reason": "Akan is the Indonesian future auxiliary meaning ‘will’ in the phrase ‘Saya harus/akan’; it does not refer to the Akan language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is one of the four languages used to construct and evaluate the paper’s single-turn and multi-turn benchmarks.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script in ‘non-Latin examples’ and ‘Latin-script fraction,’ not to the Latin language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian is one of the four languages used to construct and evaluate the paper’s single-turn and multi-turn benchmarks.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is one of the four languages used to construct and evaluate the paper’s single-turn and multi-turn benchmarks.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly treat Arabic as a human target language, including dialect/macrolanguage checks, language pairs, and language-specific features, so Arabic is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English as a human language used in prompt context and content filtering, but do not show it as one of the evaluated study languages, so English is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

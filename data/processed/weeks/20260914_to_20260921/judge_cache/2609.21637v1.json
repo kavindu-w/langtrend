@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.21637v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T20:14:00.545995+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11267,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The matched text is part of the model name \"gpt-5.6-luna,\" not a reference to a human language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The matched text is the evaluation metric acronym \"MAE\" in labels such as \"Vote MAE,\" not a reference to a human language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The matched text refers to the Chinese language used in the debate transcripts, prompts, and character limits, and the paper builds and evaluates a dataset and benchmark for Chinese-language debate, s",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

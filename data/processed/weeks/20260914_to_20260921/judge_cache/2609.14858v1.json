@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.14858v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-23T00:30:50.863317+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3691,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "The match is the code variable fragment \"col\" in column-indexing statements, not a human language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tol": {
+      "verdict": "false_positive",
+      "reason": "The match is the code variable \"tol\" used for a numerical tolerance threshold, not a human language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Duke": {
+      "verdict": "false_positive",
+      "reason": "The match is the name of the Duke dataset in an experimental results table, not a human language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

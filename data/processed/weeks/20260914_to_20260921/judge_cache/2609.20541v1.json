@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.20541v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T20:23:23.183971+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2898,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to mean absolute error, not a human language; the match is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the Wikipedia articles used as evidence in the biography protocol; because English-language data is used in the paper's experiment, the verdict is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French refers to French fries, not the French language; the match is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

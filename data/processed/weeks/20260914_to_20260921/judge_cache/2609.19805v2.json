@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.19805v2",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T20:40:29.627122+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5650,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears only as part of the model name GPT-5.6-Luna, not as a human language, implying a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin-script loanwords, not the Latin language, implying a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic refers to Arabic numerals, not the Arabic language, implying a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is identified as an unsegmented human language in a comparison with Japanese, but the snippets show no work on Chinese, implying mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as an example of a language with word boundaries, but the snippets show no work on English, implying mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is the human language targeted by the paper's G2P framework, benchmark, data, and models, implying studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

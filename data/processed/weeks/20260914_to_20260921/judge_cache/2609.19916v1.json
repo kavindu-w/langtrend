@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.19916v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T21:04:32.728394+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11802,
+  "verdicts": {
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Korean language, Korean neologisms, Korean speakers, and Korean-language prompts; the paper constructs a benchmark and evaluates models on them, so Korean is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to Chinese characters as a script used for Sino-Korean items and banned from outputs, not to the Chinese language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to the English language in translations, loanwords, and Korean–English models, but the experiments and benchmark are for Korean rather than English, so English is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Japanese characters as a script to ban from generated output, not to the Japanese language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.16396v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T22:58:57.677634+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5169,
+  "verdicts": {
+    "Chin": {
+      "verdict": "false_positive",
+      "reason": "The matches are the anatomical term “chin” and facial blendshape labels such as “Chin Raiser,” not the Chin language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The match refers to eight generic sentinel tokens used by MotionGPT, not the Sentinel language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippets identify the corpus as German-language and describe German decoding and syntax-aware annotation configurations used in the experiments, so German is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

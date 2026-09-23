@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22796v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T19:18:01.172445+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11771,
+  "verdicts": {
+    "Mor": {
+      "verdict": "false_positive",
+      "reason": "MOR is the abbreviation for the Moroccan Arabic dialect, not the Mor language, so the match is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian refers to the human language in cited English–Russian subtitle-translation related work, which only motivates the paper rather than being studied directly.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the human language and its dialects, which the paper evaluates through translation datasets, tasks, baselines, and system results.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language used as the source side of the translation tasks and in the constructed datasets and evaluations.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

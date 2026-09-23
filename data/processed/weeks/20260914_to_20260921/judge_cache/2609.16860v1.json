@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.16860v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T22:50:41.114969+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1633,
+  "verdicts": {
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "The matches in profiling, anchor-word selection, and valence contexts use the common word “pole” (for example, an endpoint in semantic space), not the human language; this implies false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Finnish": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language Finnish in the Shift vectors section, but the supplied evidence shows no use, evaluation, or data collection for Finnish; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language Russian in the Shift vectors section, but the supplied evidence shows no use, evaluation, or data collection for Russian; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language German in the Shift vectors section, but the supplied evidence shows no use, evaluation, or data collection for German; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hungarian": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language Hungarian in the Procrustes analysis and discussion sections, but the supplied evidence shows no use, evaluation, or data collection for Hungarian; this implies mention",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The match is Mandarin Chinese, the language whose reduplicative constructions, corpus data, embeddings, and semantic patterns the paper analyzes; this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The match is the human language English in the listed profiling and shift-vector sections, but the supplied evidence shows no experiment, data collection, or resource construction for English; this im",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

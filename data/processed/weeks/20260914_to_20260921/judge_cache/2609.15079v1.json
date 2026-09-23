@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.15079v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T23:18:20.596916+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1561,
+  "verdicts": {
+    "Lingua Franca": {
+      "verdict": "false_positive",
+      "reason": "In the abstract, 'lingua franca' is a generic term for English's role as a common inter-agent language, not the name of a human language; this implies a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is one of the four languages used to evaluate the native-language and English-forced pipelines; this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is one of the four languages used to evaluate the native-language and English-forced pipelines; this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "The supplied Results snippets do not show what 'Latin' refers to, so the snippets are insufficient to classify it as a language mention; this implies mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is one of the four languages used to evaluate the native-language and English-forced pipelines; this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is one of the four languages used to evaluate the native-language and English-forced pipelines; this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the forced inter-agent communication language and is directly compared with native-language routing in the experiments; this implies studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

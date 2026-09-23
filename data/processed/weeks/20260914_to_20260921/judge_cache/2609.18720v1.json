@@ -1,0 +1,99 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.18720v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T21:39:10.717919+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6840,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "“dass” is a German conjunction meaning “that” in the example sentence, not a language name, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "“Sie” is the German formal second-person pronoun in the example sentence, not a language name, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is explicitly one of the target languages in the LocCheck dataset used to evaluate the QE models, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is explicitly one of the target languages in the LocCheck dataset used to evaluate the QE models, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is explicitly one of the target languages in the LocCheck dataset used to evaluate the QE models, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "“Latin” refers to the Latin script, alongside Cyrillic script, rather than the Latin language, so it is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "Finnish is explicitly included as a target language in LocCheck and LocHD, which are used for model evaluation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is explicitly included as a target language in LocCheck and LocHD, which are used for model evaluation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is explicitly included as a target language in LocCheck and LocHD, which are used for model evaluation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is explicitly one of the ten target languages in the LocHD corpus, for which translations and human annotations were collected, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Swedish is explicitly one of the ten target languages in the LocHD corpus, for which translations and human annotations were collected, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is explicitly one of the ten target languages in the LocHD corpus, for which translations and human annotations were collected, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is explicitly named as a target language in LocCheck, including en-zh-Hans pairs, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language in LocCheck, LocHD, and the English-German ACED data, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is a target language in LocCheck and the English-to-German ACED corpus, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is a target language in LocCheck and LocHD and is analyzed for French NBSP rules, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is explicitly listed as a target language in LocCheck and LocHD, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is a target language in LocCheck and LocHD and is analyzed for Spanish punctuation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.17435v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T22:30:16.743395+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11868,
+  "verdicts": {
+    "Haitian Creole": {
+      "verdict": "mentioned_only",
+      "reason": "Haitian Creole is genuinely the language of a high-frequency lemma list, but it is used only as a French-corpus oracle and explicitly not modeled or analyzed; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek refers only to the etymological origin of the model name MéTRON (Greek métron, meaning measurement), not to Greek-language data or analysis; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch refers to the language named by the external Dutch BLiMP-NL leaderboard score, which is used only for comparison; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the language named by the external Chinese ZhoBLiMP leaderboard score, which is used only for comparison; mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the source/target language in the translated GLUE and BLI experiments and in the English-LoRA/GPT-2 comparison targets; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is the language of the French-only training corpus and the native Quebec-French evaluation benchmarks; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

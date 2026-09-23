@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.23065v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T19:48:28.124439+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9349,
+  "verdicts": {
+    "Fur": {
+      "verdict": "false_positive",
+      "reason": "FUR is an existing parametric faithfulness metric, not the Fur language, implying false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "Noon denotes the time of day in the quoted reasoning, not a human language, implying false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin refers to romanized transliterations of Chinese proper nouns, not a human language, implying false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lao": {
+      "verdict": "false_positive",
+      "reason": "Lao occurs as part of the personal name Lao Li, not as the Lao language, implying false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to Chinese-language content and Chinese-to-English translation features analyzed in the LogiQA experiments, implying studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the target language in Chinese-to-English translation features analyzed in the experiments, implying studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22697v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T23:54:43.316534+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8361,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "\"Dia\" appears as part of baseline system names such as three-dia-a3b-fish and three-dia-a3b-voxcpm, referring to a model or tool rather than the human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "\"Mer\" appears in OV-MER, the name of a speech-emotion organization model used for the annotation strategy, rather than a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to a human language represented in the bilingual dataset, benchmarks, evaluation metrics, and qualitative examples, which are used to train and evaluate the proposed systems.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to a human language represented in the bilingual dataset, benchmarks, evaluation metrics, and qualitative examples, which are used to train and evaluate the proposed systems.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

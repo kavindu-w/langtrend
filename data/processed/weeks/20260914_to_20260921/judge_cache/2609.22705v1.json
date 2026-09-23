@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22705v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T19:28:48.519317+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3701,
+  "verdicts": {
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Miami refers to the city in example queries, not a human language; this implies a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ottawa": {
+      "verdict": "false_positive",
+      "reason": "Ottawa refers to the city in a description of retrieved cycling threads, not a human language; this implies a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language of the analyzed corpus and is the language filtered for in preprocessing; this implies it was studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

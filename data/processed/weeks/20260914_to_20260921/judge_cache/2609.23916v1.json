@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.23916v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T18:57:57.741200+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3321,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the Tulu 3 post-training dataset, not the Tulu human language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet identifies FineWeb as an English web corpus used for continued pretraining, so the language is part of the paper's experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

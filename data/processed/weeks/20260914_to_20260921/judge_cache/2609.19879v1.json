@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.19879v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T20:40:22.544768+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11917,
+  "verdicts": {
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "Mango is the English translation of the Telugu answer māmiḍi, referring to a fruit rather than a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu is the language of the VākQA benchmark, including its data, translations, evaluations, and model experiments, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is mentioned only as a possible source language for translations in related Indic-language QA resources, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Vietnamese is mentioned only in describing the related ViSQA spoken-QA work, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned only as one of the languages used by the related SpokenNativQA resource, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only in describing the related ODSQA open-domain spoken-QA resource, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the script used to transliterate Telugu text, not the Latin language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tamil": {
+      "verdict": "false_positive",
+      "reason": "Tamil occurs as part of Tamil Nadu, a place name, rather than referring to the Tamil language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used for translations, bilingual data, input configurations, and model evaluations in the paper, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

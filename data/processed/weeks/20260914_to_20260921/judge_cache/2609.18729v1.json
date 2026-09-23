@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.18729v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T21:31:02.539294+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6679,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is part of the model name gpt-5.6-luna, not a reference to a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is the ordinary verb in the phrase “can’t pin a type,” not a reference to a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Dutch": {
+      "verdict": "false_positive",
+      "reason": "Dutch describes consumer behavior in the Netherlands rather than the Dutch language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese describes a brand’s national origin in the phrase “non-Chinese brand,” not the Chinese language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English explicitly denotes the language of the collected queries and is an inclusion criterion, so the paper works with English-language data.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "false_positive",
+      "reason": "Spanish describes the origin or variety of Marcono almonds, not the Spanish language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

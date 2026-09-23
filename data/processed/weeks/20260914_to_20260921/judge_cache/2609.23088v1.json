@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.23088v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T19:18:30.686824+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3272,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The match is part of the dataset name Tulu-3-SFT-mixture, not the Tulu language; this is a false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The matched text labels Chinese-language results on EXAMS-V and GAOKAO-Bench, so Chinese is evaluated as a benchmark language and is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The matched text labels English-language results on EXAMS-V and GAOKAO-Bench, so English is evaluated as a benchmark language and is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

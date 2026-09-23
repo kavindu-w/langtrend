@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22409v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T19:41:49.621940+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3628,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "“Carrier” is part of the column name “Carrier Pigeon,” not a reference to the Carrier language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "“Latin” appears only in “Latin America,” a geographic region, not the Latin language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ere": {
+      "verdict": "false_positive",
+      "reason": "“ERE” appears in the benchmark name “MAVEN-ERE,” not as a reference to the Ere language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The snippet says that ExpliCITA extends a causal-judgment benchmark to Italian, referring to the human language and a benchmark used for it, so Italian is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The snippet discusses causal benchmarks for evaluating LLMs in Portuguese and introduces CaLQuest for that language, so Portuguese is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

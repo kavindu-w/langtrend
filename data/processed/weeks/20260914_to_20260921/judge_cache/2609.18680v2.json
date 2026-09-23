@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.18680v2",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T21:12:21.001513+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5579,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "“Latin” refers to Latin-word tokenization/script, not the Latin language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "“Chinese” refers to the Chinese language evaluated in the HearInContext benchmark, including CER and recall experiments, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "“English” refers to the English language evaluated in the HearInContext benchmark, including WER, recall, data, and adaptation experiments, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

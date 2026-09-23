@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.17056v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T22:27:34.102404+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3363,
+  "verdicts": {
+    "Lombard": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the Lombard effect, a speech response to noise, not the Lombard language; this implies a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets state that the Candor dataset contains conversations in English and that the paper trains and evaluates models on it; this implies the language is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention Japanese only as part of dataset names and related prior work, without experiments or resources built for the language; this implies it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

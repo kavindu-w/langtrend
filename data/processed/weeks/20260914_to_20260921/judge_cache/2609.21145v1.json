@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.21145v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T20:11:36.974643+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3077,
+  "verdicts": {
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to a Bulgarian interpretation and Bulgarian audio in an alignment visualization, so the language is part of the paper's evaluated data.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is mentioned only as a language whose EuroSpeech test set is missing; the snippets show no Italian data or evaluation.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned as an example of a language with logographic characters in the prior derivation, without evidence of Chinese data or experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to Japanese Kanji, a script/character set, rather than the Japanese language itself.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English interviews in the Buckeye corpus and original English audio used in alignment, so English is part of the evaluated data.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

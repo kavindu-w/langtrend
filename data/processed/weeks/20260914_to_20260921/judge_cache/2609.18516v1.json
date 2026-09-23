@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.18516v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T21:28:58.541541+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3363,
+  "verdicts": {
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "“Sie” is the German pronoun “you” in “Können Sie…,” not the Sie language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is an evaluated Europarl-ST target language and appears in target-language translation prompts; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is an evaluated English-to-Chinese CoVoST-2 direction and appears in target-language translation prompts; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is an evaluated Europarl-ST target language and appears in target-language translation prompts; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is an evaluated Europarl-ST and CoVoST-2 target language and appears in target-language translation prompts; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is an evaluated Europarl-ST target language and appears in target-language translation prompts; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language in the evaluated English-to-X pairs, and the paper describes its pipelines as English-centric; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

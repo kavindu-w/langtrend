@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.16427v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T22:39:41.026006+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5695,
+  "verdicts": {
+    "Yakut": {
+      "verdict": "mentioned_only",
+      "reason": "Yakut is named as a language included in the WMT shared task; it is not worked on in this paper, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script/alphabet used for Belarusian, not the Latin language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is identified as a language causing interference in Belarusian data; it is not studied or evaluated here, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is identified as a language causing interference in Belarusian data and as the language of some speakers' families; it is not studied or evaluated here, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Ukrainian": {
+      "verdict": "mentioned_only",
+      "reason": "Ukrainian is identified as a language causing interference in Belarusian data; it is not studied or evaluated here, so it is mentioned_only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Belarusian": {
+      "verdict": "studied",
+      "reason": "The paper develops a Belarusian data-cleaning pipeline, fine-tunes and evaluates English-Belarusian translation models, and releases a Belarusian translation model, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is one side of the translation pair, used in back-translation and in English-to-Belarusian evaluation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

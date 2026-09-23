@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.21378v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T23:49:18.153759+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3639,
+  "verdicts": {
+    "Sop": {
+      "verdict": "false_positive",
+      "reason": "SOP refers to a standard operating procedure in the prompt text, not a human language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the human language used for translated prompts and a translated case trajectory, but the paper does not study English as a language, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the human language of prompts that were translated into English, but the snippets do not show experiments, data, models, or resources built for Chinese, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

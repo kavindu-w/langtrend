@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.15561v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-23T00:20:41.112034+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2899,
+  "verdicts": {
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly refers to common English stop words used in the paper's question-filtering pipeline, so English is part of the methodology.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The match refers to the Japanese Empire's occupation of Korea, not the Japanese language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Spanish": {
+      "verdict": "false_positive",
+      "reason": "The match refers to Spanish colonial rule, not the Spanish language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

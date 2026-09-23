@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.18494v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T21:26:47.381377+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6264,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "“col” is an HTML tag retained during preprocessing, not a human language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the jina-embeddings-v3 embedding model, not a human language; false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech is the human language targeted by HTML-LM and used in its training data and downstream evaluations; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the human language of 34% of the primarily English-language domains in the model's training corpus; studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

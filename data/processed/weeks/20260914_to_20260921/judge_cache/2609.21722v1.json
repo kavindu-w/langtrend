@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.21722v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T19:40:20.734819+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11732,
+  "verdicts": {
+    "Kou": {
+      "verdict": "false_positive",
+      "reason": "Kou is only the romanized syllable in the Chinese buzzword \"kou qu,\" not a language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Lao": {
+      "verdict": "false_positive",
+      "reason": "Lao is part of \"Yue Lao,\" the name of a cultural love deity, not the Lao language; this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the language of the buzzwords, explanations, and prompt settings that the benchmark annotates and evaluates; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the target language of explanations and equivalents and to an evaluated prompt setting; it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.14963v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T23:38:47.728042+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11731,
+  "verdicts": {
+    "Coptic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets identify Coptic as a classical language and translation tradition discussed as a potential application setting, without working on it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pana": {
+      "verdict": "false_positive",
+      "reason": "The matched text uses “pana” as a common Pali particle excluded during token processing, not as the name of a human language.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Pali": {
+      "verdict": "studied",
+      "reason": "The snippets identify Pali as the source language of the translated corpus and use it throughout the study’s translation, calibration, evaluation, and triage experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sanskrit": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention Sanskrit as another classical language for which the method’s transfer remains to be tested, without experimenting on it.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention Latin as another classical language and cite Latin-to-English translation work, without conducting experiments on Latin.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Ancient Greek as a language covered by related translation research and as a potential transfer setting, without working on Greek data.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets identify English as the target language for the Pali translations and as the language used for references, candidates, calibration, and backtranslation experiments.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

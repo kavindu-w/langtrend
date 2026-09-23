@@ -1,0 +1,74 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.21595v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T19:56:15.573926+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 7087,
+  "verdicts": {
+    "Kalam": {
+      "verdict": "false_positive",
+      "reason": "Kalam refers to the Kalam-Regular Devanagari font used for rendering, not the Kalam language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Gujarati": {
+      "verdict": "mentioned_only",
+      "reason": "Gujarati is named as a language for proposed future evaluation, not as part of this paper's experiments or artifacts, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Malayalam": {
+      "verdict": "mentioned_only",
+      "reason": "Malayalam appears in discussion of prior morphology-aware OCR correction work, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Sanskrit": {
+      "verdict": "mentioned_only",
+      "reason": "Sanskrit is discussed as the subject of prior post-OCR correction research, not this paper's evaluation, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Telugu": {
+      "verdict": "mentioned_only",
+      "reason": "Telugu is referenced in prior synthetic-data research and proposed as a future evaluation language, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is referenced through prior Bangla OCR work and proposed for future evaluation, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin characters removed during tokenization, not the Latin language, so this is a false positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "Tamil is named only as a language for proposed future evaluation, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Finnish": {
+      "verdict": "mentioned_only",
+      "reason": "Finnish appears in discussion of prior evaluation of LLMs on historical documents, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced in prior and general English-language post-OCR correction studies, not as a language evaluated by this paper, so it is mentioned only.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "Marathi is one of the two languages in the paper's 20,000-sentence benchmark and evaluation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is one of the two languages in the paper's 20,000-sentence benchmark and evaluation, so it is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet uses German to describe German Fraktur OCR work, i.e. the German language in related work; it is not evaluated in this paper.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22038v1",
+  "judge_model": "nex-agi/nex-n2.5-pro:free",
+  "judged_at": "2026-09-22T19:35:33.768490+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7355,
+  "verdicts": {
+    "Budu": {
+      "verdict": "false_positive",
+      "reason": "The match occurs inside the Arabic phrase “iyyāka na'budu,” not a reference to the Budu language, so the verdict is false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The matches are the Arabic conjunction “wa-” in Quranic expressions such as “wa-l-rāsikhūna,” not the Wa language, so the verdict is false_positive.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets consistently refer to Quranic Arabic, for which the paper constructs questions, annotates a dataset, and benchmarks AI systems, so the verdict is studied.",
+      "model": "nex-agi/nex-n2.5-pro:free"
+    }
+  }
+}
