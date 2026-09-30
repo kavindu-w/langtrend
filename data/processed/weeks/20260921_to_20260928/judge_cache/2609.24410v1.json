@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.24410v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T05:21:50.171213+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4400,
+  "verdicts": {
+    "Gondi": {
+      "verdict": "false_positive",
+      "reason": "Gondi appears as a co-author name (Gondi and Pratap) and not as a language reference, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kubo": {
+      "verdict": "false_positive",
+      "reason": "Kubo appears as an author name (Kubo T) in citation and not as a language reference, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa appears only as part of a URL (webrtcvad) and not as a language reference, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is explicitly referenced as the target language (Jordanian Arabic dialect) and the paper builds a speech-to-text system for it, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.26025v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T04:22:47.469258+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3988,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae in snippets refers to the metric abbreviation MAE (Mean Absolute Error), not the language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language as part of the English–German WMT20 dataset used for experiments, so the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the German language as part of the English–German WMT20 dataset used for experiments, so the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

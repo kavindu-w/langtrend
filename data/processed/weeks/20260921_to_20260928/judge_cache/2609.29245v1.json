@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.29245v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T03:00:27.025784+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3013,
+  "verdicts": {
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'Miami Heat', a basketball team, not the Miami language, implying a false_positive verdict.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kannada": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes the word 'kannada' as part of a random string, not a reference to the Kannada language, implying a false_positive verdict.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions a 'Greek word', referring to the Greek language, implying a mentioned_only verdict.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

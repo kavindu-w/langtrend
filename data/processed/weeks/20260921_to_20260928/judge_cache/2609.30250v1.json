@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30250v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T02:57:02.471305+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11129,
+  "verdicts": {
+    "Bavarian": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the 'Bavarian Illuminati', a historical secret society, not the Bavarian language, making this a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "The snippets repeatedly refer to Hebrew-language tweets, original Hebrew text, and Hebrew prompts, indicating the paper collects, analyzes, and evaluates Hebrew data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned only as a low-resource language alongside Hebrew, with no evidence of data collection or experiments on Arabic, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as the language of prompts, translations, and the paper's own text, with no dedicated experiments or resources for English, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

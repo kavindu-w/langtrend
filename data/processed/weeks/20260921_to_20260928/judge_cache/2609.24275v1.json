@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.24275v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T05:45:53.569266+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11912,
+  "verdicts": {
+    "Beng": {
+      "verdict": "false_positive",
+      "reason": "Refers to the model name 'ben-Beng-east' (a Bengali IPA conversion model), not the language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "false_positive",
+      "reason": "Appears as part of the dataset name 'Common Voice Scripted Speech 26.0 – Bengali', not a direct reference to the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "Direct references to the English language: uses LJSpeech-1.1 corpus, processes English text to IPA, trains and evaluates TTS models on English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

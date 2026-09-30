@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.27558v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T03:14:17.210714+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5816,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script, not the Latin language (e.g., 'non-Latin script', 'pure-Latin tokens'), indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is referenced throughout as the language of the corpus, Wikipedia, constructions, parsers, etc., indicating the paper studies Thai.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

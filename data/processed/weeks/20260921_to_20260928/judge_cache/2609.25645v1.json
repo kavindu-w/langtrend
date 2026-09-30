@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.25645v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T05:12:40.474804+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5196,
+  "verdicts": {
+    "Bo": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet contains only 'B', not 'Bo', so it's unclear if 'Bo' refers to the language; insufficient evidence to confirm false positive, thus we label as mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'jina-chat', which is a model name, not the Jina language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Samba": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Samba-CoE', a model or tool name, not the Samba language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'HS Gov & Pol' where 'Pol' is part of 'Politics', not the Polish language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Tulu-7B' and 'Tulu-2-7B' as model names, not the Tulu language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

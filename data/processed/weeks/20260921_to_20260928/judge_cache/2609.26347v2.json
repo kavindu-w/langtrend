@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.26347v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T04:18:38.819853+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11991,
+  "verdicts": {
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references Hindi as a language lacking life‑sciences PLM, not part of experiments → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Italian as a language with existing life‑sciences models, not part of experiments → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet lists Chinese among high‑resource languages with NLP advancements, not part of experiments → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet notes German as a language with life‑sciences models, not part of experiments → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to English as the source language for synthetic translation and as the language of benchmarks, but the paper does not study English itself → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippet describes French as the target domain: the paper builds TransBERT‑bio‑fr, TransCorpus‑bio‑fr, and evaluates on French benchmarks → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Spanish as a target language for the translation toolkit, but no Spanish‑specific experiments are performed → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

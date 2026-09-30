@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.27173v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T04:11:58.828964+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9814,
+  "verdicts": {
+    "Mina": {
+      "verdict": "false_positive",
+      "reason": "Mina refers to a character (Mina Harker) in the Dracula story, not the language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "Noon appears as a time of day (e.g., 'At noon set sail'), not a language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin appears as a safety-pin or pin-pricks in the narrative, not a language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Slovak": {
+      "verdict": "false_positive",
+      "reason": "Slovak refers to traders from Slovakia, not the language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romanian": {
+      "verdict": "false_positive",
+      "reason": "Romanian refers to a river location (Romanian river), not the language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Snippets do not contain the word 'Polish', so insufficient to determine referent; default to mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the language of newspapers and the text, not studied, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

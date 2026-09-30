@@ -1,0 +1,84 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.26942v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T03:57:18.926848+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11567,
+  "verdicts": {
+    "Bua": {
+      "verdict": "false_positive",
+      "reason": "Bua is a kinship term for father's sister, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chachi": {
+      "verdict": "false_positive",
+      "reason": "Chachi is a kinship term for father's younger brother's wife, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mama": {
+      "verdict": "false_positive",
+      "reason": "Mama is a kinship term for mother's brother, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Phupha": {
+      "verdict": "false_positive",
+      "reason": "Phupha is a kinship term for father's sister's husband, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sala": {
+      "verdict": "false_positive",
+      "reason": "Sala is a kinship term for wife's brother, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is a target language in the experiments, used for generation and evaluation of kinship terms.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin letters (A, B, C, D) used as answer options, not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lithuanian": {
+      "verdict": "mentioned_only",
+      "reason": "Lithuanian is mentioned only as an example of a language with kinship distinctions, not part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is mentioned only as an example of a language with kinship distinctions, not part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned only as an example of a language with kinship distinctions, not part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is a target language in the experiments, used for generation and evaluation of kinship terms.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is a target language in the experiments, used for generation and evaluation of kinship terms.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears in a list of languages with kinship distinctions, referring to the Chinese language itself; the paper does not study Chinese, only mentions it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese appears in the same list of languages with kinship distinctions, referring to the Japanese language; the paper does not study Japanese, only mentions it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as the language of prompts, instructions, and as a column header 'English relationship', referring to the English language; the paper does not evaluate English kinship terms, only ment",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

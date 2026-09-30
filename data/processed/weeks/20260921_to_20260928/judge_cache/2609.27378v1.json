@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.27378v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T03:28:42.893889+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3203,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the AMI dataset, not the Ami language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'carrier' to denote the carrier speech signal, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English as the language of the conversational data and corpora, indicating the paper studies English, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

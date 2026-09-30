@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.27233v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T04:20:48.101356+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3301,
+  "verdicts": {
+    "Bintulu": {
+      "verdict": "false_positive",
+      "reason": "Bintulu refers to a city/place in the snippet, not a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language in the prompts used for evaluation, indicating the paper studies Chinese, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

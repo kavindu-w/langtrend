@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.25721v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T04:57:02.153820+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9929,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to the carrier concept (carrier prompts, carrier generation, carrier-output sample) used in the experimental setup, not the Carrier language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "Deg appears as an abbreviation for \"degree\" in evaluation metrics, not the Deg language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "Logo is part of \"Axis prompts\" and refers to prompt categories, not the Logo language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned only in a translation prompt (\"Translate ’thank you’ into Spanish\") as part of neutral prompts, not studied in the paper.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

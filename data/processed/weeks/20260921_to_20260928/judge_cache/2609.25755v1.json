@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.25755v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T04:49:30.694549+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6871,
+  "verdicts": {
+    "Gua": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain \"Gua\" only as part of herb names (e.g., Gua Lou), not as a reference to a human language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain \"Gan\" only as part of herb names (e.g., Gan Cao, Gan Sui), not as a reference to a human language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Traditional Chinese Medicine, Chinese‑centric models, and Chinese language pretraining, indicating the paper uses and evaluates Chinese language data and models; thus Chinese is ",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention English‑centric models and English language pretraining only as baseline comparisons, not as a target of study; thus English is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

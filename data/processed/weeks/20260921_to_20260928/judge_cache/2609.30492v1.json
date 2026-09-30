@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30492v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T03:10:24.307334+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11625,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae refers to the metric abbreviation 'MAE' (Mean Absolute Error) in the snippet, not the language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Poke": {
+      "verdict": "false_positive",
+      "reason": "Poke appears as part of the example phrase 'poke holes in foil', not a language reference, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake is not mentioned in any snippet; the detection is likely a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel is used as a programming term ('initialized sentinel') in the algorithm description, not the language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yuki": {
+      "verdict": "false_positive",
+      "reason": "Yuki is a personal name used for a persona example, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "Japanese appears as an adjective describing 'home‑style meals', a cultural reference rather than a mention of the Japanese language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latvian": {
+      "verdict": "mentioned_only",
+      "reason": "Latvian is mentioned as the persona’s native language ('native Latvian speaker'), a mention of the language but not studied, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is mentioned as a language the persona is fluent in, a mention of the language but not studied, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is mentioned as a language the persona has functional reading knowledge of, a mention of the language but not studied, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is repeatedly referenced as the language of prompts, tasks, and evaluation (e.g., 'written in English', 'answers in English'), indicating the paper studies English outputs, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

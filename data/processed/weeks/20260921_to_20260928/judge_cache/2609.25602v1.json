@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.25602v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T04:42:53.747485+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3031,
+  "verdicts": {
+    "Dla": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"DLA pull ratio\", an abbreviation for a method, not the language Dla, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"pin\" as a verb, not a language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "The snippet shows Persian used as a language name in substitution prompts, indicating the paper includes Persian in its dataset/experiments, implying it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippet shows French used as a language name in substitution prompts, indicating the paper includes French in its dataset/experiments, implying it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

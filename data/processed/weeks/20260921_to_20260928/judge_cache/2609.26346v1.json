@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.26346v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T04:26:49.016573+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6938,
+  "verdicts": {
+    "Lave": {
+      "verdict": "false_positive",
+      "reason": "Lave appears as a Danish verb meaning 'to make' and does not refer to a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Danish": {
+      "verdict": "studied",
+      "reason": "Danish is referenced throughout as the language of the parliamentary transcripts, dataset, and models, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch is mentioned only in a citation about Dutch intra-party speeches, not studied in this paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as the language on which the DEBATE model was validated, not studied in this paper.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

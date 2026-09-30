@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.27205v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T03:56:26.265505+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11925,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears as a token in example text (e.g., 'mO') and is not a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tho": {
+      "verdict": "false_positive",
+      "reason": "Tho appears as a slang word example ('tho → though') and is not a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean refers to the Korean language, which is part of the UGTPhon benchmark, manually annotated, and evaluated in experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese refers to the Vietnamese language, included in the benchmark, annotated, and evaluated.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language, part of the benchmark and evaluated.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

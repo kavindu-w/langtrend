@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.28004v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T03:19:44.131625+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4427,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "Aka appears as an abbreviation for \"aka\" (also known as) in the snippet and does not refer to a human language; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swati": {
+      "verdict": "false_positive",
+      "reason": "Swati is used as a personal name (a receptionist) in the snippets, not as the Swati language; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of annotation and the monolingual context, indicating the paper studies English; studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

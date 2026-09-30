@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.28395v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T03:09:38.807208+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11846,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "Agi appears only as part of the benchmark name AGI-Eval in the tables, not as a human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "Amharic is mentioned as a training language pair (Amharic‑English), evaluated on FLORES‑Amharic, and reported per‑task scores, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is used as a training language (Arabic‑English), evaluated on FLORES‑Arabic, and appears in MT‑IF results and tables, showing the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the target language for translation pairs (e.g., German‑to‑English), as the source language for MT‑IF evaluations, and in benchmark tables, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German appears as an out‑of‑distribution pair (German‑to‑English), in FLORES‑German evaluation, and as a training language for grammatical‑gender control, showing the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is used as a training language pair (Spanish‑English), evaluated on FLORES‑Spanish, and featured in MT‑IF control tasks and per‑task tables, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

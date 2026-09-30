@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30984v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T02:52:57.501611+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11963,
+  "verdicts": {
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "The candidate 'Mango' appears as the fruit 'mango' in the snippet, not the language Mango; thus it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tha": {
+      "verdict": "false_positive",
+      "reason": "The candidate 'Tha' is the name of the Khmer text normalization toolkit, not the language Tha; thus it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Khmer": {
+      "verdict": "studied",
+      "reason": "The candidate 'Khmer' refers to the Khmer language throughout the snippets, and the paper develops resources for it; thus it's studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The candidate 'Latin' refers to the Latin script/digits/letters, not the Latin language; thus it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The candidate 'French' appears as 'French-style h', a stylistic reference to French conventions, not a focus on the French language; thus it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

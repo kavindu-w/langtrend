@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.27059v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T03:39:44.624223+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5480,
+  "verdicts": {
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "Logo refers to website logo design, not a language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mor": {
+      "verdict": "false_positive",
+      "reason": "Mor appears as part of 'moralization', not a language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole refers to category pole, not a language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script, not the Latin language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned as a language where the keyword 'gay' appears, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned as a language where the keyword 'gay' appears, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the corpus and is studied throughout the pipeline → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

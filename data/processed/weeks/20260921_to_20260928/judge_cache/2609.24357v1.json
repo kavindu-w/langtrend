@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.24357v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T05:31:20.216270+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4016,
+  "verdicts": {
+    "Nandi": {
+      "verdict": "false_positive",
+      "reason": "Nandi refers to a researcher (author) name, not the language, so it's a false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol refers to the domain label 'politics' (entity type), not a language, so it's a false positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
