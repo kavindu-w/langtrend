@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import 'katex/dist/katex.min.css';
+import { getBuildInfoOnce } from '../lib/build-info.js';
 
 const { title = 'LangTrend', description = 'LangTrend dashboard for language inclusion in NLP papers' } = Astro.props as {
   title?: string;
@@ -12,6 +13,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const isHome = pathname === base + '/' || pathname === base;
 const isAbout = pathname.startsWith(base + '/about');
 const currentYear = new Date().getFullYear();
+const repoUrl = 'https://github.com/kavindu-w/langtrend';
+const build = getBuildInfoOnce({ repoUrl });
+// GoatCounter site code (the "<code>" in <code>.goatcounter.com). Unset in
+// local dev and forks, so neither tracking nor the visit counter load there.
+const goatCounterCode = import.meta.env.PUBLIC_GOATCOUNTER_CODE ?? '';
+const digestEnabled = Boolean(import.meta.env.PUBLIC_BUTTONDOWN_USERNAME);
 ---
 <!doctype html>
 <html lang="en">
@@ -21,6 +28,14 @@ const currentYear = new Date().getFullYear();
     <meta name="color-scheme" content="light" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    {goatCounterCode && (
+      <script
+        is:inline
+        async
+        data-goatcounter={`https://${goatCounterCode}.goatcounter.com/count`}
+        src="https://gc.zgo.at/count.js"
+      ></script>
+    )}
   </head>
   <body>
     <div class="page-shell">
@@ -73,9 +88,44 @@ const currentYear = new Date().getFullYear();
             </svg>
             <span>GitHub<span class="sr-only"> (opens in new tab)</span></span>
           </a>
+          {digestEnabled && (
+            <a id="footer-digest-link" class="footer-link" href={`${import.meta.env.BASE_URL}about/#subscribe`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7-6V11a7 7 0 0 0-5.5-6.84V3a1.5 1.5 0 0 0-3 0v1.16A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2Z" fill="currentColor"></path>
+              </svg>
+              <span>Weekly digest</span>
+            </a>
+          )}
           <p class="copyright-line">
             © {currentYear} LangTrend. All rights reserved.
           </p>
+          <div class="footer-meta">
+            <p class="footer-build">
+              Last updated <time datetime={build.builtAtIso}>{build.builtAtLabel}</time>
+              {build.versionLabel && (
+                <>
+                  {' · '}
+                  <a href={build.versionUrl} target="_blank" rel="noreferrer">{build.versionLabel}</a>
+                </>
+              )}
+              {build.shortSha && (
+                <>
+                  {' '}(<a href={build.commitUrl} target="_blank" rel="noreferrer"><code>{build.shortSha}</code></a>)
+                </>
+              )}
+            </p>
+            <p
+              id="footer-usage"
+              class="footer-usage"
+              data-goatcounter-code={goatCounterCode}
+              data-repo-url={repoUrl}
+              hidden
+            >
+              <span data-stat="visits" hidden></span>
+              <span data-stat="stars" hidden></span>
+              <span data-stat="forks" hidden></span>
+            </p>
+          </div>
         </footer>
       </main>
     </div>
@@ -87,6 +137,42 @@ const currentYear = new Date().getFullYear();
     </button>
 
     <script>
+      import { compactNumber, goatCounterTotalUrl, parseGoatCounterCount, parseRepoStats, repoApiUrl } from '../lib/site-stats.js';
+
+      const usage = document.getElementById('footer-usage');
+      if (usage) {
+        const show = (key: string, n: number | null, singular: string, plural: string) => {
+          const label = compactNumber(n);
+          const el = usage.querySelector<HTMLElement>(`[data-stat="${key}"]`);
+          // Zero counts are hidden — this row is social proof, and "0 forks" is noise.
+          if (!label || !el || !n) return;
+          el.textContent = `${label} ${n === 1 ? singular : plural}`;
+          el.hidden = false;
+          usage.hidden = false;
+        };
+        const getJson = (url: string | null) =>
+          url ? fetch(url, { headers: { Accept: 'application/json' } }).then((r) => (r.ok ? r.json() : null)).catch(() => null) : Promise.resolve(null);
+
+        getJson(goatCounterTotalUrl(usage.dataset.goatcounterCode)).then((p) => show('visits', parseGoatCounterCount(p), 'visit', 'visits'));
+        getJson(repoApiUrl(usage.dataset.repoUrl)).then((p) => {
+          const stats = parseRepoStats(p);
+          if (!stats) return;
+          show('stars', stats.stars, 'GitHub star', 'GitHub stars');
+          show('forks', stats.forks, 'fork', 'forks');
+        });
+      }
+
+      // Carry the paper table's current ?lang= filter to the signup form, so
+      // "Weekly digest" from a Sinhala-filtered view pre-selects Sinhala.
+      const digestLink = document.getElementById('footer-digest-link') as HTMLAnchorElement | null;
+      digestLink?.addEventListener('click', () => {
+        const lang = new URLSearchParams(location.search).get('lang');
+        if (!lang) return;
+        const url = new URL(digestLink.href);
+        url.searchParams.set('lang', lang);
+        digestLink.href = url.toString();
+      });
+
       const goTopButton = document.getElementById('go-top-button');
 
       if (goTopButton) {

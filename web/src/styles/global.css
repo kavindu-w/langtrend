@@ -31,12 +31,13 @@ html { overflow-x: hidden; }
 .week-nav-btn:focus-visible,
 .go-top-button:focus-visible,
 .clear-filters-btn:focus-visible,
-.subscribe-btn:focus-visible,
+.subscribe-chip:focus-visible,
 .trend-view-chip:focus-visible {
   border-radius: 999px;
 }
 /* Inputs: outline inside the border */
 .search-input:focus-visible,
+.subscribe-input:focus-visible,
 .sort-select:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 0;
@@ -1487,7 +1488,6 @@ text.bump-mid-label {
 
 .page-intro { margin: 10px 0 18px; }
 .about-grid { grid-template-columns: 1fr 1fr; margin-bottom: 16px; }
-.diagram-placeholder, .subscribe-box { min-height: 140px; border-radius: 18px; border: 1px dashed var(--line); display: grid; place-items: center; color: var(--muted); background: rgba(255, 255, 255, 0.5); }
 .pipeline-diagram {
   margin: 0;
   padding: 12px;
@@ -1500,19 +1500,6 @@ text.bump-mid-label {
   width: 100%;
   height: auto;
 }
-.subscribe-box { gap: 12px; padding: 16px; }
-.subscription-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-.subscribe-btn {
-  border-radius: 999px;
-  padding: 11px 16px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.email-btn { background: var(--accent); color: #fff; }
-.slack-btn { background: #4a154b; color: #fff; }
-.subscribe-note { color: var(--muted); text-align: center; }
 .class-table { width: 100%; border-collapse: collapse; }
 .class-table th, .class-table td { text-align: left; padding: 10px; border-bottom: 1px solid var(--line); }
 
@@ -1554,6 +1541,22 @@ text.bump-mid-label {
   flex: 0 0 auto;
 }
 .footer-link:hover { color: var(--accent); }
+.footer-meta {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 6px 18px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.footer-meta a { color: inherit; }
+.footer-meta a:hover { color: var(--accent); }
+.footer-meta code { font-size: 0.95em; }
+.footer-usage { display: inline-flex; flex-wrap: wrap; gap: 4px 14px; }
+.footer-usage span:not([hidden]) ~ span:not([hidden])::before { content: '·'; margin-right: 14px; }
 
 .placeholder-text { color: var(--muted); }
 
@@ -1607,3 +1610,41 @@ text.bump-mid-label {
   .paper-title-row { display: flex; gap: 10px; align-items: center; }
   .paper-title-row h3 { flex: 1 1 auto; min-width: 0; word-break: break-word; overflow-wrap: anywhere; }
 }
+
+/* Weekly-digest signup (SubscribeForm.astro) */
+.subscribe-form { display: grid; gap: 14px; margin-top: 14px; max-width: 720px; }
+.subscribe-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.subscribe-input {
+  flex: 1 1 240px;
+  min-width: 0;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  padding: 10px 16px;
+  font: inherit;
+  font-size: 0.95rem;
+}
+.subscribe-submit { border: 0; cursor: pointer; font: inherit; }
+.subscribe-langs { display: grid; gap: 8px; }
+.subscribe-label { font-weight: 700; font-size: 0.92rem; }
+.subscribe-hint { font-weight: 400; color: var(--muted); }
+.subscribe-lang-wrapper { position: relative; display: flex; align-items: center; max-width: 360px; }
+.subscribe-selected { display: flex; flex-wrap: wrap; gap: 6px; }
+.subscribe-selected:empty { display: none; }
+.subscribe-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(15, 108, 93, 0.08);
+  color: var(--text);
+  padding: 4px 10px;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.subscribe-chip::after { content: '×'; color: var(--muted); font-size: 1rem; line-height: 1; }
+.subscribe-chip:hover { border-color: var(--accent-2); }
+.subscribe-chip:hover::after { color: var(--accent-2); }
+.subscribe-note { margin: 0; color: var(--muted); font-size: 0.85rem; }
+.subscribe-note a { color: inherit; }
