@@ -1,8 +1,44 @@
 {
   "paper_id": "http://arxiv.org/abs/2609.25441v1",
-  "judge_model": "google/gemma-4-26b-a4b-it:free",
-  "judged_at": "2026-09-30T07:32:07.878339+00:00",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-09-30T18:21:12.169812+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 4665,
-  "verdicts": {}
+  "verdicts": {
+    "Anal": {
+      "verdict": "false_positive",
+      "reason": "The term 'Anal' is an abbreviation for 'Analysis' in a table of annotation counts, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "The term 'Bo' refers to the Yujian-Bo edit-distance metric, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hungarian": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'Hungarian' refers to the Hungarian algorithm in one instance and Hungarian judicial decisions in another; the latter indicates the language is mentioned in the context of related work.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions Korean additional-tax-penalty questions and Korean penalty-exemption questions in the context of related work.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions Chinese judicial decisions and the Chinese-law setting in the context of related work.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions Japanese judgment documents in the context of related work.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper's corpus consists of English-language U.S. federal tax law cases and is the primary language of the study.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
 }
