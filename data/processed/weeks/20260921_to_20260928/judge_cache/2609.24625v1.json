@@ -1,8 +1,19 @@
 {
   "paper_id": "http://arxiv.org/abs/2609.24625v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-09-30T06:09:16.273515+00:00",
+  "judged_at": "2026-09-30T06:34:05.861998+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 3534,
-  "verdicts": {}
+  "verdicts": {
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the data (global health research) and is used in the experiments, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German refers to the German organization (Bundesamt für Sozialversicherungen) and not the language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }
