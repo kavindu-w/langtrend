@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30030v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T01:49:38.692063+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5208,
+  "verdicts": {
+    "Dutch": {
+      "verdict": "false_positive",
+      "reason": "Dutch refers to a Dutch panel (a dataset) not the Dutch language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "Finnish refers to Finnish language data (Finnish adults, source Finnish text, Finnish battery instruction) indicating the paper studies Finnish, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to English language cohorts and respondents, indicating the paper studies English, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

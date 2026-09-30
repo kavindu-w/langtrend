@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.33150v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T22:07:56.413172+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2347,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is used as a name in a logical reasoning example, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish is not mentioned; the snippet contains 'polish' as a verb, not the language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

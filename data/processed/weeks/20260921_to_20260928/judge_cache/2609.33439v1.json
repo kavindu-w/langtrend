@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.33439v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T22:40:30.356692+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8349,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the tool 'Jina Reader' used for page retrieval, not the Jina language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the model name 'GPT-5.6 Luna' used as a judge/generator, not the Luna language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to the theoretical placeholder symbol '⊥' (sentinel value), not the Sentinel language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek refers to the subject 'Greek polychromy' and 'visual language', not the Greek language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to Chinese‑language data in the benchmark (xBench‑DeepSearch) and Chinese‑language decks, indicating the paper evaluates on Chinese language tasks.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to English‑language data in the benchmark (BrowseComp) and English‑language decks, indicating the paper evaluates on English language tasks.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

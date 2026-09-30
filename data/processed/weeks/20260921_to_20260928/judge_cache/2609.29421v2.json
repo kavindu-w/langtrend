@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.29421v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T02:18:47.553719+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4204,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the Jina Reader tool, not the language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb ('pin the environment'), not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to US‑English locale settings, a mention only, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake does not appear as a language in the snippets; the detection is spurious, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Seta": {
+      "verdict": "false_positive",
+      "reason": "Seta appears as part of SETA‑Env dataset name, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

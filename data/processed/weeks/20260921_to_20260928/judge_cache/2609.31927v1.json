@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31927v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T00:54:10.893038+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9004,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb ('pin an inversion') in the abstract, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mongolian": {
+      "verdict": "mentioned_only",
+      "reason": "Mongolian is listed as a language tag for problems in the dataset, but the paper does not study or evaluate it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is listed as a language tag for problems in the dataset, but the paper does not study or evaluate it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is listed as a language tag for problems in the dataset, but the paper does not study or evaluate it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is listed as a language tag for problems in the dataset, but the paper does not study or evaluate it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is used as a back‑translation language in the control, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is used as a back‑translation language in the control, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used for same‑language duplicate queries and evaluated in the experiments, so the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is used as a back‑translation language in the control, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

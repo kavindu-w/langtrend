@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.28449v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T02:34:51.356901+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2503,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col refers to a local variable name in code snippets, not the Col language; therefore false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole refers to a variable/loop name in code snippets, not the Pole language; therefore false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

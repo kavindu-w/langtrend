@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.29276v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T01:48:09.339675+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8729,
+  "verdicts": {
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the source language of borrowings (anglicisms) in the text, and the paper builds models for detecting English borrowings, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned only as an example of other languages that could be borrowings, not studied, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only as an example of other languages that could be borrowings, not studied, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish refers to the target language of the text being processed, and the paper builds models for detecting borrowings in Spanish, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30974v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T00:51:30.098684+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5663,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of the model name 'gpt-5.6-luna', not the Luna language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language dataset (DWUG, Janus) used in experiments, implying the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the German language dataset (DWUG) used in experiments, implying the paper studies German.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

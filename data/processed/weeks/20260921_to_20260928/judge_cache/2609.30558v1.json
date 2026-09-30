@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30558v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T00:59:22.977251+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2451,
+  "verdicts": {
+    "Ama": {
+      "verdict": "false_positive",
+      "reason": "Ama appears as part of the dataset name 'AMA-Bench', not a language reference; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language of the text-only instantiation; only mentioned, not studied; mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

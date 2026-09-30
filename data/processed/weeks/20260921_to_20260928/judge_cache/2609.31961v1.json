@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31961v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T23:34:57.152454+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11895,
+  "verdicts": {
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol refers to a GitHub username (Pol-Buitrago) in the code repository URL, not the language Pol, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Catalan": {
+      "verdict": "studied",
+      "reason": "Catalan refers to the Catalan language, which the paper studies by training AVSR models and creating synthetic data for it, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language used only as source data for pretraining a model, not as a target of the paper's experiments, thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish refers to the Spanish language, which the paper studies through experiments, data collection, and evaluation, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

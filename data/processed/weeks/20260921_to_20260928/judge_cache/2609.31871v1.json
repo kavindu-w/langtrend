@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31871v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T00:18:59.142110+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3705,
+  "verdicts": {
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains a personal name \"Leilei Gan\" rather than a reference to the Gan language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet references the Chinese language (Chinese passages) and the paper studies Chinese B2B industrial commerce, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet references the English language (English analyses) and the model is trained on general English text, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

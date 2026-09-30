@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.32382v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T23:01:26.104088+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11744,
+  "verdicts": {
+    "Sinhala": {
+      "verdict": "studied",
+      "reason": "Refers to the Sinhala language used for the Sri Lankan dataset, fine‑tuning, and evaluation; the paper studies it → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "false_positive",
+      "reason": "Refers to the Tamil ethnic group (e.g., Tamil Muslim) rather than the Tamil language; no language‑specific work → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Refers to the Indonesian language dataset, prompts, and evaluation; the paper studies it → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Refers to the Chinese language dataset, prompts, and evaluation; the paper studies it → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Refers to English used only for task instructions, not as a target language studied; only mentioned → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

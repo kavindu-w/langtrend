@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30416v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T00:55:08.736580+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6260,
+  "verdicts": {
+    "Laal": {
+      "verdict": "false_positive",
+      "reason": "Laal is only used as part of the acronym LAAL (a latency metric), not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a target language in the experiments (e.g., Spanish–English translation) and is part of the studied language pairs.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is mentioned as a source language in the multilingual data and as a target language in the experiments (German and French comparison), indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is referenced as a source language in the multilingual data and as a target language in the experiments (German and French comparison), indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is a source language in the experiments (CVSS Spanish, Spanish–English pair, multilingual data) and is part of the studied language pairs.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.32574v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T23:13:15.111993+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6048,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "carrier is used generically as a medium for content, not the Carrier language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "logo refers to a graphical mark in image prompts, not the Logo language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "snippets mention Chinese characters, Chinese captions, Chinese user utterances, Chinese refusal string, and Chinese sentences, showing the paper builds and evaluates resources for Chinese, so it is st",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions \"faithful English translations of the realized Chinese captions,\" indicating the paper provides English translations of Chinese captions, which is a mention of the English languag",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

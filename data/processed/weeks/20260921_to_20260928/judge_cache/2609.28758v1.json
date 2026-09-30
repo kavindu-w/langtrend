@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.28758v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T02:06:16.803565+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3912,
+  "verdicts": {
+    "Ari": {
+      "verdict": "false_positive",
+      "reason": "Ari does not appear in any snippet; it is only part of section numbers (e.g., 6, 8, 9) and thus is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a language in the dataset (≈100 h of English speech) and used in language‑aware batch sampling, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

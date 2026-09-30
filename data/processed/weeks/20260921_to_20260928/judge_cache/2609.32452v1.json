@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.32452v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T23:37:11.562374+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2420,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin in snippet refers to Latin script/characters, not the language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English in snippet refers to the English language dataset subset, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

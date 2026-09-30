@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.32297v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T23:18:22.473413+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7431,
+  "verdicts": {
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "Noon does not appear in any snippet; the text contains Chinese and English but no reference to the language Noon, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is mentioned as a language used by agents in the Russia–Ukraine world (2% of memories) and as a country reference, but the paper does not study or build resources for the Russian language, onl",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears as the source language of the two classical novels (Three Kingdoms, Red Chamber) used in the experiments, and the paper evaluates on these Chinese‑language worlds, indicating the langu",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used for the Hamlet world and for describing the mechanism, and the paper evaluates on this English‑language world, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30226v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T01:19:09.090225+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3579,
+  "verdicts": {
+    "Dera": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'DeRa' refers to a decoding method (expert selection) not the Dera language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'Tulu' is part of the model name Llama-3.1-Tulu-3-8B-RM, not a language reference, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "In the snippets, 'English' appears in the NLTK English stopword list, a reference to the English language, but only as a metric component, implying the language is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

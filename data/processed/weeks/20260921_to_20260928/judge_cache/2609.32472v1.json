@@ -1,0 +1,69 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.32472v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T23:25:43.522377+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7561,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the Jina API (a scraping tool), not the Jina language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is used as a language for queries and evaluation in the benchmark (100 queries split between English and Chinese, scoring generated articles); thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Okanagan": {
+      "verdict": "false_positive",
+      "reason": "Okanagan refers to Okanagan Magazine, a TV program, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb meaning to specify in the rubric description, not the Pin language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Toto": {
+      "verdict": "false_positive",
+      "reason": "Toto is a character name in the case study narrative, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Vietnamese appears only as a language of a singer in a case study example, not as a target language for evaluation; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese appears only as a nationality descriptor for a writer in the case study, not as a language studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears only as a language of a newspaper and location in the case study, not as a target language for evaluation; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu refers to DR.Tulu-8B, an open-source deep research agent model, not the Tulu language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian appears only as a nationality (Alessandro D’Alatri’s Italian nationality) in the case study, not as a language studied; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a language for queries and evaluation in the benchmark (100 queries split between English and Chinese, scoring generated articles); thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears only as a language of Ici Radio-Canada Télé in the case study, not as a target language for evaluation; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

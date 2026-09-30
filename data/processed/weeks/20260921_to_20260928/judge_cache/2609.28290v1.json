@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.28290v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T02:26:52.144879+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7773,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the Jina reranker-v2 model, a cross-encoder, not the human language Jina, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in PAWS-X experiments (Chinese PAWS confirm, Chinese joint numbers), indicating the paper studies Chinese, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used in experiments (English confirm AUC, English BGE-small, English PAWS), indicating the paper studies English, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30535v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T00:55:58.720731+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11939,
+  "verdicts": {
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "Ik appears as a Dutch pronoun 'I' in the snippets, not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin is referenced as a romanization system for Chinese (e.g., romanized-pinyin transcripts), not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is used to denote Latin script (e.g., Latin-script text, Han-plus-Latin characters), not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is used as a language in the corpora, evaluation suite (BLiMP-NL), and experiments, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Hungarian appears only in the name 'Hungarian algorithm', a computational method, not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is used as a language in the corpora, evaluation suite (ZhoBLiMP), and experiments, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a language in the corpora, evaluation suite (BLiMP), and experiments, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

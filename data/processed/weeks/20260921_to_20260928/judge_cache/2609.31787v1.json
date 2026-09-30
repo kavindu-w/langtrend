@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31787v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T01:14:30.410880+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4634,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake appears as the English word \"sake\" meaning 'for the purpose of', not the Sake language; thus false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "Gan appears as part of 'GAN' (generative adversarial network) and 'Wasserstein GAN', not the Gan language; thus false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears as 'Polish space' (a mathematical term), not the Polish language; thus false_positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

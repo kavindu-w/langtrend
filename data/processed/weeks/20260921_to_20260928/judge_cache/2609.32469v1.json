@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.32469v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T23:04:37.079378+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4692,
+  "verdicts": {
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "Loo refers to the Leave-One-Out Union notation (LOO∪) in the text, not the language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Irish": {
+      "verdict": "false_positive",
+      "reason": "Irish appears as part of 'British-Irish' nationality in the snippets, not the language itself, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "false_positive",
+      "reason": "Thai appears as an aspect label 'thai' in aspect classification, not the language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as 'non-English' qualifier, a mention of the language, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

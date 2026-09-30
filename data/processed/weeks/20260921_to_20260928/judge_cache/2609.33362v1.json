@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.33362v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T21:44:46.199825+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11670,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears as an example identifier in a prompt, not as the language itself, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin is a romanization system, not the language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as a target language in the bilingual benchmark and experiments, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a target language in the bilingual benchmark and experiments, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

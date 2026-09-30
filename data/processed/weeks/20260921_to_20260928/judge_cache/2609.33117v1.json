@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.33117v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T22:12:38.468115+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4980,
+  "verdicts": {
+    "Bih": {
+      "verdict": "false_positive",
+      "reason": "Bih refers to MIT‑BIH (the arrhythmia database) in the snippets, not a human language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as the verb \"to pin\" in the planning agent instructions, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tol": {
+      "verdict": "false_positive",
+      "reason": "Tol is an abbreviation for \"tolerance\" in the metric description, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish is used as the verb \"to polish\" when describing AI editing of the paper, not the Polish language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

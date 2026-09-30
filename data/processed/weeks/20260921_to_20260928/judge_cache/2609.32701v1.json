@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.32701v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T22:47:40.751106+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4411,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a language model (e.g., Luna monitor, Luna messages) in the snippets, not the human language Luna, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the language for messages in the task instructions, indicating the paper uses English in its experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

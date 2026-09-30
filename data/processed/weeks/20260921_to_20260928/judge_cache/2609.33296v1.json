@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.33296v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T22:09:26.801674+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11985,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "Dia refers to dialogue-level factors, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gujarati": {
+      "verdict": "mentioned_only",
+      "reason": "Gujarati is only mentioned as a future extension in the conclusion, not part of current experiments, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kannada": {
+      "verdict": "mentioned_only",
+      "reason": "Kannada is only mentioned as a future extension in the conclusion, not part of current experiments, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Marathi": {
+      "verdict": "mentioned_only",
+      "reason": "Marathi is only mentioned as a future extension in the conclusion, not part of current experiments, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is only mentioned as a future extension in the conclusion, not part of current experiments, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "Telugu is part of the BaatCheet corpus and used in synthetic and human data, evaluation, and linguistic analysis, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is a core language in BaatCheet, used for training, evaluation, and as a source/target in experiments, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is part of the BaatCheet corpus and evaluated in experiments, including synthetic data and human assessments, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears only as a language of an external dataset (MuTual) and not studied for translation, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is a primary source language and extensively used in experiments, evaluation, and as a reference, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

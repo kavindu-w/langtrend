@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31876v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T23:59:39.139088+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3085,
+  "verdicts": {
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "Noon in the snippets refers to the time of day (e.g., 'gone by noon'), not a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English in the snippet refers to the English language (the base model is English-dominant), which is only mentioned in the prompt description, not part of the paper's experiments or resources for Engl",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

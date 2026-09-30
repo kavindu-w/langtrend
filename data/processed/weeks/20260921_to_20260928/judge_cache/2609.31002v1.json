@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31002v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T00:27:29.483674+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9026,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the model Jina-m0 and Jina rerankers, not the human language Jina; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language of the queries (English- and US-centric), not studied or evaluated as a language; mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

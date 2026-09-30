@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.32234v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T23:41:40.425009+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11773,
+  "verdicts": {
+    "Bana": {
+      "verdict": "false_positive",
+      "reason": "Bana appears as a Kinyarwanda word meaning 'children', not as a language name, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo appears as a Kinyarwanda pronoun 'you (plural)', not as a language name, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kinyarwanda": {
+      "verdict": "studied",
+      "reason": "Kinyarwanda is the language for which the urgency classifier and corpus are built and evaluated, so studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is referenced as a language for which relation terms and a brief are created (though no authored sentences), indicating resource building, so studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used for review briefs, machine‑drafted phrases, and frames, showing resource construction, so studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is used for review briefs, machine‑drafted phrases, and frames, showing resource construction, so studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

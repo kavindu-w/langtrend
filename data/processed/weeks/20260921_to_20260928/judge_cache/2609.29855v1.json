@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.29855v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T01:08:36.107168+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8171,
+  "verdicts": {
+    "Kam": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain the word 'kam' (meaning 'less') and the phrase 'kam‑az‑kam', which are lexical items, not the Kam language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'mango' as a fruit example, not the Mango language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Soq": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains token 'SOq' used as a word in the data, not the Soq language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions the 'Hindi‑Urdu treebank project' and a separate Hindi repository, but the paper only references Hindi as a resource, not as a target of study → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to 'Arabic script' and mentions Arabic as a foreign language in the data, but the paper does not study Arabic → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions English as a source of foreign fragments in the treebank; the paper does not study English → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "The abstract and snippets describe Urdu as the primary language for syntactic parsing, including its properties, treebank conversion, and experiments → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

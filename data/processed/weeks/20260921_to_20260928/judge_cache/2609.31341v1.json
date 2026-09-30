@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31341v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T00:00:15.127154+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2506,
+  "verdicts": {
+    "Delaware": {
+      "verdict": "false_positive",
+      "reason": "Delaware refers to a U.S. state (jurisdiction example) in the snippet, not the language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language in the snippet, and the paper studies English-language corpora as part of its experiments, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

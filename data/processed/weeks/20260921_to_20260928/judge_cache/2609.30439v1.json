@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30439v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T00:53:03.241860+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5412,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The matched text refers to the AMI dataset, not the Ami language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The matched text is the English word 'sake' in a phrase, not a language reference, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The matched text refers to the English language used in the paper's experiments, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

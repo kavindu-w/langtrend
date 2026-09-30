@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31142v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T00:20:50.696421+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3308,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "pin refers to fixing a version, not the language Pin, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tol": {
+      "verdict": "false_positive",
+      "reason": "tol. is an abbreviation for tolerance, not the language Tol, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the benchmark's state and question text, indicating the paper builds resources for English, implying studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

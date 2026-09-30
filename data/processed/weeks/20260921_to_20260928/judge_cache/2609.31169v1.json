@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31169v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T00:06:01.393342+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11661,
+  "verdicts": {
+    "Gants": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet for Appendix D does not contain any mention of Gants, so its referent is unclear; however, it was detected in that section, suggesting it may be mentioned, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sie": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet for Appendix C does not contain any mention of Sie, so its referent is unclear; however, it was detected in that section, suggesting it may be mentioned, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Latin script', not the Latin language, making it a false positive, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "The snippets show experiments and evaluations on the English-to-Czech language direction, indicating the language is studied, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show English used as source language, evaluation metrics, and prompts, indicating the language is studied, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippets show French used as target language in experiments and evaluation, indicating the language is studied, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippets show German used as target language in experiments and evaluation, indicating the language is studied, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

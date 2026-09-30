@@ -1,0 +1,79 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31506v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T23:58:19.061805+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11631,
+  "verdicts": {
+    "Ale": {
+      "verdict": "false_positive",
+      "reason": "Ale appears as a Haitian Creole verb meaning 'to go' in the error analysis snippet, not as a language name, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lalo": {
+      "verdict": "false_positive",
+      "reason": "Lalo appears as a Haitian Creole lexical item (e.g., 'lalo' used in examples) in the error analysis snippet, not as a language name, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lari": {
+      "verdict": "false_positive",
+      "reason": "Lari appears as a Haitian Creole word meaning 'outside' in the error analysis snippet, not as a language name, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chak": {
+      "verdict": "false_positive",
+      "reason": "Chak appears as a Haitian Creole word meaning 'each' in the story generation snippet, not as a language name, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lavi": {
+      "verdict": "false_positive",
+      "reason": "Lavi appears as a Haitian Creole noun meaning 'life' in the story generation snippet, not as a language name, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears as a placeholder for 'words' in the story generation prompts, not as a language name, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Diri": {
+      "verdict": "false_positive",
+      "reason": "Diri appears as a Haitian Creole verb meaning 'to eat' and as part of dish names in the error analysis and literal output snippets, not as a language name, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gade": {
+      "verdict": "false_positive",
+      "reason": "Gade appears as a Haitian Creole verb meaning 'to see' in the cultural entity infilling snippet, not as a language name, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "Mal appears as a Haitian Creole adjective meaning 'bad' in the cultural entity infilling snippet, not as a language name, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sou": {
+      "verdict": "false_positive",
+      "reason": "Sou appears as a Haitian Creole preposition meaning 'on' in the cultural entity infilling snippet, not as a language name, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Liv": {
+      "verdict": "false_positive",
+      "reason": "Liv appears as a Haitian Creole noun meaning 'book' in the introduction snippet, not as a language name, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Haitian Creole": {
+      "verdict": "studied",
+      "reason": "Haitian Creole is explicitly referenced throughout the paper as the target language for cultural awareness evaluation, indicating it is studied, not merely mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced only for translations and prompt templates, implying it is only mentioned, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is used as a higher‑resource comparison language with dedicated prompts and evaluation of its cultural awareness, implying it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

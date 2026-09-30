@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.29444v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T02:01:24.765289+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6087,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to Jina Reader, a document parsing tool, not the Jina language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "Swahili refers to the Swahili language in the case study (e.g., Kenyan Swahili writer, Swahili teacher), but the paper only mentions it as an example, not as a target of study; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language as part of the training data and evaluation benchmarks (e.g., Chinese QA instances, Chinese long-horizon search tasks), indicating the paper studies Chinese; thu",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language as part of the training data and evaluation benchmarks (e.g., English QA instances, English exploration-heavy tasks), indicating the paper studies English; thus ",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

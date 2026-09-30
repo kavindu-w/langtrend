@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.32042v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T23:44:30.268633+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10165,
+  "verdicts": {
+    "Dla": {
+      "verdict": "false_positive",
+      "reason": "Dla appears as the Polish preposition \"dla\" (meaning \"for\") in the Polish prompt, not as a reference to the language itself, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is the target human language of the study: prompts, benchmark tasks, city names, and model adaptations are all in Polish, indicating the paper builds and evaluates resources for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced throughout as the language of tool schemas, enum values, decimal conventions, and baseline EN_EN conditions, forming an integral part of the experimental design and comparison.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

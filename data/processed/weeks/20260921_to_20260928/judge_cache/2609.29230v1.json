@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.29230v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T02:26:34.495296+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2028,
+  "verdicts": {
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian appears as an example of a Person (nationality) and does not refer to the Italian language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is explicitly mentioned as the language of event extraction in the limitations, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.29362v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T01:55:54.619492+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3838,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "Aka appears as the abbreviation \"aka\" meaning \"also known as\" referring to latents, not the human language Aka, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced throughout as the language of the datasets (UD English GUM treebank, English-GUM-Latents) and evaluation, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

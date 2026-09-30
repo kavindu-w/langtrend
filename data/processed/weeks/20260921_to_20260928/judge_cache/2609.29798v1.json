@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.29798v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T01:16:40.636694+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3736,
+  "verdicts": {
+    "Dagbani": {
+      "verdict": "studied",
+      "reason": "Dagbani is explicitly referenced as one of the three Ghanaian languages studied for ASR (benchmarked and adapted), so the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lingua Franca": {
+      "verdict": "false_positive",
+      "reason": "Lingua Franca appears only as the generic term 'lingua franca' describing a common language, not as a specific language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Akan": {
+      "verdict": "mentioned_only",
+      "reason": "Akan is mentioned only as a dialect cluster (Twi belongs to it) but not directly studied for ASR, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced only as a language used for dataset creation and evaluation, not as a target of ASR research, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

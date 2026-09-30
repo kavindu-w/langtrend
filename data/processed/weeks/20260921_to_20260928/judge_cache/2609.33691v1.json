@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.33691v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T21:37:49.893063+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11934,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a judge name in the LLM panel, not the Luna language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wares": {
+      "verdict": "false_positive",
+      "reason": "Wares is a place name (Wares Village), not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pali": {
+      "verdict": "studied",
+      "reason": "Pali is a classical language whose texts are used as a corpus for alignment experiments, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sanskrit": {
+      "verdict": "studied",
+      "reason": "Sanskrit is a classical language whose texts are part of the alignment corpora, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tibetan": {
+      "verdict": "studied",
+      "reason": "Tibetan is a classical language whose texts are used in the alignment experiments, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Hebrew (Mishnaic) is a classical language whose texts are part of the alignment experiments, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek is mentioned only in a discussion about other language pairs, not part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin is mentioned only in a discussion about other language pairs, not part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is referenced only in a discussion about other language pairs, not part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only as a target language for MITRA-E adaptation, not part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the reference language for alignment and is part of the experimental evaluation, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

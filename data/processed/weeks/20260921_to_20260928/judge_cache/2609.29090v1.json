@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.29090v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-30T01:52:49.512950+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4968,
+  "verdicts": {
+    "Fon": {
+      "verdict": "false_positive",
+      "reason": "Fon is a false positive, appearing as part of the metric 'F1' (or 'F1') in the abstract, not the Fon language; thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is the target language of the study; the paper adapts the method, creates Hindi-specific components, evaluates on Hindi corpora, and releases a Hindi resource; thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

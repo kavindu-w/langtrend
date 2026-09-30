@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.32957v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T22:45:24.869574+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11794,
+  "verdicts": {
+    "Jogi": {
+      "verdict": "false_positive",
+      "reason": "Jogi appears as part of an author name (Jogi H et al.), not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian appears as part of organizational names (Italian Neurological Society, Italian Society of Clinical Neurophysiology), not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of model names such as GPT-5.6-luna, not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears as part of the region 'Latin America', not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

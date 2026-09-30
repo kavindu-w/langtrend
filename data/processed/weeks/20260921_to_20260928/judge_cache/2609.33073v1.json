@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.33073v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-09-29T22:22:09.777616+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 1961,
+  "verdicts": {
+    "Eton": {
+      "verdict": "false_positive",
+      "reason": "Eton refers to a clothing brand (Eton Slim Fit Stretch Cotton Dress Shirt) in the snippet, not the Eton language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tumi": {
+      "verdict": "false_positive",
+      "reason": "Tumi refers to a luggage brand (Tumi Alpha 3 Expandable Laptop Brief) in the snippet, not the Tumi language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as 'English-speaking part the world' in the snippet, indicating a mention of the language, but the paper does not study English as part of its experiments, only mentions it, so i",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
