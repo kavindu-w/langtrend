@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T12:03:32.413108+00:00",
+  "generated_at": "2026-09-30T14:28:10.240834+00:00",
   "window_days": 7,
   "week_start": "2026-09-21",
   "week_end": "2026-09-28",
@@ -7,15 +7,15 @@
   "counts": {
     "papers": 614,
     "flagged_papers": 295,
-    "unique_languages": 139,
+    "unique_languages": 138,
     "unique_languages_mentioned_only": 19,
     "pdf_failed_no_detection": 0,
     "judge": {
-      "judged_papers": 411,
-      "judged_languages": 1330,
-      "studied": 587,
+      "judged_papers": 412,
+      "judged_languages": 1405,
+      "studied": 660,
       "mentioned_only": 248,
-      "false_positive": 495
+      "false_positive": 497
     }
   },
   "language_counts": [
@@ -260,12 +260,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Bo",
-      "count": 3,
-      "studied": 2,
-      "mentioned_only": 1
-    },
-    {
       "language": "Bodo",
       "count": 3,
       "studied": 3,
@@ -390,6 +384,12 @@
       "count": 2,
       "studied": 2,
       "mentioned_only": 0
+    },
+    {
+      "language": "Bo",
+      "count": 2,
+      "studied": 1,
+      "mentioned_only": 1
     },
     {
       "language": "Bosnian",
@@ -896,12 +896,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Sop",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Southern Min",
       "count": 1,
       "studied": 1,
@@ -971,8 +965,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 50,
-      "studied": 39,
+      "count": 48,
+      "studied": 37,
       "mentioned_only": 11
     },
     {
@@ -144096,518 +144090,814 @@
           "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "SOP-style content refers to Standard Operating Procedure, an acronym, not the language Sop (false_positive)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Chinese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Oriya",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Oriya is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Asturian",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Asturian is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Hakka",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Hakka is listed as a Chinese dialect in the speech output languages, indicating inclusion in the model (studied)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Southern Min",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Southern Min is listed as a Chinese dialect in the speech output languages, indicating inclusion in the model (studied)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Afrikaans",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Afrikaans is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Bosnian",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Bosnian is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Icelandic",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Icelandic is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Javanese",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Javanese is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Kannada",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Kannada is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Kyrgyz",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Kyrgyz appears in the supported languages table and evaluation language list, indicating the model supports and evaluates this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Lingala",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Lingala is listed in the supported languages table for the model, indicating the model supports this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Malayalam",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Malayalam is listed among the evaluation languages covered by FLEURS and other benchmarks, indicating the model was evaluated on this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Maltese",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Maltese appears in the supported languages table, indicating the model supports this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Maori",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Maori is listed in the supported languages table, indicating the model supports this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Marathi",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Marathi appears in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Mongolian",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Mongolian appears in the supported languages table, indicating the model supports this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Swahili",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Swahili is included in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Tagalog",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Tagalog is listed among the speech output languages, indicating the model supports this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Telugu",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Telugu appears in the supported languages table, indicating the model supports this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Uyghur",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Uyghur is listed in the supported languages table, indicating the model supports this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Belarusian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Belarusian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Bengali",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Bengali as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Bulgarian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Bulgarian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Cebuano",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Cebuano as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Croatian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Croatian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Danish",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Danish as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Esperanto",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Esperanto as one of the languages supported by the model, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Estonian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Estonian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Galician",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Galician as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Georgian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Georgian as one of the languages supported by the model, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Greek",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Greek as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Hebrew",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text lists Hebrew as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Hindi",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Hindi appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Kazakh",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Kazakh appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Latvian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Latvian appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Lithuanian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Lithuanian appears in the supported languages list, indicating the model supports it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Macedonian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Macedonian appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Malay",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Malay appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Punjabi",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Punjabi appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Slovak",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Slovak appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Tamil",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Tamil appears in the supported languages list, indicating the model supports it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Thai",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Thai appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Urdu",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Urdu appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Azerbaijani",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Azerbaijani appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Basque",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Basque appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Catalan",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Catalan appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Czech",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Czech appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Dutch",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Dutch appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Finnish",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Finnish appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Hungarian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Hungarian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Indonesian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Indonesian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Italian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Italian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Korean",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Korean appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Norwegian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Norwegian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Persian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Persian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Polish",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Polish appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Portuguese",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Romanian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Russian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Serbian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Swedish",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Turkish",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Ukrainian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Vietnamese",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Arabic",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "French",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "German",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "German refers to the German language listed among supported languages and evaluated languages, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Japanese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Japanese refers to the Japanese language listed among supported languages and evaluated languages, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Spanish",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Spanish refers to the Spanish language listed among supported languages and evaluated languages, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Gujarati",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Gujarati appears in the evaluation results list of languages, indicating the model evaluates on this language (studied)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Tajik",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Tajik appears in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         },
         {
           "language": "Bo",
@@ -144616,7 +144906,11 @@
           "flag_reason": "BO = Bayesian Optimization (GP-BO); also could be a common given name appearing in author lists",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Bo appears as part of author names (e.g., Bochao Mao, Bo Zheng, Bohan Zhang) and is not a language reference (false_positive)",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-09-30T14:10:32.223434+00:00"
         }
       ],
       "sources_checked": [
@@ -144645,7 +144939,11 @@
               "language": "Sop",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers"
+              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "SOP-style content refers to Standard Operating Procedure, an acronym, not the language Sop (false_positive)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             }
           ]
         },
@@ -144655,11 +144953,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             }
           ]
         },
@@ -144669,11 +144975,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             }
           ]
         },
@@ -144683,11 +144997,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             }
           ]
         },
@@ -144697,287 +145019,571 @@
           "detected_languages": [
             {
               "language": "Oriya",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Oriya is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Asturian",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Asturian is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hakka",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Hakka is listed as a Chinese dialect in the speech output languages, indicating inclusion in the model (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Southern Min",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Southern Min is listed as a Chinese dialect in the speech output languages, indicating inclusion in the model (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bosnian",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Bosnian is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Icelandic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Icelandic is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Javanese",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Javanese is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kannada",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kannada is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kyrgyz",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kyrgyz appears in the supported languages table and evaluation language list, indicating the model supports and evaluates this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Lingala",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Lingala is listed in the supported languages table for the model, indicating the model supports this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Malayalam",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Malayalam is listed among the evaluation languages covered by FLEURS and other benchmarks, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Maltese",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Maltese appears in the supported languages table, indicating the model supports this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Maori",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Maori is listed in the supported languages table, indicating the model supports this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Marathi",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Marathi appears in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Mongolian",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Mongolian appears in the supported languages table, indicating the model supports this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is included in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Tagalog",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Tagalog is listed among the speech output languages, indicating the model supports this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Telugu",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Telugu appears in the supported languages table, indicating the model supports this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Uyghur",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Uyghur is listed in the supported languages table, indicating the model supports this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Belarusian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Belarusian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Bengali as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bulgarian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Bulgarian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Cebuano",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Cebuano as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Croatian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Croatian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Danish",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Danish as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Esperanto",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Esperanto as one of the languages supported by the model, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Estonian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Estonian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Galician",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Galician as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Georgian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Georgian as one of the languages supported by the model, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Greek",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Greek as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hebrew",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Hebrew as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Hindi appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kazakh",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Kazakh appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Latvian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Latvian appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Lithuanian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Lithuanian appears in the supported languages list, indicating the model supports it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Macedonian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Macedonian appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Malay appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Punjabi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Punjabi appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Tamil",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Tamil appears in the supported languages list, indicating the model supports it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Thai",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Thai appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Urdu",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Urdu appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Azerbaijani",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Azerbaijani appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Basque",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Basque appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Catalan",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Catalan appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Czech",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Czech appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Dutch appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Finnish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Finnish appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Hungarian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Indonesian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Italian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Italian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Norwegian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Norwegian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Persian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Persian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Polish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Polish appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Portuguese",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Romanian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Serbian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Swedish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Turkish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Ukrainian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Vietnamese",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German refers to the German language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Japanese refers to the Japanese language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             }
           ]
         },
@@ -144987,231 +145593,459 @@
           "detected_languages": [
             {
               "language": "Asturian",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Asturian is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bosnian",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Bosnian is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Gujarati",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Gujarati appears in the evaluation results list of languages, indicating the model evaluates on this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Icelandic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Icelandic is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Javanese",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Javanese is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kannada",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kannada is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kyrgyz",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kyrgyz appears in the supported languages table and evaluation language list, indicating the model supports and evaluates this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Malayalam",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Malayalam is listed among the evaluation languages covered by FLEURS and other benchmarks, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Marathi",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Marathi appears in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is included in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Tajik",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Tajik appears in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Belarusian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Belarusian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Bengali as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bulgarian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Bulgarian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Cebuano",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Cebuano as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Croatian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Croatian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Danish",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Danish as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Estonian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Estonian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Galician",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Galician as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Greek",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Greek as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hebrew",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Hebrew as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Hindi appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kazakh",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Kazakh appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Latvian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Latvian appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Macedonian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Macedonian appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Malay appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Punjabi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Punjabi appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Thai",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Thai appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Urdu",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Urdu appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Azerbaijani",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Azerbaijani appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Catalan",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Catalan appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Czech",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Czech appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Dutch appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Finnish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Finnish appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Hungarian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Indonesian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Italian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Italian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Norwegian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Norwegian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Persian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Persian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Polish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Polish appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Portuguese",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Romanian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Swedish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Turkish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Ukrainian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Vietnamese",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German refers to the German language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Japanese refers to the Japanese language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             }
           ]
         },
@@ -145221,231 +146055,459 @@
           "detected_languages": [
             {
               "language": "Asturian",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Asturian is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bosnian",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Bosnian is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Gujarati",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Gujarati appears in the evaluation results list of languages, indicating the model evaluates on this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Icelandic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Icelandic is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Javanese",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Javanese is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kannada",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kannada is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kyrgyz",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kyrgyz appears in the supported languages table and evaluation language list, indicating the model supports and evaluates this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Malayalam",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Malayalam is listed among the evaluation languages covered by FLEURS and other benchmarks, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Marathi",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Marathi appears in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is included in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Tajik",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Tajik appears in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Belarusian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Belarusian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Bengali as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bulgarian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Bulgarian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Cebuano",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Cebuano as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Croatian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Croatian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Danish",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Danish as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Estonian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Estonian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Galician",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Galician as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Greek",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Greek as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hebrew",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Hebrew as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Hindi appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kazakh",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Kazakh appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Latvian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Latvian appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Macedonian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Macedonian appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Malay appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Punjabi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Punjabi appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Thai",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Thai appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Urdu",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Urdu appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Azerbaijani",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Azerbaijani appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Catalan",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Catalan appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Czech",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Czech appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Dutch appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Finnish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Finnish appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Hungarian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Indonesian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Italian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Italian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Norwegian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Norwegian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Persian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Persian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Polish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Polish appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Portuguese",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Romanian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Swedish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Turkish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Ukrainian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Vietnamese",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German refers to the German language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Japanese refers to the Japanese language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             }
           ]
         },
@@ -145455,231 +146517,459 @@
           "detected_languages": [
             {
               "language": "Asturian",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Asturian is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Afrikaans is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bosnian",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Bosnian is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Gujarati",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Gujarati appears in the evaluation results list of languages, indicating the model evaluates on this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Icelandic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Icelandic is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Javanese",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Javanese is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kannada",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kannada is listed among supported languages in the pretraining table, indicating the model includes this language (studied)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kyrgyz",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Kyrgyz appears in the supported languages table and evaluation language list, indicating the model supports and evaluates this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Malayalam",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Malayalam is listed among the evaluation languages covered by FLEURS and other benchmarks, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Marathi",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Marathi appears in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Swahili",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Swahili is included in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Tajik",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Tajik appears in the evaluation language list, indicating the model was evaluated on this language, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Belarusian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Belarusian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Bengali as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Bulgarian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Bulgarian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Cebuano",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Cebuano as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Croatian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Croatian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Danish",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Danish as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Estonian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Estonian as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Galician",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Galician as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Greek",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Greek as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hebrew",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "The text lists Hebrew as one of the languages supported by the model and evaluated in the study, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Hindi appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Kazakh",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Kazakh appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Latvian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Latvian appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Macedonian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Macedonian appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Malay appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Punjabi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Punjabi appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Thai",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Thai appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Urdu",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Urdu appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Azerbaijani",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Azerbaijani appears in the supported languages list and in the evaluation language list, indicating the model supports and evaluates it → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Catalan",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Catalan appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Czech",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Czech appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Dutch appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Finnish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Finnish appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Hungarian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Indonesian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Italian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Italian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Norwegian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Norwegian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Persian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Persian appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Polish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Polish appears in the supported languages table and evaluation results, indicating the model supports and evaluates on it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Portuguese",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Romanian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Swedish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Turkish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Ukrainian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Vietnamese",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in the model's supported speech input and output languages, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "German refers to the German language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Japanese refers to the Japanese language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language listed among supported languages and evaluated languages, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             }
           ]
         },
@@ -145689,7 +146979,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             }
           ]
         },
@@ -145699,7 +146993,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language used for pretraining, evaluation, and dialect support, implying it is studied.",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             }
           ]
         },
@@ -145711,7 +147009,11 @@
               "language": "Bo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "BO = Bayesian Optimization (GP-BO); also could be a common given name appearing in author lists"
+              "flag_reason": "BO = Bayesian Optimization (GP-BO); also could be a common given name appearing in author lists",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Bo appears as part of author names (e.g., Bochao Mao, Bo Zheng, Bohan Zhang) and is not a language reference (false_positive)",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-09-30T14:10:32.223434+00:00"
             }
           ]
         }
