@@ -905,6 +905,7 @@ jobs:
     # quietly going silent again.
     secrets:
       NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
+      BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
     with:
       should_publish: ${{ github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_site) }}
       # Passed through explicitly rather than assumed — this job can also run

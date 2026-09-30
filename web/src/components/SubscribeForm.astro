@@ -1,0 +1,181 @@
+---
+// Weekly-digest signup. Posts straight to Buttondown's embed endpoint (no
+// backend of ours involved). Picked languages go into one subscriber metadata
+// field, metadata__languages = ",Sinhala,Tamil,", which the digest template
+// (langtrend/digest.py) reads to show each subscriber only their languages.
+// Not tags: templates only see tags with Buttondown's paid tagging add-on.
+// Re-submitting with the same address replaces the languages, which is how
+// subscribers change them. Buttondown sends the confirmation (double opt-in)
+// email and handles unsubscribes, so no address ever touches this repo.
+import { MAX_LANGUAGES, subscribeActionUrl } from '../lib/subscribe-form.js';
+
+const { options, username } = Astro.props as { options: string[]; username: string };
+const action = subscribeActionUrl(username);
+---
+{action && (
+  <section id="subscribe" class="panel subscribe-panel">
+    <div class="panel-head compact-head">
+      <div>
+        <h2>Get the weekly digest</h2>
+        <p>
+          One email a week: a summary of new cs.CL papers, plus the papers for the languages you pick, with links to
+          the filtered dashboard. Leave languages empty for the summary only.
+        </p>
+      </div>
+    </div>
+
+    <form
+      id="subscribe-form"
+      class="subscribe-form"
+      action={action}
+      method="post"
+      target="_blank"
+      data-options={JSON.stringify(options)}
+      data-max={MAX_LANGUAGES}
+    >
+      <input type="hidden" name="embed" value="1" />
+      <input type="hidden" name="metadata__languages" id="subscribe-languages" value="" />
+      <div class="subscribe-row">
+        <label class="sr-only" for="subscribe-email">Email address</label>
+        <input id="subscribe-email" class="subscribe-input" type="email" name="email" required autocomplete="email" placeholder="you@university.edu" />
+        <button class="primary-btn subscribe-submit" type="submit">Subscribe</button>
+      </div>
+
+      <div class="subscribe-langs">
+        <label class="subscribe-label" for="subscribe-lang-search">Languages to follow <span class="subscribe-hint">(optional, up to {MAX_LANGUAGES})</span></label>
+        <div class="search-wrapper subscribe-lang-wrapper">
+          <svg class="input-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input
+            id="subscribe-lang-search"
+            class="search-input"
+            type="search"
+            placeholder="Type a language, e.g. Sinhala"
+            autocomplete="off"
+            role="combobox"
+            aria-expanded="false"
+            aria-controls="subscribe-lang-list"
+            aria-autocomplete="list"
+          />
+          <ul id="subscribe-lang-list" class="lang-suggest-list" role="listbox" hidden></ul>
+        </div>
+        <div id="subscribe-selected" class="subscribe-selected" aria-live="polite"></div>
+      </div>
+
+      <p class="subscribe-note">
+        You'll get a confirmation email first, and every digest has an unsubscribe link. To change your languages
+        later, submit this form again with the same address. Subscriptions are handled by <a href="https://buttondown.com" target="_blank" rel="noreferrer">Buttondown</a>;
+        your address is never stored in the LangTrend repository.
+      </p>
+    </form>
+  </section>
+)}
+
+<script>
+  import { languagesFromParam, languagesMetadata, suggestLanguages } from '../lib/subscribe-form.js';
+
+  const form = document.getElementById('subscribe-form') as HTMLFormElement | null;
+  if (form) {
+    const options: string[] = JSON.parse(form.dataset.options ?? '[]');
+    const max = Number(form.dataset.max ?? 20);
+    const search = document.getElementById('subscribe-lang-search') as HTMLInputElement;
+    const list = document.getElementById('subscribe-lang-list') as HTMLUListElement;
+    const selectedBox = document.getElementById('subscribe-selected') as HTMLElement;
+    const selected: string[] = languagesFromParam(new URLSearchParams(location.search).get('lang'), options);
+    let active = -1;
+    let current: string[] = [];
+
+    // The hidden metadata__languages field is what Buttondown stores; the
+    // chips mirror it.
+    const languagesField = document.getElementById('subscribe-languages') as HTMLInputElement;
+
+    const renderSelected = () => {
+      selectedBox.replaceChildren();
+      languagesField.value = languagesMetadata(selected);
+      for (const name of selected) {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'subscribe-chip';
+        chip.textContent = name;
+        chip.setAttribute('aria-label', `Remove ${name}`);
+        chip.title = 'Remove';
+        chip.addEventListener('click', () => {
+          selected.splice(selected.indexOf(name), 1);
+          renderSelected();
+          search.focus();
+        });
+        selectedBox.appendChild(chip);
+      }
+      search.disabled = selected.length >= max;
+      search.placeholder = search.disabled ? `Up to ${max} languages` : 'Type a language, e.g. Sinhala';
+    };
+
+    const close = () => {
+      list.hidden = true;
+      search.setAttribute('aria-expanded', 'false');
+      search.removeAttribute('aria-activedescendant');
+      active = -1;
+    };
+
+    const highlight = (index: number) => {
+      active = index;
+      list.querySelectorAll('li').forEach((li, i) => li.classList.toggle('active', i === index));
+      if (index >= 0) search.setAttribute('aria-activedescendant', `subscribe-lang-opt-${index}`);
+    };
+
+    const pick = (name: string) => {
+      if (!selected.includes(name) && selected.length < max) selected.push(name);
+      search.value = '';
+      close();
+      renderSelected();
+      search.focus();
+    };
+
+    const open = () => {
+      current = suggestLanguages(search.value, options, selected);
+      list.replaceChildren(
+        ...current.map((name, i) => {
+          const li = document.createElement('li');
+          li.id = `subscribe-lang-opt-${i}`;
+          li.className = 'lang-suggest-item';
+          li.setAttribute('role', 'option');
+          li.textContent = name;
+          // mousedown (not click) so it fires before the input's blur closes the list
+          li.addEventListener('mousedown', (e) => { e.preventDefault(); pick(name); });
+          return li;
+        }),
+      );
+      list.hidden = current.length === 0;
+      search.setAttribute('aria-expanded', String(!list.hidden));
+      highlight(current.length ? 0 : -1);
+    };
+
+    search.addEventListener('input', open);
+    search.addEventListener('focus', open);
+    search.addEventListener('blur', close);
+    search.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (list.hidden) return open();
+        const step = e.key === 'ArrowDown' ? 1 : -1;
+        highlight((active + step + current.length) % current.length);
+      } else if (e.key === 'Enter') {
+        // Enter in the language box picks a suggestion instead of submitting.
+        if (!list.hidden && active >= 0) {
+          e.preventDefault();
+          pick(current[active]);
+        } else if (search.value.trim()) {
+          e.preventDefault();
+        }
+      } else if (e.key === 'Escape') {
+        close();
+      } else if (e.key === 'Backspace' && !search.value && selected.length) {
+        selected.pop();
+        renderSelected();
+      }
+    });
+
+    renderSelected();
+  }
+</script>

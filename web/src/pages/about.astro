@@ -1,8 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { loadSiteData } from "../lib/data.js";
+import SubscribeForm from "../components/SubscribeForm.astro";
+import { loadAllWeeksData, loadSiteData } from "../lib/data.js";
+import { rankLanguageOptions } from "../lib/subscribe-form.js";
 
 const data = loadSiteData(undefined, 7);
+const subscribeOptions = rankLanguageOptions(
+  data.languageData.lang_classes,
+  data.languageData.languages_to_ignore,
+  loadAllWeeksData(),
+);
+const buttondownUsername = import.meta.env.PUBLIC_BUTTONDOWN_USERNAME ?? "";
 const classes = (data.languageData.lang_classes || {}) as Record<
   string,
   unknown[]
@@ -55,6 +63,8 @@ for (const row of classRows) {
       Full pipeline description, language classes composition, limitations, and references.
     </p>
   </section>
+
+  <SubscribeForm options={subscribeOptions} username={buttondownUsername} />
 
   <section class="panel">
     <article>
@@ -170,6 +180,22 @@ for (const row of classRows) {
           The pipeline runs once a week (every Tuesday), covering the previous
           week's arXiv announcement window. As a result, papers that fall across
           the date boundary may be missed in a given snapshot.
+        </li>
+      </ul>
+    </article>
+  </section>
+  <section class="panel">
+    <article>
+      <h2>Privacy</h2>
+      <ul class="info-list">
+        <li>
+          Page views are counted with <a href="https://www.goatcounter.com" target="_blank" rel="noreferrer">GoatCounter</a>,
+          which sets no cookies and stores no personal data; the totals are shown in the footer.
+        </li>
+        <li>
+          Digest subscriptions are held by <a href="https://buttondown.com" target="_blank" rel="noreferrer">Buttondown</a>:
+          your email address and the languages you picked. Neither is stored in the LangTrend repository or read by
+          its pipeline, and every email has an unsubscribe link.
         </li>
       </ul>
     </article>

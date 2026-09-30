@@ -413,6 +413,7 @@ jobs:
     # quietly going silent again.
     secrets:
       NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
+      BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
     with:
       should_publish: true
       fully_judged: ${{ needs.judge-catchup.outputs.fully_judged == 'true' }}

@@ -9,6 +9,9 @@ lib/
 ├── trend-charts.js       Chart math (bump/pie/line paths, period aggregation) for TrendCharts
 ├── language-colors.js    Language → class/border-color/fill-color mapping
 ├── abstract-math.js      Server-side KaTeX rendering of LaTeX abstracts
+├── build-info.js         Footer version/commit/"last updated" (build time)
+├── site-stats.js         Footer visit/star/fork counters (client-side fetch)
+├── subscribe-form.js     Weekly-digest signup: language options, suggestions, ?lang= preselect, metadata value
 └── text-utils.js         Diacritic-folding search normalization
 ```
 
@@ -20,6 +23,9 @@ lib/
 | `language-colors.js` | Maps a language name to its resource-class index (`languageBorderClass`, from the taxonomy in `language_data.json`) or a deterministic hash-based fill color, for languages outside the taxonomy. |
 | `abstract-math.js` | Renders `$...$` LaTeX math in arXiv abstracts to KaTeX HTML server-side (build time / API route), so the browser never loads the KaTeX JS engine. |
 | `text-utils.js` | `foldSearchText` — strips diacritics/typographic quotes for ASCII-friendly search matching. Kept dependency-free since it's also imported by the client-side search script bundled into `PaperTable.astro`, which must not pull in server-only modules like `abstract-math.js`. |
+| `build-info.js` | Build-time footer metadata: version from the repo-root `VERSION` file, commit from `git rev-parse HEAD` (falls back to `GITHUB_SHA`), and the build timestamp in fixed UTC formatting. Touches the filesystem/git, so like `data.js` it's server-only. |
+| `site-stats.js` | Parsers/URL builders for the footer's usage counters, fetched in the browser at view time: GoatCounter's public `counter/TOTAL.json` (only when `PUBLIC_GOATCOUNTER_CODE` is set at build) and the GitHub REST repo endpoint (stars/forks, unauthenticated). |
+| `subscribe-form.js` | Logic behind `SubscribeForm.astro` (About page): ranks every taxonomy language by total detections for the picker, diacritic/punctuation-insensitive suggestions, `?lang=` pre-selection, and the Buttondown embed endpoint. Picked languages are posted as one Buttondown subscriber metadata field (`metadata__languages=",Sinhala,Tamil,"`, via `languagesMetadata`), which the email template in `langtrend/digest.py` matches by exact name. Not tags: Buttondown templates only see tags with its paid tagging add-on. |
 
 Run the whole suite from `web/`:
 

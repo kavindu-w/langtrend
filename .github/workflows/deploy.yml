@@ -22,10 +22,13 @@ on:
           Whether this run reached deploy via the caller's per-week judge gate
           (true) rather than a deploy-only bypass (deploy_only dispatch input
           or a [deploy-only] commit tag), where judging status this run is
-          unverified. Purely informational — only affects the "site is live"
-          notification wording, not whether Pages actually deploys.
+          unverified. Doesn't affect whether Pages deploys, but does gate
+          two things: the "site is live" notification wording, and whether
+          the weekly email digest is created (only for a fully judged week).
+          Defaults to false so a caller that forgets to pass it never emails
+          subscribers.
         required: false
-        default: true
+        default: false
         type: boolean
     secrets:
       NOTIFY_WEBHOOK_URL:
@@ -34,6 +37,12 @@ on:
           for callers to pass it explicitly; a reusable workflow gets no
           secrets from its caller otherwise. Optional — the notify step below
           no-ops when it's empty, so a fork without the secret still deploys.
+        required: false
+      BUTTONDOWN_API_KEY:
+        description: >-
+          Buttondown API key for the weekly email digest. Optional — the digest
+          step is skipped when it's empty. Only ever used to *create* an email;
+          the script never reads the subscriber list.
         required: false
 
 permissions:
@@ -71,6 +80,13 @@ jobs:
 
       - name: Build frontend
         working-directory: web
+        env:
+          # Repo Actions *variable* (not a secret — it ends up in the public
+          # page source anyway). Unset = no visitor tracking/counter.
+          PUBLIC_GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
+          # Also a variable: the newsletter's public username. Unset = no
+          # signup form or footer link.
+          PUBLIC_BUTTONDOWN_USERNAME: ${{ vars.BUTTONDOWN_USERNAME }}
         run: npm run build
 
       - name: Configure Pages
@@ -133,7 +149,64 @@ jobs:
             cat /tmp/notify_response.txt 2>/dev/null || true
           fi
 
+      # Weekly email digest. Only after a real publish of a fully judged week,
+      # so the email's links point at a live page with final verdicts. Safe to
+      # run on every such deploy (daily catch-ups included): send_digest.py
+      # does nothing if this week's digest already exists in Buttondown.
+      # DIGEST_MODE (repo variable): "draft" (default) leaves it for review in
+      # Buttondown; "send" sends it straight away; "off" skips the step.
+      # Duplicates are detected by exact subject, so to skip one week, leave
+      # its draft unsent in Buttondown rather than deleting or renaming it —
+      # otherwise the next daily catch-up deploy recreates it.
+      #
+      # The site is already live by now, so a digest failure (Buttondown down,
+      # key revoked) must not turn the run red: continue-on-error, plus its
+      # own push alert below.
+      - name: Set up Python (digest)
+        if: inputs.should_publish && inputs.fully_judged && vars.DIGEST_MODE != 'off'
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: '.python-version'
+
+      - name: Create weekly email digest
+        id: digest
+        if: inputs.should_publish && inputs.fully_judged && vars.DIGEST_MODE != 'off'
+        continue-on-error: true
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+          DIGEST_MODE: ${{ vars.DIGEST_MODE || 'draft' }}
+        run: |
+          # tee would otherwise mask send_digest.py's exit code.
+          set -o pipefail
+          if [ -z "${BUTTONDOWN_API_KEY:-}" ]; then
+            echo "BUTTONDOWN_API_KEY not set - skipping digest"
+            exit 0
+          fi
+          # Standard library only (langtrend/__init__ imports lazily), so no
+          # pip install — none of the torch/docling stack.
+          python scripts/send_digest.py --mode "$DIGEST_MODE" \
+            --site-url "${{ steps.deploy.outputs.page_url || 'https://kavindu-w.github.io/langtrend' }}" \
+            2>&1 | tee digest_output.log
+
+      - name: Notify on digest failure
+        if: steps.digest.outcome == 'failure'
+        env:
+          NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
+        run: |
+          [ -n "${NOTIFY_WEBHOOK_URL:-}" ] || exit 0
+          errors=$(grep '^ERROR:' digest_output.log 2>/dev/null || true)
+          body=$(printf 'The site deployed, but the weekly email digest failed. Nothing was sent to subscribers.\n\n%s\n\nRun: %s/%s/actions/runs/%s' \
+            "${errors:-see the run log}" "${{ github.server_url }}" "${{ github.repository }}" "${{ github.run_id }}")
+          set +e
+          http_code=$(curl -sS -X POST -H "Title: LangTrend - Email digest failed" -H "Priority: high" \
+            --data-binary "$body" "$NOTIFY_WEBHOOK_URL" -o /tmp/notify_response.txt -w "%{http_code}")
+          curl_exit=$?
+          set -e
+          echo "notify: curl exit=$curl_exit http_status=$http_code"
+          cat /tmp/notify_response.txt 2>/dev/null || true
+
       - name: Upload snapshot artifact (for debugging)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: langtrend-snapshot-${{ github.run_id }}
