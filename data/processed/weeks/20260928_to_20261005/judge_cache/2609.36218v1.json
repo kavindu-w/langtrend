@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.36218v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-07T11:46:13.201054+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1730,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The snippets do not show 'Luna' as a language, but rather as part of section headings or general text without linguistic context; it is likely a false positive or insufficient evidence.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippets show 'Mae' appearing in section headings and results, but there is no indication it refers to a human language; it is likely a false positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The snippets only show 'Sake' in a qualitative case studies section without context identifying it as a language; it is likely a false positive.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "The paper mentions choosing subtitle languages and includes Czech in the dataset construction process.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "The paper uses Indonesian subtitles as part of its multilingual benchmark and evaluates model performance on them.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The paper mentions Korean in the context of label curation for age suitability and national ratings.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "The paper uses Persian subtitles for evaluation and specifically analyzes it as a stress setting for model robustness.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Romanian": {
+      "verdict": "studied",
+      "reason": "The paper uses Romanian subtitles as part of its multilingual benchmark and evaluates model performance on them.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "The paper uses Vietnamese subtitles as part of its multilingual benchmark and evaluates model performance on them.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The paper uses Arabic subtitles as part of its multilingual benchmark and performs duration and density audits on them.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English subtitles as a primary baseline for comparing cross-lingual performance and evaluating model capabilities.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

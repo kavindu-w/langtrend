@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.35350v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-07T12:12:09.007540+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9876,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a specific model version (GPT-5.6 Luna) from OpenAI, not a human language",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The word 'sake' is used in the common English idiom 'for simplicity's sake'",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Toro": {
+      "verdict": "false_positive",
+      "reason": "Toro refers to a person's name in a citation (Groot and Valdenegro - Toro)",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses an English dictionary to create a random noise baseline for its experiments",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

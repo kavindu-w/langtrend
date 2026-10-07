@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.34287v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T12:58:30.508133+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4805,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "Dia appears as part of the column header \"Inner Dia\" (a measurement abbreviation), not as the human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language in prompts and the use of English Common Crawl data; the paper studies English by pretraining models on English corpora.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned as a non‑English language to be removed in cleaning rules, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is mentioned as a non‑English language to be removed in cleaning rules, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

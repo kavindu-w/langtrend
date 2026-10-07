@@ -1,8 +1,64 @@
 {
   "paper_id": "http://arxiv.org/abs/2609.36316v1",
-  "judge_model": "google/gemma-4-26b-a4b-it:free",
-  "judged_at": "2026-10-07T09:39:17.372109+00:00",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-07T11:48:12.389894+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 11691,
-  "verdicts": {}
+  "verdicts": {
+    "Aisi": {
+      "verdict": "false_positive",
+      "reason": "Refers to the UK AISI (Artificial Intelligence Safety Institute), an organization, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Refers to GPT-5.6-Luna, a specific model used as a judge, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Refers to MAE (Mean Absolute Error), a statistical error metric, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Una": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets are insufficient to identify 'Una' as a language; it appears in a section with user prompts but no clear reference to the language itself.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as a pattern style in a prompt description used for evaluation.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The paper uses a prompt translated from Portuguese as part of its evaluation on real user prompts.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The paper uses a prompt translated from Russian as part of its evaluation on real user prompts.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English phrases and prompts as part of its evaluation and translation experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The paper uses Spanish as an example translation target in its evaluation of model behavior.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The paper uses a prompt written in French as part of its evaluation on real user prompts.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The paper uses a prompt written in Japanese as part of its evaluation on real user prompts.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
 }

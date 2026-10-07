@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.34678v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T12:39:49.391963+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11887,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is used to denote the Latin script, not the Latin language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch appears as a language in external benchmarks where RoSh is evaluated, indicating the paper studies Dutch.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is part of the eight‑language dataset and appears in prompts and example claims, so the paper studies Polish.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is part of the eight‑language dataset and appears in prompts and example claims, so the paper studies Turkish.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is part of the eight‑language dataset and appears in prompts and example claims, so the paper studies German.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is part of the eight‑language dataset and appears in introduction, method, results, etc., so the paper studies Portuguese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is part of the eight‑language dataset and appears in prompts, tokeniser verification, and external benchmarks, so the paper studies Russian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is part of the eight‑language dataset and appears in abstract, introduction, method, results, etc., so the paper studies Arabic.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is part of the eight‑language dataset and appears in prompts, tokeniser verification, results, and external benchmarks, so the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the reference language and appears throughout the paper in abstract, introduction, method, results, etc., so the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

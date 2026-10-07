@@ -1,8 +1,19 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.01150v1",
-  "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-07T04:12:40.419570+00:00",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-07T11:35:08.140047+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 5440,
-  "verdicts": {}
+  "verdicts": {
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The paper introduces a dataset specifically for regional dialect identification in Bengali-script abusive text, including Standard Bangla and regional varieties.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions a dataset (BD-Dialect) that contains aligned English and Bangla text, but the paper itself does not use or evaluate English.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
 }

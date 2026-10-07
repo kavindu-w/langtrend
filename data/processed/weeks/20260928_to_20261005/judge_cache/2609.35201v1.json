@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.35201v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T13:37:16.366662+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7323,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears as 'Latin script', referring to the writing system, not the Latin language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is referenced throughout as the target language for dataset construction, evaluation benchmarks, and model training, indicating the paper studies the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced throughout as the target language for dataset construction, evaluation benchmarks, and model training, indicating the paper studies the language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

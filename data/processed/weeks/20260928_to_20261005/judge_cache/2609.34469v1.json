@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.34469v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T12:44:40.248159+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3425,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb (to fix inputs) and does not refer to the language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the language of instructions and summary sentences in the benchmark, showing the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of instructions and translation in the benchmark, showing the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

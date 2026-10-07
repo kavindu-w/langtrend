@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.34422v2",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-10-07T13:09:03.121947+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4132,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The term refers to a fixed string 'sentinel COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT' used as a signal in the environment, not a human language, implying a false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Irish": {
+      "verdict": "false_positive",
+      "reason": "The term refers to the 'Irish Rebellion' in a task description, not the Irish language itself, implying a false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Sicilian": {
+      "verdict": "false_positive",
+      "reason": "The term refers to 'Sicilian marble' used to describe a statue, not the Sicilian language, implying a false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "The term refers to a classification task performed on 'Indonesian free-text study-habit descriptions', implying the language is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

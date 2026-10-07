@@ -1,0 +1,79 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.34152v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T13:00:31.534093+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10668,
+  "verdicts": {
+    "Dano": {
+      "verdict": "false_positive",
+      "reason": "Dano appears only as part of the compound adjective Dano-Norwegian (referring to the historical dual kingdom) and not as a reference to the Danish language; therefore it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kom": {
+      "verdict": "false_positive",
+      "reason": "Kom is a common verb form (kom/came) in the sample sentences and is not a language reference; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sanskrit": {
+      "verdict": "mentioned_only",
+      "reason": "Sanskrit is mentioned in the introduction as an example of an Indo-European language but is not part of the paper’s experiments; therefore it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek is cited as a historic Indo-European language in the introduction but is not studied or evaluated in the experiments; therefore it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin is referenced as a classic Indo-European language in the introduction but is not part of the study’s experiments; therefore it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Danish": {
+      "verdict": "studied",
+      "reason": "Danish is a primary language in the experiments (semantic distance, orthographic fragmentation, MLM predictability) and is therefore studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "Norwegian (Bokmål) is a core language in the study’s quantitative framework and is thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Slovak": {
+      "verdict": "mentioned_only",
+      "reason": "Slovak is listed as a future target for extension in the conclusion but is not currently studied; therefore it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Catalan": {
+      "verdict": "mentioned_only",
+      "reason": "Catalan appears only as a planned future extension in the conclusion and is not part of the current experiments; therefore it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "Czech is mentioned as a future language group for extension in the conclusion but is not studied now; therefore it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is listed as a future West Slavic language for extension in the conclusion and is not part of the current study; therefore it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is referenced as a future Iberian Romance language for extension in the conclusion and is not studied in the current work; therefore it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Refers to the Swedish language in the experiments (e.g., Swedish text segmentation, Swedish tokenizer) => studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Refers to the Spanish language only as a future target language, not studied in this paper => mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

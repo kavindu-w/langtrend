@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.34770v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T12:31:10.015665+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11983,
+  "verdicts": {
+    "Nai": {
+      "verdict": "false_positive",
+      "reason": "Nai appears as part of the author name 'Shi Nai'an' in a list of classic Chinese works, not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lao": {
+      "verdict": "false_positive",
+      "reason": "Lao appears as part of the author name 'Lao She' in a list of classic Chinese works, not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced as a language in the content constraint 'Focus on Chinese literature' and in 'Chinese Studio', indicating a mention of the Chinese language, not a study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned as a language specification in the constraint extraction prompt ('in Spanish'), indicating a mention, not a study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is the target language of the Thai-English translation system, with extensive discussion of Thai language data, constraints, and evaluation, indicating the paper studies Thai.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic appears only as 'Arabic digits' in a rule about numerals, not as the Arabic language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language and a core component of the Thai-English translation system, with detailed discussion of English prompts, constraints, and evaluation, indicating the paper studies Engli",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

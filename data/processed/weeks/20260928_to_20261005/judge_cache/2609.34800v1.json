@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.34800v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T12:24:48.432306+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11928,
+  "verdicts": {
+    "Aisi": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not contain 'Aisi', so its referent is unclear; insufficient evidence to confirm it refers to a language. Verdict: mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Greek language as the target of the newly created benchmarks Prot-Ex and Pan-Ex and as a subject of evaluation tasks. Verdict: studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Latin as a subject in the Panhellenic exam dataset and as a target language in evaluation examples. Verdict: studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English used only for system instructions, translations, and rubrics, not as a target of study. Verdict: mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

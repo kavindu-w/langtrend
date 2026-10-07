@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.34187v3",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T13:18:49.738119+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11824,
+  "verdicts": {
+    "Mo": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet shows output for a constructed language but does not explicitly refer to the language 'Mo'; thus insufficient evidence to confirm it's studied, so it's considered mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uma": {
+      "verdict": "studied",
+      "reason": "The snippet includes 'uma' as a language name in training data exposure, indicating the paper examines this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Greek as an example of linguistic roots used to create neologisms, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Latin as an example of linguistic roots used to create neologisms, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions French as an example of linguistic roots used to create neologisms, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'arabic numeral' (digits) rather than the Arabic language, making this a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet repeatedly refers to English as the baseline language for story generation and evaluation, indicating the paper uses English in its experiments.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

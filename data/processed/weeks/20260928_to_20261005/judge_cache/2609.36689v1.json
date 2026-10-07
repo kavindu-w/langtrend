@@ -1,8 +1,19 @@
 {
   "paper_id": "http://arxiv.org/abs/2609.36689v1",
-  "judge_model": "google/gemma-4-31b-it:free",
-  "judged_at": "2026-10-07T09:00:30.677653+00:00",
-  "context_coverage": "abstract+html",
-  "context_chars": 3387,
-  "verdicts": {}
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T11:43:44.235483+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1349,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears as part of the method name 'Direct-MO', which is a model/method, not a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language in the limitations section, indicating the paper evaluates on English benchmarks, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }
