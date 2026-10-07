@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.36131v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T09:11:12.599197+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8831,
+  "verdicts": {
+    "Ata": {
+      "verdict": "false_positive",
+      "reason": "Ata appears as a transliteration of the Sinhala word for 'hand' in example sentences, not as a language name → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kam": {
+      "verdict": "false_positive",
+      "reason": "Kam appears as a transliteration of the Sinhala word for 'work' in example sentences, not as a language name → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mala": {
+      "verdict": "false_positive",
+      "reason": "Mala appears as a transliteration of the Sinhala word for 'flower' in example sentences, not as a language name → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sama": {
+      "verdict": "false_positive",
+      "reason": "Sama appears as part of the transliteration 'samīkarana' and other examples, not as a language name → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tem": {
+      "verdict": "false_positive",
+      "reason": "Tem appears as part of the word 'temple' in a table heading, not as a language name → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Malayalam": {
+      "verdict": "mentioned_only",
+      "reason": "Malayalam is mentioned as a language studied in related work on neural Sandhi splitting, not in this paper's experiments → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sanskrit": {
+      "verdict": "mentioned_only",
+      "reason": "Sanskrit is mentioned as a language with prior neural Sandhi work, not studied in this paper → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Telugu": {
+      "verdict": "mentioned_only",
+      "reason": "Telugu is mentioned as a language with analogous neural Sandhi successes, not studied in this paper → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "Tamil is mentioned as a language with analogous neural Sandhi successes, not studied in this paper → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as the language of translation output, not studied in this paper → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sinhala": {
+      "verdict": "studied",
+      "reason": "Sinhala is the target language of the study, with experiments on Sandhi splitting → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

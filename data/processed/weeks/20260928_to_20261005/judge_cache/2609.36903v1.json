@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.36903v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T08:33:07.155746+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8555,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "Ami refers to the AMI speech corpus dataset, not the language Ami; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dair": {
+      "verdict": "false_positive",
+      "reason": "Dair refers to the dair-ai/emotion repository/dataset, not the language Dair; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language, which the paper studies via bilingual data, training, and evaluation; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language, which the paper studies via bilingual data, training, and evaluation; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

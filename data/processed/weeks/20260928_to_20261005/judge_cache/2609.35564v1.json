@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.35564v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T09:42:14.527148+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8487,
+  "verdicts": {
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "Mer refers to the Match Error Rate (MER) metric, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Moo": {
+      "verdict": "false_positive",
+      "reason": "Moo is a model abbreviation (Moonshine-AR) used in tables, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "Egyptian Arabic is a dialect included in the benchmark and evaluated across ASR systems.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is the target language of the benchmark, with ASR systems evaluated on it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is only used as the language for providing elicitation instructions, not studied in ASR evaluation.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

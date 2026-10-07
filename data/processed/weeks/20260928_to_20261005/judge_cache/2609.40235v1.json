@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.40235v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T04:54:00.254415+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3344,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col appears as part of the person name 'Dr. Mark Col.' and thus refers to a surname, not the Col language; false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dakota": {
+      "verdict": "false_positive",
+      "reason": "Dakota appears as part of the US state name 'North Dakota', not the Dakota language; false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Miami refers to the city of Miami, not the Miami language; false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sala": {
+      "verdict": "false_positive",
+      "reason": "Sala appears as part of the place name 'Lod al Sala', not the Sala language; false_positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

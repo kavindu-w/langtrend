@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.39460v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T05:34:45.680757+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11693,
+  "verdicts": {
+    "Ende": {
+      "verdict": "false_positive",
+      "reason": "Ende appears as a German word meaning 'end' in song titles, not the language itself → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gebe": {
+      "verdict": "false_positive",
+      "reason": "Gebe appears as a German verb 'to give' in lyrics, not the language itself → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kein": {
+      "verdict": "false_positive",
+      "reason": "Kein appears as a German negation word 'no' in lyrics, not the language itself → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "Sie appears as a German pronoun meaning 'you (female)' in lyrics, not the language itself → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "Mal appears as a German adverb meaning 'once' in lemmata lists, not the language itself → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as a column heading for song translations, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is referenced in related work on extremist content classification, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is the language of the corpora, lexical analysis, and preprocessing pipeline, indicating the paper studies German → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

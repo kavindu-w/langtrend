@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.40111v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T05:49:19.601033+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3863,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'PIN' referring to a personal identification number, not the language Pin, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Chinese language instructions being translated to English, which is a mention of the language but not studied, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English as the UI language and translation language, not to studying English, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

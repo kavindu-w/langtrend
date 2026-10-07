@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.38256v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T08:08:50.353342+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5573,
+  "verdicts": {
+    "Ukrainian": {
+      "verdict": "false_positive",
+      "reason": "Ukrainian in the snippet refers to the Ukrainian government (a political entity), not the Ukrainian language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English in the snippets refers to the English language used for prompts, dataset, and evaluation across the three countries, implying studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

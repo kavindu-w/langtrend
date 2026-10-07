@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.39154v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T06:11:03.522830+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5027,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to a page extraction tool (e.g., Jina extraction) in the snippets, not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in tasks and judge prompts in the snippets, indicating the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used in tasks and benchmarks in the snippets, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

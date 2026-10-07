@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.36654v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T08:58:12.878545+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5675,
+  "verdicts": {
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Refers to 'north-pole' physics term, not a human language; thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "Appears in dataset names like 'MGSM-English' and 'English MGSM', indicating the language is used for evaluation; thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "Mentions Germany and German public opinion, not the German language; thus false positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

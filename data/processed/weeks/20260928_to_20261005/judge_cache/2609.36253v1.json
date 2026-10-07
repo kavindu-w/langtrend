@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.36253v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T09:28:06.119579+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11996,
+  "verdicts": {
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to Russian demographic cells and a Russian wave of the survey, not the Russian language itself; thus false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English prompts and fine-tuning data used as the experimental language, not a focus of study; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippets refer to German language conditions, German fine-tuning, German cells, and German survey-center, indicating the paper studies German as a target language; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Spanish partition used as a baseline for constructing Mexican condition, not a language studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

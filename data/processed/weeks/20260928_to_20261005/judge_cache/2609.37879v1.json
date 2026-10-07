@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.37879v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T07:53:55.144709+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3201,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"pin\" as a verb meaning to fix a build, not the Pin language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"sentinel\" as a placeholder value, not the Sentinel language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet references the English language via the bAbI English dataset, indicating the paper evaluates on English; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

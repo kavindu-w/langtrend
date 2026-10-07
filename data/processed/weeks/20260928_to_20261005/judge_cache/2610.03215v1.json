@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.03215v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T04:11:27.280598+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 7194,
+  "verdicts": {
+    "Gera": {
+      "verdict": "false_positive",
+      "reason": "Gera refers to an author name (Gera and Neal) in a citation, not the language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kam": {
+      "verdict": "mentioned_only",
+      "reason": "KAm appears as a token in garbled text without clear reference to the language; insufficient evidence, treat as mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Hungarian refers to the Hungarian assignment algorithm, a computational method, not the language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as a language in comparative statement about stance detection; not studied, only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is the target language of the shared task and is discussed throughout as the language of study; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

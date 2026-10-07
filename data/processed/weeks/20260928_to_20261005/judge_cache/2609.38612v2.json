@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.38612v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T06:40:21.973735+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11570,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier appears only as a noun referring to a delivery callback, not the Carrier language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is used as a model name (e.g., Luna low, Luna none) and in commands, not the Luna language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "false_positive",
+      "reason": "English appears only as part of model names like 'Laya English', not as a reference to the English language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

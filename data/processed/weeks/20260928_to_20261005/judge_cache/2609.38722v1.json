@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.38722v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T06:29:28.516539+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4871,
+  "verdicts": {
+    "Fars": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains only method names and numeric results; 'Fars' does not appear and is not referenced, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "The snippet references a Greek mathematician (Euclid) as a person, not the Greek language; thus 'Greek' is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'polish' as a verb meaning to refine, not the Polish language; thus 'Polish' is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly mentions English as the language of LFQA prompts and watermarked answers, indicating the paper uses English for its experiments.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.37082v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T08:20:39.046689+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4359,
+  "verdicts": {
+    "Sop": {
+      "verdict": "false_positive",
+      "reason": "SoP in the snippets abbreviates \"Satisfaction of Products\", not the language Sop, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "\"Polish\" in the snippets refers to nationality (Polish officers, Polish military officer), not the language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "\"Japanese\" in the snippets refers to nationality (Japanese baseball player), not the language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "\"Chinese\" in the snippets refers to Chinese language questions and answers used in the judge model, indicating the paper evaluates on Chinese, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.36902v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T08:44:27.153769+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6575,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae refers to the MAE (Mean Absolute Error) metric in the snippet, not the Mae language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yale": {
+      "verdict": "false_positive",
+      "reason": "Yale refers to Yale University (an academic source) in the snippet, not the Yale language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language of the datasets and samples throughout the snippets, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language of the datasets and samples throughout the snippets, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

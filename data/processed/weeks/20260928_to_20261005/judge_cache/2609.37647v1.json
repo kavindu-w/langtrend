@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.37647v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T07:51:00.385483+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6058,
+  "verdicts": {
+    "Dair": {
+      "verdict": "false_positive",
+      "reason": "Dair appears as part of the dataset identifier dair-ai/emotion, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae is a false positive; the snippet contains the abbreviation MAE (Mean Absolute Error), not the language Mae.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears only as 'Latin script', referring to the writing system, not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is mentioned as a language evaluated on AfriXNLI, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as the language of the C‑Eval benchmark, which the paper evaluates Jev on.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is identified as Jev’s primary language and is evaluated on multiple benchmarks (Belebele, AfriXNLI, MMLU, etc.), so the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German appears as the language of the AGB‑DE legal‑clause dataset, which the paper evaluates Jev on.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

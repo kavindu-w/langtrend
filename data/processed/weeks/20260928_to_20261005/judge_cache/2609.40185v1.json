@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.40185v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T05:33:09.161396+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2865,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the proprietary model GPT-5.6 Luna, not the Luna language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Picard": {
+      "verdict": "false_positive",
+      "reason": "Picard refers to the technique PICARD, not the Picard language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of evaluation in the prompt template, indicating the paper evaluates generated text in English, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

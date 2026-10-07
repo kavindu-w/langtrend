@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.39333v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T05:56:41.776884+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5357,
+  "verdicts": {
+    "Maya": {
+      "verdict": "false_positive",
+      "reason": "Maya refers to a user name in the study scenarios, not the Maya language, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Simplified Chinese wording refers to the Chinese language used for the SUS questionnaire, a mention only, not studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

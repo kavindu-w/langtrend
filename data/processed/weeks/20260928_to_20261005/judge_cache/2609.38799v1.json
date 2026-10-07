@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.38799v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T06:44:53.330610+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5212,
+  "verdicts": {
+    "Boon": {
+      "verdict": "false_positive",
+      "reason": "Boon appears as the English word \"boon\" meaning a benefit, not a reference to the human language Boon.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "Russian appears as an adjective referring to Russia or Russian actors/interference, not the language Russian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Somali": {
+      "verdict": "false_positive",
+      "reason": "Somali appears as an adjective referring to Somali pirates or worshippers, not the language Somali.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese appears as an adjective referring to the Chinese public, not the language Chinese.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

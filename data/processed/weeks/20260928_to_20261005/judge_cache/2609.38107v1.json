@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.38107v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T07:17:14.075213+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3791,
+  "verdicts": {
+    "Ale": {
+      "verdict": "false_positive",
+      "reason": "Ale is used as a variable name in the trace (e.g., \"Define Ale A\"), indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "Mango is used as a variable name in the trace (e.g., \"Define Wine’s Mango\" and \"How many Mango does Wine have?\"), indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

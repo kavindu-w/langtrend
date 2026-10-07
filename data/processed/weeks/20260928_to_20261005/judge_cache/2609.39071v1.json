@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.39071v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T06:03:13.730882+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7099,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col refers to the metric COL (Collocation Correctness) in the Style reward, not the human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the language of the legal documents, prompts, and reward models (LexRM) built for the Chinese legal context.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used only as a translation language for prompts, not as a target language for reward modeling.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

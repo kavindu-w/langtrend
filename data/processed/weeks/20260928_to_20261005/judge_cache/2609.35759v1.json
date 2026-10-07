@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.35759v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T09:33:26.259195+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11855,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the model name GPT-5.6 Luna (a backbone LLM) in the snippets, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vale": {
+      "verdict": "false_positive",
+      "reason": "Vale refers to a character name (Dr. Vale) in the case study snippets, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the prompts used in experiments (English prompts) and the evaluation language, indicating the paper studies English story generation.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.35741v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T09:43:28.388364+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4442,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the model name 'gpt-6-luna' in the snippets, not the human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "Uri appears as part of 'pact2.uri' (a variable) in the snippets, not the human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa appears as part of 'warnings.wa' in the snippets, not the human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

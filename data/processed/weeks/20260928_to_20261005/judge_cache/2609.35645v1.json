@@ -1,0 +1,69 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.35645v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-07T09:39:49.247058+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11992,
+  "verdicts": {
+    "Aer": {
+      "verdict": "false_positive",
+      "reason": "AER refers to the 'Answer Error Rate' metric proposed in the paper, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "MER refers to 'Match Error Rate', a standard edit-distance metric, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'monolingual condition', not the Mongolian language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Tagalog": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as a high-volume pair that is out of scope for the benchmark.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as a high-volume pair that is out of scope for the benchmark.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as a high-volume pair that is out of scope for the benchmark.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Refers to the 'Latin-script' used by several language pairs, not the Latin language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper evaluates code-switching for the ZH EN (Chinese-English) pair and uses Chinese TTS voices.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the embedded language for all five language pairs studied in the benchmark.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The paper evaluates code-switching for French and French Canadian (FR EN, FR-CA EN) pairs.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper evaluates code-switching for the German-English (DE EN) pair.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The paper evaluates code-switching for the Spanish-English (ES EN) pair.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

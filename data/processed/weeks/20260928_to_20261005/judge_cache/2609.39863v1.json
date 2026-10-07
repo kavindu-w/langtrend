@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.39863v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T05:31:17.829051+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7894,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a model name (e.g., GPT-5.6-Luna) in the snippets, not the human language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Phala": {
+      "verdict": "false_positive",
+      "reason": "Phala refers to a model name (Phala Low) in the snippets, not the human language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek refers to the Greek language (Ancient Greek) in the snippets, only mentioned etymologically, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language in the snippets, and the paper uses English text conversations in its benchmark, so studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.36515v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T09:10:13.650874+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9106,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col appears as part of benchmark name 'col type', not the language, so false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Miao": {
+      "verdict": "false_positive",
+      "reason": "Miao appears as author name 'Miao et al', not the language, so false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese appears as 'vietnamese glue' benchmark, indicating the language is used in evaluation, so studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai appears as 'thai exam a level', 'thai exam tpat', etc., indicating Thai language benchmarks, so studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian appears in list of languages in MultiLoKo per-language splits, indicating the language is used, so studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Swedish appears in same list as Italian, indicating the language is used, so studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic appears as 'arabic exams', 'Arabic MMLU', and 'Stanford HELM Arabic', indicating Arabic language benchmarks, so studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as 'global mmlu lite english', 'TwitterAAE dialect splits (White English)', 'english' label, and 'English dictionary', indicating English language benchmarks, so studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

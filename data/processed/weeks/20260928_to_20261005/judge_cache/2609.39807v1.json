@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.39807v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T05:13:20.274942+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4143,
+  "verdicts": {
+    "Nora": {
+      "verdict": "false_positive",
+      "reason": "Nora is a persona name used in the persona belief confounder test, not a language; thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "false_positive",
+      "reason": "English appears only as part of the dataset name 'spanish-to-english translations', which is a dataset name, not a language reference; thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is referenced as a language in the training data (e.g., Spanish words) and used in the spanish-to-english translations dataset, indicating the paper studies Spanish; thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.38816v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T06:26:01.227518+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4402,
+  "verdicts": {
+    "Idio": {
+      "verdict": "false_positive",
+      "reason": "Idio appears as a model name in Table 3, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yale": {
+      "verdict": "false_positive",
+      "reason": "Yale appears as the 'yale-nlp' repository/organization name, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yuru": {
+      "verdict": "false_positive",
+      "reason": "Yuru appears as a model prefix (e.g., 'yuru qw') in the table, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese appears as part of the model/dataset name 'care-chinese' and a dataset description, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

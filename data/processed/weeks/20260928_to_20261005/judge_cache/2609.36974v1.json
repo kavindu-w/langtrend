@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.36974v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T08:33:26.683795+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8413,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to a filler word used in experimental templates, not the Carrier language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "Fam is an abbreviation for \"family\" in statistical clustering, not the Fam language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE stands for Mean Absolute Error, a metric, not the Mae language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Rang": {
+      "verdict": "false_positive",
+      "reason": "Rang is a verb in a sentence example, not the Rang language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French appears as an adjective (e.g., \"French fried\") describing food, not the French language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English number phrases refer to the English language used as test items in the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish ground truth refers to the Spanish language used for cross‑lingual replication in the study.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

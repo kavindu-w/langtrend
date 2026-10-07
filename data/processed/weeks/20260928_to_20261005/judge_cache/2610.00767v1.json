@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.00767v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T05:26:48.016207+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3784,
+  "verdicts": {
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "Logo refers to the Twitter bird logo in the snippet, not the Logo language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol is an abbreviation for 'Polarity' in the snippet, not the Polish language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "false_positive",
+      "reason": "Dutch appears in the term 'Dutch-booking rates', which refers to arbitrage, not the Dutch language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears in 'Spanish-English translations' used as part of the experimental dataset, indicating the paper studies English, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish appears in 'Spanish-English translations' used as part of the experimental dataset, indicating the paper studies Spanish, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

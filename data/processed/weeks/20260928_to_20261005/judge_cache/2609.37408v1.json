@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.37408v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-10-07T07:55:04.089943+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2647,
+  "verdicts": {
+    "Lame": {
+      "verdict": "false_positive",
+      "reason": "The word 'lame' is used as an adjective to describe music quality in a Reddit comment snippet, not as a reference to a human language, therefore it is a false positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets explicitly state that the pipeline was applied to English Reddit comments, therefore it is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

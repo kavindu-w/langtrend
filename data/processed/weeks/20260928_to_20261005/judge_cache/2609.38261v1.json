@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.38261v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T08:09:12.066893+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5103,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu refers to an instruction-following dataset/mixture and a model name (Tulu-Pythia-6.9b), not the human language Tulu; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears as 'Simplified Chinese' describing model card languages, not as a language studied in experiments; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese appears as a language of model cards, not studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of prompts, evaluation data, and the training corpus (The Pile), which the paper evaluates on; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

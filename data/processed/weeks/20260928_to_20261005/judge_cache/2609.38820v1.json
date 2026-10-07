@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.38820v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T06:08:54.578270+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3297,
+  "verdicts": {
+    "Evant": {
+      "verdict": "false_positive",
+      "reason": "Evant appears as a fragment in the text and is not a language reference, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "Sar appears as part of 'Sarcasm' tokens and is not a language reference, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is explicitly mentioned as a Semitic language and the target of adaptation in the paper, so studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced only as the source of an aspect‑based sentiment analysis framework, not as a target of study, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

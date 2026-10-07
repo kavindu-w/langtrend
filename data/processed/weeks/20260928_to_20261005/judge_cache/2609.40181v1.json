@@ -1,0 +1,664 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.40181v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T05:33:27.928837+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11962,
+  "verdicts": {
+    "Amara": {
+      "verdict": "studied",
+      "reason": "Amara appears as a test language in the MuST-Cinema evaluation set, indicating the paper evaluates translation into Amara, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Angika": {
+      "verdict": "studied",
+      "reason": "Angika is listed as a supported language variety in the Appendix C inventory, indicating the model includes Angika, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Beng": {
+      "verdict": "studied",
+      "reason": "Beng is listed as a supported language variety (Bengali) in the Appendix C inventory, indicating the model includes Beng, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Betawi": {
+      "verdict": "studied",
+      "reason": "Betawi is listed as a supported language variety in the Appendix C inventory, indicating the model includes Betawi, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chin": {
+      "verdict": "studied",
+      "reason": "Chin is listed as a supported language variety (Hakha Chin) in the Appendix C inventory, indicating the model includes Chin, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hani": {
+      "verdict": "studied",
+      "reason": "Hani is listed as a supported language variety (Yunnan Hani) in the Appendix C inventory, indicating the model includes Hani, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hiligaynon": {
+      "verdict": "studied",
+      "reason": "Hiligaynon is listed as a supported language variety in the Appendix C inventory, indicating the model includes Hiligaynon, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mal": {
+      "verdict": "studied",
+      "reason": "Mal is listed as a supported language variety (Malagasy) in the Appendix C inventory, indicating the model includes Mal, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mizo": {
+      "verdict": "studied",
+      "reason": "Mizo is listed as a supported language variety in the Appendix C inventory, indicating the model includes Mizo, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Orya": {
+      "verdict": "studied",
+      "reason": "Orya is listed as a supported language variety (Odia) in the Appendix C inventory, indicating the model includes Orya, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "mentioned_only",
+      "reason": "Mae does not appear in any of the provided snippets; insufficient evidence to confirm it refers to the language, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin refers to the Chinese romanization system in the meme translation example, not a language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Samoan": {
+      "verdict": "studied",
+      "reason": "Samoan is listed as a supported language in Appendix C, indicating the model includes Samoan translation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tat": {
+      "verdict": "studied",
+      "reason": "Tat appears as a language variety in the supported languages inventory, indicating inclusion of Tatar language → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Asturian": {
+      "verdict": "studied",
+      "reason": "Asturian is listed as a supported language in Appendix C, indicating the model includes Asturian translation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Fiji Hindi": {
+      "verdict": "studied",
+      "reason": "Fiji Hindi is listed as a supported language in Appendix C, indicating the model includes Fiji Hindi translation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Frisian": {
+      "verdict": "studied",
+      "reason": "Frisian is listed as a supported language in Appendix C, indicating the model includes Frisian translation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greenlandic": {
+      "verdict": "studied",
+      "reason": "Greenlandic is listed as a supported language in Appendix C, indicating the model includes Greenlandic translation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hawaiian": {
+      "verdict": "studied",
+      "reason": "Hawaiian is listed as a supported language in Appendix C, indicating the model includes Hawaiian translation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Low German": {
+      "verdict": "studied",
+      "reason": "Low German is listed as a supported language in Appendix C, indicating the model includes Low German translation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Odia": {
+      "verdict": "studied",
+      "reason": "Odia is listed as a supported language in Appendix C, indicating the model includes Odia translation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Oromo": {
+      "verdict": "studied",
+      "reason": "Oromo is listed as a supported language in Appendix C, indicating the model includes Oromo translation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pashto": {
+      "verdict": "studied",
+      "reason": "Pashto is listed as a supported language in Appendix C, indicating the model includes Pashto translation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Toda": {
+      "verdict": "false_positive",
+      "reason": "Toda appears as the Spanish word 'toda' in the snippet, not the Toda language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Afrikaans": {
+      "verdict": "studied",
+      "reason": "Afrikaans appears in Appendix C as a supported language (code afr Latn), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Albanian": {
+      "verdict": "studied",
+      "reason": "Albanian appears in Appendix C as a supported language (code als Latn), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "Amharic appears in Appendix C as a supported language (code amh Ethi), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Assamese": {
+      "verdict": "studied",
+      "reason": "Assamese appears in Appendix C as a supported language (code asm Beng), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bosnian": {
+      "verdict": "studied",
+      "reason": "Bosnian appears in Appendix C as a supported language (code bos Latn), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Burmese": {
+      "verdict": "studied",
+      "reason": "Burmese appears in Appendix C as a supported language (code mya Mymr), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chichewa": {
+      "verdict": "studied",
+      "reason": "Chichewa appears in Appendix C as a supported language (code nya Latn), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chuvash": {
+      "verdict": "studied",
+      "reason": "Chuvash appears in Appendix C as a supported language (code chv Cyrl), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Corsican": {
+      "verdict": "studied",
+      "reason": "Corsican appears in Appendix C as a supported language (code cos Latn), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Faroese": {
+      "verdict": "studied",
+      "reason": "Faroese appears in Appendix C as a supported language (code fao Latn), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Upper Sorbian": {
+      "verdict": "studied",
+      "reason": "Upper Sorbian appears in Appendix C as a supported language (code hsb Latn), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Western Armenian": {
+      "verdict": "studied",
+      "reason": "Western Armenian appears in Appendix C as a supported language (code hyw Armn), indicating the model includes translation for this language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gujarati": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Gujarati among the supported language identifiers, indicating the model includes Gujarati as a supported language. However, there is no explicit evaluation evidence t",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Haitian Creole": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Haitian Creole among the supported language identifiers, indicating the model includes Haitian Creole as a supported language. However, there is no explicit evaluatio",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hausa": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Hausa among the supported language identifiers, indicating the model includes Hausa as a supported language. However, there is no explicit evaluation evidence that th",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Icelandic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Icelandic among the supported language identifiers, indicating the model includes Icelandic as a supported language. However, there is no explicit evaluation evidence",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Igbo": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Igbo among the supported language identifiers, indicating the model includes Igbo as a supported language. However, there is no explicit evaluation evidence that the ",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Irish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Irish among the supported language identifiers, indicating the model includes Irish as a supported language. However, there is no explicit evaluation evidence that th",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Javanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Javanese among the supported language identifiers, indicating the model includes Javanese as a supported language. However, there is no explicit evaluation evidence t",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kannada": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Kannada among the supported language identifiers, indicating the model includes Kannada as a supported language. However, there is no explicit evaluation evidence tha",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Khmer": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Khmer among the supported language identifiers, indicating the model includes Khmer as a supported language. However, there is no explicit evaluation evidence that th",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kinyarwanda": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Kinyarwanda among the supported language identifiers, indicating the model includes Kinyarwanda as a supported language. However, there is no explicit evaluation evid",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kyrgyz": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Kyrgyz among the supported language identifiers, indicating the model includes Kyrgyz as a supported language. However, there is no explicit evaluation evidence that ",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lao": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C lists Lao among the supported language identifiers, indicating the model includes Lao as a supported language. However, there is no explicit evaluation evidence that the pa",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luxembourgish": {
+      "verdict": "studied",
+      "reason": "Luxembourgish refers to the Luxembourgish language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Malagasy": {
+      "verdict": "studied",
+      "reason": "Malagasy refers to the Malagasy language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "Malayalam refers to the Malayalam language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Maltese": {
+      "verdict": "studied",
+      "reason": "Maltese refers to the Maltese language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "Marathi refers to the Marathi language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mongolian": {
+      "verdict": "studied",
+      "reason": "Mongolian refers to the Mongolian language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "Nepali refers to the Nepali language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Occitan": {
+      "verdict": "studied",
+      "reason": "Occitan refers to the Occitan language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romansh": {
+      "verdict": "studied",
+      "reason": "Romansh refers to the Romansh language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Scottish Gaelic": {
+      "verdict": "studied",
+      "reason": "Scottish Gaelic refers to the Scottish Gaelic language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Shona": {
+      "verdict": "studied",
+      "reason": "Shona refers to the Shona language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sindhi": {
+      "verdict": "studied",
+      "reason": "Sindhi refers to the Sindhi language listed in the supported language inventory, indicating it is a language the model supports, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sinhala": {
+      "verdict": "mentioned_only",
+      "reason": "Sinhala appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Somali": {
+      "verdict": "mentioned_only",
+      "reason": "Somali appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "Swahili appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tajik": {
+      "verdict": "mentioned_only",
+      "reason": "Tajik appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Telugu": {
+      "verdict": "mentioned_only",
+      "reason": "Telugu appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "Tibetan appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkmen": {
+      "verdict": "mentioned_only",
+      "reason": "Turkmen appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uyghur": {
+      "verdict": "mentioned_only",
+      "reason": "Uyghur appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Xhosa": {
+      "verdict": "mentioned_only",
+      "reason": "Xhosa appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yakut": {
+      "verdict": "mentioned_only",
+      "reason": "Yakut appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yiddish": {
+      "verdict": "mentioned_only",
+      "reason": "Yiddish appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yoruba": {
+      "verdict": "mentioned_only",
+      "reason": "Yoruba appears as a language entry in the supported languages inventory (Appendix C), indicating a mention, but no evaluation or study on it is evident in the snippets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Zulu": {
+      "verdict": "studied",
+      "reason": "The snippet lists Zulu as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "moroccan Arabic": {
+      "verdict": "studied",
+      "reason": "The snippet lists moroccan Arabic as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Armenian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Armenian as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Belarusian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Belarusian as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The snippet lists Bengali as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Bulgarian as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Cebuano": {
+      "verdict": "studied",
+      "reason": "The snippet lists Cebuano as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Croatian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Croatian as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Danish": {
+      "verdict": "studied",
+      "reason": "The snippet lists Danish as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Esperanto": {
+      "verdict": "studied",
+      "reason": "The snippet lists Esperanto as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Estonian": {
+      "verdict": "studied",
+      "reason": "The snippet lists Estonian as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Galician": {
+      "verdict": "studied",
+      "reason": "The snippet lists Galician as part of the supported language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Georgian": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Georgian' appears as a language entry in the supported-language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Greek' appears as a language entry in the supported-language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Hebrew' appears as a language entry in the supported-language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Hindi' appears as a language entry in the supported-language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kazakh": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Kazakh' appears as a language entry in the supported-language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Latin' appears as a language entry (lat Latn Latin) in the supported-language inventory, indicating the model supports translation for the Latin lan",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latvian": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Latvian' appears as a language entry in the supported-language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lithuanian": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Lithuanian' appears as a language entry in the supported-language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Macedonian": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Macedonian' appears as a language entry in the supported-language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Malay": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Malay' appears as a language entry in the supported-language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Punjabi": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Punjabi' appears as a language entry in the supported-language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Slovak": {
+      "verdict": "studied",
+      "reason": "In Appendix C Supported Languages and Identifiers, 'Slovak' appears as a language entry in the supported-language inventory, indicating the model supports translation for this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tatar": {
+      "verdict": "studied",
+      "reason": "Tatar is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uzbek": {
+      "verdict": "studied",
+      "reason": "Uzbek is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Welsh": {
+      "verdict": "studied",
+      "reason": "Welsh is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Azerbaijani": {
+      "verdict": "studied",
+      "reason": "Azerbaijani is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Basque": {
+      "verdict": "studied",
+      "reason": "Basque is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Catalan": {
+      "verdict": "studied",
+      "reason": "Catalan is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "Finnish is listed in Appendix C as a supported language, indicating the model includes this language (studied).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "mentioned_only",
+      "reason": "Hungarian is listed as a supported language in Appendix C but not evaluated in any snippet; thus it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Indonesian": {
+      "verdict": "mentioned_only",
+      "reason": "Indonesian appears only in the supported-language inventory of Appendix C with no evaluation evidence, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is included in the Appendix C supported languages list but not referenced in any evaluation snippet, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Norwegian": {
+      "verdict": "mentioned_only",
+      "reason": "Norwegian is listed among the supported languages in Appendix C and not evaluated elsewhere, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian appears only in the Appendix C language inventory with no evaluation data, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is listed in Appendix C as a supported language but not evaluated in any snippet, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romanian": {
+      "verdict": "mentioned_only",
+      "reason": "Romanian is included in the Appendix C supported languages list without evaluation evidence, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Serbian": {
+      "verdict": "mentioned_only",
+      "reason": "Serbian appears only in the Appendix C language inventory and is not evaluated in any snippet, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swedish": {
+      "verdict": "mentioned_only",
+      "reason": "Swedish is listed in Appendix C as a supported language but not evaluated elsewhere, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is used as a target language in the in‑house video translation evaluation set for speech translation, indicating the paper evaluates on Korean.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese appears as a target language in the in‑house video translation evaluation set for speech translation, indicating the paper evaluates on Portuguese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is evaluated in Chinese‑to‑Russian subtitle excerpts from the instTrans evaluation and listed as a supported language, indicating the paper studies Russian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish refers to the human language Turkish, listed as a supported language in Appendix C, indicating the model studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian refers to the human language Ukrainian, listed as a supported language in Appendix C, indicating the model studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese refers to the human language Vietnamese, listed as a supported language in Appendix C, indicating the model studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "Egyptian Arabic refers to the human language variety Egyptian Arabic, listed as a supported language in Appendix C, indicating the model studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the human language German, listed as a supported language in Appendix C, indicating the model studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the human language Arabic, listed as a supported language in Appendix C and also used in evaluation tasks, indicating the model studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the human language Chinese, listed as a core language in Appendix C and evaluated in multiple tasks, indicating the model studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language English, listed as a core language in Appendix C and evaluated in multiple tasks, indicating the model studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to the human language French, listed as a supported language in Appendix C, indicating the model studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the human language Japanese, listed as a supported language in Appendix C and evaluated in speech translation and other tasks, indicating the model studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish refers to the human language Spanish, listed as a supported language in Appendix C and evaluated in speech translation and other tasks, indicating the model studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

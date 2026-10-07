@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.36987v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T08:31:08.721083+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4099,
+  "verdicts": {
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "Mer refers to the Merchant Harbor knowledge graph in the results table, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to a Chinese-language dataset mentioned as prior work, so the paper only mentions it, not studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the benchmark sessions and datasets, so the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

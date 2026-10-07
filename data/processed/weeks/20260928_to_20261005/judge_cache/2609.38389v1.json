@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.38389v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T06:49:46.519896+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4398,
+  "verdicts": {
+    "Aisi": {
+      "verdict": "false_positive",
+      "reason": "AISI is an acronym for a rubric, not the language Aisi.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol appears as part of the name 'Pol Pot', a historical figure, not the Polish language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Esperanto": {
+      "verdict": "studied",
+      "reason": "Esperanto is mentioned as a target language for translating Shakespeare, indicating the paper includes data in this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian refers to people of Italian nationality, not the Italian language, in the snippet.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "Korean refers to North Korea in the snippet, not the Korean language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
