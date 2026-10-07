@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.03625v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T23:08:46.295355+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4280,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae appears as part of the metric abbreviation MAE (Mean Absolute Error), not as a language reference; therefore false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yil": {
+      "verdict": "false_positive",
+      "reason": "YIL appears as a license plate series code, not as a language reference; therefore false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet instructs to generate natural language questions in English, indicating the paper studies English as the target language; therefore studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

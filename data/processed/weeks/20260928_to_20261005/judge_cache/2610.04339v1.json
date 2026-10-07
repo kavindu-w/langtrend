@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.04339v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T22:33:55.012239+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4356,
+  "verdicts": {
+    "Gor": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain references to \"GoR [15]\" and similar system names, which denote a research system rather than the human language Gor, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Korean as the language of an illustrative example produced by the system, not as a language the paper studies, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

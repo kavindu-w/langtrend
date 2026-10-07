@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.01511v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T01:23:02.234054+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4510,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "Agi refers to the benchmark name 'Omega AGI Eval' (an evaluation benchmark), not the human language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the dataset and evaluation benchmarks, and the paper uses English preference pairs and evaluates on English tasks, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

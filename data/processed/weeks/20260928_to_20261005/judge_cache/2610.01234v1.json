@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.01234v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T01:31:29.483347+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3899,
+  "verdicts": {
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'nasal' appears as part of 'nasal protection', a medical safety term, not the Nasal language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "In the snippets, 'English' refers to the English language in datasets, benchmarks, and medical terms, but the paper only mentions it in related work and prompts, not studying it, implying mentioned_on",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "In the abstract and snippets, 'Thai' refers to the Thai language, and the paper releases Thai datasets, a benchmark, and builds ASCRIBE for Thai SOAP note generation, thus studying it, implying studie",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

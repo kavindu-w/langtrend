@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.01082v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T01:42:54.984812+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11972,
+  "verdicts": {
+    "Anal": {
+      "verdict": "false_positive",
+      "reason": "Anal appears as a pipeline step abbreviation, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pol": {
+      "verdict": "studied",
+      "reason": "Pol is referenced as the source language (POL→ÉZL) and evaluated in experiments, implying the paper studies Polish.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "Sie occurs as a reflexive pronoun in the text, not as a language name, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kashubian": {
+      "verdict": "mentioned_only",
+      "reason": "Kashubian is mentioned as a regional language in the background, implying only a mention.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Silesian": {
+      "verdict": "studied",
+      "reason": "Silesian is repeatedly referenced as the target language and evaluated in experiments, implying the paper studies Silesian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "Czech is mentioned as a neighboring language in lexical borrowings, implying only a mention.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is mentioned as a neighboring language in lexical borrowings, implying only a mention.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is referenced as the source language and evaluated in experiments, implying the paper studies Polish.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used for glosses and prompts but not part of experiments, implying only a mention.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

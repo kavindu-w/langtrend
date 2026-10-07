@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.02173v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T01:50:09.693862+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4682,
+  "verdicts": {
+    "Iten": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"iten\" as a token among other words like \"ugno, iten, Graf, rolog pret, pretend, fake, nomin\". This appears to be a word token, not a reference to a human language. No evidence that ",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word \"pole\" used as a technical term (e.g., \"direction’s pole at the unembedding\", \"truth/falsity pole\"). This is not a reference to a human language named Pole.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet explicitly mentions Chinese characters (真, 错, 假, 虚假) and states \"pairing Chinese 真 (true)/错 (wrong)/假 (fake)/虚假 (false) with English true/false/fake\". This indicates the paper includes Chi",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet repeatedly references English truth/falsity tokens (e.g., \"truth/falsity pole\", \"English true/false/fake\", \"English yes/true\"). English is the primary language of the paper and is used thr",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.04676v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T22:22:02.620083+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9966,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"MAE\" abbreviation for metric, not the language Mae → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin appears as a romanization system for Chinese, not a language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is listed as an Indian language used to detect Indian cultural identity, only mentioned → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is listed as an Indian language used to detect Indian cultural identity, only mentioned → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "Tamil is listed as an Indian language used to detect Indian cultural identity, only mentioned → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin is referenced as the source word for \"persona\", only mentioned → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is used as a persona in prompts, subspace extraction, modulation, and evaluation, indicating the paper studies the Chinese language → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

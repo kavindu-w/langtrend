@@ -1,0 +1,69 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.03025v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T02:20:00.796024+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10614,
+  "verdicts": {
+    "Delaware": {
+      "verdict": "false_positive",
+      "reason": "Refers to a location (Delaware site), not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lish": {
+      "verdict": "false_positive",
+      "reason": "Refers to a person/author name, not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "Appears as a model/abbreviation in a results table, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "Abbreviation for Leave-One-Out cross-validation, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pom": {
+      "verdict": "false_positive",
+      "reason": "Refers to a Maven project file (pom.xml), not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "No occurrence of 'Sake' in the snippet; likely a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Refers to sentinel fields in the dataset, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Mentions the Latin language as the origin of the word 'cognoscere'.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Finnish": {
+      "verdict": "false_positive",
+      "reason": "Adjectival use for a person from Finland, not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Refers to Hungarian matching algorithm, not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Citation of a book titled 'Italian Painters', not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper filters for English-only texts and analyzes English language data, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

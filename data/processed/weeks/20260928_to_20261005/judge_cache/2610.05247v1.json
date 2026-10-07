@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.05247v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T21:58:17.369490+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8476,
+  "verdicts": {
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Vietnamese refers to Vietnamese clinical reports in the ViMed dataset, but the paper only uses the English version and does not evaluate or build resources for Vietnamese; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears as Chinese slot names (k_zh), glosses, and labels generated and evaluated by the method, indicating the paper builds resources for Chinese; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used throughout the paper: datasets are English-language reports, slot keys and prompts are in English, and evaluation includes English outputs, indicating the paper studies English; thus s",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

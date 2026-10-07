@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.05126v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T22:13:34.553945+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2256,
+  "verdicts": {
+    "Mina": {
+      "verdict": "false_positive",
+      "reason": "Mina appears as a variable name in a mathematical expression, not referring to the language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as part of 'English-Wikipedia-derived tokens', indicating the language is used in the experimental target pool, so the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

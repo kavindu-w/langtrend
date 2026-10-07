@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.05322v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T21:54:20.648379+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 1837,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo refers to 'Mathematics Olympiad' competition abbreviation in dataset names, not the language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romanian": {
+      "verdict": "false_positive",
+      "reason": "Romanian appears as part of competition name 'Romanian Master of Mathematics', not a direct reference to the language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "Russian appears as part of 'All-Russian MO' competition name, not a language reference; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Serbian": {
+      "verdict": "false_positive",
+      "reason": "Serbian appears as part of 'Serbian MO' and 'Serbia TST' competition names, not a language reference; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

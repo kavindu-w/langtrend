@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.40064v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T02:51:34.814070+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10198,
+  "verdicts": {
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol refers to the Politics and Government domain abbreviation in table headers, not a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish refers to the Turkish language (e.g., Turkish X posts, Turkish‑specific pre‑training) and the paper builds models for it, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

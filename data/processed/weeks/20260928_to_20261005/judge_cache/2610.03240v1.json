@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.03240v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T23:26:31.440064+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3613,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of the model name 'Tap-M-Luna-AI-Uncensored', not as a language reference, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese appears only within model identifiers like 'Chinese-Chat', not as a reference to the Chinese language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the BBQ dataset and the evaluated questions, indicating the paper studies English-language bias mitigation, thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

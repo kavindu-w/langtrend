@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.03017v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T23:44:06.106389+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9705,
+  "verdicts": {
+    "Czech": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Czech as the target language for ASR, training data, lexicon, and evaluation, indicating the paper studies Czech.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"polish\" as a verb meaning to improve text, not the Polish language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention English only as a reference dataset and for comparison, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.03387v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T23:14:40.814899+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3264,
+  "verdicts": {
+    "Dair": {
+      "verdict": "false_positive",
+      "reason": "The candidate refers to the DAIR Emotion dataset, not a language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The candidate refers to Latin-1 character encoding, not the Latin language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The candidate refers to English as the language of the evaluated tasks and model checkpoint, implying the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.02986v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T00:44:31.981558+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5313,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to dataset/model names like “tulu‑3‑sft‑olmo‑2‑mixture” and “tulu_v3.9…”, not the Tulu language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses “polish writing” as a verb, not the Polish language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention “Chinese‑language patents” and “Chinese LLMs” and “Chinese script”, which are references to the Chinese language, but the paper only mentions it in related work, not as a studied ",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references “non‑English script” and mentions English as a language, but the paper only uses English as a reference point, not as a studied language, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.05282v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T21:46:35.573880+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4204,
+  "verdicts": {
+    "Uru": {
+      "verdict": "false_positive",
+      "reason": "Uru refers to Gemini-URU judge rubric, not the Uru language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish refers to the verb 'polish' used in the AI use statement, not the Polish language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears in a prompt instructing to change words into Chinese, indicating a reference to the language but not indicating the paper studies it, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears in a prompt describing a mixed Chinese/English sentence, indicating a reference to the language but not indicating the paper studies it, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

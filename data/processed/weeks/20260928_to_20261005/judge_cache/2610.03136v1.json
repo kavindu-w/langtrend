@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.03136v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T23:25:12.625519+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11983,
+  "verdicts": {
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears as a language name in the snippets (e.g., \"or for some models Chinese\" and \"occasionally Chinese\"), but the paper only mentions it as an example of a model’s training language, not stu",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as a language name in many snippets, and the paper studies it by evaluating forced English reasoning, unconstrained English reasoning, and analyzing English bias.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French appears as a language name in many snippets, and the paper studies it as a control language, evaluating forced French reasoning and comparing it to forced German.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German appears as a language name in many snippets, and the paper studies it by building a monolingual German RAG testbed, evaluating forced German reasoning, and analyzing alignment benefits.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.00621v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T02:28:24.258661+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 1889,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake appears as the common English word 'sake' in the phrase 'for the sake of', not the language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French appears as part of the phrase 'French fries', a food item, not the French language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

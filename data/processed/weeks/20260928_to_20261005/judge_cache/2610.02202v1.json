@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.02202v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T00:51:04.854920+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3981,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo refers to a person name (Bo Liu) in the author list, not the Bo language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sena": {
+      "verdict": "false_positive",
+      "reason": "Sena appears as part of a name (Gul Sena Altıntas) in the author list, not the Sena language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is the name of a language model (GPT-5.6 Luna) used in experiments, not the Luna language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae appears as part of the dataset name DORIS-MAE, not the Mae language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.40360v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T02:33:35.140360+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5437,
+  "verdicts": {
+    "Sapo": {
+      "verdict": "false_positive",
+      "reason": "Sapo refers to the method name SAPO (a baseline method) in the snippets, not a human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears as part of \"polish writing\" (a verb meaning to edit language) in the snippets, not the Polish language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as \"ordinary English word\" in the snippets, referring to the English language, which is only mentioned, not studied, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

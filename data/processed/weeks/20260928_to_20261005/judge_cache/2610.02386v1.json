@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.02386v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T00:31:20.427393+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 2677,
+  "verdicts": {
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'wa' as a stray token, not a reference to the Wa language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Catalan": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Catalan referendum', a political event, not the Catalan language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'French presidential elections', a political event, not the French language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The candidate is detected in the abstract, which is presumably written in English, but no snippet provided to confirm a direct mention of the language, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

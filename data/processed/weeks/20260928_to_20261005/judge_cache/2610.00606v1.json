@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.00606v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T02:42:34.612783+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11962,
+  "verdicts": {
+    "Soo": {
+      "verdict": "false_positive",
+      "reason": "Soo refers to a Korean personal name (e.g., Lee Soo-jung) in the snippet, not the Soo language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not contain 'Tibetan', so insufficient evidence to confirm referent, implying mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears as script column for English and French in the table, not the Latin language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali appears as a source language and in evaluation tables, indicating the paper studies this language, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean appears as a source language and in evaluation tables, indicating the paper studies this language, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears as a source language and in evaluation tables, indicating the paper studies this language, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese appears as a source language and in evaluation tables, indicating the paper studies this language, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as a source language and as query language 'src en' in evaluation tables, indicating the paper studies this language, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French appears as a source language and in evaluation tables, indicating the paper studies this language, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

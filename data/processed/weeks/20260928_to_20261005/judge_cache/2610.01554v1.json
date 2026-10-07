@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.01554v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T02:09:53.069546+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11992,
+  "verdicts": {
+    "Wanda": {
+      "verdict": "false_positive",
+      "reason": "Wanda refers to a pruning method (QK-Wanda, Wanda) in the paper, not a human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the language of the C4 training data used for calibration, a mention of the human language without the paper studying it as a target.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

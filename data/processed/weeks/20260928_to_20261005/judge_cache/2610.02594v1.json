@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.02594v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T01:18:03.078250+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10859,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to DASS as a questionnaire (Depression Anxiety Stress Scales), not the human language \"Dass\". It is a dataset/scale name, a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to \"pole pairs\" as a term in the embedding optimization, not the Polish language. It is a technical term, a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"Polish\" in an AI use statement about polishing writing, not about the Polish language itself. It is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as the language of the dictionary, phrase bank, and regularizer, indicating the paper studies English as a language (e.g., English phrase bank, English words). This is a ",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

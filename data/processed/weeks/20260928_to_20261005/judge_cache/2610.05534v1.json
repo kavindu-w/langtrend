@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.05534v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T21:27:22.815311+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4145,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears only as part of the model name 'gpt-5.6-luna', not as a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is explicitly referenced as the human language of the conversations studied and filtered in the experiments, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

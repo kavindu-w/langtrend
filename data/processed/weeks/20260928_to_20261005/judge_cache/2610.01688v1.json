@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.01688v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T01:23:55.383867+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11552,
+  "verdicts": {
+    "Biao": {
+      "verdict": "false_positive",
+      "reason": "Biao appears as part of the Chinese word 价目表 (biao 'list'), not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears as part of the Chinese word 脉脉 (mo mo), not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nai": {
+      "verdict": "false_positive",
+      "reason": "Nai appears as part of the Chinese word 木乃伊 (mu nai yi 'mummy'), not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lao": {
+      "verdict": "false_positive",
+      "reason": "Lao appears as part of the Chinese word 老朋友 (lao 'old'), not as the Lao language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "Gan appears as part of the Chinese word 尴尬 (gan 'awkward'), not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch is mentioned as a language in discussion of interfixes, but not studied in the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is mentioned as a language in discussion of interfixes, but not studied in the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese (Mandarin) is the primary language of the study; the paper evaluates models on Chinese compounds and uses Chinese lexical data.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced only in comparative discussion (e.g., interfixes, other models) but not part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

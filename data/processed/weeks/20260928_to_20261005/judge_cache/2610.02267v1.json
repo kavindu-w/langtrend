@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.02267v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T01:43:34.590189+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4137,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, \"carrier templates\" refers to injection payload templates, not the Carrier language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The snippet reports Laya's performance on Hindi intents (0/10 correct), showing the paper evaluates the model on the Hindi language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippet reports Laya's performance on Arabic intents (0/10 correct), showing the paper evaluates the model on the Arabic language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet describes Laya routing to an English checkpoint, testing English‑centric decisions, and using English‑dominant data, indicating the paper studies the English language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

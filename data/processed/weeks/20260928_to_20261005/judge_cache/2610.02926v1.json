@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.02926v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T23:49:30.668982+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11633,
+  "verdicts": {
+    "Tiene": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'tiene' as a Spanish word in the Spanish distractor, not as a language name, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is used as a foreign-language distractor in the MDI protocol, with script-switching and evaluation metrics, indicating the paper studies the Hindi language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears as 'Latin script' describing the writing system shared by Spanish and English, not the Latin language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is employed as a distractor language (e.g., Spanish sentence) and as a control condition in the MDI experiments, indicating the paper studies the Spanish language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is used as a foreign-language distractor (e.g., Chinese sentence) and evaluated for script-switching, showing the paper studies the Chinese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language for factual QA and also used as a paragraph distractor, so the paper studies English language behavior.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

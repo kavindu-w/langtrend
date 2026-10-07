@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.02001v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T01:07:26.283749+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3384,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to sentinel files (a security term), not the Sentinel language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to Chinese phrasings parsed for budget input and Chinese harness messages, a mention only, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to English phrasings parsed for budget input and model’s English output, a mention only, not studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

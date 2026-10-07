@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.02122v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T01:00:42.463990+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8259,
+  "verdicts": {
+    "Beaver": {
+      "verdict": "false_positive",
+      "reason": "Beaver refers to a benchmark/dataset (BEAVER) in the introduction, not a human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col appears as part of column names (e.g., 'col- -refund-partnerships') and not as a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "Mon appears as abbreviation for Monday in column names, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is used as part of model names (GPT-6 Luna) throughout, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

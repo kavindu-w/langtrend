@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.00694v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T02:29:31.791347+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6486,
+  "verdicts": {
+    "Mape": {
+      "verdict": "false_positive",
+      "reason": "MAPE refers to the Mean Average Precision metric, not the Mape language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wanda": {
+      "verdict": "false_positive",
+      "reason": "Wanda refers to a weight perturbation method (magnitude pruning) used as a compression technique, not the Wanda language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese refers to the Portuguese language used as a corpus (machine-translated MMLU prompts) in the experiments, so the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

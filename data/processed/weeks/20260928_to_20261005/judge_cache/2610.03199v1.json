@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.03199v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T23:40:15.818602+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5500,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu refers to the Tulu-3 model family, not the Tulu language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai refers to the Thai language used for continued pretraining of a specialist model, indicating the paper studies Thai.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the Japanese language used for specialist training and evaluation, indicating the paper studies Japanese.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

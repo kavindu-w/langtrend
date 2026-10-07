@@ -1,0 +1,79 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.01427v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T01:31:19.800511+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 11044,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "Abu refers to personal names (e.g., Abu Fijli, Abu Jabr) in the snippets, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Adi": {
+      "verdict": "false_positive",
+      "reason": "Adi refers to a person's name (Bessan Adi) in the snippets, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Innu": {
+      "verdict": "false_positive",
+      "reason": "Innu appears as a word in Arabic text, not a language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mor": {
+      "verdict": "false_positive",
+      "reason": "Mor appears as part of the model name Mor-Lan, not a language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa appears as a conjunction in Arabic text, not a language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wala": {
+      "verdict": "false_positive",
+      "reason": "Wala appears as a word in Arabic text, not a language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "Hebrew refers to the Hebrew language in related work, not studied, thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script, not the Latin language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Finnish": {
+      "verdict": "mentioned_only",
+      "reason": "Finnish refers to the Finnish language in related work, not studied, thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Norwegian": {
+      "verdict": "mentioned_only",
+      "reason": "Norwegian refers to the Norwegian language in related work, not studied, thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "egyptian arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Egyptian Arabic refers to the dialect of Arabic in related work, not studied, thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the language being studied (Levantine Arabic is a variety of Arabic) in the abstract and throughout, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to English as a language used in code‑switched words, implying a mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to French as a source language for loanwords, implying a mention only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

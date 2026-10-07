@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.04400v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T22:22:27.262665+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6475,
+  "verdicts": {
+    "Namo": {
+      "verdict": "false_positive",
+      "reason": "Namo refers to a turn detector model (Namo Turn Detector v1 Multilingual) in the snippets, not the human language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in the source corpus, benchmarks, and evaluation metrics; the paper constructs a Chinese benchmark and evaluates on Chinese data, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language present in the source corpus and evaluated in English benchmarks; the paper uses English data and reports English results, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

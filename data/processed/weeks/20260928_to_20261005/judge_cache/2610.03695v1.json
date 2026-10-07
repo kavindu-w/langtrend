@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.03695v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-06T23:02:26.674605+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5747,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a frontier language model named 'Luna' (e.g., GPT- -Luna) and appears as a model name in tables, not the human language (false positive)",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Maia": {
+      "verdict": "false_positive",
+      "reason": "Maia refers to a chess engine model named 'Maia-2200' and 'Maia-1100' from Lc0, not the human language (false positive)",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian refers to the Italian chess opening, not the human language (false positive)",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used for evaluating explanation fluency and comprehensibility, which is part of the model's explanation generation and evaluation (studied)",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

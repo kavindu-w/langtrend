@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.01316v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T01:33:39.350567+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9134,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"ARC-AGI-2\", a dataset name, not the language \"Agi\".",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"pin\" as a verb (e.g., \"We pin revision\"), not as a language name.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions English only as the language for which readability formulas were calibrated, not as a studied language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippets refer to French-language votes, French-specific features, French function words, and French keyword rules, indicating the paper studies French.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

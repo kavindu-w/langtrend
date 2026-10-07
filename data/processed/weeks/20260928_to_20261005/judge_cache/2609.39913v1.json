@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.39913v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T02:55:45.092999+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4528,
+  "verdicts": {
+    "Nuk": {
+      "verdict": "false_positive",
+      "reason": "Nuk is used as a placeholder predicate name (nonce predicate) in the arbitrary prompt, not referring to the Nuk language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the language for answer inventory, labels, and kinship terms in the experiments, indicating the paper studies English-language tasks, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

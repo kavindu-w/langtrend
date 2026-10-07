@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.03935v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T00:25:49.076949+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11761,
+  "verdicts": {
+    "Alabama": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a U.S. state (Alabama) in a table of election simulation results, not the human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dakota": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a U.S. state (North Dakota) in election simulation results, not the human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Delaware": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a U.S. state (Delaware) in election simulation results, not the human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Carrier' as a field for a shipping company (e.g., DHL) in a readout template, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'logo' as visual content in a user query, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'GPT-6-Luna' as a model name, not the human language Luna, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'MAE' (Mean Absolute Error) as a metric abbreviation, not the language Mae, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet refers to Chinese as a language for datasets (e.g., CMMLU, Chinese medical exams) and the benchmark includes Chinese instances, indicating the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English as a language for datasets and the benchmark includes English instances, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

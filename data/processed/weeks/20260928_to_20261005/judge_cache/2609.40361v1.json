@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.40361v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T02:35:10.039827+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3685,
+  "verdicts": {
+    "Bun": {
+      "verdict": "false_positive",
+      "reason": "Bun appears as part of the medical abbreviation BUN (blood urea nitrogen) in the clinical text, not the language Bun, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish is not present; the snippet contains the verb 'polish' but no reference to the Polish language, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.02529v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T00:13:09.408918+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4187,
+  "verdicts": {
+    "Axi": {
+      "verdict": "false_positive",
+      "reason": "Axi appears as a lexical item in an example sentence, not as a language name → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa is a conjunction used in Arabic examples, not a language name → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced only as an example language in the discussion, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned only as part of an example phrase, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is the target language of the study, with experiments on Arabic DPs → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

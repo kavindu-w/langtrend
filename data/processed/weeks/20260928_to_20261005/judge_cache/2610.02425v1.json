@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.02425v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T00:40:44.435150+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5017,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "col appears as a coordinate placeholder for columns in move notation, not as a reference to a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced in terms like \"Chinese Chess (Xiangqi)\", \"Chinese glyphs\", and \"Chinese glosses\" – the paper only mentions the language, it does not study or build resources for it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as \"English terms\" in the prompt templates; the paper only references the language, not studying or building resources for it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.01963v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T00:53:55.173047+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3465,
+  "verdicts": {
+    "Ama": {
+      "verdict": "false_positive",
+      "reason": "Ama refers to “Against Medical Advice” (a medical term), not the language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language and is used as a language variable in counterfactual injections, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.40322v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-07T02:38:32.829356+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5979,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of model names (e.g., gpt-5.6-luna), not as the human language Luna, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish refers to the polishing stage of the pipeline (e.g., 'Polish p90', 'pre-polish program'), not the Polish language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is used only as the language for delivering the user study (survey in English and Chinese), not as a language studied or resource built, so it's mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used only as the language for delivering the user study (survey in English and Chinese), not as a language studied or resource built, so it's mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
