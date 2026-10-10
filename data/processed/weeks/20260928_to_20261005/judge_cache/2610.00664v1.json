@@ -1,8 +1,29 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.00664v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-10T11:02:10.933385+00:00",
+  "judged_at": "2026-10-10T17:45:45.044137+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 7256,
-  "verdicts": {}
+  "verdicts": {
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali refers to the Bengali language throughout the snippets, and the paper builds a Bengali benchmark and adapts models for it, implying the verdict studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi refers to the Hindi language mentioned as a bilingual context, but the paper only mentions it as an example without studying it, implying the verdict mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "Urdu refers to the Urdu language mentioned as a bilingual context, but the paper only mentions it as an example without studying it, implying the verdict mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language used as a comparison language in the discussion, but the paper does not study English, only mentions it, implying the verdict mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }
