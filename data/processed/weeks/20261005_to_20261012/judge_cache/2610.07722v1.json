@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.07722v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T06:12:41.683965+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6433,
+  "verdicts": {
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "Deg is an abbreviation for 'degradation' (e.g., Instruction Deg., Fluency Deg.) and not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is listed as an out‑of‑distribution language used in cross‑lingual evaluation, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is listed as an out‑of‑distribution language used in cross‑lingual evaluation, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is listed as an out‑of‑distribution language used in cross‑lingual evaluation, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is listed as an out‑of‑distribution language used in cross‑lingual evaluation, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears as the verb 'to polish' the manuscript, not the language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the in‑distribution language and for metric definitions, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

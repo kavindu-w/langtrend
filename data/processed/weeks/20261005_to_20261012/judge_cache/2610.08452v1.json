@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.08452v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T04:49:26.839127+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1628,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo is used as a hyperparameter/variable in experimental sections, not the Moldovan language; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the target language in the search space and knowledge base; studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

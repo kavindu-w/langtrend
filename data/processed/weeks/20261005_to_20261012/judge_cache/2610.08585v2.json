@@ -1,8 +1,19 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.08585v2",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-14T03:27:05.378338+00:00",
+  "judged_at": "2026-10-14T05:07:44.239884+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 2311,
-  "verdicts": {}
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions a \"mail carrier\" as a person, not the Carrier language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references Whisper's language parameter \"English\", which is a language specification for the Whisper model, not a study of the English language itself. The paper uses English only as the l",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }

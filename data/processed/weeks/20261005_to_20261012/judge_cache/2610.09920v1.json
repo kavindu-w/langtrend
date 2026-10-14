@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.09920v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T04:13:11.882859+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6803,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col is abbreviation for column, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae is abbreviation for mean absolute error (MAE), not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script/recogniser, not the Latin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Hungarian refers to Hungarian algorithm/assignment, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to English language recogniser and queries, and the paper evaluates English subset → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to French language subset and French financial filings, and the paper evaluates French subset → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.07535v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T06:21:58.839434+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3682,
+  "verdicts": {
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole refers to the positive/negative pole of an SVD axis, not a language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake refers to the idiom 'for their own sake', not a language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language (stop words, non-English personas) and the paper uses English in its methodology, implying it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.07906v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T06:00:57.325975+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1497,
+  "verdicts": {
+    "Ito": {
+      "verdict": "false_positive",
+      "reason": "In the implementation details, 'Ito' appears as a variable/library name, not the human language, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gan": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets show 'Gan' in contexts of data and licensing but do not specify if it is the Gan language or a model, so we consider it a mention of the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English language data (LJSpeech) and experiments, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

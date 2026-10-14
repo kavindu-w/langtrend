@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.08501v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T04:59:51.554455+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2214,
+  "verdicts": {
+    "Bada": {
+      "verdict": "false_positive",
+      "reason": "bada appears as part of a hash value in a list of model names and library versions, not as a language reference, making it a false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English-language sets, indicating the paper uses English data for its experiments, so it is studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

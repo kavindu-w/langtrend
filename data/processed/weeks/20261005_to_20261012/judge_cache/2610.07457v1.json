@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.07457v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T06:29:14.491533+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7025,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col refers to 'Red-col' (reduction column) in table headings, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to Chinese reading comprehension and QA datasets used in evaluation, indicating the paper studies the Chinese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to English multi-field question answering dataset used in evaluation, indicating the paper studies the English language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

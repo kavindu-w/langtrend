@@ -1,8 +1,19 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.13790v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-13T22:05:21.320446+00:00",
-  "context_coverage": "abstract_only",
-  "context_chars": 1685,
-  "verdicts": {}
+  "judged_at": "2026-10-14T03:45:37.108554+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2714,
+  "verdicts": {
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word \"pole\" as part of \"barber pole\" and other object references, which is a common noun describing an object, not a human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to English as the language of the human participants (English‑speaking), a mere mention without the paper studying or building resources for English, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }

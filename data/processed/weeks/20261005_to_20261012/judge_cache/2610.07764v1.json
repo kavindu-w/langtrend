@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.07764v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T05:55:15.858713+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3158,
+  "verdicts": {
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "Mal refers to the variable \"Malaise total\" in the data, not the Malay language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb (to pin a version) in the software description, not the language Pin, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the essays and stopwords, indicating the paper uses English text in its experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

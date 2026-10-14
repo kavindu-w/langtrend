@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.07426v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T06:04:21.448745+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9613,
+  "verdicts": {
+    "Irish": {
+      "verdict": "mentioned_only",
+      "reason": "Irish is listed as part of the British Isles accent group in the label space definition, not as a separately studied language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Welsh": {
+      "verdict": "mentioned_only",
+      "reason": "Welsh is listed as part of the British Isles accent group in the label space definition, not as a separately studied language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears as a distinct accent group (Chinese‑accented English) in the dataset and is evaluated as a new class in incremental learning, indicating the paper studies Chinese accents.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language of the entire study; the paper builds and evaluates accent classifiers for English, using English speech corpora and regional label mapping.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish appears as a distinct accent group (Spanish‑accented English) in the dataset and is evaluated as a new class in incremental learning, indicating the paper studies Spanish accents.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

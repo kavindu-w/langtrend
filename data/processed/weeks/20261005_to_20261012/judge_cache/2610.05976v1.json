@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.05976v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T07:28:40.365088+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2698,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears in \"Latin-square-like object\", referring to a mathematical Latin square, not the Latin language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as \"English-language problems\" describing the language of the dataset, and the paper only mentions it without studying the language itself, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

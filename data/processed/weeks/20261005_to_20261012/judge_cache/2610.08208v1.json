@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.08208v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T04:57:12.330458+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3840,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears as part of \"Latin square counterbalancing\", a design term, not the language Latin, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the dataset and participant recruitment, indicating the paper studies English, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

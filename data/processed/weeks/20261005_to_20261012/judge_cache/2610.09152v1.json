@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.09152v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T04:55:50.672757+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11942,
+  "verdicts": {
+    "Efe": {
+      "verdict": "false_positive",
+      "reason": "The term appears as part of model identifiers in the catalogue, not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The term appears as the verb 'pin' in the text, not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Slovak": {
+      "verdict": "studied",
+      "reason": "The snippets contain Slovak language prompts, native Slovak data, and Slovak-specific resources, indicating the paper studies Slovak.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets contain English prompts, evaluation results, and comparative analyses, indicating the paper evaluates models on English as a prompt language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

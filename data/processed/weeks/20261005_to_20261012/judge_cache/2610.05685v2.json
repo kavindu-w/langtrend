@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.05685v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T07:39:54.233361+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2804,
+  "verdicts": {
+    "Maa": {
+      "verdict": "false_positive",
+      "reason": "Maa refers to the abbreviation MAA (Mathematical Association of America) in the snippet, not the human language Maa, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears as part of the dataset identifier AI-MO, not as a language reference, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language of the mathematics and science benchmarks used in the study, but the paper does not study or build resources for the English language itself, so it's mentioned_onl",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

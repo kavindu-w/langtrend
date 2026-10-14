@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.06830v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T06:44:52.554278+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3781,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as a model tier name (GPT-5.6-Luna) in a list of commercial LLM services, not as the human language Luna; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic appears in the phrase 'Arabic numeral', referring to numeric digits, not the Arabic language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the language for answering prompts ('Answer directly in English'), indicating a mention of the English language; the paper does not study English resources, only uses it in pr",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

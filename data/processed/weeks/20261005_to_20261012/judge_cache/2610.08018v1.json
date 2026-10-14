@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.08018v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T06:11:51.287659+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7354,
+  "verdicts": {
+    "Mina": {
+      "verdict": "false_positive",
+      "reason": "Mina is used as a system/tool name in prompts (e.g., \"Send Mina a message...\"), not the human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "Noon appears as a time reference ('closest to noon'), not the language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian appears as a cuisine descriptor ('Italian restaurant'), not the language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is specified as the language for generating user queries and prompts, indicating the paper uses English as the language of its experimental data; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

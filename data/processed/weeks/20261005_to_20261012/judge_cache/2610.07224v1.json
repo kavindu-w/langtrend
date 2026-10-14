@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.07224v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T06:36:16.742649+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3602,
+  "verdicts": {
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"MIAMI\" as part of an address (\"MIAMI FL\"), which is a city name, not the Miami language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes \"WA\" as a US state abbreviation in \"Seattle, WA\", not the Wa language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet references \"ai4privacy English F1\" and mentions language line, indicating the paper evaluates models on English language data, implying the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

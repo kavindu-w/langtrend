@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.06782v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T06:39:39.702523+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11338,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the embedding model jina-embeddings-v5-text-small-retrieval, not the language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian refers to the Russian language used in benchmarks, SFT branches, and data sources, indicating the paper studies Russian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used in benchmarks, SFT branches, and data sources, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
