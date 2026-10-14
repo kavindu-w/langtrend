@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.09772v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T02:17:11.550314+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6270,
+  "verdicts": {
+    "Chug": {
+      "verdict": "false_positive",
+      "reason": "Chug is used as a verb meaning to drink quickly, not a language reference; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of prompts, tasks, and schema fields, indicating the paper uses English in its experiments; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only in constraints (e.g., no polite Japanese endings) and transliteration notes, not as a target language of study; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

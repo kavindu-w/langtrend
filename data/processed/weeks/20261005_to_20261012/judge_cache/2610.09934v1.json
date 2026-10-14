@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.09934v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T01:55:52.053743+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4422,
+  "verdicts": {
+    "Mor": {
+      "verdict": "false_positive",
+      "reason": "Mor refers to Morocco (country) in the snippet, not a language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script (writing system) in the snippet, not the Latin language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the Arabic language (Tunisian Arabic) in the snippet → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used in code‑switching and evaluated in the paper → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to the French language used in code‑switching and evaluated in the paper → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

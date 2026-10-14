@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.09321v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T02:41:34.344726+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11951,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, \"赤(aka)\" is a Japanese word for \"red\", not a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Awa": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, \"Awa\" appears as a Japanese dialect name in a list of dialects, not as a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Iyo": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, \"Iyo\" appears as a Japanese dialect name in a list of dialects, not as a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "In the snippet, \"Chinese\" refers to the language itself, used for dialect datasets and evaluation, indicating the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "In the snippet, \"German\" refers to the language itself, used for dialect datasets and evaluation, indicating the paper studies German.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "In the snippet, \"English\" refers to the target translation language, used for evaluation and reference labels, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "In the snippet, \"Japanese\" refers to the language itself, used for dialect datasets and evaluation, indicating the paper studies Japanese.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

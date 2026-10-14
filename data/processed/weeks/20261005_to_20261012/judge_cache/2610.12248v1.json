@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.12248v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-13T23:35:25.516360+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7484,
+  "verdicts": {
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "Dao (2024) is a model name listed in the hyperparameters table, not a reference to the Dao human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "luna appears as part of model identifiers (e.g., gpt-5.6-luna, gpt-...-luna) used for utterance classification, not the Luna language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Hungarian refers to the Hungarian algorithm for matching predictions, not the Hungarian language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese tokens and a Chinese repetition loop are mentioned as language‑switching artifacts, indicating only a mention of the Chinese language, not a focus of the study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the language of the data (English subset of Multilingual LibriSpeech) and for constructing the EgoVoice dataset, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

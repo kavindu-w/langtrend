@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.12580v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-13T23:17:33.418972+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4446,
+  "verdicts": {
+    "Ari": {
+      "verdict": "false_positive",
+      "reason": "ARI is an acronym for Adjusted Rand Index, a metric, not the language Ari",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "Korean refers to North Korea and the Korean Central News Agency, not the Korean language",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "Russian refers to Russian design, not the Russian language",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the datasets used in the experiments",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

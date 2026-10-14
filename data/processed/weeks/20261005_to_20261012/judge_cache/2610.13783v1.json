@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.13783v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-13T21:56:01.992508+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11644,
+  "verdicts": {
+    "Lama": {
+      "verdict": "false_positive",
+      "reason": "Lama refers to the LaMa inpainting tool used for text removal, not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is referenced as the target language for datasets (UkrMeme, PTM-UA) and experiments, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the source language for the original Propaganda 950 dataset and as a baseline condition in experiments, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

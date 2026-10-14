@@ -1,0 +1,209 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.12144v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T00:30:53.750776+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11735,
+  "verdicts": {
+    "Beng": {
+      "verdict": "false_positive",
+      "reason": "Beng refers to the Bengali script, not the language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hani": {
+      "verdict": "false_positive",
+      "reason": "Hani refers to the Chinese script (Hànzì), not a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pol": {
+      "verdict": "studied",
+      "reason": "Pol is the ISO code for Polish, a language the paper studies (included in training data and experiments).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tha": {
+      "verdict": "studied",
+      "reason": "Tha is the ISO code for Thai, a language the paper studies (included in training data and experiments).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "Bulgarian is the language name, which the paper studies (included in training data and experiments).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "mentioned_only",
+      "reason": "Snippet does not contain Sake, but detection suggests it is a language name mentioned elsewhere, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "Swahili is mentioned as a language excluded from experiments, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tibetan": {
+      "verdict": "studied",
+      "reason": "Tibetan refers to the Tibetan language, which the paper studies (included in tokenizer experiments).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is the language name, which the paper studies (included in training data and experiments).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Croatian": {
+      "verdict": "studied",
+      "reason": "Croatian is the language name, which the paper studies (included in ranking experiments).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "Greek is the language name, which the paper studies (included in correlation analysis).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Hebrew is the language name, which the paper studies (included in results).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The snippet lists Hindi as a language with its script (Devanagari), indicating it is part of the experimental language set.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Slovak": {
+      "verdict": "studied",
+      "reason": "The snippet lists Slovak as a language with its script (Latin), indicating it is part of the experimental language set.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Finnish": {
+      "verdict": "studied",
+      "reason": "The snippet lists Finnish as a language with its script (Latin), indicating it is part of the experimental language set.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'non-Latin-script' as a writing-system indicator, not the Latin language itself, so the match is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "The snippet reports Tamil's BPB across tokenizers, exclusion penalties, and intrinsic metric correlations, showing it is actively studied in the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "The snippet includes Thai in the experimental language list and in per‑language intrinsic metric analyses, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "Urdu is only mentioned as a language excluded from the evaluation (dropped from the 31 trained languages), not part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Catalan": {
+      "verdict": "studied",
+      "reason": "Catalan appears in the experimental language list and in robustness analyses, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech appears in the experimental language list and in per‑language intrinsic metric analyses, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch appears in the experimental language list and in robustness analyses, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "studied",
+      "reason": "Hungarian appears in the experimental language list and in per‑language intrinsic metric analyses, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Indonesian appears in the experimental language list and in intrinsic metric definitions, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Italian as a language (e.g., language code ita, script Latn) and the paper includes Italian in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Korean as a language (e.g., language code kor, script Hang) and the paper includes Korean in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Polish as a language (e.g., language code pol, script Latn) and the paper includes Polish in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romanian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Romanian as a language (e.g., language code ron, script Latn) and the paper includes Romanian in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Vietnamese as a language (e.g., language code vie, script Latn) and the paper includes Vietnamese in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Portuguese as a language (e.g., language code por, script Latn) and the paper includes Portuguese in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Russian as a language (e.g., language code rus, script Cyrl) and the paper includes Russian in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Turkish as a language (e.g., language code tur, script Latn) and the paper includes Turkish in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Ukrainian as a language (e.g., language code ukr, script Cyrl) and the paper includes Ukrainian in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Arabic as a language (e.g., language code arb, script Arab) and the paper includes Arabic in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Chinese as a language (e.g., language code cmn, script Hani) and the paper includes Chinese in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as a language (e.g., language code eng, script Latn) and the paper includes English in model training and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to the French language in the training data and evaluation tasks, implying the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the German language in the experimental sections and training data, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the Japanese language in the experimental setup, training data, and downstream task evaluations, showing the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish refers to the Spanish language in the training data and experimental details, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

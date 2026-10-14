@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.10533v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T02:04:08.983382+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3303,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col appears as mathematical notation for column space (col(A)), not a language; thus false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as a language name in the dataset (Requested change French → English), indicating the paper studies English; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French appears as a language name in the dataset (Requested change French → English), indicating the paper studies French; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.11129v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T01:25:32.200142+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1151,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to a data carrier in the pipeline schema, not the Carrier language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vod": {
+      "verdict": "false_positive",
+      "reason": "Vod appears in game-specific processing workflows, likely video-on-demand recordings, not the Vod language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears only in the evaluation appendix heading, insufficient evidence that the paper studies Chinese commentary, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears in prompts for commentary generation and evaluation, indicating the paper uses English as the language for its tasks, implying studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

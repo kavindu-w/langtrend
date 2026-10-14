@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.12794v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T00:03:31.716546+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6706,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier is used as a generic term for \"carrier of a rare capability\" in the algorithm description, not the human language Carrier.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of model identifiers like \"openai-gpt-5.6-luna\" and as a label for the model used in experiments, not the Luna language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo occurs within dataset names such as \"AI-MO\" and \"aimo-validation-aime\", not the human language Mo.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb meaning to fix a model (\"hard pin this model\"), not the human language Pin.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears as a verb meaning to refine a program (\"SLP polish\"), not the Polish language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned in the token transformation description that preserves English tokens, but the paper does not study the language itself.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

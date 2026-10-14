@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.08703v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T03:06:48.610241+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2990,
+  "verdicts": {
+    "Gurung": {
+      "verdict": "false_positive",
+      "reason": "Gurung appears as a citation (author name) in the snippet, not referring to the human language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Magar": {
+      "verdict": "false_positive",
+      "reason": "Magar appears as part of an author name (Thapa Magar) in the snippet, not referring to the human language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lak": {
+      "verdict": "false_positive",
+      "reason": "LAK appears as an acronym for a supplementary materials repository in the snippet, not referring to the Lak language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

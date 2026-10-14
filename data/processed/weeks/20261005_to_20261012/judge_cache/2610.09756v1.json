@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.09756v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T01:49:31.771963+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4383,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin characters refers to the Latin script, not the Latin language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English Name column heading refers to the English language, a mention only, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is referenced as the language of classical poetry and NLP task, indicating the paper studies Arabic.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

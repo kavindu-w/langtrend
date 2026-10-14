@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.11351v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T01:49:49.746906+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3947,
+  "verdicts": {
+    "Gala": {
+      "verdict": "false_positive",
+      "reason": "Gala appears as part of file names and text ('spring gala working scraps', 'gala headline options txt') – a proper noun/event name, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "Logo appears in file names ('sponsor logo notes md') – a graphic element, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Maya": {
+      "verdict": "false_positive",
+      "reason": "Maya appears as a person's name ('Maya's email'), not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is not present in the snippet; the context refers to a step or element name, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears as the verb 'polish' in scoring criteria, not the Polish language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

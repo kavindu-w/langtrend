@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.08994v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T03:05:25.180050+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9372,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin is referenced as a romanization system for Mandarin Chinese, not as a language itself, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tatar": {
+      "verdict": "studied",
+      "reason": "Tatar is used as a low‑resource target language with speech data from Common Voice and a Tatar text corpus for P2G training, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu is used as a low‑resource target language with speech data from Common Voice and a Urdu text corpus for P2G training, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch is only mentioned in related work as a language prior work addressed, not as a target of the current experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is only mentioned in related work as a language prior work addressed, not as a target of the current experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is only mentioned as influencing Tatar's orthography, not as a target language studied in the paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is a target language in the experiments, with AISHELL‑1 speech data, THUCNews text corpus, and G2P tool usage, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is a target language in the experiments, with CSJ speech data, BCCWJ text corpus, and evaluation, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.11766v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-13T23:57:55.925860+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11655,
+  "verdicts": {
+    "Ijo": {
+      "verdict": "false_positive",
+      "reason": "The token \"ijo\" appears as a Toki Pona word meaning \"thing\", not as a reference to the Ijo language; the paper does not study Ijo.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lawa": {
+      "verdict": "false_positive",
+      "reason": "\"lawa\" appears in Toki Pona text as part of a phrase, not as the Lawa language; the paper does not study Lawa.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pana": {
+      "verdict": "false_positive",
+      "reason": "\"pana\" appears as a Toki Pona word meaning \"give\", not as the Pana language; the paper does not study Pana.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yoruba": {
+      "verdict": "studied",
+      "reason": "The paper includes Yoruba as a language‑specific interface (LRL‑adapted direct template) and evaluates models on Yoruba prompts, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Zulu": {
+      "verdict": "studied",
+      "reason": "The paper includes Zulu as a language‑specific interface (LRL‑adapted direct template) and evaluates models on Zulu prompts, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Esperanto": {
+      "verdict": "studied",
+      "reason": "Esperanto is used as a constructed‑language reference condition with its own judge template and evaluation results, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English serves as the explicit baseline and is used for controlled reconstructions and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

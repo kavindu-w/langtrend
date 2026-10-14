@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.11132v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T01:17:32.155156+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1853,
+  "verdicts": {
+    "Mae": {
+      "verdict": "mentioned_only",
+      "reason": "Mae appears only in section headings, which are insufficient to determine if it refers to a human language; thus it is considered mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "false_positive",
+      "reason": "English appears only as part of 'NutriBench-English', a benchmark name, not as a reference to the language itself; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

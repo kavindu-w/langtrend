@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.09163v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T02:54:24.587221+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2602,
+  "verdicts": {
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'Mon' appears as part of 'Mon-Sun' (days of week), not the Mon language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "In the snippets, 'Italian' is used as a cuisine type, not the Italian language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

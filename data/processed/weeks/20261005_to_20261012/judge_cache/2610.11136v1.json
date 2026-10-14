@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.11136v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T01:11:34.071202+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11670,
+  "verdicts": {
+    "Dwang": {
+      "verdict": "false_positive",
+      "reason": "Dwang appears as a Dutch word for coercion in the prompt template, not as a language reference, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mbo": {
+      "verdict": "mentioned_only",
+      "reason": "Mbo is a Dutch term for vocational education and does not appear in the provided snippet, so its language status is unclear; we treat it as mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is the target language of the bias detection system, used for prompts, legal resources, and evaluation, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean appears as the language of the KoBBQ benchmark and is evaluated in experiments, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used for prompts, cross-lingual comparison, and evaluation on the SBIC corpus, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Zo": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Dutch word 'zo' meaning 'such', not the Zo language; thus it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

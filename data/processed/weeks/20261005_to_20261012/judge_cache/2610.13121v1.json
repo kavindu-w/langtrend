@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.13121v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-13T22:56:20.087851+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11869,
+  "verdicts": {
+    "Chittagonian": {
+      "verdict": "mentioned_only",
+      "reason": "Chittagonian is referenced as a language in a cited bilingual Bengali–Chittagonian dataset; the paper only mentions it, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is referenced as a language in a cited multilingual aggression corpus; the paper only mentions it, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mali": {
+      "verdict": "false_positive",
+      "reason": "Mali appears as part of an author name (Mali et al.) in a citation, not as a language; false positive → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced as a language in a cited Chinese session‑based cyberbullying corpus; the paper only mentions it, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is the primary language of the introduced BenCoDiC corpus and is studied throughout the paper (data collection, annotation, experiments) → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script (non‑Latin scripts) in a preprocessing note, not the Latin language; false positive → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch is referenced as a language in cited parallel corpora and related‑work discussions; the paper only mentions it, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as a language category in the corpus (English text samples) and is used in experiments; the paper collects data for and evaluates on English text, thus studied → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

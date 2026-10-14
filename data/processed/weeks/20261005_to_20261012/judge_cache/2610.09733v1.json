@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.09733v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T02:04:40.417992+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11910,
+  "verdicts": {
+    "Ottawa": {
+      "verdict": "false_positive",
+      "reason": "Ottawa refers to a city (capital of Canada) used as an example entity in dataset examples, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet contains only the term 'Sino-Tibetan' as a language family, with no mention of the Tibetan language → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears only as a script designation (Latin script) in the dataset description, not as the Latin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is used for prompts, instruction prefixes, and language‑specific bridge routing heads are identified for Korean → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is listed as a language in the dataset, used for prompts, and language‑specific heads are identified for Chinese → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is listed as a language, used as cross‑lingual pivot, and general BRH are identified for English → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German appears only as an adjective ('German‑born') describing Albert Einstein's nationality, not as the German language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is listed as a language, used for prompts, and language‑specific bridge routing heads are identified for Japanese → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is listed as a language, used for prompts, and language‑specific bridge routing heads are identified for Spanish → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

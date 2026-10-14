@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.09064v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T03:10:26.167399+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10550,
+  "verdicts": {
+    "Maya": {
+      "verdict": "false_positive",
+      "reason": "Maya refers to a user/person name in the examples, not the Maya language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the Chinese language (characters) in the tokenization discussion, a mention only, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language (someone who speaks English) in the discussion, a mention only, not studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

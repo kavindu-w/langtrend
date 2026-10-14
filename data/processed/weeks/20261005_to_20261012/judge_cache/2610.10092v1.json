@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.10092v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-14T02:18:43.692967+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5572,
+  "verdicts": {
+    "Man Met": {
+      "verdict": "false_positive",
+      "reason": "Man Met appears as part of the phrase \"straw man met\", a verb, not a language reference → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu refers to a model (Tülu) in generation settings, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears as part of \"Latin-alphabet\", referring to script, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch appears as a language name in the list of excluded documents, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian appears as a language name in the list of excluded documents, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German appears as a language name in the list of excluded documents, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears as a language name in excluded documents and data description, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears as a language name in excluded documents and data description, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as the language of the papers and the corpus, indicating the paper studies English text → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
