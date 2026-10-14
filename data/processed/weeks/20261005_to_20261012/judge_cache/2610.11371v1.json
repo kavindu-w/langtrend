@@ -1,8 +1,39 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.11371v1",
-  "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-14T00:58:38.462284+00:00",
-  "context_coverage": "abstract_only",
-  "context_chars": 1685,
-  "verdicts": {}
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-14T07:51:32.035205+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5653,
+  "verdicts": {
+    "American Sign Language": {
+      "verdict": "studied",
+      "reason": "The paper uses the YouTube-ASL, How2Sign, and OpenASL datasets for pretraining and fine-tuning models for this language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese Sign Language": {
+      "verdict": "studied",
+      "reason": "The paper uses the CSL-News and CSL-Daily datasets for pretraining and fine-tuning models for this language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "German Sign Language": {
+      "verdict": "studied",
+      "reason": "The paper evaluates its model on the PHOENIX-2014T dataset, which is a German sign language benchmark.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper performs translation into Chinese, uses Chinese datasets, and employs Chinese-specific tools like Jieba and bert-base-chinese.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper evaluates performance on English datasets (How2Sign, OpenASL) and provides English translations in its qualitative analysis.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper uses the PHOENIX-2014T dataset, which is identified as German in the dataset statistics table.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
 }

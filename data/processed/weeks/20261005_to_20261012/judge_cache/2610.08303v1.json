@@ -1,0 +1,109 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.08303v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-14T08:03:33.939036+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11986,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears only as a token 'mo' in Yami model outputs, not as the language Mo; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yami": {
+      "verdict": "studied",
+      "reason": "Yami is the focal language of the case study, with a dedicated corpus, benchmark, and experimental evaluations; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ilocano": {
+      "verdict": "mentioned_only",
+      "reason": "Ilocano is mentioned only as part of Qwen3's explicit Austronesian language coverage, not used in experiments; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Waray": {
+      "verdict": "mentioned_only",
+      "reason": "Waray is listed only as a supported language in the model description, not studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Javanese": {
+      "verdict": "mentioned_only",
+      "reason": "Javanese appears only in the model coverage list, not part of experiments; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lingua Franca": {
+      "verdict": "false_positive",
+      "reason": "Lingua Franca appears as the phrase 'lingua franca' describing English, not as a language studied; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hausa": {
+      "verdict": "mentioned_only",
+      "reason": "Hausa is included only as a low‑resource non‑Austronesian control in activation similarity analysis, not evaluated or studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Igbo": {
+      "verdict": "mentioned_only",
+      "reason": "Igbo appears only as a low‑resource non‑Austronesian control in activation analysis, not studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Malagasy": {
+      "verdict": "mentioned_only",
+      "reason": "Malagasy is mentioned only as part of the Austronesian set in activation similarity analysis, not used in experiments; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Maori": {
+      "verdict": "mentioned_only",
+      "reason": "Maori is listed only as an Austronesian language in activation similarity analysis, not studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yoruba": {
+      "verdict": "mentioned_only",
+      "reason": "Yoruba appears only as a low‑resource non‑Austronesian control in activation analysis, not studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tagalog": {
+      "verdict": "mentioned_only",
+      "reason": "Tagalog is referenced only as a model language and as a source for initializing the Yami token, not studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Cebuano": {
+      "verdict": "studied",
+      "reason": "Used as a comparison language in activation similarity analysis and listed as a language covered by the Qwen3 model; verdict: studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Indonesian": {
+      "verdict": "studied",
+      "reason": "Used as a comparison language in activation similarity analysis and listed as a language covered by the Qwen3 model; verdict: studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Used as a negative control language for neuron-sourcing and in activation similarity analysis; verdict: studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Used as a negative control language for neuron-sourcing and in activation similarity analysis; verdict: studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Used as a negative control language for neuron-sourcing and in activation similarity analysis; verdict: studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Used as a comparison language in activation similarity analysis to determine Yami's nearest neighbors; verdict: studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Used as part of the Yami-Chinese translation benchmark for evaluation; verdict: studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "Used as a lingua franca baseline for neuron-sourcing and in activation similarity analysis; verdict: studied",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

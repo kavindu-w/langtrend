@@ -1,69 +1,74 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.08513v1",
-  "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-14T05:20:24.866316+00:00",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-10-14T08:11:08.901146+00:00",
   "context_coverage": "abstract_only",
   "context_chars": 1596,
   "verdicts": {
     "Ese": {
       "verdict": "false_positive",
-      "reason": "The snippet 'Appendix B Examples' contains the word 'ese' as a Spanish demonstrative, not the Ese language; false positive.",
+      "reason": "Ese appears as a Spanish demonstrative pronoun in Appendix B Examples, not as a language name, implying false positive.",
       "model": "cohere/north-mini-code:free"
     },
     "Narragansett": {
       "verdict": "false_positive",
-      "reason": "The snippet 'Appendix B Examples' contains the name 'Narragansett' likely as a user or community name, not the language; false positive.",
+      "reason": "Narragansett appears as a proper noun (likely a name) in Appendix B Examples, not as a language studied, implying false positive.",
       "model": "cohere/north-mini-code:free"
     },
     "Pero": {
       "verdict": "false_positive",
-      "reason": "The snippet 'Appendix B Examples' contains the word 'pero' as a Spanish conjunction, not the Pero language; false positive.",
+      "reason": "Pero appears as a Spanish conjunction in Appendix B Examples, not as a language name, implying false positive.",
       "model": "cohere/north-mini-code:free"
     },
     "Piu": {
       "verdict": "false_positive",
-      "reason": "The snippet 'Appendix B Examples' contains the word 'piu' as an Italian adverb, not the Piu language; false positive.",
+      "reason": "Piu appears as an Italian adverb in Appendix B Examples, not as a language name, implying false positive.",
       "model": "cohere/north-mini-code:free"
     },
     "Temi": {
       "verdict": "false_positive",
-      "reason": "The snippet 'Appendix B Examples' contains 'temi' as a name or term, not the Temi language; false positive.",
+      "reason": "Temi appears as a proper name or term in Appendix B Examples, not as a language name, implying false positive.",
       "model": "cohere/north-mini-code:free"
     },
     "Tiene": {
       "verdict": "false_positive",
-      "reason": "The snippet 'Appendix B Examples' contains the word 'tiene' as a Spanish verb form, not the Tiene language; false positive.",
+      "reason": "Tiene appears as a Spanish verb form in Appendix B Examples, not as a language name, implying false positive.",
       "model": "cohere/north-mini-code:free"
     },
     "Una": {
       "verdict": "false_positive",
-      "reason": "The snippet 'Appendix B Examples' contains the word 'una' as an article in several languages, not the Una language; false positive.",
+      "reason": "Una appears as a Spanish article in Appendix B Examples, not as a language name, implying false positive.",
       "model": "cohere/north-mini-code:free"
     },
     "Italian": {
       "verdict": "studied",
-      "reason": "The abstract and multiple sections explicitly list Italian as one of the five languages in the Wiki‑Talkie dataset and used in experiments; studied.",
+      "reason": "Italian is explicitly referenced as one of the five languages in the Wiki‑Talkie dataset across multiple sections, indicating it is studied.",
       "model": "cohere/north-mini-code:free"
     },
     "Chinese": {
       "verdict": "mentioned_only",
-      "reason": "The Introduction mentions Chinese only as a reference language, not part of the dataset or experiments; mentioned_only.",
+      "reason": "Chinese is mentioned only in the Introduction as a high‑resource language example, not part of the dataset, implying mentioned_only.",
       "model": "cohere/north-mini-code:free"
     },
     "English": {
       "verdict": "studied",
-      "reason": "The abstract, results, and many sections describe English as a core language of the Wiki‑Talkie dataset and used in evaluations; studied.",
+      "reason": "English is explicitly referenced as one of the five languages in the Wiki‑Talkie dataset across multiple sections, indicating it is studied.",
       "model": "cohere/north-mini-code:free"
     },
     "French": {
       "verdict": "studied",
-      "reason": "The abstract, results, and sections list French as one of the five dataset languages and used in experiments; studied.",
+      "reason": "French is explicitly referenced as one of the five languages in the Wiki‑Talkie dataset across multiple sections, indicating it is studied.",
       "model": "cohere/north-mini-code:free"
     },
     "German": {
       "verdict": "studied",
-      "reason": "The abstract, results, and sections list German as one of the five dataset languages and used in experiments; studied.",
+      "reason": "German is explicitly referenced as one of the five languages in the Wiki‑Talkie dataset across multiple sections, indicating it is studied.",
       "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippets and abstract indicate Spanish is one of the five languages used to build the Wiki-Talkie dataset and conduct evaluations, implying the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
     }
   }
 }

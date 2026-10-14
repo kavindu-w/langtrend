@@ -1,128 +1,133 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.11585v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-14T00:26:59.603735+00:00",
-  "context_coverage": "abstract_only",
-  "context_chars": 1471,
+  "judged_at": "2026-10-14T08:04:12.729299+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11902,
   "verdicts": {
     "Beng": {
-      "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix D but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "verdict": "false_positive",
+      "reason": "Beng refers to the Bengali script code used for Assamese in a language‑script pair, not the Bengali language → false_positive",
       "model": "cohere/north-mini-code:free"
     },
     "Hani": {
-      "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix D but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "verdict": "false_positive",
+      "reason": "Hani is a script code for Chinese (cmn Hani), not a language → false_positive",
       "model": "cohere/north-mini-code:free"
     },
     "Jimi": {
-      "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix D but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "verdict": "false_positive",
+      "reason": "Jimi appears as part of the person name 'Jimi Hendrix' in a music list, not the Jimi language → false_positive",
       "model": "cohere/north-mini-code:free"
     },
     "Logo": {
       "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix D but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "reason": "No clear reference to the language 'Logo' in the provided snippets → mentioned_only",
       "model": "cohere/north-mini-code:free"
     },
     "Maya": {
-      "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix D but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "verdict": "false_positive",
+      "reason": "Maya appears as the name 'Maya Angelou' in a literature list, not the Maya language → false_positive",
       "model": "cohere/north-mini-code:free"
     },
     "Mer": {
       "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix D but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "reason": "No clear reference to the language 'Mer' in the provided snippets → mentioned_only",
       "model": "cohere/north-mini-code:free"
     },
     "Roma": {
-      "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix D but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "verdict": "false_positive",
+      "reason": "Roma appears as a movie title ('Roma') in a film list, not the Romanian language → false_positive",
       "model": "cohere/north-mini-code:free"
     },
     "Assamese": {
-      "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix D but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "verdict": "studied",
+      "reason": "Assamese is listed as a language (Assamese (asm Beng)) in the synthetic data generation prompt, indicating the paper studies it → studied",
       "model": "cohere/north-mini-code:free"
     },
     "Irish": {
-      "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix D but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "verdict": "false_positive",
+      "reason": "Irish appears as part of 'Irish tricolor' (a flag) in a symbols list, not the Irish language → false_positive",
       "model": "cohere/north-mini-code:free"
     },
     "Lao": {
-      "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix D but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "verdict": "false_positive",
+      "reason": "Lao appears as part of the name 'Lao Tzu' in a philosophers list, not the Lao language → false_positive",
       "model": "cohere/north-mini-code:free"
     },
     "Una": {
       "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix A but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "reason": "No clear reference to the language 'Una' in the provided translation prompt snippet → mentioned_only",
       "model": "cohere/north-mini-code:free"
     },
     "Danish": {
-      "verdict": "mentioned_only",
-      "reason": "Candidate appears in Appendix D and E but exact snippet not provided, referent unclear; thus considered a mention only.",
+      "verdict": "studied",
+      "reason": "Danish is explicitly mentioned as a language (Danish (dan Latn)) and as the source language of a Danish text, indicating the paper studies it → studied",
       "model": "cohere/north-mini-code:free"
     },
     "Kazakh": {
       "verdict": "studied",
-      "reason": "Kazakh appears in the synthetic encyclopedia data generation process, indicating the language is used for data generation, thus studied.",
+      "reason": "Kazakh is referenced as a language used in synthetic encyclopedia data generation, indicating the paper studies it; verdict: studied",
       "model": "cohere/north-mini-code:free"
     },
     "Latin": {
-      "verdict": "studied",
-      "reason": "Latin appears in the synthetic encyclopedia data generation process, likely referring to the Latin language itself, thus studied.",
+      "verdict": "false_positive",
+      "reason": "Latin appears only as part of the Latin script tag ( Latn ), not as the Latin language; verdict: false_positive",
       "model": "cohere/north-mini-code:free"
     },
     "Norwegian": {
-      "verdict": "studied",
-      "reason": "Norwegian appears in the synthetic encyclopedia data generation process, indicating the language is used for data generation, thus studied.",
+      "verdict": "false_positive",
+      "reason": "Norwegian appears as part of 'Norwegian lynx', a geographic adjective, not the Norwegian language; verdict: false_positive",
       "model": "cohere/north-mini-code:free"
     },
     "Russian": {
-      "verdict": "studied",
-      "reason": "Russian appears in the synthetic encyclopedia data generation process, indicating the language is used for data generation, thus studied.",
+      "verdict": "false_positive",
+      "reason": "Russian appears as part of 'Russian double-headed eagle', a national symbol, not the Russian language; verdict: false_positive",
       "model": "cohere/north-mini-code:free"
     },
     "Arabic": {
       "verdict": "studied",
-      "reason": "Arabic appears in the synthetic encyclopedia data generation process, indicating the language is used for data generation, thus studied.",
+      "reason": "Arabic is referenced as a language code (arb Arab) used in synthetic data generation, indicating the paper studies it; verdict: studied",
       "model": "cohere/north-mini-code:free"
     },
     "Basque": {
       "verdict": "studied",
-      "reason": "Basque appears in experimental results and the classifier generalization analysis, indicating the language is evaluated, thus studied.",
+      "reason": "Basque is referenced as a language code (eus Latn) used in synthetic data generation and classifier evaluation, indicating the paper studies it; verdict: studied",
       "model": "cohere/north-mini-code:free"
     },
     "Italian": {
       "verdict": "studied",
-      "reason": "Italian appears in the multilingual translation prompt, indicating the language is used for translation tasks, thus studied.",
+      "reason": "Italian is referenced as the source language of a translation example, indicating the paper studies it; verdict: studied",
       "model": "cohere/north-mini-code:free"
     },
     "Portuguese": {
       "verdict": "studied",
-      "reason": "Portuguese appears in experimental results and bias analysis, indicating the language is evaluated, thus studied.",
+      "reason": "Portuguese appears as a language name in benchmark tables, indicating the paper studies it; verdict: studied",
       "model": "cohere/north-mini-code:free"
     },
     "Chinese": {
       "verdict": "studied",
-      "reason": "Chinese appears in experimental results, bias analysis, and synthetic data generation, indicating the language is evaluated, thus studied.",
+      "reason": "Chinese is referenced as a language code (cmn Hani) used in synthetic data generation and benchmark evaluation, indicating the paper studies it; verdict: studied",
       "model": "cohere/north-mini-code:free"
     },
     "French": {
       "verdict": "studied",
-      "reason": "French appears in experimental results, bias analysis, and synthetic data generation, indicating the language is evaluated, thus studied.",
+      "reason": "French is referenced as a language code (fra Latn) used in synthetic data generation and benchmark evaluation, indicating the paper studies it; verdict: studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is referenced as a language name in benchmark tables, indicating the paper studies it; verdict: studied",
       "model": "cohere/north-mini-code:free"
     },
     "English": {
       "verdict": "studied",
-      "reason": "English is the source language of the classifier and appears throughout the paper, indicating the language is central to the study, thus studied.",
+      "reason": "English is referenced as the base language of the quality classifier and throughout the paper, indicating the paper studies it; verdict: studied",
       "model": "cohere/north-mini-code:free"
     },
     "Spanish": {
-      "verdict": "mentioned_only",
-      "reason": "Spanish is not clearly referenced in the provided snippets; insufficient evidence to confirm study or false positive, so considered mentioned only",
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Spain', a country name, not the Spanish language; therefore the candidate is a false positive.",
       "model": "cohere/north-mini-code:free"
     }
   }
