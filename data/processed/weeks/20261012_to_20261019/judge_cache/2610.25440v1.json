@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.25440v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T19:35:05.352640+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11973,
+  "verdicts": {
+    "Dakota": {
+      "verdict": "mentioned_only",
+      "reason": "refers to the Dakota language/dialect (a related Siouan language) mentioned in context but not studied; thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lakota": {
+      "verdict": "studied",
+      "reason": "refers to the Lakota language, which the paper studies (evaluates OCR models, fine-tunes VLMs, etc.); thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "refers to the term 'nasal vowels' describing phonemes, not the Nasal language; thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lak": {
+      "verdict": "false_positive",
+      "reason": "refers to abbreviation 'Lak' for Lakota in tables, not a separate language; thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "refers to 'Latin-script' describing the writing system, not the Latin language; thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "refers to the English language, which the paper evaluates OCR for (mixed text, baseline, etc.); thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22324v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T00:09:42.932008+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3887,
+  "verdicts": {
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "Tat is referenced as part of the dataset name 'TAT‑QA', not the Tat language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "Persian is referenced as the language of ezafe recognition tasks, indicating the paper studies the Persian language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language the model is trained on, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

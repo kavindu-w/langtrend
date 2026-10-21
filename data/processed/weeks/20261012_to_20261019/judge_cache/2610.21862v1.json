@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.21862v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T00:33:30.315849+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10345,
+  "verdicts": {
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch refers to the Dutch language in the PMB dataset and the GroNLP/bert-base-dutch-cased model; the paper evaluates TagInsert on Dutch POS tagging and CCG supertagging, so Dutch is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the German language in the PMB dataset and the bert-base-german-cased model; the paper conducts experiments and reports results for German tagging tasks, so German is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian refers to the Italian language in the PMB dataset and the dbmdz/bert-base-italian-cased model; the paper includes Italian-specific models and evaluates TagInsert on Italian tasks, so Italian i",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used as a baseline and in the PMB dataset; the paper evaluates TagInsert on English POS tagging and CCG supertagging, so English is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

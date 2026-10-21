@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.24764v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T20:39:22.669694+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11998,
+  "verdicts": {
+    "Chittagonian": {
+      "verdict": "mentioned_only",
+      "reason": "Chittagonian is mentioned as a regional dialect excluded from the benchmark, not studied or evaluated.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sylheti": {
+      "verdict": "mentioned_only",
+      "reason": "Sylheti is mentioned as a regional dialect excluded from the benchmark, not studied or evaluated.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol is an abbreviation for the Age‑Pol category in the experiment design, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Rohingya": {
+      "verdict": "false_positive",
+      "reason": "Rohingya refers to an ethnic group listed among stereotype targets, not the Rohingya language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is referenced only as a related language used in India, not part of the benchmark’s studied languages.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is a core language of the benchmark, with parallel templates, translation, and model evaluation, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

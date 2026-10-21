@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.25127v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T20:23:28.343545+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9412,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is a model name (GPT-5.6-Luna) and not a human language; the snippets refer to it as a model, not the language Luna.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian appears in a snippet about language/cultural default preferences, but the context describes Italian as a language used in preferences, not as a subject of study; however, the snippet indicates",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears in a snippet about language/cultural default preferences, similar to Italian; the paper mentions French as a language category for preferences, not as a language being studied or evalua",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears in a snippet about language/cultural default preferences, similar to Italian and French; the paper mentions Spanish as a language category for preferences, not as a language being stud",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears in Ethical Considerations, but the snippet does not discuss the Polish language; it mentions \"Polish\" as part of a phrase \"Polish language\"? Actually snippet: \"The real user–assistant c",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears in dataset overview and filtering details; the snippets refer to Chinese as one of the languages covered in the dataset (preference dialogues cover 35 identified languages, with Englis",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears in dataset overview and filtering details; the snippets refer to English as one of the languages covered in the dataset (preference dialogues cover 35 identified languages, with Englis",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

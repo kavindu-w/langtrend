@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.24899v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T20:38:31.502298+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5396,
+  "verdicts": {
+    "Jarawa": {
+      "verdict": "false_positive",
+      "reason": "Jarawa refers to an ethnic group (the Jarawa people) in the evaluation snippet, not the Jarawa language. Verdict: false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to North Sentinel Island and the Sentinelese people, not the Sentinel language. Verdict: false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Oro": {
+      "verdict": "false_positive",
+      "reason": "Oro appears as part of the nickname 'El Pibe de Oro', not the Oro language. Verdict: false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the Jina Reader tool used for webpage retrieval, not the Jina language. Verdict: false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is not explicitly present in the provided snippet; the snippet contains the word 'polish' (verb) but no clear reference to the Polish language, so it is ambiguous. Verdict: mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as a language label for dataset rows ('2.5M English rows'), a mention of the language in the dataset description. Verdict: mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French appears only in the proper noun 'French Guiana', not as a reference to the French language. Verdict: false_positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

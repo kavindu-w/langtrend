@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.25356v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T20:09:09.276319+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6523,
+  "verdicts": {
+    "Maia": {
+      "verdict": "false_positive",
+      "reason": "Maia refers to a chess model (e.g., Maia-3, Maia-2) in the snippets, thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb meaning to fix or freeze a value, not a language, thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sicilian": {
+      "verdict": "false_positive",
+      "reason": "Sicilian refers to a chess opening (Sicilian Defense) in the snippets, not the language, thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French refers to a chess opening (the French Defense) in the snippets, not the language, thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.23170v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T22:32:31.788711+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9611,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae is used as abbreviation for Mean Absolute Error metric, not the human language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language (e.g., Chinese Decision, Chinese language models, CJ-Dataset), implying studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only in example prompts and translation, not as a studied language, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

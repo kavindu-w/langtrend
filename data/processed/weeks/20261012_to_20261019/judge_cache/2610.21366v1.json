@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.21366v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T01:06:50.728841+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3401,
+  "verdicts": {
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "Gan appears as part of the model name 'House‑GAN' and does not refer to the Gan language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Hungarian appears in the phrase 'Hungarian matching', which refers to the Hungarian algorithm, not the Hungarian language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese appears in the design point 'Chinese‑Western Kitchen Zoning', which describes a kitchen style, not the Chinese language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22249v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T23:59:06.621932+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7682,
+  "verdicts": {
+    "Bushi": {
+      "verdict": "false_positive",
+      "reason": "Bushi is a term for the Mandarin corrective construction bushi X, ershi Y, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as a model identifier (e.g., 'luna') in the model panel, not as a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Mandarin language throughout the paper, used for prompts, human references, and evaluation, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as the source language for the construction 'it’s not X, it’s Y' and as a target for the decision tree, but not evaluated or used in experiments, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

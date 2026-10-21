@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.23527v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T22:28:27.843618+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11656,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of the model name 'gpt-5.6-luna' and not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is listed as a language in the Multilingual True-False dataset and used as a target language in experiments (e.g., finetuning adapters, evaluation on Hindi statements).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is listed as a language in the Multilingual True-False dataset and discussed in results (performance on Thai statements).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is listed as a language in the Multilingual True-False dataset and evaluated as a target language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is listed as a language in the Multilingual True-False dataset and evaluated as a target language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is listed as a language in the Multilingual True-False dataset and evaluated as a target language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is listed as a language in the Multilingual True-False dataset and evaluated as a target language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the reference language used throughout the paper (datasets, evaluation, and alignment).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is a target language in experiments (e.g., finetuning adapters, evaluation on German statements).",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

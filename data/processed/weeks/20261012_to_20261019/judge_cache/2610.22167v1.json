@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22167v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T00:46:54.135733+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11713,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is used as a model name (reference open-weight model), not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "Noon appears as a time reference ('before noon'), not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake is a common English word, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is not present in any snippet; insufficient evidence → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as the language of datasets, instructions, and evaluation tasks → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of instructions, evaluation, and datasets → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is referenced as the language of datasets, evaluation tasks, and culture → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

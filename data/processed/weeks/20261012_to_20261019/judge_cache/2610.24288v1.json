@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.24288v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T21:32:55.586027+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10968,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the model GPT-5.6 Luna (a language model) in the evaluated models list, not the human language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae refers to Mean Absolute Error (MAE), a metric for model error, not the human language Mae, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Rom": {
+      "verdict": "false_positive",
+      "reason": "Rom refers to romanized Bangla (the Latin‑script form) in the corpus, not the Roman language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali refers to the Bangla (Bengali) language used as the target language for safety classification and model training in BanglaShield, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is referenced as an embedded language in Bangla code‑mixed prompts and evaluated in the benchmark, but the paper does not build resources or models specifically for Hindi, implying mentioned_onl",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "Urdu is referenced as an embedded language in Bangla code‑mixed prompts and evaluated in the benchmark, but the paper does not build resources or models specifically for Urdu, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script (Latin‑script romanization) used for writing Bangla, not the Latin language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as an embedded language in Bangla code‑mixed prompts and as a source for translation, but the paper does not build resources or models specifically for English, implying mentione",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

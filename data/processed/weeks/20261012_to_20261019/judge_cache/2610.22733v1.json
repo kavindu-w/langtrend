@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22733v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T23:43:16.568528+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11979,
+  "verdicts": {
+    "Gwa": {
+      "verdict": "false_positive",
+      "reason": "Gwa appears as a Korean particle (gwa/wa) in post‑processing rules, not as a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa appears as part of the Korean particle gwa/wa, not as a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "Logo refers to court‑logo artifacts in OCR boilerplate removal, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is referenced throughout as the target language for de‑identification (particles, surface‑form post‑processing, corpus construction) → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only as a script (Chinese characters) and as a language without whitespace delimiters, but the paper does not study Chinese → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as part of a balanced Korean‑English pre‑training corpus for the backbone model, indicating the paper studies English → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only as a language lacking whitespace delimiters in a comparative note, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

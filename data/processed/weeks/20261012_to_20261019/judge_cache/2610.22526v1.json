@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22526v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T00:00:13.560743+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11988,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to a 'carrier sentence' used in experiments, not the human language Carrier.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali refers to the Bengali language throughout the snippets (idioms, Bengali arms, Bengali literal gloss, etc.), indicating the paper studies Bengali.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears only as 'Latin script' referring to the writing system, not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language (English gloss, English literal gloss, English parenthetical) and the paper evaluates models on English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

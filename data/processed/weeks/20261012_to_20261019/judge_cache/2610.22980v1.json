@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22980v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T23:03:39.317290+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11942,
+  "verdicts": {
+    "Atta": {
+      "verdict": "false_positive",
+      "reason": "Atta refers to wheat flour (a product) in the snippets, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kam": {
+      "verdict": "mentioned_only",
+      "reason": "Kam is not present in the provided snippets, insufficient evidence to determine if it refers to a language → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Karo": {
+      "verdict": "mentioned_only",
+      "reason": "Karo is not present in the provided snippets, insufficient evidence to determine if it refers to a language → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mand": {
+      "verdict": "false_positive",
+      "reason": "Mand appears as part of a supplier identifier ('mand') in the snippets, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Rang": {
+      "verdict": "false_positive",
+      "reason": "Rang appears in the phrase 'rang up' (a sales action) in the snippets, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi refers to the Hindi language used for customer/supplier communication and evaluated in the benchmark → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script/letters used for detection, not the Latin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used for communication and evaluation in the benchmark → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

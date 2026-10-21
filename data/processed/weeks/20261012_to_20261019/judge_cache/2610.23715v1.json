@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.23715v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T21:48:20.180382+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5300,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'MAE' (Mean Absolute Error) metric abbreviation, not the language Mae, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references Dutch as part of Dutch–English bilingual readers in the GECO dataset, but the paper does not study or build resources for Dutch; it only mentions the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets repeatedly refer to English as the language of the eye‑tracking datasets, model features (English word frequency, English stopwords), and the news articles being rewritten, indicating the",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
