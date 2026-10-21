@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.25399v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T19:43:57.277833+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11898,
+  "verdicts": {
+    "Kwa": {
+      "verdict": "false_positive",
+      "reason": "Kwa appears as a Swahili word meaning 'to' in the snippet, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sera": {
+      "verdict": "false_positive",
+      "reason": "Sera appears as a Swahili word meaning 'policy' in the snippet, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa appears as part of Swahili words (e.g., 'wasimameni') in the snippet, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is referenced as a target language in evaluation tables and translation quality assessments, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is listed among the four target languages in the experimental tables, showing the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is listed among the four target languages in the experimental tables, showing the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is the primary target language with native medical benchmarks and appears throughout experimental results, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language used for synthesis and appears throughout as a studied language in experiments.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

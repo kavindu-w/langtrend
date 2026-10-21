@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22545v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T23:48:11.525668+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11907,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears as part of 'Latin-America', a region, not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is used as prompting language, dataset language (e.g., UltraChat-NL, No_robots-NL), and cultural context in experiments, indicating the paper studies Dutch.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "Korean appears only in an example statement about Korean people, not as a language of prompts or datasets, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is used as a prompting language, dataset (BELLE-ZH), and cultural context throughout experiments, indicating the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English serves as a baseline prompting language and is used in datasets (UltraChat-EN, No_robots-EN, Stackoverflow-EN) and experiments, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is only mentioned as a supported language of the Llama 3.1 model, with no experiments or resources for French, so it's a mention-only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is only mentioned as a supported language of the Llama 3.1 model, with no experiments or resources for German, so it's a mention-only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

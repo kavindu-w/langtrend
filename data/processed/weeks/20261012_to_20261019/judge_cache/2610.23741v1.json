@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.23741v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T21:45:40.609195+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7128,
+  "verdicts": {
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Refers to the Hungarian algorithm, a computational method, not the Hungarian language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Mentions an Italian-language prompt and builds a dataset of Italian legislative events, indicating the paper studies the Italian language; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Refers to Arabic numerals, a numeral system, not the Arabic language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Mentions English terminology and schema keys translated into English, but the paper does not build resources for English; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

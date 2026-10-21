@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.23093v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T23:40:18.146886+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11935,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin refers to the romanization system for Chinese, not a human language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "Amharic is evaluated as a language in the experimental setup (supplementary results), thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Haitian Creole": {
+      "verdict": "studied",
+      "reason": "Haitian Creole is listed among the seven languages evaluated in the methodology, thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lao": {
+      "verdict": "studied",
+      "reason": "Lao is listed among the seven languages evaluated in the methodology, thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Igbo": {
+      "verdict": "studied",
+      "reason": "Igbo appears in the experimental setup and results as one of the seven languages evaluated, thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili appears in the experimental setup and results as one of the seven languages evaluated, thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is explicitly mentioned in the abstract and methodology as one of the languages evaluated, thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears only as a script reference (Latin-script), not as the Latin language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is explicitly mentioned in the abstract and methodology as one of the languages evaluated, thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the control language and is evaluated throughout the paper, thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

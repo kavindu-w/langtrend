@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22067v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T00:30:40.552720+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5707,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is used as a model name (e.g., GPT‑5.6 Luna) in experimental sections, not as a human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned as a language in existing bilingual benchmarks (e.g., LongBench‑Pro, ∞Bench) but the paper does not study it, only references it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the constructed LURCH benchmark; the paper retains English‑language instances and evaluates models on them, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

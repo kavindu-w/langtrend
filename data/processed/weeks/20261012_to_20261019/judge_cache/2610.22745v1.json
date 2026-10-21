@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22745v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T23:39:25.544997+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3290,
+  "verdicts": {
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "Russian refers to Russia in the context of oil imports, not the Russian language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the language of the pretrained encoder's training text.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French refers to the Kenneth R. French Data Library, a dataset repository, not the French language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

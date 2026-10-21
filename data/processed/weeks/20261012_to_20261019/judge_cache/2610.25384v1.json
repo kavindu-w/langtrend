@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.25384v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T19:30:22.658445+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3774,
+  "verdicts": {
+    "Alabama": {
+      "verdict": "false_positive",
+      "reason": "Alabama is referenced as a U.S. state entity, not as a language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Roma": {
+      "verdict": "false_positive",
+      "reason": "Roma appears as part of the railway station name 'Roma Termini', a location, not a language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned within 'Jamaican English' as a language variety, but the paper only references it as an answer, not as a studied language, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

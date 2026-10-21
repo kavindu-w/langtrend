@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.25406v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T19:27:47.560333+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5936,
+  "verdicts": {
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Persian as the language of a prior benchmark (FFE-HALLU) used in other work, not part of the current experiments; thus the paper only mentions Persian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "egyptian arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Egyptian Arabic as the language of prior datasets and studies (Kinayat, etc.), not part of the current experiments; thus the paper only mentions Egyptian Arabic.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Chinese as the language of a prior dataset (Zhu et al.) used in other work, not part of the current experiments; thus the paper only mentions Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet shows English is used as the target language for translation in the MDFC benchmark and models are evaluated on English outputs, indicating the paper studies English as part of its experime",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions French only as part of an annotator's language background (Arabic-English-French translation), not as a focus of the study; thus the paper only mentions French.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Arabic as the language of many prior resources and as the language family of Moroccan Darija, but the paper does not evaluate or build resources for Arabic itself; thus the paper",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

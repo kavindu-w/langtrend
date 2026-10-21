@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22892v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T22:56:07.668162+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4612,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin appears as the verb \"pin\" (to fix checkpoints) and does not refer to a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Bengali language as the target of the hallucination detection system, evaluation resources, and model development, indicating the paper studies Bengali.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as a language used in multilingual evaluation benchmarks, not as a target of study, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

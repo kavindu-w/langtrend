@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.23030v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T22:47:36.414791+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5239,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "The text refers to \"BO\" abbreviation for Bayesian Optimization, not the Bodo language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The text refers to \"MAE\" metric (Mean Absolute Error), not the Mae language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions Chinese as a non‑alphabetic writing system in the limitations, only referencing the language without studying it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions Japanese similarly as a non‑alphabetic writing system in the limitations, only referencing the language without studying it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The text references \"English WordNet\" as a resource, mentioning the English language but not studying it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The text includes multilingual evaluation results for French, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The text includes multilingual evaluation results for German, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

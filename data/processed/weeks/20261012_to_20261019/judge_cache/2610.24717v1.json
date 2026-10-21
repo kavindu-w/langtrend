@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.24717v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T20:52:31.445504+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2505,
+  "verdicts": {
+    "Irish": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Irish' as an adjective describing the author (nationality), not referring to the Irish language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'English articles' as part of a scorer that removes English-language stopwords, indicating a reference to the English language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

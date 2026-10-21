@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.24259v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T21:23:22.230813+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9389,
+  "verdicts": {
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "fam is an abbreviation for \"family\" in the evaluation metric, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tiene": {
+      "verdict": "false_positive",
+      "reason": "\"tiene\" appears as a Spanish lexical item in example utterances, not the language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "\"una\" appears as a Spanish word in example sentences, not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vale": {
+      "verdict": "false_positive",
+      "reason": "\"vale\" appears as a Spanish interjection meaning \"OK\", not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a language in error annotation (e.g., Er:EU for English production) but the paper does not study English as a target language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is the target language of the corpus and annotation schema, and the paper builds resources for it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

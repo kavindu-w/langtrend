@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22244v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T00:04:42.707749+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11764,
+  "verdicts": {
+    "Amharic": {
+      "verdict": "studied",
+      "reason": "Amharic refers to the human language Amharic, used as a low‑resource target language in LinguaGuardBench (translated user instructions and evaluated guard flips); the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili refers to the human language Swahili, a low‑resource target language in the benchmark (translated instructions and evaluated guard performance); the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script (non‑Latin script) in the text, not the Latin language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish refers to the human language Turkish, a mid‑resource target language in LinguaGuardBench (translated instructions and evaluated guard flips); the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of guard prompts, controls, and English paraphrase experiments, used as baseline and evaluated in the study; the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to the human language French, a high‑resource target language in the benchmark (translated instructions and evaluated guard flips); the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the human language German, a high‑resource target language in LinguaGuardBench (translated instructions and evaluated guard flips); the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

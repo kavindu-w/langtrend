@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.25206v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T20:07:41.389008+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4929,
+  "verdicts": {
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "Noon appears as a time reference ('at noon') in the snippet, not as a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced as the language of a questionnaire that was translated into English, indicating only a mention of the language, not study of it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used throughout the prompts, persona realization outputs, and questionnaire translation, showing the paper builds and evaluates its benchmark in English, thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

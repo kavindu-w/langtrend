@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.22515v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T23:44:33.588482+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9420,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears only as part of \"Latin-square rotation\", a design method, not the Latin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is listed as a distractor language label in a qualitative example, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to Modern Standard Arabic (MSA) track, where the system is evaluated and future work planned → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English track of the ImageEval shared task, where the system is evaluated and analyzed → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

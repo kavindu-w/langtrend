@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.23234v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-20T22:44:04.468568+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7324,
+  "verdicts": {
+    "Ale": {
+      "verdict": "false_positive",
+      "reason": "Ale refers to Erta Ale volcano, a proper noun, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Eton": {
+      "verdict": "false_positive",
+      "reason": "Eton refers to the town of Eton, UK, a place name, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Miami refers to the city/team (Miami Heat), a proper noun, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tho": {
+      "verdict": "false_positive",
+      "reason": "Tho appears as abbreviation for \"though\", a word form, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek is used to label text in Greek script, a mention of the Greek language only, thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swedish": {
+      "verdict": "false_positive",
+      "reason": "Swedish describes a band from Sweden, a nationality reference, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish describes a goal in a football match, a nationality reference, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English denotes the language of the evaluated QA dataset, indicating the paper studies English, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
