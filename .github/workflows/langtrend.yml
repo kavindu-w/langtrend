@@ -95,11 +95,33 @@ jobs:
       # run_langtrend_pipeline auto-skips fetch if this week's JSONL already exists
       - name: Fetch papers from arXiv
         run: |
+          # tee would otherwise mask the pipeline's exit code.
+          set -o pipefail
           python scripts/run_langtrend_pipeline.py \
             --data-root data \
             --window-days 7 \
             --max-results 1000 \
-            --skip-process
+            --skip-process 2>&1 | tee fetch_output.log
+
+      # The fetch's late-announced step (papers held in moderation, announced
+      # this week) only logs on failure so the weekly run carries on — but no
+      # later run covers this week's ID range, so someone has to rerun it.
+      - name: Notify on late-announced failure
+        if: always()
+        env:
+          NOTIFY_WEBHOOK_URL: ${{ secrets.NOTIFY_WEBHOOK_URL }}
+        run: |
+          line=$(grep 'ERROR: late-announced step failed' fetch_output.log 2>/dev/null | tail -1 || true)
+          [ -n "$line" ] && [ -n "${NOTIFY_WEBHOOK_URL:-}" ] || exit 0
+          body=$(printf 'The weekly fetch saved its papers, but papers announced late this week (moderation holds) were not added.\n\n%s\n\nRun: %s/%s/actions/runs/%s' \
+            "$line" "${{ github.server_url }}" "${{ github.repository }}" "${{ github.run_id }}")
+          set +e
+          http_code=$(curl -sS -X POST -H "Title: LangTrend - Late-announced papers not added" -H "Priority: high" \
+            --data-binary "$body" "$NOTIFY_WEBHOOK_URL" -o /tmp/notify_response.txt -w "%{http_code}")
+          curl_exit=$?
+          set -e
+          echo "notify: curl exit=$curl_exit http_status=$http_code"
+          cat /tmp/notify_response.txt 2>/dev/null || true
 
       # Commit the JSONL immediately so it is preserved even if the HTML pass times out.
       # continue-on-error: a push failure here is non-fatal — the JSONL will be

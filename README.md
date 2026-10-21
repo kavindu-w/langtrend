@@ -87,7 +87,7 @@ Languages class descriptions are adapted from the resource-availability taxonomy
 - **Extraction fallback** — While HTML extraction is preferred for accuracy, the pipeline depends on the availability of arXiv HTML pages. If the HTML version is missing or incomplete, the pipeline instead falls back to the PDF (via Docling). Should the PDF also be unavailable or withdrawn, only the abstract text will be analysed.
 - **cs.CL scope only** — The pipeline covers only papers submitted to the <code>cs.CL</code> arXiv category (It may include multiple categories, which include <code>cs.CL</code>). Multilingual NLP papers appearing in adjacent categories (cs.AI, cs.LG, cs.CV, etc.), which exclude <code>cs.CL</code> are not captured.
 - **No paper version tracking** — Papers are processed at fetch time. If an author updates a paper with new or removed language mentions, these are not reflected unless the pipeline re-runs for the same date window.
-- **Weekly cadence** —  The pipeline runs once a week (every Tuesday), covering the previous week’s arXiv announcement window. As a result, papers that fall across the date boundary may be missed in a given snapshot.
+- **Weekly cadence** —  The pipeline runs once a week (every Tuesday), covering the previous week’s arXiv announcement window. Papers arXiv announces later than their submission week (held in moderation, or delayed by a holiday) are added to the week they were actually announced in, so a week's paper list can include some with older submission dates. A paper cross-listed into <code>cs.CL</code> after its week was already fetched is not picked up.
 
 ---
 
@@ -234,7 +234,7 @@ The workflow at `.github/workflows/langtrend.yml` runs automatically every **Tue
 
 Steps executed by the workflow:
 
-1. Fetch arXiv `cs.CL` papers for the past 7 days
+1. Fetch arXiv `cs.CL` papers for the past 7 days, plus papers announced this week but submitted earlier (moderation holds, holiday delays), found from arXiv's monthly `cs.CL` listing
 2. Extract and clean text (HTML → PDF → abstract fallback)
 3. Detect language mentions and flag acronym conflicts
 4. LLM-judge this week's detected languages (needs the `LLM_JUDGE_API_KEY` repository secret; skipped cleanly when unset) — the judge step has no self-imposed timeout, only GitHub's 6-hour per-job ceiling, since the provider's daily quota is the only condition it treats as an expected stop; a same-day continuation pass exists as backup for the rare week that doesn't finish within that ceiling

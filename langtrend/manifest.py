@@ -98,9 +98,18 @@ def build_snapshot_manifest(
     judged_papers = 0
     flagged_paper_count = 0
 
+    # The daily chart covers the week's own days. Late-announced papers (held
+    # in moderation, submitted weeks earlier) still count in every total, but
+    # plotting their submission dates would spread one week's chart over months.
+    def in_week(date: str) -> bool:
+        return (not week_start or date >= week_start) and (not week_end or date < week_end)
+
+    late_announced = 0
     for paper in papers:
         published = str(paper.get("published", ""))[:10]
-        if published:
+        if week_start and published and published < week_start:
+            late_announced += 1
+        if published and in_week(published):
             daily_papers[published] += 1
 
     for flagged in flagged_papers:
@@ -116,7 +125,7 @@ def build_snapshot_manifest(
         )
         if not all_false_positive:
             flagged_paper_count += 1
-            if published:
+            if published and in_week(published):
                 daily_flagged[published] += 1
         for detected in languages:
             verdict = detected.get("judge_verdict")
@@ -154,6 +163,7 @@ def build_snapshot_manifest(
             "unique_languages": len(language_studied_counts),
             "unique_languages_mentioned_only": len(mentioned_only_languages),
             "pdf_failed_no_detection": pdf_failed_no_detection,
+            "late_announced": late_announced,
             "judge": {
                 "judged_papers": judged_papers,
                 "judged_languages": sum(judge_counts.values()),

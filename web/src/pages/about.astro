@@ -178,8 +178,12 @@ for (const row of classRows) {
           pipeline re-runs for the same date window.
         </li><li>
           The pipeline runs once a week (every Tuesday), covering the previous
-          week's arXiv announcement window. As a result, papers that fall across
-          the date boundary may be missed in a given snapshot.
+          week's arXiv announcement window. Papers arXiv announces later than
+          their submission week (held in moderation, or delayed by a holiday)
+          are added to the week they were actually announced in, so a week's
+          paper list can include some with older submission dates. A paper
+          cross-listed into <code>cs.CL</code> after its week was already
+          fetched is not picked up.
         </li>
       </ul>
     </article>

@@ -424,3 +424,348 @@ def test_fetch_arxiv_direct_paginates_across_multiple_requests(tmp_path):
     assert mock_get.call_count == 2
     assert [p["title"] for p in papers] == ["Page One A", "Page One B", "Page Two A"]
     mock_sleep.assert_called_once()  # one inter-page delay between the two requests
+
+
+# ---------------------------------------------------------------------------
+# Late-announced papers (submitted before the week, announced during it)
+# ---------------------------------------------------------------------------
+
+def _ids(start, stop, step=200, month=2609):
+    """Dense run of IDs, like a real week (a few hundred apart at most)."""
+    return [f"{month}.{n:05d}" for n in range(start, stop, step)]
+
+
+def _write_week(directory, start, end, ids, late=()):
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / f"arxiv_papers_{start}_to_{end}.jsonl"
+    rows = [{"id": f"http://arxiv.org/abs/{i}v1"} for i in ids]
+    rows += [{"id": f"http://arxiv.org/abs/{i}v1", "_late_announced": True} for i in late]
+    path.write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8")
+    return path
+
+
+def _ids_in(path):
+    return [json.loads(line)["id"] for line in path.read_text(encoding="utf-8").splitlines()]
+
+
+def _meta(arxiv_id, published):
+    return {"id": f"http://arxiv.org/abs/{arxiv_id}v1", "title": arxiv_id, "published": f"{published}T05:44:10Z",
+            "categories": ["cs.CL"], "_fetch_source": "arxiv_direct"}
+
+
+class _FakeArxiv:
+    """Listing + id_list stand-ins; `published` maps ID -> v1 submission date."""
+
+    def __init__(self, listed, published=None):
+        self.listed = {k: {fam._id_key(i) for i in v} for k, v in listed.items()}
+        self.published = published or {}
+        self.requested = []
+        self.listing_calls = []
+
+    def listing(self, month, category):
+        self.listing_calls.append((category, month))
+        return self.listed.get(month, set())
+
+    def metadata(self, ids):
+        self.requested.append(list(ids))
+        return [_meta(i, self.published[i]) for i in ids if i in self.published]
+
+    def kwargs(self):
+        return dict(listing_fetcher=self.listing, metadata_fetcher=self.metadata)
+
+
+def _ranges(out):
+    return fam._week_id_ranges(fam._load_weeks(out))
+
+
+@pytest.fixture
+def two_weeks(tmp_path):
+    out = tmp_path / "meta"
+    w1 = _write_week(out, "20260914", "20260921", _ids(14857, 23900) + ["2609.23951"])
+    w2 = _write_week(out, "20260921", "20260928", _ids(23955, 34000) + ["2609.34033"])
+    return out, w1, w2
+
+
+def test_id_key_orders_by_month_then_sequence():
+    assert fam._id_key("http://arxiv.org/abs/2609.29511v3") == (2609, 29511)
+    assert fam._id_key("2609.34056") < fam._id_key("2610.00001")
+
+
+def test_months_between_spans_year_end():
+    assert fam._months_between((2612, 1), (2701, 5)) == ["2026-12", "2027-01"]
+
+
+# --- ranges -----------------------------------------------------------------
+
+def test_range_ignores_outlier_far_past_main_run(tmp_path):
+    # A retroactively fetched week holds a paper filed by submission date far
+    # ahead of its main run; it mustn't stretch the range (latest week: no cap).
+    out = tmp_path / "meta"
+    w1 = _write_week(out, "20260427", "20260504", _ids(100, 2000, month=2605) + ["2605.22834"])
+    assert _ranges(out)[w1][1] == (2605, 1900)
+
+
+def test_range_ends_before_next_weeks_first_id_despite_sparse_tail(tmp_path):
+    # The real 27 Apr case: a sparse tail (gaps ~2000, under the outlier limit)
+    # runs into the next week's IDs; the next week's first ID caps the range.
+    out = tmp_path / "meta"
+    w1 = _write_week(out, "20260427", "20260504",
+                     _ids(23938, 30000, month=2604) + _ids(100, 2000, month=2605)
+                     + ["2605.04000", "2605.06000", "2605.08149"])
+    w2 = _write_week(out, "20260504", "20260511", _ids(2105, 9800, month=2605))
+    ranges = _ranges(out)
+    assert ranges[w1][1] == (2605, 2104)
+    assert ranges[w2] == ((2605, 2104), (2605, 9705))
+
+
+def test_range_cap_handles_outlier_in_the_following_month(tmp_path):
+    out = tmp_path / "meta"
+    w1 = _write_week(out, "20260921", "20260928", _ids(23955, 34000) + ["2610.05000"])
+    _write_week(out, "20260928", "20261005", _ids(34056, 36000) + _ids(10, 5000, month=2610))
+    assert _ranges(out)[w1][1] == (2609, 34055)
+
+
+def test_late_batch_between_weeks_goes_to_the_week_it_was_announced(tmp_path):
+    # The Labor Day case: a delayed batch with none of the next week's own papers
+    # sits between the weeks' runs; it was announced in the later week.
+    out = tmp_path / "meta"
+    w1 = _write_week(out, "20260831", "20260907", _ids(100, 5405) + ["2609.05405"])
+    w2 = _write_week(out, "20260907", "20260914", _ids(6880, 14800))
+    ranges = _ranges(out)
+    assert ranges[w1][1] == (2609, 5405)
+    assert ranges[w2][0] == (2609, 5405)
+
+
+def test_ranges_tile_when_main_runs_overlap(tmp_path):
+    out = tmp_path / "meta"
+    w1 = _write_week(out, "20260427", "20260504", _ids(100, 900, 100, month=2605))
+    w2 = _write_week(out, "20260504", "20260511", _ids(200, 800, 100, month=2605))  # inside w1's run
+    w3 = _write_week(out, "20260511", "20260518", ["2605.00900"])
+    ranges = _ranges(out)
+    assert ranges[w1] == ((2605, 99), (2605, 199))
+    assert ranges[w2] == ((2605, 199), (2605, 700))
+    assert ranges[w3] == ((2605, 700), (2605, 900))
+
+
+def test_appended_late_rows_never_move_a_boundary(two_weeks):
+    out, w1, w2 = two_weeks
+    before = _ranges(out)
+    _write_week(out, "20260921", "20260928", _ids(23955, 34000) + ["2609.34033"], late=["2609.20000"])
+    assert _ranges(out) == before
+
+
+def test_load_weeks_skips_other_window_lengths_and_bad_rows(two_weeks):
+    out, w1, w2 = two_weeks
+    _write_week(out, "20260801", "20260831", ["2609.99999"])  # a 30-day file
+    with w1.open("a") as fh:
+        fh.write(json.dumps({"title": "no id"}) + "\n")
+    weeks = fam._load_weeks(out)
+    assert [w.path for w in weeks] == [w1, w2]
+
+
+def test_main_block_top_spans_month_boundary():
+    keys = [(2609, n) for n in range(34056, 36000, 200)] + [(2610, n) for n in range(10, 5700, 200)]
+    assert fam._main_block_top(keys) == (2610, 5610)
+
+
+# --- add_late_announced --------------------------------------------------------
+
+def test_add_late_appends_held_paper_to_its_announcement_week(two_weeks):
+    # The EnSiTa case: submitted 25 Aug, held, announced in the 21–28 Sep week.
+    out, _, w2 = two_weeks
+    rows_before = w2.read_text().splitlines()
+    fake = _FakeArxiv({"2026-09": ["2609.23955", "2609.29511", "2609.34033"]}, {"2609.29511": "2026-08-25"})
+    assert fam.add_late_announced(w2, out, **fake.kwargs()) == 1
+    rows_after = w2.read_text().splitlines()
+    assert rows_after[:-1] == rows_before  # existing rows untouched
+    appended = json.loads(rows_after[-1])
+    assert appended["id"] == "http://arxiv.org/abs/2609.29511v1"
+    assert appended["_late_announced"] is True
+    assert fake.requested == [["2609.29511"]]  # 23955/34033 are already in w2
+
+
+def test_add_late_claims_boundary_gap_for_the_later_week(two_weeks):
+    out, w1, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": ["2609.23953"]}, {"2609.23953": "2026-09-19"})
+    assert fam.add_late_announced(w1, out, **fake.kwargs()) == 0
+    assert fam.add_late_announced(w2, out, **fake.kwargs()) == 1
+
+
+def test_add_late_leaves_papers_submitted_after_the_window_to_next_week(two_weeks):
+    out, _, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": ["2609.30001"]}, {"2609.30001": "2026-09-28"})
+    before = _ids_in(w2)
+    assert fam.add_late_announced(w2, out, **fake.kwargs()) == 0
+    assert _ids_in(w2) == before
+
+
+def test_add_late_files_next_weeks_unfetched_paper_under_next_week(tmp_path):
+    # The 2606.01592 case: ID just past the next week's first ID, submitted in
+    # that week's window, missing from its file — the next week's range owns it.
+    out = tmp_path / "meta"
+    w1 = _write_week(out, "20260525", "20260601", _ids(26165, 32000, month=2605) + _ids(10, 2628, month=2606))
+    w2 = _write_week(out, "20260601", "20260608", _ids(1513, 11000, month=2606))
+    fake = _FakeArxiv({"2026-06": ["2606.01592"]}, {"2606.01592": "2026-06-01"})
+    assert fam.add_late_announced(w1, out, **fake.kwargs()) == 0
+    assert fam.add_late_announced(w2, out, **fake.kwargs()) == 1
+    assert _ids_in(w2)[-1] == "http://arxiv.org/abs/2606.01592v1"
+
+
+def test_next_week_claims_its_paper_below_its_own_first_id(two_weeks):
+    # Submitted in w2's window, announced in the boundary batch with an ID in
+    # w1's range, missed by w2's regular fetch: w1 leaves it, w2 takes it.
+    out, w1, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": ["2609.23900"]}, {"2609.23900": "2026-09-21"})
+    assert fam.add_late_announced(w1, out, **fake.kwargs()) == 0
+    assert fam.add_late_announced(w2, out, **fake.kwargs()) == 1
+    assert _ids_in(w2)[-1] == "http://arxiv.org/abs/2609.23900v1"
+    # Order doesn't matter: once owned, the earlier week never re-adds it.
+    assert fam.add_late_announced(w1, out, **fake.kwargs()) == 0
+
+
+def test_next_week_leaves_previous_ranges_own_late_papers_alone(two_weeks):
+    # In w1's range and submitted before w1 ended: w1's, not w2's.
+    out, w1, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": ["2609.23900"]}, {"2609.23900": "2026-09-01"})
+    assert fam.add_late_announced(w2, out, **fake.kwargs()) == 0
+    assert fam.add_late_announced(w1, out, **fake.kwargs()) == 1
+
+
+def test_add_late_never_duplicates_a_paper_from_another_week(two_weeks):
+    out, _, w2 = two_weeks
+    _write_week(out, "20260928", "20261005", _ids(34056, 36000), late=["2609.26000"])
+    fake = _FakeArxiv({"2026-09": ["2609.24155", "2609.26000"]}, {"2609.26000": "2026-09-01"})
+    assert fam.add_late_announced(w2, out, **fake.kwargs()) == 0
+    assert fake.requested == []  # 24155 is already in w2, 26000 in the later week
+
+
+def test_add_late_is_idempotent(two_weeks):
+    out, _, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": ["2609.29511"]}, {"2609.29511": "2026-08-25"})
+    assert fam.add_late_announced(w2, out, **fake.kwargs()) == 1
+    assert fam.add_late_announced(w2, out, **fake.kwargs()) == 0
+
+
+def test_add_late_reads_every_category_and_reuses_cache(two_weeks):
+    out, w1, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": []})
+    cache = {}
+    for week in (w1, w2):
+        fam.add_late_announced(week, out, categories=("cs.CL", "cs.AI"), listing_cache=cache, **fake.kwargs())
+    assert sorted(fake.listing_calls) == [("cs.AI", "2026-09"), ("cs.CL", "2026-09")]
+
+
+# --- network helpers -------------------------------------------------------------
+
+class _Resp:
+    def __init__(self, text="", status_code=200, content=b""):
+        self.text = text
+        self.status_code = status_code
+        self.content = content or text.encode()
+
+    def raise_for_status(self):
+        if self.status_code >= 400:
+            raise requests.HTTPError(f"HTTP {self.status_code}")
+
+
+def _listing_page(ids, total):
+    entries = "".join(
+        f'<dt><a href ="/abs/{i}" title="Abstract" id="{i}">arXiv:{i}</a></dt>'
+        f"<dd>Comments: extends arXiv:2608.12345</dd>" for i in ids)
+    return f"<h3>Total of {total:,} entries</h3>{entries}"
+
+
+def _feed(*entry_ids):
+    entries = "".join(f"<entry><id>{i}</id><title>T</title><published>2026-09-01T00:00:00Z</published></entry>"
+                      for i in entry_ids)
+    return f'<feed xmlns="http://www.w3.org/2005/Atom">{entries}</feed>'.encode()
+
+
+def test_fetch_listing_ids_paginates_and_ignores_mentioned_ids(monkeypatch):
+    monkeypatch.setattr(fam, "_LISTING_PAGE_SIZE", 2)
+    pages = {0: _listing_page(["2609.00001", "2609.00002"], 3), 2: _listing_page(["2609.00003"], 3)}
+    seen = []
+
+    def fake_get(url, params, headers, timeout):
+        seen.append(params["skip"])
+        return _Resp(pages[params["skip"]])
+
+    ids = fam._fetch_listing_ids("2026-09", get=fake_get, sleep=lambda s: None)
+    assert seen == [0, 2]
+    assert ids == {(2609, 1), (2609, 2), (2609, 3)}
+
+
+def test_fetch_listing_ids_retries_throttling_and_network_errors():
+    responses = iter([_Resp(status_code=403), requests.exceptions.ConnectionError("reset"),
+                      _Resp(_listing_page(["2609.00001"], 1))])
+
+    def fake_get(*a, **k):
+        r = next(responses)
+        if isinstance(r, Exception):
+            raise r
+        return r
+
+    assert fam._fetch_listing_ids("2026-09", get=fake_get, sleep=lambda s: None) == {(2609, 1)}
+
+
+def test_fetch_listing_ids_raises_after_last_attempt():
+    with pytest.raises(requests.HTTPError):
+        fam._fetch_listing_ids("2026-09", get=lambda *a, **k: _Resp(status_code=429), sleep=lambda s: None)
+
+
+def test_fetch_arxiv_by_ids_batches_retries_and_drops_error_entries(monkeypatch):
+    monkeypatch.setattr(fam, "_ID_LIST_BATCH", 2)
+    responses = iter([
+        requests.exceptions.Timeout("slow"),
+        _Resp(content=_feed("http://arxiv.org/abs/2609.00001v1", "http://arxiv.org/api/errors#incorrect_id_format")),
+        _Resp(content=_feed("http://arxiv.org/abs/2609.00003v1")),
+    ])
+    calls = []
+
+    def fake_get(url, params, headers, timeout):
+        calls.append(params["id_list"])
+        r = next(responses)
+        if isinstance(r, Exception):
+            raise r
+        return r
+
+    papers = fam._fetch_arxiv_by_ids(["2609.00001", "2609.00002", "2609.00003"], get=fake_get, sleep=lambda s: None)
+    assert calls == ["2609.00001,2609.00002", "2609.00001,2609.00002", "2609.00003"]
+    assert [p["id"] for p in papers] == ["http://arxiv.org/abs/2609.00001v1", "http://arxiv.org/abs/2609.00003v1"]
+
+
+# --- main() ------------------------------------------------------------------------
+
+def test_main_add_late_and_no_add_late_are_mutually_exclusive(tmp_path):
+    with pytest.raises(SystemExit):
+        fam.main(["--add-late", "--no-add-late", "--output-dir", str(tmp_path)])
+
+
+def test_main_add_late_errors_when_week_missing(tmp_path):
+    with pytest.raises(SystemExit):
+        fam.main(["--add-late", "--end-date", "2026-09-28", "--output-dir", str(tmp_path)])
+
+
+def test_main_add_late_runs_without_fetching(tmp_path):
+    week = _write_week(tmp_path, "20260921", "20260928", ["2609.23955"])
+    with patch.object(fam, "fetch_and_save") as fetch, patch.object(fam, "add_late_announced") as late:
+        fam.main(["--add-late", "--end-date", "2026-09-28", "--output-dir", str(tmp_path),
+                  "--category", "cat:cs.CL OR cat:cs.AI"])
+    fetch.assert_not_called()
+    late.assert_called_once_with(week, output_dir=tmp_path, categories=("cs.AI", "cs.CL"), window_days=7)
+
+
+def test_main_late_failure_is_logged_with_marker_not_raised(tmp_path, caplog):
+    week = tmp_path / "arxiv_papers_20260921_to_20260928.jsonl"
+    with patch.object(fam, "fetch_and_save", return_value=week), \
+         patch.object(fam, "add_late_announced", side_effect=requests.HTTPError("HTTP 403")):
+        fam.main(["--end-date", "2026-09-28", "--output-dir", str(tmp_path)])
+    assert fam.LATE_FAILURE_MARKER in caplog.text
+    assert "--add-late --end-date 2026-09-28" in caplog.text
+
+
+def test_main_no_add_late_skips_the_step(tmp_path):
+    with patch.object(fam, "fetch_and_save", return_value=tmp_path / "x.jsonl"), \
+         patch.object(fam, "add_late_announced") as late:
+        fam.main(["--end-date", "2026-09-28", "--output-dir", str(tmp_path), "--no-add-late"])
+    late.assert_not_called()
