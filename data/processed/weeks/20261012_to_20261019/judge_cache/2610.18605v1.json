@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.18605v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T11:45:20.186787+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3580,
+  "verdicts": {
+    "Fore": {
+      "verdict": "false_positive",
+      "reason": "Fore is an abbreviation for 'Foresight' used as a column label in experimental tables, not the human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "Nasal describes a body region in a clinical case description, not the language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language (character bigrams) used in the matcher, indicating the paper includes Chinese language in its experiments; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

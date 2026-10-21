@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19696v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T10:13:11.602748+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2892,
+  "verdicts": {
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "The word 'crow' appears as an object name in a vocabulary list, not as a reference to the Crow language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "The word 'mango' appears as an object name in a vocabulary list, not as a reference to the Mango language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pear": {
+      "verdict": "false_positive",
+      "reason": "The word 'pear' appears as an object name in a vocabulary list, not as a reference to the Pear language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to English words used as symbols in the communication protocol, but the paper does not study English language, only mentions it, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

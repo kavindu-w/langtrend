@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.21440v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T07:13:21.032030+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11761,
+  "verdicts": {
+    "Aer": {
+      "verdict": "false_positive",
+      "reason": "Aer appears only as part of the metric acronym AER, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae appears only as part of the metric abbreviation MAE, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Maya": {
+      "verdict": "false_positive",
+      "reason": "Maya appears as a person name in the text, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the speech data and the controlled dataset used in the experiments, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

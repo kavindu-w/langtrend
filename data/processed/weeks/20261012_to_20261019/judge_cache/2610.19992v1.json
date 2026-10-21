@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19992v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T09:10:29.701735+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11753,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'MAE mean absolute error', an abbreviation for a metric, not the Mae language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'GreekBarBench', a dataset name, not the Greek language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references a Thai bar study and Thai bar essays as examples, but the paper only mentions them without building resources; thus mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references KCL-Essay Korean bar-exam questions as a dataset example, but the paper only mentions Korean language contexts; thus mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references PLawBench Chinese practice tasks and LexRubric Chinese consultation as dataset examples, but the paper only mentions Chinese language contexts; thus mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references a Polish procurement appeals-board exam and a Polish case as examples, but the paper only mentions Polish language contexts; thus mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet states the search was performed 'in English', a language of the methodology, not a studied language; thus mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippet notes 'BenGER is our own', indicating the authors built a German case solutions benchmark, so the paper builds resources for German; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

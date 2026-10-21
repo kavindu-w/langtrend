@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.20392v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T08:44:14.688659+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3420,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "Dia appears only as part of task identifiers (e.g., En.Dia) and not as a language name, indicating it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the evaluation tasks (En.Sum, En.QA, En.MC, En.Dia) and thus is studied in the paper.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

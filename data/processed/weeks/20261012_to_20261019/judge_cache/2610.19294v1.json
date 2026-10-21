@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19294v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T10:06:27.521017+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4939,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears only in the phrase \"Latin-scripted languages\", referring to script, not the Latin language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is explicitly referenced as a target language and dataset (babylm-nld) used for training and evaluation; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is explicitly referenced as a target language and dataset (babylm-zho) used for training and evaluation; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language and dataset (BabyLM-2026-Strict) used for training and evaluation; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

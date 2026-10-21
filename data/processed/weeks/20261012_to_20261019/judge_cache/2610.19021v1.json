@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19021v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T11:02:30.735310+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5804,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier appears as part of a commit message feature name 'bulk carrier', not the Carrier language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae appears as the metric abbreviation MAE (Mean Absolute Error) in tables, not the Mae language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19165v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T11:06:17.458824+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4593,
+  "verdicts": {
+    "Duke": {
+      "verdict": "false_positive",
+      "reason": "Duke refers to Duke University (a college) in the snippet, not the language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wichita": {
+      "verdict": "false_positive",
+      "reason": "Wichita refers to Wichita State (a university) and a team name, not the language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the benchmark (English-only scope) and the paper builds an English-only dataset, implying the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

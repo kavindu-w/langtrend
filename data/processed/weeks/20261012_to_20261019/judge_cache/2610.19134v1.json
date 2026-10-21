@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19134v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T10:47:01.111765+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11987,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "Ami appears as part of dataset names (AMI corpus) and test set abbreviations, not as the language itself → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as a language (e.g., Chinese dialect support) and is part of the multilingual evaluation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is repeatedly referenced as a language in experiments, analysis, and results (e.g., English WER, English adapters) → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

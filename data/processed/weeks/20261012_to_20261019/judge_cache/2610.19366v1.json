@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19366v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T11:16:52.444261+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3389,
+  "verdicts": {
+    "Emem": {
+      "verdict": "false_positive",
+      "reason": "Emem appears as part of benchmark names (e.g., eMEM-Bench, ReMemBench) and does not refer to a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Rema": {
+      "verdict": "false_positive",
+      "reason": "Rema appears as the acronym ReMA for a memory system/method (e.g., ReMA (Chen et al., 2026a)) and not as a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

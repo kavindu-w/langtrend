@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19704v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T09:27:08.734490+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9865,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the model name \"GPT-6 Luna\", not a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is mentioned as a language in related work (e.g., other multilingual evaluations include Bengali) but not studied in the paper, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used as a prompt language for evaluation and translation but not studied as a target language, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

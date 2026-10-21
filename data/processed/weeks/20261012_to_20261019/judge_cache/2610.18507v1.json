@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.18507v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T11:51:03.825006+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2104,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col refers to column numbers (col 1, col 2, col 3) in the snippet, not the Col language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish refers to the verb 'polish' in the snippet, not the Polish language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

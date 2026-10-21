@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19331v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-21T10:38:57.745041+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11994,
+  "verdicts": {
+    "Maa": {
+      "verdict": "false_positive",
+      "reason": "The term 'maa.org' refers to the Mathematical Association of America, not the Maa language; verdict is false_positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The paper uses Korean data for tokenizer training and pre-training corpus; verdict is studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper uses Chinese data for tokenizer training and pre-training corpus; verdict is studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English data for tokenizer training, pre-training, SFT, and evaluation; verdict is studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The paper develops a sovereign Japanese LLM, using Japanese data for training and evaluation; verdict is studied",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

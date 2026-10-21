@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19536v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T09:52:08.518402+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10905,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col refers to column abbreviations (COLS, COLR) in table formatting, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of model names (GPT-6 Luna, GPT-6 Luna Decisions), not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

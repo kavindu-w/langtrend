@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.18151v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T12:20:30.246259+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3832,
+  "verdicts": {
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek appears only as a script used for homoglyph attacks in the confusable table, not as a language studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is referenced only as the Latin script/alphabet for character normalization, not as the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears only as a column label for an attack type (e.g., 'polish word char homogl zero-w'), not as the Polish language being studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the corpora and the primary text used in experiments, indicating the paper studies English text detection.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

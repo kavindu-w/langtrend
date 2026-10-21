@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19131v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T10:31:35.316664+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2916,
+  "verdicts": {
+    "Dima": {
+      "verdict": "false_positive",
+      "reason": "Dima refers to authors (Dima et al.) in the citation, not the language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tha": {
+      "verdict": "false_positive",
+      "reason": "Tha does not appear in the snippet and is not a language reference, indicating a false positive detection.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is mentioned as one of the languages used in the remarks field, a mention-only reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as one of the languages used in the remarks field, a mention-only reference.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.20172v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T09:16:57.195410+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8955,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "Ami refers to the AMI meeting corpus dataset, not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language used in the benchmark, and the paper builds and evaluates resources for it, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

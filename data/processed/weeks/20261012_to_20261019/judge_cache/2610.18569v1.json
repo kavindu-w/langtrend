@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.18569v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T11:31:49.315413+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5593,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears only as part of model names (e.g., GPT-5.6-Luna), not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Danish": {
+      "verdict": "false_positive",
+      "reason": "Danish appears only as part of 'Danish flag' and 'Denmark', not as reference to the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French appears only as part of 'French horn', not as reference to the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the cue word corpus used for computing familiarity, indicating the paper works with English language data.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

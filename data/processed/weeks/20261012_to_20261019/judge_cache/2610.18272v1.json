@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.18272v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T12:12:30.451691+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4786,
+  "verdicts": {
+    "Nenets": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the Nenets people (ethnic group) and their reindeer, not the Nenets language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "The snippet describes searching English machine translations of Persian documents, indicating the paper uses Persian language documents, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippet describes searching English machine translations of Russian documents, indicating the paper uses Russian language documents, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet describes searching English machine translations of Chinese documents, indicating the paper uses Chinese language documents, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet notes that NeuCLIRBench uses English queries and English document translations, showing the paper evaluates on English language tasks, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions Japanese consumers (nationality) rather than the Japanese language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

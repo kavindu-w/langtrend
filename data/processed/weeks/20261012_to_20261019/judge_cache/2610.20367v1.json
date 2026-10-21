@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.20367v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T08:45:45.197895+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5285,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to a vision-language embedding model (Jina-v4) used as a baseline, not the Jina language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the benchmark subsets (e.g., ViDoRe (English)) and is part of the paper's evaluation, so the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to the language of the benchmark subsets (e.g., ViDoRe (French), French Finance) and is part of the paper's evaluation, so the paper studies French.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.21204v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T07:51:27.262776+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5873,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu appears as part of model names (e.g., Llama-3.1-Tulu-3-8B), not as the language Tulu.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is mentioned as a language where CoT encourages literal interpretations (Park et al., 2024).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not contain the word 'Polish', so we cannot confirm it refers to the language; insufficient evidence to deem false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as a language in multiple places: machine-translated German/Chinese slices, Chinese system prompt, Chinese test items, and Chinese results.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of headline items and the primary test language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is referenced as a language in machine-translated slices and test items.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

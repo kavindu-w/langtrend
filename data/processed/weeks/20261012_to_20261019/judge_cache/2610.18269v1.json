@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.18269v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T12:02:22.412613+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10665,
+  "verdicts": {
+    "Ache": {
+      "verdict": "false_positive",
+      "reason": "Ache refers to the English pain descriptor 'ache' in the lexicon, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "Mal appears as the Spanish word 'mal' (pain) in the lexicon, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek is mentioned only as the source of the '-algia' suffix, not as a language studied, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is listed in per‑language pain lexicons, prompts, and annotation protocol, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears in per‑language pain lexicons, prompts, and annotation protocol, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is included in per‑language pain lexicons, prompts, and annotation protocol, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is listed in per‑language pain lexicons, prompts, and annotation protocol, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

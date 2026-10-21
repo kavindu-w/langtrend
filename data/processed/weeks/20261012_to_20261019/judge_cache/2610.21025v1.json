@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.21025v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T08:09:33.092939+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6047,
+  "verdicts": {
+    "Ottawa": {
+      "verdict": "false_positive",
+      "reason": "Ottawa appears as a city name (capital of Canada) in a task example, not referring to the Ottawa language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The corpus covers Bengali among other languages and the paper uses it in swap experiments, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is listed among the languages covered in the multilingual Wikipedia slices used for experiments, so the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "studied",
+      "reason": "Thai is included in the multilingual corpus and used in the swap experiments, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean appears in the list of languages covered in the corpus and is used in the experiments, so the paper studies Korean.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is part of the multilingual Wikipedia slices and used in the swap tasks, indicating the paper studies Arabic.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is listed among the languages in the corpus and used in the experiments, so the paper studies Japanese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to script (Latin script) in the text, not the Latin language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is part of the multilingual corpus and used in the experiments, indicating the paper studies Russian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears in the corpus and is used in the experiments, so the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is part of the multilingual corpus and used in the experiments, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

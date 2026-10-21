@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19028v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T10:54:34.546261+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5289,
+  "verdicts": {
+    "Karen": {
+      "verdict": "false_positive",
+      "reason": "Karen refers to author Karen Joy Fowler in the snippet, not the Karen language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole refers to a metaphorical endpoint of a spectrum, not the Pole language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language throughout the snippets, indicating the paper studies English, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

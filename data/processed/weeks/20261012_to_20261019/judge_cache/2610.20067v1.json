@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.20067v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T09:12:59.766869+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3436,
+  "verdicts": {
+    "Dido": {
+      "verdict": "false_positive",
+      "reason": "Dido refers to a singer/person in the snippet, not the Dido language; thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yale": {
+      "verdict": "false_positive",
+      "reason": "Yale refers to Yale University, a place, not the Yale language; thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French refers to the French presidential election (country reference), not the French language; thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German refers to a German engineer, a nationality, not the German language; thus false positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

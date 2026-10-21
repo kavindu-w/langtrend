@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19848v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T09:10:31.279018+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4571,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin refers to a romanization system for Chinese, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the language/script (e.g., Chinese characters and station names) mentioned in the snippets, so it's a mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the language (e.g., English benchmarks and option terms) mentioned in the snippets, so it's a mention only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

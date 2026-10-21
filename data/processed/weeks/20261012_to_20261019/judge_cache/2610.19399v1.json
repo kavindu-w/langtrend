@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19399v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T10:19:20.245091+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11999,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a model name (GPT-5.6 luna) in the snippets, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin-script mixing (script) in the snippets, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean refers to the Korean language being studied (neologisms, benchmarks, components) in the snippets, implying studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used for transfer experiments and benchmarks in the snippets, implying studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

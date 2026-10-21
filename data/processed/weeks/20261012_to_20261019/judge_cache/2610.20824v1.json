@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.20824v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T09:07:02.227202+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11990,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae appears as the metric 'mae' (mean absolute error) in the snippet, not the language Mae, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lingua Franca": {
+      "verdict": "false_positive",
+      "reason": "Lingua Franca is used as the phrase 'lingua franca' meaning a common language, not the specific language Lingua Franca, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu refers to the Tulu dataset/tool for instruction‑following (e.g., Tulu‑personas, tulu‑sft‑personas‑if), not the language Tulu, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wolof": {
+      "verdict": "studied",
+      "reason": "Wolof is the target language of the adaptation, with dedicated datasets, prompts, and evaluation tasks, so the paper studies Wolof.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used throughout the paper for benchmarks, prompt templates, and evaluation (e.g., English to French/Wolof translation tasks), indicating the paper evaluates on English, so English is studie",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French appears as a language in bilingual datasets, evaluation tasks, and prompt templates (e.g., French‑Wolof, French‑English translation), showing the paper evaluates on French, so French is studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

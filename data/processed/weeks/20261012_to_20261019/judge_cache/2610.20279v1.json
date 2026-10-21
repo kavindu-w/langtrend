@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.20279v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T08:31:19.053752+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10225,
+  "verdicts": {
+    "Saraiki": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Saraiki as the target language for POS tagging, dataset creation, and evaluation, indicating the paper studies Saraiki.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sindhi": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention Sindhi only as a language related to Saraiki, with no work on Sindhi itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Punjabi": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention Punjabi only as a related language and as a model focus, with no work on Punjabi itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to Urdu only as a related language and as part of a model name (Urdu RoBERTa small), not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to Arabic only as part of the 'Perso-Arabic script', not the Arabic language itself, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

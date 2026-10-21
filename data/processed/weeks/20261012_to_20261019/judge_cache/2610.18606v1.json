@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.18606v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T11:38:23.006596+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3335,
+  "verdicts": {
+    "Thai": {
+      "verdict": "false_positive",
+      "reason": "Thai appears only as part of 'dried Thai chilies', a food ingredient, not the Thai language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is explicitly referenced as the language of the evaluated datasets and translations, a mention of the language itself.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

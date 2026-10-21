@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.18762v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T11:11:50.316598+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10797,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the model openai/gpt-5.6-luna and other judge names, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to sentinel payloads in the reproducibility repository, not a human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the HumAID corpus and generated reports, which the paper uses in its experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

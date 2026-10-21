@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.17908v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-10-21T12:29:03.964459+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9258,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a specific version of a large language model (gpt-5.6-luna), not a human language, implying a false positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language used for translation evaluation and is explicitly mentioned as the target language in the dataset and experiments, implying it is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is the source language of the manga dataset used for the translation evaluation experiments, implying it is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}
