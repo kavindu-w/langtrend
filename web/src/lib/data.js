@@ -235,6 +235,9 @@ export function loadAllWeeksData() {
         weekEnd: manifest.week_end ?? null,
         papers: manifest.counts?.papers ?? 0,
         flaggedPapers: manifest.counts?.flagged_papers ?? 0,
+        // Papers submitted before this week but announced in it (moderation
+        // holds, delayed batches): counted in `papers`, absent from dailySeries.
+        lateAnnounced: manifest.counts?.late_announced ?? 0,
         uniqueLanguages: manifest.counts?.unique_languages ?? 0,
         uniqueLanguagesMentionedOnly: manifest.counts?.unique_languages_mentioned_only ?? 0,
         languageCounts: Array.isArray(manifest.language_counts) ? manifest.language_counts : [],

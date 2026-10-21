@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import 'katex/dist/katex.min.css';
 import { getBuildInfoOnce } from '../lib/build-info.js';
+import { compactNumber, fetchVisitCount, fetchVisitCountOnce } from '../lib/site-stats.js';
 
 const { title = 'LangTrend', description = 'LangTrend dashboard for language inclusion in NLP papers' } = Astro.props as {
   title?: string;
@@ -19,6 +20,13 @@ const build = getBuildInfoOnce({ repoUrl });
 // local dev and forks, so neither tracking nor the visit counter load there.
 const goatCounterCode = import.meta.env.PUBLIC_GOATCOUNTER_CODE ?? '';
 const digestEnabled = Boolean(import.meta.env.PUBLIC_BUTTONDOWN_USERNAME);
+// Visit count as of this build; the footer script refreshes it live.
+// One request per production build; per request under `astro dev`, so a long
+// dev session doesn't keep showing the count from when it started.
+const visitSnapshot = goatCounterCode
+  ? await (import.meta.env.DEV ? fetchVisitCount(goatCounterCode) : fetchVisitCountOnce(goatCounterCode))
+  : null;
+const visitLabel = visitSnapshot ? `${compactNumber(visitSnapshot)} ${visitSnapshot === 1 ? 'visit' : 'visits'}` : '';
 ---
 <!doctype html>
 <html lang="en">
@@ -119,9 +127,9 @@ const digestEnabled = Boolean(import.meta.env.PUBLIC_BUTTONDOWN_USERNAME);
               class="footer-usage"
               data-goatcounter-code={goatCounterCode}
               data-repo-url={repoUrl}
-              hidden
+              hidden={!visitLabel}
             >
-              <span data-stat="visits" hidden></span>
+              <span data-stat="visits" hidden={!visitLabel}>{visitLabel}</span>
               <span data-stat="stars" hidden></span>
               <span data-stat="forks" hidden></span>
             </p>
@@ -138,6 +146,7 @@ const digestEnabled = Boolean(import.meta.env.PUBLIC_BUTTONDOWN_USERNAME);
 
     <script>
       import { compactNumber, goatCounterTotalUrl, parseGoatCounterCount, parseRepoStats, repoApiUrl } from '../lib/site-stats.js';
+      import { syncLangParam } from '../lib/subscribe-form.js';
 
       const usage = document.getElementById('footer-usage');
       if (usage) {
@@ -164,14 +173,7 @@ const digestEnabled = Boolean(import.meta.env.PUBLIC_BUTTONDOWN_USERNAME);
 
       // Carry the paper table's current ?lang= filter to the signup form, so
       // "Weekly digest" from a Sinhala-filtered view pre-selects Sinhala.
-      const digestLink = document.getElementById('footer-digest-link') as HTMLAnchorElement | null;
-      digestLink?.addEventListener('click', () => {
-        const lang = new URLSearchParams(location.search).get('lang');
-        if (!lang) return;
-        const url = new URL(digestLink.href);
-        url.searchParams.set('lang', lang);
-        digestLink.href = url.toString();
-      });
+      syncLangParam(document.getElementById('footer-digest-link') as HTMLAnchorElement | null);
 
       const goTopButton = document.getElementById('go-top-button');
 

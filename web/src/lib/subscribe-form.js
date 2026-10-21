@@ -87,3 +87,26 @@ export function languagesMetadata(selected) {
 export function subscribeActionUrl(username) {
   return username ? `https://buttondown.com/api/emails/embed-subscribe/${encodeURIComponent(username)}` : null;
 }
+
+/** Link href with the current page's ?lang= (if any) carried over; the base href unchanged otherwise. */
+export function hrefWithLang(baseHref, pageSearch) {
+  const lang = new URLSearchParams(pageSearch ?? '').get('lang');
+  if (!baseHref || !lang) return baseHref;
+  const url = new URL(baseHref);
+  url.searchParams.set('lang', lang);
+  return url.toString();
+}
+
+/**
+ * Keep a digest link's ?lang= in step with the page's. Set on load, and again
+ * just before it's followed — pointerdown covers middle/ctrl-click (which
+ * don't fire `click`), focus covers keyboard — since the paper table can
+ * change ?lang= after load.
+ */
+export function syncLangParam(link) {
+  if (!link) return;
+  const base = link.href;
+  const update = () => { link.href = hrefWithLang(base, location.search); };
+  update();
+  for (const event of ['pointerdown', 'focus', 'click']) link.addEventListener(event, update);
+}
