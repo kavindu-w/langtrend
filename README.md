@@ -21,9 +21,9 @@ _Judged with (mixed — fallback used):_ `cohere/north-mini-code:free` (1,270), 
 
 | Metric | This week | All-time |
 |--------|----------:|---------:|
-| Papers scanned | 589 | 12,954 |
-| Papers with language mentions | 236 | 5,705 |
-| Unique languages detected | 130 | 541 |
+| Papers scanned | 620 | 14,404 |
+| Papers with language mentions | 253 | 6,609 |
+| Unique languages detected | 138 | 773 |
 | Weeks tracked | — | 24 (since 2026-04-27) |
 
 <!-- LANGTREND_STATS_END -->
