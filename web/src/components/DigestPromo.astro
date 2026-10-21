@@ -1,0 +1,23 @@
+---
+// Hero button pointing at the weekly digest signup (About page), which
+// visitors otherwise only find by reading that page. Hidden when the
+// newsletter isn't configured (PUBLIC_BUTTONDOWN_USERNAME unset: local dev, forks).
+const digestEnabled = Boolean(import.meta.env.PUBLIC_BUTTONDOWN_USERNAME);
+const href = `${import.meta.env.BASE_URL}about/#subscribe`;
+---
+{digestEnabled && (
+  <a id="digest-promo-link" class="secondary-btn" href={href} title="One email a week with new cs.CL papers for the languages you follow">
+    <svg class="navicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22Zm7-6V11a7 7 0 0 0-5.5-6.84V3a1.5 1.5 0 0 0-3 0v1.16A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2Z" fill="currentColor" />
+    </svg>
+    <span>Get the Weekly Digest</span>
+  </a>
+)}
+
+<script>
+  import { syncLangParam } from '../lib/subscribe-form.js';
+
+  // Same as the footer link: carry the paper table's ?lang= filter to the
+  // signup form, so subscribing from a Sinhala-filtered view pre-selects Sinhala.
+  syncLangParam(document.getElementById('digest-promo-link') as HTMLAnchorElement | null);
+</script>

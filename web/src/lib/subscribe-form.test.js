@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { MAX_LANGUAGES, languagesFromParam, languagesMetadata, rankLanguageOptions, subscribeActionUrl, suggestLanguages } from './subscribe-form.js';
+import { MAX_LANGUAGES, hrefWithLang, languagesFromParam, languagesMetadata, rankLanguageOptions, subscribeActionUrl, suggestLanguages } from './subscribe-form.js';
 
 const CLASSES = { 0: ['Abau', "N'Ko", 'Gan'], 2: ['Sinhala', 'Sindhi'], 3: ['Tamil'], 5: ['English'] };
 const WEEKS = [
@@ -73,5 +73,18 @@ describe('languagesMetadata', () => {
     expect(languagesMetadata([])).toBe('');
     expect(languagesMetadata(undefined)).toBe('');
     expect(languagesMetadata(['A,B', 'Sinhala'])).toBe(',Sinhala,');
+  });
+});
+
+describe('hrefWithLang', () => {
+  const base = 'https://kavindu-w.github.io/langtrend/about/#subscribe';
+
+  it('carries ?lang= over, keeping the hash', () => {
+    expect(hrefWithLang(base, '?lang=Sinhala&q=x')).toBe('https://kavindu-w.github.io/langtrend/about/?lang=Sinhala#subscribe');
+  });
+
+  it('returns the base href when the page has no ?lang=', () => {
+    expect(hrefWithLang(base, '?q=x')).toBe(base);
+    expect(hrefWithLang(base, '')).toBe(base);
   });
 });

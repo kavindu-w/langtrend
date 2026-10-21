@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { compactNumber, goatCounterTotalUrl, parseGoatCounterCount, parseRepoStats, repoApiUrl } from './site-stats.js';
+import { compactNumber, fetchVisitCount, goatCounterTotalUrl, parseGoatCounterCount, parseRepoStats, repoApiUrl } from './site-stats.js';
 
 describe('compactNumber', () => {
   it.each([
@@ -61,5 +61,25 @@ describe('URL helpers', () => {
     expect(repoApiUrl('https://github.com/kavindu-w/langtrend')).toBe('https://api.github.com/repos/kavindu-w/langtrend');
     expect(repoApiUrl('https://github.com/kavindu-w/langtrend/')).toBe('https://api.github.com/repos/kavindu-w/langtrend');
     expect(repoApiUrl('https://example.com')).toBeNull();
+  });
+});
+
+describe('fetchVisitCount', () => {
+  const ok = (body) => async () => ({ ok: true, json: async () => body });
+
+  it('returns the parsed total', async () => {
+    await expect(fetchVisitCount('kavindu-w', { fetchImpl: ok({ count: '1,234' }) })).resolves.toBe(1234);
+  });
+
+  it('requests the TOTAL counter for the code', async () => {
+    let seen;
+    await fetchVisitCount('abc', { fetchImpl: async (url) => { seen = url; return { ok: true, json: async () => ({ count: '1' }) }; } });
+    expect(seen).toBe('https://abc.goatcounter.com/counter/TOTAL.json');
+  });
+
+  it('is null without a code, on HTTP errors, and on network failures', async () => {
+    await expect(fetchVisitCount('', { fetchImpl: ok({ count: '5' }) })).resolves.toBeNull();
+    await expect(fetchVisitCount('abc', { fetchImpl: async () => ({ ok: false }) })).resolves.toBeNull();
+    await expect(fetchVisitCount('abc', { fetchImpl: async () => { throw new Error('offline'); } })).resolves.toBeNull();
   });
 });

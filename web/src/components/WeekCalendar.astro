@@ -1,8 +1,19 @@
 ---
-const { activeWeek, availableWeeks = [] } = Astro.props as { activeWeek?: string; availableWeeks?: string[] };
+import { scanSummary } from '../lib/week-calendar.js';
+
+const { activeWeek, availableWeeks = [], calendarStats = null } = Astro.props as {
+  activeWeek?: string;
+  availableWeeks?: string[];
+  calendarStats?: Record<string, any> | null; // buildCalendarStats() output
+};
+const summary = scanSummary(calendarStats);
+// Only the client needs days/weeks; keep the attribute small.
+const statsAttr = calendarStats
+  ? JSON.stringify({ days: calendarStats.days, weeks: calendarStats.weeks, firstWeek: calendarStats.firstWeek, lastDay: calendarStats.lastDay })
+  : '';
 ---
 
-<div class="calendar-card week-calendar-panel" data-active-week={activeWeek ?? ''} data-available-weeks={JSON.stringify(availableWeeks)} data-base-url={import.meta.env.BASE_URL}>
+<div class="calendar-card week-calendar-panel" data-active-week={activeWeek ?? ''} data-available-weeks={JSON.stringify(availableWeeks)} data-calendar-stats={statsAttr} data-base-url={import.meta.env.BASE_URL}>
 
   <!-- View mode subtitle + tabs -->
   <p class="calendar-mode-label">View papers</p>
@@ -57,6 +68,11 @@ const { activeWeek, availableWeeks = [] } = Astro.props as { activeWeek?: string
     </div>
   </div>
 
-  <p class="placeholder-text small" id="calendar-hint-text">Click a week to view its data. (Note: Data available from April 27, 2026.)</p>
+  {summary && <p class="calendar-scan-summary" id="calendar-scan-summary">{summary}</p>}
+  <p class="placeholder-text small" id="calendar-hint-text">
+    {summary
+      ? 'Numbers in parentheses are cs.CL papers scanned per submission day. The right column is each week\'s total, which also counts papers announced that week but submitted earlier, so it can exceed the sum of its days; a dash marks a day whose papers weren\'t in that week\'s scan and are counted in the next week. Click a week to view its data.'
+      : 'Click a week to view its data. (Note: Data available from April 27, 2026.)'}
+  </p>
   <script src="../scripts/week-calendar-client.js"></script>
 </div>

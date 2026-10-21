@@ -19,8 +19,14 @@
                 <mxCell id="s1-oai" value="③ OAI-PMH Harvest (fallback 2)&#xa;oaipmh.arxiv.org&#xa;&#xa;Resumption token pagination&#xa;±2-day submission window buffer&#xa;Cross-listing filter via ID prefix" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#555555;fontSize=11;" parent="s1" vertex="1">
                     <mxGeometry x="610" y="117" width="215" height="105" as="geometry"/>
                 </mxCell>
-                <mxCell id="s1-out" value="data/raw/…/arxiv_papers_*.jsonl&#xa;id · title · abstract · authors&#xa;categories · pdf_url · _fetch_source" style="shape=cylinder3;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalLabelPosition=middle;" parent="s1" vertex="1">
+                <mxCell id="s1-out" value="data/raw/…/arxiv_papers_*.jsonl&#xa;id · title · abstract · authors&#xa;categories · pdf_url · _fetch_source&#xa;(+ _late_announced)" style="shape=cylinder3;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalLabelPosition=middle;" parent="s1" vertex="1">
                     <mxGeometry x="860" y="52" width="280" height="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="s1-late" value="④ Late-announced papers (after every fetch)&#xa;held / delayed: announced this week, submitted earlier&#xa;arxiv.org/list cs.CL → this week&#39;s ID range → id_list" style="rounded=1;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" parent="s1" vertex="1">
+                    <mxGeometry x="860" y="168" width="280" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="s1-e-late" value="" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#d79b00;" parent="s1" source="s1-late" target="s1-out" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="s1-fb0" value="fallback on &#xa;persistent errors" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#B31B1B;fontSize=10;fontStyle=2;" parent="s1" source="s1-direct" target="s1-api" edge="1">
                     <mxGeometry relative="1" as="geometry"/>

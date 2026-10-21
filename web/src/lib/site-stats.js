@@ -36,3 +36,26 @@ export function repoApiUrl(repoUrl) {
   const match = /github\.com\/([^/]+)\/([^/]+?)\/?$/.exec(repoUrl ?? '');
   return match ? `https://api.github.com/repos/${match[1]}/${match[2]}` : null;
 }
+
+// Build-time snapshot of the visit count, rendered into the page so the
+// footer shows it even where the browser's live request is blocked (privacy
+// extensions block *.goatcounter.com, while GitHub's API usually passes). The
+// client still refreshes it live when it can. Never fails the build: any
+// error or slow response just means no snapshot.
+export async function fetchVisitCount(code, { fetchImpl = globalThis.fetch, timeoutMs = 5000 } = {}) {
+  const url = goatCounterTotalUrl(code);
+  if (!url || typeof fetchImpl !== 'function') return null;
+  try {
+    const res = await fetchImpl(url, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(timeoutMs) });
+    return res.ok ? parseGoatCounterCount(await res.json()) : null;
+  } catch {
+    return null;
+  }
+}
+
+// One request per build, shared by every page (a build renders ~30).
+let visitCountPromise;
+export function fetchVisitCountOnce(code, options) {
+  visitCountPromise ??= fetchVisitCount(code, options);
+  return visitCountPromise;
+}

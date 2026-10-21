@@ -1,5 +1,6 @@
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import { countLabel, dayHeaderFormat, dayLabel, EMPTY_DAY_NOTE, isEmptyTrackedDay, labelledCount, weekTooltip } from '../lib/week-calendar.js';
 
 // ── Pure helpers (no DOM) ────────────────────────────────────────────────────
 
@@ -44,6 +45,12 @@ function buildWeekLabel(slug) {
 const panel = document.querySelector('.week-calendar-panel');
 const availableWeeks = JSON.parse(panel?.dataset.availableWeeks || '[]');
 const baseUrl = (panel?.dataset.baseUrl || '').replace(/\/+$/, '');
+// Per-day / per-week paper counts (buildCalendarStats); empty when not passed.
+const calendarStats = (() => {
+  try { return JSON.parse(panel?.dataset.calendarStats || '{}'); } catch { return {}; }
+})();
+const dayCounts = calendarStats.days || {};
+const weekCounts = calendarStats.weeks || {};
 
 const earliestAvailable = availableWeeks.length
   ? new Date(availableWeeks[0] + 'T12:00:00')
@@ -313,26 +320,45 @@ document.querySelectorAll('.mode-tab').forEach(tab => {
 // ── FullCalendar ─────────────────────────────────────────────────────────────
 
 function renderWeekNumbers() {
-  root.querySelectorAll('.fc-wknum').forEach(el => el.remove());
+  root.querySelectorAll('.fc-wknum, .fc-wktotal').forEach(el => el.remove());
   const rootRect = root.getBoundingClientRect();
+  const seenRows = new Set();
   root.querySelectorAll('tr').forEach(row => {
     const firstCell = row.querySelector('td.fc-daygrid-day[data-date]');
-    if (!firstCell) return;
+    // FullCalendar's outer section row also contains the first week's cells,
+    // so dedupe by date or that week's badges are drawn twice.
+    if (!firstCell || seenRows.has(firstCell.getAttribute('data-date'))) return;
+    seenRows.add(firstCell.getAttribute('data-date'));
     const date = new Date(firstCell.getAttribute('data-date') + 'T12:00:00');
     const cellRect = firstCell.getBoundingClientRect();
+    const top = Math.round(cellRect.top - rootRect.top + cellRect.height / 2) + 'px';
     const badge = document.createElement('span');
     badge.className = 'fc-wknum';
     badge.textContent = isoWeekNumber(date);
-    badge.style.top = Math.round(cellRect.top - rootRect.top + cellRect.height / 2) + 'px';
+    badge.style.top = top;
     root.appendChild(badge);
+
+    // Week total in the right gutter: the week's papers scanned, so a row
+    // with data reads as "recorded" at a glance.
+    const week = weekCounts[isoDate(startOfWeek(date))];
+    const label = countLabel(week?.papers);
+    if (label) {
+      const total = labelledCount(document, 'fc-wktotal', label, `Week ${isoWeekNumber(date)}: ${weekTooltip(week)}`);
+      total.title = weekTooltip(week);
+      total.style.top = top;
+      root.appendChild(total);
+    }
   });
 }
+
+const narrowScreen = window.matchMedia('(max-width: 640px)');
 
 const calendar = new Calendar(root, {
   plugins: [dayGridPlugin],
   initialView: 'dayGridMonth',
   headerToolbar: false,
   firstDay: 1,
+  dayHeaderFormat: dayHeaderFormat(narrowScreen.matches),
   height: 'auto',
   datesSet: (info) => {
     renderWeekNumbers();
@@ -343,6 +369,23 @@ const calendar = new Calendar(root, {
     if (yearSel) yearSel.value = d.getFullYear();
     if (monthSel) monthSel.value = d.getMonth() + 1;
   },
+  // Papers scanned that submission day, under the date number.
+  dayCellDidMount: (arg) => {
+    const date = isoDate(arg.date);
+    const top = arg.el.querySelector('.fc-daygrid-day-top');
+    if (!top) return;
+    const label = dayLabel(dayCounts[date]); // parenthesised so it doesn't read as another date
+    let visible, spoken;
+    if (label) {
+      [visible, spoken] = [label.text, label.aria];
+    } else if (isEmptyTrackedDay(date, calendarStats)) {
+      // Inside the tracked range but empty: the batch went to the next week.
+      [visible, spoken] = ['(–)', EMPTY_DAY_NOTE];
+    } else {
+      return;
+    }
+    top.appendChild(labelledCount(document, 'fc-day-count', visible, spoken));
+  },
   dayCellClassNames: (arg) => {
     const weekStartStr = isoDate(startOfWeek(arg.date));
     if (weekStartStr < earliestStr || weekStartStr > latestStr) return ['unavailable-week'];
@@ -351,6 +394,9 @@ const calendar = new Calendar(root, {
 });
 
 calendar.render();
+narrowScreen.addEventListener('change', (e) => {
+  calendar.setOption('dayHeaderFormat', dayHeaderFormat(e.matches));
+});
 window.addEventListener('resize', () => requestAnimationFrame(renderWeekNumbers));
 
 // Populate and wire up the year/month jump selects (listeners added inside)

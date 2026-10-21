@@ -3,7 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import TrendCharts from '../components/TrendCharts.astro';
 import PaperTable from '../components/PaperTable.astro';
 import WeekCalendar from '../components/WeekCalendar.astro';
+import DigestPromo from '../components/DigestPromo.astro';
 import { loadSiteData, getAvailableWeeks, loadAllWeeksData } from '../lib/data.js';
+import { buildCalendarStats } from '../lib/week-calendar.js';
 
 const data = loadSiteData();
 const availableWeeks = getAvailableWeeks();
@@ -38,10 +40,11 @@ const currentWeekSlug: string = data.manifest.week_start ?? availableWeeks[avail
           </svg>
           <span>About The Pipeline</span>
         </a>
+        <DigestPromo />
       </div>
     </div>
 
-    <WeekCalendar activeWeek={data.manifest.week_start ?? undefined} availableWeeks={availableWeeks} />
+    <WeekCalendar activeWeek={data.manifest.week_start ?? undefined} availableWeeks={availableWeeks} calendarStats={buildCalendarStats(allWeeksData)} />
   </section>
 
   <details id="flagged-papers" class="paper-collapse panel" open>

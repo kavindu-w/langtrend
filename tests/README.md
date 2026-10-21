@@ -24,7 +24,7 @@ tests/
 | `test_html_processor.py` | arXiv HTML fetch + per-section extraction (`langtrend/html_processor.py`). |
 | `test_pdf_fallback.py` | Docling-based PDF text extraction (`langtrend/pdf_processor.py`). |
 | `test_manifest.py` | Manifest assembly + `save_json` helper (`langtrend/manifest.py`). |
-| `test_fetch_arxiv_metadata.py` | arXiv API/OAI-PMH metadata fetching (`scripts/fetch_arxiv_metadata.py`). |
+| `test_fetch_arxiv_metadata.py` | arXiv API/OAI-PMH metadata fetching and the late-announced step — week ID ranges, listing/id_list fetches, `--add-late` (`scripts/fetch_arxiv_metadata.py`). |
 | `test_process_papers.py` | Abstract → HTML → PDF detection fallback chain (`scripts/process_papers.py`). |
 | `test_build_manifest.py` | Manifest assembly from cached detections (`scripts/build_manifest.py`). |
 | `test_extract_language_data.py` | Language taxonomy extraction from the submodule (`scripts/extract_language_data.py`). |

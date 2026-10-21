@@ -160,6 +160,7 @@ def test_build_snapshot_manifest_counts_and_aggregates():
         "unique_languages": 2,
         "unique_languages_mentioned_only": 0,
         "pdf_failed_no_detection": 0,
+        "late_announced": 0,
         "judge": {
             "judged_papers": 0,
             "judged_languages": 0,
@@ -180,6 +181,26 @@ def test_build_snapshot_manifest_counts_and_aggregates():
     series_by_date = {item["date"]: item for item in manifest["daily_series"]}
     assert series_by_date["2026-05-18"] == {"date": "2026-05-18", "papers": 1, "flagged": 1}
     assert series_by_date["2026-05-19"] == {"date": "2026-05-19", "papers": 2, "flagged": 1}
+
+
+def test_build_snapshot_manifest_keeps_late_announced_papers_out_of_daily_series():
+    # A paper held in moderation carries its months-old submission date; it
+    # counts in the totals but mustn't add a bar outside the week.
+    papers = [
+        {"id": "1", "published": "2026-09-22T00:00:00"},
+        {"id": "late", "published": "2026-08-25T05:44:10Z"},
+    ]
+    flagged_papers = [
+        {"paper": papers[1], "languages": [{"language": "Sinhala", "class": 2}]},
+    ]
+    manifest = build_snapshot_manifest(
+        papers=papers, flagged_papers=flagged_papers, window_days=7, category_query="cat:cs.CL",
+        week_start="2026-09-21", week_end="2026-09-28",
+    )
+    assert [d["date"] for d in manifest["daily_series"]] == ["2026-09-22"]
+    assert manifest["counts"]["papers"] == 2
+    assert manifest["counts"]["flagged_papers"] == 1
+    assert manifest["counts"]["late_announced"] == 1
 
 
 def test_build_snapshot_manifest_handles_empty_input():
