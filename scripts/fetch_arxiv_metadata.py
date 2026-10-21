@@ -67,6 +67,7 @@ _ARXIV_CLIENT_NUM_RETRIES = 0
 _FETCH_ATTEMPTS = 3
 _FETCH_BACKOFF_SECONDS = 600
 _OAI_REQUEST_TIMEOUT = 120
+_OAI_DELAY_SECONDS = 3.0
 _OAI_CREATED_WINDOW_BUFFER_DAYS = 2
 
 
@@ -362,6 +363,7 @@ _LATE_RETRY_BACKOFF_SECONDS = 60
 # batch ~1.5k); a bigger jump means papers filed under their submission week
 # by a retroactive fetch — they belong to a later week's range, not this one's.
 _RANGE_GAP_LIMIT = 3000
+_ABOVE_RANGE_LIMIT = 400
 # Marker the CI fetch step greps for to push a notification.
 LATE_FAILURE_MARKER = "ERROR: late-announced step failed"
 
@@ -518,22 +520,75 @@ def _fetch_arxiv_by_ids(ids: list[str], get=requests.get, sleep=time.sleep) -> l
     """Paper dicts for specific IDs via the Atom API's id_list, in batches.
 
     IDs the API can't resolve come back as an error entry, not a paper; those
-    are dropped so callers can compare what came back against what they asked.
+    are dropped. If a batch still fails after its retries (the API throttles
+    per IP), this and every later batch come from OAI-PMH instead
+    (_fetch_oai_by_ids). So do IDs a successful response simply left out —
+    a batch announced minutes ago may not be in the search index yet, which
+    is exactly when the newest week's boundary-batch repair runs.
     """
     papers = []
+    use_oai = False
     for i in range(0, len(ids), _ID_LIST_BATCH):
         batch = ids[i:i + _ID_LIST_BATCH]
-        resp = _get_with_retry(get, sleep, _ARXIV_DIRECT_BASE_URL, _ARXIV_DIRECT_DELAY_SECONDS,
-                               params={"id_list": ",".join(batch), "max_results": len(batch)},
-                               headers=_ARXIV_DIRECT_HEADERS, timeout=_ARXIV_DIRECT_TIMEOUT)
-        papers.extend(p for p in _parse_atom_entries(ET.fromstring(resp.content))
-                      if "/abs/" in p["id"] and _ID_KEY_RE.search(p["id"]))
+        if not use_oai:
+            try:
+                resp = _get_with_retry(get, sleep, _ARXIV_DIRECT_BASE_URL, _ARXIV_DIRECT_DELAY_SECONDS,
+                                       params={"id_list": ",".join(batch), "max_results": len(batch)},
+                                       headers=_ARXIV_DIRECT_HEADERS, timeout=_ARXIV_DIRECT_TIMEOUT)
+            except requests.exceptions.RequestException as err:
+                # The search API throttles per IP (429s that outlast any backoff);
+                # OAI-PMH is a separate service, so finish the run there.
+                log.warning("arXiv id_list unavailable (%s); fetching the remaining %d paper(s) via OAI-PMH",
+                            err, len(ids) - i)
+                use_oai = True
+            else:
+                found = [p for p in _parse_atom_entries(ET.fromstring(resp.content))
+                         if "/abs/" in p["id"] and _ID_KEY_RE.search(p["id"])]
+                papers.extend(found)
+                got = {_id_key(p["id"]) for p in found}
+                missing = [arxiv_id for arxiv_id in batch if _id_key(arxiv_id) not in got]
+                if missing:
+                    log.info("arXiv id_list left out %d of %d ID(s); trying OAI-PMH for them", len(missing), len(batch))
+                    papers.extend(_fetch_oai_by_ids(missing, get=get, sleep=sleep))
+                continue
+        papers.extend(_fetch_oai_by_ids(batch, get=get, sleep=sleep))
+    return papers
+
+
+def _fetch_oai_by_ids(ids: list[str], get=requests.get, sleep=time.sleep) -> list[dict]:
+    """Paper dicts for specific IDs via OAI-PMH GetRecord, one request each.
+
+    Unknown IDs are skipped, and so is an ID that still fails after its
+    retries — nothing is written until the whole run ends, so one bad request
+    mustn't discard the rest. add_late_announced reports any shortfall with
+    the failure marker, since nothing retries it automatically.
+    Rows carry OAI's `created` (v1 submission date) as `published`, and an ID
+    without a version suffix (OAI doesn't say which version is current).
+    """
+    ns = {"oai": "http://www.openarchives.org/OAI/2.0/"}
+    papers = []
+    for arxiv_id in ids:
+        try:
+            resp = _get_with_retry(get, sleep, _OAI_BASE_URL, _OAI_DELAY_SECONDS,
+                                   params={"verb": "GetRecord", "identifier": f"oai:arXiv.org:{arxiv_id}",
+                                           "metadataPrefix": "arXiv"},
+                                   headers=_OAI_HEADERS, timeout=_OAI_REQUEST_TIMEOUT)
+            root = ET.fromstring(resp.content)
+        except (requests.exceptions.RequestException, ET.ParseError) as err:
+            log.warning("OAI-PMH GetRecord %s failed (%s) — skipped; reported below", arxiv_id, err)
+            continue
+        record = root.find(".//oai:record", ns)
+        parsed = _parse_oai_record(record) if record is not None else None
+        if parsed:
+            parsed["_fetch_source"] = "oai_pmh"
+            papers.append(parsed)
     return papers
 
 
 def add_late_announced(week_path: Path, output_dir: Path | None = None, categories: tuple[str, ...] = ("cs.CL",),
                        window_days: int = 7, listing_fetcher=_fetch_listing_ids,
-                       metadata_fetcher=_fetch_arxiv_by_ids, listing_cache: dict | None = None) -> int:
+                       metadata_fetcher=_fetch_arxiv_by_ids, listing_cache: dict | None = None,
+                       claim_boundary_batch: bool = False) -> int:
     """Append to week_path the papers announced in its ID range that no week has. Returns how many.
 
     A listed paper in this range but submitted on/after the window's end came
@@ -542,6 +597,18 @@ def add_late_announced(week_path: Path, output_dir: Path | None = None, categori
     not, its own late step does: besides its own range, each week also takes
     papers from the previous week's range that were submitted inside its
     window. So every paper has exactly one owner, whichever week runs first.
+
+    With claim_boundary_batch (only right after the week's first regular
+    fetch, and only for the newest week), it also takes listed papers *above* its
+    range that were submitted inside its window: its own weekend batch,
+    announced Monday night, which the search API sometimes hasn't returned
+    yet when the Tuesday fetch runs (5–12 Oct 2026 missed 134 that way; the
+    next week's late step then filed them under 12–19 Oct). Tying it to the
+    fetch run is the cutoff: it claims what was announced by then, before the
+    week's digest is built. A batch announced later — a holiday batch out on
+    Tuesday evening — is left to the next week, under the week it was
+    announced in, so its papers still reach a digest. A later --add-late run
+    never claims above its range, so placement doesn't depend on run timing.
     """
     output_dir = output_dir or week_path.parent
     weeks = _load_weeks(output_dir, window_days)
@@ -555,33 +622,60 @@ def add_late_announced(week_path: Path, output_dir: Path | None = None, categori
     ordered = [w.path for w in weeks if w.path in ranges]
     index = ordered.index(week_path)
     prev_lo = ranges[ordered[index - 1]][0] if index else lo
+    is_newest = claim_boundary_batch and index == len(ordered) - 1
     have = set().union(*(w.regular | w.late for w in weeks))
 
+    # Listing months: the previous range through this one, plus — for the
+    # newest week — the month after, where its boundary batch may have landed.
+    top = hi
+    if is_newest:
+        year, month = 2000 + hi[0] // 100, hi[0] % 100
+        nxt = (year % 100 + (month == 12)) * 100 + (1 if month == 12 else month + 1)
+        now = datetime.now(timezone.utc)
+        if nxt <= (now.year % 100) * 100 + now.month:
+            top = (nxt, 0)
     cache = listing_cache if listing_cache is not None else {}
     listed: set[IdKey] = set()
     for category in categories:
-        for month in _months_between((prev_lo[0], prev_lo[1] + 1), hi):
+        for month in _months_between((prev_lo[0], prev_lo[1] + 1), top):
             if (category, month) not in cache:
                 cache[(category, month)] = listing_fetcher(month, category)
             listed |= cache[(category, month)]
     own = {k for k in listed if lo < k <= hi and k not in have}
     from_prev = {k for k in listed if prev_lo < k <= lo and k not in have}
-    candidates = sorted(own | from_prev)
-    log.info("Late-announced: ID range %s – %s, %d listed paper(s) not yet in any week (+%d from the previous range)",
-             _format_id((lo[0], lo[1] + 1)), _format_id(hi), len(own), len(from_prev))
+    # The missed batch is the first announcement after the week (~150–300 cs.CL
+    # papers incl. cross-lists); cap it so a run days later doesn't fetch
+    # metadata for everything announced since.
+    above_all = sorted(k for k in listed if k > hi) if is_newest else []
+    if len(above_all) > _ABOVE_RANGE_LIMIT:
+        log.warning("Late-announced: %d listed papers above this week's range; checking only the first %d — "
+                    "any of this week's own papers past that land in the next week instead",
+                    len(above_all), _ABOVE_RANGE_LIMIT)
+    above = set(above_all[:_ABOVE_RANGE_LIMIT]) - have
+    candidates = sorted(own | from_prev | above)
+    log.info("Late-announced: ID range %s – %s, %d listed paper(s) not yet in any week "
+             "(+%d from the previous range, +%d announced after this week's fetch)",
+             _format_id((lo[0], lo[1] + 1)), _format_id(hi), len(own), len(from_prev), len(above))
     if not candidates:
         return 0
 
     found = metadata_fetcher([_format_id(k) for k in candidates])
-    if len(found) < len(candidates):
-        log.warning("Late-announced: arXiv returned %d of %d requested papers", len(found), len(candidates))
+    returned = {_id_key(p["id"]) for p in found}
+    # Above-range IDs are mostly next week's Monday-morning submissions, which
+    # this week skips anyway — and without metadata there's no date to tell.
+    # Missing ones only get a warning; the alert counts this week's own range.
+    unfetched = [_format_id(k) for k in candidates if k not in returned and k not in above]
+    unfetched_above = [_format_id(k) for k in candidates if k not in returned and k in above]
     late, after_window = [], []
     for paper in found:
         published = _parse_oai_date(paper.get("published", "")[:10])
         if published is None:
             continue
-        if _id_key(paper["id"]) in from_prev:
-            # Previous week left it as submitted after its window; ours if in it.
+        key = _id_key(paper["id"])
+        if key in from_prev or key in above:
+            # Previous week left it as submitted after its window, or it's our
+            # own boundary batch the regular fetch missed: ours only if
+            # submitted inside our window.
             if not start_date <= published < end_date:
                 continue
         elif published >= end_date:
@@ -597,7 +691,67 @@ def add_late_announced(week_path: Path, output_dir: Path | None = None, categori
         for paper in late:
             fp.write(json.dumps(paper, ensure_ascii=False) + "\n")
     log.info("Late-announced: appended %d paper(s) to %s", len(late), week_path.name)
+    if unfetched_above:
+        if _weekend_missing(week_path, end_date):
+            # The regular fetch has nothing from the window's last two days —
+            # the signature of a missed weekend batch, which these papers
+            # probably are. Not an alert: nothing can claim them for this week
+            # any more (--add-late never claims above the range), and next
+            # week filing them under itself is the intended fallback.
+            log.warning("Late-announced: no papers from this week's last two days, and %d paper(s) above its range "
+                        "couldn't be fetched — likely its weekend batch; next week will file them: %s",
+                        len(unfetched_above), ", ".join(unfetched_above[:20]))
+        else:
+            log.warning("Late-announced: no metadata for %d paper(s) above this week's range (probably next week's): %s",
+                        len(unfetched_above), ", ".join(unfetched_above[:20]))
+    if unfetched:
+        # Nothing later covers this week's range, so say so loudly: CI greps
+        # this marker and pushes a notification to rerun --add-late.
+        log.error("%s — no metadata for %d of %d listed paper(s) from either the search API or OAI-PMH: %s",
+                  LATE_FAILURE_MARKER, len(unfetched), len(candidates), ", ".join(unfetched[:20]))
     return len(late)
+
+
+def _weekend_missing(week_path: Path, end_date: datetime) -> bool:
+    """True if the week's regular rows have no paper submitted on its last two days.
+
+    Every normal week has dozens on its Saturday and Sunday (28 Sep–5 Oct: 52
+    and 67); 5–12 Oct had none on 10–11 Oct when its weekend batch was missed.
+    """
+    last_two = {(end_date - timedelta(days=d)).strftime("%Y-%m-%d") for d in (1, 2)}
+    with week_path.open(encoding="utf-8") as fh:
+        for line in fh:
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            if not row.get("_late_announced") and str(row.get("published", ""))[:10] in last_two:
+                return False
+    return True
+
+
+def _drop_papers_in_other_weeks(papers: list[dict], output_dir: Path, output_path: Path,
+                                window_days: int) -> list[dict]:
+    """Papers not already in another weekly file, so a re-fetch can't duplicate them."""
+    others = set()
+    for week in _load_weeks(output_dir, window_days):
+        if week.path != output_path:
+            others |= week.regular | week.late
+    if not others:
+        return papers
+    kept = []
+    for paper in papers:
+        try:
+            key = _id_key(str(paper.get("id", "")))
+        except ValueError:
+            kept.append(paper)
+            continue
+        if key not in others:
+            kept.append(paper)
+    if len(kept) < len(papers):
+        # A re-fetch of an old week expects a few (its held papers); a fresh
+        # weekly fetch normally drops none, so make any drop visible.
+        log.warning("Dropped %d paper(s) already filed under another week", len(papers) - len(kept))
+    return kept
 
 
 def _last_monday_midnight() -> datetime:
@@ -743,6 +897,10 @@ def fetch_and_save(
     )
     output_path = output_dir / filename
 
+    # Re-fetching an old week by submission date also returns its held papers,
+    # which the late step already filed under the week they were announced in.
+    paper_dicts = _drop_papers_in_other_weeks(paper_dicts, output_dir, output_path, window_days)
+
     with output_path.open("w", encoding="utf-8") as fp:
         for paper_data in paper_dicts:
             fp.write(json.dumps(paper_data, ensure_ascii=False) + "\n")
@@ -806,6 +964,14 @@ def main(argv=None) -> None:
         add_late_announced(week_path, **late_kwargs)
         return
 
+    # The boundary-batch claim's cutoff is the week's *first* fetch. A later
+    # re-fetch (e.g. make fetch-oai) may run days later, and would otherwise
+    # claim batches announced since. An empty file means no fetch ever
+    # succeeded, so replacing it still counts as the first.
+    start_date = end_date - timedelta(days=args.window_days)
+    existing = args.output_dir / f"arxiv_papers_{start_date:%Y%m%d}_to_{end_date:%Y%m%d}.jsonl"
+    first_fetch = not existing.exists() or existing.stat().st_size == 0
+
     output_path = fetch_and_save(
         end_date=end_date,
         window_days=args.window_days,
@@ -819,7 +985,7 @@ def main(argv=None) -> None:
         # must not fail the weekly run. Nothing later covers this week's range,
         # so the marker line makes CI push a notification to rerun by hand.
         try:
-            add_late_announced(output_path, **late_kwargs)
+            add_late_announced(output_path, claim_boundary_batch=first_fetch, **late_kwargs)
         except Exception as err:
             log.error("%s (%s: %s) — rerun: python scripts/fetch_arxiv_metadata.py --add-late --end-date %s",
                       LATE_FAILURE_MARKER, type(err).__name__, err, end_date.strftime("%Y-%m-%d"))

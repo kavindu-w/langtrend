@@ -714,6 +714,8 @@ def test_fetch_listing_ids_raises_after_last_attempt():
 
 
 def test_fetch_arxiv_by_ids_batches_retries_and_drops_error_entries(monkeypatch):
+    # Batch 1: a timeout, then 00001 plus an error entry for 00002 (dropped,
+    # then tried on OAI, which doesn't know it either). Batch 2: 00003.
     monkeypatch.setattr(fam, "_ID_LIST_BATCH", 2)
     responses = iter([
         requests.exceptions.Timeout("slow"),
@@ -723,6 +725,9 @@ def test_fetch_arxiv_by_ids_batches_retries_and_drops_error_entries(monkeypatch)
     calls = []
 
     def fake_get(url, params, headers, timeout):
+        if "oaipmh" in url:
+            calls.append("oai:" + params["identifier"].rsplit(":", 1)[-1])
+            return _Resp(content=b'<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"><error code="idDoesNotExist"/></OAI-PMH>')
         calls.append(params["id_list"])
         r = next(responses)
         if isinstance(r, Exception):
@@ -730,7 +735,7 @@ def test_fetch_arxiv_by_ids_batches_retries_and_drops_error_entries(monkeypatch)
         return r
 
     papers = fam._fetch_arxiv_by_ids(["2609.00001", "2609.00002", "2609.00003"], get=fake_get, sleep=lambda s: None)
-    assert calls == ["2609.00001,2609.00002", "2609.00001,2609.00002", "2609.00003"]
+    assert calls == ["2609.00001,2609.00002", "2609.00001,2609.00002", "oai:2609.00002", "2609.00003"]
     assert [p["id"] for p in papers] == ["http://arxiv.org/abs/2609.00001v1", "http://arxiv.org/abs/2609.00003v1"]
 
 
@@ -769,3 +774,213 @@ def test_main_no_add_late_skips_the_step(tmp_path):
          patch.object(fam, "add_late_announced") as late:
         fam.main(["--end-date", "2026-09-28", "--output-dir", str(tmp_path), "--no-add-late"])
     late.assert_not_called()
+
+
+def _oai_record_xml(arxiv_id, created="2026-08-25"):
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"><GetRecord><record>
+<header><identifier>oai:arXiv.org:{arxiv_id}</identifier></header>
+<metadata><arXiv xmlns="http://arxiv.org/OAI/arXiv/"><id>{arxiv_id}</id><created>{created}</created>
+<title>T {arxiv_id}</title><abstract>A.</abstract><categories>cs.CL</categories></arXiv></metadata>
+</record></GetRecord></OAI-PMH>""".encode()
+
+
+def test_fetch_arxiv_by_ids_falls_back_to_oai_when_id_list_stays_throttled(monkeypatch):
+    # The search API 429s every attempt (per-IP throttle); OAI-PMH answers.
+    monkeypatch.setattr(fam, "_ID_LIST_BATCH", 1)
+    calls = []
+
+    def fake_get(url, params, headers, timeout):
+        calls.append(url)
+        if "export.arxiv.org" in url:
+            return _Resp(status_code=429)
+        if params["identifier"].endswith("2609.00002"):
+            return _Resp(content=b'<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"><error code="idDoesNotExist"/></OAI-PMH>')
+        return _Resp(content=_oai_record_xml(params["identifier"].rsplit(":", 1)[-1]))
+
+    papers = fam._fetch_arxiv_by_ids(["2609.00001", "2609.00002", "2609.00003"], get=fake_get, sleep=lambda s: None)
+    assert [p["id"] for p in papers] == ["https://arxiv.org/abs/2609.00001", "https://arxiv.org/abs/2609.00003"]
+    assert papers[0]["published"].startswith("2026-08-25") and papers[0]["_fetch_source"] == "oai_pmh"
+    # Gave up on the search API after the first batch's retries, not per batch.
+    assert sum("export.arxiv.org" in u for u in calls) == fam._FETCH_ATTEMPTS
+
+
+# --- newest week's missed boundary batch / re-fetch dedupe / partial failures ------
+
+def test_newest_week_claims_its_own_batch_above_its_range(two_weeks):
+    # The 5–12 Oct case: the Tuesday fetch missed the Monday-night batch of the
+    # week's own weekend papers (IDs above its top); listed, submitted inside
+    # the window -> claimed now, before the week's digest.
+    out, w1, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": ["2609.34100", "2609.34101"]},
+                      {"2609.34100": "2026-09-26", "2609.34101": "2026-09-28"})
+    assert fam.add_late_announced(w2, out, **fake.kwargs(), claim_boundary_batch=True) == 1
+    assert _ids_in(w2)[-1] == "http://arxiv.org/abs/2609.34100v1"  # 34101 is next week's
+
+
+def test_older_week_never_claims_above_its_range(two_weeks):
+    # Same papers, but w1 isn't the newest: IDs above its range belong to w2's
+    # range now, so re-running w1 must not move them back.
+    out, w1, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": ["2609.30000"]}, {"2609.30000": "2026-09-20"})
+    assert fam.add_late_announced(w1, out, **fake.kwargs()) == 0
+    assert fake.requested == []
+
+
+def test_above_range_claim_is_capped(two_weeks, monkeypatch):
+    monkeypatch.setattr(fam, "_ABOVE_RANGE_LIMIT", 2)
+    out, _, w2 = two_weeks
+    listed = ["2609.34100", "2609.34101", "2609.34102"]
+    fake = _FakeArxiv({"2026-09": listed}, {i: "2026-09-26" for i in listed})
+    assert fam.add_late_announced(w2, out, **fake.kwargs(), claim_boundary_batch=True) == 2
+    assert fake.requested == [["2609.34100", "2609.34101"]]
+
+
+def test_fetch_and_save_drops_papers_filed_under_another_week(two_weeks):
+    # Re-fetching w1 by submission date returns a held paper that w2's late
+    # step already filed (announced in w2) — it mustn't land in both.
+    out, w1, w2 = two_weeks
+    _write_week(out, "20260921", "20260928", _ids(23955, 34000), late=["2609.29511"])
+    papers = [_meta("2609.15000", "2026-09-15"), _meta("2609.29511", "2026-09-16")]
+    with patch.object(fam, "_fetch_arxiv_direct", return_value=papers):
+        path = fam.fetch_and_save(datetime(2026, 9, 21), 7, 1000, "cat:cs.CL", out)
+    assert path == w1
+    assert _ids_in(w1) == ["http://arxiv.org/abs/2609.15000v1"]
+
+
+def test_fetch_arxiv_by_ids_keeps_api_batches_then_switches_to_oai(monkeypatch):
+    # Batch 1 via the API, batch 2 throttled -> OAI for it and everything after.
+    monkeypatch.setattr(fam, "_ID_LIST_BATCH", 1)
+    api_calls = []
+
+    def fake_get(url, params, headers, timeout):
+        if "export.arxiv.org" in url:
+            api_calls.append(params["id_list"])
+            if params["id_list"] == "2609.00001":
+                return _Resp(content=_feed("http://arxiv.org/abs/2609.00001v1"))
+            return _Resp(status_code=429)
+        return _Resp(content=_oai_record_xml(params["identifier"].rsplit(":", 1)[-1]))
+
+    papers = fam._fetch_arxiv_by_ids(["2609.00001", "2609.00002", "2609.00003"], get=fake_get, sleep=lambda s: None)
+    assert [p["_fetch_source"] for p in papers] == ["arxiv_direct", "oai_pmh", "oai_pmh"]
+    assert api_calls == ["2609.00001"] + ["2609.00002"] * fam._FETCH_ATTEMPTS
+
+
+def test_fetch_oai_by_ids_skips_an_id_that_keeps_failing():
+    def fake_get(url, params, headers, timeout):
+        if params["identifier"].endswith("2609.00002"):
+            raise requests.exceptions.ConnectionError("reset")
+        return _Resp(content=_oai_record_xml(params["identifier"].rsplit(":", 1)[-1]))
+
+    papers = fam._fetch_oai_by_ids(["2609.00001", "2609.00002", "2609.00003"], get=fake_get, sleep=lambda s: None)
+    assert [p["id"] for p in papers] == ["https://arxiv.org/abs/2609.00001", "https://arxiv.org/abs/2609.00003"]
+
+
+def test_fetch_arxiv_by_ids_gets_ids_the_api_left_out_from_oai():
+    # Not yet indexed: the search API answers 200 but without these papers —
+    # exactly when the newest week's boundary-batch repair runs.
+    def fake_get(url, params, headers, timeout):
+        if "export.arxiv.org" in url:
+            return _Resp(content=_feed("http://arxiv.org/abs/2610.14112v1"))
+        return _Resp(content=_oai_record_xml(params["identifier"].rsplit(":", 1)[-1], created="2026-10-10"))
+
+    papers = fam._fetch_arxiv_by_ids(["2610.14112", "2610.14113"], get=fake_get, sleep=lambda s: None)
+    assert [(p["id"], p["_fetch_source"]) for p in papers] == [
+        ("http://arxiv.org/abs/2610.14112v1", "arxiv_direct"), ("https://arxiv.org/abs/2610.14113", "oai_pmh")]
+
+
+def test_add_late_logs_failure_marker_when_papers_stay_unfetched(two_weeks, caplog):
+    # Nothing retries a shortfall automatically, so it must reach CI's grep —
+    # after writing what did come back.
+    out, _, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": ["2609.29511", "2609.29600"]}, {"2609.29511": "2026-08-25"})
+    assert fam.add_late_announced(w2, out, **fake.kwargs()) == 1
+    assert _ids_in(w2)[-1] == "http://arxiv.org/abs/2609.29511v1"
+    assert fam.LATE_FAILURE_MARKER in caplog.text and "2609.29600" in caplog.text
+
+
+def test_add_late_no_marker_when_everything_came_back(two_weeks, caplog):
+    out, _, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": ["2609.29511"]}, {"2609.29511": "2026-08-25"})
+    fam.add_late_announced(w2, out, **fake.kwargs())
+    assert fam.LATE_FAILURE_MARKER not in caplog.text
+
+
+def test_above_range_cap_warns(two_weeks, monkeypatch, caplog):
+    monkeypatch.setattr(fam, "_ABOVE_RANGE_LIMIT", 1)
+    out, _, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": ["2609.34100", "2609.34101"]}, {"2609.34100": "2026-09-26"})
+    fam.add_late_announced(w2, out, **fake.kwargs(), claim_boundary_batch=True)
+    assert "checking only the first 1" in caplog.text
+
+
+def test_unfetched_above_range_ids_warn_but_dont_raise_the_alert(two_weeks, caplog):
+    # 34101 sits above the newest week's range with no metadata from either
+    # source — most likely next week's paper, so no CI alert, just a warning.
+    out, _, w2 = two_weeks
+    with w2.open("a") as fh:  # a normal week: its weekend batch is there
+        fh.write(json.dumps({"id": "http://arxiv.org/abs/2609.33990v1", "published": "2026-09-27T10:00:00Z"}) + "\n")
+    fake = _FakeArxiv({"2026-09": ["2609.34100", "2609.34101"]}, {"2609.34100": "2026-09-26"})
+    assert fam.add_late_announced(w2, out, **fake.kwargs(), claim_boundary_batch=True) == 1
+    assert fam.LATE_FAILURE_MARKER not in caplog.text
+    assert "above this week's range" in caplog.text and "2609.34101" in caplog.text
+
+
+def test_unfetched_above_range_ids_with_weekend_missing_warn_not_alert(tmp_path, caplog):
+    # The 5–12 Oct signature: no regular papers from the window's last two
+    # days, and the batch above the range can't be fetched yet. Next week
+    # filing it is the intended fallback and nothing could fix it now, so a
+    # specific warning, not the CI alert.
+    out = tmp_path / "meta"
+    week = out / "arxiv_papers_20261005_to_20261012.jsonl"
+    out.mkdir()
+    week.write_text("".join(json.dumps({"id": f"http://arxiv.org/abs/2610.{n:05d}v1", "published": "2026-10-09T12:00:00Z"}) + "\n"
+                            for n in range(5681, 13912, 200)) + json.dumps({"id": "http://arxiv.org/abs/2610.13912v1",
+                            "published": "2026-10-09T13:00:00Z"}) + "\n", encoding="utf-8")
+    fake = _FakeArxiv({"2026-10": ["2610.14112"]})
+    fam.add_late_announced(week, out, **fake.kwargs(), claim_boundary_batch=True)
+    assert fam.LATE_FAILURE_MARKER not in caplog.text
+    assert "likely its weekend batch; next week will file them" in caplog.text
+
+
+def test_weekend_missing_reads_only_regular_rows(tmp_path):
+    week = tmp_path / "arxiv_papers_20261005_to_20261012.jsonl"
+    week.write_text(json.dumps({"id": "2610.00001", "published": "2026-10-10T01:00:00Z", "_late_announced": True}) + "\n"
+                    + json.dumps({"id": "2610.00002", "published": "2026-10-09T01:00:00Z"}) + "\n", encoding="utf-8")
+    assert fam._weekend_missing(week, datetime(2026, 10, 12)) is True
+    week.write_text(json.dumps({"id": "2610.00003", "published": "2026-10-11T23:00:00Z"}) + "\n", encoding="utf-8")
+    assert fam._weekend_missing(week, datetime(2026, 10, 12)) is False
+
+
+def test_later_add_late_run_never_claims_above_the_range(two_weeks):
+    # Same listing as the newest-week claim test, but no fetch run (a manual
+    # --add-late, e.g. after a holiday batch came out): left to next week.
+    out, _, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": ["2609.34100"]}, {"2609.34100": "2026-09-26"})
+    assert fam.add_late_announced(w2, out, **fake.kwargs()) == 0
+    assert fake.requested == []
+
+
+def test_newest_week_claim_reads_the_following_month(two_weeks):
+    out, _, w2 = two_weeks
+    fake = _FakeArxiv({"2026-09": []})
+    fam.add_late_announced(w2, out, **fake.kwargs(), claim_boundary_batch=True)
+    assert sorted(fake.listing_calls) == [("cs.CL", "2026-09"), ("cs.CL", "2026-10")]
+
+
+def test_main_fetch_run_claims_boundary_batch_but_add_late_does_not(tmp_path):
+    week = tmp_path / "arxiv_papers_20260921_to_20260928.jsonl"
+
+    def first_fetch(**kw):
+        return _write_week(tmp_path, "20260921", "20260928", ["2609.23955"])
+
+    with patch.object(fam, "fetch_and_save", side_effect=first_fetch), patch.object(fam, "add_late_announced") as late:
+        fam.main(["--end-date", "2026-09-28", "--output-dir", str(tmp_path)])
+    assert late.call_args.kwargs["claim_boundary_batch"] is True
+    # A re-fetch of a week that already had a file (e.g. days later) doesn't claim.
+    with patch.object(fam, "fetch_and_save", return_value=week), patch.object(fam, "add_late_announced") as late:
+        fam.main(["--end-date", "2026-09-28", "--output-dir", str(tmp_path)])
+    assert late.call_args.kwargs["claim_boundary_batch"] is False
+    with patch.object(fam, "add_late_announced") as late:
+        fam.main(["--add-late", "--end-date", "2026-09-28", "--output-dir", str(tmp_path)])
+    assert "claim_boundary_batch" not in late.call_args.kwargs
