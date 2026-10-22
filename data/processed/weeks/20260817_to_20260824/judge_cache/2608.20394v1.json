@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.20394v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T17:36:24.152817+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6596,
+  "verdicts": {
+    "Mba": {
+      "verdict": "false_positive",
+      "reason": "Mba refers to MBA (Master of Business Administration) background in evaluator profiles, not the Korean language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean refers to the Korean language used for data collection, SFT fine‑tuning, and evaluation on Korean benchmarks (KoBEST, KMMLU, KMMLU‑Pro), indicating the paper studies Korean.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language used only as a cross‑lingual sanity check in MMLU evaluation, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

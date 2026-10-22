@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.14621v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T18:03:40.410097+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3300,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"Latin alphabet\", referring to the script rather than the Latin language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet references an \"English Wikipedia page\", indicating the English language is used in the experiment, so the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet states \"xBench-DeepSearch contains 100 Chinese deep-search questions\", indicating the Chinese language is part of the experimental dataset, so the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

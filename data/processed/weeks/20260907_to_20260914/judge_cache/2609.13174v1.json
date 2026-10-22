@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.13174v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T14:49:05.919612+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1582,
+  "verdicts": {
+    "Bun": {
+      "verdict": "false_positive",
+      "reason": "Bun appears as a prompt identifier or variable name, not as a human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Shasta": {
+      "verdict": "false_positive",
+      "reason": "Shasta refers to a location (e.g., Shasta County) in California, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek appears in the LLM critic prompt as an example language for race mentions, indicating a reference to the Greek language, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi appears in the LLM critic prompt as an example language for race mentions, indicating a reference to the Hindi language, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish appears in the LLM critic prompt as an example language for race mentions, indicating a reference to the Turkish language, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears in the LLM critic prompt as an example language for race mentions, indicating a reference to the French language, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears in the LLM critic prompt as an example language for race mentions, indicating a reference to the Spanish language, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the legal documents and the primary language of the corpus, so the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.00013v3",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T19:52:48.219762+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4834,
+  "verdicts": {
+    "Mina": {
+      "verdict": "false_positive",
+      "reason": "Mina does not appear in the snippet; the snippet contains only optimization terms, so Mina is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Owa": {
+      "verdict": "false_positive",
+      "reason": "Owa appears as part of a list of benchmark abbreviations (e.g., 'owa - disfl qa'), not as a language, so Owa is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears in the phrase 'MMBench v1.1 Chinese and English test sets', indicating evaluation on Chinese language benchmarks, so the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears in the language filtering step where non-English benchmarks are excluded, indicating the paper focuses on English benchmarks, so the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

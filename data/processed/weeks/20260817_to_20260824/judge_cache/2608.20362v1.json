@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.20362v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T16:54:38.144438+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2746,
+  "verdicts": {
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic-digit normalization refers to digit handling, not the Arabic language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese problems are part of the multilingual MATH-500 dataset used for evaluation, indicating the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese problems are part of the multilingual MATH-500 dataset used for evaluation, and the paper manually audits Japanese problems, indicating the paper studies Japanese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The abstract mentions language-conditioned reward-error metrics for English answers, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

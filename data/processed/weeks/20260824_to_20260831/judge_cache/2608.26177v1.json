@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26177v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-10-22T16:09:59.544214+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6796,
+  "verdicts": {
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "the term 'polish' in the snippet refers to the act of refining or improving text (narrative polish) rather than the Polish language, implying a false positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "the snippets explicitly mention using Chinese novels as part of the dataset and experimental scope, implying the language is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "the snippets explicitly mention using English novels and English-language datasets as part of the experimental scope, implying the language is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

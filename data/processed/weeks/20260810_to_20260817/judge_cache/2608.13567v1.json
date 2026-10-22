@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.13567v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T18:51:33.923511+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3143,
+  "verdicts": {
+    "Bats": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the animal 'bats' as an example of species with echolocation, not the human language Bats.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'mango' as an element in a list of strings for a dataset, not referring to the language Mango.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions English as the language of verbal addition/subtraction tasks and cites BLiMP, a benchmark for English, indicating the paper uses English in its experiments.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

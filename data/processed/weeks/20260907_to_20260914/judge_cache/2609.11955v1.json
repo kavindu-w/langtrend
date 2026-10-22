@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.11955v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T14:47:46.605340+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2987,
+  "verdicts": {
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word “polish” in quotes, which refers to the act of refining or cleaning, not the Polish language, making this a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions an English Wikipedia snapshot used as the retrieval corpus, indicating the paper studies English language fact‑checking (datasets, training, evaluation).",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

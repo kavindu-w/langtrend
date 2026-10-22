@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.06147v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T14:35:34.332981+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3496,
+  "verdicts": {
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "Fam appears as part of \"Cross-fam.\" (cross‑family) in results tables, not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb ('pin the corpus') in the limitations text, not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is explicitly referenced as the language of the corpus ('English‑only') and the data statement, indicating the paper builds a benchmark for English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

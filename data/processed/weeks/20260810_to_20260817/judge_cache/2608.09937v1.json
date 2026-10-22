@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.09937v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T18:07:31.770368+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 1457,
+  "verdicts": {
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "The candidate 'Sar' corresponds to the acronym 'SAR' (Special Administrative Region) in 'Macao SAR' and 'Hong Kong SAR', which is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "The candidate 'Russian' appears as part of the country name 'Russian Federation' in the snippets, which is a country name, not a language mention, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

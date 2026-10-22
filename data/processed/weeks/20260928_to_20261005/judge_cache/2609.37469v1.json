@@ -1,8 +1,19 @@
 {
   "paper_id": "http://arxiv.org/abs/2609.37469v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-22T09:52:25.454638+00:00",
+  "judged_at": "2026-10-22T14:28:01.408011+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 3285,
-  "verdicts": {}
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the model GPT-6 Luna, not a human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to English Wikipedia, a dataset source, not a language studied in the paper, so it's mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }

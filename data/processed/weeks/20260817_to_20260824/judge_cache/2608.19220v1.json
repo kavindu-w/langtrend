@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.19220v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T17:49:54.969090+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5124,
+  "verdicts": {
+    "Yale": {
+      "verdict": "false_positive",
+      "reason": "Yale refers to Yale University, an institution, not the language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin America, not the Latin language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Norwegian": {
+      "verdict": "false_positive",
+      "reason": "Norwegian refers to Norwegian institutions or locations, not the language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language in the context of language courses offered by organizations, not studied in the paper, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

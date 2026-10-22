@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18095v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T17:44:56.271167+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 695,
+  "verdicts": {
+    "Chin": {
+      "verdict": "mentioned_only",
+      "reason": "Chin appears in evaluation metric context, not clearly referencing the Chinese language; insufficient evidence => mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tal": {
+      "verdict": "false_positive",
+      "reason": "Tal appears as acronym TAL (Attention-Enhancing Backdoor Attacks) in section 3.2, not the language Tal => false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tera": {
+      "verdict": "false_positive",
+      "reason": "Tera appears in training/inference efficiency metrics, not referencing a language => false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of clinical language modeling and Google Books Ngram Corpus, indicating the paper studies English => studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.13154v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T14:51:52.572314+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4047,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"Non-Latin scripts are hard-rejected\", referring to the Latin script, not the Latin language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets describe filtering prompts to English language and using English abbreviations, indicating the paper studies English prompts, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

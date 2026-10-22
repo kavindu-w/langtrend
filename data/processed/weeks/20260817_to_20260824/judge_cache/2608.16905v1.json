@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.16905v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T17:54:10.555472+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 6888,
+  "verdicts": {
+    "Mayo": {
+      "verdict": "false_positive",
+      "reason": "Mayo refers to Plaza de Mayo (a location) in the snippet, not the Mayo language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tal": {
+      "verdict": "false_positive",
+      "reason": "Tal refers to Tal Morse (author) in the snippet, not the Tal language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yale": {
+      "verdict": "false_positive",
+      "reason": "Yale refers to Yale Law Journal abbreviation in the snippet, not the Yale language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin refers to the Latin language (as a legal construct) in the snippet, not Latin America, implying a mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to Chinese legal scholarship and law in the snippet, which mentions the language, implying a mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language version of a law in the snippet, implying a mention only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

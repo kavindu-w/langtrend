@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18114v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T17:42:04.855611+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5292,
+  "verdicts": {
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "Loo refers to 'LOO' (Leave-One-Out) cross-validation, not the Loo language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Basque": {
+      "verdict": "false_positive",
+      "reason": "Basque refers to the Basque Center on Cognition Brain and Language (a location), not the Basque language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the decoded sentences and dataset (native English speakers, English sentences), indicating the paper studies English, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

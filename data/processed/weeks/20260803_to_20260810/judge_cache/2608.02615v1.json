@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.02615v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T19:32:35.874614+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3348,
+  "verdicts": {
+    "Chol": {
+      "verdict": "false_positive",
+      "reason": "Chol refers to cholangiocarcinoma (cancer type) in the snippets, thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sop": {
+      "verdict": "false_positive",
+      "reason": "Sop refers to DICOM SOP class (a technical term) in the snippets, thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

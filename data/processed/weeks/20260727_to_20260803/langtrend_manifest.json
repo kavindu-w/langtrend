@@ -1,30 +1,30 @@
 {
-  "generated_at": "2026-10-20T17:27:13.706434+00:00",
+  "generated_at": "2026-10-22T19:54:51.387325+00:00",
   "window_days": 7,
   "week_start": "2026-07-27",
   "week_end": "2026-08-03",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 488,
-    "flagged_papers": 201,
-    "unique_languages": 130,
+    "flagged_papers": 200,
+    "unique_languages": 126,
     "unique_languages_mentioned_only": 8,
     "pdf_failed_no_detection": 0,
     "late_announced": 59,
     "judge": {
-      "judged_papers": 240,
-      "judged_languages": 937,
-      "studied": 500,
-      "mentioned_only": 164,
-      "false_positive": 273
+      "judged_papers": 249,
+      "judged_languages": 955,
+      "studied": 510,
+      "mentioned_only": 167,
+      "false_positive": 278
     }
   },
   "language_counts": [
     {
       "language": "English",
       "count": 162,
-      "studied": 110,
-      "mentioned_only": 52
+      "studied": 108,
+      "mentioned_only": 54
     },
     {
       "language": "Chinese",
@@ -46,8 +46,8 @@
     },
     {
       "language": "German",
-      "count": 26,
-      "studied": 22,
+      "count": 25,
+      "studied": 21,
       "mentioned_only": 4
     },
     {
@@ -65,8 +65,8 @@
     {
       "language": "Japanese",
       "count": 19,
-      "studied": 11,
-      "mentioned_only": 8
+      "studied": 10,
+      "mentioned_only": 9
     },
     {
       "language": "Russian",
@@ -567,12 +567,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Jina",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Konkani",
       "count": 1,
       "studied": 1,
@@ -639,12 +633,6 @@
       "mentioned_only": 1
     },
     {
-      "language": "Mina",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Mongolian",
       "count": 1,
       "studied": 1,
@@ -669,19 +657,7 @@
       "mentioned_only": 0
     },
     {
-      "language": "Ong",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Oriya",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Owa",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -852,8 +828,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 46,
-      "studied": 40,
+      "count": 42,
+      "studied": 36,
       "mentioned_only": 6
     },
     {
@@ -882,9 +858,9 @@
     },
     {
       "class_id": 5,
-      "count": 338,
-      "studied": 239,
-      "mentioned_only": 99
+      "count": 337,
+      "studied": 235,
+      "mentioned_only": 102
     }
   ],
   "daily_series": [
@@ -96925,7 +96901,11 @@
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Slovak refers to the Slovak language (as part of Slovak-language TUKE SK set) and the paper includes Slovak-language data in its evaluation, implying it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:47:43.155199+00:00"
         }
       ],
       "sources_checked": [
@@ -96943,7 +96923,11 @@
           "detected_languages": [
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language (as part of Slovak-language TUKE SK set) and the paper includes Slovak-language data in its evaluation, implying it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:47:43.155199+00:00"
             }
           ]
         },
@@ -96953,7 +96937,11 @@
           "detected_languages": [
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language (as part of Slovak-language TUKE SK set) and the paper includes Slovak-language data in its evaluation, implying it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:47:43.155199+00:00"
             }
           ]
         }
@@ -96983,14 +96971,22 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:48:02.391922+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "English appears only in the context of code‑mixing with Nepali and as part of prompts, not as a separate target language for data collection, model building, or evaluation.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:48:02.391922+00:00"
         }
       ],
       "sources_checked": [
@@ -97019,7 +97015,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97029,19 +97029,35 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English appears only in the context of code‑mixing with Nepali and as part of prompts, not as a separate target language for data collection, model building, or evaluation.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97051,11 +97067,19 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English appears only in the context of code‑mixing with Nepali and as part of prompts, not as a separate target language for data collection, model building, or evaluation.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97065,11 +97089,19 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English appears only in the context of code‑mixing with Nepali and as part of prompts, not as a separate target language for data collection, model building, or evaluation.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97079,27 +97111,51 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English appears only in the context of code‑mixing with Nepali and as part of prompts, not as a separate target language for data collection, model building, or evaluation.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97109,7 +97165,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97119,23 +97179,43 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English appears only in the context of code‑mixing with Nepali and as part of prompts, not as a separate target language for data collection, model building, or evaluation.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97145,23 +97225,43 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English appears only in the context of code‑mixing with Nepali and as part of prompts, not as a separate target language for data collection, model building, or evaluation.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97171,7 +97271,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97181,7 +97285,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97191,7 +97299,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97201,7 +97313,11 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         },
@@ -97211,15 +97327,27 @@
           "detected_languages": [
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "Nepali",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Nepali as the target language of the study: Nepali memes, Devanagari script, Nepali prompts, and a dedicated dataset for Nepali content, indicating the paper builds and evaluates",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English appears only in the context of code‑mixing with Nepali and as part of prompts, not as a separate target language for data collection, model building, or evaluation.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:02.391922+00:00"
             }
           ]
         }
@@ -97251,7 +97379,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The candidate 'German' appears as part of an author's name, not as the German language, making it a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:47:26.037071+00:00"
         }
       ],
       "sources_checked": [
@@ -97268,7 +97400,11 @@
           "detected_languages": [
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The candidate 'German' appears as part of an author's name, not as the German language, making it a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:47:26.037071+00:00"
             }
           ]
         }
@@ -97301,7 +97437,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:48:28.373024+00:00"
         },
         {
           "language": "French",
@@ -97309,7 +97449,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:48:28.373024+00:00"
         }
       ],
       "sources_checked": [
@@ -97336,11 +97480,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             }
           ]
         },
@@ -97350,11 +97502,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             }
           ]
         },
@@ -97364,31 +97524,59 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             }
           ]
         },
@@ -97398,15 +97586,27 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             }
           ]
         },
@@ -97416,7 +97616,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             }
           ]
         },
@@ -97426,7 +97630,11 @@
           "detected_languages": [
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             }
           ]
         },
@@ -97436,11 +97644,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             }
           ]
         },
@@ -97450,23 +97666,43 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             }
           ]
         },
@@ -97476,11 +97712,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             }
           ]
         },
@@ -97490,15 +97734,27 @@
           "detected_languages": [
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             }
           ]
         },
@@ -97508,19 +97764,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the source language of the English‑to‑French terminology experiment, indicating the paper studies English; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "French refers to the target language of the English‑to‑French terminology experiment, indicating the paper studies French; verdict: studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:48:28.373024+00:00"
             }
           ]
         }
@@ -97558,7 +97830,11 @@
           "flag_reason": "Possible false positive",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippet mentions 'Ong' as a researcher name (Arnold Roseman and Smith Yeo and Ong), not a language; false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:50:47.682908+00:00"
         },
         {
           "language": "Jina",
@@ -97567,14 +97843,22 @@
           "flag_reason": "Possible embedding model name",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippet refers to the 'jina-embedding-v3 model', a model name, not the Jina language; false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:50:47.682908+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet states participants must list English as first language and ESC transcripts are written exclusively in English, indicating the paper uses English for its data and experiments; studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:50:47.682908+00:00"
         }
       ],
       "sources_checked": [
@@ -97596,7 +97880,11 @@
               "language": "Ong",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive"
+              "flag_reason": "Possible false positive",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet mentions 'Ong' as a researcher name (Arnold Roseman and Smith Yeo and Ong), not a language; false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:50:47.682908+00:00"
             }
           ]
         },
@@ -97608,7 +97896,11 @@
               "language": "Jina",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible embedding model name"
+              "flag_reason": "Possible embedding model name",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet refers to the 'jina-embedding-v3 model', a model name, not the Jina language; false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:50:47.682908+00:00"
             }
           ]
         },
@@ -97618,7 +97910,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet states participants must list English as first language and ESC transcripts are written exclusively in English, indicating the paper uses English for its data and experiments; studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:50:47.682908+00:00"
             }
           ]
         },
@@ -97628,7 +97924,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet states participants must list English as first language and ESC transcripts are written exclusively in English, indicating the paper uses English for its data and experiments; studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:50:47.682908+00:00"
             }
           ]
         }
@@ -97661,7 +97961,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets describe a collection of commonly‑used English words and word‑stems that are recognized by the Memetic Mixer device, indicating the paper builds and uses English language material for int",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:51:00.571220+00:00"
         }
       ],
       "sources_checked": [
@@ -97682,7 +97986,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets describe a collection of commonly‑used English words and word‑stems that are recognized by the Memetic Mixer device, indicating the paper builds and uses English language material for int",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:51:00.571220+00:00"
             }
           ]
         },
@@ -97692,7 +98000,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets describe a collection of commonly‑used English words and word‑stems that are recognized by the Memetic Mixer device, indicating the paper builds and uses English language material for int",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:51:00.571220+00:00"
             }
           ]
         },
@@ -97702,7 +98014,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets describe a collection of commonly‑used English words and word‑stems that are recognized by the Memetic Mixer device, indicating the paper builds and uses English language material for int",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:51:00.571220+00:00"
             }
           ]
         },
@@ -97712,7 +98028,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets describe a collection of commonly‑used English words and word‑stems that are recognized by the Memetic Mixer device, indicating the paper builds and uses English language material for int",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:51:00.571220+00:00"
             }
           ]
         },
@@ -97722,7 +98042,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets describe a collection of commonly‑used English words and word‑stems that are recognized by the Memetic Mixer device, indicating the paper builds and uses English language material for int",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:51:00.571220+00:00"
             }
           ]
         }
@@ -97755,21 +98079,33 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:52:49.792275+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "English refers to the English language mentioned for cross‑lingual validation and embedding model optimization, implying the paper only mentions it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:52:49.792275+00:00"
         },
         {
           "language": "Japanese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "Japanese refers to the Japanese language mentioned for cross‑lingual validation, implying the paper only mentions it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:52:49.792275+00:00"
         }
       ],
       "sources_checked": [
@@ -97796,7 +98132,11 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             }
           ]
         },
@@ -97806,43 +98146,83 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English refers to the English language mentioned for cross‑lingual validation and embedding model optimization, implying the paper only mentions it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English refers to the English language mentioned for cross‑lingual validation and embedding model optimization, implying the paper only mentions it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Japanese refers to the Japanese language mentioned for cross‑lingual validation, implying the paper only mentions it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             }
           ]
         },
@@ -97852,7 +98232,11 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             }
           ]
         },
@@ -97862,11 +98246,19 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English refers to the English language mentioned for cross‑lingual validation and embedding model optimization, implying the paper only mentions it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             }
           ]
         },
@@ -97876,11 +98268,19 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English refers to the English language mentioned for cross‑lingual validation and embedding model optimization, implying the paper only mentions it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             }
           ]
         },
@@ -97890,7 +98290,11 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             }
           ]
         },
@@ -97900,7 +98304,11 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             }
           ]
         },
@@ -97910,19 +98318,35 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English refers to the English language mentioned for cross‑lingual validation and embedding model optimization, implying the paper only mentions it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Japanese refers to the Japanese language mentioned for cross‑lingual validation, implying the paper only mentions it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             }
           ]
         },
@@ -97932,7 +98356,11 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             }
           ]
         },
@@ -97942,15 +98370,27 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English refers to the English language mentioned for cross‑lingual validation and embedding model optimization, implying the paper only mentions it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "Japanese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Japanese refers to the Japanese language mentioned for cross‑lingual validation, implying the paper only mentions it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             }
           ]
         },
@@ -97960,11 +98400,19 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language used for the decision scenarios in the experiments, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:49.792275+00:00"
             }
           ]
         }
@@ -98001,28 +98449,44 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Chinese appears in the phrase 'MMBench v1.1 Chinese and English test sets', indicating evaluation on Chinese language benchmarks, so the paper studies Chinese.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:52:48.219762+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English appears in the language filtering step where non-English benchmarks are excluded, indicating the paper focuses on English benchmarks, so the paper studies English.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:52:48.219762+00:00"
         },
         {
           "language": "Owa",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Owa appears as part of a list of benchmark abbreviations (e.g., 'owa - disfl qa'), not as a language, so Owa is a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:52:48.219762+00:00"
         },
         {
           "language": "Mina",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Mina does not appear in the snippet; the snippet contains only optimization terms, so Mina is a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:52:48.219762+00:00"
         }
       ],
       "sources_checked": [
@@ -98046,11 +98510,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese appears in the phrase 'MMBench v1.1 Chinese and English test sets', indicating evaluation on Chinese language benchmarks, so the paper studies Chinese.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English appears in the language filtering step where non-English benchmarks are excluded, indicating the paper focuses on English benchmarks, so the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             }
           ]
         },
@@ -98060,11 +98532,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese appears in the phrase 'MMBench v1.1 Chinese and English test sets', indicating evaluation on Chinese language benchmarks, so the paper studies Chinese.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English appears in the language filtering step where non-English benchmarks are excluded, indicating the paper focuses on English benchmarks, so the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             }
           ]
         },
@@ -98074,15 +98554,27 @@
           "detected_languages": [
             {
               "language": "Owa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Owa appears as part of a list of benchmark abbreviations (e.g., 'owa - disfl qa'), not as a language, so Owa is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English appears in the language filtering step where non-English benchmarks are excluded, indicating the paper focuses on English benchmarks, so the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             },
             {
               "language": "Owa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Owa appears as part of a list of benchmark abbreviations (e.g., 'owa - disfl qa'), not as a language, so Owa is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             }
           ]
         },
@@ -98092,7 +98584,11 @@
           "detected_languages": [
             {
               "language": "Owa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Owa appears as part of a list of benchmark abbreviations (e.g., 'owa - disfl qa'), not as a language, so Owa is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             }
           ]
         },
@@ -98102,7 +98598,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English appears in the language filtering step where non-English benchmarks are excluded, indicating the paper focuses on English benchmarks, so the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             }
           ]
         },
@@ -98112,7 +98612,11 @@
           "detected_languages": [
             {
               "language": "Owa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Owa appears as part of a list of benchmark abbreviations (e.g., 'owa - disfl qa'), not as a language, so Owa is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             }
           ]
         },
@@ -98122,7 +98626,11 @@
           "detected_languages": [
             {
               "language": "Mina",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mina does not appear in the snippet; the snippet contains only optimization terms, so Mina is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             }
           ]
         },
@@ -98132,7 +98640,11 @@
           "detected_languages": [
             {
               "language": "Owa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Owa appears as part of a list of benchmark abbreviations (e.g., 'owa - disfl qa'), not as a language, so Owa is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:52:48.219762+00:00"
             }
           ]
         }
@@ -98164,7 +98676,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets indicate the paper includes only English comments in its dataset and uses English-language data for experiments, showing they collect and use data for English.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T19:54:42.471102+00:00"
         }
       ],
       "sources_checked": [
@@ -98184,7 +98700,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets indicate the paper includes only English comments in its dataset and uses English-language data for experiments, showing they collect and use data for English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:54:42.471102+00:00"
             }
           ]
         },
@@ -98194,7 +98714,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets indicate the paper includes only English comments in its dataset and uses English-language data for experiments, showing they collect and use data for English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:54:42.471102+00:00"
             }
           ]
         },
@@ -98204,7 +98728,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets indicate the paper includes only English comments in its dataset and uses English-language data for experiments, showing they collect and use data for English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:54:42.471102+00:00"
             }
           ]
         },
@@ -98214,7 +98742,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets indicate the paper includes only English comments in its dataset and uses English-language data for experiments, showing they collect and use data for English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T19:54:42.471102+00:00"
             }
           ]
         }

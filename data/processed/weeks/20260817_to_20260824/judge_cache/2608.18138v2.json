@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18138v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T17:03:16.120355+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11995,
+  "verdicts": {
+    "Mato": {
+      "verdict": "false_positive",
+      "reason": "Mato refers to the university acronym 'Universidade Federal de Mato Grosso do Sul' (an affiliation), not the language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Samba": {
+      "verdict": "false_positive",
+      "reason": "Samba refers to a language model named Samba (Souza, 2024) listed in the model availability table, not the language itself; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tucano": {
+      "verdict": "false_positive",
+      "reason": "Tucano refers to a language model named Tucano (Corrêa et al., 2025) and related variants, not the language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Galician": {
+      "verdict": "mentioned_only",
+      "reason": "Galician refers to the Galician language as a subset of the BNE web corpus dataset, a mention of the language but not studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese refers to the target language of the systematic mapping study, with the paper developing, evaluating, and cataloguing models for Portuguese; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the high‑resource language mentioned in the introduction as a comparison, not studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the publication language and a high‑resource language referenced throughout the paper, not studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

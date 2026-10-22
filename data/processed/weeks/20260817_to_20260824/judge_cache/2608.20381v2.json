@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.20381v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T17:09:16.121192+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11605,
+  "verdicts": {
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "The term appears as part of 'replace the image/logo' describing a picture, not the Logo programming language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "The term appears as 'sentinel ids' placeholder identifiers in prompts, not the Sentinel language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The term appears as part of the model name 'gpt-6-luna', not the Luna language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The term appears in the phrase 'non-Latin script', referring to the Latin alphabet rather than the Latin language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is referenced as the language of source decks, translation tasks, and annotation examples (e.g., Korean title, Korean words translated). The paper includes Korean-language decks and tasks, indi",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is referenced as the language of source passages in decks and translation tasks (e.g., 'Translate every Vietnamese-language passage...'). The paper includes Vietnamese content and tasks, in",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of source decks, translation targets, and prompt descriptions (e.g., 'Translate to English', English-only slides). The paper includes English-language decks and t",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

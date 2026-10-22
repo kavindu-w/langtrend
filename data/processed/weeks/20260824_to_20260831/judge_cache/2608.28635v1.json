@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28635v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T15:32:06.519494+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11857,
+  "verdicts": {
+    "Khmer": {
+      "verdict": "studied",
+      "reason": "The term 'Khmer' refers to the Khmer language and script, which the paper studies through dataset construction, question answering, and model evaluation; thus the verdict is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The term 'Latin' appears in contexts like 'Latin-script' and 'non-Latin', referring to script rather than the Latin language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'Chinese' is mentioned as a high-resource language for comparison, not part of the paper's experiments; thus the verdict is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The term 'Japanese' is mentioned as a high-resource language for comparison, not part of the paper's experiments; thus the verdict is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The term 'English' refers to the language used for questions, answers, prompts, and evaluation in the experiments, indicating the paper studies English; thus the verdict is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

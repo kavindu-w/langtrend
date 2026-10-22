@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.14606v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T18:12:47.882626+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11806,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses “pin the parameter” as a verb meaning to fix a value, not the human language Pin.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lithuanian": {
+      "verdict": "studied",
+      "reason": "The snippets discuss the Lithuanian language, its low-resource status, translations, and the open Lithuanian organisational‑psychology dataset used in experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch is only mentioned as a source language for published instrument samples and translation history, not as a target of study or experimentation.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean is proposed as a future non‑Indo‑European language for replication, but the paper does not study or evaluate it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a questionnaire condition, cross‑language ablation, and source for instrument translations, and LLMs are evaluated on English responses.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

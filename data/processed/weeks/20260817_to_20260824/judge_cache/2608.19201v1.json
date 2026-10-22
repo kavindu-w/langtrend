@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.19201v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T17:51:57.985329+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3901,
+  "verdicts": {
+    "Biri": {
+      "verdict": "false_positive",
+      "reason": "BIRI refers to an early automated method, not the Biri language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bwa": {
+      "verdict": "false_positive",
+      "reason": "BWA refers to a bioinformatics tool, not the Bwa language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the language used for word lists and Wikipedia, only mentioned → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

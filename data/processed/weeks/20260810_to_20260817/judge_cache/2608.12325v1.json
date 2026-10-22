@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12325v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T18:30:34.225550+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4598,
+  "verdicts": {
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek refers to early Greek culture in a historical context, not a language studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French is used as a nationality adjective for René Descartes, not the French language; false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German is used as a nationality adjective for Leibniz and Kant, not the German language; false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears both as a historical culture reference and as a nationality/respondent label, not as a language studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced both as the language of the text (plain English, American English dictionary) and as a nationality (English philosopher), not as a language studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

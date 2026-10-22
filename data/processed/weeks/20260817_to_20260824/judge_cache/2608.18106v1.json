@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18106v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T17:29:22.612387+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2303,
+  "verdicts": {
+    "Dla": {
+      "verdict": "false_positive",
+      "reason": "Dla appears as part of the variable name 'dla_score' (a metric), not as a language reference, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is referenced as a language for multilingual experiments and evaluated for overconfidence, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as a language for multilingual experiments and evaluated for overconfidence, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a language for Experiment 1 and used for labeling, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

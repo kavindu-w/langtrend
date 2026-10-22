@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12321v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T18:28:11.546242+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2555,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb meaning to fix version identifiers, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the dataset and for function-word stoplist, indicating the paper studies English; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

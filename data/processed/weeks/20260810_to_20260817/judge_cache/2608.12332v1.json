@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12332v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T19:00:12.827258+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 2510,
+  "verdicts": {
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "Korean appears only in reference to the Korean government, not the Korean language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears in description of English sentences in the CoLA dataset, indicating the paper uses English language data for evaluation, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

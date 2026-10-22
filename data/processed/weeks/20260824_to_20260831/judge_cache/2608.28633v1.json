@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.28633v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T16:18:43.151027+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4287,
+  "verdicts": {
+    "Saxon": {
+      "verdict": "false_positive",
+      "reason": "Saxon appears as part of 'Anglo-Saxon' naming convention, not a language reference → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi appears as a language pair (English→Hindi) in future directions, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean appears as a language pair (Korean→Spanish) in future directions, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish appears as a language pair (English→Hindi and Korean→Spanish) in future directions, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears as the term 'polish pass' (a pipeline step), not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears as source language of the novels (Chinese-source) and localization target, studied → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as the target localization language (American English) and as part of language pairs, studied → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

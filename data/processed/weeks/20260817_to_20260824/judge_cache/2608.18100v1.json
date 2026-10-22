@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18100v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T16:59:00.075569+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6414,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "Abu refers to Abu Dhabi, a city, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mbembe": {
+      "verdict": "false_positive",
+      "reason": "Mbembe is a citation to scholar Achille Mbembe, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "Urdu is listed as a language whose scholarship should be included in training data, a mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is listed as a language whose scholarship should be included in training data, a mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish is listed as a language whose scholarship should be included in training data, a mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the Arabic language used in Falcon’s training data and evaluated outputs, a language the paper studies.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears as a language in reference to other models’ data, not studied in this paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the experiments, scoring, and model comparison, a language the paper studies.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

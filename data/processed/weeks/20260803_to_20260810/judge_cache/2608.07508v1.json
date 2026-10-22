@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.07508v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T19:13:00.798908+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2991,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier appears as part of the phrase \"carrier of perfume\" in the snippet, not referring to the human language Carrier, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole appears as \"positive pole\" describing a scale in the snippet, not referring to the human language Pole, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is used as an adjective for the term \"jalīs\" (\"the Arabic jalīs\"), a mention of the Arabic language in the snippet, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

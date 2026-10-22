@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.20392v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T17:38:00.675017+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3615,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "Ami refers to the AMI meeting corpus (a dataset), not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language of the QMSum transcripts, which the paper uses in its experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.05164v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T19:24:21.245794+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5450,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo refers to the AI-MO dataset, not a human language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Rom": {
+      "verdict": "false_positive",
+      "reason": "Rom does not refer to a language in the snippets; it appears as part of text formatting, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Hungarian refers to the Hungarian algorithm for pair extraction, not the language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is only mentioned as the language of the models used, not studied as a target language, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

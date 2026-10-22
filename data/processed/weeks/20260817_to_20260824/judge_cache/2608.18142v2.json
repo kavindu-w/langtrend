@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.18142v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T17:48:18.258250+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4547,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script used for Roman Urdu, not the Latin language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish is mentioned as a language in related work on hate speech detection, not studied in this paper; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned as a language in related work on hate speech detection, not studied in this paper; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a well‑resourced language in prior work, not the focus of this study; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "studied",
+      "reason": "Urdu is the target language (Roman Urdu) of the experiments, so it is studied; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

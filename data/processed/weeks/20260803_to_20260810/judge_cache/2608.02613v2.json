@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.02613v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T19:32:11.626098+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5090,
+  "verdicts": {
+    "Mum": {
+      "verdict": "false_positive",
+      "reason": "Mum refers to mother (colloquial) in the snippet, not a language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to pin decoding parameters (technical) in the snippet, not a language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used in the synthetic English-only corpus, thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

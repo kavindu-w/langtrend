@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12334v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T18:17:37.060140+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11993,
+  "verdicts": {
+    "Basa": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not contain the word 'Basa', so its referent is unclear; insufficient evidence to confirm it refers to the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tiene": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Spanish word 'tiene' (meaning 'has'), not the language 'Tiene'; thus a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Spanish word 'una' (meaning 'a'), not the language 'Una'; thus a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pero": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the Spanish word 'pero' (meaning 'but'), not the language 'Pero'; thus a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swedish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet includes Chinese characters for 'Swedish Academy' but does not contain the word 'Swedish' itself, so insufficient evidence to confirm reference to the language; treated as mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly discusses Chinese script, target-language ratio for English‑Chinese, and Chinese generation, indicating the paper studies the Chinese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet repeatedly references English as a baseline and target language (e.g., English‑Chinese, English‑Spanish steering), showing the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippet describes Spanish steering experiments (English‑Spanish) and Spanish output ratios, indicating the paper studies Spanish.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

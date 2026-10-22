@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.03756v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T19:05:26.224547+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4742,
+  "verdicts": {
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "Uri appears as a URL parameter in a CELEX link, not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the dataset and processing pipelines, and the test collection is built for English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned only as a language present in the data that is filtered out, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

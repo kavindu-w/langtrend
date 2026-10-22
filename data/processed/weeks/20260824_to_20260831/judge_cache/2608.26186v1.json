@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26186v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T15:30:15.692047+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11733,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu refers to a model named \"Tulu AI\" used to generate culture questions, not the Tulu language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Maori": {
+      "verdict": "false_positive",
+      "reason": "Maori appears in a cultural question about \"Maori culture\", referring to the ethnic group rather than the Maori language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese appears in a cultural question about \"Chinese culture\", referring to the culture rather than the Chinese language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "Japanese appears in a cultural question about \"Japanese culture\", referring to the culture rather than the Japanese language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "Norwegian is repeatedly referenced as a prompt/response language condition (e.g., Norwegian prompts, Norwegian output) indicating the paper studies the Norwegian language → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is repeatedly referenced as a prompt/response language condition (e.g., English prompts, English output) indicating the paper studies the English language → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

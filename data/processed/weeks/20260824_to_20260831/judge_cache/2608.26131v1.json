@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26131v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T16:24:19.959062+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3054,
+  "verdicts": {
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "Uma refers to a custom model named Uma-V0.5, not the language Uma; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian is used as a cultural descriptor (Italian traditions/ingredients), not as a language reference; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language, which the paper focuses on for its UPHELD dataset and experiments; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

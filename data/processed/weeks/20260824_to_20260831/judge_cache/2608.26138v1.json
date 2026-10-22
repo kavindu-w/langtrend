@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.26138v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T15:34:36.448281+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4856,
+  "verdicts": {
+    "Dair": {
+      "verdict": "false_positive",
+      "reason": "Dair appears as part of the dataset identifier 'dair-ai/emotion', not as a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the tweets and Reddit comments used in the datasets, indicating the paper studies English data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

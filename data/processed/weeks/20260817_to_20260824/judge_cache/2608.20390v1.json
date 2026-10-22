@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.20390v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T16:50:21.339818+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3441,
+  "verdicts": {
+    "Wudu": {
+      "verdict": "false_positive",
+      "reason": "Wudu refers to the Islamic ritual of ablution, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is mentioned as the source language of the Qur'an and used in the retrieval system, indicating the paper studies Arabic.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is mentioned as the translation language for the Qur'an and used in the retrieval system, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
