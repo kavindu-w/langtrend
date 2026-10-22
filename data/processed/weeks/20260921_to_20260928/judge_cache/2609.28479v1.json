@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.28479v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T10:54:55.718543+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3907,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col appears as a column heading 'Col Total' in tables, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the language scope and for refinement, not studied, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22253v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T12:16:04.063353+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 1622,
+  "verdicts": {
+    "Sari": {
+      "verdict": "false_positive",
+      "reason": "SARI refers to a summarization metric, not the Sari language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is listed as the source language for the Multi-lingual C-STANCE dataset, indicating the paper uses Chinese data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as the source language for multiple datasets (ScienceQA, FOMC, MeetingBank), indicating the paper uses English data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is listed as the source language for the 20Minuten News dataset, indicating the paper uses German data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

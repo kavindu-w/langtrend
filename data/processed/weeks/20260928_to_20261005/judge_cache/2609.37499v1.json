@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.37499v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:44:42.570870+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9562,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae in the snippets is the abbreviation for Mean Absolute Error (MAE), not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "Latin refers to the Latin language used as part of the multilingual historical text dataset and evaluated in the experiments, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to the French language present in later newspaper excerpts that are included in the dataset and used in the experiments, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the German language, the primary focus of the study with models fine-tuned and evaluated on German historical text, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

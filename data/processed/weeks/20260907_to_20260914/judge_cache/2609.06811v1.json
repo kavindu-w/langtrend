@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.06811v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T13:51:13.905004+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4245,
+  "verdicts": {
+    "Raji": {
+      "verdict": "false_positive",
+      "reason": "Raji refers to an author (Raji et al.) in the citation, not the human language Raji; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to a control mechanism (sentinel controls) in the protocol, not the human language Sentinel; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the corpus and is used in the paper's experiments (building an English-language documentary corpus); studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

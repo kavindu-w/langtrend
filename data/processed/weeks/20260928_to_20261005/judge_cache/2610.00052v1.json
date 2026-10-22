@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.00052v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:18:17.862662+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5021,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears only as part of model names (e.g., gpt-5.6-luna), not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is referenced as a locale/dataset (Polish Lotto) and a language-specific component (Polish arm), but the paper does not study the Polish language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the language of the prompts in the experiments, indicating the paper studies English as a language for its task.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

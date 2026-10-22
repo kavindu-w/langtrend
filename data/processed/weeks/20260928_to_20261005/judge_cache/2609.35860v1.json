@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.35860v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:20:27.403840+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2550,
+  "verdicts": {
+    "Mae": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix G contains no occurrence of 'Mae', so its referent is unclear; insufficient evidence → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'Greek Orthodox', a religious denomination, not a direct reference to the Greek language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'English composer', a nationality descriptor, not a direct reference to the English language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

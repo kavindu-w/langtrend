@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.05938v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T13:46:47.344068+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3702,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to Mean Absolute Error, a metric, not the language Mae",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "polish is a verb meaning to refine, not the language Polish",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese Medicine refers to Traditional Chinese Medicine, not the Chinese language",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English scientific papers refers to the English language used as a corpus in experiments",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

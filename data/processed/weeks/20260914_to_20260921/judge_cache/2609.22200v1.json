@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22200v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T12:40:38.007404+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4025,
+  "verdicts": {
+    "Iban": {
+      "verdict": "false_positive",
+      "reason": "refers to IBAN (International Bank Account Number) identifier in the dataset composition, not the Iban language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "refers to PIN credential in the dataset composition, not the Pin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "refers to the Latin script, not the Latin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "refers to the Italian language in the multilingual evaluation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "refers to the Korean language in the multilingual evaluation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "refers to the Russian language in the multilingual evaluation → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "refers to the English language in the multilingual evaluation → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

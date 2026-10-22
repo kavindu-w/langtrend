@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.35807v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:32:05.681553+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3551,
+  "verdicts": {
+    "Iban": {
+      "verdict": "false_positive",
+      "reason": "Iban refers to IBAN bank account number format in the snippets, not a human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to a pin code or search filter argument in the snippets, not a human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to a sentinel value used in policy modeling, not a human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

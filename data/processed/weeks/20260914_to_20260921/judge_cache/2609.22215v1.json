@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22215v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T12:07:29.013931+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10280,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin is referenced only as a transliteration script name, not as a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Afrikaans": {
+      "verdict": "mentioned_only",
+      "reason": "Afrikaans is mentioned only as a language incorrectly assigned by the langdetect tool, a mention‑only reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears only as an off‑language output example, a mention‑only reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of prompts, evaluation, and the GSM8K task, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is the language of the response‑style experiment and CoT traces, indicating the paper studies French.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

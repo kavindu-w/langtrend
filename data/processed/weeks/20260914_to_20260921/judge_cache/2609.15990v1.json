@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.15990v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T11:19:57.735572+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2504,
+  "verdicts": {
+    "Tii": {
+      "verdict": "false_positive",
+      "reason": "Tii appears as part of model names (TII Trans, TII SSM) in the snippets, not as a language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is used to refer to the language in dataset names and tasks (ukr_Cyrl, Ukrainian legal case outcome prediction), implying the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

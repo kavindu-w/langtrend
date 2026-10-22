@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.06011v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T13:22:57.014962+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2874,
+  "verdicts": {
+    "Solos": {
+      "verdict": "false_positive",
+      "reason": "Solos appears only as part of the dataset name 'Medley-solos-DB', not as a language reference, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is explicitly stated as the language of all propositional evidence, indicating the paper studies English as part of its experimental data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

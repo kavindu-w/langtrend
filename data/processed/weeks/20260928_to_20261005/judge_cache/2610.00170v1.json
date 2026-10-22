@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.00170v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:52:38.471732+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11678,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to a hardware pin/script (gates/pin_latency.py), not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean refers to the Korean language (utterances, benchmarks, taxonomy, product names) and the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language (queries, titles, table columns) and the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the Japanese language (queries, translation source) and the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

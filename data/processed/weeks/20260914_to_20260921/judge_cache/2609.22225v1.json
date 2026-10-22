@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22225v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T11:53:33.646712+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 1912,
+  "verdicts": {
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole is a dimension label in the experimental design, not a human language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Reel": {
+      "verdict": "false_positive",
+      "reason": "Reel refers to product names (fishing reel) in the dataset, not a human language → false positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

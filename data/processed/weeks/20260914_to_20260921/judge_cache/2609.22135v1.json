@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22135v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-10-22T12:23:08.707373+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4336,
+  "verdicts": {
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "The text refers to a person's name, Tat-Seng Chua, rather than the language, which implies a false positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The text refers to the country China and the Chinese Academy of Sciences rather than the language itself, which implies a false positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The text mentions that emotion labels and datasets are mainly in English, which implies the language is mentioned_only",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

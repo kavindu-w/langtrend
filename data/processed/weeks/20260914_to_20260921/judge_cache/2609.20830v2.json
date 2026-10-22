@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.20830v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T11:51:37.478174+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10324,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo refers to a person name (Mo Williams) in the example, not the language Mo; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sari": {
+      "verdict": "false_positive",
+      "reason": "SARI refers to the evaluation metric (Score for Automatic RAnkIng) and not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears as the lowercase word 'polish' describing text polishing, not the language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the training data and evaluation datasets (e.g., English web text, English validation set); the paper uses English as the language for its experiments, so it is studi",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

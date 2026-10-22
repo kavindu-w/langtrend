@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.05910v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T13:01:52.468552+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9403,
+  "verdicts": {
+    "Pol": {
+      "verdict": "studied",
+      "reason": "The snippet uses 'pol Latn' as a language code for Polish in the evaluation table, indicating the paper evaluates Polish; thus the paper studied Polish.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "The snippet references 'heb Hebr' as a language identifier for Hebrew in performance tables, showing Hebrew is evaluated; thus the paper studied Hebrew.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Latn' as a script code for the Latin script, not the Latin language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippet includes 'kor Hang' as a language code for Korean, indicating Korean is evaluated; thus the paper studied Korean.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "The snippet includes 'pes Arab' as a language code for Persian, indicating Persian is evaluated; thus the paper studied Persian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The snippet includes 'por Latn' as a language code for Portuguese, indicating Portuguese is evaluated; thus the paper studied Portuguese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romanian": {
+      "verdict": "studied",
+      "reason": "The snippet includes 'ron Latn' as a language code for Romanian, indicating Romanian is evaluated; thus the paper studied Romanian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippet includes 'fra Latn' as a language code for French, indicating French is evaluated; thus the paper studied French.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Tulu-3-Pref-Personas-Instruction-Following', which is a dataset name, not the Tulu language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet repeatedly references English as the reasoning language, data source, and evaluation language, indicating the paper studies English; thus the paper studied English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

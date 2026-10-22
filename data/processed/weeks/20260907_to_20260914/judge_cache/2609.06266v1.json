@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.06266v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T13:38:16.790034+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11819,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "Ami appears as part of 'Deep Learning Base AMI for Amazon Linux 2', an Amazon Machine Image, not the language Ami.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tunica": {
+      "verdict": "false_positive",
+      "reason": "Tunica appears as the Latin word 'tunica' (e.g., 'tunica rubea') used as an example, not the Tunica language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Occitan": {
+      "verdict": "studied",
+      "reason": "Occitan is mentioned as a vernacular language in the DALME-Marseille corpus, with tokens classified and evaluated for lemmatization and tagging, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek appears only within the name 'Ancient Greek and Latin Dependency Treebank', a treebank identifier, not as a language under study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "Latin is the target language of the study; the paper builds and evaluates parsers, treebanks, and resources for Medieval Documentary Latin.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

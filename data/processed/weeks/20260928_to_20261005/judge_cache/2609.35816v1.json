@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.35816v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:33:38.957744+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5311,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the Jina Reader tool, not the Jina language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "Nasal appears in the episode title 'Post Nasal Dick', not the Nasal language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian is used as an adjective for a city-state, not the Italian language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to Chinese language data (Chinese OpenSeeker trajectories) used in training, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

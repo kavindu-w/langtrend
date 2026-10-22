@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22235v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T12:20:12.685298+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4175,
+  "verdicts": {
+    "Aer": {
+      "verdict": "false_positive",
+      "reason": "Aer is the abbreviation for the American Economic Review journal, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol is part of the abbreviation for the American Economic Journal: Economic Policy (AEJ: Pol), not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "Dao appears as part of the surname \"Pham-Dao\" in an author name, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Shan": {
+      "verdict": "false_positive",
+      "reason": "Shan appears as part of the name \"Shan Lan\" in an author name, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language used for the system and evaluation materials → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

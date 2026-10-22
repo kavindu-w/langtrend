@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.35805v2",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-22T09:50:27.481735+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2750,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu refers to the Tulu v3 SFT mixture, which is a dataset used for hyperparameter tuning, not the human language; therefore, it is a false positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The word 'polish' is used as a verb meaning to refine the writing of the paper, not as a reference to the Polish language; therefore, it is a false positive",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

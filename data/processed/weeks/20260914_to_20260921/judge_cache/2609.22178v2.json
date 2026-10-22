@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.22178v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T12:21:45.811077+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5738,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier is used as a generic term for 'carrier-specific' (a carrier of hazard injection), not the human language Carrier, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to a state variable used in safety detection, not the human language Sentinel, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Cua": {
+      "verdict": "false_positive",
+      "reason": "Cua is an acronym for Computer-Use Agent, not the language Cua, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the language of the system prompt, not a focus of study, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

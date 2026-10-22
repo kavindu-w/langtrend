@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.17536v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T11:27:22.251340+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2999,
+  "verdicts": {
+    "Noon": {
+      "verdict": "false_positive",
+      "reason": "Noon is a common word unrelated to a human language; the snippet uses \"high noon now\" as a phrase, not a language reference. Therefore, Noon is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Chinese as a language that the model is good at, and the paper may be using Chinese as a language for therapy. This indicates Chinese is referenced as a human language in the cont",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions English as part of a bilingual model's description, not as a language studied in the paper. Therefore, English is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

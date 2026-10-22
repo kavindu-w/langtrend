@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.00223v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:57:38.437458+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4420,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "Abu appears as part of \"Abu Dhabi\", a location, not the language Abu → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tii": {
+      "verdict": "false_positive",
+      "reason": "TII is an organization (Technology Innovation Institute) mentioned in affiliation, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Zay": {
+      "verdict": "false_positive",
+      "reason": "Jean Zay HPC is a supercomputer name, not the Zay language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French refers to the French electricity mix, not the French language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the Arabic language, the target of the Noor models and datasets → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

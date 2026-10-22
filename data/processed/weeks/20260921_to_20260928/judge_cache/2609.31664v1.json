@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31664v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-10-22T10:50:08.321743+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11626,
+  "verdicts": {
+    "Mand": {
+      "verdict": "false_positive",
+      "reason": "Mand refers to a shorthand label for the 'mand-frame' condition in a statistical table, not the language itself, so the verdict is false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to a specific output type ('sentinel-zero outputs') in the context of model scoring, not a human language, so the verdict is false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Hakka": {
+      "verdict": "mentioned_only",
+      "reason": "Hakka is listed as one of the regional varieties to be covered in audit recommendations, so the verdict is mentioned_only",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper evaluates multiple Chinese registers including Classical Chinese, Mandarin, Shanghainese, and Cantonese, so the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English as a baseline surface form and a target for translation evaluation, so the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

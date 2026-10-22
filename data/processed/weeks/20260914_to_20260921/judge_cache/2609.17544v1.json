@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.17544v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T12:31:54.599946+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3807,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo appears as part of the name 'Bo Cheng' (a person) and 'Bo'ai' (a clinic), not the language Bo → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Miao": {
+      "verdict": "false_positive",
+      "reason": "Miao appears as part of the name 'Wenrong Miao' (a person), not the language Miao → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as 'English reasoning traces' and 'mixed Chinese-English output', indicating the language is mentioned but not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as 'Chinese prompts' and 'mixed Chinese-English output', indicating the language is used in experiments → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.00045v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:41:02.938602+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4189,
+  "verdicts": {
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole is used as a column heading for antonym pairs, not the language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Roma": {
+      "verdict": "false_positive",
+      "reason": "Roma appears as an ethnicity term in protected‑group keyword lists, not as a language reference, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chechen": {
+      "verdict": "false_positive",
+      "reason": "Chechen appears as an ethnicity term in protected‑group keyword lists, not as a language reference, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romani": {
+      "verdict": "false_positive",
+      "reason": "Romani appears as an ethnicity term in protected‑group keyword lists, not as a language reference, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the legal text used for the baseline model, thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

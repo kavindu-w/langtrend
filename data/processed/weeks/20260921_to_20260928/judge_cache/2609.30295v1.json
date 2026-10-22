@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30295v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-22T10:22:08.811956+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5262,
+  "verdicts": {
+    "Chinese Sign Language": {
+      "verdict": "studied",
+      "reason": "The paper builds a system to access a Chinese sign-language dictionary and evaluates it using a benchmark of signs, meaning it is the primary object of study.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The text refers to 'Latin-letter' runs in the context of tokenization, which refers to the Latin script/alphabet rather than the Latin language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The system processes Chinese queries, uses a Chinese dictionary, and evaluates performance on Chinese movement-description queries.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used for translating queries and reference meanings in the evaluation table, but the system is not built for or evaluated on English as a target language.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

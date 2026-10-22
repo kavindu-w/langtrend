@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.38181v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:44:07.461162+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3513,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "Aka refers to the domain 'aka.ms' in the code availability URL, not the human language Aka, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "Uma appears as the citation tag 'UMA' for a dataset/paper, not the human language Uma, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

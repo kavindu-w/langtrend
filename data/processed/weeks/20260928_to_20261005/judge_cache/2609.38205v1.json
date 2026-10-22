@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.38205v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:44:59.696279+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2566,
+  "verdicts": {
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to English as the language of prompts and queries, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'French cuisine', which refers to a culinary tradition, not the French language itself, so the detection is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

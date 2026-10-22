@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.31651v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T10:52:05.347128+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6615,
+  "verdicts": {
+    "Kam": {
+      "verdict": "false_positive",
+      "reason": "Kam is an abbreviation for the collection group Kambaramayanam, not a language reference → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kannada": {
+      "verdict": "studied",
+      "reason": "Kannada appears as a manuscript tradition and collection group in the benchmark, and is evaluated in experiments → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Khmer": {
+      "verdict": "studied",
+      "reason": "Khmer is listed as a manuscript tradition and collection group, and included in dataset statistics and experiments → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Malayalam": {
+      "verdict": "mentioned_only",
+      "reason": "Malayalam is mentioned only as an additional source tradition, not part of the benchmark's eight groups or experiments → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is used to denote non‑Latin scripts, referring to the Latin alphabet rather than the Latin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "Tamil is one of the eight collection groups and is evaluated in experiments and performance tables → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "false_positive",
+      "reason": "English is used only as the language of the question texts in the annotation schema, not as a studied language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

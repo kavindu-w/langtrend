@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.06296v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T13:50:17.417123+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3306,
+  "verdicts": {
+    "American Sign Language": {
+      "verdict": "studied",
+      "reason": "The snippet refers to American Sign Language as a human language used for phonological feature classification, indicating the paper studies ASL.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chin": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists 'Chin' as a body location (minor location) in the feature set, not as a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions English as a target language for translation (ASL-to-English) and as a language for evaluation, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

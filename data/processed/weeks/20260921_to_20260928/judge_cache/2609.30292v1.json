@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.30292v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T10:39:32.460228+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8272,
+  "verdicts": {
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "Deg appears as part of model names like DeG-Spam, not the language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Duma": {
+      "verdict": "false_positive",
+      "reason": "Duma appears as an author name (Duma et al.), not the language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish refers to the Turkish language in review scenario, indicating the paper studies Turkish reviews, implying studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mbo": {
+      "verdict": "false_positive",
+      "reason": "Mbo appears as part of model names like MBO-DeBERTa, not the language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "Gan refers to Generative Adversarial Network, not the language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language in detection tasks, indicating the paper studies Chinese reviews, implying studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language in exclusion criteria and multilingual context, indicating the paper studies English reviews, implying studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

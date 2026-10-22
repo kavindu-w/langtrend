@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.35879v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:37:33.579233+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2958,
+  "verdicts": {
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'UMA status = resolved', an acronym for a dataset attribute, not the human language Uma; thus it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet references 'French police' and 'French authorities', indicating nationality rather than the French language; thus it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

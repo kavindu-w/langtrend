@@ -1,0 +1,69 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.08851v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T09:11:46.402982+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10851,
+  "verdicts": {
+    "Dano": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes \"Dano-Norwegian written tradition\", where \"Dano\" is a prefix used as an adjective for Danish, not a standalone language name; it is a false positive (acronymic reference to Danish",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"nasal vowels silent consonants\" as a phonological feature of French, not the Nasal language; \"Nasal\" is a descriptive adjective, a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Danish": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly discusses Danish as a language (e.g., \"Danish Dan / Norwegian Bokmål Nob / Swedish Swe\"), part of the North Germanic quadruplet; it is studied as part of the framework. The pape",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references \"Latin\" in the context of \"orthography–phonology decoupling\" and \"evolution from Latin\", describing the historical development of French; \"Latin\" here refers to the Latin langua",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The snippet includes Italian as one of the four Western Romance languages evaluated (e.g., \"Italian (It)\", tokenization fragmentation rates, MLM mutual intelligibility). Italian is part of the experim",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "The snippet mentions Norwegian Bokmål as part of the North Germanic quadruplet (\"Norwegian Bokmål Nob\"), evaluated in the original QuanLing study; Norwegian is studied in the earlier work and referenc",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "The snippet mentions Swedish as part of the North Germanic quadruplet (\"Swedish Swe\"), evaluated in the original QuanLing study; Swedish is studied in the earlier work and referenced here, so \"studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The snippet includes Portuguese as one of the four Western Romance languages evaluated (e.g., \"Portuguese (Pt)\", LaBSE distances, tokenization fragmentation rates, MLM mutual intelligibility). Portugu",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The snippet includes Spanish as one of the four Western Romance languages evaluated (e.g., \"Spanish (Es)\", LaBSE distances, tokenization fragmentation rates, MLM mutual intelligibility). Spanish is pa",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romanian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Romanian only in the context of future work (\"introducing Romanian as a representative of Eastern Romance\"), not as part of current experiments; it is only mentioned, so \"mentione",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet describes English as the anchor language used in the quadruplet construction (\"English anchor instead of Danish\"), and its role in experiments (e.g., tokenization fragmentation rates). Eng",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippet includes French as one of the four Western Romance languages evaluated (e.g., \"French (Fr)\", LaBSE distances, tokenization fragmentation rates, MLM mutual intelligibility). French is part ",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

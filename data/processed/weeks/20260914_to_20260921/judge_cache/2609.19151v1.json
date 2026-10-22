@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.19151v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T11:07:05.005189+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11544,
+  "verdicts": {
+    "Anal": {
+      "verdict": "false_positive",
+      "reason": "Anal is a column header ('Clean Anal') in a table, not a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole is used as a term for polarization in results, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is listed among non‑English languages present in the review data, only mentioned during language filtering.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is listed among non‑English languages present in the review data, only mentioned during language filtering.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is listed among non‑English languages present in the review data, only mentioned during language filtering.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is listed among non‑English languages present in the review data, only mentioned during language filtering.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced as a language of user responses and as a language to consider for future work, but the paper does not conduct experiments on Chinese reviews; it only mentions it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the collected reviews and the analysis pipeline (topic modeling, sentiment classification), so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

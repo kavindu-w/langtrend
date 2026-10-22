@@ -1,0 +1,74 @@
+{
+  "paper_id": "http://arxiv.org/abs/2609.06634v2",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-10-22T14:00:13.841074+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11590,
+  "verdicts": {
+    "Ale": {
+      "verdict": "false_positive",
+      "reason": "The word 'Ale' appears as the first word of several Polish sentences in translation examples (meaning 'But'), not as a language name.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Dla": {
+      "verdict": "false_positive",
+      "reason": "The word 'dla' appears as a Polish preposition (meaning 'for') in translation examples, not as a language name.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Lewo": {
+      "verdict": "false_positive",
+      "reason": "The word 'lewo' appears as part of a Polish phrase 'na lewo' (meaning 'to the left') in translation examples, not as a language name.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Samo": {
+      "verdict": "false_positive",
+      "reason": "The word 'samo' appears as a Polish word (meaning 'the same') in translation examples, not as a language name.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Sowa": {
+      "verdict": "false_positive",
+      "reason": "The word 'sowa' appears as a Polish word (meaning 'owl') in translation examples, not as a language name.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Kein": {
+      "verdict": "false_positive",
+      "reason": "The word 'kein' appears as part of a German idiom 'kein Auge trocken' in translation examples, not as a language name.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Pana": {
+      "verdict": "false_positive",
+      "reason": "The word 'pana' appears as a Polish formal pronoun (meaning 'sir/you') in translation examples, not as a language name.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "The paper evaluates translation systems for the English-Polish language pair using the AlphaMWE corpus.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "The paper evaluates translation systems for the English-Egyptian Arabic language pair.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The paper evaluates translation systems for English-Arabic, including Modern Standard Arabic and dialects.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper evaluates translation systems for the English-Chinese language pair.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper evaluates translation systems from English into several other languages.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippets show German is one of the languages evaluated in the translation task and used for human evaluation, implying it is studied.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}
