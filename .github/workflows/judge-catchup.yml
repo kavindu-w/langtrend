@@ -66,6 +66,13 @@ jobs:
           python-version-file: '.python-version'
           cache: 'pip'
 
+      # Backstop for docling memory spikes: a runner killed for memory skips
+      # every if: always() step, losing this job's judge verdicts.
+      # See .github/actions/enlarge-swap/action.yml.
+      - name: Enlarge swap
+        continue-on-error: true
+        uses: ./.github/actions/enlarge-swap
+
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip

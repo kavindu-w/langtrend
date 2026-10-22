@@ -1,0 +1,72 @@
+name: Enlarge swap
+description: >
+  Replace the runner's 4 GB swapfile with a larger one, as a backstop for
+  docling memory spikes. Never fails and never leaves the runner with less
+  swap than it started with.
+
+# Why: docling's PDF conversion can spike memory on a long, figure-heavy paper.
+# With docling's default batching, 2610.15938v1 (50 pages) peaked at ~13 GB and
+# got the 16 GB runner killed outright, twice — a kill skips every
+# if: always() step, so all of that job's output (processing results or judge
+# verdicts) is lost. pdf_processor.py's batch/queue settings are the real fix
+# (~6 GB peak); this turns any remaining spike into a slowdown instead of a
+# kill. Swap thrashing still costs time against the job's timeout budget.
+#
+# Order matters: the new swapfile is created and enabled under its own name
+# *before* the old one is removed, so a failure partway (disk full, fallocate
+# unsupported) leaves the original 4 GB swap in place.
+
+inputs:
+  size-gb:
+    description: Size of the new swapfile, in GB.
+    default: "16"
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        SIZE_GB: ${{ inputs.size-gb }}
+      run: |
+        set -u
+        free_gb() { df --output=avail -BG "$1" 2>/dev/null | tail -1 | tr -dc 0-9; }
+
+        # /mnt is the scratch disk. / also holds the checkout, the pip/torch
+        # install (which runs *after* this step), docling models and PDFs, so
+        # it needs much more headroom before we take 16 GB of it.
+        dir=
+        if [ -d /mnt ] && [ "$(free_gb /mnt)" -ge $((SIZE_GB + 4)) ] 2>/dev/null; then
+          dir=/mnt
+        elif [ "$(free_gb /)" -ge $((SIZE_GB + 25)) ] 2>/dev/null; then
+          dir=
+        else
+          echo "::warning::Enlarge swap: not enough free disk on /mnt ($(free_gb /mnt)G) or / ($(free_gb /)G); keeping existing swap"
+          free -h
+          exit 0
+        fi
+        new="${dir}/swapfile.big"
+
+        if ! { sudo fallocate -l "${SIZE_GB}G" "$new" \
+               && sudo chmod 600 "$new" \
+               && sudo mkswap "$new" >/dev/null \
+               && sudo swapon "$new"; }; then
+          echo "::warning::Enlarge swap: could not enable $new; keeping existing swap"
+          # || true: the shell runs with -e, and swapoff fails on a file that
+          # never got enabled (mkswap/swapon failed) — without it rm is skipped
+          # and the 16 GB file is left on disk.
+          sudo swapoff "$new" 2>/dev/null || true
+          sudo rm -f "$new"
+          free -h
+          exit 0
+        fi
+
+        # New swap is live; now drop the old swapfile(s).
+        for old in $(swapon --show=NAME --noheadings); do
+          [ "$old" = "$new" ] && continue
+          [ -f "$old" ] || continue  # leave swap partitions alone
+          sudo swapoff "$old" && sudo rm -f "$old"
+        done
+
+        echo "swapfile on ${dir:-/}: $new"
+        swapon --show
+        free -h

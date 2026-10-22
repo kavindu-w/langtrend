@@ -123,6 +123,14 @@ def _get_docling_converter():
     opts = PdfPipelineOptions()
     opts.do_ocr = False             # arXiv PDFs are born-digital, no OCR needed
     opts.do_table_structure = False  # table cells not needed for language detection
+    # One page at a time through layout, with no read-ahead queue. With the
+    # defaults (batch 4, queue 100) a figure-heavy paper like 2610.15938v1
+    # (50 pages) peaks at ~13 GB RSS — enough to get a 16 GB CI runner
+    # killed outright. Both are needed: either alone still peaked ~13 GB.
+    # Measured there: 5.9 GB peak, byte-identical markdown, no slower
+    # (new 35 s vs default 41 s; a typical 42-page paper: 12 s either way).
+    opts.layout_batch_size = 1
+    opts.queue_max_size = 1
     opts.accelerator_options = AcceleratorOptions(device=AcceleratorDevice.CPU)
 
     return DocumentConverter(

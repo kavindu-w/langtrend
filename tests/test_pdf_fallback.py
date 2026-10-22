@@ -285,6 +285,41 @@ class TestExtractTextEndMatterTrimmedFlag:
 
 
 # ---------------------------------------------------------------------------
+# docling pipeline options (memory regression guard)
+#
+# DocumentConverter is stubbed to capture its options, so no models load.
+# ---------------------------------------------------------------------------
+
+class TestDoclingPipelineOptions:
+    """Docling's default layout batch (4) plus read-ahead queue (100) let a
+    figure-heavy 50-page paper (2610.15938v1) peak at ~13 GB RSS, which got
+    the 16 GB CI runner killed mid-judge — twice — losing every verdict from
+    the pass. Dropping either setting back to its default restores the ~13 GB
+    peak, so both are pinned here.
+    """
+
+    def test_layout_batch_and_queue_are_one(self, monkeypatch):
+        import docling.document_converter as dc
+        from docling.datamodel.base_models import InputFormat
+        import langtrend.pdf_processor as pp
+
+        captured = {}
+
+        class _CapturingConverter:
+            def __init__(self, format_options):
+                captured.update(format_options)
+
+        monkeypatch.setattr(dc, "DocumentConverter", _CapturingConverter)
+        pp._get_docling_converter()
+
+        opts = captured[InputFormat.PDF].pipeline_options
+        assert opts.layout_batch_size == 1
+        assert opts.queue_max_size == 1
+        assert opts.do_ocr is False
+        assert opts.do_table_structure is False
+
+
+# ---------------------------------------------------------------------------
 # PDFProcessor smoke tests
 # ---------------------------------------------------------------------------
 
