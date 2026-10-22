@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.17125v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T20:09:36.642140+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3356,
+  "verdicts": {
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Miami is used as a place name example of a hallucinated value, not the Miami language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of prompts, dataset subsets, and evaluation settings, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

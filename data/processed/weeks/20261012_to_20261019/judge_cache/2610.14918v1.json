@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.14918v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T23:25:25.994398+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3949,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb meaning to lock a repository to a commit, not the Pin language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pom": {
+      "verdict": "false_positive",
+      "reason": "Pom appears as part of 'pom.xml', a Maven build file, not the Pom language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish is used as a verb meaning to refine manuscript, not the Polish language → false positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

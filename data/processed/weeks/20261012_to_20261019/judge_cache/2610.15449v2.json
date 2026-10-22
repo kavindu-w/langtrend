@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.15449v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T22:35:22.730701+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11878,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin is used as a technical term for phonetic transcription, not the Pinyin language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is used as the language for prompts, datasets, and evaluation (e.g., Chinese prompts, Chinese knowledge, Chinese examples), indicating the paper studies the Chinese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the language for prompts, instructions, and evaluation (e.g., English prompts, English knowledge, English translations), indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "Japanese is not present in the snippets; the text only mentions a Japanese brand in Chinese, so Japanese is not referenced as a language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

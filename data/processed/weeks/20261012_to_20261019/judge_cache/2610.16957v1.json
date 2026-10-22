@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.16957v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T20:07:30.676533+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9324,
+  "verdicts": {
+    "Bunu": {
+      "verdict": "false_positive",
+      "reason": "Bunu is a Turkish word meaning 'this', not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek refers to Greek people/groups in the context of hate speech targets, not the Greek language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "Czech is mentioned as part of multilingual sarcasm detection work, not studied in this paper, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned as a language where sarcasm detection has been studied, not part of this paper's experiments, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned as a language where sarcasm detection has been studied, not part of this paper's experiments, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is the primary language of the hate speech detection study, used for datasets, models, and evaluation, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced only for translations, prompts, and prior work, not studied in this paper, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.18933v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T19:22:52.269711+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4589,
+  "verdicts": {
+    "Ale": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Ale' as part of 'ALE-Agent', a coding agent, not the Ale language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'pin' as a verb meaning to lock version, not the language Pin; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Polish' as part of 'visual polish', meaning to refine, not the Polish language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

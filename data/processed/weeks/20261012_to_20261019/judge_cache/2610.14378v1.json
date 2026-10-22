@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.14378v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T22:51:20.669164+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3354,
+  "verdicts": {
+    "Aer": {
+      "verdict": "false_positive",
+      "reason": "Aer appears as the word \"aer\" (a verb) in the snippet, not as the language Aer, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "Loo appears as abbreviation \"LOO\" for leave-one-out, not the language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears as \"Chinese Wikipedia\", indicating the paper uses Chinese-language text as part of its experimental documents, implying studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as \"English Wikipedia\", indicating the paper uses English-language text as part of its experimental documents, implying studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French appears as \"French Wikipedia\", indicating the paper uses French-language text as part of its experimental documents, implying studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

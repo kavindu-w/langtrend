@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.16757v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T20:21:22.123308+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4551,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to the verb 'pin' (fixing environment version) in the snippets, not the human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language in the snippets (data language, plain English) and the paper uses English data and models, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German refers to the German language in the snippets (cited study on German comments) but the paper does not study German, only mentions it, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

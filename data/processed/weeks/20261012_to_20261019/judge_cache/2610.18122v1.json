@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.18122v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T19:27:40.756566+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2753,
+  "verdicts": {
+    "Serbian": {
+      "verdict": "false_positive",
+      "reason": "Serbian refers to the Serbian national team, not the language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish is used as a source language in a translation instruction, so it's mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used as the target language in a translation instruction, so it's mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French appears as part of 'French macarons', a dessert name, not the language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "Japanese appears as part of 'Japanese matcha ice cream', a dessert name, not the language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.16027v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T21:23:47.705529+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3978,
+  "verdicts": {
+    "Hema": {
+      "verdict": "false_positive",
+      "reason": "Hema refers to a brand of gift packs (Hema Fresh Gift Packs) in the snippet, not a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to placeholder actions and slots in the audit protocol and configuration, not a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as a language in which ACEBench-Agent evaluates tool use, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a language in which ACEBench-Agent evaluates tool use, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

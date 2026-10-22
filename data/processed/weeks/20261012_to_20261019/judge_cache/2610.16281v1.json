@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.16281v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T21:15:18.645509+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3444,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears as part of the pseudonym 'Chen Mo' (a person name) and does not refer to a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced only as part of 'Chinese-English translation' and 'competence controls use Chinese', i.e., the language is mentioned but not studied, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the language for the evaluation scenarios, prompts, and controls, indicating the paper studies English as part of its experimental setup, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

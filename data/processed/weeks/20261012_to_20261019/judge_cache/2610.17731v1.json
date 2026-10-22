@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.17731v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T19:17:46.345494+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2799,
+  "verdicts": {
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "Crow appears as part of the song title \"Crow Lion Klaxon\" and is not a reference to the Crow language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gimme": {
+      "verdict": "false_positive",
+      "reason": "Gimme appears as part of the song title \"Gimme Dat\" and is not a reference to a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "Russian appears in the song title \"Russian Roulette\" and is not a reference to the Russian language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "false_positive",
+      "reason": "English appears in the song title \"Life's Too Short (English Ver.)\" as a version indicator and is not a reference to the English language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

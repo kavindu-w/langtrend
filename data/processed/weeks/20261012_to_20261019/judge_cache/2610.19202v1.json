@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.19202v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T19:11:34.857996+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2692,
+  "verdicts": {
+    "Chong": {
+      "verdict": "false_positive",
+      "reason": "Chong appears as an author name in citations (e.g., Zuckerman and Chong, Saglam and Chong), not as a language reference, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used to describe the language of stories in the TinyStories dataset, indicating the paper uses English-language data in its experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

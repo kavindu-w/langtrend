@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.17278v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T19:46:13.306602+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5685,
+  "verdicts": {
+    "Ale": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word 'ale' as part of Ewe text, not a reference to the Ale language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kuku": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word 'kuku' as part of Ewe text, not a reference to the Kuku language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gbe": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references 'Gbe' as part of the Gbe language group describing Ewe, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions English as an example of a high-resource language, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mina": {
+      "verdict": "studied",
+      "reason": "The snippet references Common Voice - Mina data as a training source and evaluates its impact on Ewe ASR, indicating the language is part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yoruba": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet uses Yoruba as a language condition for Whisper experiments, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

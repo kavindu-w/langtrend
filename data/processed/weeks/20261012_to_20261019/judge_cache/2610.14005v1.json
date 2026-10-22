@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.14005v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T23:09:10.960266+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10711,
+  "verdicts": {
+    "Delaware": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"Delaware\" as a US state, not the Delaware language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Duke": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"Duke\" as a British peerage rank, not the Duke language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ibu": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"Ibu\" as a unit for beer bitterness, not the Ibu language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"Mer\" as part of a list of items, not the Mer language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Zulu": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"Zulu\" as part of the NATO phonetic alphabet (alfa to zulu), not the Zulu language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references \"Greek alphabet letters\" and \"Greek letter with vowels dropped\", which are references to the Greek language (alphabet).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet references \"French grade\" (cycling grade) and \"French flour types\", which are not references to the French language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references \"English numbers from one to ten\" and \"English month names reversed\", which are references to the English language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

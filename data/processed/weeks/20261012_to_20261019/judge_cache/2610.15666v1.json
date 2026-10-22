@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.15666v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T23:48:58.954775+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11990,
+  "verdicts": {
+    "Telugu": {
+      "verdict": "mentioned_only",
+      "reason": "Telugu is referenced as a low‑resource language in the RxR benchmark; the paper only mentions it, not studying it. Verdict: mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi appears alongside English and Telugu in the RxR benchmark description; the paper only references it, not studying it. Verdict: mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "Persian is the target language of the new dataset and benchmark; the paper builds Persian‑specific resources (PGOS‑FA, Persian embeddings, Tooka‑SBERT, Persian parsing) and evaluates models on Persian",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the language of existing benchmarks and as a prompt condition in the experiments (English vs. Persian prompts); the paper evaluates model performance with English prompts, thus stud",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

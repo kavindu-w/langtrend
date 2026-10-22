@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.14769v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T22:10:13.228295+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8032,
+  "verdicts": {
+    "Bole": {
+      "verdict": "false_positive",
+      "reason": "Bole appears as a Bengali verb meaning 'say', not as a language reference; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is the target language of the translation study, with dedicated dataset and analysis of honorific usage; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean is mentioned only in passing as a language where honorificity and gender cues are linked, not part of the study's experiments; thus it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only in passing as a language where honorificity and gender cues are linked, not part of the study's experiments; thus it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language used for translation and evaluation, forming the core of the experimental setup; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

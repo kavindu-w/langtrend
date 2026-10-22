@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.14760v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-10-21T22:27:22.408474+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11770,
+  "verdicts": {
+    "Asu": {
+      "verdict": "false_positive",
+      "reason": "Asu refers to a specific word/token in a Nheengatu translation example, not the language itself, so the verdict is false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "Nasal refers to a linguistic feature (nasal marking) mentioned in the context of Nheengatu orthography, not a language, so the verdict is false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Fala": {
+      "verdict": "false_positive",
+      "reason": "Fala refers to a specific tag used in the model (a 'fala tag') to denote conversational register, not the language, so the verdict is false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Otomí": {
+      "verdict": "studied",
+      "reason": "Otomí refers to a language used in a baseline comparison from the AmericasNLP dataset, so the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Nahuatl": {
+      "verdict": "studied",
+      "reason": "Nahuatl refers to a language used in a baseline comparison from the AmericasNLP dataset, so the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Quechua": {
+      "verdict": "studied",
+      "reason": "Quechua refers to a language used in a baseline comparison from the AmericasNLP dataset, so the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Lingua Franca": {
+      "verdict": "false_positive",
+      "reason": "Lingua Franca refers to a type of language used for communication across ethnic lines, not a specific human language, so the verdict is false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is one of the primary languages used for the bidirectional machine translation tasks and corpus construction, so the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned in the context of NLLB model translation capabilities, so the verdict is mentioned_only",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is used as a source language for a specific subset of the training corpus (French-Nheengatu pairs), so the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is mentioned as a language used in the AmericasNLP dataset and for data mixing experiments, so the verdict is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

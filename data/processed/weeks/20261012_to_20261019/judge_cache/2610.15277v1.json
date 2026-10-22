@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.15277v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T21:59:26.347958+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4931,
+  "verdicts": {
+    "Lama": {
+      "verdict": "false_positive",
+      "reason": "Lama refers to the LAMA dataset, a knowledge extraction benchmark, not a human language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch is used as an example of a native language in a factual knowledge item, not as a studied language; thus it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "SAKE refers to a knowledge editing method (the SAKE transport edit), not a human language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

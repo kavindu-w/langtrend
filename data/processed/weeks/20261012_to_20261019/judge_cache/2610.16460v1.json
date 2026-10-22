@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.16460v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T20:48:24.656656+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5813,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to a two‑pin hardware connector, not the language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script (Latin‑letter abbreviations, Chinese‑to‑Latin character split), not the language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the language in contexts like Chinese–English interpreting, Chinese source text, and Chinese science‑outreach series, and the system is built for Chinese–English booth work; studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language in contexts like Chinese–English interpreting, English ambient chatter, English interview, and English accent, and the system is built for Chinese–English booth work; st",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

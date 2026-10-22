@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.16435v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-21T20:48:50.097554+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2350,
+  "verdicts": {
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to \"source URI\", a technical identifier, not the language Uri, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet notes that the underlying records are predominantly in Greek, a mention of the language without study, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet states that evaluation queries were in English, a mention of the language without study, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
