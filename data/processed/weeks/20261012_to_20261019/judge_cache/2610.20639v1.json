@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.20639v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T06:33:34.288257+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3113,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu refers to the model Tulu 3, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to the Chinese language (e.g., its Chinese form) in the extractor description, so it is a mention of the language, not studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.15870v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T06:30:29.998999+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11927,
+  "verdicts": {
+    "Georgian": {
+      "verdict": "false_positive",
+      "reason": "Georgian refers to the Georgian script inserted into Kazakh words, not the Georgian language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek refers to the Greek script inserted into Kazakh words, not the Greek language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "false_positive",
+      "reason": "Hebrew refers to the Hebrew script inserted into Kazakh words, not the Hebrew language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kazakh": {
+      "verdict": "studied",
+      "reason": "Kazakh refers to the Kazakh language, the target of the study (data, detectors, experiments) → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script (e.g., Latin homoglyphs, Latin-based alphabet), not the Latin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "Dutch is mentioned only as a supported language in Turnitin, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish is mentioned only as a supported language in Turnitin, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is mentioned only as a supported language in Turnitin, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only as a supported language in Turnitin, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is mentioned as a source language for MT and as a language in the dataset, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned as a supported language in Turnitin and as a script inserted into Kazakh words, but not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as a language for trained detectors and gloss, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned as one of the seven languages supported by Turnitin’s AI detection, not as a language studied or evaluated in the paper.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

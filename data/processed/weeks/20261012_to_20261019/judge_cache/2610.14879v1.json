@@ -1,8 +1,24 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.14879v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-21T23:44:40.403851+00:00",
+  "judged_at": "2026-10-22T06:22:17.342480+00:00",
   "context_coverage": "abstract+pdf",
   "context_chars": 3022,
-  "verdicts": {}
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier is used as a generic term (e.g., 'transparent carrier') and does not refer to a human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language in the context of evaluating Chinese LLMs.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo is part of the author name Zhou Mo and does not refer to a language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }

@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.18105v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T05:59:16.580999+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6763,
+  "verdicts": {
+    "Miu": {
+      "verdict": "false_positive",
+      "reason": "Miu appears as part of the unit 'mIU' (milli‑international units) in lab values, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "Nasal is used as an adjective describing nasal congestion/discharge, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "Sar is an abbreviation for Sarcoidosis in the diagnosis list, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "Una is an abbreviation for Unstable angina in the diagnosis list, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "Uri is an abbreviation for URTI (upper respiratory infection) in the diagnosis list, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the dataset used in experiments, indicating the language is studied → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

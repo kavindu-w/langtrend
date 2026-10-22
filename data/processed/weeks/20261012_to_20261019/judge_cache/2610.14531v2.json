@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.14531v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T06:21:40.611364+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11617,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the embedding model Jina-Embeddings-V4, not the human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "UNA is a column header for unanswerable QA type, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic numerals refer to numeric symbols, not the Arabic language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language (e.g., Chinese historical documents, Chinese corpus, simplified Chinese, classical Chinese corpora); thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language (e.g., English data, English vs Chinese corpus); only mentioned, not studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
