@@ -1,30 +1,30 @@
 {
-  "generated_at": "2026-10-20T17:43:58.761986+00:00",
+  "generated_at": "2026-10-23T01:47:55.958554+00:00",
   "window_days": 7,
   "week_start": "2026-06-29",
   "week_end": "2026-07-06",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 459,
-    "flagged_papers": 194,
-    "unique_languages": 154,
-    "unique_languages_mentioned_only": 17,
+    "flagged_papers": 191,
+    "unique_languages": 147,
+    "unique_languages_mentioned_only": 18,
     "pdf_failed_no_detection": 0,
     "late_announced": 17,
     "judge": {
-      "judged_papers": 283,
-      "judged_languages": 1077,
-      "studied": 464,
-      "mentioned_only": 307,
-      "false_positive": 306
+      "judged_papers": 295,
+      "judged_languages": 1098,
+      "studied": 473,
+      "mentioned_only": 312,
+      "false_positive": 313
     }
   },
   "language_counts": [
     {
       "language": "English",
       "count": 171,
-      "studied": 74,
-      "mentioned_only": 97
+      "studied": 72,
+      "mentioned_only": 99
     },
     {
       "language": "Chinese",
@@ -83,8 +83,8 @@
     {
       "language": "Russian",
       "count": 12,
-      "studied": 9,
-      "mentioned_only": 3
+      "studied": 8,
+      "mentioned_only": 4
     },
     {
       "language": "Hindi",
@@ -341,8 +341,8 @@
     {
       "language": "Latin",
       "count": 3,
-      "studied": 2,
-      "mentioned_only": 1
+      "studied": 1,
+      "mentioned_only": 2
     },
     {
       "language": "Latvian",
@@ -525,12 +525,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Tat",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
       "language": "Tibetan",
       "count": 2,
       "studied": 1,
@@ -610,12 +604,6 @@
     },
     {
       "language": "Breton",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Carrier",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -717,12 +705,6 @@
       "mentioned_only": 1
     },
     {
-      "language": "Kara",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Kazakh",
       "count": 1,
       "studied": 1,
@@ -747,19 +729,7 @@
       "mentioned_only": 0
     },
     {
-      "language": "Logo",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Lombard",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Loo",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -775,12 +745,6 @@
       "count": 1,
       "studied": 0,
       "mentioned_only": 1
-    },
-    {
-      "language": "Mae",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
     },
     {
       "language": "Magahi",
@@ -820,12 +784,6 @@
     },
     {
       "language": "Mirandese",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Mo",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -881,8 +839,8 @@
     {
       "language": "Pin",
       "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
+      "studied": 0,
+      "mentioned_only": 1
     },
     {
       "language": "Pontic",
@@ -928,6 +886,12 @@
     },
     {
       "language": "Tajik",
+      "count": 1,
+      "studied": 1,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Tat",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -1050,9 +1014,9 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 43,
-      "studied": 28,
-      "mentioned_only": 15
+      "count": 36,
+      "studied": 20,
+      "mentioned_only": 16
     },
     {
       "class_id": 1,
@@ -1069,20 +1033,20 @@
     {
       "class_id": 3,
       "count": 108,
-      "studied": 72,
-      "mentioned_only": 36
+      "studied": 71,
+      "mentioned_only": 37
     },
     {
       "class_id": 4,
       "count": 161,
-      "studied": 111,
-      "mentioned_only": 50
+      "studied": 110,
+      "mentioned_only": 51
     },
     {
       "class_id": 5,
       "count": 339,
-      "studied": 165,
-      "mentioned_only": 174
+      "studied": 163,
+      "mentioned_only": 176
     }
   ],
   "daily_series": [
@@ -107312,7 +107276,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippet references 'common English' as a baseline for neologism detection, indicating a mention of the English language but not a study of it, implying a mentioned_only verdict.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:46:48.725868+00:00"
         },
         {
           "language": "Latin",
@@ -107321,14 +107289,22 @@
           "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The token 'Latin' appears in a list of generated terms without clear context indicating it refers to the Latin language; the snippet is insufficient to confirm a genuine reference, implying a mentione",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:46:48.725868+00:00"
         },
         {
           "language": "Russian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippet mentions 'Russian authors' as a criterion for limiting works, indicating a reference to the Russian language but not a study of it, implying a mentioned_only verdict.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:46:48.725868+00:00"
         }
       ],
       "sources_checked": [
@@ -107347,17 +107323,29 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet references 'common English' as a baseline for neologism detection, indicating a mention of the English language but not a study of it, implying a mentioned_only verdict.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:48.725868+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The token 'Latin' appears in a list of generated terms without clear context indicating it refers to the Latin language; the snippet is insufficient to confirm a genuine reference, implying a mentione",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:48.725868+00:00"
             },
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet mentions 'Russian authors' as a criterion for limiting works, indicating a reference to the Russian language but not a study of it, implying a mentioned_only verdict.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:48.725868+00:00"
             }
           ]
         },
@@ -107367,13 +107355,21 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet references 'common English' as a baseline for neologism detection, indicating a mention of the English language but not a study of it, implying a mentioned_only verdict.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:48.725868+00:00"
             },
             {
               "language": "Latin",
               "class": 3,
               "needs_review": true,
-              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)"
+              "flag_reason": "Possible false positive — could be Latin script (used in many languages) or Latin America (mentioned in corpora studies)",
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The token 'Latin' appears in a list of generated terms without clear context indicating it refers to the Latin language; the snippet is insufficient to confirm a genuine reference, implying a mentione",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:48.725868+00:00"
             }
           ]
         },
@@ -107383,7 +107379,11 @@
           "detected_languages": [
             {
               "language": "Russian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet mentions 'Russian authors' as a criterion for limiting works, indicating a reference to the Russian language but not a study of it, implying a mentioned_only verdict.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:48.725868+00:00"
             }
           ]
         }
@@ -107483,7 +107483,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to English language words (e.g., short English words, English only) and the language of the study, indicating a genuine reference to the English language; thus the paper studies Eng",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:47:42.712522+00:00"
         }
       ],
       "sources_checked": [
@@ -107504,7 +107508,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English language words (e.g., short English words, English only) and the language of the study, indicating a genuine reference to the English language; thus the paper studies Eng",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:47:42.712522+00:00"
             }
           ]
         },
@@ -107514,11 +107522,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English language words (e.g., short English words, English only) and the language of the study, indicating a genuine reference to the English language; thus the paper studies Eng",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:47:42.712522+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English language words (e.g., short English words, English only) and the language of the study, indicating a genuine reference to the English language; thus the paper studies Eng",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:47:42.712522+00:00"
             }
           ]
         },
@@ -107528,11 +107544,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English language words (e.g., short English words, English only) and the language of the study, indicating a genuine reference to the English language; thus the paper studies Eng",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:47:42.712522+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English language words (e.g., short English words, English only) and the language of the study, indicating a genuine reference to the English language; thus the paper studies Eng",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:47:42.712522+00:00"
             }
           ]
         },
@@ -107542,11 +107566,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English language words (e.g., short English words, English only) and the language of the study, indicating a genuine reference to the English language; thus the paper studies Eng",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:47:42.712522+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English language words (e.g., short English words, English only) and the language of the study, indicating a genuine reference to the English language; thus the paper studies Eng",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:47:42.712522+00:00"
             }
           ]
         },
@@ -107556,7 +107588,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English language words (e.g., short English words, English only) and the language of the study, indicating a genuine reference to the English language; thus the paper studies Eng",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:47:42.712522+00:00"
             }
           ]
         }
@@ -107592,7 +107628,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to English as the language of the datasets (US English, British English) and mention English language in context of speaker conditioning and pronunciation ambiguity, indicating the ",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:46:55.327611+00:00"
         }
       ],
       "sources_checked": [
@@ -107613,11 +107653,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as the language of the datasets (US English, British English) and mention English language in context of speaker conditioning and pronunciation ambiguity, indicating the ",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:55.327611+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as the language of the datasets (US English, British English) and mention English language in context of speaker conditioning and pronunciation ambiguity, indicating the ",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:55.327611+00:00"
             }
           ]
         },
@@ -107627,7 +107675,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as the language of the datasets (US English, British English) and mention English language in context of speaker conditioning and pronunciation ambiguity, indicating the ",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:55.327611+00:00"
             }
           ]
         },
@@ -107637,7 +107689,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as the language of the datasets (US English, British English) and mention English language in context of speaker conditioning and pronunciation ambiguity, indicating the ",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:55.327611+00:00"
             }
           ]
         },
@@ -107647,7 +107703,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as the language of the datasets (US English, British English) and mention English language in context of speaker conditioning and pronunciation ambiguity, indicating the ",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:55.327611+00:00"
             }
           ]
         },
@@ -107657,7 +107717,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as the language of the datasets (US English, British English) and mention English language in context of speaker conditioning and pronunciation ambiguity, indicating the ",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:46:55.327611+00:00"
             }
           ]
         }
@@ -107696,7 +107760,11 @@
           "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippet uses 'carrier' as a generic term for a carrier of narrative significance, not the Carrier language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:50:37.211015+00:00"
         }
       ],
       "sources_checked": [
@@ -107716,7 +107784,11 @@
               "language": "Carrier",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers"
+              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet uses 'carrier' as a generic term for a carrier of narrative significance, not the Carrier language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:50:37.211015+00:00"
             }
           ]
         },
@@ -107728,7 +107800,11 @@
               "language": "Carrier",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers"
+              "flag_reason": "English technical term (carrier signal, carrier edge, carrier layer) in CS/EE papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet uses 'carrier' as a generic term for a carrier of narrative significance, not the Carrier language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:50:37.211015+00:00"
             }
           ]
         }
@@ -107761,7 +107837,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippets refer to English as the language of human evaluators (\"native English-speaking graduate students\") and as a prompt language (\"simple English\", \"English Subtitled\"), not as a language bein",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:50:53.873526+00:00"
         }
       ],
       "sources_checked": [
@@ -107783,11 +107863,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as the language of human evaluators (\"native English-speaking graduate students\") and as a prompt language (\"simple English\", \"English Subtitled\"), not as a language bein",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:50:53.873526+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as the language of human evaluators (\"native English-speaking graduate students\") and as a prompt language (\"simple English\", \"English Subtitled\"), not as a language bein",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:50:53.873526+00:00"
             }
           ]
         },
@@ -107797,7 +107885,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as the language of human evaluators (\"native English-speaking graduate students\") and as a prompt language (\"simple English\", \"English Subtitled\"), not as a language bein",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:50:53.873526+00:00"
             }
           ]
         },
@@ -107807,7 +107899,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as the language of human evaluators (\"native English-speaking graduate students\") and as a prompt language (\"simple English\", \"English Subtitled\"), not as a language bein",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:50:53.873526+00:00"
             }
           ]
         },
@@ -107817,7 +107913,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as the language of human evaluators (\"native English-speaking graduate students\") and as a prompt language (\"simple English\", \"English Subtitled\"), not as a language bein",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:50:53.873526+00:00"
             }
           ]
         },
@@ -107827,7 +107927,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as the language of human evaluators (\"native English-speaking graduate students\") and as a prompt language (\"simple English\", \"English Subtitled\"), not as a language bein",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:50:53.873526+00:00"
             }
           ]
         },
@@ -107837,7 +107941,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets refer to English as the language of human evaluators (\"native English-speaking graduate students\") and as a prompt language (\"simple English\", \"English Subtitled\"), not as a language bein",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:50:53.873526+00:00"
             }
           ]
         }
@@ -107873,7 +107981,11 @@
           "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "abstract"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The abstract snippet contains no occurrence of 'Mae', indicating the detection is a false positive rather than a reference to the language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:51:55.914106+00:00"
         }
       ],
       "sources_checked": [
@@ -107892,7 +108004,11 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The abstract snippet contains no occurrence of 'Mae', indicating the detection is a false positive rather than a reference to the language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:51:55.914106+00:00"
             }
           ]
         }
@@ -107922,7 +108038,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English is referenced as the language of the test data and prompts, indicating the paper studies English error detection.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:54:44.407760+00:00"
         },
         {
           "language": "Mo",
@@ -107931,7 +108051,11 @@
           "flag_reason": "Too short — matches many common words and abbreviations",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Mo is an abbreviation for the Mislead-Over prompt condition, not the human language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:54:44.407760+00:00"
         }
       ],
       "sources_checked": [
@@ -107955,7 +108079,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as the language of the test data and prompts, indicating the paper studies English error detection.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:44.407760+00:00"
             }
           ]
         },
@@ -107965,7 +108093,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as the language of the test data and prompts, indicating the paper studies English error detection.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:44.407760+00:00"
             }
           ]
         },
@@ -107975,7 +108107,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as the language of the test data and prompts, indicating the paper studies English error detection.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:44.407760+00:00"
             }
           ]
         },
@@ -107985,7 +108121,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as the language of the test data and prompts, indicating the paper studies English error detection.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:44.407760+00:00"
             }
           ]
         },
@@ -107995,7 +108135,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is referenced as the language of the test data and prompts, indicating the paper studies English error detection.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:44.407760+00:00"
             }
           ]
         },
@@ -108007,19 +108151,31 @@
               "language": "Mo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short — matches many common words and abbreviations"
+              "flag_reason": "Too short — matches many common words and abbreviations",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mo is an abbreviation for the Mislead-Over prompt condition, not the human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:44.407760+00:00"
             },
             {
               "language": "Mo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short — matches many common words and abbreviations"
+              "flag_reason": "Too short — matches many common words and abbreviations",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mo is an abbreviation for the Mislead-Over prompt condition, not the human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:44.407760+00:00"
             },
             {
               "language": "Mo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short — matches many common words and abbreviations"
+              "flag_reason": "Too short — matches many common words and abbreviations",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mo is an abbreviation for the Mislead-Over prompt condition, not the human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:44.407760+00:00"
             }
           ]
         },
@@ -108031,7 +108187,11 @@
               "language": "Mo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short — matches many common words and abbreviations"
+              "flag_reason": "Too short — matches many common words and abbreviations",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mo is an abbreviation for the Mislead-Over prompt condition, not the human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:44.407760+00:00"
             }
           ]
         },
@@ -108043,13 +108203,21 @@
               "language": "Mo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short — matches many common words and abbreviations"
+              "flag_reason": "Too short — matches many common words and abbreviations",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mo is an abbreviation for the Mislead-Over prompt condition, not the human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:44.407760+00:00"
             },
             {
               "language": "Mo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short — matches many common words and abbreviations"
+              "flag_reason": "Too short — matches many common words and abbreviations",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mo is an abbreviation for the Mislead-Over prompt condition, not the human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:44.407760+00:00"
             }
           ]
         }
@@ -108083,7 +108251,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:54:50.684197+00:00"
         },
         {
           "language": "English",
@@ -108091,7 +108263,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:54:50.684197+00:00"
         },
         {
           "language": "Spanish",
@@ -108099,7 +108275,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:54:50.684197+00:00"
         }
       ],
       "sources_checked": [
@@ -108130,15 +108310,27 @@
           "detected_languages": [
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108148,15 +108340,27 @@
           "detected_languages": [
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108166,27 +108370,51 @@
           "detected_languages": [
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108196,11 +108424,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108210,11 +108446,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108224,179 +108468,355 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108406,63 +108826,123 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108472,23 +108952,43 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108498,27 +108998,51 @@
           "detected_languages": [
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108528,19 +109052,35 @@
           "detected_languages": [
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108550,19 +109090,35 @@
           "detected_languages": [
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108572,39 +109128,75 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108614,7 +109206,11 @@
           "detected_languages": [
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108624,43 +109220,83 @@
           "detected_languages": [
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         },
@@ -108670,15 +109306,27 @@
           "detected_languages": [
             {
               "language": "Slovak",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Slovak refers to the Slovak language and the Slovak EWA-DB corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language and the English DementiaBank (Pitt Corpus) used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             },
             {
               "language": "Spanish",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Spanish refers to the Spanish language and the Spanish Ivanova corpus used for training and evaluation; the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:54:50.684197+00:00"
             }
           ]
         }
@@ -108710,7 +109358,11 @@
           "flag_reason": "Too short/generic — matches many common words",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippet does not provide enough context to confirm that 'Pin' refers to a human language; it could be an acronym, name, or tool. Therefore, we treat it as a mention only.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:55:15.437858+00:00"
         }
       ],
       "sources_checked": [
@@ -108730,7 +109382,11 @@
               "language": "Pin",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches many common words"
+              "flag_reason": "Too short/generic — matches many common words",
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet does not provide enough context to confirm that 'Pin' refers to a human language; it could be an acronym, name, or tool. Therefore, we treat it as a mention only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:15.437858+00:00"
             }
           ]
         },
@@ -108742,7 +109398,11 @@
               "language": "Pin",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches many common words"
+              "flag_reason": "Too short/generic — matches many common words",
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet does not provide enough context to confirm that 'Pin' refers to a human language; it could be an acronym, name, or tool. Therefore, we treat it as a mention only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:15.437858+00:00"
             }
           ]
         }
@@ -108776,7 +109436,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:55:28.624930+00:00"
         }
       ],
       "sources_checked": [
@@ -108817,7 +109481,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108827,15 +109495,27 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108845,7 +109525,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108855,7 +109539,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108865,31 +109553,59 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108899,7 +109615,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108909,7 +109629,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108919,19 +109643,35 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108941,7 +109681,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108951,15 +109695,27 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108969,7 +109725,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108979,7 +109739,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -108989,11 +109753,19 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109003,7 +109775,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109013,7 +109789,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109023,11 +109803,19 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109037,7 +109825,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109047,7 +109839,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109057,11 +109853,19 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109071,7 +109875,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109081,7 +109889,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109091,23 +109903,43 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109117,11 +109949,19 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109131,7 +109971,11 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         },
@@ -109141,11 +109985,19 @@
           "detected_languages": [
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             },
             {
               "language": "Kara",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Kara is the name of a proposed sliding-window KV cache compression method and related framework, not a human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:55:28.624930+00:00"
             }
           ]
         }
@@ -109177,14 +110029,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:57:08.686319+00:00"
         },
         {
           "language": "Indonesian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Indonesian refers to the language of papers in the annotation codebook; the paper collects data for Indonesian‑language papers, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:57:08.686319+00:00"
         }
       ],
       "sources_checked": [
@@ -109210,7 +110070,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             }
           ]
         },
@@ -109220,7 +110084,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             }
           ]
         },
@@ -109230,7 +110098,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             }
           ]
         },
@@ -109240,7 +110112,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             }
           ]
         },
@@ -109250,11 +110126,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             }
           ]
         },
@@ -109264,11 +110148,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             }
           ]
         },
@@ -109278,19 +110170,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Indonesian refers to the language of papers in the annotation codebook; the paper collects data for Indonesian‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             }
           ]
         },
@@ -109300,19 +110208,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Indonesian refers to the language of papers in the annotation codebook; the paper collects data for Indonesian‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             }
           ]
         },
@@ -109322,11 +110246,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             }
           ]
         },
@@ -109336,11 +110268,19 @@
           "detected_languages": [
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Indonesian refers to the language of papers in the annotation codebook; the paper collects data for Indonesian‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the language used for filtering abstracts and annotator competency; the paper collects data for English‑language papers, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:08.686319+00:00"
             }
           ]
         }
@@ -109394,14 +110334,22 @@
           "flag_reason": "LOO = Leave-One-Out cross-validation — standard ML evaluation acronym",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "LOO stands for a leave-one-out ablation table, not a language, so it's a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:57:51.346263+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English is the language of all queries and documents in the benchmark, indicating the paper collects and uses English-language data, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:57:51.346263+00:00"
         },
         {
           "language": "Logo",
@@ -109410,7 +110358,11 @@
           "flag_reason": "English word 'logo' (brand/symbol) — appears in multimodal/advertising papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Logo refers to a brand mark/decorative icon in the relevance check, not a language, so it's a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:57:51.346263+00:00"
         },
         {
           "language": "Tat",
@@ -109419,7 +110371,11 @@
           "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "TAT-QA is a dataset name, not a language, so it's a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T23:57:51.346263+00:00"
         }
       ],
       "sources_checked": [
@@ -109448,7 +110404,11 @@
               "language": "Loo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "LOO = Leave-One-Out cross-validation — standard ML evaluation acronym"
+              "flag_reason": "LOO = Leave-One-Out cross-validation — standard ML evaluation acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "LOO stands for a leave-one-out ablation table, not a language, so it's a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:51.346263+00:00"
             }
           ]
         },
@@ -109460,7 +110420,11 @@
               "language": "Loo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "LOO = Leave-One-Out cross-validation — standard ML evaluation acronym"
+              "flag_reason": "LOO = Leave-One-Out cross-validation — standard ML evaluation acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "LOO stands for a leave-one-out ablation table, not a language, so it's a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:51.346263+00:00"
             }
           ]
         },
@@ -109470,7 +110434,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the language of all queries and documents in the benchmark, indicating the paper collects and uses English-language data, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:51.346263+00:00"
             }
           ]
         },
@@ -109480,7 +110448,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the language of all queries and documents in the benchmark, indicating the paper collects and uses English-language data, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:51.346263+00:00"
             }
           ]
         },
@@ -109490,7 +110462,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the language of all queries and documents in the benchmark, indicating the paper collects and uses English-language data, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:51.346263+00:00"
             }
           ]
         },
@@ -109500,7 +110476,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is the language of all queries and documents in the benchmark, indicating the paper collects and uses English-language data, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:51.346263+00:00"
             }
           ]
         },
@@ -109512,7 +110492,11 @@
               "language": "Logo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English word 'logo' (brand/symbol) — appears in multimodal/advertising papers"
+              "flag_reason": "English word 'logo' (brand/symbol) — appears in multimodal/advertising papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Logo refers to a brand mark/decorative icon in the relevance check, not a language, so it's a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:51.346263+00:00"
             }
           ]
         },
@@ -109524,7 +110508,11 @@
               "language": "Logo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "English word 'logo' (brand/symbol) — appears in multimodal/advertising papers"
+              "flag_reason": "English word 'logo' (brand/symbol) — appears in multimodal/advertising papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Logo refers to a brand mark/decorative icon in the relevance check, not a language, so it's a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:51.346263+00:00"
             }
           ]
         },
@@ -109536,7 +110524,11 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "TAT-QA is a dataset name, not a language, so it's a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:51.346263+00:00"
             }
           ]
         },
@@ -109548,7 +110540,11 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "TAT-QA is a dataset name, not a language, so it's a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:51.346263+00:00"
             }
           ]
         },
@@ -109560,7 +110556,11 @@
               "language": "Tat",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML"
+              "flag_reason": "Math subscript artifact: T_a rendered as 'TaT' in arXiv HTML",
+              "judge_verdict": "false_positive",
+              "judge_reason": "TAT-QA is a dataset name, not a language, so it's a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T23:57:51.346263+00:00"
             }
           ]
         }

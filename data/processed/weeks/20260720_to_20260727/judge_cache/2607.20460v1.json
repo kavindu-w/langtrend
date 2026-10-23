@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20460v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T22:11:36.624710+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4254,
+  "verdicts": {
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet from Section 5 mentions participants fluent in English, and the synthetic test case generation prompts explicitly require all content to be in English. This indicates the paper studies Eng",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet from Appendix A.9.3 includes the phrase \"and in French technique advanced\" within a model response case study. This appears to be a model responding in French, not the paper studying the F",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.28661v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T21:37:12.447635+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10499,
+  "verdicts": {
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "The snippet references 'TAT-QA', a dataset name, not the Tatar language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yoy": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'YoY' as abbreviation for 'Year-over-Year', a financial term, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet discusses Chinese-language QA resources, benchmarks, and Chinese Accounting Standards, indicating the paper evaluates on Chinese language tasks.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

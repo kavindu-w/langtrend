@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20433v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T22:55:09.882831+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4488,
+  "verdicts": {
+    "Bisa": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains no occurrence of the word 'Bisa' and appears to be English/Indonesian text unrelated to the Bisa language, indicating a false positive detection.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kamu": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes the Indonesian pronoun 'Kamu' but no reference to the language 'Kamu'; this is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet notes that a generated text is in Italian but provides no evidence that the paper studies or evaluates Italian; it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippet references 'tulu-3-sft-olmo-2-mixture', a model name, not the Tulu language, making this a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet describes using English Wikipedia as a baseline for the oracle covariance, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.05416v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T23:41:36.613977+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4686,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word \"sake\" as part of the phrase \"for the sake of\", not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wanda": {
+      "verdict": "mentioned_only",
+      "reason": "The provided snippets do not contain the term \"Wanda\", so we cannot confirm it refers to a language; insufficient evidence.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kinyarwanda": {
+      "verdict": "studied",
+      "reason": "The snippet lists Kinyarwanda among the natural languages evaluated in OOD experiments, indicating the paper uses it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "The snippet mentions Swahili as an African language dataset (SwahiliNews) used in experiments and as one of the OOD languages, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet describes SogouNews as a large-scale Chinese corpus and lists Chinese among the OOD languages, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets provided do not contain the term \"English\", so we cannot confirm it is mentioned; insufficient evidence.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

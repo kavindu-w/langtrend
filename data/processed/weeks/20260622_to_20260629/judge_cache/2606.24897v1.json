@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.24897v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T00:25:40.688830+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4520,
+  "verdicts": {
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek refers to Greek letters as Unicode characters, not the Greek language; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to English language (English-language research articles) and the paper collects data for English-language articles as part of its experiment; studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to basic Latin letters (script), not the Latin language; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish refers to the Polish Association for Artificial Intelligence in Medicine (organization), not the Polish language; false positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

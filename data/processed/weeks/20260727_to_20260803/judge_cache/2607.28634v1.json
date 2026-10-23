@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.28634v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T21:45:29.862710+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3622,
+  "verdicts": {
+    "Pam": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to \"Pam\" as part of the author name \"Pam Muñoz Ryan\", not the human language Pam, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions \"English reading comprehension exams\", indicating the language English is referenced; the paper uses English items for difficulty prediction, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

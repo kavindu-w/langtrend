@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.28344v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T00:11:42.728227+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5348,
+  "verdicts": {
+    "Gala": {
+      "verdict": "false_positive",
+      "reason": "Gala appears as a person name (Salvador Dalí's wife) in the snippet, not as a language, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina appears as a parser/tool name (jina reader) in the snippet, not as a language, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Miami appears as a sports team name (Miami Dolphins) in the snippet, not as a language, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script in the snippet, not the Latin language, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the datasets (English Wikipedia, English-language news) used in the experiments, indicating the paper studies English, so studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.13580v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T21:20:03.885681+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 11636,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "Aka appears as part of the abbreviation 'aka' (also known as) and does not refer to a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dani": {
+      "verdict": "false_positive",
+      "reason": "Dani appears as part of personal names (e.g., Daniil Orel, Dani Bouch) and not as a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "Ik appears as abbreviation 'IK' in table data and not as a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Momina": {
+      "verdict": "false_positive",
+      "reason": "Momina appears as a personal name (Momina Ahsan) and not as a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pam": {
+      "verdict": "false_positive",
+      "reason": "Pam appears as abbreviation 'PAm' in recipe data and not as a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Saba": {
+      "verdict": "false_positive",
+      "reason": "Saba appears as part of the model name 'mistral-saba' and not as a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Samosa": {
+      "verdict": "false_positive",
+      "reason": "Samosa appears as a food item (Cheese Samosa) in recipe data and not as a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Amazigh": {
+      "verdict": "mentioned_only",
+      "reason": "Amazigh is mentioned as a language influencing Moroccan Arabic; only mentioned, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tulu": {
+      "verdict": "mentioned_only",
+      "reason": "No snippet shows Tulu; insufficient evidence to confirm language reference; treat as mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "moroccan Arabic": {
+      "verdict": "studied",
+      "reason": "Moroccan Arabic (Darija) is directly referenced and a dataset (Darija-Mixture) is created for it; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "No snippet shows Hindi; insufficient evidence; treat as mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script (Latin‑based) not the Latin language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian: not mentioned in any snippet; insufficient evidence → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "Egyptian Arabic: described as a dialect in the Egyptian-Mixture dataset, indicating the paper includes a resource for it → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese: not mentioned in any snippet; insufficient evidence → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French: mentioned as a language influencing Moroccan Arabic and used in translation tasks, but not indicated as a target of study → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German: not mentioned in any snippet; insufficient evidence → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish: mentioned as a language influencing Moroccan Arabic, but not indicated as a target of study → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic: central to the paper, referenced as the target language for the Arabic-centric models and datasets → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English: mentioned as a language for which the models achieve competitive results, indicating evaluation on English → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

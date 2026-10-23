@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.27212v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T21:38:11.447003+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11616,
+  "verdicts": {
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'SAR' (Saudi Riyal currency), not the Sar language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Arabic as the target language for therapy, content generation, and evaluation, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention English only as a reference language for UI, translation, and comparison, not as a target of study, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.19361v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T22:33:25.990309+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4327,
+  "verdicts": {
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "Fam refers to \"family\" (training families) in the snippets, a non‑language term, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin appears as the verb \"pin\" (e.g., pin exact artefacts) in the snippets, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language and the paper uses English sessions from WildChat‑1M in its diagnostic evaluation, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

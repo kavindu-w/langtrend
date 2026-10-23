@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.13044v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T23:24:22.261485+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3541,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"for the sake of\", an English idiom, not a reference to the Sake language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"Chinese\" as a nationality (applicant) rather than the Chinese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"German\" as a nationality (inventor from Germany) rather than the German language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly references English as the language of the patent text and non-native English generation, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

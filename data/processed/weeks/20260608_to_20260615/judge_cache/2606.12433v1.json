@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.12433v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T01:36:13.703809+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11996,
+  "verdicts": {
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"LFP\" abbreviation and no reference to a human language named Loo, so Loo is a false positive detection.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is repeatedly referenced as the target language for the synthetic personas, with the paper evaluating NPK against Korean official statistics and using Korean resources, indicating Korean is stu",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as a reference language for control datasets (e.g., English Wikipedia) and not as a target of study or resource creation, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is referenced only as a locale for cross‑locale replication and not as a target of study or resource creation, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

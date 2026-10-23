@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.11894v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T23:12:29.618866+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11672,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Abu Dhabi', a location, not the Abu language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Slovak": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Slovak PM Fico', a political figure, not the Slovak language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'German Bundestag', a legislative body, not the German language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'Polish Prime Minister Tusk', a political figure, not the Polish language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly refers to 'Russian-language messages' as part of the bilingual dataset and analysis, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly refers to 'Ukrainian- and Russian-language messages' and includes Ukrainian script in prompts, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'English-language' and provides English system instructions, but the paper does not evaluate English content, only references it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

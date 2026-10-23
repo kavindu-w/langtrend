@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20435v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T22:50:32.310226+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11974,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu refers to a community finetuned model (Llama-3.1-Tulu-3-8B), not the Tulu language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language used for prompts, benchmarks (MMLU, HellaSwag) and evaluation metrics in the paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to the language used for French-specific datasets, finetunes, and evaluation benchmarks (MMLU-FR).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the language used for German-specific datasets (Evol-Instruct-DE), finetunes, and evaluation benchmarks (MMLU-DE, HellaSwag-DE).",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

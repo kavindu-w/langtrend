@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20441v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T22:19:35.361363+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11914,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae appears only as part of the acronym MAE (Mean Absolute Error) in the snippets, not as the language Mae, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "Russian is used only as a nationality or source (e.g., Russian officials, Russian sources) referring to Russia, not the Russian language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is used to denote Ukrainian-language sources and data (Ukrainian military sources, Ukrainian-language analytical sources) that are directly employed in the experiments, indicating the paper ",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used to denote English-language news corpora and contexts (English news, English-language sources) that are central to the experimental analysis, indicating the paper studies the English la",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

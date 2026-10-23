@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-10-22T19:54:54.173099+00:00",
+  "generated_at": "2026-10-23T01:47:59.950059+00:00",
   "window_days": 7,
   "week_start": "2026-09-07",
   "week_end": "2026-09-14",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 630,
-    "flagged_papers": 306,
-    "unique_languages": 150,
+    "flagged_papers": 305,
+    "unique_languages": 149,
     "unique_languages_mentioned_only": 21,
     "pdf_failed_no_detection": 0,
     "late_announced": 122,
     "judge": {
-      "judged_papers": 409,
-      "judged_languages": 1653,
+      "judged_papers": 410,
+      "judged_languages": 1654,
       "studied": 931,
       "mentioned_only": 239,
-      "false_positive": 483
+      "false_positive": 484
     }
   },
   "language_counts": [
@@ -879,12 +879,6 @@
       "mentioned_only": 1
     },
     {
-      "language": "Pole",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Ronga",
       "count": 1,
       "studied": 0,
@@ -1050,8 +1044,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 61,
-      "studied": 46,
+      "count": 60,
+      "studied": 45,
       "mentioned_only": 15
     },
     {
@@ -166550,7 +166544,11 @@
           "flag_reason": "Often matches mathematical 'poles' in geometry/embeddings papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Pole refers to a positive/negative prototype direction in the steering method, not a human language, making it a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-22T20:40:46.503813+00:00"
         }
       ],
       "sources_checked": [
@@ -166570,7 +166568,11 @@
               "language": "Pole",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Often matches mathematical 'poles' in geometry/embeddings papers"
+              "flag_reason": "Often matches mathematical 'poles' in geometry/embeddings papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Pole refers to a positive/negative prototype direction in the steering method, not a human language, making it a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T20:40:46.503813+00:00"
             }
           ]
         },
@@ -166582,7 +166584,11 @@
               "language": "Pole",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Often matches mathematical 'poles' in geometry/embeddings papers"
+              "flag_reason": "Often matches mathematical 'poles' in geometry/embeddings papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Pole refers to a positive/negative prototype direction in the steering method, not a human language, making it a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-22T20:40:46.503813+00:00"
             }
           ]
         }

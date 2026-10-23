@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.21617v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T22:37:29.259896+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11877,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin alphabet/script used for English, not the Latin language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean refers to the Korean language, which the paper includes in its multilingual benchmark and evaluates models on Korean text; studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language, which the paper includes in its multilingual benchmark and evaluates models on Chinese text; studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned only as an example of other scripts not evaluated in the study; mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language, which the paper includes in its multilingual benchmark and evaluates models on English text; studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

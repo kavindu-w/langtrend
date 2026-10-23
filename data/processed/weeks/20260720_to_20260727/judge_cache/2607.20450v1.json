@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20450v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T22:02:28.638648+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3507,
+  "verdicts": {
+    "Aka": {
+      "verdict": "false_positive",
+      "reason": "Aka appears as part of \"rak s. aka\" (also known as) and is not a language reference; it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sanskrit": {
+      "verdict": "mentioned_only",
+      "reason": "Sanskrit is used only in the phrase \"Sanskrit for 'Protector'\" as a note about the name meaning, not as a studied language; it's a mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "Polish is mentioned as one of the languages present in the multilingual GameTox corpus and as a source of profanity in an example rationale, but the paper does not study or build resources for Polish;",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is listed among the non‑English languages in the corpus description and limitations, but the paper does not evaluate or develop resources for Russian; it's a mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German is listed among the non‑English languages in the corpus description and limitations, but the paper does not evaluate or develop resources for German; it's a mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the language of the pre‑trained DeBERTa model and as the baseline language of most utterances, but the paper does not study English as a target language; it's a mention only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is listed among the languages present in the multilingual GameTox corpus, but the paper does not study or develop resources for French; it's a mention only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

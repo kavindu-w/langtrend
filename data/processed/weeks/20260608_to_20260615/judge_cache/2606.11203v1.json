@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.11203v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T01:41:57.509442+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2437,
+  "verdicts": {
+    "Welsh": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'welsh' as a nationality descriptor for Thomas Edwards, not a language reference, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet includes 'English greedy' which directly references the English language as the language of the greedy decoding baseline, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

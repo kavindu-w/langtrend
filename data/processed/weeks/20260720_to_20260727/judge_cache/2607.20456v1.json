@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20456v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T22:47:05.669019+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3669,
+  "verdicts": {
+    "Bari": {
+      "verdict": "false_positive",
+      "reason": "Bari refers to a city name in the port list, not the Bari language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian describes the problem domain (Italian container transportation), not the Italian language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa appears as part of variable names (e.g., wA), not the Wa language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

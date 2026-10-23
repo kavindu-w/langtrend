@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.19348v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T01:10:15.591803+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8198,
+  "verdicts": {
+    "Chong": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"Chong Ruan*\", a person name in the author list, not the language \"Chong\".",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes the phrase \"pin down\", a common English expression, not the language \"Pin\".",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Multiple snippets refer to Chinese language (e.g., \"Chinese writing\", \"Chinese white-collar tasks\", \"Chinese functional writing\", \"Chinese creative writing\"). These are clear references to the Chinese",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

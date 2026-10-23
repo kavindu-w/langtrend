@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.13691v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T01:38:08.385736+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2262,
+  "verdicts": {
+    "Eki": {
+      "verdict": "false_positive",
+      "reason": "Eki refers to the dataset/model 'EKI-L2' in the snippet, not the language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gera": {
+      "verdict": "false_positive",
+      "reason": "Gera refers to the system 'GERA' in the snippet, not the language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Estonian": {
+      "verdict": "studied",
+      "reason": "Estonian appears as 'Estonian National Corpus' and 'EstGEC-L2', indicating the paper evaluates on Estonian language data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as 'English_BEA' system and 'Limited to English;', indicating the paper evaluates on English language data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20443v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T22:27:08.650021+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11978,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script/alphabet in the language composition snippet, not the Latin language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is the target language of the corpus, used for questions and answers, and the paper builds a Korean instruction dataset, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as the language of taxonomy labels and subject tags, but the paper does not target English as a language of study, only mentions it, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.01245v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T23:57:51.346263+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3714,
+  "verdicts": {
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "Logo refers to a brand mark/decorative icon in the relevance check, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "LOO stands for a leave-one-out ablation table, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "TAT-QA is a dataset name, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of all queries and documents in the benchmark, indicating the paper collects and uses English-language data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

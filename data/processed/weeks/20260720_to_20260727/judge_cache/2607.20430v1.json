@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20430v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T21:54:50.504076+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4307,
+  "verdicts": {
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains tag abbreviations 'POL' etc., not the language Polish, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English translations, English triggers, language path, and model output labeled as English, indicating the paper uses English as a language in its experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippets refer to French texts, French triggers, language fallback, and French-only cases, indicating the paper uses French as a language in its experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

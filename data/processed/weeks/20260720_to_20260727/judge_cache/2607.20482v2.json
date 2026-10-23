@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20482v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T22:09:47.822121+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4886,
+  "verdicts": {
+    "Yale": {
+      "verdict": "false_positive",
+      "reason": "Yale refers to Yale University (an educational institution) in the snippet, not the human language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian refers to a cuisine preference value in the snippet, not the Italian language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German refers to the German language as a preference value (/de/ for Language=German) in the snippet, indicating the paper includes German in its benchmark, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used for queries, values, and website curation throughout the snippets, indicating the paper studies English, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

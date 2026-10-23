@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.20429v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T22:26:20.929066+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2949,
+  "verdicts": {
+    "Ito": {
+      "verdict": "false_positive",
+      "reason": "Ito refers to an author name (cited as Wu and Ito), not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language; the paper filters for English-language queries, indicating they collect and evaluate data in English, thus they study the language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

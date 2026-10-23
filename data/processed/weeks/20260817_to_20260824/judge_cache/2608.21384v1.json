@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.21384v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-22T21:00:57.411497+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5202,
+  "verdicts": {
+    "Rom": {
+      "verdict": "false_positive",
+      "reason": "Rom is used as a variable for romanization, not the language Rom, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kazakh": {
+      "verdict": "studied",
+      "reason": "Kazakh is listed as one of the five languages in the cross‑linguistic analysis and dictionary compilation, indicating the paper studies Kazakh.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Azerbaijani": {
+      "verdict": "studied",
+      "reason": "Azerbaijani appears as a language name in the cross‑linguistic analysis and dictionary benchmark, showing the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Serbian": {
+      "verdict": "studied",
+      "reason": "Serbian is named among the five languages examined for script comparison and tokenization, indicating the paper studies Serbian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script (romanized representation) rather than the Latin language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "Ukrainian is the primary focus of experiments, mitigation strategies, and case studies, so the paper studies Ukrainian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is only used as a baseline for comparison and not part of the paper's experiments, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
