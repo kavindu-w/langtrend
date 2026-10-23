@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.28833v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T06:05:52.441829+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8158,
+  "verdicts": {
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain the Dutch pronoun 'ik' but no reference to a language named Ik, indicating a false positive detection of a common word.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Dutch as the target language of the ASR experiments (e.g., Dutch child speech, Dutch language, Dutch datasets), so the paper studies Dutch.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets refer to English only as a language used in prior work (dysarthric English speech), not as a target of the current study, so the paper only mentions English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

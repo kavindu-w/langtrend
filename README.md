@@ -24,11 +24,11 @@ _Judged with (mixed — fallback used):_ `cohere/north-mini-code:free` (2,526), 
 | Metric | This week | All-time |
 |--------|----------:|---------:|
 | Papers scanned | 1,055 | 15,459 |
-| Papers with language mentions | 533 | 6,909 |
-| Unique languages detected | 689 | 1,065 |
+| Papers with language mentions | 533 | 6,878 |
+| Unique languages detected | 689 | 1,043 |
 | Weeks tracked | — | 25 (since 2026-04-27) |
 
-_94 paper(s) across 11 earlier week(s) are still awaiting an LLM judge verdict — backfilling in the background, with each catch-up run improving those weeks' "studied" counts._
+_5 paper(s) across 5 earlier week(s) are still awaiting an LLM judge verdict — backfilling in the background, with each catch-up run improving those weeks' "studied" counts._
 
 <!-- LANGTREND_STATS_END -->
 

@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-10-20T18:07:56.396168+00:00",
+  "generated_at": "2026-10-23T10:05:58.104218+00:00",
   "window_days": 7,
   "week_start": "2026-05-18",
   "week_end": "2026-05-25",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 582,
-    "flagged_papers": 254,
-    "unique_languages": 87,
-    "unique_languages_mentioned_only": 26,
+    "flagged_papers": 248,
+    "unique_languages": 76,
+    "unique_languages_mentioned_only": 28,
     "pdf_failed_no_detection": 4,
     "late_announced": 26,
     "judge": {
-      "judged_papers": 348,
-      "judged_languages": 1156,
-      "studied": 361,
-      "mentioned_only": 381,
-      "false_positive": 414
+      "judged_papers": 360,
+      "judged_languages": 1183,
+      "studied": 369,
+      "mentioned_only": 388,
+      "false_positive": 426
     }
   },
   "language_counts": [
     {
       "language": "English",
       "count": 216,
-      "studied": 68,
-      "mentioned_only": 148
+      "studied": 66,
+      "mentioned_only": 150
     },
     {
       "language": "Chinese",
-      "count": 57,
-      "studied": 35,
-      "mentioned_only": 22
+      "count": 56,
+      "studied": 32,
+      "mentioned_only": 24
     },
     {
       "language": "French",
-      "count": 50,
-      "studied": 28,
-      "mentioned_only": 22
+      "count": 49,
+      "studied": 26,
+      "mentioned_only": 23
     },
     {
       "language": "German",
@@ -363,12 +363,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Mae",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
       "language": "Mal",
       "count": 2,
       "studied": 1,
@@ -389,8 +383,8 @@
     {
       "language": "Oromo",
       "count": 2,
-      "studied": 1,
-      "mentioned_only": 1
+      "studied": 0,
+      "mentioned_only": 2
     },
     {
       "language": "Somali",
@@ -471,12 +465,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Col",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Croatian",
       "count": 1,
       "studied": 1,
@@ -495,16 +483,10 @@
       "mentioned_only": 0
     },
     {
-      "language": "Fur",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Gbe",
       "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
+      "studied": 0,
+      "mentioned_only": 1
     },
     {
       "language": "Georgian",
@@ -537,12 +519,6 @@
       "mentioned_only": 1
     },
     {
-      "language": "Hre",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Icelandic",
       "count": 1,
       "studied": 0,
@@ -550,12 +526,6 @@
     },
     {
       "language": "Japanese Sign Language",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Kalam",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -609,22 +579,10 @@
       "mentioned_only": 0
     },
     {
-      "language": "Mo",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Mohawk",
       "count": 1,
       "studied": 0,
       "mentioned_only": 1
-    },
-    {
-      "language": "Mon",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
     },
     {
       "language": "Nahuatl",
@@ -649,18 +607,6 @@
       "count": 1,
       "studied": 0,
       "mentioned_only": 1
-    },
-    {
-      "language": "Prussian",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
-      "language": "Roma",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
     },
     {
       "language": "Slavonic",
@@ -702,15 +648,15 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 32,
-      "studied": 22,
-      "mentioned_only": 10
+      "count": 23,
+      "studied": 12,
+      "mentioned_only": 11
     },
     {
       "class_id": 1,
-      "count": 10,
-      "studied": 6,
-      "mentioned_only": 4
+      "count": 9,
+      "studied": 4,
+      "mentioned_only": 5
     },
     {
       "class_id": 2,
@@ -732,9 +678,9 @@
     },
     {
       "class_id": 5,
-      "count": 439,
-      "studied": 200,
-      "mentioned_only": 239
+      "count": 437,
+      "studied": 193,
+      "mentioned_only": 244
     }
   ],
   "daily_series": [
@@ -126883,14 +126829,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippet lists English as a language filter for inclusion criteria, but the paper does not evaluate or build resources for English; it only mentions English in the review methodology.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:25:17.180888+00:00"
         },
         {
           "language": "Chinese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippet mentions \"toxic Chinese content,\" which refers to the Chinese language, but the paper only cites this as an example of lacking benchmarks, not as part of its experiments or resources.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:25:17.180888+00:00"
         }
       ],
       "sources_checked": [
@@ -126912,7 +126866,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet lists English as a language filter for inclusion criteria, but the paper does not evaluate or build resources for English; it only mentions English in the review methodology.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:17.180888+00:00"
             }
           ]
         },
@@ -126922,7 +126880,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet lists English as a language filter for inclusion criteria, but the paper does not evaluate or build resources for English; it only mentions English in the review methodology.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:17.180888+00:00"
             }
           ]
         },
@@ -126932,7 +126894,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet mentions \"toxic Chinese content,\" which refers to the Chinese language, but the paper only cites this as an example of lacking benchmarks, not as part of its experiments or resources.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:17.180888+00:00"
             }
           ]
         },
@@ -126942,7 +126908,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet mentions \"toxic Chinese content,\" which refers to the Chinese language, but the paper only cites this as an example of lacking benchmarks, not as part of its experiments or resources.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:17.180888+00:00"
             }
           ]
         },
@@ -126952,7 +126922,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet mentions \"toxic Chinese content,\" which refers to the Chinese language, but the paper only cites this as an example of lacking benchmarks, not as part of its experiments or resources.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:17.180888+00:00"
             }
           ]
         },
@@ -126962,7 +126936,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippet mentions \"toxic Chinese content,\" which refers to the Chinese language, but the paper only cites this as an example of lacking benchmarks, not as part of its experiments or resources.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:17.180888+00:00"
             }
           ]
         }
@@ -126996,14 +126974,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Refers to the Chinese language in dataset annotation (DuRecDial) and Chinese version of DialoGPT baseline; paper evaluates on Chinese dataset and uses Chinese baseline → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:24:23.402300+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Refers to the English language in dataset annotation (DuRecDial 2.0); paper evaluates on English dataset → studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:24:23.402300+00:00"
         }
       ],
       "sources_checked": [
@@ -127023,7 +127009,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Refers to the Chinese language in dataset annotation (DuRecDial) and Chinese version of DialoGPT baseline; paper evaluates on Chinese dataset and uses Chinese baseline → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:24:23.402300+00:00"
             }
           ]
         },
@@ -127033,15 +127023,27 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Refers to the Chinese language in dataset annotation (DuRecDial) and Chinese version of DialoGPT baseline; paper evaluates on Chinese dataset and uses Chinese baseline → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:24:23.402300+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Refers to the English language in dataset annotation (DuRecDial 2.0); paper evaluates on English dataset → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:24:23.402300+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Refers to the Chinese language in dataset annotation (DuRecDial) and Chinese version of DialoGPT baseline; paper evaluates on Chinese dataset and uses Chinese baseline → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:24:23.402300+00:00"
             }
           ]
         },
@@ -127051,11 +127053,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Refers to the Chinese language in dataset annotation (DuRecDial) and Chinese version of DialoGPT baseline; paper evaluates on Chinese dataset and uses Chinese baseline → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:24:23.402300+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Refers to the English language in dataset annotation (DuRecDial 2.0); paper evaluates on English dataset → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:24:23.402300+00:00"
             }
           ]
         },
@@ -127065,7 +127075,11 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Refers to the Chinese language in dataset annotation (DuRecDial) and Chinese version of DialoGPT baseline; paper evaluates on Chinese dataset and uses Chinese baseline → studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:24:23.402300+00:00"
             }
           ]
         }
@@ -127101,7 +127115,11 @@
           "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Mae appears as the abbreviation for the Mean Absolute Error metric, not a language, so it is a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:25:19.707948+00:00"
         },
         {
           "language": "Col",
@@ -127110,28 +127128,44 @@
           "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Col is an abbreviation for the ColBERT model, not a language, so it is a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:25:19.707948+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English is explicitly mentioned as the language of the evaluation datasets (LaMP benchmark contains English data), indicating the paper studies English.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:25:19.707948+00:00"
         },
         {
           "language": "Chinese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Chinese is used as a nationality adjective (e.g., Chinese police officer), not a reference to the Chinese language, so it is a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:25:19.707948+00:00"
         },
         {
           "language": "French",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "French is used as a nationality adjective (French officer), not a reference to the French language, so it is a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:25:19.707948+00:00"
         }
       ],
       "sources_checked": [
@@ -127155,13 +127189,21 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mae appears as the abbreviation for the Mean Absolute Error metric, not a language, so it is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:19.707948+00:00"
             },
             {
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Col is an abbreviation for the ColBERT model, not a language, so it is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:19.707948+00:00"
             }
           ]
         },
@@ -127173,13 +127215,21 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mae appears as the abbreviation for the Mean Absolute Error metric, not a language, so it is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:19.707948+00:00"
             },
             {
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Col is an abbreviation for the ColBERT model, not a language, so it is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:19.707948+00:00"
             }
           ]
         },
@@ -127191,7 +127241,11 @@
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Col is an abbreviation for the ColBERT model, not a language, so it is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:19.707948+00:00"
             }
           ]
         },
@@ -127201,7 +127255,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is explicitly mentioned as the language of the evaluation datasets (LaMP benchmark contains English data), indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:19.707948+00:00"
             }
           ]
         },
@@ -127211,7 +127269,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is explicitly mentioned as the language of the evaluation datasets (LaMP benchmark contains English data), indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:19.707948+00:00"
             }
           ]
         },
@@ -127221,11 +127283,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Chinese is used as a nationality adjective (e.g., Chinese police officer), not a reference to the Chinese language, so it is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:19.707948+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "false_positive",
+              "judge_reason": "French is used as a nationality adjective (French officer), not a reference to the French language, so it is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:25:19.707948+00:00"
             }
           ]
         }
@@ -127265,7 +127335,11 @@
           "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The candidate 'Mae' corresponds to the abbreviation 'MAE' (Mean Absolute Error) in the snippets, not the human language Mae.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:24:40.804795+00:00"
         }
       ],
       "sources_checked": [
@@ -127286,7 +127360,11 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The candidate 'Mae' corresponds to the abbreviation 'MAE' (Mean Absolute Error) in the snippets, not the human language Mae.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:24:40.804795+00:00"
             }
           ]
         },
@@ -127298,7 +127376,11 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The candidate 'Mae' corresponds to the abbreviation 'MAE' (Mean Absolute Error) in the snippets, not the human language Mae.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:24:40.804795+00:00"
             }
           ]
         },
@@ -127310,7 +127392,11 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The candidate 'Mae' corresponds to the abbreviation 'MAE' (Mean Absolute Error) in the snippets, not the human language Mae.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:24:40.804795+00:00"
             }
           ]
         }
@@ -127344,7 +127430,11 @@
           "flag_reason": "Too short/generic — matches 'monitor', 'month', 'Monday', etc.",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Mon refers to Monday (day abbreviation) in the medication schedule, not a human language, thus false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:28:01.917028+00:00"
         }
       ],
       "sources_checked": [
@@ -127365,7 +127455,11 @@
               "language": "Mon",
               "class": 1,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches 'monitor', 'month', 'Monday', etc."
+              "flag_reason": "Too short/generic — matches 'monitor', 'month', 'Monday', etc.",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mon refers to Monday (day abbreviation) in the medication schedule, not a human language, thus false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:28:01.917028+00:00"
             }
           ]
         },
@@ -127377,7 +127471,11 @@
               "language": "Mon",
               "class": 1,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches 'monitor', 'month', 'Monday', etc."
+              "flag_reason": "Too short/generic — matches 'monitor', 'month', 'Monday', etc.",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mon refers to Monday (day abbreviation) in the medication schedule, not a human language, thus false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:28:01.917028+00:00"
             }
           ]
         },
@@ -127389,7 +127487,11 @@
               "language": "Mon",
               "class": 1,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches 'monitor', 'month', 'Monday', etc."
+              "flag_reason": "Too short/generic — matches 'monitor', 'month', 'Monday', etc.",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mon refers to Monday (day abbreviation) in the medication schedule, not a human language, thus false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:28:01.917028+00:00"
             }
           ]
         }
@@ -127423,21 +127525,33 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "Chinese is mentioned as the language of omitted Legal Cases dataset, but the paper does not study or evaluate on Chinese.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:28:37.333852+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English is used as the language of evaluation instances and the primary language of the experiments, indicating the paper studies English.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:28:37.333852+00:00"
         },
         {
           "language": "Roma",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Roma appears as part of the name 'Roma Gill', a person, not the language Roma.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:28:37.333852+00:00"
         }
       ],
       "sources_checked": [
@@ -127457,11 +127571,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Chinese is mentioned as the language of omitted Legal Cases dataset, but the paper does not study or evaluate on Chinese.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:28:37.333852+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as the language of evaluation instances and the primary language of the experiments, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:28:37.333852+00:00"
             }
           ]
         },
@@ -127471,11 +127593,19 @@
           "detected_languages": [
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Chinese is mentioned as the language of omitted Legal Cases dataset, but the paper does not study or evaluate on Chinese.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:28:37.333852+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as the language of evaluation instances and the primary language of the experiments, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:28:37.333852+00:00"
             }
           ]
         },
@@ -127485,7 +127615,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English is used as the language of evaluation instances and the primary language of the experiments, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:28:37.333852+00:00"
             }
           ]
         },
@@ -127495,7 +127629,11 @@
           "detected_languages": [
             {
               "language": "Roma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Roma appears as part of the name 'Roma Gill', a person, not the language Roma.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:28:37.333852+00:00"
             }
           ]
         }
@@ -127528,42 +127666,66 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:29:51.900256+00:00"
         },
         {
           "language": "Gbe",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "Gbe appears only as part of the language family label 'Niger-Congo/Gbe' for Fongbe, not as a separate studied language; thus it is mentioned only.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:29:51.900256+00:00"
         },
         {
           "language": "Oromo",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "Oromo (Afaan Oromo) is mentioned only in a citation about a sentiment analysis review for Oromo, not part of the current survey’s resources; therefore it is mentioned only.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:29:51.900256+00:00"
         },
         {
           "language": "Fon",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:29:51.900256+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:29:51.900256+00:00"
         },
         {
           "language": "French",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:29:51.900256+00:00"
         }
       ],
       "sources_checked": [
@@ -127614,7 +127776,11 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127624,31 +127790,59 @@
           "detected_languages": [
             {
               "language": "Gbe",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Gbe appears only as part of the language family label 'Niger-Congo/Gbe' for Fongbe, not as a separate studied language; thus it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127658,11 +127852,19 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127672,11 +127874,19 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127686,11 +127896,19 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Oromo",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Oromo (Afaan Oromo) is mentioned only in a citation about a sentiment analysis review for Oromo, not part of the current survey’s resources; therefore it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127700,7 +127918,11 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127710,7 +127932,11 @@
           "detected_languages": [
             {
               "language": "Oromo",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "Oromo (Afaan Oromo) is mentioned only in a citation about a sentiment analysis review for Oromo, not part of the current survey’s resources; therefore it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127720,15 +127946,27 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127738,11 +127976,19 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127752,7 +127998,11 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127762,11 +128012,19 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127776,11 +128034,19 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127790,27 +128056,51 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127820,11 +128110,19 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127834,19 +128132,35 @@
           "detected_languages": [
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127856,139 +128170,275 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -127998,55 +128448,107 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128056,35 +128558,67 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128094,15 +128628,27 @@
           "detected_languages": [
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128112,11 +128658,19 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128126,59 +128680,115 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128188,31 +128798,59 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128222,31 +128860,59 @@
           "detected_languages": [
             {
               "language": "Fon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Fon refers to the Fon language (Fongbe) as seen in the Fon Wikipedia Corpus and Fon-French parallel sentences; the survey catalogs resources for it, so it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128256,19 +128922,35 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128278,11 +128960,19 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128292,11 +128982,19 @@
           "detected_languages": [
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128306,23 +129004,43 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128332,27 +129050,51 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128362,15 +129104,27 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128380,7 +129134,11 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128390,27 +129148,51 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128420,19 +129202,35 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "English is referenced as a partner language for Hausa parallel corpora and benchmark evaluations, but the survey does not study English itself; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             },
             {
               "language": "French",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "French appears as a partner language for Fongbe parallel corpora and speech resources, yet the survey does not study French; it is mentioned only.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128442,7 +129240,11 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128452,7 +129254,11 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         },
@@ -128462,7 +129268,11 @@
           "detected_languages": [
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Hausa is extensively referenced throughout the survey, including text corpora, parallel datasets, speech resources, pre‑trained models, and benchmark evaluations, indicating the paper studies the lang",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:51.900256+00:00"
             }
           ]
         }
@@ -128495,7 +129305,11 @@
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippet includes column headers 'HRE', 'HRN', 'KHRE', and 'KHRN' which are metric abbreviations in the validation table, not references to the human language Hre.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:29:32.289544+00:00"
         }
       ],
       "sources_checked": [
@@ -128512,7 +129326,11 @@
           "detected_languages": [
             {
               "language": "Hre",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet includes column headers 'HRE', 'HRN', 'KHRE', and 'KHRN' which are metric abbreviations in the validation table, not references to the human language Hre.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:29:32.289544+00:00"
             }
           ]
         }
@@ -128551,7 +129369,11 @@
           "flag_reason": "Fur is a Nilo-Saharan language, but can also matches with 'hair' or matches 'further', 'furniture', etc.",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippet mentions 'fur' as a visual texture preference, not a human language; 'Fur' is not a recognized language, so this is a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:31:27.857285+00:00"
         }
       ],
       "sources_checked": [
@@ -128571,7 +129393,11 @@
               "language": "Fur",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Fur is a Nilo-Saharan language, but can also matches with 'hair' or matches 'further', 'furniture', etc."
+              "flag_reason": "Fur is a Nilo-Saharan language, but can also matches with 'hair' or matches 'further', 'furniture', etc.",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet mentions 'fur' as a visual texture preference, not a human language; 'Fur' is not a recognized language, so this is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:31:27.857285+00:00"
             }
           ]
         },
@@ -128583,7 +129409,11 @@
               "language": "Fur",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Fur is a Nilo-Saharan language, but can also matches with 'hair' or matches 'further', 'furniture', etc."
+              "flag_reason": "Fur is a Nilo-Saharan language, but can also matches with 'hair' or matches 'further', 'furniture', etc.",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet mentions 'fur' as a visual texture preference, not a human language; 'Fur' is not a recognized language, so this is a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:31:27.857285+00:00"
             }
           ]
         }
@@ -128621,7 +129451,11 @@
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippet refers to 'Kalam Cosmological Argument', a philosophical argument, not the Kalam language, so it's a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:31:57.004838+00:00"
         }
       ],
       "sources_checked": [
@@ -128639,7 +129473,11 @@
           "detected_languages": [
             {
               "language": "Kalam",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet refers to 'Kalam Cosmological Argument', a philosophical argument, not the Kalam language, so it's a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:31:57.004838+00:00"
             }
           ]
         },
@@ -128649,7 +129487,11 @@
           "detected_languages": [
             {
               "language": "Kalam",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet refers to 'Kalam Cosmological Argument', a philosophical argument, not the Kalam language, so it's a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:31:57.004838+00:00"
             }
           ]
         }
@@ -128706,7 +129548,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:32:37.090021+00:00"
         },
         {
           "language": "English",
@@ -128714,7 +129560,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:32:37.090021+00:00"
         }
       ],
       "sources_checked": [
@@ -128747,11 +129597,19 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -128761,35 +129619,67 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -128799,19 +129689,35 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -128821,19 +129727,35 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -128843,19 +129765,35 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -128865,19 +129803,35 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -128887,11 +129841,19 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -128901,75 +129863,147 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -128979,67 +130013,131 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -129049,59 +130147,115 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -129111,11 +130265,19 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -129125,11 +130287,19 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -129139,15 +130309,27 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -129157,27 +130339,51 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -129187,11 +130393,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to English as a language of speech data, benchmarks (e.g., LibriSpeech, FLEURS), and evaluation results, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -129201,11 +130415,19 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         },
@@ -129215,11 +130437,19 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets refer to Korean as a language of speech data, benchmarks (e.g., KSponSpeech, FLEURS), and evaluation results, indicating the paper studies Korean.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:32:37.090021+00:00"
             }
           ]
         }
@@ -129254,14 +130484,22 @@
           "flag_reason": "Too short — matches many common words and abbreviations",
           "sources": [
             "pdf"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Mo refers to the chemical element Molybdenum in the snippets (e.g., Mo/Ni chalcogenide microspheres, MoS2), not the human language, making it a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:33:12.576660+00:00"
         },
         {
           "language": "Prussian",
           "class": 0,
           "sources": [
             "pdf"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Prussian refers to Prussian blue analogue, a material/chemical compound, in the snippets, not the language, making it a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T06:33:12.576660+00:00"
         }
       ],
       "sources_checked": [
@@ -129281,31 +130519,55 @@
               "language": "Mo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short — matches many common words and abbreviations"
+              "flag_reason": "Too short — matches many common words and abbreviations",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mo refers to the chemical element Molybdenum in the snippets (e.g., Mo/Ni chalcogenide microspheres, MoS2), not the human language, making it a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:33:12.576660+00:00"
             },
             {
               "language": "Prussian",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Prussian refers to Prussian blue analogue, a material/chemical compound, in the snippets, not the language, making it a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:33:12.576660+00:00"
             },
             {
               "language": "Prussian",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Prussian refers to Prussian blue analogue, a material/chemical compound, in the snippets, not the language, making it a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:33:12.576660+00:00"
             },
             {
               "language": "Mo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short — matches many common words and abbreviations"
+              "flag_reason": "Too short — matches many common words and abbreviations",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mo refers to the chemical element Molybdenum in the snippets (e.g., Mo/Ni chalcogenide microspheres, MoS2), not the human language, making it a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:33:12.576660+00:00"
             },
             {
               "language": "Mo",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short — matches many common words and abbreviations"
+              "flag_reason": "Too short — matches many common words and abbreviations",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Mo refers to the chemical element Molybdenum in the snippets (e.g., Mo/Ni chalcogenide microspheres, MoS2), not the human language, making it a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:33:12.576660+00:00"
             },
             {
               "language": "Prussian",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Prussian refers to Prussian blue analogue, a material/chemical compound, in the snippets, not the language, making it a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T06:33:12.576660+00:00"
             }
           ]
         }

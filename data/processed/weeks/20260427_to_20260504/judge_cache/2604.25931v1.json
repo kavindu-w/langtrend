@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2604.25931v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T07:22:30.133325+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3210,
+  "verdicts": {
+    "Mba": {
+      "verdict": "false_positive",
+      "reason": "Mba refers to MBA-RAG, a retrieval method, not the Mba language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian refers to 'Italian Republic', a country name, not the Italian language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language, and the paper only evaluates on English data, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

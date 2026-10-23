@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.28836v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T06:19:59.005177+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4239,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears as part of the citation 'Mo and Hu (2024)', an author name, not the language Mo; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "Tat is part of 'HIV-1 TAT-interacting protein', a protein acronym, not the language Tat; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the source documents and evaluation (e.g., non‑native English proficiency, English words), and the paper evaluates summaries for English, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

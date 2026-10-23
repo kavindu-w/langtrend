@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2604.25933v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T07:24:22.817835+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 9875,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae refers to the metric MAE (Mean Absolute Error) in the snippets, not the language Mae, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Magi": {
+      "verdict": "false_positive",
+      "reason": "Magi refers to the model name MAGI in the snippets, not the language Magi, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mayo": {
+      "verdict": "false_positive",
+      "reason": "Mayo refers to Mayo Clinic, an institution, not the language Mayo, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mba": {
+      "verdict": "false_positive",
+      "reason": "Mba refers to the degree MBA (Master of Business Administration) in the snippets, not the language Mba, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel refers to sentinel case monitoring, a surveillance term, not the language Sentinel, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Vietnamese refers to the Vietnamese language used in a cited study on health communication; the paper only mentions it, not studying it, thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to English-language publications filter in the snippets; the paper only mentions English as a language constraint, not studying it, thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

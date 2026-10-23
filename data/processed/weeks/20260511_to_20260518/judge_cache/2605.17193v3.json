@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2605.17193v3",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T06:51:57.129041+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4281,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "Ami refers to Adjusted Mutual Information (a clustering metric), not the human language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is part of model names (GPT-5.6 Luna, GPT-5.6-Luna), not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mayo": {
+      "verdict": "false_positive",
+      "reason": "Mayo refers to author Deborah G. Mayo and her outlook, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the text (standard English stopwords) and the paper processes English text, indicating it is studied → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
