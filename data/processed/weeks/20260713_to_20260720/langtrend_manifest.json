@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T01:47:56.685412+00:00",
+  "generated_at": "2026-10-23T04:06:26.068732+00:00",
   "window_days": 7,
   "week_start": "2026-07-13",
   "week_end": "2026-07-20",
@@ -7,16 +7,16 @@
   "counts": {
     "papers": 370,
     "flagged_papers": 152,
-    "unique_languages": 137,
-    "unique_languages_mentioned_only": 10,
+    "unique_languages": 135,
+    "unique_languages_mentioned_only": 11,
     "pdf_failed_no_detection": 0,
     "late_announced": 50,
     "judge": {
-      "judged_papers": 226,
-      "judged_languages": 889,
-      "studied": 486,
-      "mentioned_only": 146,
-      "false_positive": 257
+      "judged_papers": 228,
+      "judged_languages": 892,
+      "studied": 487,
+      "mentioned_only": 147,
+      "false_positive": 258
     }
   },
   "language_counts": [
@@ -479,8 +479,8 @@
     {
       "language": "Aka",
       "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
+      "studied": 0,
+      "mentioned_only": 1
     },
     {
       "language": "Albanian",
@@ -759,12 +759,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Pole",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Quechua",
       "count": 1,
       "studied": 1,
@@ -906,9 +900,9 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 26,
-      "studied": 15,
-      "mentioned_only": 11
+      "count": 25,
+      "studied": 13,
+      "mentioned_only": 12
     },
     {
       "class_id": 1,
@@ -81683,14 +81677,22 @@
           "flag_reason": "Often matches mathematical 'poles' in geometry/embeddings papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "In the snippet, \"pole\" refers to one side of a concept pair, not the language Pole, making it a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T02:57:52.815422+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet describes a hand‑curated pool of semantically neutral English sentences used for training/evaluation, indicating the paper studies English.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T02:57:52.815422+00:00"
         }
       ],
       "sources_checked": [
@@ -81712,7 +81714,11 @@
               "language": "Pole",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Often matches mathematical 'poles' in geometry/embeddings papers"
+              "flag_reason": "Often matches mathematical 'poles' in geometry/embeddings papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the snippet, \"pole\" refers to one side of a concept pair, not the language Pole, making it a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:57:52.815422+00:00"
             }
           ]
         },
@@ -81724,7 +81730,11 @@
               "language": "Pole",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Often matches mathematical 'poles' in geometry/embeddings papers"
+              "flag_reason": "Often matches mathematical 'poles' in geometry/embeddings papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "In the snippet, \"pole\" refers to one side of a concept pair, not the language Pole, making it a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:57:52.815422+00:00"
             }
           ]
         },
@@ -81734,7 +81744,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet describes a hand‑curated pool of semantically neutral English sentences used for training/evaluation, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:57:52.815422+00:00"
             }
           ]
         },
@@ -81744,7 +81758,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet describes a hand‑curated pool of semantically neutral English sentences used for training/evaluation, indicating the paper studies English.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:57:52.815422+00:00"
             }
           ]
         }
@@ -84036,7 +84054,11 @@
           "flag_reason": "'aka' = also known as — common abbreviation",
           "sources": [
             "abstract"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippets provided do not show any context indicating that 'Aka' refers to the human language; insufficient evidence to confirm.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T02:56:25.568906+00:00"
         }
       ],
       "sources_checked": [
@@ -84055,7 +84077,11 @@
               "language": "Aka",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "'aka' = also known as — common abbreviation"
+              "flag_reason": "'aka' = also known as — common abbreviation",
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets provided do not show any context indicating that 'Aka' refers to the human language; insufficient evidence to confirm.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:56:25.568906+00:00"
             }
           ]
         }

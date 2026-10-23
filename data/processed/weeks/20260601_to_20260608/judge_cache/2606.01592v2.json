@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.01592v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T03:56:21.751077+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 2680,
+  "verdicts": {
+    "Puma": {
+      "verdict": "false_positive",
+      "reason": "Puma appears only as a nickname ('Jolly Puma') in the leaderboard, not as the language itself, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the EFL grammar drills and the LLM-generated English-Japanese sentence pairs, and the study evaluates LLM-generated English content, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only as the participants' nationality, the parallel sentence pairs, and the CEFR-J framework, without the paper focusing on Japanese language learning, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

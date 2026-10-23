@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-10-23T01:47:59.950059+00:00",
+  "generated_at": "2026-10-23T04:06:28.275626+00:00",
   "window_days": 7,
   "week_start": "2026-09-07",
   "week_end": "2026-09-14",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 630,
-    "flagged_papers": 305,
-    "unique_languages": 149,
+    "flagged_papers": 304,
+    "unique_languages": 148,
     "unique_languages_mentioned_only": 21,
     "pdf_failed_no_detection": 0,
     "late_announced": 122,
     "judge": {
-      "judged_papers": 410,
-      "judged_languages": 1654,
+      "judged_papers": 411,
+      "judged_languages": 1656,
       "studied": 931,
       "mentioned_only": 239,
-      "false_positive": 484
+      "false_positive": 486
     }
   },
   "language_counts": [
@@ -124,8 +124,8 @@
     },
     {
       "language": "Polish",
-      "count": 15,
-      "studied": 12,
+      "count": 14,
+      "studied": 11,
       "mentioned_only": 3
     },
     {
@@ -657,12 +657,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Fwe",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Hakka",
       "count": 1,
       "studied": 1,
@@ -1044,8 +1038,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 60,
-      "studied": 45,
+      "count": 59,
+      "studied": 44,
       "mentioned_only": 15
     },
     {
@@ -1068,8 +1062,8 @@
     },
     {
       "class_id": 4,
-      "count": 249,
-      "studied": 206,
+      "count": 248,
+      "studied": 205,
       "mentioned_only": 43
     },
     {
@@ -167101,14 +167095,22 @@
           "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Fwe appears as part of column headers (e.g., CWE FWE) and does not refer to the Fwe human language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T02:42:21.681838+00:00"
         },
         {
           "language": "Polish",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Polish appears as part of the verb 'polish' in the AI use statement and does not refer to the Polish language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T02:42:21.681838+00:00"
         }
       ],
       "sources_checked": [
@@ -167134,7 +167136,11 @@
               "language": "Fwe",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers"
+              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Fwe appears as part of column headers (e.g., CWE FWE) and does not refer to the Fwe human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:42:21.681838+00:00"
             }
           ]
         },
@@ -167146,7 +167152,11 @@
               "language": "Fwe",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers"
+              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Fwe appears as part of column headers (e.g., CWE FWE) and does not refer to the Fwe human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:42:21.681838+00:00"
             }
           ]
         },
@@ -167156,7 +167166,11 @@
           "detected_languages": [
             {
               "language": "Polish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Polish appears as part of the verb 'polish' in the AI use statement and does not refer to the Polish language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:42:21.681838+00:00"
             }
           ]
         },
@@ -167166,7 +167180,11 @@
           "detected_languages": [
             {
               "language": "Polish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Polish appears as part of the verb 'polish' in the AI use statement and does not refer to the Polish language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:42:21.681838+00:00"
             }
           ]
         },
@@ -167178,7 +167196,11 @@
               "language": "Fwe",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers"
+              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Fwe appears as part of column headers (e.g., CWE FWE) and does not refer to the Fwe human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:42:21.681838+00:00"
             }
           ]
         },
@@ -167190,7 +167212,11 @@
               "language": "Fwe",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers"
+              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Fwe appears as part of column headers (e.g., CWE FWE) and does not refer to the Fwe human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:42:21.681838+00:00"
             }
           ]
         },
@@ -167202,7 +167228,11 @@
               "language": "Fwe",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers"
+              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Fwe appears as part of column headers (e.g., CWE FWE) and does not refer to the Fwe human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:42:21.681838+00:00"
             }
           ]
         },
@@ -167214,7 +167244,11 @@
               "language": "Fwe",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers"
+              "flag_reason": "FWE = Family-Wise Error — statistics acronym common in neuroscience/NLP papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Fwe appears as part of column headers (e.g., CWE FWE) and does not refer to the Fwe human language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T02:42:21.681838+00:00"
             }
           ]
         }

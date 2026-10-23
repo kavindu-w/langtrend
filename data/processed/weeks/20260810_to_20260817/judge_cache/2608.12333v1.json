@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.12333v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T02:47:20.956687+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11625,
+  "verdicts": {
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets provide insufficient evidence to confirm Tibetan is referenced, so we treat it as mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek appears only as an example of a language lexicalizing color distinctions (Greek blues) in psycholinguistic context, not part of the benchmark experiments, thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian appears only as an example of a language lexicalizing color distinctions (Russian light/dark blue) in psycholinguistic context, not part of the benchmark experiments, thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is referenced only in the context of 'Latin script' or 'non-Latin scripts', not the Latin language itself, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is part of the Germanic within-family cluster and is evaluated in the M2BIND benchmark experiments, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is part of the Germanic within-family cluster and is evaluated in the M2BIND benchmark experiments, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is part of the Romance within-family cluster and is evaluated in the M2BIND benchmark experiments, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is part of the Romance within-family cluster and is evaluated in the M2BIND benchmark experiments, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is part of the cross-family set and is evaluated in the M2BIND benchmark experiments, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is part of both cross-family and within-family experiments and is evaluated in the M2BIND benchmark, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is part of both cross-family and within-family experiments and is evaluated in the M2BIND benchmark, thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

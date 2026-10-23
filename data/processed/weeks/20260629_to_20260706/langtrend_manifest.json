@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T01:47:55.958554+00:00",
+  "generated_at": "2026-10-23T04:06:25.494093+00:00",
   "window_days": 7,
   "week_start": "2026-06-29",
   "week_end": "2026-07-06",
@@ -7,16 +7,16 @@
   "counts": {
     "papers": 459,
     "flagged_papers": 191,
-    "unique_languages": 147,
+    "unique_languages": 146,
     "unique_languages_mentioned_only": 18,
     "pdf_failed_no_detection": 0,
     "late_announced": 17,
     "judge": {
-      "judged_papers": 295,
-      "judged_languages": 1098,
-      "studied": 473,
+      "judged_papers": 296,
+      "judged_languages": 1100,
+      "studied": 474,
       "mentioned_only": 312,
-      "false_positive": 313
+      "false_positive": 314
     }
   },
   "language_counts": [
@@ -771,12 +771,6 @@
       "mentioned_only": 1
     },
     {
-      "language": "Mili",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Mingrelian",
       "count": 1,
       "studied": 1,
@@ -1014,8 +1008,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 36,
-      "studied": 20,
+      "count": 35,
+      "studied": 19,
       "mentioned_only": 16
     },
     {
@@ -107416,14 +107410,22 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet explicitly mentions filtering for English language and using an English Review Subset, indicating the paper studies English as part of its experiments, implying studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T03:05:31.481989+00:00"
         },
         {
           "language": "Mili",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The snippet contains the word \"mili-second\", a typographical variant of \"millisecond\" and not a reference to the Mili language, implying a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-23T03:05:31.481989+00:00"
         }
       ],
       "sources_checked": [
@@ -107441,7 +107443,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet explicitly mentions filtering for English language and using an English Review Subset, indicating the paper studies English as part of its experiments, implying studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T03:05:31.481989+00:00"
             }
           ]
         },
@@ -107451,7 +107457,11 @@
           "detected_languages": [
             {
               "language": "Mili",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "The snippet contains the word \"mili-second\", a typographical variant of \"millisecond\" and not a reference to the Mili language, implying a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-23T03:05:31.481989+00:00"
             }
           ]
         }

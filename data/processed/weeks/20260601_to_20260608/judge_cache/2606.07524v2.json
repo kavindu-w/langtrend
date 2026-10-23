@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2606.07524v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T03:55:23.197069+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8159,
+  "verdicts": {
+    "Neko": {
+      "verdict": "false_positive",
+      "reason": "Neko appears as part of the model name 'Neko-Institute-of-Science/metharme-7b', not the Neko language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "UNA appears in the model name 'UNA-SimpleSmaug-34b', not the Una language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu appears in the model name 'tulu- - Llama', not the Tulu language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sanskrit": {
+      "verdict": "false_positive",
+      "reason": "Sanskrit appears in the model name 'Sanskrit-llama', not the Sanskrit language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is mentioned as the language of the multiple‑choice benchmarks evaluated, indicating the paper studies English → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French appears in the model name 'lora-8b-alpaca-french', not the French language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
