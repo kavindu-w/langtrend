@@ -1,8 +1,19 @@
 {
   "paper_id": "http://arxiv.org/abs/2608.28611v1",
-  "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-23T09:07:17.546138+00:00",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-23T12:41:05.058713+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 5002,
-  "verdicts": {}
+  "verdicts": {
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The paper curates a QA dataset in Hindi, fine-tunes a model on it, and deploys a platform supporting Hindi input; therefore, it is studied.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper curates a QA dataset in English, fine-tunes a model on it, and deploys a platform supporting English input; therefore, it is studied.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
 }

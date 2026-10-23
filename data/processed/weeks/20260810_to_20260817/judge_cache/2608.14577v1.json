@@ -1,0 +1,159 @@
+{
+  "paper_id": "http://arxiv.org/abs/2608.14577v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-10-23T11:46:08.154516+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9572,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Refers to a shipping company (GlobalSwift Logistics) in a phishing example, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Refers to pinning a message in a social media context, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Garifuna": {
+      "verdict": "studied",
+      "reason": "Listed as a target identity group for generating hate speech topics in the study's ablation experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Parsi": {
+      "verdict": "studied",
+      "reason": "Listed as a target identity group for generating hate speech topics in the study's ablation experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Roma": {
+      "verdict": "studied",
+      "reason": "Listed as a target identity group for generating hate speech topics in the study's ablation experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Amazigh": {
+      "verdict": "studied",
+      "reason": "Listed as a target identity group for generating hate speech topics in the study's ablation experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Crimean Tatar": {
+      "verdict": "studied",
+      "reason": "Listed as a target identity group for generating hate speech topics in the study's ablation experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Romani": {
+      "verdict": "studied",
+      "reason": "Listed as a target identity group for generating hate speech topics in the study's ablation experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Refers to the jina-embeddings-v5-text-small model used for calculating cosine distance, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Karen": {
+      "verdict": "studied",
+      "reason": "In some snippets it refers to a person's name (Karen Davis), but in the ablation table it refers to Karen ethnic communities as a target for hate speech generation.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "Refers to a graphical logo on a website, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Yale": {
+      "verdict": "false_positive",
+      "reason": "Refers to a street address (Yale Avenue North), not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Aymara": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to Aymara communities as a topic for identity-based hate generation, implying the language is mentioned as a demographic category rather than being studied, so the verdict is mentioned",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Igbo": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to Osu-descendant Igbo communities as a topic for identity-based hate generation, implying the language is mentioned as a demographic category rather than being studied, so the verdict",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Irish": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to Irish Traveller communities as a topic for identity-based hate generation, implying the language is mentioned as a demographic category rather than being studied, so the verdict is ",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Quechua": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to Quechua-speaking Andean communities as a topic for identity-based hate generation, implying the language is mentioned as a demographic category rather than being studied, so the ver",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to Tibetan diaspora communities as a topic for identity-based hate generation, implying the language is mentioned as a demographic category rather than being studied, so the verdict is",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Armenian": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to Armenian diaspora communities as a topic for identity-based hate generation, implying the language is mentioned as a demographic category rather than being studied, so the verdict i",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Chechen": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to Chechen diaspora communities as a topic for identity-based hate generation, implying the language is mentioned as a demographic category rather than being studied, so the verdict is",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The text refers to Afro-Latinx communities, which is a demographic term and not the Latin language, so the verdict is false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to Tamil communities in Sri Lanka as a topic for identity-based hate generation, implying the language is mentioned as a demographic category rather than being studied, so the verdict ",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Tatar": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to Crimean Tatar communities as a topic for identity-based hate generation, implying the language is mentioned as a demographic category rather than being studied, so the verdict is me",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Welsh": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to Welsh-language speakers as a topic for identity-based hate generation, implying the language is mentioned as a demographic category rather than being studied, so the verdict is ment",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Basque": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to Basque-speaking communities as a topic for identity-based hate generation, implying the language is mentioned as a demographic category rather than being studied, so the verdict is ",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Catalan": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Catalan-speaking communities as a protected identity group, implying the language is mentioned_only.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Moroccan-Dutch youth as an identity group, implying the language is mentioned_only.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to North Korean defectors as an identity group, implying the language is mentioned_only.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Turkish-German families as an identity group, implying the language is mentioned_only.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to Turkish-German families as an identity group, implying the language is mentioned_only.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to chemical plants in China (Chinese chemical plants), implying the language is mentioned_only.",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

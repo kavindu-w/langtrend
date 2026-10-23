@@ -1,8 +1,24 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.21304v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-23T08:39:56.824306+00:00",
+  "judged_at": "2026-10-23T10:15:33.435445+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 6083,
-  "verdicts": {}
+  "verdicts": {
+    "Soo": {
+      "verdict": "false_positive",
+      "reason": "Soo appears as part of the acronym SOO (Self–Other Overlap) in the paper, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is used throughout the paper for prompts, benchmark tracks, and evaluation results, indicating the paper studies and builds resources for the Chinese language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used throughout the paper for prompts, benchmark tracks, and evaluation results, indicating the paper studies and builds resources for the English language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }

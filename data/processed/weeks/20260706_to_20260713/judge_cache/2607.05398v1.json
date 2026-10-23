@@ -1,0 +1,74 @@
+{
+  "paper_id": "http://arxiv.org/abs/2607.05398v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-23T13:31:28.128800+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11087,
+  "verdicts": {
+    "Fala": {
+      "verdict": "false_positive",
+      "reason": "Fala is a common Portuguese word, not a language reference; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Foi": {
+      "verdict": "false_positive",
+      "reason": "Foi is a common Portuguese word, not a language reference; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tem": {
+      "verdict": "false_positive",
+      "reason": "Tem is a common Portuguese word, not a language reference; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Toda": {
+      "verdict": "false_positive",
+      "reason": "Toda is a common Portuguese word, not a language reference; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "Uma is a common Portuguese word, not a language reference; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "Tat appears as part of 'Tit‑for‑Tat', not a language; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "mentioned_only",
+      "reason": "Italian is used as an adjective describing an LLM, referencing the Italian language, not studied here; mentioned only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Vietnamese is listed among languages in prior work, not studied here; mentioned only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is listed among languages in prior work, not studied here; mentioned only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese (Mandarin) is listed among languages in prior work, not studied here; mentioned only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is the language of the game, VH responses, and data collection, indicating the paper studies this language; studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used for decision output format and future replication, not studied in this paper; mentioned only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions an Italian LLM (LLaMAntino-3-ANITA), not the French language, so the detection is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
