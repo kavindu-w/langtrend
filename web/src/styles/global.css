@@ -218,13 +218,6 @@ a { color: inherit; text-decoration: none; }
 .fc-root { position: relative; width: 100%; max-width: 560px; margin: 0 auto; display: block; }
 .calendar-card.week-calendar-panel { display: flex; flex-direction: column; align-items: center; }
 
-@media (max-width: 640px) {
-  .fc-week-wrapper { padding-left: 1.8em; padding-right: 2.3em; width: 100%; }
-  .fc-wknum { left: -1.6em; font-size: 0.65rem; }
-  .fc-wktotal { right: -2.2em; width: 1.9em; font-size: 0.6rem; }
-  .fc .fc-day-count { font-size: 0.58rem; }
-}
-
 /* Styling for FullCalendar background event representing selected week */
 .selected-week-bg {
   background-color: rgba(15,108,93,0.22) !important;
@@ -345,31 +338,101 @@ a { color: inherit; text-decoration: none; }
   z-index: 5;
 }
 
-/* Week totals — mirror of .fc-wknum in the right gutter: papers scanned that week. */
+/* Week totals — mirror of .fc-wknum in the right gutter: papers scanned that week.
+   Neutral outlined chip, so it doesn't read as a step of the day-count shading;
+   the legend (.calendar-key) reuses it unpositioned. */
 .fc-wktotal {
-  position: absolute;
-  right: -3.1em;
-  transform: translateY(-50%);
-  width: 2.5em;
-  text-align: left;
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--panel);
+  box-shadow: inset 0 0 0 1px rgba(32,22,19,0.35);
   font-size: 0.72rem;
-  color: var(--accent, #0f6c5d);
+  color: var(--text);
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.fc-root .fc-wktotal {
+  position: absolute;
+  left: calc(100% + 0.4em);
+  transform: translateY(-50%);
   z-index: 5;
   cursor: help;
 }
 
-/* Papers scanned per submission day, under the date number */
-.fc .fc-day-count {
-  display: block;
-  margin-top: 2px;
+/* "Wk" / "Total" headings over the gutters, level with the weekday header row. */
+.fc-root .fc-gutter-head {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: default;
+}
+
+/* Papers scanned per submission day, under the date number: a neutral chip so
+   it doesn't read as another date. .is-empty marks a day counted next week. */
+.fc-day-count {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(108,95,88,0.12);
   font-size: 0.66rem;
   font-weight: 600;
   color: var(--muted);
-  line-height: 1;
+  line-height: 1.25;
 }
+.fc-day-count.is-empty { background: none; box-shadow: inset 0 0 0 1px rgba(108,95,88,0.45); }
+/* Sequential shading by papers that day (bins from dayBreaks): one hue,
+   light→dark, checked for monotone lightness and a light end >= 2:1 against
+   the panel; ink flips to white on the two dark steps (all text >= 4.9:1). */
+.fc-day-count.bin-0 { background: #82beb1; color: #0d2723; }
+.fc-day-count.bin-1 { background: #4f9d8d; color: #0d2723; }
+.fc-day-count.bin-2 { background: #2b7567; color: #fff; }
+.fc-day-count.bin-3 { background: #0c4a41; color: #fff; }
+.fc .fc-day-count { display: block; width: fit-content; margin: 2px auto 0; }
 .fc .fc-daygrid-day.unavailable-week .fc-day-count { display: none; }
+
+/* Narrow screens: must follow the base calendar rules above, which have the
+   same specificity and would otherwise win. */
+@media (max-width: 640px) {
+  .fc-week-wrapper { padding-left: 1.8em; padding-right: 2.6em; width: 100%; }
+  .fc-wknum { font-size: 0.65rem; }
+  .fc-root .fc-wktotal { left: calc(100% + 0.2em); font-size: 0.6rem; padding: 2px 4px; }
+  .fc-root .fc-gutter-head { font-size: 0.5rem; letter-spacing: 0; }
+  .fc-root .fc-wktotal.fc-gutter-head { left: 100%; }
+  .fc .fc-day-count { font-size: 0.58rem; padding: 1px 4px; }
+}
+
+/* Key for the calendar numbers, under the scan summary. */
+.calendar-key { margin-top: 10px; text-align: center; font-size: 0.85rem; color: var(--muted); }
+.calendar-key-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+}
+.calendar-key-items li { display: inline-flex; align-items: center; gap: 6px; }
+.calendar-key-scale {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 10px;
+  margin-bottom: 6px;
+}
+.calendar-key-bins { list-style: none; margin: 0; padding: 0; display: flex; gap: 3px; }
+.calendar-key-bins .fc-day-count { font-size: 0.72rem; padding: 2px 8px; }
+.calendar-key-more { margin-top: 6px; }
+.calendar-key-more summary { cursor: pointer; font-size: 0.8rem; }
+.calendar-key-more p { max-width: 560px; margin: 6px auto 0; font-size: 0.8rem; }
 
 .calendar-scan-summary {
   margin: 10px 0 0;
@@ -982,7 +1045,8 @@ text.bump-mid-label {
 /* Period mode: hide calendar head/widget/hint in all-papers mode */
 .week-calendar-panel[data-mode="all"] #calendar-head,
 .week-calendar-panel[data-mode="all"] #calendar-widget,
-.week-calendar-panel[data-mode="all"] #calendar-hint-text { display: none; }
+.week-calendar-panel[data-mode="all"] #calendar-hint-text,
+.week-calendar-panel[data-mode="all"] #calendar-key { display: none; }
 
 /* Period From / To pickers */
 .period-controls {

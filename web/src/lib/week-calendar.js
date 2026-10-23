@@ -35,7 +35,41 @@ export function buildCalendarStats(allWeeksData = []) {
     firstWeek: starts[0] ?? null,
     latest: latestStart ? { weekStart: latestStart, ...weeks[latestStart] } : null,
     lastDay: latestStart ? addDays(latestStart, 6) : null,
+    dayBreaks: dayBreaks(days),
   };
+}
+
+/**
+ * Shading bins for the day chips: four equal-width bins with a round step
+ * covering the 95th-percentile day, e.g. [50, 100, 150] when it is 181.
+ * Equal widths (not quantiles) keep the scale honest and the key readable,
+ * and don't saturate when early weeks were smaller. Sizing from p95 rather
+ * than the max means one deadline-rush day can't double the step and reshade
+ * every past week; outliers just land in the open-ended top bin. Returns the
+ * lower bound of each bin after the first; [] when there's nothing to shade.
+ */
+const BIN_STEPS = [5, 10, 20, 25, 50, 100, 200, 250, 500, 1000];
+export function dayBreaks(days = {}) {
+  const values = Object.values(days).filter(n => n > 0).sort((a, b) => a - b);
+  if (!values.length) return [];
+  const p95 = values[Math.floor(0.95 * (values.length - 1))];
+  const step = BIN_STEPS.find(s => s * 4 > p95) ?? Math.ceil(p95 / 4000) * 1000;
+  return [step, step * 2, step * 3];
+}
+
+/** Bin index (0 = fewest papers) for a daily count. */
+export function dayBin(n, breaks = []) {
+  return breaks.filter(b => n >= b).length;
+}
+
+/** Key labels for each bin: ["<50", "50–99", "100–149", "150+"]. */
+export function dayBinLabels(breaks = []) {
+  if (!breaks.length) return [];
+  return [
+    `<${breaks[0]}`,
+    ...breaks.slice(1).map((b, i) => `${breaks[i]}–${b - 1}`),
+    `${breaks[breaks.length - 1]}+`,
+  ];
 }
 
 function addDays(slug, n) {
@@ -61,10 +95,13 @@ export function weekTooltip(week) {
   return text;
 }
 
-/** Day-cell label/aria text: "(106)" / "106 papers scanned"; null when there's no count. */
+/**
+ * Day-cell label/aria text: "106" / "106 papers scanned"; null when there's no
+ * count. Styled as a chip (and keyed in the legend) so it doesn't read as a date.
+ */
 export function dayLabel(n) {
   const label = countLabel(n);
-  return label ? { text: `(${label})`, aria: `${n.toLocaleString('en-US')} paper${n === 1 ? '' : 's'} scanned` } : null;
+  return label ? { text: label, aria: `${n.toLocaleString('en-US')} paper${n === 1 ? '' : 's'} scanned` } : null;
 }
 
 // A day inside the tracked range with no papers: its batch wasn't in that
@@ -78,23 +115,41 @@ export function isEmptyTrackedDay(date, stats) {
   return date >= stats.firstWeek && date <= stats.lastDay && !stats.days?.[date];
 }
 
+/**
+ * The chip a day cell shows: { text, aria, className }, or null for no chip.
+ * A count gets a shading class (bin-0 … bin-3, see dayBreaks); an empty day
+ * inside the tracked range gets an outlined dash (is-empty).
+ */
+export function dayChip(date, stats) {
+  const n = stats?.days?.[date];
+  const label = dayLabel(n);
+  if (label) {
+    const bin = stats.dayBreaks?.length ? ` bin-${dayBin(n, stats.dayBreaks)}` : '';
+    return { ...label, className: `fc-day-count${bin}` };
+  }
+  if (isEmptyTrackedDay(date, stats)) return { text: '–', aria: EMPTY_DAY_NOTE, className: 'fc-day-count is-empty' };
+  return null;
+}
+
 function fmtDay(slug) {
   return new Date(`${slug}T12:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' });
 }
 
-/** "Latest scan: week of 12 Oct · 889 papers · 14,404 scanned since 27 Apr 2026", or null without data. */
+/** ["Latest scan: week of 12 Oct · 889 papers", "14,404 scanned since 27 Apr 2026"] (shown as two lines), or null without data. */
 export function scanSummary(stats) {
   if (!stats?.latest) return null;
   const since = new Date(`${stats.firstWeek}T12:00:00Z`).toLocaleDateString('en-GB', {
     day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC',
   });
-  return `Latest scan: week of ${fmtDay(stats.latest.weekStart)} · ${stats.latest.papers.toLocaleString('en-US')} papers · `
-    + `${stats.totalPapers.toLocaleString('en-US')} scanned since ${since}`;
+  return [
+    `Latest scan: week of ${fmtDay(stats.latest.weekStart)} · ${stats.latest.papers.toLocaleString('en-US')} papers`,
+    `${stats.totalPapers.toLocaleString('en-US')} scanned since ${since}`,
+  ];
 }
 
 /**
  * A count element with screen-reader text. aria-label isn't read out on a
- * plain span, so the visible label ("(106)", "1.1k") is aria-hidden and a
+ * plain span, so the visible label ("106", "1.1k") is aria-hidden and a
  * visually hidden .sr-only sibling carries the sentence; title keeps the
  * mouse tooltip. `doc` is a parameter so it can be tested without a DOM.
  */

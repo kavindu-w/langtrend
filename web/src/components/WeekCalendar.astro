@@ -1,5 +1,5 @@
 ---
-import { scanSummary } from '../lib/week-calendar.js';
+import { dayBinLabels, scanSummary } from '../lib/week-calendar.js';
 
 const { activeWeek, availableWeeks = [], calendarStats = null } = Astro.props as {
   activeWeek?: string;
@@ -7,9 +7,10 @@ const { activeWeek, availableWeeks = [], calendarStats = null } = Astro.props as
   calendarStats?: Record<string, any> | null; // buildCalendarStats() output
 };
 const summary = scanSummary(calendarStats);
+const binLabels = dayBinLabels(calendarStats?.dayBreaks);
 // Only the client needs days/weeks; keep the attribute small.
 const statsAttr = calendarStats
-  ? JSON.stringify({ days: calendarStats.days, weeks: calendarStats.weeks, firstWeek: calendarStats.firstWeek, lastDay: calendarStats.lastDay })
+  ? JSON.stringify({ days: calendarStats.days, weeks: calendarStats.weeks, firstWeek: calendarStats.firstWeek, lastDay: calendarStats.lastDay, dayBreaks: calendarStats.dayBreaks })
   : '';
 ---
 
@@ -68,10 +69,32 @@ const statsAttr = calendarStats
     </div>
   </div>
 
-  {summary && <p class="calendar-scan-summary" id="calendar-scan-summary">{summary}</p>}
+  {summary && <p class="calendar-scan-summary" id="calendar-scan-summary">{summary[0]}<br />{summary[1]}</p>}
+  <!-- Key for the calendar's numbers, drawn with the same chip styles as the cells. -->
+  {summary && (
+    <div class="calendar-key" id="calendar-key">
+      {binLabels.length > 0 && (
+        <div class="calendar-key-scale">
+          <span id="calendar-key-scale-label">cs.CL papers scanned, by submission day</span>
+          <ul class="calendar-key-bins" aria-labelledby="calendar-key-scale-label">
+            {binLabels.map((text, i) => <li class={`fc-day-count bin-${i}`}>{text}</li>)}
+          </ul>
+        </div>
+      )}
+      <ul class="calendar-key-items" aria-label="Calendar key">
+        {binLabels.length === 0 && <li><span class="fc-day-count" aria-hidden="true">106</span> cs.CL papers scanned, by submission day</li>}
+        <li><span class="fc-wktotal" aria-hidden="true">1.1k</span> Week total (column “Total”)</li>
+        <li><span class="fc-day-count is-empty" aria-hidden="true">–</span> Counted in next week’s scan</li>
+      </ul>
+      <details class="calendar-key-more">
+        <summary>Why can a week’s total exceed the sum of its days?</summary>
+        <p>A week’s total also includes papers arXiv announced that week but that were submitted earlier (e.g. after a moderation hold). A dash marks a day whose papers weren’t in that week’s scan; they are counted in the next week instead.</p>
+      </details>
+    </div>
+  )}
   <p class="placeholder-text small" id="calendar-hint-text">
     {summary
-      ? 'Numbers in parentheses are cs.CL papers scanned per submission day. The right column is each week\'s total, which also counts papers announced that week but submitted earlier, so it can exceed the sum of its days; a dash marks a day whose papers weren\'t in that week\'s scan and are counted in the next week. Click a week to view its data.'
+      ? 'Click a week to view its data.'
       : 'Click a week to view its data. (Note: Data available from April 27, 2026.)'}
   </p>
   <script src="../scripts/week-calendar-client.js"></script>

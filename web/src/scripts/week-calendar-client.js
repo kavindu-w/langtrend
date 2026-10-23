@@ -1,6 +1,6 @@
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { countLabel, dayHeaderFormat, dayLabel, EMPTY_DAY_NOTE, isEmptyTrackedDay, labelledCount, weekTooltip } from '../lib/week-calendar.js';
+import { countLabel, dayChip, dayHeaderFormat, labelledCount, weekTooltip } from '../lib/week-calendar.js';
 
 // ── Pure helpers (no DOM) ────────────────────────────────────────────────────
 
@@ -49,7 +49,6 @@ const baseUrl = (panel?.dataset.baseUrl || '').replace(/\/+$/, '');
 const calendarStats = (() => {
   try { return JSON.parse(panel?.dataset.calendarStats || '{}'); } catch { return {}; }
 })();
-const dayCounts = calendarStats.days || {};
 const weekCounts = calendarStats.weeks || {};
 
 const earliestAvailable = availableWeeks.length
@@ -322,6 +321,26 @@ document.querySelectorAll('.mode-tab').forEach(tab => {
 function renderWeekNumbers() {
   root.querySelectorAll('.fc-wknum, .fc-wktotal').forEach(el => el.remove());
   const rootRect = root.getBoundingClientRect();
+
+  // Column headings for the two gutters, level with the Mon–Sun header row,
+  // so the side numbers read as columns (like a timesheet's "Total").
+  const headCell = root.querySelector('th.fc-col-header-cell');
+  if (headCell) {
+    const headRect = headCell.getBoundingClientRect();
+    const headTop = Math.round(headRect.top - rootRect.top + headRect.height / 2) + 'px';
+    for (const [cls, text, tip] of [
+      ['fc-wknum', 'Wk'], // .fc-wknum is pointer-events:none, so no tooltip
+      ['fc-wktotal', 'Total', "Papers in each week's scan"],
+    ]) {
+      const head = document.createElement('span');
+      head.className = `${cls} fc-gutter-head`;
+      head.textContent = text;
+      if (tip) head.title = tip;
+      head.setAttribute('aria-hidden', 'true');
+      head.style.top = headTop;
+      root.appendChild(head);
+    }
+  }
   const seenRows = new Set();
   root.querySelectorAll('tr').forEach(row => {
     const firstCell = row.querySelector('td.fc-daygrid-day[data-date]');
@@ -374,17 +393,9 @@ const calendar = new Calendar(root, {
     const date = isoDate(arg.date);
     const top = arg.el.querySelector('.fc-daygrid-day-top');
     if (!top) return;
-    const label = dayLabel(dayCounts[date]); // parenthesised so it doesn't read as another date
-    let visible, spoken;
-    if (label) {
-      [visible, spoken] = [label.text, label.aria];
-    } else if (isEmptyTrackedDay(date, calendarStats)) {
-      // Inside the tracked range but empty: the batch went to the next week.
-      [visible, spoken] = ['(–)', EMPTY_DAY_NOTE];
-    } else {
-      return;
-    }
-    top.appendChild(labelledCount(document, 'fc-day-count', visible, spoken));
+    // Shaded by count; an outlined dash when the day's batch went to the next week.
+    const chip = dayChip(date, calendarStats);
+    if (chip) top.appendChild(labelledCount(document, chip.className, chip.text, chip.aria));
   },
   dayCellClassNames: (arg) => {
     const weekStartStr = isoDate(startOfWeek(arg.date));

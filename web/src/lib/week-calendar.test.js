@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildCalendarStats, countLabel, dayHeaderFormat, dayLabel, isEmptyTrackedDay, labelledCount, scanSummary, weekTooltip } from './week-calendar.js';
+import { buildCalendarStats, countLabel, dayBin, dayBinLabels, dayBreaks, dayChip, dayHeaderFormat, dayLabel, EMPTY_DAY_NOTE, isEmptyTrackedDay, labelledCount, scanSummary, weekTooltip } from './week-calendar.js';
 
 const weeks = [
   {
@@ -22,6 +22,7 @@ describe('buildCalendarStats', () => {
     expect(stats.firstWeek).toBe('2026-10-05');
     expect(stats.latest).toEqual({ weekStart: '2026-10-12', papers: 889, flagged: 613, late: 166 });
     expect(stats.lastDay).toBe('2026-10-18');
+    expect(stats.dayBreaks).toEqual([50, 100, 150]); // p95 day 150 -> step 50
   });
 
   it('latest is the newest week regardless of input order', () => {
@@ -30,7 +31,7 @@ describe('buildCalendarStats', () => {
 
   it('handles no data', () => {
     const stats = buildCalendarStats([]);
-    expect(stats).toEqual({ days: {}, weeks: {}, totalPapers: 0, firstWeek: null, latest: null, lastDay: null });
+    expect(stats).toEqual({ days: {}, weeks: {}, totalPapers: 0, firstWeek: null, latest: null, lastDay: null, dayBreaks: [] });
     expect(scanSummary(stats)).toBeNull();
   });
 
@@ -54,9 +55,10 @@ describe('labels', () => {
       .toBe('1,055 papers scanned (incl. 166 announced late, submitted in earlier weeks) · 680 with detected languages');
   });
 
-  it('dayLabel parenthesises the count and gives readable aria text', () => {
-    expect(dayLabel(106)).toEqual({ text: '(106)', aria: '106 papers scanned' });
-    expect(dayLabel(1)).toEqual({ text: '(1)', aria: '1 paper scanned' });
+  it('dayLabel gives the compact count and readable aria text', () => {
+    expect(dayLabel(106)).toEqual({ text: '106', aria: '106 papers scanned' });
+    expect(dayLabel(1234)).toEqual({ text: '1.2k', aria: '1,234 papers scanned' });
+    expect(dayLabel(1)).toEqual({ text: '1', aria: '1 paper scanned' });
     expect(dayLabel(0)).toBeNull();
   });
 
@@ -77,7 +79,61 @@ describe('labels', () => {
 
   it('scanSummary names the latest week and the running total', () => {
     expect(scanSummary(buildCalendarStats(weeks)))
-      .toBe('Latest scan: week of 12 Oct · 889 papers · 1,509 scanned since 5 Oct 2026');
+      .toEqual(['Latest scan: week of 12 Oct · 889 papers', '1,509 scanned since 5 Oct 2026']);
+  });
+});
+
+describe('day shading bins', () => {
+  const days = { a: 19, b: 48, c: 52, d: 60, e: 75, f: 80, g: 100, h: 104, i: 196 };
+
+  it('dayBreaks uses four equal round-step bins covering the 95th-percentile day', () => {
+    expect(dayBreaks(days)).toEqual([50, 100, 150]);
+    expect(dayBreaks({ a: 199 })).toEqual([50, 100, 150]);
+    expect(dayBreaks({ a: 200 })).toEqual([100, 200, 300]);
+    expect(dayBreaks({ a: 3 })).toEqual([5, 10, 15]);
+  });
+
+  it('dayBreaks ignores a lone outlier instead of doubling the step', () => {
+    // 40 ordinary days up to 176, then one deadline rush: still bins of 50.
+    const ordinary = Object.fromEntries(Array.from({ length: 40 }, (_, i) => [`d${i}`, 20 + i * 4]));
+    expect(dayBreaks(ordinary)).toEqual([50, 100, 150]);
+    expect(dayBreaks({ ...ordinary, rush: 420 })).toEqual([50, 100, 150]);
+  });
+
+  it('dayBreaks is empty without counts', () => {
+    expect(dayBreaks({})).toEqual([]);
+    expect(dayBreaks({ a: 0 })).toEqual([]);
+  });
+
+  it('dayBin counts the breaks a value reaches', () => {
+    const breaks = dayBreaks(days);
+    expect([19, 49, 50, 99, 100, 149, 150, 420].map(n => dayBin(n, breaks))).toEqual([0, 0, 1, 1, 2, 2, 3, 3]);
+    expect(dayBin(42, [])).toBe(0);
+  });
+
+  it('dayBinLabels spells out each range', () => {
+    expect(dayBinLabels(dayBreaks(days))).toEqual(['<50', '50–99', '100–149', '150+']);
+    expect(dayBinLabels([100])).toEqual(['<100', '100+']);
+    expect(dayBinLabels([])).toEqual([]);
+  });
+});
+
+describe('dayChip', () => {
+  const stats = buildCalendarStats(weeks); // breaks [50, 100, 150]
+
+  it('shades a counted day by its bin', () => {
+    expect(dayChip('2026-10-05', stats)).toEqual({ text: '131', aria: '131 papers scanned', className: 'fc-day-count bin-2' });
+    expect(dayChip('2026-10-12', stats).className).toBe('fc-day-count bin-3');
+  });
+
+  it('outlines an empty day inside the tracked range', () => {
+    expect(dayChip('2026-10-10', stats)).toEqual({ text: '–', aria: EMPTY_DAY_NOTE, className: 'fc-day-count is-empty' });
+  });
+
+  it('shows nothing outside the tracked range, and no shading without breaks', () => {
+    expect(dayChip('2026-10-04', stats)).toBeNull();
+    expect(dayChip('2026-10-19', stats)).toBeNull();
+    expect(dayChip('2026-10-05', { ...stats, dayBreaks: [] }).className).toBe('fc-day-count');
   });
 });
 
@@ -92,10 +148,10 @@ const fakeDoc = {
 
 describe('labelledCount', () => {
   it('hides the visible label from screen readers and speaks the sentence instead', () => {
-    const el = labelledCount(fakeDoc, 'fc-day-count', '(106)', '106 papers scanned');
+    const el = labelledCount(fakeDoc, 'fc-day-count', '106', '106 papers scanned');
     expect(el).toMatchObject({ tag: 'span', className: 'fc-day-count', title: '106 papers scanned' });
     const [shown, spoken] = el.children;
-    expect(shown).toMatchObject({ textContent: '(106)', attrs: { 'aria-hidden': 'true' } });
+    expect(shown).toMatchObject({ textContent: '106', attrs: { 'aria-hidden': 'true' } });
     expect(spoken).toMatchObject({ className: 'sr-only', textContent: '106 papers scanned' });
     expect(spoken.attrs['aria-hidden']).toBeUndefined();
   });
