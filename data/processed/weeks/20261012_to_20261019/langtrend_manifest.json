@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T15:58:22.610967+00:00",
+  "generated_at": "2026-10-25T15:28:31.598175+00:00",
   "window_days": 7,
   "week_start": "2026-10-12",
   "week_end": "2026-10-19",
@@ -7,16 +7,16 @@
   "counts": {
     "papers": 1055,
     "flagged_papers": 533,
-    "unique_languages": 688,
-    "unique_languages_mentioned_only": 50,
+    "unique_languages": 686,
+    "unique_languages_mentioned_only": 51,
     "pdf_failed_no_detection": 0,
     "late_announced": 166,
     "judge": {
-      "judged_papers": 740,
-      "judged_languages": 2720,
-      "studied": 1356,
-      "mentioned_only": 542,
-      "false_positive": 822
+      "judged_papers": 741,
+      "judged_languages": 2810,
+      "studied": 1443,
+      "mentioned_only": 544,
+      "false_positive": 823
     }
   },
   "language_counts": [
@@ -35,8 +35,8 @@
     {
       "language": "German",
       "count": 73,
-      "studied": 55,
-      "mentioned_only": 18
+      "studied": 54,
+      "mentioned_only": 19
     },
     {
       "language": "Spanish",
@@ -2745,12 +2745,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Lame",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Langi",
       "count": 1,
       "studied": 1,
@@ -2927,8 +2921,8 @@
     {
       "language": "Mak",
       "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
+      "studied": 0,
+      "mentioned_only": 1
     },
     {
       "language": "Makasar",
@@ -4452,9 +4446,9 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 648,
-      "studied": 568,
-      "mentioned_only": 80
+      "count": 647,
+      "studied": 566,
+      "mentioned_only": 81
     },
     {
       "class_id": 1,
@@ -4483,8 +4477,8 @@
     {
       "class_id": 5,
       "count": 951,
-      "studied": 679,
-      "mentioned_only": 272
+      "studied": 678,
+      "mentioned_only": 273
     }
   ],
   "daily_series": [
@@ -280962,7 +280956,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Korean",
@@ -280970,7 +280968,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "English",
@@ -280978,49 +280980,77 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Malay",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Tamil",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Mentioned as a language with small read sets and as a target for the aligner",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Indonesian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "German",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "German refers to the German language only in a citation about prior work, not part of the paper's experiments; implies mentioned_only",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Chinese",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Chinese refers to the Chinese language in the language list and training table, and the paper includes Chinese in its multilingual training; implies studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Lame",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Lame appears as part of the MP3 encoder name 'LAME', not a language, so it's a false positive.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Mae",
@@ -281029,14 +281059,22 @@
           "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Aghul",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Aka",
@@ -281045,63 +281083,99 @@
           "flag_reason": "'aka' = also known as — common abbreviation",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Bafut",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Bassa",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Bemba",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Bukiyip",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Bura-Pabir",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Cacua",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Chamalal",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Cherepon",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Col",
@@ -281110,28 +281184,44 @@
           "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Columbia-Wenatchi",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Dari",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippet lists Dari (prs) as a language in the multilingual training/evaluation table, indicating the paper includes it in training and evaluation of the aligner.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Defaka",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Defaka (afn) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Deg",
@@ -281140,35 +281230,55 @@
           "flag_reason": "Likely matches 'degradation' or similar technical terms",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Deg (deg) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Degema",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Degema (deg) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Efik",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Efik (efi) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Emai-Iuleha-Ora",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Emai-Iuleha-Ora (ema) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Gaa",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Gaa (gaa) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Gua",
@@ -281177,427 +281287,671 @@
           "flag_reason": "Possible false positive",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Gua (gwx) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Hiligaynon",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Hiligaynon (hil) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Ibibio",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Ibibio (ibb) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Idoma",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Idoma (idu) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Jola-Fonyi",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Jola-Fonyi (dyo) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Kabuverdianu",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Kabuverdianu is listed as a language in the multilingual training table, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Kele",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Kele is listed as a language in the multilingual training table, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Klao",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Klao is listed as a language in the multilingual training table, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Koonzime",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Koonzime is listed as a language in the multilingual training table, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Krache",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Krache is listed as a language in the multilingual training table, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Krio",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Krio is listed as a language in the multilingual training table, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Lakota",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Lakota is listed as a language in the multilingual training table, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Larteh",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Larteh is listed as a language in the multilingual training table, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Lendu",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Lendu is listed as a language in the multilingual training table, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Logba",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Logba is listed as a language in the multilingual training table, implying the paper studies it.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Mak",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "mentioned_only",
+          "judge_reason": "The snippets contain no mention of 'Mak' as a language; insufficient evidence to confirm it refers to a language, so it is only mentioned (if at all).",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Makasar",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Makasar is listed as a language (code 'mak') in the multilingual training table, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Mal",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Mal (Malay) appears in the training table with code 'mal' and is included in the multilingual training, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Naga",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Naga (Angami Naga) is listed as a language (code 'njm') in the training table, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Pam",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Pam (Pampanga) is listed as a language (code 'pam') in the training table, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Tamazight",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Tamazight (Central Atlas Tamazight) is listed as a language (code 'tzm') in the training table, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Tsishingini",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Tsishingini is listed as a language (code 'tsw') in the training table, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Adyghe",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Adyghe is listed as a language (code 'ady') in the training table, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Dagbani",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Dagbani is listed as a language (code 'dag') in the training table, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Hakka",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Hakka (Hakka Chinese) is listed as a language (code 'hak') in the training table, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Hawaiian",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Hawaiian is listed as a language (code 'haw') in the training table, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Ladino",
           "class": 1,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Ladino is listed as a language (code 'lad') in the training table, indicating it is studied.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Afrikaans",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Akan",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Assamese",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Bikol",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Burmese",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Chamorro",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Ganda",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Gujarati",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Hausa",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Icelandic",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Igbo",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Kannada",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Khmer",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Khmer appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Khmer, so the paper studied Khmer.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Konkani",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Konkani appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Konkani, so the paper studied Konkani.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Malayalam",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Malayalam appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Malayalam, so the paper studied Malayalam.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Maltese",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Maltese appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Maltese, so the paper studied Maltese.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Rundi",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Rundi appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Rundi, so the paper studied Rundi.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Scottish Gaelic",
           "class": 2,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Scottish Gaelic appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Scottish Gaelic, so the paper studied Scottish Gaelic.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Armenian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Armenian appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Armenian, so the paper studied Armenian.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Bengali",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Bengali appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Bengali, so the paper studied Bengali.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Croatian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Croatian appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Croatian, so the paper studied Croatian.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Danish",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Danish appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Danish, so the paper studied Danish.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Greek",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Greek appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Greek, so the paper studied Greek.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Hebrew",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Hebrew appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Hebrew, so the paper studied Hebrew.",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Hindi",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Latvian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Lithuanian",
           "class": 3,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Azerbaijani",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Listed as South Azerbaijani in a table of languages used for training the timestamp recipe",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Basque",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Czech",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Finnish",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Hungarian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Persian",
           "class": 4,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Persian refers to the Persian language in the language list and training table, and the paper includes Persian in its multilingual training; implies studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         },
         {
           "language": "Arabic",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "Arabic refers to the Arabic language in the language list and training table, and the paper includes Arabic in its multilingual training; implies studied",
+          "judge_model": "cohere/north-mini-code:free",
+          "judged_at": "2026-10-25T12:05:23.318382+00:00"
         }
       ],
       "sources_checked": [
@@ -281638,15 +281992,27 @@
           "detected_languages": [
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281656,23 +282022,43 @@
           "detected_languages": [
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Tamil",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a language with small read sets and as a target for the aligner",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281682,19 +282068,35 @@
           "detected_languages": [
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "German refers to the German language only in a citation about prior work, not part of the paper's experiments; implies mentioned_only",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281704,11 +282106,19 @@
           "detected_languages": [
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281718,11 +282128,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "German",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "German refers to the German language only in a citation about prior work, not part of the paper's experiments; implies mentioned_only",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281732,39 +282150,75 @@
           "detected_languages": [
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Tamil",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a language with small read sets and as a target for the aligner",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Tamil",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a language with small read sets and as a target for the aligner",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281774,39 +282228,75 @@
           "detected_languages": [
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Tamil",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a language with small read sets and as a target for the aligner",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese refers to the Chinese language in the language list and training table, and the paper includes Chinese in its multilingual training; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Malay",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Indonesian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a target language for the aligner and as a language for which no human-labelled test sets were found",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Tamil",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Mentioned as a language with small read sets and as a target for the aligner",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281816,11 +282306,19 @@
           "detected_languages": [
             {
               "language": "Lame",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Lame appears as part of the MP3 encoder name 'LAME', not a language, so it's a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Lame",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Lame appears as part of the MP3 encoder name 'LAME', not a language, so it's a false positive.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281830,43 +282328,75 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281876,13 +282406,21 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281892,23 +282430,39 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281920,11 +282474,19 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281934,35 +282496,67 @@
           "detected_languages": [
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -281972,207 +282566,403 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -282182,39 +282972,75 @@
           "detected_languages": [
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -282224,11 +283050,19 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -282238,111 +283072,219 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -282354,21 +283296,37 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -282380,13 +283338,21 @@
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -282396,7 +283362,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -282406,7 +283376,11 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -282416,11 +283390,19 @@
           "detected_languages": [
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -282430,7 +283412,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -282440,19 +283426,35 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         },
@@ -282462,369 +283464,725 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Aghul",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Aka",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "'aka' = also known as — common abbreviation"
+              "flag_reason": "'aka' = also known as — common abbreviation",
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Bafut",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Bassa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Bemba",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Bukiyip",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Bura-Pabir",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Cacua",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Chamalal",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Cherepon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Col",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers"
+              "flag_reason": "Possible false positive - could refer to column or color mentioned in code or tables in papers",
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Columbia-Wenatchi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a specific language listed in a table of training languages, and the paper evaluates models on these languages, implying it is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dari",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippet lists Dari (prs) as a language in the multilingual training/evaluation table, indicating the paper includes it in training and evaluation of the aligner.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Defaka",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Defaka (afn) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Deg",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Likely matches 'degradation' or similar technical terms"
+              "flag_reason": "Likely matches 'degradation' or similar technical terms",
+              "judge_verdict": "studied",
+              "judge_reason": "Deg (deg) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Degema",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Degema (deg) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Efik",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Efik (efi) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Emai-Iuleha-Ora",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Emai-Iuleha-Ora (ema) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Gaa",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Gaa (gaa) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Gua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Possible false positive"
+              "flag_reason": "Possible false positive",
+              "judge_verdict": "studied",
+              "judge_reason": "Gua (gwx) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Hiligaynon",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Hiligaynon (hil) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Ibibio",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Ibibio (ibb) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Idoma",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Idoma (idu) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Jola-Fonyi",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Jola-Fonyi (dyo) appears in the multilingual training/evaluation table, showing the paper studies this language.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Kabuverdianu",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Kabuverdianu is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Kele",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Kele is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Klao",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Klao is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Koonzime",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Koonzime is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Krache",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Krache is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Krio",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Krio is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Lakota",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Lakota is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Larteh",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Larteh is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Lendu",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Lendu is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Logba",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Logba is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mae",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym"
+              "flag_reason": "MAE = Mean Absolute Error — very common ML evaluation metric acronym",
+              "judge_verdict": "studied",
+              "judge_reason": "Mae is listed as a language in the multilingual training table, implying the paper studies it.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mak",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "mentioned_only",
+              "judge_reason": "The snippets contain no mention of 'Mak' as a language; insufficient evidence to confirm it refers to a language, so it is only mentioned (if at all).",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Makasar",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Makasar is listed as a language (code 'mak') in the multilingual training table, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Mal",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Mal (Malay) appears in the training table with code 'mal' and is included in the multilingual training, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Naga",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Naga (Angami Naga) is listed as a language (code 'njm') in the training table, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Pam",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Pam (Pampanga) is listed as a language (code 'pam') in the training table, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Tamazight",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Tamazight (Central Atlas Tamazight) is listed as a language (code 'tzm') in the training table, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Tsishingini",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "studied",
+              "judge_reason": "Tsishingini is listed as a language (code 'tsw') in the training table, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Adyghe",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Adyghe is listed as a language (code 'ady') in the training table, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dagbani",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Dagbani is listed as a language (code 'dag') in the training table, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Hakka",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Hakka (Hakka Chinese) is listed as a language (code 'hak') in the training table, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Hawaiian",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Hawaiian is listed as a language (code 'haw') in the training table, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Ladino",
-              "class": 1
+              "class": 1,
+              "judge_verdict": "studied",
+              "judge_reason": "Ladino is listed as a language (code 'lad') in the training table, indicating it is studied.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Afrikaans",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Akan",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Assamese",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Bikol",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Burmese",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Chamorro",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Ganda",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Gujarati",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Hausa",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Icelandic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Igbo",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Kannada",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "The candidate refers to a language listed in a table of training/test languages, implying it is studied. ",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Khmer",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Khmer appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Khmer, so the paper studied Khmer.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Konkani",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Konkani appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Konkani, so the paper studied Konkani.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Malayalam",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Malayalam appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Malayalam, so the paper studied Malayalam.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Maltese",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Maltese appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Maltese, so the paper studied Maltese.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Rundi",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Rundi appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Rundi, so the paper studied Rundi.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Scottish Gaelic",
-              "class": 2
+              "class": 2,
+              "judge_verdict": "studied",
+              "judge_reason": "Scottish Gaelic appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Scottish Gaelic, so the paper studied Scottish Gaelic.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Armenian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Armenian appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Armenian, so the paper studied Armenian.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Bengali",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Bengali appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Bengali, so the paper studied Bengali.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Croatian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Croatian appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Croatian, so the paper studied Croatian.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Danish",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Danish appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Danish, so the paper studied Danish.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Greek",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Greek appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Greek, so the paper studied Greek.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Hebrew",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Hebrew appears in the evaluation table for transfer from English, indicating the aligner was evaluated on Hebrew, so the paper studied Hebrew.",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Hindi",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Latvian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Lithuanian",
-              "class": 3
+              "class": 3,
+              "judge_verdict": "studied",
+              "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Azerbaijani",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Listed as South Azerbaijani in a table of languages used for training the timestamp recipe",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Basque",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Czech",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Dutch",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Used as a held-out test set (IFA) to evaluate the aligner's performance",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Finnish",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Hungarian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Listed in a table of languages used for training the timestamp recipe",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Korean",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Korean refers to the Korean language in the language table and MFA’s Korean model, and the paper studies Korean as part of its multilingual experiments; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Persian",
-              "class": 4
+              "class": 4,
+              "judge_verdict": "studied",
+              "judge_reason": "Persian refers to the Persian language in the language list and training table, and the paper includes Persian in its multilingual training; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Arabic",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Arabic refers to the Arabic language in the language list and training table, and the paper includes Arabic in its multilingual training; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "Chinese",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "Chinese refers to the Chinese language in the language list and training table, and the paper includes Chinese in its multilingual training; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             },
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "English refers to the English language throughout the paper, and the paper conducts extensive experiments on English; implies studied",
+              "judge_model": "cohere/north-mini-code:free",
+              "judged_at": "2026-10-25T12:05:23.318382+00:00"
             }
           ]
         }
