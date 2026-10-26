@@ -92,8 +92,12 @@ jobs:
       #     like exit 1 below rather than deferred for hours.
       #
       # Three different things call for a retry-within-this-run, all worth
-      # looping on since a paper that fails leaves no judge_cache file and so
-      # comes back as "pending" on the very next invocation — a fresh call is
+      # looping on since a paper that fails comes back as "pending" on the
+      # very next invocation — it leaves no judge_cache file, a `partial`
+      # one (checkpointed after each finished batch; the retry resumes from
+      # where it stopped), or, for a re-judge of a paper re-processing gave
+      # new languages, its previous complete file untouched (never
+      # checkpointed over, so its verdicts stay live). A fresh call is
       # literally what "retry" means here:
       #   - Exit 1: judge_languages.py couldn't even start — client.ping()
       #     raised LLMUnavailableError (network unreachable, or a 5xx from
@@ -124,11 +128,13 @@ jobs:
       # invocation runs its full per-paper retry/fallback-model chain to
       # completion undisturbed; only the budget's edge can cut a pass off
       # mid-run, via SIGTERM (then SIGKILL after 30s if that doesn't land).
-      # That's safe because each paper's judge_cache file is written as soon
-      # as that paper finishes, so a cutoff only loses in-flight work, not
-      # anything already done. Whatever's still pending when this step ends
-      # — for any reason — is left for the if: always() steps below to
-      # commit, and the 13:00/21:00/05:00 UTC schedule to pick up next time.
+      # That's safe because each paper's judge_cache file is written
+      # atomically as each batch finishes (or, for a re-judge of a complete
+      # record, only once the paper finishes), so a cutoff only loses
+      # in-flight work, not anything already done. Whatever's still pending
+      # when this step ends — for any reason — is left for the if: always()
+      # steps below to commit, and the 13:00/21:00/05:00 UTC schedule to pick
+      # up next time.
       - name: Judge pending papers across every week (LLM)
         id: judge
         env:

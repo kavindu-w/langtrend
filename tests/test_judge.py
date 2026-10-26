@@ -792,6 +792,120 @@ class TestJudgePaperCancellation:
 
 
 # ---------------------------------------------------------------------------
+# Per-batch checkpointing + resume
+# ---------------------------------------------------------------------------
+
+def _many_language_record(n: int, paper_id: str = "http://arxiv.org/abs/2606.00008v1") -> dict:
+    return {
+        "paper_id": paper_id,
+        "paper": {"title": "t", "abstract": "a"},
+        "sections": {"abstract": {"source": "abstract", "detected_languages": [
+            {"language": f"Lang{i:02d}", "class": 0} for i in range(n)
+        ]}},
+    }
+
+
+def _all_mentioned(n: int) -> str:
+    # validate_verdicts keeps only the languages each call asked for, so one
+    # reply covering every language satisfies whichever batch receives it.
+    return _reply_for({f"Lang{i:02d}": "mentioned_only" for i in range(n)})
+
+
+class TestJudgePaperCheckpointing:
+    def test_checkpoints_after_each_batch_but_the_last(self, week_dir):
+        record = _many_language_record(30)  # 3 batches: 12 + 12 + 6
+        checkpoints = []
+        judge_record = judge_paper(record, week_dir, FakeClient([_all_mentioned(30)] * 3), LLMClientConfig(),
+                                   on_checkpoint=checkpoints.append)
+        assert [len(c["verdicts"]) for c in checkpoints] == [12, 24]
+        assert all(c["partial"] for c in checkpoints)
+        assert len(judge_record["verdicts"]) == 30
+        assert "partial" not in judge_record
+
+    def test_checkpoint_is_a_snapshot_not_a_live_view(self, week_dir):
+        """A checkpoint goes to another thread's writer while this worker keeps
+        filling its own verdicts — the two must not share a dict."""
+        checkpoints = []
+        judge_paper(_many_language_record(30), week_dir, FakeClient([_all_mentioned(30)] * 3), LLMClientConfig(),
+                    on_checkpoint=checkpoints.append)
+        assert len(checkpoints[0]["verdicts"]) == 12
+
+    def test_failed_batch_leaves_the_last_checkpoint_intact(self, week_dir):
+        record = _many_language_record(30)
+        checkpoints = []
+        client = FakeClient([_all_mentioned(30), _all_mentioned(30), "garbage", "more garbage"])
+        with pytest.raises(JSONParseError):
+            judge_paper(record, week_dir, client, LLMClientConfig(), on_checkpoint=checkpoints.append)
+        assert len(checkpoints[-1]["verdicts"]) == 24
+
+    def test_resumes_from_partial_record_judging_only_whats_missing(self, week_dir):
+        record = _many_language_record(30)
+        partial = {"partial": True, "verdicts": {
+            f"Lang{i:02d}": {"verdict": "studied", "reason": "earlier", "model": "old-model"} for i in range(24)
+        }}
+        client = FakeClient([_all_mentioned(30)])
+        judge_record = judge_paper(record, week_dir, client, LLMClientConfig(), resume_from=partial)
+        assert len(client.calls) == 1  # only the 6 missing languages
+        assert len(judge_record["verdicts"]) == 30
+        assert judge_record["verdicts"]["Lang00"]["reason"] == "earlier"
+        assert judge_record["verdicts"]["Lang29"]["verdict"] == "mentioned_only"
+        assert "partial" not in judge_record
+
+    def test_resume_drops_verdicts_for_languages_no_longer_detected(self, week_dir):
+        record = _many_language_record(3)
+        partial = {"partial": True, "verdicts": {
+            "Lang00": {"verdict": "studied", "reason": "r"},
+            "Gone": {"verdict": "studied", "reason": "re-processing removed this one"},
+        }}
+        judge_record = judge_paper(record, week_dir, FakeClient([_all_mentioned(3)]), LLMClientConfig(),
+                                   resume_from=partial)
+        assert set(judge_record["verdicts"]) == {"Lang00", "Lang01", "Lang02"}
+
+    def test_complete_record_is_not_resumed_from(self, week_dir):
+        """No `partial` flag means the verdicts predate a re-processing that
+        added languages — re-judge everything, as before checkpointing."""
+        record = _many_language_record(3)
+        complete = {"verdicts": {"Lang00": {"verdict": "studied", "reason": "stale"}}}
+        judge_record = judge_paper(record, week_dir, FakeClient([_all_mentioned(3)]), LLMClientConfig(),
+                                   resume_from=complete)
+        assert judge_record["verdicts"]["Lang00"]["verdict"] == "mentioned_only"
+
+    def test_language_still_missing_after_retry_marks_record_partial(self, week_dir):
+        record = _many_language_record(2)
+        client = FakeClient([
+            _reply_for({"Lang00": "studied"}),  # Lang01 omitted -> retry
+            _reply_for({}),                     # ...and omitted again
+        ])
+        judge_record = judge_paper(record, week_dir, client, LLMClientConfig())
+        assert judge_record["partial"] is True
+        assert needs_judging(record, judge_record) is True
+
+    def test_batches_needed_counts_only_whats_left_to_resume(self):
+        record = _many_language_record(30)
+        partial = {"partial": True, "verdicts": {f"Lang{i:02d}": {} for i in range(24)}}
+        assert batches_needed(record) == 3
+        assert batches_needed(record, resume_from=partial) == 1
+        # A complete record isn't resumed from, so it doesn't shrink the count.
+        assert batches_needed(record, resume_from={"verdicts": partial["verdicts"]}) == 3
+
+    def test_checkpoint_round_trips_through_the_cache(self, week_dir):
+        """End to end: a run cut off mid-paper, then a fresh run reading the
+        checkpoint back from disk, ends with the same verdicts as one
+        uninterrupted run and makes no repeat calls."""
+        record = _many_language_record(30)
+        with pytest.raises(JSONParseError):
+            judge_paper(record, week_dir, FakeClient([_all_mentioned(30), "garbage", "more garbage"]),
+                        LLMClientConfig(), on_checkpoint=lambda r: save_judge_record(week_dir, r))
+        cached = load_judge_cache(week_dir / "judge_cache")["2606.00008v1"]
+        assert needs_judging(record, cached) is True
+
+        client = FakeClient([_all_mentioned(30)] * 2)
+        judge_record = judge_paper(record, week_dir, client, LLMClientConfig(), resume_from=cached)
+        assert len(client.calls) == 2  # batches 2 and 3 only
+        assert needs_judging(record, judge_record) is False
+
+
+# ---------------------------------------------------------------------------
 # Cache round-trip + pending detection
 # ---------------------------------------------------------------------------
 
@@ -804,6 +918,31 @@ class TestCacheAndPending:
         assert path.name == "2606.00001v1.json"
         cache = load_judge_cache(week_dir / "judge_cache")
         assert cache["2606.00001v1"]["verdicts"]["Swahili"]["verdict"] == "studied"
+
+    def test_save_overwrites_atomically_and_leaves_no_temp_file(self, week_dir, record):
+        base = {"paper_id": record["paper_id"], "verdicts": {}}
+        save_judge_record(week_dir, {**base, "verdicts": {"Swahili": {"verdict": "studied", "reason": ""}}})
+        save_judge_record(week_dir, {**base, "verdicts": {"French": {"verdict": "mentioned_only", "reason": ""}}})
+        files = sorted(p.name for p in (week_dir / "judge_cache").iterdir())
+        assert files == ["2606.00001v1.json"]
+        assert set(load_judge_cache(week_dir / "judge_cache")["2606.00001v1"]["verdicts"]) == {"French"}
+
+    def test_saved_file_is_world_readable(self, week_dir, record):
+        """mkstemp's 0600 mustn't survive the rename."""
+        path = save_judge_record(week_dir, {"paper_id": record["paper_id"], "verdicts": {}})
+        assert path.stat().st_mode & 0o777 == 0o644
+
+    def test_failed_save_keeps_the_previous_file(self, week_dir, record):
+        """A write that dies midway (SIGTERM/SIGKILL from CI's retry budget,
+        or here an unserialisable value) must not truncate the checkpoint the
+        last batch wrote."""
+        save_judge_record(week_dir, {"paper_id": record["paper_id"],
+                                     "verdicts": {"Swahili": {"verdict": "studied", "reason": ""}}})
+        with pytest.raises(TypeError):
+            save_judge_record(week_dir, {"paper_id": record["paper_id"], "verdicts": {"x": object()}})
+        files = sorted(p.name for p in (week_dir / "judge_cache").iterdir())
+        assert files == ["2606.00001v1.json"]
+        assert "Swahili" in load_judge_cache(week_dir / "judge_cache")["2606.00001v1"]["verdicts"]
 
     def test_needs_judging(self, record):
         assert needs_judging(record, None) is True

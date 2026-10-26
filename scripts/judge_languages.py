@@ -260,15 +260,9 @@ def _partition_pending(
     """Split records into (pending, cached_count, no_target_count)."""
     pending: list[dict] = []
     cached_count = no_target_count = 0
-    for record in records:
-        cache_file = judge_cache_path(week_dir, record.get("paper_id", ""))
-        cached = None
-        if cache_file.exists() and not force:
-            try:
-                cached = json.loads(cache_file.read_text(encoding="utf-8"))
-            except (json.JSONDecodeError, OSError):
-                cached = None
-        if not needs_judging(record, None if force else cached, classes=classes):
+    for record in _dedupe_by_cache_file(records):
+        cached = None if force else _read_judge_cache(week_dir, record)
+        if not needs_judging(record, cached, classes=classes):
             if cached is not None:
                 cached_count += 1
             else:
@@ -276,6 +270,30 @@ def _partition_pending(
             continue
         pending.append(record)
     return pending, cached_count, no_target_count
+
+
+def _dedupe_by_cache_file(records: list[dict]) -> list[dict]:
+    """One record per judge_cache file, keeping the *last* line for each.
+
+    One worker per cache file is what keeps checkpointing race-free: two
+    workers on the same file would each overwrite the other's checkpoints.
+    Keyed on safe_paper_id, since that — not the raw ID — names the file.
+    The last line wins because process_papers' retry-missing appends fresh
+    records and only drops the stale ones once it finishes, so a run killed
+    in between (CI's PDF jobs at the 6h ceiling) leaves the newer one last.
+    """
+    by_file = {safe_paper_id(r.get("paper_id", "")): r for r in records}
+    return list(by_file.values())
+
+
+def _read_judge_cache(week_dir: Path, record: dict) -> dict | None:
+    cache_file = judge_cache_path(week_dir, record.get("paper_id", ""))
+    if not cache_file.exists():
+        return None
+    try:
+        return json.loads(cache_file.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
 
 
 _MALFORMED_REPORT_LIMIT = 10
@@ -492,10 +510,48 @@ def main() -> None:
 
         warnings: list[dict] = []
 
-        def _judge_one(record: dict, cancel_event: threading.Event) -> dict | None:
+        def _resume_from(cached: dict | None) -> dict | None:
+            return None if args.force else cached
+
+        # week_dir is bound as a default, not read from the enclosing loop: a
+        # worker the watchdog abandoned can still be running after the loop
+        # has moved on, and a late-bound week_dir would then point it at the
+        # *next* week, filing its verdicts in the wrong judge_cache/.
+        def _judge_one(record: dict, cached: dict | None, cancel_event: threading.Event,
+                       week_dir: Path = week_dir) -> dict | None:
             t0 = time.monotonic()
             ensure_context_cache(record, week_dir, args.pdf_dir, lang_classes, languages_to_ignore)
-            judge_record = judge_paper(record, week_dir, client, config, classes=classes, cancel_event=cancel_event)
+
+            # Checkpoints are written from this worker thread, and possibly
+            # after the watchdog has given up on the paper: harmless, because
+            # this worker is the only writer of this paper's cache file (see
+            # _dedupe_by_cache_file) and each write is an atomic replace of a
+            # snapshot of valid verdicts. The interpreter joins abandoned
+            # workers before exiting, so nothing writes after the process
+            # ends and CI's commit step runs. A checkpoint is only a safety
+            # net, so failing to write one mustn't fail a paper whose model
+            # calls are succeeding.
+            def _checkpoint(partial: dict) -> None:
+                try:
+                    save_judge_record(week_dir, partial)
+                except OSError as exc:
+                    tqdm.write(f"  WARN: [{record.get('paper_id', 'unknown')}] "
+                               f"checkpoint not saved ({exc}) — continuing")
+
+            judge_record = judge_paper(
+                record, week_dir, client, config, classes=classes, cancel_event=cancel_event,
+                resume_from=_resume_from(cached),
+                # Only checkpoint over a file this run would resume from (or
+                # none at all). Otherwise — a complete record that
+                # re-processing gave new languages, or any record under
+                # --force — the first checkpoint would replace verdicts that
+                # are already in the live counts with the few batches done so
+                # far, and a run cut off there would publish the dropped ones
+                # (e.g. filtered false positives) as unjudged. Those
+                # re-judges stay all-or-nothing, as before; they're rare and
+                # rarely huge.
+                on_checkpoint=_checkpoint if cached is None or (cached.get("partial") and not args.force) else None,
+            )
             if judge_record is not None:
                 save_judge_record(week_dir, judge_record)
                 latencies.append(time.monotonic() - t0)
@@ -523,10 +579,14 @@ def main() -> None:
             futures = {}
             for record in pending:
                 cancel_event = threading.Event()
-                future = executor.submit(_judge_one, record, cancel_event)
+                # Read once, here, so the watchdog's batch count and the
+                # worker's resume/checkpoint decisions see the same file.
+                cached = _read_judge_cache(week_dir, record)
+                future = executor.submit(_judge_one, record, cached, cancel_event)
                 futures[future] = record
                 cancel_events[future] = cancel_event
-                batches_by_future[future] = batches_needed(record, classes=classes)
+                batches_by_future[future] = batches_needed(record, classes=classes,
+                                                           resume_from=_resume_from(cached))
             remaining = set(futures.keys())
             with tqdm(total=len(futures), desc=f"Judging {stem}") as pbar:
                 while remaining:

@@ -152,6 +152,23 @@ class TestPartitionPending:
         assert cached_count == 0
         assert len(pending) == 1
 
+    def test_duplicate_paper_id_is_only_pending_once_keeping_the_last(self, tmp_path):
+        """Two workers on one paper would overwrite each other's checkpoints;
+        the last line is the newest (retry-missing appends before it dedupes)."""
+        stale = self._record("http://arxiv.org/abs/1", language="Swahili")
+        fresh = self._record("http://arxiv.org/abs/1", language="Yoruba")
+        pending, _, _ = jl._partition_pending([stale, fresh], tmp_path, classes=None, force=False)
+        assert pending == [fresh]
+
+    def test_ids_naming_the_same_cache_file_count_as_duplicates(self, tmp_path):
+        """The cache file is named by safe_paper_id, so that's the key that
+        has to be unique — not the raw ID string."""
+        a = self._record("http://arxiv.org/abs/2606.00001v1")
+        b = self._record("https://arxiv.org/abs/2606.00001v1", language="Yoruba")
+        assert jl.safe_paper_id(a["paper_id"]) == jl.safe_paper_id(b["paper_id"])
+        pending, _, _ = jl._partition_pending([a, b], tmp_path, classes=None, force=False)
+        assert pending == [b]
+
     def test_no_target_papers_are_not_pending(self, tmp_path):
         record = {"paper_id": "http://arxiv.org/abs/1", "paper": {}, "sections": {}}
         pending, cached_count, no_target_count = jl._partition_pending([record], tmp_path, classes=None, force=False)
@@ -261,21 +278,34 @@ class TestStopEarlyExitCodes:
         return week_dir
 
     def _run_with_judge(self, tmp_path, monkeypatch, judge_side_effect, papers=1,
-                        languages=("Swahili",), language_sets=None, extra_records=None):
-        """Drive main()'s judging path with everything network-bound stubbed out."""
+                        languages=("Swahili",), language_sets=None, extra_records=None,
+                        slugs=("20260427_to_20260504",), cache_files=None, extra_argv=(),
+                        save_judge_record=None):
+        """Drive main()'s judging path with everything network-bound stubbed out.
+
+        `cache_files` maps a paper's index in the (first) week to the
+        judge_cache record to pre-write for it; `save_judge_record`, if
+        given, replaces the default no-op writer.
+        """
         monkeypatch.setattr(jl, "_PROCESSED_DIR", tmp_path)
         monkeypatch.setattr(jl, "_METADATA_DIR", tmp_path / "raw")
-        self._week(tmp_path, "20260427_to_20260504", papers=papers,
-                   languages=languages, language_sets=language_sets, extra_records=extra_records)
+        for slug in slugs:
+            self._week(tmp_path, slug, papers=papers,
+                       languages=languages, language_sets=language_sets, extra_records=extra_records)
+        for n, cached in (cache_files or {}).items():
+            week_dir = tmp_path / "weeks" / slugs[0]
+            path = jl.judge_cache_path(week_dir, f"http://arxiv.org/abs/{slugs[0]}.{n}")
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(json.dumps(cached), encoding="utf-8")
         monkeypatch.setenv("LLM_JUDGE_API_KEY", "test-key")
         monkeypatch.setattr(jl, "_load_language_data", lambda path: ({1: {"Swahili"}}, set()))
         monkeypatch.setattr(jl, "OpenAICompatClient", lambda config: type(
             "FakeClient", (), {"ping": lambda self: None})())
         monkeypatch.setattr(jl, "ensure_context_cache",
                             lambda *args, **kwargs: None)
-        monkeypatch.setattr(jl, "save_judge_record", lambda *args, **kwargs: None)
+        monkeypatch.setattr(jl, "save_judge_record", save_judge_record or (lambda *args, **kwargs: None))
         monkeypatch.setattr(jl, "judge_paper", judge_side_effect)
-        monkeypatch.setattr(sys, "argv", ["judge_languages.py", "--sweep-all-weeks"])
+        monkeypatch.setattr(sys, "argv", ["judge_languages.py", "--sweep-all-weeks", *extra_argv])
 
         with pytest.raises(SystemExit) as exc_info:
             jl.main()
@@ -315,7 +345,7 @@ class TestCancellationWiring(TestStopEarlyExitCodes):
         monkeypatch.setattr(jl, "_PER_BATCH_BUDGET", 0.2)
         handed = {}
 
-        def blocks_until_cancelled(record, week_dir, client, config, classes=None, cancel_event=None):
+        def blocks_until_cancelled(record, week_dir, client, config, classes=None, cancel_event=None, **_):
             handed["event"] = cancel_event
             # Bounded so a regression fails the test instead of hanging it.
             if not cancel_event.wait(10):
@@ -339,7 +369,7 @@ class TestCancellationWiring(TestStopEarlyExitCodes):
         handed = []
         first = threading.Event()
 
-        def quota_on_first_other_blocks(record, week_dir, client, config, classes=None, cancel_event=None):
+        def quota_on_first_other_blocks(record, week_dir, client, config, classes=None, cancel_event=None, **_):
             handed.append(cancel_event)
             if not first.is_set():
                 first.set()
@@ -439,7 +469,7 @@ class TestCancellationWiring(TestStopEarlyExitCodes):
     def test_each_paper_gets_its_own_event(self, tmp_path, monkeypatch):
         handed = []
 
-        def record_event(record, week_dir, client, config, classes=None, cancel_event=None):
+        def record_event(record, week_dir, client, config, classes=None, cancel_event=None, **_):
             handed.append(cancel_event)
             return {"judge_model": "m", "judged_at": "t", "verdicts": {}}
 
@@ -448,6 +478,156 @@ class TestCancellationWiring(TestStopEarlyExitCodes):
         assert code == jl.EXIT_OK
         assert len(handed) == 3
         assert len({id(event) for event in handed}) == 3, "events must not be shared between papers"
+
+
+
+# ---------------------------------------------------------------------------
+# Checkpoint/resume wiring: what main() hands judge_paper, and where the
+# checkpoints it writes end up
+# ---------------------------------------------------------------------------
+
+_LANGS_30 = tuple(f"Lang{i:02d}" for i in range(30))  # 3 batches of 12/12/6
+
+
+class TestCheckpointWiring(TestStopEarlyExitCodes):
+    def _capture(self, handed, result=None):
+        def fake(record, week_dir, client, config, classes=None, cancel_event=None,
+                 resume_from=None, on_checkpoint=None):
+            handed["resume_from"] = resume_from
+            handed["on_checkpoint"] = on_checkpoint
+            return result or {"paper_id": record["paper_id"], "verdicts": {}}
+        return fake
+
+    def test_fresh_paper_checkpoints_and_does_not_resume(self, tmp_path, monkeypatch):
+        handed = {}
+        code = self._run_with_judge(tmp_path, monkeypatch, self._capture(handed))
+        assert code == jl.EXIT_OK
+        assert handed["resume_from"] is None
+        assert handed["on_checkpoint"] is not None
+
+    def test_partial_file_on_disk_is_resumed_and_checkpointed(self, tmp_path, monkeypatch):
+        partial = {"partial": True, "verdicts": {"Swahili": {"verdict": "studied", "reason": "r"}}}
+        handed = {}
+        code = self._run_with_judge(tmp_path, monkeypatch, self._capture(handed),
+                                    languages=("Swahili", "Yoruba"), cache_files={0: partial})
+        assert code == jl.EXIT_OK
+        assert handed["resume_from"] == partial
+        assert handed["on_checkpoint"] is not None
+
+    def test_complete_record_is_never_checkpointed_over(self, tmp_path, monkeypatch):
+        """Re-processing added a language to an already-judged paper: the
+        re-judge must leave the complete file alone until it finishes, or a
+        cut-off run would publish its dropped false positives as studied."""
+        complete = {"verdicts": {"Swahili": {"verdict": "false_positive", "reason": "r"}}}
+        handed = {}
+        code = self._run_with_judge(tmp_path, monkeypatch, self._capture(handed),
+                                    languages=("Swahili", "Yoruba"), cache_files={0: complete})
+        assert code == jl.EXIT_OK
+        assert handed["on_checkpoint"] is None
+
+    def test_cut_off_rejudge_leaves_the_complete_file_untouched(self, tmp_path, monkeypatch):
+        """Same as above, end to end through the real writer and file."""
+        complete = {"paper_id": "http://arxiv.org/abs/20260427_to_20260504.0",
+                    "verdicts": {lang: {"verdict": "false_positive", "reason": "r"} for lang in _LANGS_30[:29]}}
+
+        def cut_off_after_one_batch(record, week_dir, client, config, classes=None, cancel_event=None,
+                                    resume_from=None, on_checkpoint=None):
+            if on_checkpoint is not None:
+                on_checkpoint({"paper_id": record["paper_id"], "partial": True, "verdicts": {}})
+            raise jl.ChatCancelled("cut off")
+
+        self._run_with_judge(tmp_path, monkeypatch, cut_off_after_one_batch, languages=_LANGS_30,
+                             cache_files={0: complete}, save_judge_record=jl.save_judge_record)
+        path = jl.judge_cache_path(tmp_path / "weeks" / "20260427_to_20260504", complete["paper_id"])
+        assert json.loads(path.read_text(encoding="utf-8")) == complete
+
+    def test_force_neither_resumes_nor_checkpoints_over_a_complete_record(self, tmp_path, monkeypatch):
+        complete = {"verdicts": {"Swahili": {"verdict": "false_positive", "reason": "r"}}}
+        handed = {}
+        self._run_with_judge(tmp_path, monkeypatch, self._capture(handed),
+                             cache_files={0: complete}, extra_argv=["--force"])
+        assert handed["resume_from"] is None
+        assert handed["on_checkpoint"] is None
+
+    def test_force_neither_resumes_nor_checkpoints_over_a_partial_record(self, tmp_path, monkeypatch):
+        """The partial file's verdicts are already live; a forced re-judge cut
+        off midway mustn't swap them for fewer."""
+        partial = {"partial": True, "verdicts": {"Swahili": {"verdict": "studied", "reason": "r"}}}
+        handed = {}
+        self._run_with_judge(tmp_path, monkeypatch, self._capture(handed),
+                             languages=("Swahili", "Yoruba"), cache_files={0: partial}, extra_argv=["--force"])
+        assert handed["resume_from"] is None
+        assert handed["on_checkpoint"] is None
+
+    def test_force_still_checkpoints_a_paper_with_no_cache_file(self, tmp_path, monkeypatch):
+        handed = {}
+        self._run_with_judge(tmp_path, monkeypatch, self._capture(handed), extra_argv=["--force"])
+        assert handed["on_checkpoint"] is not None
+
+    def test_failed_checkpoint_write_does_not_fail_the_paper(self, tmp_path, monkeypatch, capsys):
+        def checkpoint_then_finish(record, week_dir, client, config, classes=None, cancel_event=None,
+                                   resume_from=None, on_checkpoint=None):
+            on_checkpoint({"paper_id": record["paper_id"], "partial": True, "verdicts": {}})
+            return {"paper_id": record["paper_id"], "verdicts": {}}
+
+        writes = []
+
+        def disk_full_on_first_write(week_dir, judge_record):
+            writes.append(judge_record)
+            if len(writes) == 1:
+                raise OSError(28, "No space left on device")
+
+        code = self._run_with_judge(tmp_path, monkeypatch, checkpoint_then_finish,
+                                    save_judge_record=disk_full_on_first_write)
+        out = capsys.readouterr().out
+        assert code == jl.EXIT_OK
+        assert "checkpoint not saved" in out
+        assert "Judged: 1  Failed: 0" in out
+        assert len(writes) == 2  # the failed checkpoint, then the final record
+
+    def test_timeout_reports_only_the_batches_left_after_resume(self, tmp_path, monkeypatch, capsys):
+        monkeypatch.setattr(jl, "_PER_PAPER_TIMEOUT", 0.2)
+        monkeypatch.setattr(jl, "_PER_BATCH_BUDGET", 0.2)
+        partial = {"partial": True, "verdicts": {
+            lang: {"verdict": "studied", "reason": "r"} for lang in _LANGS_30[:24]
+        }}
+
+        def blocks_until_cancelled(record, week_dir, client, config, classes=None, cancel_event=None, **_):
+            cancel_event.wait(10)
+            raise jl.ChatCancelled("cancelled")
+
+        self._run_with_judge(tmp_path, monkeypatch, blocks_until_cancelled, languages=_LANGS_30,
+                             cache_files={0: partial})
+        assert "(1 batch(es) needed)" in capsys.readouterr().out
+
+    def test_abandoned_worker_checkpoints_into_its_own_week(self, tmp_path, monkeypatch):
+        """A worker the watchdog gives up on keeps running after the loop has
+        moved to the next week; its late checkpoint must still land in its
+        own week's judge_cache/, not the week now being judged."""
+        monkeypatch.setattr(jl, "_PER_PAPER_TIMEOUT", 0.2)
+        monkeypatch.setattr(jl, "_PER_BATCH_BUDGET", 0.2)
+        newer, older = "20260504_to_20260511", "20260427_to_20260504"  # judged newest-first
+        next_week_started = threading.Event()
+        late_write_done = threading.Event()
+        saved = []
+
+        def fake(record, week_dir, client, config, classes=None, cancel_event=None,
+                 resume_from=None, on_checkpoint=None):
+            if newer in record["paper_id"]:
+                cancel_event.wait(10)                # abandoned by the watchdog...
+                next_week_started.wait(10)           # ...outlives its week...
+                on_checkpoint({"paper_id": record["paper_id"], "partial": True, "verdicts": {}})
+                late_write_done.set()                # ...then checkpoints
+                raise jl.ChatCancelled("cancelled")
+            next_week_started.set()
+            late_write_done.wait(10)
+            return {"paper_id": record["paper_id"], "verdicts": {}}
+
+        self._run_with_judge(tmp_path, monkeypatch, fake, slugs=(older, newer),
+                             save_judge_record=lambda wd, rec: saved.append((wd.name, rec["paper_id"])))
+        assert late_write_done.is_set()
+        late = [wd for wd, pid in saved if newer in pid]
+        assert late == [newer]
 
 
 # ---------------------------------------------------------------------------
