@@ -16,10 +16,14 @@ and merged into the manifest by scripts/build_manifest.py.
 
 from __future__ import annotations
 
+import contextlib
 import json
 import math
+import os
 import re
+import tempfile
 import threading
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -141,20 +145,36 @@ def collect_target_languages(record: dict, classes: set[int] | None = None) -> l
     return sorted(by_key.values(), key=lambda t: (t["class"], t["language"]))
 
 
-def batches_needed(record: dict, classes: set[int] | None = None) -> int:
+def batches_needed(record: dict, classes: set[int] | None = None, resume_from: dict | None = None) -> int:
     """How many sequential chat() calls judge_paper will make for this record.
 
     judge_paper sends _MAX_LANGUAGES_PER_CALL languages per call, one batch at
     a time, so this is the number of round-trips a paper costs. Exported so
     callers can budget time per paper (see judge_languages.py's watchdog)
     without importing the batch size or re-deriving the batching rule — if the
-    batching here ever changes, this changes with it.
+    batching here ever changes, this changes with it. Pass the same
+    `resume_from` judge_paper gets, so a resumed paper is budgeted (and
+    reported) for only the batches it has left.
 
     Always at least 1. A record with no targets makes no calls at all
     (judge_paper returns None immediately), so treat this as a ceiling.
     """
     targets = collect_target_languages(record, classes=classes)
-    return max(1, math.ceil(len(targets) / _MAX_LANGUAGES_PER_CALL))
+    done = _resumable_verdicts(targets, resume_from)
+    todo = [t for t in targets if t["language"] not in done]
+    return max(1, math.ceil(len(todo) / _MAX_LANGUAGES_PER_CALL))
+
+
+def _resumable_verdicts(targets: list[dict], resume_from: dict | None) -> dict[str, dict]:
+    """The verdicts judge_paper may keep from `resume_from` instead of re-asking.
+
+    Only a `partial` record counts (see judge_paper), and only its verdicts
+    for languages the current detections still have.
+    """
+    if not resume_from or not resume_from.get("partial"):
+        return {}
+    target_names = {t["language"] for t in targets}
+    return {lang: v for lang, v in resume_from.get("verdicts", {}).items() if lang in target_names}
 
 
 # ---------------------------------------------------------------------------
@@ -658,6 +678,8 @@ def judge_paper(
     config: LLMClientConfig,
     classes: set[int] | None = None,
     cancel_event: threading.Event | None = None,
+    resume_from: dict | None = None,
+    on_checkpoint: Callable[[dict], None] | None = None,
 ) -> dict | None:
     """Judge one paper. Returns the judge-cache record, or None if no targets.
 
@@ -667,17 +689,37 @@ def judge_paper(
     judge_languages.py's per-paper watchdog, which sets it once it stops
     waiting on this paper so a stalled call doesn't keep working (and
     potentially succeeding, uncounted) after being marked failed.
+
+    A paper with hundreds of languages needs dozens of sequential batches —
+    more than one watchdog window allows on a throttled free-tier endpoint —
+    and if the work only survived as a whole, every retry would restart from
+    batch one and never finish (2610.19388: 497 languages, 42 batches).
+    `on_checkpoint`, if given, is called with a `partial` judge record after
+    each batch that leaves more to do, so a cut-off run keeps what it got;
+    `resume_from` takes such a record back and judges only what it's missing.
+    Only a record marked `partial` is resumed from. A complete record that
+    re-processing has since added languages to is re-judged from scratch, as
+    it was before checkpointing existed — not because its verdicts are less
+    trustworthy than a partial record's (both may predate the current
+    detections; a verdict for a language that's still detected is likely
+    still sound either way), but because keeping that behaviour is what lets
+    the caller leave a complete file untouched until the re-judge finishes
+    (see judge_languages.py's checkpoint guard). Either way, verdicts for
+    languages no longer detected are dropped. Every batch still sees the
+    context built from *all* targets, so a resumed paper gets the same
+    context as an uninterrupted one would have.
     """
     targets = collect_target_languages(record, classes=classes)
     if not targets:
         return None
 
     context = assemble_context(record, week_dir, targets, max_chars=config.max_context_chars)
-    verdicts: dict[str, dict] = {}
-    for start in range(0, len(targets), _MAX_LANGUAGES_PER_CALL):
+    verdicts = _resumable_verdicts(targets, resume_from)
+    todo = [t for t in targets if t["language"] not in verdicts]
+    for start in range(0, len(todo), _MAX_LANGUAGES_PER_CALL):
         if cancel_event is not None and cancel_event.is_set():
             raise ChatCancelled("cancelled before judging next batch")
-        batch = targets[start : start + _MAX_LANGUAGES_PER_CALL]
+        batch = todo[start : start + _MAX_LANGUAGES_PER_CALL]
         messages = build_messages(context, batch)
         verdicts.update(_chat_for_verdicts(client, messages, batch, cancel_event))
 
@@ -699,14 +741,35 @@ def judge_paper(
             retry_messages = build_messages(retry_context, missing)
             verdicts.update(_chat_for_verdicts(client, retry_messages, missing, cancel_event))
 
-    return {
+        if on_checkpoint is not None and start + _MAX_LANGUAGES_PER_CALL < len(todo):
+            on_checkpoint(_build_judge_record(record, client, context, targets, verdicts))
+
+    return _build_judge_record(record, client, context, targets, verdicts)
+
+
+def _build_judge_record(
+    record: dict,
+    client: OpenAICompatClient,
+    context: JudgeContext,
+    targets: list[dict],
+    verdicts: dict[str, dict],
+) -> dict:
+    judge_record = {
         "paper_id": record.get("paper_id", ""),
         "judge_model": client.last_model_used,
         "judged_at": datetime.now(timezone.utc).isoformat(),
         "context_coverage": context.coverage,
         "context_chars": context.total_chars,
-        "verdicts": verdicts,
+        # Copied: a checkpoint handed to another thread mustn't keep aliasing
+        # the dict this worker goes on filling.
+        "verdicts": dict(verdicts),
     }
+    # Also set on a finished record that a model left a language out of even
+    # after the missing-language retry, so the next run fills in just that
+    # language instead of re-judging the whole paper.
+    if any(t["language"] not in verdicts for t in targets):
+        judge_record["partial"] = True
+    return judge_record
 
 
 def needs_judging(record: dict, cached: dict | None, classes: set[int] | None = None) -> bool:
@@ -735,8 +798,25 @@ def judge_cache_path(week_dir: Path, paper_id: str) -> Path:
 def save_judge_record(week_dir: Path, judge_record: dict) -> Path:
     path = judge_cache_path(week_dir, judge_record["paper_id"])
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as fh:
-        json.dump(judge_record, fh, ensure_ascii=False, indent=2)
+    # Write-then-rename: judge_paper checkpoints after every batch, and CI's
+    # retry loop can SIGTERM/SIGKILL a pass at any moment, so a plain
+    # truncate-and-write could leave a half-written file that load_judge_cache
+    # silently skips, losing the verdicts it already had. os.replace is atomic
+    # on one filesystem, so readers see either the old file or the new one.
+    # The temp name matches .gitignore's `**/.*.tmp*` and not the `*.json`
+    # glob that loaders and CI's commit step use, so a leftover is ignored.
+    fd, tmp_name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            json.dump(judge_record, fh, ensure_ascii=False, indent=2)
+        # mkstemp creates 0600, and the rename would carry that over; keep
+        # the 0644 a plain open() gave these files before.
+        os.chmod(tmp_name, 0o644)
+        os.replace(tmp_name, path)
+    except BaseException:
+        with contextlib.suppress(OSError):
+            os.unlink(tmp_name)
+        raise
     return path
 
 
