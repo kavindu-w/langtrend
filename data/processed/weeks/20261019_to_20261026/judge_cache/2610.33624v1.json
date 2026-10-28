@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33624v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T22:53:51.398450+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3796,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of the model name GPT-6 Luna, not as a human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of prompts, benchmarks, and training data (e.g., 'English prompts', 'English only'), indicating the paper evaluates and trains models on English, so it is studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

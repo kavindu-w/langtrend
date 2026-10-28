@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33134v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T23:28:14.965539+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4513,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of model names (e.g., GPT-5.6-Luna, GPT- Luna) and not a human language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Picard": {
+      "verdict": "false_positive",
+      "reason": "Picard is used in the term 'Picard-Lefschetz formula', a mathematical concept, not a human language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin letters (alphabet) in the text, not the Latin language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

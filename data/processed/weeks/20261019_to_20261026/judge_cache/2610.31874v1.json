@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31874v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T23:42:31.503314+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5247,
+  "verdicts": {
+    "Kais": {
+      "verdict": "false_positive",
+      "reason": "Kais refers to a person name (Public Policy Researcher Kais Attia), not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the Arabic language used in the Seven Days project and Arabic normalization functions, indicating the paper studies Arabic.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language of the primary Framing Gaza corpus and English tokenization code, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French refers to French outlets (nationality) in the list of source countries, not the French language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German refers to German outlets (nationality) in the list of source countries, not the German language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

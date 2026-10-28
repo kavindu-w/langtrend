@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33583v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T22:35:44.113759+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11730,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Refers to Latin-script languages, not the Latin language itself; a script reference, not a language study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Mentioned as one of the multilingual languages in baseline ratios and experiments, indicating the paper studies Dutch.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is explicitly discussed as a language in experiments, representation, exposure, and evaluation, showing the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as a core language in baselines, evaluation, and diagnostics, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

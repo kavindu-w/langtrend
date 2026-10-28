@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.29933v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T02:03:50.582301+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2646,
+  "verdicts": {
+    "Karen": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to \"Karen Fairchild\", a person, not the Karen language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to \"English Wikipedia\", i.e., the English language, but the paper only mentions it as the source language of the dataset, not studying it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

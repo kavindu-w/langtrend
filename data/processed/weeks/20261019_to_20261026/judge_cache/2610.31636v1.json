@@ -1,0 +1,70 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31636v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T00:06:54.493307+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11813,
+  "verdicts": {
+    "Tha": {
+      "verdict": "mentioned_only",
+      "reason": "Tha refers to Thai language in the test configuration; the paper only mentions Thai in a generic test suite, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Amharic": {
+      "verdict": "mentioned_only",
+      "reason": "Amharic appears as \"amh Ethi Ethiopic\" in the test configuration; the paper only lists Amharic among other languages in a generic test suite, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Khmer": {
+      "verdict": "mentioned_only",
+      "reason": "Khmer appears as \"khm Khmr Khmer\" in the test configuration; the paper only lists Khmer among other languages in a generic test suite, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "Swahili appears as \"swh Latn Latin\" in the test configuration; the paper only lists Swahili among other languages in a generic test suite, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Armenian": {
+      "verdict": "mentioned_only",
+      "reason": "Armenian appears as \"hye Armn Armenian\" in the test configuration; the paper only lists Armenian among other languages in a generic test suite, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "Hebrew appears as \"heb Hebr Hebrew\" in the test configuration; the paper only lists Hebrew among other languages in a generic test suite, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears as \"Latn Latn Latin\" as a script tag, not the Latin language; the paper never discusses the Latin language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "Thai appears as \"tha Thai Thai\" in the test configuration; the paper only mentions Thai in a generic test suite, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Welsh": {
+      "verdict": "mentioned_only",
+      "reason": "Welsh appears as \"cym Latn Latin\" in the test configuration; the paper only lists Welsh among other languages in a generic test suite, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bosnian": {
+      "verdict": "mentioned_only",
+      "reason": "Bosnian is mentioned only as a language that appears incidentally in code‑switched documents; the paper does not study Bosnian specifically.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Slovak": {
+      "verdict": "studied",
+      "reason": "Slovak is the primary focus of the paper: the corpus, agent debugging, findings, and released test suite are all centered on Slovak.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech is studied via dedicated selectors, code‑switched docs, and mislabelled Czech text evaluations as part of the debugging effort.",
+      "model": "cohere/north-mini-code:free"
+    }
+  },
+  "partial": true
+}

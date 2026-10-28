@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33201v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T23:36:42.294317+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3753,
+  "verdicts": {
+    "Amara": {
+      "verdict": "false_positive",
+      "reason": "Amara appears as part of the name 'Dr Amara Okonjo', a person, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic appears in the phrase 'arabic number', referring to numerals, not the Arabic language, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the language of the benchmark text and instructions, but the paper does not build language-specific resources or evaluate English language capabilities, indicating it is only ",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

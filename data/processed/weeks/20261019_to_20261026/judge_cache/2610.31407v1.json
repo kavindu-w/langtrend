@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31407v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T00:51:01.048799+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11828,
+  "verdicts": {
+    "Dani": {
+      "verdict": "false_positive",
+      "reason": "Dani appears as a personal name (e.g., Dani Alves) in the snippet, not as a language reference, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sherpa": {
+      "verdict": "false_positive",
+      "reason": "Sherpa appears as a title-like token among names (e.g., Swami, Ustad, Netaji, Begum, Ayatollah and Sherpa), not as a language reference, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Malayalam": {
+      "verdict": "studied",
+      "reason": "Malayalam is referenced as the language of a second corpus and as a Dravidian language in the study, indicating the paper builds and evaluates on it, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Marathi": {
+      "verdict": "studied",
+      "reason": "Marathi is referenced as the prompt language for experiments and as the language of the Marathi corpus, indicating the paper studies it, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is referenced as the language of prompts and a Hindi corpus used in experiments, indicating the paper studies it, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "Latin is referenced as the script/language of prompts, Latin-trained probes, and as a comparison language, indicating the paper studies it, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the question and prompts used throughout the experiments, indicating the paper studies it, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

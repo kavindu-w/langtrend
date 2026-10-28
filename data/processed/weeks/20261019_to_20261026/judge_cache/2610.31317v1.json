@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31317v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T00:54:08.780404+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2322,
+  "verdicts": {
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "Deg appears as a metric abbreviation in a coarse PR/cit/rec/deg grid, not the Deg language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Loo": {
+      "verdict": "false_positive",
+      "reason": "Loo appears as LOO (Leave-One-Out) tuned, a cross-validation method, not the Loo language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

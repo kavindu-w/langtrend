@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33741v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T22:41:19.474998+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7404,
+  "verdicts": {
+    "Tibetan": {
+      "verdict": "false_positive",
+      "reason": "Tibetan is only mentioned as part of the language family 'Sino‑Tibetan' and not as a language studied → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is used as an adjective for 'non‑Latin scripts' and not referring to the Latin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as a language/script in the coverage discussion and the paper evaluates Chinese‑English pairs → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is the target language of the primary dataset (English‑Russian translations) and is used throughout experiments → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language of the primary dataset (English‑Russian translations) and is central to the experiments → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

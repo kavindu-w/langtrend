@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33946v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T22:15:29.238296+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11863,
+  "verdicts": {
+    "Beaver": {
+      "verdict": "false_positive",
+      "reason": "Beaver refers to the BEAVER benchmark (a dataset) and not a human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tso": {
+      "verdict": "false_positive",
+      "reason": "Tso appears as a table alias (tso) in a SQL query, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

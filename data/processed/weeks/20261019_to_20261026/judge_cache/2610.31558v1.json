@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31558v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T00:21:12.370534+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1308,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet from Appendix B LLMs used lists \"Pin\" as a model name, not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet from Appendix C Example prompts and responses, and a final-level non-hit, refer to the Latin script/alphabet, not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippet from 4 Experiments, 4.3 RQ2 Findings, 4.3.1 Prompt perplexity, and Appendix C Example prompts and responses refer to Arabic as a language studied/evaluated in the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet from 4 Experiments, 4.2 RQ1 Findings, 4.2.2 Comparing models across mappings, 4.3 RQ2 Findings, 4.3.1 Prompt perplexity, Appendix C Example prompts and responses, and a final-level non-hit",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

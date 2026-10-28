@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31019v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T00:40:51.616128+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7674,
+  "verdicts": {
+    "Kara": {
+      "verdict": "false_positive",
+      "reason": "KARA refers to a text adaptation/tool, not the Kara language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script/punctuation, not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used as a dataset and experimental language in the study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used as a dataset and experimental language in the study.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

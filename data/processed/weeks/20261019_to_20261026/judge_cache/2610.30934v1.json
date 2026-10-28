@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.30934v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T01:11:05.417951+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3453,
+  "verdicts": {
+    "Icelandic": {
+      "verdict": "false_positive",
+      "reason": "Icelandic refers to the location (Icelandic lighthouse) not the Icelandic language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language itself (modern English) used in prompts, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "Japanese refers to Japanese cuisine (Japanese izakaya) not the Japanese language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

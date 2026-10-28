@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31821v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T00:21:58.134785+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11692,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to a dense encoder model (e.g., jina-v3, jina- gte LaBSE) in the snippets, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the human language Classical Arabic used in queries, corpora, and lexical matching, indicating the paper studies it, so verdict studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

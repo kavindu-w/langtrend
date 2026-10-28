@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33956v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T22:31:41.299339+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3117,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is a model name (GPT-5.6-Luna) in the evaluation setup, not the human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced as the language of 92 tasks in the dataset, a mention of language distribution.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the language of 508 tasks in the dataset, a mention of language distribution.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

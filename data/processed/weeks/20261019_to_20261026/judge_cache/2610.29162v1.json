@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.29162v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T02:43:17.829315+00:00",
+  "context_coverage": "abstract_only",
+  "context_chars": 1495,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is mentioned as a model or tool name in the infrastructure and cost sections, not as the human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is referenced as a pivot language used in round‑trip translation, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the primary language of the AI‑generated and human texts analyzed throughout the experiments and appendices.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is used as a language for AI‑generated text and analysis in the experiments, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

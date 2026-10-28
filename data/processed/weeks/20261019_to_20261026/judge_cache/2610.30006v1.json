@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.30006v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T02:31:18.512268+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5856,
+  "verdicts": {
+    "Ona": {
+      "verdict": "false_positive",
+      "reason": "Ona appears as part of a typo ‘a O5OD5,e detectiona,d’ and not as a language reference; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin appears as a sub‑component label for foreign language word fragments, not as a language studied; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Savi": {
+      "verdict": "false_positive",
+      "reason": "Savi appears as part of the model name ‘SAVi++’, not as a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "Tibetan is listed as an example of a foreign language word sub‑component, only mentioned; mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears in the phrase ‘level of polish’, not as the language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Vietnamese is referenced only in the context of Vietnamese surnames, a mention of the language; mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced only in the context of Chinese punctuation, a mention of the language; mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is referenced only in the context of French verbs and conjugation patterns, a mention of the language; mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the language of the dataset splits and model training, indicating the paper studies English; studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

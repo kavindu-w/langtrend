@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33440v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T22:46:32.677503+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3070,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"pin\" as a verb (did not pin a Hugging Face revision), not referring to the human language Pin.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English as the language of the datasets (e.g., \"English items\", \"official English train/validation/test splits\"), indicating the paper evaluates on English-language data, thus it",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.30997v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T01:08:23.215728+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3795,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "Ami refers to the AMI Meeting Corpus dataset (acronym \"AMI\") in the snippets, not the human language Ami, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin appears as part of the word \"pinned\" describing model revisions, not the language Pin, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Indonesian": {
+      "verdict": "mentioned_only",
+      "reason": "Indonesian is mentioned as the language of CORD receipts in the Limitations section, only referenced without study, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language of the other datasets in the Limitations section, only referenced without study, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romanian": {
+      "verdict": "false_positive",
+      "reason": "Romanian refers to the Romanian Writers’ Society organization and a person’s name in the snippets, not the language Romanian, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

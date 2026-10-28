@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.30946v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T01:07:36.874344+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3056,
+  "verdicts": {
+    "Bari": {
+      "verdict": "false_positive",
+      "reason": "Bari refers to the author/team 'Bari et al.' in a citation, not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "crow's foot notation refers to a UML relationship notation, not the language Crow, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is listed as one of the languages of the natural‑language requirements in the dataset, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is listed as one of the languages of the natural‑language requirements in the dataset, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

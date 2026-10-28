@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.29207v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T02:42:06.550050+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4763,
+  "verdicts": {
+    "Lik": {
+      "verdict": "false_positive",
+      "reason": "Lik is a Norwegian word meaning 'same' in the snippets, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "Norwegian refers to the Norwegian language in the snippets (preregistration in Norwegian, Norwegian number words, etc.), and the paper studies Norwegian law, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language in the snippets (addendum, English separators, etc.), but the paper only mentions English for documentation and parsing, not as a target language, so it's mentio",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

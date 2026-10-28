@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31356v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T00:29:17.666400+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11683,
+  "verdicts": {
+    "Bulgarian": {
+      "verdict": "studied",
+      "reason": "The snippets describe Bulgarian warning messages in the CrisiLangs dataset, fine‑tuning and evaluation of a multilingual model on Bulgarian, and a human preference study for Bulgarian, indicating the ",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "The snippets show Greek warning messages in the dataset, model fine‑tuning, automatic and human evaluation for Greek, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions “Latin letters and digits” and “Latin‑script names” in the context of tokenizers, referring to the Latin script rather than the Latin language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The snippets describe Italian warning messages in CrisiLangs, model fine‑tuning and evaluation for Italian, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The snippets describe German warning messages in CrisiLangs, model fine‑tuning and evaluation for German, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets describe English warning messages in the original CrisiText, the multilingual model fine‑tuned on English, and evaluation for English, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31911v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T23:50:44.261863+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6836,
+  "verdicts": {
+    "Moba": {
+      "verdict": "false_positive",
+      "reason": "Moba refers to the MoBA sparse attention method, not a human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in the bilingual benchmark and evaluated in experiments, so the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used for training data, evaluation benchmarks, and ASR tasks, so the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

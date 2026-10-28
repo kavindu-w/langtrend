@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.34012v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T22:09:58.896082+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11988,
+  "verdicts": {
+    "Iban": {
+      "verdict": "false_positive",
+      "reason": "IBAN (bank account identifier) appears in the snippets, not the Iban language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is referenced throughout as the target language for benchmark, tools, and engine development, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English (UK English) is referenced as the target language for benchmark, tools, and engine development, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

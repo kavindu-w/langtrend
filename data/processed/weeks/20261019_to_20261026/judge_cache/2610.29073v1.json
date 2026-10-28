@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.29073v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T03:21:34.314637+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5296,
+  "verdicts": {
+    "Liv": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"TABLE LIV\" which is a table label, not a reference to the Livonian language; thus the candidate is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets contain explicit references to the English language (e.g., \"English text-only corpora\", \"English examinations\"), indicating the paper discusses English as a language. While \"English Teach",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

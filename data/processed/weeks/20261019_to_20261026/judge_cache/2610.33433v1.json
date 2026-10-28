@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33433v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T22:55:04.902683+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7747,
+  "verdicts": {
+    "Delaware": {
+      "verdict": "false_positive",
+      "reason": "Delaware refers to University of Delaware (an institution), not the Delaware language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yale": {
+      "verdict": "false_positive",
+      "reason": "Yale refers to Yale University (an institution), not the Yale language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pear": {
+      "verdict": "false_positive",
+      "reason": "Pear appears as a word used in a learning pair, not referencing the Pear language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sop": {
+      "verdict": "false_positive",
+      "reason": "Sop appears as a word in a list of nouns, not referencing the Sop language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese refers to the Chinese Room thought experiment, not the Chinese language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used throughout as the language of the experiments, including English verbs and datasets, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

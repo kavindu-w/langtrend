@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.32691v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T22:57:22.560667+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3340,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the phrase 'for the sake of the example', which is the English idiom, not the Sake language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Russian' as the language the model incorrectly treated the user as, indicating a reference to the Russian language, not a study of it, so it's mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet repeatedly uses 'English' as the language of explanations and descriptions produced by the NLA, indicating the paper builds and evaluates models that generate English explanations, so it's",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

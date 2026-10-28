@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31945v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T02:05:17.878866+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11985,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin appears as a verb (e.g., 'pin datasets', 'datasets pinned') and not as a language reference, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese is mentioned only in contexts like Chinese law, Chinese prompts, and Chinese political content, not as a language the paper studies or evaluates, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced throughout as the language of prompts, datasets, tokenizers, and evaluation benchmarks, and the model is explicitly an English‑German MoE, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is used for data collection, tokenisation, evaluation, and specialised environments, and the model is built for German deployment, indicating the paper studies German.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

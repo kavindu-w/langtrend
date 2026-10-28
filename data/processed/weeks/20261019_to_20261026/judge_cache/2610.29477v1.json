@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.29477v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T02:20:39.401857+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8246,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "carrier refers to a generic term in the instrument, not the human language Carrier, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian refers to the Russian language in the corpus and evaluation, thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used for other codes and prompts, thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

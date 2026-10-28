@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.30860v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T01:14:31.068396+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11982,
+  "verdicts": {
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes \"MER\" abbreviation for Mixed Error Rate, not the human language \"Mer\". This is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "The snippet includes \"Nepali (BHASAANUVAD, 1,000 utterances, 1.95 h).\" and many references to Nepali language, script, and data, indicating the paper studies Nepali.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes \"Latin script recovery after SFT transliteration errors\" and \"Latin script\" as a script, not the Latin language. This is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet includes \"English script confusion ( ).\" and \"English (LibriSpeech test-clean [ 14 ] , 1,000 utterances, 1.50 h).\" indicating English is studied as a language in the benchmark.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.29225v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T02:29:13.090416+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10337,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "The snippets use \"pinyin\" as a token‑obfuscation technique (e.g., pinyin substitution), not as a human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Chinese as the language of prompts, data, and contexts (e.g., Chinese prompts, Chinese data, Chinese contexts), and the paper builds a bilingual benchmark and evaluates models on",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as the language of prompts, translations, and evaluation templates (e.g., English prompts, English version, bilingual contexts), and the paper includes English data and e",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

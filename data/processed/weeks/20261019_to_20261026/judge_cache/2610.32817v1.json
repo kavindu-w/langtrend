@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.32817v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T23:00:43.785583+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11650,
+  "verdicts": {
+    "Bari": {
+      "verdict": "false_positive",
+      "reason": "Bari\" in the snippets refers to the acronym BARI (Bangladesh Agricultural Research Institute), not the Bari language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chittagonian": {
+      "verdict": "studied",
+      "reason": "Chittagonian\" refers to a Bengali dialect used as a preset in the system's normalization, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Rangpuri": {
+      "verdict": "studied",
+      "reason": "Rangpuri\" refers to a Bengali dialect used as a preset in the system's normalization, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sylheti": {
+      "verdict": "studied",
+      "reason": "Sylheti\" refers to a Bengali dialect used as a preset in the system's normalization, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dibo": {
+      "verdict": "mentioned_only",
+      "reason": "Dibo\" does not appear in any provided snippet, so we can only assume it is mentioned without clear referent, indicating it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali\" refers to the Bengali language, which the paper develops an advisory system for and evaluates, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin\" in the snippets refers to Latin script (e.g., Latin‑script Bangla), not the Latin language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English\" refers to the English language, which the paper uses in its precheck and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

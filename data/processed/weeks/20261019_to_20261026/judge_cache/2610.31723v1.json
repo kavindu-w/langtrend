@@ -1,0 +1,69 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31723v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T01:54:53.275203+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11752,
+  "verdicts": {
+    "Nisi": {
+      "verdict": "false_positive",
+      "reason": "Nisi appears as a Latin subordinator word, not as a language name.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake is used as the English idiom 'for the sake of', not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Seneca": {
+      "verdict": "false_positive",
+      "reason": "Seneca refers to the Roman author and his works, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Estonian": {
+      "verdict": "mentioned_only",
+      "reason": "Estonian is mentioned as a low-resource language in prior work, not studied in this paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latvian": {
+      "verdict": "mentioned_only",
+      "reason": "Latvian is mentioned as a low-resource language in prior work, not studied in this paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lithuanian": {
+      "verdict": "mentioned_only",
+      "reason": "Lithuanian is mentioned as a low-resource language in prior work, not studied in this paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek (Ancient Greek) is mentioned as part of PhilBERTa’s multilingual data and comparative discussions, but not a focus of this study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "studied",
+      "reason": "Latin is the primary language the paper studies, building LAMB and corpora for it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "mentioned_only",
+      "reason": "Czech is referenced as an example language in prior subword aggregation research, not studied here.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Finnish": {
+      "verdict": "mentioned_only",
+      "reason": "Finnish is referenced as an example language in prior subword aggregation research, not studied here.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as a language in PhilBERTa’s dataset and comparative contexts, but not a focus of this study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French (Old French) is mentioned as part of CoMMA’s multilingual training data, not studied here.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

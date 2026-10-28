@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.32933v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-27T22:49:14.164011+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6690,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin appears as \"version pin\" referring to dependency version pinning, not the Persian language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "Persian consistently refers to the Persian language in model development, dataset collection, and evaluation tasks, indicating the paper studies Persian; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

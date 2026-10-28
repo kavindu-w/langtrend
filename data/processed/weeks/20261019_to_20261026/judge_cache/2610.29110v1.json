@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.29110v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T03:06:25.941647+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5125,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col refers to column space (col(B)) in linear algebra, not a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language in the experimental tasks (e.g., CMExam, cMedQA2) and the paper evaluates models on Chinese benchmarks, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language in the experimental tasks (e.g., MedQA, HealthcareMagic) and the paper evaluates models on English benchmarks, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

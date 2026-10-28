@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31397v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T00:46:48.026425+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11764,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Latin script', not the Latin language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tatar": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions the Tatar language only as a point of comparison with prior work, not as a target of the paper's experiments, so it's mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippet refers to the Russian language as a pretraining language and as a control language evaluated for perplexity and ICL performance, indicating the paper studies Russian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "The snippet refers to the Turkish language as a control language for tokeniser analysis and fertility evaluation, indicating the paper studies Turkish.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to the English language as a high‑resource control language evaluated for perplexity, ICL performance, and tokeniser analysis, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

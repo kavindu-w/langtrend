@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.30193v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T02:51:24.152498+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6372,
+  "verdicts": {
+    "Dida": {
+      "verdict": "false_positive",
+      "reason": "Dida is an abbreviation for a metric (Difference-in-Differences) in the testbed, not the Dida language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "Fam is shorthand for “family” (e.g., endpoint family) in the taxonomy, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mba": {
+      "verdict": "false_positive",
+      "reason": "MBA is an acronym for a mask‑fill reconstruction metric, not the Mba language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel denotes detection signals or watermarks in corpus‑use detection, not the Sentinel language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "mentioned_only",
+      "reason": "Swahili is mentioned as a language of queries in the multilingual judge evaluation, only referenced in the survey → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned as a language of queries in the multilingual judge evaluation, only referenced in the survey → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as a language of queries in the multilingual judge evaluation, only referenced in the survey → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

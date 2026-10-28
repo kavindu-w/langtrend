@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.30067v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T01:47:25.764063+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6243,
+  "verdicts": {
+    "Berta": {
+      "verdict": "false_positive",
+      "reason": "BERTa is a model name (a BERT variant) in the table, not the language Berta; thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese refers to the language and the paper builds compact Vietnamese encoders and evaluates on Vietnamese benchmarks; thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is only referenced as a comparison language in related work, not studied; thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
