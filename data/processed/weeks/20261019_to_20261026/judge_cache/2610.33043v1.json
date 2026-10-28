@@ -1,9 +1,19 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.33043v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-28T07:06:42.260378+00:00",
+  "judged_at": "2026-10-28T09:09:04.999501+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 2981,
-  "verdicts": {},
-  "partial": true
+  "verdicts": {
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "hebrew appears as a language tag in the results snippet, indicating the framework analyzed Hebrew-language content, so the paper studies Hebrew.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as a language reference in the methods and prompt snippets, but only as an example language and generic instruction, not as a target of study, so the paper only mentions English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }

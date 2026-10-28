@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.28673v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T09:12:30.414419+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11713,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'Latin script', a writing system, not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Arabic language (e.g., Arabic ASR leaderboard, language set to Arabic, Arabic letters, Arabic call-domain speech) and the paper studies Arabic speech recognition.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

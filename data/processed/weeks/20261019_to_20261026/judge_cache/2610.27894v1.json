@@ -1,9 +1,24 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.27894v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-28T04:46:43.503352+00:00",
+  "judged_at": "2026-10-28T08:56:30.694371+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 5500,
-  "verdicts": {},
-  "partial": true
+  "verdicts": {
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "Sie appears as a German pronoun in the prompt \"Antworten Sie auf DEUTSCH44\" and does not refer to a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the PixCC dataset, collected from English speakers, and used for model descriptions, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is referenced as the language of the SilCC dataset, collected from German speakers, and used for model descriptions, indicating the paper studies German.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }
