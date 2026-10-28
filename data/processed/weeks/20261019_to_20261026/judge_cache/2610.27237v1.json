@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.27237v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T05:14:19.428298+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8024,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae is detected only as the acronym MAE (Mean Absolute Error) in the snippets, not as the language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian refers to the Russian language throughout the snippets (texts, datasets, CEFR levels for Russian), indicating the paper studies Russian text simplification.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

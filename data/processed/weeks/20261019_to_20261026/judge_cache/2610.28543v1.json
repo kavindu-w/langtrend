@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.28543v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T04:25:21.148758+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4640,
+  "verdicts": {
+    "Fur": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'fur' appears as a common English word describing an animal's hair, not the Fur language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Polish' appears as the verb 'polish' meaning to improve writing, not the Polish language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Russian' appears as an adjective describing 'west' (e.g., 'the Russian west'), not a reference to the Russian language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "In the snippet, 'English' refers to the English language in describing the Text8 and TinyStories datasets used for language modeling, implying the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Japanese' appears as an adjective describing hoarders and a movie, not a reference to the Japanese language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Spanish' appears as an adjective describing a woman, not a reference to the Spanish language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

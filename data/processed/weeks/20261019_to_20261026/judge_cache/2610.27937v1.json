@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.27937v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T04:34:02.393377+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10300,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears only as part of model names (e.g., GPT-6-luna), not as the language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole refers to the term 'poles' (high/low) in the codebook, not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Hebrew is referenced as the language of the Knesset transcripts, used for prompting and codebook generation, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of prompts and codebook variants, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

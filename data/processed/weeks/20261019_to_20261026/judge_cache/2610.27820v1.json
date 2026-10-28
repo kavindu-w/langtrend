@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.27820v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T04:26:19.220159+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4480,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of the model name GPT-5.6-Luna, not as a language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "Mer appears as the acronym MER (a metric), not as a language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as a language in the framework (jieba-tokenized Chinese units) and evaluation metrics (MER uses Chinese characters), indicating the paper studies Chinese, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a language in the framework (whitespace-delimited English tokens) and evaluation metrics (MER uses English words), indicating the paper studies English, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

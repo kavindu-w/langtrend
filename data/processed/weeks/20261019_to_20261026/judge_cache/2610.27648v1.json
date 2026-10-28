@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.27648v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T04:47:05.770746+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5593,
+  "verdicts": {
+    "Sar": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not contain 'Sar', so its referent is unclear; insufficient evidence to confirm it refers to a language, thus we treat as mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'Czech Republic', a country name, not a reference to the Czech language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mongolian": {
+      "verdict": "studied",
+      "reason": "The snippet refers to Mongolian language (Mongolian text) and the country Mongolia, indicating the paper evaluates models on Mongolian, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions English as the language of training data and evaluation tasks, indicating the paper studies English, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

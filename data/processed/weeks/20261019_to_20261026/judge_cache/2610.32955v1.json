@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.32955v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T03:39:37.447147+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9148,
+  "verdicts": {
+    "Alta": {
+      "verdict": "false_positive",
+      "reason": "Alta is used as an urgency label (high) in the dataset, not the language Alta.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bassa": {
+      "verdict": "false_positive",
+      "reason": "Bassa is an urgency level (low) used in labeling, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "Una appears as the Italian word 'una' (one) in prompts, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian refers to the language of the emails and prompts, and the paper evaluates models on Italian data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the emails and prompts, and the paper evaluates models on English data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.26951v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T07:35:26.218263+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4076,
+  "verdicts": {
+    "Yuki": {
+      "verdict": "false_positive",
+      "reason": "Yuki refers to a character name in the synthetic dataset, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian refers to 'Italian coffee', not the Italian language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish does not appear in the snippet; the snippet only mentions AI assistants, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Vietnamese appears as part of the example cue 'Vietnamese Word Segmentation', indicating a mention of the Vietnamese language but not studied, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

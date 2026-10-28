@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33014v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T07:23:28.660678+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4225,
+  "verdicts": {
+    "Bina": {
+      "verdict": "false_positive",
+      "reason": "Bina appears as a variable/abbreviation (BinA) in the snippets, not a language, so false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lola": {
+      "verdict": "false_positive",
+      "reason": "LOLA-OM is a method name, not a language, so false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE is a metric abbreviation, not a language, so false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to English-language works in the corpus, a mention of the language, so mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

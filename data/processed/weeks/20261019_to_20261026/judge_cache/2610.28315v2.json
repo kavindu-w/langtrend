@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.28315v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T08:27:14.851254+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7327,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is a model name (e.g., GPT-5.6 Luna, Luna Terra) not a language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Puma": {
+      "verdict": "false_positive",
+      "reason": "PUMA is a geographic unit (Public Use Microdata Area) not a language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as the conversation language and annotator fluency, not studied, thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

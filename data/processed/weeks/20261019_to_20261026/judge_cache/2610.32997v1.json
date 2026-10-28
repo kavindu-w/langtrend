@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.32997v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T06:47:10.350076+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10394,
+  "verdicts": {
+    "Telugu": {
+      "verdict": "mentioned_only",
+      "reason": "Telugu (TE) is mentioned as a language with a unique script in a list of underrepresented languages, but the paper does not evaluate or collect data for it, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "Korean (KO) appears as a language with a unique script in the same list, but the paper does not study or evaluate Korean, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese (ZH) is listed as a language with a unique script, yet the paper only evaluates Hebrew and Danish, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Danish": {
+      "verdict": "studied",
+      "reason": "Danish is used as a case study language; the paper evaluates subset selection on Danish corpora, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "studied",
+      "reason": "Hebrew is used as a case study language; the paper evaluates subset selection on Hebrew data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a major language in discussions of ASR and orthography, but the paper does not evaluate or collect data for English, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

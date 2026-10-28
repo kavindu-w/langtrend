@@ -1,7 +1,7 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.30677v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-28T01:10:18.116539+00:00",
+  "judged_at": "2026-10-28T03:51:41.599516+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 11842,
   "verdicts": {
@@ -64,7 +64,26 @@
       "verdict": "studied",
       "reason": "The snippet lists 'Ukrainian Пригородок' and other Ukrainian items as cultural knowledge, indicating the language is part of the dataset, so it is studied.",
       "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language (e.g., English translation, English articles) and the paper evaluates LLM performance on English QA, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned as a language in the limitations (e.g., 'such as French or Spanish') but not used in experiments, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese appears as a language code (ja) and as Japanese cultural items, and the paper includes Japanese QA pairs and evaluates performance, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish appears as a language (e.g., 'such as French or Spanish') and as Spanish film sound engineer (referring to Spanish language), and Spanish is listed as a target language, implying studied.",
+      "model": "cohere/north-mini-code:free"
     }
-  },
-  "partial": true
+  }
 }

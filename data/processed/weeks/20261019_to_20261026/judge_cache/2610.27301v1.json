@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.27301v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T05:36:54.438156+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11976,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The candidate \"Luna\" appears in the snippets as part of model names like \"gpt-6-luna\" and \"gpt-6-luna\" (a language model), not as the human language Luna. This is a false positive: the name refers to ",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet for Russian contains \"Russian literary scene. 3 After school, Pushkin plunged into the … intellectual youth culture of the capital, Saint Petersburg.\" This clearly refers to the Russian la",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet for English includes a definition of \"content word\" using \"scikit-learn’s English stop list\" and references \"English stop list\" as a linguistic resource. This is a mention of the English l",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

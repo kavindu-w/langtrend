@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.28337v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T04:01:21.227055+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7236,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "Abu refers to Abu Farha, a researcher, in the dataset name iSarcasmEval Abu Farha et al. (2022), not the language Abu; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used for tweet filtering and analysis, indicating the paper studies English; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish refers to the Spanish language emotion ratings from Ferré et al. (2025) used for validation, indicating the paper studies Spanish; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33017v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-28T07:16:00.111361+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11614,
+  "verdicts": {
+    "Nandi": {
+      "verdict": "false_positive",
+      "reason": "Refers to an author name (Moitreya Nandi), not a language",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Gujarati": {
+      "verdict": "studied",
+      "reason": "The paper evaluates the tokenizer on this language, though it is listed as evaluation-only",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Telugu": {
+      "verdict": "studied",
+      "reason": "The paper evaluates the tokenizer on this language, though it is listed as evaluation-only",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The paper uses this language for training and evaluation of the tokenizer",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The paper uses this language for training and evaluation of the tokenizer",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Refers to 'non-Latin scripts', meaning the Latin alphabet/script rather than the language",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "The paper evaluates the tokenizer on this language, though it is listed as evaluation-only",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English as a baseline for disparity analysis and downstream performance comparison",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

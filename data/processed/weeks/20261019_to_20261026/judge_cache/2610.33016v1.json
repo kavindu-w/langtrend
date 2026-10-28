@@ -1,0 +1,99 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.33016v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-10-28T07:22:08.535141+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11949,
+  "verdicts": {
+    "Amharic": {
+      "verdict": "mentioned_only",
+      "reason": "Amharic is referenced as a control language with an extension, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Burmese": {
+      "verdict": "mentioned_only",
+      "reason": "Burmese is listed among languages in the cross-script sweep, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kannada": {
+      "verdict": "mentioned_only",
+      "reason": "Kannada is mentioned as a source of vowel signs affecting tokenization, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "Nepali is the primary target of the repair, evaluated in continued pretraining and tokenizers, implying studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sinhala": {
+      "verdict": "mentioned_only",
+      "reason": "Sinhala is referenced as a language affected by tokenizer segmentation, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Telugu": {
+      "verdict": "mentioned_only",
+      "reason": "Telugu is referenced as a language with a merge-based extension, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is mentioned as a language with a separate tokenizer (TituLLM), implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "Hebrew is referenced as a source of combining marks in the Devanagari-only variant, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is referenced as a language affected by tokenizer changes, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin is only referenced in a section without provided snippet context, insufficient evidence, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "Tamil is referenced as a language affected by tokenizer segmentation, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "Thai is referenced as a language in cross-script sweep and tokenization analysis, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is listed as a control language in a cross-script sweep experiment to test the effect of combining marks, meaning it was used in the paper's evaluation.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets provided do not contain any mention of Russian; the candidate was flagged by a scanner but is absent from the provided text.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Ukrainian": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions that Didenko adapts models to Ukrainian as part of a review of prior work on vocabulary extension.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned as one of the FLORES- languages whose pre-tokens are changed by the general repair, but it is not the primary focus of the experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets provided do not contain any mention of Chinese; the candidate was flagged by a scanner but is absent from the provided text.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the baseline for tokenization premiums and is explicitly preserved/tested for invariance throughout the study.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

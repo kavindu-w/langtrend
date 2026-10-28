@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.26824v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T05:36:31.561089+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4647,
+  "verdicts": {
+    "Ese": {
+      "verdict": "false_positive",
+      "reason": "Ese refers to the method ESE (L2C) and related baselines, not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "Russian appears in the phrase \"Russian nesting dolls\" as a cultural reference, not as a language study, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is mentioned as the language of the English MTEB benchmark used for evaluation, indicating the paper studies English, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

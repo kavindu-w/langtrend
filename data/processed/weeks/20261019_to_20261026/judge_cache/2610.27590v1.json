@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.27590v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T04:50:49.036572+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7269,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Refers to the Latin script, not the Latin language",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Refers to Korean language corpora used in experiments (Korean web text, Korean transcripts)",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Mentions English prose as prior work and as a planned control, not studied in this paper",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Refers to Japanese language corpora used in experiments (Japanese web text)",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

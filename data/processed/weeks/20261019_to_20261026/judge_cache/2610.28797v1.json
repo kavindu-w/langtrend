@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.28797v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T08:13:50.202882+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2809,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin refers to the acronym PIN (Personal Identification Number) in the snippets, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is mentioned as the language of the datasets and in prompts, and the paper evaluates on English data, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

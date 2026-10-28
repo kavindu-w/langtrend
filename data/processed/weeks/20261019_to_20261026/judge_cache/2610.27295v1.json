@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.27295v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T05:35:55.934038+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3107,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'carrier questions' as a type of question in the dataset, not the Carrier language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet indicates that English questions are selected from the OpenAssistant Conversations corpus for dataset construction, showing the paper uses English as the language of the benchmark, so it i",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

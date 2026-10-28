@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.28214v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T06:07:53.229756+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5314,
+  "verdicts": {
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'crow' as a candidate answer in a cloze dataset, not a reference to the Crow language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'non-Latin token' (script), not the Latin language, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet describes AI usage for code generation and polishing, with no mention of the Polish language, implying mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Chinese tokens in the bilingual Qwen tokenizer and occasional Chinese outputs, indicating the model includes Chinese language data but the paper does not evaluate or build resourc",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet uses English word lemmas for concreteness norms and includes English as a candidate answer in cloze data, showing the paper uses English language resources in its experiments, implying stu",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

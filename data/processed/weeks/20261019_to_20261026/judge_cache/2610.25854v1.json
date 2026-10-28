@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.25854v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T06:26:41.541309+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3991,
+  "verdicts": {
+    "Amal": {
+      "verdict": "false_positive",
+      "reason": "Amal refers to a person name (Amal Haddad) and thus is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo is part of the author name Mo El-Haj, not the language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script/characters, not the Latin language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as a related documentary version and in multilingual datasets but not studied, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French is mentioned in other works and datasets but not studied, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned in datasets but not studied, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is the primary language of study, with dedicated resources and analysis, so studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

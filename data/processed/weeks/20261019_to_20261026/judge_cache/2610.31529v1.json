@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31529v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T07:40:51.528007+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5403,
+  "verdicts": {
+    "Batak": {
+      "verdict": "false_positive",
+      "reason": "Batak refers to an ethnic group from Sumatra, not the Batak language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Malay": {
+      "verdict": "false_positive",
+      "reason": "Malay appears as part of \"Malaysian Malay\" used as an ethnic group, not as the Malay language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German appears as \"Austrian German\" in evaluation examples, indicating the paper uses German as a language in its benchmark experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "Dao refers to the author name in a citation (Dao and Gu), not the Dao language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "pole appears as a typo/abbreviation for \"model\" (fine-tuned pole), not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of generated text and evaluation prompts throughout the snippets, indicating the paper uses English in its experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

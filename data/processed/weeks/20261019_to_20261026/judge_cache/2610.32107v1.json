@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.32107v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T07:37:41.965775+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3657,
+  "verdicts": {
+    "Ito": {
+      "verdict": "false_positive",
+      "reason": "Ito appears as a researcher surname (author name) in the snippet, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is part of the model name 'gpt-5.6-luna' in the snippet, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English glosses are shown in the evaluation interface, indicating a mention of the English language, not a focus of study; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is used as the language of human evaluation and game logs, indicating the paper studies this language; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

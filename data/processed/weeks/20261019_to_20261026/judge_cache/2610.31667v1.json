@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.31667v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T08:06:26.468668+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5461,
+  "verdicts": {
+    "Amo": {
+      "verdict": "false_positive",
+      "reason": "Amo appears as part of the benchmark name AMO-Bench, not as a language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "Deg appears as the abbreviation for graph degree (deg(i)) in mathematical notation, not as a language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears as the verb 'to polish' meaning to refine text, not as the Polish language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

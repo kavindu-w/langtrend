@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.27904v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T04:10:38.901247+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6765,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears as part of the dataset name AI-MO/NuminaMath-1.5, not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "Tat appears as part of the dataset name TAT-QA, not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as 'English translation' in example snippets, indicating a mention of the language but not a focus of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is referenced throughout as the target language for training and evaluation (e.g., Japanese captioning/VQA corpora, visual instruction following in Japanese, Japanese finance), indicating the",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

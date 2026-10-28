@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.27645v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T04:55:32.366792+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11909,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "col refers to a schema column in the snippets, not the Col language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Cua": {
+      "verdict": "false_positive",
+      "reason": "CUA refers to Computer-Use Agent throughout the snippets, not the Cua language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

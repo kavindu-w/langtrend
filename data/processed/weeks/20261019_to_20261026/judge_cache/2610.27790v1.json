@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.27790v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T04:37:43.948938+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5733,
+  "verdicts": {
+    "Nakai": {
+      "verdict": "false_positive",
+      "reason": "Nakai refers to an author name (Nakai and Okanoya) in citations, not the human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic refers to Arabic numerals/digits in the text, not the Arabic language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language used for prompts and tasks in the experiments, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

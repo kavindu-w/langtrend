@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.26406v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T06:06:02.224525+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10461,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses \"Candidates\" as a generic term for model candidates, not the language Mae.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "The snippet references the Korean Learners Speech Corpus (English) and Korean-only heads, which refer to the Korean learner corpus, not the Korean language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly mentions L2 English evaluation, the Korean Learners Speech Corpus (English), and Cambridge English speaking assessment, indicating the paper studies the English language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions Japanese speakers as part of the J-AESOP dataset, which is a Japanese speech corpus for English pronunciation, not a study of the Japanese language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

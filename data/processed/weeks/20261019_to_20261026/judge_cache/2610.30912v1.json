@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.30912v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T07:45:32.825941+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2955,
+  "verdicts": {
+    "Cora": {
+      "verdict": "false_positive",
+      "reason": "Cora refers to a prior method named CORA, not the language Cora, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language used in the short-text retrieval benchmarks, which are part of the paper's experiments, thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

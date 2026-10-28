@@ -1,9 +1,19 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.31467v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-10-28T00:21:06.772115+00:00",
+  "judged_at": "2026-10-28T03:50:18.836780+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 5171,
-  "verdicts": {},
-  "partial": true
+  "verdicts": {
+    "Ari": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to ARI, a readability metric (Automated Readability Index), not the human language Ari, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions English stop-word removal in the RAG pipeline, indicating the paper uses English as part of its methodology, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.27227v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T08:29:50.241197+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3978,
+  "verdicts": {
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to \"dia ids\" (dialogue IDs), not the Dia language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to a dog's name \"Luna\", not the Luna language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to the English language (e.g., \"English filmmaker\", \"English months\"), implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.29722v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-10-28T04:29:19.272579+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5985,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to a SOTA reranker model (Jina-v2-base) in the experiment inventory, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to the mean absolute error metric in evaluation scores, not the language Mae, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "pin refers to a pip version pin (tensorflow==2.8.0 pin) in the requirements, not the language Pin, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears in a query example ('Google will help Chinese internet freedom...') as a language reference, but the paper only includes it as a dataset example, not as a focus of study, so it is ment",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used to describe English‑focused embedding models and the constructed English multi‑domain test bed, indicating the paper evaluates performance on English, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
