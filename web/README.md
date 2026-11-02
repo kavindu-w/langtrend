@@ -19,7 +19,7 @@ web/
 
 | Directory | Contents |
 |-----------|----------|
-| `src/pages/` | File-based routes: `index.astro` (latest week), `about.astro`, `weeks/[slug].astro` (historical week), `api/weeks/[slug].json.ts` (JSON endpoint). See `src/pages/README.md`. |
+| `src/pages/` | File-based routes: `index.astro` (latest week), `about.astro`, `weeks/[slug].astro` (historical week), `api/weeks/[slug].json.ts` (JSON endpoint). See `src/pages/_README.md` (underscore-prefixed so Astro doesn't publish it as a route). |
 | `src/components/` | `.astro` components consumed by the pages — `PaperTable`, `TrendCharts`, `WeekCalendar`. See `src/components/README.md`. |
 | `src/layouts/` | `BaseLayout.astro`, the shared `<head>`/nav/footer shell every page renders into. See `src/layouts/README.md`. |
 | `src/lib/` | The data-loading layer (`data.js`) plus pure, unit-tested helper modules each component imports its rendering logic from. See `src/lib/README.md`. |

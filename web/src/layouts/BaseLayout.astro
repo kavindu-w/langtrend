@@ -19,6 +19,9 @@ const build = getBuildInfoOnce({ repoUrl });
 // GoatCounter site code (the "<code>" in <code>.goatcounter.com). Unset in
 // local dev and forks, so neither tracking nor the visit counter load there.
 const goatCounterCode = import.meta.env.PUBLIC_GOATCOUNTER_CODE ?? '';
+// Google Search Console ownership token (the content="..." of its HTML-tag
+// verification method). Unset = no verification tag.
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION ?? '';
 const digestEnabled = Boolean(import.meta.env.PUBLIC_BUTTONDOWN_USERNAME);
 // Visit count as of this build; the footer script refreshes it live.
 // One request per production build; per request under `astro dev`, so a long
@@ -36,6 +39,8 @@ const visitLabel = visitSnapshot ? `${compactNumber(visitSnapshot)} ${visitSnaps
     <meta name="color-scheme" content="light" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="sitemap" href={`${base}/sitemap-index.xml`} />
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
     {goatCounterCode && (
       <script
         is:inline

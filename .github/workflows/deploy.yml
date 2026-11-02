@@ -87,6 +87,9 @@ jobs:
           # Also a variable: the newsletter's public username. Unset = no
           # signup form or footer link.
           PUBLIC_BUTTONDOWN_USERNAME: ${{ vars.BUTTONDOWN_USERNAME }}
+          # Also a variable: Google Search Console's HTML-tag verification
+          # token. Unset = no verification meta tag.
+          PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
         run: npm run build
 
       - name: Configure Pages
