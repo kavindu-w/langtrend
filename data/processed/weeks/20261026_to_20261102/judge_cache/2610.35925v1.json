@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35925v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T06:40:45.542586+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11707,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of the model name 'GPT-5.6 Luna', not referring to the human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is referenced throughout as the language of documents, prompts, and the ReCoPII-Ko dataset, and the paper builds Korean PII annotations, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as the language of prompts, translations, and calibration essays, but the paper does not build or evaluate resources for English, only mentions it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

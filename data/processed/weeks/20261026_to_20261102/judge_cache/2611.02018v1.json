@@ -1,9 +1,24 @@
 {
   "paper_id": "http://arxiv.org/abs/2611.02018v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-11-03T22:15:52.387821+00:00",
+  "judged_at": "2026-11-04T03:58:57.083049+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 9273,
-  "verdicts": {},
-  "partial": true
+  "verdicts": {
+    "Muda": {
+      "verdict": "false_positive",
+      "reason": "Muda refers to MuDA, a discourse evaluation model, not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is the source language of the benchmark, used for data collection, annotation, and evaluation, indicating the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language of the benchmark, used for translations, prompts, and expert annotation, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
 }

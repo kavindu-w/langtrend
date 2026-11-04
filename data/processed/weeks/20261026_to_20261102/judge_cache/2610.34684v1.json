@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.34684v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T06:16:31.268821+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2513,
+  "verdicts": {
+    "Ama": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'AMA‑Bench', a benchmark name, not the human language 'Ama', so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet uses 'Hindi' to describe a film language, not as a studied resource, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35533v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T05:14:16.392478+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2890,
+  "verdicts": {
+    "Chin": {
+      "verdict": "false_positive",
+      "reason": "The token \"chin\" appears as a word in embedding analysis, not as a reference to the Chin language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kala": {
+      "verdict": "false_positive",
+      "reason": "The token \"kala\" appears as a word in embedding analysis, not as a reference to the Kala language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet references English words and nouns as part of the experimental dataset and analysis, indicating the English language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

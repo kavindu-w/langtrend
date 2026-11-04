@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.36384v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T05:05:05.042838+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3840,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is listed as a closed‑source model name among evaluated MLLMs, not a reference to the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "The term 'nasal' appears only within 'nasal swab' as an adjective describing a medical item, not as a reference to the Nasal language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek is used to indicate that SOMA means 'body' in Greek, a mere mention of the Greek language without any study or resource creation, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

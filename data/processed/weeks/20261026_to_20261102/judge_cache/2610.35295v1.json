@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35295v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T05:51:52.580973+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3531,
+  "verdicts": {
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "Ik is an acronym P(IK) for a control method, not the language Ik; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae appears as part of the name Vanessa-Mae, a person's name, not the language Mae; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the data and evaluation; the paper uses English data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35269v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T05:39:19.867731+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5805,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier is a Lean definition for a vertex type, not a human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Leti": {
+      "verdict": "false_positive",
+      "reason": "Leti is a false positive from the Lean keyword 'letI', not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb meaning to fix source revisions, not a language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

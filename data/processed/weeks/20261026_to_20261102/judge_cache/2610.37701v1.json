@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.37701v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T06:29:15.054243+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6490,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the Jina-Reranker model (a reranking baseline), not the Jina language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Indonesian": {
+      "verdict": "false_positive",
+      "reason": "Indonesian is used as an adjective for the Indonesian president (nationality), not the Indonesian language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

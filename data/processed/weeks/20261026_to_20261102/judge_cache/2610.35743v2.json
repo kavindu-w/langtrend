@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35743v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T05:35:37.011844+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5965,
+  "verdicts": {
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole refers to a directional extreme in decision collapse experiments, not the human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tem": {
+      "verdict": "false_positive",
+      "reason": "Tem appears as part of 'tem architecture' (likely an abbreviation), not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the required language for generations in the evaluation; the paper only mentions it, not studying it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

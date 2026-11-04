@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.36797v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T04:27:15.533243+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3130,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier is used as a common noun ('different-carrier interpretation') and does not refer to the Carrier language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is directly referenced as the language of NP/Z garden paths being studied, indicating the paper works on English, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "Fam appears as the abbreviation 'fam.' in a table column likely meaning 'family', not referencing the language Fam, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

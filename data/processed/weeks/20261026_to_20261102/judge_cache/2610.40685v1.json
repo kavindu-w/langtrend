@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.40685v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T04:37:53.704183+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4468,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo is detected only as part of \"BO baseline\" (Bayesian Optimization) and not as a language reference, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is detected only in the phrase \"pin down\" (to determine) and not as a language reference, implying false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

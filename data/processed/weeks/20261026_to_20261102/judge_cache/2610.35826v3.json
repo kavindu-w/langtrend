@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35826v3",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T05:21:32.745952+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4314,
+  "verdicts": {
+    "Sansi": {
+      "verdict": "false_positive",
+      "reason": "Sansi is used as the model name SanSi in the snippets, not the human language, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese appears only within the model name Chinese-Jev, not as a language reference, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

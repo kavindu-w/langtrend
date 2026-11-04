@@ -1,0 +1,84 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35261v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T05:54:26.832756+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9829,
+  "verdicts": {
+    "Ese": {
+      "verdict": "false_positive",
+      "reason": "Ese appears as a Spanish demonstrative pronoun in the dataset examples, not as a language name, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Suena": {
+      "verdict": "false_positive",
+      "reason": "Suena appears as a Spanish verb meaning \"rings\" in the dataset examples, not as a language name, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "Mon does not appear as a language name in any snippet; it occurs only as part of other words, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is listed among the nine target languages in the dataset construction, indicating the paper studies Russian, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is listed among the nine target languages in the dataset construction, indicating the paper studies Chinese, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of the Italian idiom \"una luna blu\", not as a language name, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "Una appears as part of the Italian idiom \"una luna blu\", not as a language name, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "studied",
+      "reason": "Greek (Modern Greek) is listed among the nine target languages in the dataset construction, indicating the paper studies Greek, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is listed among the nine target languages in the dataset construction, indicating the paper studies Italian, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is listed among the nine target languages in the dataset construction, indicating the paper studies Turkish, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is listed among the nine target languages in the dataset construction, indicating the paper studies Arabic, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the source language and is used throughout the dataset and experiments, indicating the paper studies English, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to the French language in the dataset description, translation examples, and results; thus the paper studies French.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the Japanese language as one of the nine target languages in the dataset; thus the paper studies Japanese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish refers to the Spanish language in the dataset list, translation examples, and base triplet distribution; thus the paper studies Spanish.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

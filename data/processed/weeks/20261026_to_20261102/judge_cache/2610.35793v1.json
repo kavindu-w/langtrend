@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35793v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T05:09:56.518169+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11790,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a proprietary LLM system (GPT Luna 5.6 + Websearch) used in experiments, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu refers to an open-source research agent (DR Tulu) used in experiments, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used only to denote the language of the datasets (e.g., DeepResearch Bench II (English)), not studied or evaluated as a language itself, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

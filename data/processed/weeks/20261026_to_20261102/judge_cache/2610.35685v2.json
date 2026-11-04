@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35685v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T04:56:48.156474+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4160,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of the model name 'GPT-6 Luna', not as a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian refers to Russian-language cultural-event announcements in a cited study, not studied in the paper, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the Tripadvisor reviews used for extraction and evaluation, thus part of the paper's experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.36511v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T04:49:55.522984+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3150,
+  "verdicts": {
+    "Moba": {
+      "verdict": "false_positive",
+      "reason": "Moba refers to MoBA, a tool/dataset anchor mentioned in the In-the-Loop Pilot, not the human language Moba; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language in the Limitations and Label Validation snippets; the paper only mentions English-language research without building resources for it, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

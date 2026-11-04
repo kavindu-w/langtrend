@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.38977v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T06:30:50.649837+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9218,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to model names such as GPT-6 Luna and Luna 2026-07, not the human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mpi": {
+      "verdict": "false_positive",
+      "reason": "Mpi appears as 'MPI', a parallel computing library, not a human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sera": {
+      "verdict": "false_positive",
+      "reason": "Sera refers to model names like SERA-8B, SERA-32B, and Ai2's SERA coding agents, not the human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa appears as the technique WA-0CoT, not a human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "Gan appears as 'graph GAN', a generative adversarial network architecture, not a human language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is referenced in a study titled 'Analyzing ChatGPT’s Problem-solving Capabilities in Arabic-Based Software tasks', indicating the paper includes work on Arabic code; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only as a filter for inclusion (EC1: not in English), not as a target language for code generation; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

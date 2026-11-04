@@ -1,0 +1,79 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35191v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T06:05:57.722016+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11926,
+  "verdicts": {
+    "Alabama": {
+      "verdict": "false_positive",
+      "reason": "Alabama refers to a US state, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dakota": {
+      "verdict": "false_positive",
+      "reason": "Dakota refers to a US state (South Dakota), not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Delaware": {
+      "verdict": "false_positive",
+      "reason": "Delaware refers to a US state, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chin": {
+      "verdict": "false_positive",
+      "reason": "Chin is an author name in citation, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mama": {
+      "verdict": "false_positive",
+      "reason": "Mama appears as a word in the Ambiance frame examples, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mian": {
+      "verdict": "false_positive",
+      "reason": "Mian appears as a Chinese word for noodle in a pun example, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nisa": {
+      "verdict": "false_positive",
+      "reason": "Nisa appears as part of a personal name (Nisa Khan), not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "Korean appears as a cuisine descriptor (Korean Tofu Soup), not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin refers to the romanization system for Mandarin, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lao": {
+      "verdict": "false_positive",
+      "reason": "Lao appears in the restaurant name 'Hai Di Lao', not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mongolian": {
+      "verdict": "false_positive",
+      "reason": "Mongolian appears as a cuisine descriptor (Mongolian hot pot), not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "false_positive",
+      "reason": "Thai appears as a cuisine descriptor (Chinese and Thai cuisine), not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Chinese language (e.g., Chinese names, Chinese transcription, Chinese‑speaking customers) and the paper studies these names by creating a parallel Chinese/English dataset and",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the English language (e.g., English names, English frames, English transcription) and the paper studies these names as part of its parallel dataset and analysis of naming discrep",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

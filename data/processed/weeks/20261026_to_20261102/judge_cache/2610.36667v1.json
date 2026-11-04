@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.36667v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T04:35:34.274425+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11930,
+  "verdicts": {
+    "Miao": {
+      "verdict": "false_positive",
+      "reason": "Miao refers to an author name (Miao and Kan) in the citation, not the Miao language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used throughout the paper as the source language for corpora and as a target language in experiments, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese is the primary target language of the study: corpora are built, parsers are trained/evaluated, and discourse markers are analyzed, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

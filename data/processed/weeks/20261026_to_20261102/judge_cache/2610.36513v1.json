@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.36513v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T04:35:51.741307+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6514,
+  "verdicts": {
+    "Ama": {
+      "verdict": "false_positive",
+      "reason": "Ama refers to the American Medical Association (AMA) constitution, not the human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae refers to the metric MAE (mean absolute error) used in evaluation, not the human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mal": {
+      "verdict": "false_positive",
+      "reason": "Mal refers to the abbreviation \"Non-maleficence\" (or \"mal\" part of maleficence) in ethical principles, not the human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese refers to Chinese language settings in benchmarks, a mention of the language without studying it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.36230v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T04:49:06.298583+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11852,
+  "verdicts": {
+    "Faroese": {
+      "verdict": "mentioned_only",
+      "reason": "Faroese is referenced as a language used in filtering documents, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Icelandic": {
+      "verdict": "studied",
+      "reason": "Icelandic is the target language of the study, with data, models, and evaluations built for it → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Danish": {
+      "verdict": "mentioned_only",
+      "reason": "Danish is referenced as a language used in filtering to exclude non‑Icelandic documents → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Norwegian": {
+      "verdict": "mentioned_only",
+      "reason": "Norwegian is referenced as a language used in filtering to exclude non‑Icelandic documents → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swedish": {
+      "verdict": "mentioned_only",
+      "reason": "Swedish is referenced as a language used in filtering to exclude non‑Icelandic documents → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a source model (Ettin, mmBERT) and its effect on Icelandic tasks is evaluated → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

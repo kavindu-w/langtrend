@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35482v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T05:22:36.233002+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9516,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier is used as a generic term \"evidence carrier\" in the protocol, not referring to the human language Carrier, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced throughout as the source language, image descriptions, and the Chinese Judger, indicating the paper studies Chinese language translation.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the target language for translation, prompts, and evaluation, indicating the paper studies English as the output language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

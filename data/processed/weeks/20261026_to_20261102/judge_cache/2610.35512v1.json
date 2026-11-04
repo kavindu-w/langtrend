@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35512v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T05:34:15.376858+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11668,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"pinyin transliterations\", which refers to the romanization system for Chinese, not the Chinese language itself. This is a false positive (a script name).",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet includes Chinese terms with pinyin transliterations and Chinese posts, indicating the Chinese language is referenced. The paper is a Chinese multi-disorder mental health dataset, so Chines",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet contains English text, English LIWC lexicon, English classifiers, English posts, and English translations. The paper includes English-language analyses, English classifiers, and English tr",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

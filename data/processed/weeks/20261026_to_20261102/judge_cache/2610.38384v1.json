@@ -1,7 +1,7 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.38384v1",
   "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-11-04T02:10:09.969131+00:00",
+  "judged_at": "2026-11-04T04:15:10.970753+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 8265,
   "verdicts": {
@@ -9,7 +9,16 @@
       "verdict": "false_positive",
       "reason": "Gan does not appear in the provided snippet and thus is a false positive.",
       "model": "cohere/north-mini-code:free"
+    },
+    "Irish": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Irish as the target language for TTS adaptation, data, lexicon, evaluation, etc., indicating the paper studies Irish.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention English only as the source language of the Wiktionary dump used for Irish lexicon, not as a language under study.",
+      "model": "cohere/north-mini-code:free"
     }
-  },
-  "partial": true
+  }
 }

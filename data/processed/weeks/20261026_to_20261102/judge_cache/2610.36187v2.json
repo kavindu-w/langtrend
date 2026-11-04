@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.36187v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T04:43:52.835467+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3336,
+  "verdicts": {
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "Russian in snippets refers to Russian interference/meddling (the country), not the Russian language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English in snippets refers to English stopwords (the language) and the paper processes English-language congressional e-newsletters, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

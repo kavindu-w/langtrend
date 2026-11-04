@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35910v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T06:27:13.011756+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2815,
+  "verdicts": {
+    "Ito": {
+      "verdict": "false_positive",
+      "reason": "Ito appears as a surname in the list of generated surnames, not as a human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake occurs in the phrase \"for the sake of\", not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the language of prompt formulation, but the paper does not study or build resources for it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
