@@ -1,9 +1,19 @@
 {
   "paper_id": "http://arxiv.org/abs/2610.38333v1",
-  "judge_model": "cohere/north-mini-code:free",
-  "judged_at": "2026-11-04T04:18:30.215732+00:00",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-11-04T08:16:06.137238+00:00",
   "context_coverage": "abstract+html",
   "context_chars": 3465,
-  "verdicts": {},
-  "partial": true
+  "verdicts": {
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "The term refers to a mathematical or categorical value (opposite ends of a spectrum) in the context of encoding syndrome fields, not a human language, implying a false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Traditional Chinese medicine (TCM) and its associated texts and knowledge, implying the language is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
 }

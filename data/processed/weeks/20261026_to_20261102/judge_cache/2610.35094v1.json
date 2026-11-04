@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.35094v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T07:14:18.154023+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11817,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the Moon in a headline, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sera": {
+      "verdict": "false_positive",
+      "reason": "Sera appears as part of 'Corriere della Sera', a newspaper name, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Una": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets contain no mention of the language 'Una'; insufficient evidence to confirm a language reference, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek is referenced as 'Greek story of Rhodopis' in a Wikipedia excerpt, a mention of the language but not studied in the paper; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is the target language of the study, with dedicated datasets, prompts, and evaluations; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the other target language of the study, with experiments and evaluations; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
