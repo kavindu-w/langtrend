@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.00387v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T00:21:05.240084+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5353,
+  "verdicts": {
+    "Alabama": {
+      "verdict": "false_positive",
+      "reason": "Alabama refers to a US state in the table, not a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language used for participants' fluency and Wikipedia data for LLM pretraining, indicating the paper uses English language data and participants, thus studying English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

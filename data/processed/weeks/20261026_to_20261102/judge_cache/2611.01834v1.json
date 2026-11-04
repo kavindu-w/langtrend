@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.01834v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T22:30:05.574080+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8161,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier is used as a technical term for the location of rule text in rule atoms, not the human language Carrier, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col appears as a column reference in query syntax (e.g., 'col': 'title'), not the human language Col, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the business domain tasks and prompts, indicating the paper builds and evaluates environments in English, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

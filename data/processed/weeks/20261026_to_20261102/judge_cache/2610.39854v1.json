@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.39854v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T01:20:26.195907+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3400,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to a cosine carrier (signal processing term) in the mathematical formalization, not a human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tay": {
+      "verdict": "false_positive",
+      "reason": "Tay is an author name (cited as 'Tay et al.') in the survey reference, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the human language of the TinyStories dataset used for training and evaluation, so the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

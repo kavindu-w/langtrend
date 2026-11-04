@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.38016v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T02:33:01.217458+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10159,
+  "verdicts": {
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Miami appears only as part of the dataset name \"Bangor Miami\", not as the Miami language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced throughout as the learners' L1 and as a language context (English-only, code-switched) evaluated in ASR performance, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is the target L2 language, with dedicated evaluation of Spanish-only speech, adaptation of models, and analysis of code-switching, indicating the paper studies Spanish.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

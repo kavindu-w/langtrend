@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.40996v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T00:35:58.044433+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8032,
+  "verdicts": {
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Bengali as the language of the benchmark and instructions, indicating the paper studies Bengali.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the verb 'Polish' (to refine) rather than a reference to the Polish language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned as a language used in other benchmarks, but the paper does not study it, only references it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as 'English-first' benchmarks, but the paper does not study English, only mentions it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

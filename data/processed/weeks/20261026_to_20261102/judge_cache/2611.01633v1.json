@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.01633v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T22:25:34.304800+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 7366,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "Ami appears as a Banglish pronoun in comments, not the language Ami.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nai": {
+      "verdict": "false_positive",
+      "reason": "Nai appears as a Banglish word meaning 'not' in comments, not the language Nai.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "Mon appears as part of Banglish expressions like 'mon kharap', not the language Mon.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sinhala": {
+      "verdict": "mentioned_only",
+      "reason": "Sinhala is mentioned as a target language for future extension of the framework, not studied in experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is referenced as a code-mixed language for potential future work, not part of the current study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "mentioned_only",
+      "reason": "Tamil is listed as another South Asian code-mixed language for possible extension, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is cited as an example of other language work in mental health NLP, not part of this paper’s experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned as a language with its own mental health dataset (Chinese-MentalBERT), not studied here.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "Bengali is the primary language of the dataset, preprocessing, and experiments; the paper studies Bengali depression detection.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced only in prior work and baseline descriptions, not part of the paper’s experiments on Bengali.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

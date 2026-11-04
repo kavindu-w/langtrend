@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.41435v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T00:29:56.469061+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4393,
+  "verdicts": {
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Hungarian in the snippet refers to a person's nationality (Viktor Orbán is a Hungarian lawyer), not the Hungarian language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English in the snippet refers to the English language via English Wikipedia article, which the paper uses as a resource for constructing probes → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French in the snippet refers to nationality (French actress, filmmakers) and not the French language → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German in the snippets refers to nationality (German author, German auto industry) and not the German language → false positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.37380v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T03:08:04.691244+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6546,
+  "verdicts": {
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "Logo appears as 'publisher logo' in the prompt, referring to a visual mark, not the Logo language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of the model name 'GPT-5.6-Luna' in all snippets, indicating a proprietary LLM, not the Luna language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language for writing explanations and as the language of the VeriTaS dataset used in experiments, indicating the paper studies English; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

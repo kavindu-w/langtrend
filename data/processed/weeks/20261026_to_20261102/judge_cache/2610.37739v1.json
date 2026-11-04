@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.37739v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T03:06:38.997239+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6404,
+  "verdicts": {
+    "Anal": {
+      "verdict": "false_positive",
+      "reason": "Anal appears as an abbreviation for 'Analysis' in research area labels (e.g., Anal./PDE), not the human language Anal.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears in the phrase 'Latin square', a combinatorial object, not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language of problem titles ('English item title'), a reference to the language but not studied in the paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of model names like 'GPT-6-luna' and in table headings, not the human language Luna.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears as the verb 'polish this paper', not the language Polish.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

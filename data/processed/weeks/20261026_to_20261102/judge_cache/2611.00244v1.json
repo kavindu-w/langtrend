@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.00244v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T00:06:27.983218+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4332,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears as an adjective describing script (non-Latin examples) in a prompt description, not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language being studied, as the paper focuses on English book-level QA and mentions English datasets.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French appears as an adjective describing locations (French Riviera) in a sample trajectory, not the French language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.40518v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T00:55:09.437940+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3039,
+  "verdicts": {
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, \"Chinese\" appears as part of domain labels like \"Chinese Bar Exam\" and \"US/Chinese IP Law\", referring to China/legal domain rather than the Chinese language, making it a false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions \"general English\" and states the benchmark is limited to English, indicating the paper builds and evaluates a dataset for the English language, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

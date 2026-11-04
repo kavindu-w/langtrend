@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.00496v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T23:45:53.943811+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2970,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to model names (e.g., 9B carrier, 0.8B carrier) in the snippets, not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of benchmark items and prompts (e.g., 'who speaks proper English', 'English-only benchmarks'), showing the paper evaluates models on English-language data, thus i",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

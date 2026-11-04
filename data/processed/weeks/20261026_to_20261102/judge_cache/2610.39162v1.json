@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.39162v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T01:55:41.085391+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3485,
+  "verdicts": {
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "Gan is referenced only as part of model/loss names like 'GAN-loss' and 'ChromaGAN', not as the human language Gan, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is mentioned as the target language in German‑to‑English NMT and in model names, and the paper uses English data and models in its experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German appears as the source language in German‑to‑English NMT and in qualitative examples, and the paper includes German in its experimental evaluations, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

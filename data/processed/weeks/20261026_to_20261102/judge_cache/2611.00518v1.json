@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.00518v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T23:55:25.557626+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4020,
+  "verdicts": {
+    "Pom": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'pom.xml' (Maven project file), not the human language Pom, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show the paper filters WildChat-1M to English and evaluates on English conversations, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

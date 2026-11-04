@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.00819v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T23:33:33.097431+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5482,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to 'mail carrier' (a job) in the snippet, not the Carrier language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Manta": {
+      "verdict": "false_positive",
+      "reason": "Manta refers to 'manta ray' in the snippet, not the Manta language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Venetian": {
+      "verdict": "false_positive",
+      "reason": "Venetian refers to a Venetian mask in the snippet, not the Venetian language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Norwegian": {
+      "verdict": "false_positive",
+      "reason": "Norwegian refers to a Norwegian fjord village in the snippet, not the Norwegian language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "Japanese refers to a Japanese garden in the snippet, not the Japanese language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian refers to the Italian Alps in the snippet, not the Italian language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language (English Wikipedia, English word list) used in constructing the vocabulary retrieval dataset, thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

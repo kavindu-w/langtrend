@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.37397v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T03:02:02.485634+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5159,
+  "verdicts": {
+    "Efe": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, \"efe\" appears as part of the label \"Bargaining f efe da Round\", not as a reference to the Efe language; it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"MAE\" (Mean Absolute Error), a metric, not the language Mae; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "The snippet repeatedly includes \"tit for tat\", a negotiation strategy, not the language Tat; this is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

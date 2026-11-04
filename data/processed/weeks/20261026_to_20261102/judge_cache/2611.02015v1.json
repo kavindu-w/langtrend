@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.02015v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T22:09:53.308081+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3888,
+  "verdicts": {
+    "Chokwe": {
+      "verdict": "false_positive",
+      "reason": "Refers to the Chokwe people in a description of ideographs, not the Chokwe language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lunda": {
+      "verdict": "false_positive",
+      "reason": "Refers to the Lunda people in a description of ideographs, not the Lunda language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Akan": {
+      "verdict": "false_positive",
+      "reason": "Refers to the Akan people in a description of Adinkra symbols, not the Akan language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pirahã": {
+      "verdict": "mentioned_only",
+      "reason": "Mentions the Pirahã language as an example of a language with limited grammar, but the paper does not study or evaluate it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "Uses English as the source language for constructing impossible languages and experiments on the BabyLM English corpus, indicating the language is part of the paper's experiments.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

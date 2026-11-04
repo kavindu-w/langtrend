@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.38681v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T02:06:53.223703+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4186,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col appears as a variable name (e.g., 'col ys') in code snippets, not as a reference to a human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wanda": {
+      "verdict": "false_positive",
+      "reason": "Wanda is a pruning method (Wanda-based pruning) described in the paper, not a human language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

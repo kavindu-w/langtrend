@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.36918v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T03:43:40.622015+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5284,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of model names (GPT-5.6-Luna, gpt-5.6-luna) and not as a language reference, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "Mon is not present in any snippet text; the candidate likely arises from a false detection and does not refer to a human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the language of prose being polished by AI tools, a mere mention without study, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

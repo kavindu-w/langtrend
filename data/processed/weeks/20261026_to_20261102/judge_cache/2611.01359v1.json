@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.01359v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T23:05:41.799456+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11749,
+  "verdicts": {
+    "Ari": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to the ARI readability formula (Automated Readability Index), not the Ari language; thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kango": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Sino‑Japanese word origin category (kango), not a language; thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swedish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Swedish language in a cited study of reading development, not a focus of the paper; thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to English language and its readability formulae, which the paper studies; thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The snippet refers to Japanese language and its readability formula jReadability, which the paper analyses; thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

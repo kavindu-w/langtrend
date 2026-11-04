@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.38422v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T02:39:35.086936+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5938,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "Agi appears as part of the benchmark name 'agi eval', not the language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish is used as the verb 'polish' describing manuscript editing, not the language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English denotes the training language and the English LAMBADA evaluation dataset, showing the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

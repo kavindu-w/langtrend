@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.41116v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T00:41:06.833856+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2198,
+  "verdicts": {
+    "Mum": {
+      "verdict": "false_positive",
+      "reason": "Mum refers to the word \"mum\" meaning mother in the text, not the Mum language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language as the language of the AITA forum; the paper only mentions it, not studying it; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

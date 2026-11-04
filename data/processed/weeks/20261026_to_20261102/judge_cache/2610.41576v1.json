@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.41576v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T00:17:23.709851+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11866,
+  "verdicts": {
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Miami appears as a location name in a geo_distance function call, not as a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tajik": {
+      "verdict": "studied",
+      "reason": "Tajik is referenced throughout as the target language for adaptation, tool calling, and evaluation (state language of Tajikistan, Tajik benchmarks, etc.), indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is mentioned only in the context of the Russian alphabet when filtering data, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the source language for tool calls, replay data, and evaluation benchmarks (MMLU, BFCL), and its performance is measured, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

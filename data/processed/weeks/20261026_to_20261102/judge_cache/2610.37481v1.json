@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.37481v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T03:01:43.532537+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8223,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'Tulu 3', a fine‑tuning dataset, not the human language Tulu, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets discuss English examples being removed at higher rates, i.e., a mention of the English language, but the paper does not study or build resources for English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

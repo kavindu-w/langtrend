@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.00650v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T23:41:25.050286+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3831,
+  "verdicts": {
+    "Fala": {
+      "verdict": "false_positive",
+      "reason": "Fala appears as part of the citation \"FaLA Huang et al. (2023)\", a paper/method name, not the human language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae appears as the abbreviation \"MAE\" (Mean Absolute Error) in evaluation tables, not the language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Hungarian appears as reference to the \"Hungarian algorithm\", a computational method, not the language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears as the verb \"polish sentences\", meaning to refine language, not the language itself, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.39227v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T01:40:26.808194+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7601,
+  "verdicts": {
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions a Chinese phrase (那是) leaking into a Japanese answer, which is a direct reference to the Chinese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet states that the model's reasoning is in English, indicating a reference to the English language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "All snippets refer to Japanese language tasks, evaluation benchmarks, prompts, and OCR, showing the paper builds and evaluates models for Japanese.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

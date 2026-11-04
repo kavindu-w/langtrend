@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.39590v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T01:27:57.262764+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11741,
+  "verdicts": {
+    "Tay": {
+      "verdict": "false_positive",
+      "reason": "Tay refers to Microsoft’s Tay chatbot, a model name, not the human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hausa": {
+      "verdict": "mentioned_only",
+      "reason": "Hausa is mentioned as one of the major Nigerian ethnic groups referenced in prompts, but the study does not evaluate it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Igbo": {
+      "verdict": "mentioned_only",
+      "reason": "Igbo is mentioned as one of the major Nigerian ethnic groups and in a prompt referencing Igbo speakers, but the study does not evaluate it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yoruba": {
+      "verdict": "studied",
+      "reason": "Yoruba is the primary target language of the study, with prompts, translations, and evaluation of model safety and comprehension in Yoruba.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as the baseline language for prompts and evaluation, and the study reports results for English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.40031v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T01:27:42.660141+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2147,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo refers to a contributor name (Bo Zhang) in the author list, not the language Bo, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sihan": {
+      "verdict": "false_positive",
+      "reason": "Sihan refers to a contributor name (Sihan Chen) in the author list, not the language Sihan, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "Gan refers to a contributor name (Hongwen Gan) in the author list, not the language Gan, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese appears as 'Chinese characters' in the experimental results, indicating the study uses Chinese language as the medium of input, so the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

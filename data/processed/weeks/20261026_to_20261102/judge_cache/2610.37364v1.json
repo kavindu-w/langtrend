@@ -1,0 +1,99 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.37364v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T03:29:27.989713+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8106,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "The snippets show the term \"jina-embed- -omni-nano\" and \"jina-embed- -text-nano\" etc. These are model names (Jina Omni Nano, Jina Text Nano) rather than references to the human language Jina. Hence it",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gujarati": {
+      "verdict": "false_positive",
+      "reason": "The snippet lists \"Gujarati (India) (gu-IN)\" as a language code in a results table. This is a language code, not a discussion of Gujarati language itself. The paper is presenting multilingual benchmar",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kannada": {
+      "verdict": "false_positive",
+      "reason": "Same as above: \"Kannada (India) (kn-IN)\" appears as a language code in results table, not a discussion of the language. False positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Malayalam": {
+      "verdict": "false_positive",
+      "reason": "Same as above: \"Malayalam (India) (ml-IN)\" appears as a language code in results table. False positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Marathi": {
+      "verdict": "false_positive",
+      "reason": "Same as above: \"Marathi (India) (mr-IN)\" appears as a language code in results table. False positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "false_positive",
+      "reason": "Same as above: \"Swahili (sw)\" appears as a language code in results table. False positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Telugu": {
+      "verdict": "false_positive",
+      "reason": "Same as above: \"Telugu (India) (te-IN)\" appears as a language code in results table. False positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "false_positive",
+      "reason": "Same as above: \"Bengali (Bangladesh) (bn-BD)\" appears as a language code in results table. False positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "false_positive",
+      "reason": "Same as above: \"Hindi (India) (hi-IN)\" appears as a language code in results table. False positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "false_positive",
+      "reason": "Same as above: \"Tamil (India) (ta-IN)\" appears as a language code in results table. False positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "false_positive",
+      "reason": "Same as above: \"Urdu (India) (ur-IN)\" and \"Urdu (Pakistan) (ur-PK)\" appear as language codes in results table. False positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Finnish": {
+      "verdict": "false_positive",
+      "reason": "Same as above: \"Finnish (Finland) (fi-FI)\" appears as a language code in results table. False positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Indonesian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C Full Results lists \"Indonesian (Indonesia) (id-ID)\" as a language entry, indicating a reference to the Indonesian language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C Full Results lists \"Korean (South Korea) (ko-KR)\" as a language entry, indicating a reference to the Korean language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C Full Results lists \"Russian (Russia) (ru-RU)\" as a language entry, indicating a reference to the Russian language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C Full Results lists \"Arabic (Egypt) (ar-EG)\", \"Arabic (Gulf) (ar-x-gulf)\", \"Arabic (Levant) (ar-x-levant)\", \"Arabic (Maghreb) (ar-x-maghrebi)\" etc., indicating references to",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from Appendix C Full Results lists \"Japanese (Japan) (ja-JP)\" as a language entry, indicating a reference to the Japanese language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet from 2 EmbeddingGemma 2, 2.4 Recipe, Quantization-Aware Training includes \"MTEB(English, v2)\" and \"Overall In-Lang Cross-Lang\", which refer to the English language as part of benchmark tas",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

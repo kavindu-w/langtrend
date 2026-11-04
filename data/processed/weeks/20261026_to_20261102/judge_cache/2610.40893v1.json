@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.40893v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T00:47:08.370721+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5866,
+  "verdicts": {
+    "Unami": {
+      "verdict": "false_positive",
+      "reason": "The candidate name \"Unami\" actually refers to \"UNAMI\" (United Nations Assistance Mission for Iraq) in the snippet, not the language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "mentioned_only",
+      "reason": "The candidate name \"Dutch\" appears as a language name in a list of languages for which MBBQ benchmarks exist, indicating a mention of the language but not a study, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "The candidate name \"Turkish\" appears as a language name in a list of languages for which MBBQ benchmarks exist, indicating a mention of the language but not a study, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The candidate name \"French\" appears as a language name in a list of benchmarks (French CrowS-Pairs), indicating a mention of the language but not a study, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The candidate name \"Spanish\" appears as a language name in a list of languages for which MBBQ benchmarks exist, indicating a mention of the language but not a study, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The candidate name \"Arabic\" refers to the Arabic language throughout the snippets (e.g., Arabic qistas, Modern Standard Arabic, Iraqi Arabic, Arabic agreement), and the paper builds resources and cond",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The candidate name \"English\" appears as a language name in the context of existing English datasets, indicating a mention of the language but not a study, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

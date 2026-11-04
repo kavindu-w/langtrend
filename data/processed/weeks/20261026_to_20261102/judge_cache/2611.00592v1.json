@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.00592v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T23:31:58.428109+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11932,
+  "verdicts": {
+    "Kyrgyz": {
+      "verdict": "mentioned_only",
+      "reason": "Kyrgyz is mentioned as a language in the Belebele benchmark evaluation, not part of the paper's experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kazakh": {
+      "verdict": "mentioned_only",
+      "reason": "Kazakh is mentioned as a language in the Belebele benchmark evaluation, not part of the paper's experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uzbek": {
+      "verdict": "mentioned_only",
+      "reason": "Uzbek is mentioned as a language in the Belebele benchmark evaluation, not part of the paper's experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tajik": {
+      "verdict": "studied",
+      "reason": "Tajik is the target language of the paper; the authors build a Tajik text embedder, fine-tune on Tajik data, and evaluate on Tajik benchmarks.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is referenced only as related work (nearest work on Persian retrieval), not studied in the paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian appears as replay training data (MIRACL, ru-HNP) and is evaluated on Belebele Russian, indicating it is part of the paper's experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English appears as replay training data (Natural Questions) and is evaluated on Belebele English, indicating it is part of the paper's experiments.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

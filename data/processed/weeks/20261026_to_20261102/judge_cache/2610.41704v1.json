@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.41704v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T00:45:44.981540+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11647,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the model GPT-5.6-Luna, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese appears in \"Chinese restaurant process\", a statistical method, not the language Chinese, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the human language, mentioned only that prompts are in English, so it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

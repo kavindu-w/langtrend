@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.40847v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T00:59:24.569706+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5173,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'Abu Dhabi', a city name, not the Abu language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'Mo PS4 7', which appears to be a model or tool name, not the Mo language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the phrase 'tat world', a colloquial use of 'tat', not the Tat language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Maori": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet includes 'Maori' as a personal name in generated text, with no clear reference to the Maori language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Russian' as an adjective describing Cold War discourse, not the Russian language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Chinese' as an adjective for data, not the Chinese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions 'Original English text', indicating the paper generates and evaluates English language text.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

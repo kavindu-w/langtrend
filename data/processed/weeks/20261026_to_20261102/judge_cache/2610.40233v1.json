@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.40233v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T01:19:50.078774+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7886,
+  "verdicts": {
+    "Mambae": {
+      "verdict": "studied",
+      "reason": "Mambae is referenced as a language (a manual in Mambae) and the paper aligns sentence pairs for it, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mambai": {
+      "verdict": "studied",
+      "reason": "Mambai is referenced as a language being aligned using Hunalign, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tat": {
+      "verdict": "studied",
+      "reason": "Tat appears as the language code 'tat Cyrl' in the list of languages evaluated, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chuvash": {
+      "verdict": "studied",
+      "reason": "Chuvash is referenced via the code 'chv' and language-specific orthography normalization is applied, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears only as a script descriptor (Latin script) and not as the Latin language itself, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a language (e.g., English sentences, language code eng, translation into English) and is part of the experiments, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

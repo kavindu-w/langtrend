@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.38366v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T02:27:00.377341+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5189,
+  "verdicts": {
+    "Ari": {
+      "verdict": "false_positive",
+      "reason": "Ari refers to a baseline method (ARI) in the experimental setup, not a language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "Deg is a variable counting directed edges in the methodology, not a language, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Danish": {
+      "verdict": "false_positive",
+      "reason": "Danish modifies 'Ministry of Defence and Security', a governmental body, not the language Danish, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "false_positive",
+      "reason": "English appears as part of the model name 'roberta-large-ner-english', not a language reference, thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

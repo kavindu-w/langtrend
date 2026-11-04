@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.01219v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T23:05:28.671671+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9087,
+  "verdicts": {
+    "Ale": {
+      "verdict": "false_positive",
+      "reason": "Ale is not mentioned in the snippets; the text refers to Slovak language reasoning, not the Ale language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mam": {
+      "verdict": "false_positive",
+      "reason": "Mam is not mentioned in the snippets; the text refers to Slovak language reasoning, not the Mam language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Musi": {
+      "verdict": "false_positive",
+      "reason": "Musi is not mentioned in the snippets; the text refers to Slovak language reasoning, not the Musi language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "Gan appears as part of the author names 'Gan and Mori' in the introduction, not as the Gan language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Slovak": {
+      "verdict": "studied",
+      "reason": "Slovak is repeatedly referenced as the target low‑resource language for dataset creation, prompting, and evaluation, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used as a baseline prompt language and default setup for comparison, but the paper does not conduct experiments on English, only mentions it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

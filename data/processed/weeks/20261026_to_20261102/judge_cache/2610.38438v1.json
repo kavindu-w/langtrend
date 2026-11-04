@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.38438v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T02:54:56.728862+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3977,
+  "verdicts": {
+    "Aisi": {
+      "verdict": "false_positive",
+      "reason": "Aisi refers to the domain inspect.aisi.org.uk (Inspect AI evaluation library), not the Aisi language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the Jina AI sentence-transformer model (jina-embeddings-v3), not the Jina language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the language of the experiments (all experiments are conducted in English); the paper only mentions English as the language of its tests, not building resources for it; thus mentione",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

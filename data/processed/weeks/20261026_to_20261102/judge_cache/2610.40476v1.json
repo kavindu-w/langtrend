@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.40476v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T01:39:17.309970+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8517,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears only as part of the model name OpenAI GPT-5.6-Luna, not as a human language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo is the abbreviation for Missouri (state) in the geographic listing, not a language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa is the abbreviation for Washington state in the geographic listing, not a language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is used in the phrase 'Latin American cultural contexts', referring to Latin America, not the Latin language, implying false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romanian": {
+      "verdict": "mentioned_only",
+      "reason": "Romanian is mentioned as 'Romanian national board certification', referring to the Romanian language, but only as a descriptor of panel certification, not studied, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of all consultations and evaluations, indicating the paper studies English as the target language for intake, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.37903v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T03:06:54.105039+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5385,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "Agi appears only as part of the benchmark name 'ARC-AGI-' (and 'ARC-AGI-2'), not as a language reference, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced in benchmark names such as 'AGIEval (English)' and 'Multi-IF (English)', indicating the paper evaluates models on English-language tasks, so it studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

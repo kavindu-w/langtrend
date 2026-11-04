@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.36878v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T03:37:42.508135+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4837,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina is a page‑reading tool used in the experimental setup, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of model names (GPT‑6‑luna) in the judge descriptions, not the language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the language of the 3,079 financial research reports that form the corpus and are used for constructing and evaluating RubricAtlas, indicating the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

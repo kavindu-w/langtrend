@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.37229v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T03:14:30.013449+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9271,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the model name gpt-6-luna, not the human language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language used as a filter for the IF-RewardBench dataset, not studied as a target language, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

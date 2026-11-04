@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.39671v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T01:34:09.531103+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2698,
+  "verdicts": {
+    "Ito": {
+      "verdict": "false_positive",
+      "reason": "Ito refers to \"Ito’s Formula\", a mathematical concept named after mathematician Kiyosi Ito, not a human language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Chinese as the language of textbook tables of contents, indicating a reference to the Chinese language; the paper only notes this usage, not studying it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references English as a language for paraphrasing textbook terms, indicating a mention of the English language; the paper only notes this usage, not studying it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

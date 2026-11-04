@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.00935v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T23:12:17.688955+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11868,
+  "verdicts": {
+    "Tetun": {
+      "verdict": "studied",
+      "reason": "Refers to the Tetun language (official language of Timor‑Leste) and the paper creates a Tetun medical QA dataset, evaluates translations, and fine‑tunes models on Tetun → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Refers to the Portuguese language used for orthographic transformation rules; the paper only mentions Portuguese as a source for rules, not studying it → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the source language for translation and as the language of original QA pairs, implying the paper only mentions English (mentioned_only).",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

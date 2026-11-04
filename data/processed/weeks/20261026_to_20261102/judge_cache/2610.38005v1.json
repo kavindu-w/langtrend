@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.38005v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T02:28:42.667672+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3533,
+  "verdicts": {
+    "Karen": {
+      "verdict": "false_positive",
+      "reason": "Karen refers to Prof. Karen Corrigan, a person name, not the language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "German refers to German dialect speakers in cited work, a mention of the German language without study, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to Newcastle English, a regional variety of English that the paper investigates, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

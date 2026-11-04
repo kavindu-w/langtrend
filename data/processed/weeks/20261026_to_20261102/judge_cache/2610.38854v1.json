@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.38854v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T02:03:40.046633+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4459,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a model name (gpt-5.6-luna) in the snippet, not the human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Breton": {
+      "verdict": "false_positive",
+      "reason": "Breton refers to a geographic location (the Breton coast) in the snippet, not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language used in queries and examples in the benchmarks, indicating the paper evaluates models on English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French refers to the language of instructions used in the benchmark, indicating the paper evaluates models on French.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.00469v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T00:16:19.810871+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11622,
+  "verdicts": {
+    "Chin": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'chin' as an anatomical reference (my chin), not the Chin language, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gane": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'Gane' as a character name in a story, not the Gane language, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swedish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet uses 'Swedish' as an adjective describing a person, indicating a reference to the Swedish language, but the paper does not study it, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Fur": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'fur' as a word describing animal hair, not the Fur language, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "mentioned_only",
+      "reason": "The provided snippets do not contain the term 'Mae', so we cannot confirm a false positive; thus we treat it as a mention, but the paper does not study it, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English-language story collections and English‑speaking participants, indicating the language is part of the experiments, so studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

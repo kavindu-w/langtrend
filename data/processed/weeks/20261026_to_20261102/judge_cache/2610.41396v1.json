@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2610.41396v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-04T01:00:13.915706+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2993,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo refers to the US state abbreviation 'MO' in the location 'St. Louis, MO, USA', not the human language Mo, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Piscataway": {
+      "verdict": "false_positive",
+      "reason": "Piscataway refers to a city (Piscataway, NJ) in the citation, not the human language Piscataway, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the collected research articles (English open-access literature), which the benchmark uses for data collection, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

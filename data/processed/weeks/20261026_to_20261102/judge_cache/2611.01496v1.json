@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.01496v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T22:47:02.767141+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3328,
+  "verdicts": {
+    "Gimme": {
+      "verdict": "false_positive",
+      "reason": "Gimme is a colloquial contraction for 'Give me' in prompts, not a language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole is a term used in evaluation prompts, not a language, implying false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language of the data, not studied, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

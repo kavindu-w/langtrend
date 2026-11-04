@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.02271v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-03T22:06:32.598269+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5575,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Latin ones' refers to Latin numerals/script, not the Latin language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "false_positive",
+      "reason": "In the snippet, 'Czech' refers to the Czech Republic/ministry, not the Czech language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "The snippet refers to Egyptian Arabic as a target language in error analysis, indicating the paper studies this dialect.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Arabic as the language of translation tasks, prompts, and specialized models, indicating the paper studies Arabic.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to English as the source/target language in translation directions and model evaluations, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
