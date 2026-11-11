@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.09117v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T02:59:23.409192+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2177,
+  "verdicts": {
+    "Adi": {
+      "verdict": "false_positive",
+      "reason": "ADI appears as a class label in the segmentation dataset, not referring to the Adi language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese reference reports refer to the Chinese language used in the evaluation dataset → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English references refer to the English language used in the evaluation dataset → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

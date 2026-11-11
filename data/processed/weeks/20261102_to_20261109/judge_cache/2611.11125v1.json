@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.11125v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T22:49:11.119657+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7086,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to AMI-IHM and AMI-SDM, which are dataset names (AliMeeting AMI), not the human language Ami.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not contain any clear reference to the Polish language; the context is about annotation and AI assistance, so the evidence is insufficient to confirm it refers to the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets show Chinese used for prompts (\"All values and captions in Chinese\"), evaluation (\"scoring Chinese by character\", Chinese normalizers), and data (\"transcription of Chinese audio\"), indica",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show English used for schema keys (\"key set in English\"), evaluation (\"scoring English by word\", English WER, EnglishTextNormalizer), and data (\"transcription of English audio\"), indicati",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

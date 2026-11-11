@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.05637v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T02:48:57.403344+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3249,
+  "verdicts": {
+    "Pero": {
+      "verdict": "false_positive",
+      "reason": "Pero appears as the Spanish word \"pero\" meaning \"but\", not a language name, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "mentioned_only",
+      "reason": "Portuguese is mentioned as European Portuguese in dataset references and as an exploratory extension, but not part of the main experiments, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is referenced as the language of homophones and as a target language for the test set and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is referenced as the language of the word pair and as a target language for the test set and evaluation, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

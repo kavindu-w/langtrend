@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.10508v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T23:52:34.174518+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4017,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'MAE' (Mean Absolute Error) abbreviation, not the Mae language; thus it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions participants were fluent in English, indicating English is referenced as the language of the human reference data, not studied as a target language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

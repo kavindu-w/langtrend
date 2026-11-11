@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.08334v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T01:05:12.669418+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6870,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the model name \"GPT-6-Luna\", not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is referenced as a language in the multilingual experiment results, indicating the paper studies Arabic.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese appears in cultural references (China, traditional Chinese contexts) rather than explicit language text, indicating only a mention of Chinese culture, not a direct study of the Chinese languag",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of prompts, interactions, and evaluation, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is referenced as a language in multilingual experiment results and norm evaluation, indicating the paper studies French.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese appears as a cultural group in scenario quality control and norm evaluation, indicating the paper includes Japanese language scenarios and evaluates performance on Japanese culture.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.07232v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T02:05:16.026456+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9974,
+  "verdicts": {
+    "Fwe": {
+      "verdict": "false_positive",
+      "reason": "Fwe appears as part of the benchmark name 'FWE' (Frequent Words Extraction), a synthetic retrieval task, not a human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Moba": {
+      "verdict": "false_positive",
+      "reason": "Moba appears as the name of a sparse attention method (MoBA), not a human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as the language of benchmark tasks (e.g., English tasks in LongBench), but the paper does not study or build resources for English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.09768v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T00:11:46.056275+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7666,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to the model GPT Luna 5.6 used as a listener and judge, not the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the passages and is directly evaluated by listeners (GPT Luna, Qwen, human researchers) for range and proficiency, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

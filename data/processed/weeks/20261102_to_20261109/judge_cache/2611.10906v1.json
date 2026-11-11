@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.10906v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T23:17:32.954093+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4477,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake appears only in the phrase “God’s sake” and does not refer to the Sake language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as a language (e.g., “Chinese name” and the benchmark includes Chinese questions), indicating the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a language in data sources (modern English), evaluation benchmarks (English version of S-Eval, EmoBench English), and prompts requiring English output, indicating the paper st",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.09223v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T00:47:35.059071+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11812,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "\"Pin\" appears only in phrase \"hard to pin down\", not referring to the language Pin.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Snippets refer to Korean language, Korean benchmarks, Korean LLMs, Korean questions, Korean translations, indicating the paper builds and evaluates resources for Korean.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Snippets refer to English only as translation language and annotation instructions, not as a target of study or resource construction.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

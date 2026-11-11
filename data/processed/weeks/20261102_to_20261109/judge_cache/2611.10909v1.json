@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.10909v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T23:05:36.100303+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9456,
+  "verdicts": {
+    "Beng": {
+      "verdict": "studied",
+      "reason": "Beng is used as a language code for Bengali (Bangla) in the experimental setup, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole refers to the first verb in a Bangla compound verb (the pole, V1), a linguistic term, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Samay": {
+      "verdict": "false_positive",
+      "reason": "Samay appears as part of 'Ei Samay news', a news outlet, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is mentioned as a potential future extension of the benchmark, not studied in this paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "Urdu is mentioned as a potential future extension of the benchmark, not studied in this paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used for prompts, evaluation, and word lists but not studied as a target language in this work.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

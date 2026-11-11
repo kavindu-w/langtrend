@@ -1,0 +1,69 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.06170v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T02:25:12.416802+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 8936,
+  "verdicts": {
+    "Ahom": {
+      "verdict": "false_positive",
+      "reason": "Ahom is used as a historical kingdom name, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Buli": {
+      "verdict": "false_positive",
+      "reason": "Buli appears as part of an Assamese phrase, not the Buli language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Soli": {
+      "verdict": "false_positive",
+      "reason": "Soli appears as a word in an Assamese question, not the Soli language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "Tat appears as a word in an Assamese question, not the Tat language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa appears as a grapheme character (ু) in Assamese script, not the Wa language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Hindi is referenced as a related language in other work, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script, not the Latin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "false_positive",
+      "reason": "Tamil appears as part of the model name Tamil-LLaMA, not a direct language reference → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese appears as part of the model name Chinese-LLaMA, not a direct language reference → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as a high‑resource language bias, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Assamese": {
+      "verdict": "studied",
+      "reason": "Assamese is the target language of the model, evaluated and adapted → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is mentioned only in the context of cross‑lingual contamination, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

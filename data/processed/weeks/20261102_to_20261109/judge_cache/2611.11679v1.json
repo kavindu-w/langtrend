@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.11679v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T23:13:03.487099+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3768,
+  "verdicts": {
+    "Maya": {
+      "verdict": "false_positive",
+      "reason": "Maya is a persona name in a table of simulated patients, not the Maya language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tha": {
+      "verdict": "false_positive",
+      "reason": "Tha appears as a truncated word 'tha' in a garbled snippet, not referring to the Tha language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek refers to Greek women (nationality) in the snippet, not the Greek language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese refers to Chinese adults and villages (nationality) in the snippet, not the Chinese language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

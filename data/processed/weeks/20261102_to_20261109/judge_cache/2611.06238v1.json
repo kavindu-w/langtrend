@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.06238v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T02:30:25.994500+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9508,
+  "verdicts": {
+    "Kanuri": {
+      "verdict": "studied",
+      "reason": "Kanuri is mentioned as a language evaluated (Central Kanuri score 22%) → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic appears only as 'Arabic script', a script, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Icelandic": {
+      "verdict": "studied",
+      "reason": "Icelandic is listed as a language with 600 rows evaluated → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Norwegian": {
+      "verdict": "studied",
+      "reason": "Norwegian appears as Norwegian knowledge sets, Norwegian quiz, and a Norwegian-trained model → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a language in evaluation suites, test splits, and planted instructions → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French appears as a language in the French yes/no questions dataset → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German appears as a language in the German retrieval set → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.08478v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T01:23:28.185086+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2160,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin appears as a verb in the phrase \"Pin the surface a future scientist competes on.\" and is not referencing a human language; therefore it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake is used as a common English expression (\"for the sake of making changes.\") and does not refer to a human language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

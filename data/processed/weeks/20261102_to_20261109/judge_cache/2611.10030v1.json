@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.10030v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T01:35:52.607059+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8499,
+  "verdicts": {
+    "Aisi": {
+      "verdict": "false_positive",
+      "reason": "Aisi refers to UK AISI (the organization), not a human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Logo": {
+      "verdict": "false_positive",
+      "reason": "Logo appears as a file name (logo.svg) and is a programming language, not a human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uri": {
+      "verdict": "false_positive",
+      "reason": "Uri appears in context of URI/URL references in web requests, not a human language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

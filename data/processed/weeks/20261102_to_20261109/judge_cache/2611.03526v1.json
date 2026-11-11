@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.03526v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T04:13:11.614686+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3163,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to \"Latin-script languages\" (the writing system), not the Latin language itself; thus the match is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions \"predominantly English FineWeb training experiments\", indicating the English language is used in the paper's experiments; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

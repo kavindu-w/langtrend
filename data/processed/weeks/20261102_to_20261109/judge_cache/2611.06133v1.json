@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.06133v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T02:38:35.524669+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2098,
+  "verdicts": {
+    "Dao": {
+      "verdict": "false_positive",
+      "reason": "Dao appears as an author name in a citation (Mamba Gu and Dao (2024)), not as the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the 16 English subsets of LongBench used for evaluation, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

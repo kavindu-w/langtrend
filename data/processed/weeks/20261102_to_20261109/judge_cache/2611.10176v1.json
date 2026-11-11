@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.10176v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T00:19:17.644556+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3094,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "col is a field in the JSON object representing a column in the behavior matrix, not a language; thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced as a language for a separate Avalon gameplay corpus, not studied in this paper; thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the language of the corpus and the primary focus of the study; thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

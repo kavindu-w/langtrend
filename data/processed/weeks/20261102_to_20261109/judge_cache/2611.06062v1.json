@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.06062v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T02:35:22.706166+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10960,
+  "verdicts": {
+    "Tajik": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Tajik language as the target of adaptation, training data (Tajik Wikipedia, news, books), and evaluation (Tajik text loss, Tajik reading comprehension), so the paper studies ",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "Russian is only mentioned in a comparative note about its script ('six letters that Russian does not have') and not as a target of study, so the paper only mentions it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as a benchmark (English MMLU) and for measuring retained knowledge, not as a target language for adaptation, so the paper only mentions it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

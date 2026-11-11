@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.11576v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T22:34:52.299543+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7221,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to the metric Mean Absolute Error, not the language Mae, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is used to denote the Turkish language (hashtags translation, Turkish-specific models, Turkish social media discourse), indicating the paper studies Turkish.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the English language (hashtags translation, English-language data) but is only mentioned in related work, not studied in the experiments.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

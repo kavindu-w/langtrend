@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.04480v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T03:37:59.797604+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6593,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "Ami refers to the AMI meeting corpus dataset, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bulgarian": {
+      "verdict": "false_positive",
+      "reason": "Bulgarian is used as an adjective describing a pair (e.g., Bulgarian pair), not the language itself, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to queries and benchmarks in the Chinese language, which are part of the paper's experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to queries, prompts, benchmarks, and test recordings in English, which are part of the paper's experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

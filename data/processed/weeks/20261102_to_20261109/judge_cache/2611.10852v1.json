@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.10852v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T23:01:10.005735+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7547,
+  "verdicts": {
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "Mer appears as the abbreviation MER for mixed error rate, not the language Mer, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is used to describe Latin characters (script), not the Latin language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced throughout the snippets as the language of the pilot data, evaluation metrics (MER), and case studies, indicating the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced throughout the snippets as the language of the pilot data, evaluation metrics (WER), and case studies, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

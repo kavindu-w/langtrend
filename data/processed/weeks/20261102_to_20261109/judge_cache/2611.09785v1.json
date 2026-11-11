@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.09785v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T00:23:23.360980+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11806,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier appears as part of the phrase \"troop carrier\" in the lexical materials, not as a language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "Mango appears as the English gloss for the Chinese word \"芒果\", not as a language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "Mer appears as part of the hyphenated word \"program- mer\", not as a language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pear": {
+      "verdict": "false_positive",
+      "reason": "Pear appears as part of English glosses like \"ya pear\" and \"chinese pear\", not as a language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yali": {
+      "verdict": "false_positive",
+      "reason": "Yali appears as part of the phrase \"yali pear\", not as a language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is represented by Chinese characters in the lexical materials, indicating a genuine reference to the language, implying it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "Japanese does not appear in the snippet; the candidate is not present, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Fam": {
+      "verdict": "false_positive",
+      "reason": "Fam appears as part of the condition label \"Fam Sup\", not as a language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is repeatedly referenced as the target translation language (e.g., \"English translation\", \"accepted English forms\"), indicating a genuine mention of the language, implying it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

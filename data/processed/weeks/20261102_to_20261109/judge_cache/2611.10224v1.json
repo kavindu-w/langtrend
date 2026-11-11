@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.10224v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T23:39:45.060334+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 7506,
+  "verdicts": {
+    "Dani": {
+      "verdict": "false_positive",
+      "reason": "Dani refers to a contributor name (Dani Bouch), not the language Dani → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ura": {
+      "verdict": "false_positive",
+      "reason": "Ura appears as a diacritic notation in orthography constraints, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "moroccan Arabic": {
+      "verdict": "studied",
+      "reason": "Moroccan Arabic is referenced as a dialect used in evaluation benchmarks (DarijaBench-Translit), indicating the paper studies it → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script used for Arabizi romanization, not the Latin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "Egyptian Arabic is referenced as a dialect used in evaluation benchmarks (EgyptianBench-Translit), indicating the paper studies it → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "Japanese is mentioned only in a discussion of other languages' continual pretraining, not part of Jais 3's experiments → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is the primary language of the models and evaluations throughout the paper, indicating the paper studies Arabic → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced both as a preserved capability and as a target language in translation evaluation, indicating the paper studies English → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

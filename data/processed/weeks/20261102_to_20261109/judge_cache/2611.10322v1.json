@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.10322v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T23:42:23.200627+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2842,
+  "verdicts": {
+    "Miami": {
+      "verdict": "false_positive",
+      "reason": "Miami refers to Miami, FL city in the dataset, not the Miami language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa is abbreviation for Washington state (e.g., Seattle, WA), not the Wa language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

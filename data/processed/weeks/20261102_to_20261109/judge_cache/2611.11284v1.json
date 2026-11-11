@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.11284v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T23:07:18.489051+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11958,
+  "verdicts": {
+    "Korean": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Korean as a language in discussions of other benchmarks, not as a target of WarBias.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet references Chinese as a language used in other bias resources, not studied in WarBias.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ukrainian": {
+      "verdict": "studied",
+      "reason": "The snippet shows Ukrainian is used as the source language for WarBias, with generated triplets, human validation, and evaluation, indicating the paper studies Ukrainian.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet indicates English is the target language of WarBias, with machine-translated items and baseline evaluation, showing the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet cites French CrowS-Pairs as an example of other benchmarks, not part of WarBias, so French is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'German invasion' as a historical reference to Germany, not the German language, making the detection a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

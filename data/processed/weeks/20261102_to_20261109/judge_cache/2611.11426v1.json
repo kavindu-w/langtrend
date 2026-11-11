@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.11426v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T22:35:43.724928+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 7224,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo appears as part of Vietnamese words (e.g., 'Bộ') in the snippets and not as a language reference → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Cua": {
+      "verdict": "false_positive",
+      "reason": "Cua appears as part of the Vietnamese word 'của' (meaning 'of') in the abstract and not as a language reference → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Moi": {
+      "verdict": "false_positive",
+      "reason": "Moi appears as part of the Vietnamese term 'chinh-sach-moi' (new policy) in the snippets and not as a language reference → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Oy": {
+      "verdict": "false_positive",
+      "reason": "Oy appears as a garbled fragment in the OCR‑like text and not as a language reference → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Lao": {
+      "verdict": "false_positive",
+      "reason": "Lao appears as part of the Vietnamese word 'Lao động' (labor) in the snippets and not as a language reference → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese appears as 'Vietnamese text' and the paper builds an ontology for Vietnamese law, thus it is studied → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as 'English translation' but the paper does not build resources for English, only mentions it → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

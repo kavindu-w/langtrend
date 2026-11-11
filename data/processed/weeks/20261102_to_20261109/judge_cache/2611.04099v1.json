@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.04099v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T04:02:07.824533+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7470,
+  "verdicts": {
+    "Aer": {
+      "verdict": "false_positive",
+      "reason": "Aer refers to a command/option in the EvalLever toolkit (e.g., evallever aer), not a human language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language used in prompts, gold standards (e.g., Chinese GSD, Chinese HacRED), and experimental settings.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language used in prompts, gold versions (e.g., English EWT), and experimental settings.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

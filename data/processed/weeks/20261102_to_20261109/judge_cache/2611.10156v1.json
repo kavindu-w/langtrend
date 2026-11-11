@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.10156v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T00:03:10.716014+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4139,
+  "verdicts": {
+    "Abu": {
+      "verdict": "false_positive",
+      "reason": "Abu refers to Abu Dhabi, a location, not the language Abu, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish appears as part of the verb 'polish', not the language Polish, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the Chinese language in the benchmark subset and box‑office films, indicating the paper includes Chinese‑language data in its experiments, thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language in the benchmark subset, indicating the paper includes English‑language data in its experiments, thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

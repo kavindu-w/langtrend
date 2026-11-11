@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.08237v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T01:08:02.403915+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11661,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo is used as the abbreviation for BO-Eval scoring metric, not the human language Bo.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Maasai": {
+      "verdict": "false_positive",
+      "reason": "Maasai refers to the Maasai Mara region in dataset task names, not the Maasai language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin appears as the verb 'pin' meaning to fix versions, not the Pin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tol": {
+      "verdict": "false_positive",
+      "reason": "Tol is an abbreviation for tolerance in Lean obligations, not the Tol language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced to denote the language of CUMCM contest problems in the dataset composition, but the paper only mentions it without studying the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced to denote the language of MCM contest problems in the dataset composition, but the paper only mentions it without studying the language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

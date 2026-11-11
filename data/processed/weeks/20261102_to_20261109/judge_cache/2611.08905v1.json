@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.08905v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T00:45:14.971141+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3691,
+  "verdicts": {
+    "Sop": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains “SOP” as a term for standard operating procedure, not the language Sop, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet refers to English as a required output language for generated artifacts, not as a target of study, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions German rental invoices, indicating the German language is used as content in the task, but the paper does not appear to be building resources for German, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

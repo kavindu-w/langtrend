@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.03605v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T04:07:39.333327+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7430,
+  "verdicts": {
+    "Sherpa": {
+      "verdict": "false_positive",
+      "reason": "Sherpa refers to sherpa-onnx, a speech recognition tool/library, not the human language Sherpa.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish refers to the Turkish language, which the paper studies by building a Turkish speech recognizer, training on Turkish data, and evaluating on Turkish test sets.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

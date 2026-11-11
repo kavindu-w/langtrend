@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.11471v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T22:37:25.916082+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11741,
+  "verdicts": {
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "Pol appears as part of a personal name (Pol Genri Dyuks) in the snippets, not the language Pol, so false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kyrgyz": {
+      "verdict": "studied",
+      "reason": "Kyrgyz is one of the four languages the model is trained and evaluated on (abstract mentions Kyrgyz, results reported), so studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tajik": {
+      "verdict": "studied",
+      "reason": "Tajik is one of the four languages the model is trained and evaluated on (abstract mentions Tajik, fine‑tuned model, results reported), so studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kazakh": {
+      "verdict": "studied",
+      "reason": "Kazakh is one of the four languages the model is trained and evaluated on (abstract mentions Kazakh, fine‑tuned model, results reported), so studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script (e.g., Uzbek (Latin script)) not the Latin language, so false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tatar": {
+      "verdict": "false_positive",
+      "reason": "Tatar refers to Tatar scholars (ethnic group) in the snippets, not the language studied, so false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "Arabic refers to Arabic origin of surnames, not the language studied, so false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uzbek": {
+      "verdict": "studied",
+      "reason": "Uzbek is one of the four languages the model is trained and evaluated on (abstract mentions Uzbek, fine‑tuned model, results reported), so studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian is only mentioned as a description of Tajik (Tajik is Persian written in Cyrillic) and not studied or evaluated, so mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is used as a replay language and evaluated on Belebele (recall reported), so studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as a replay language and evaluated on Belebele (recall reported), so studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

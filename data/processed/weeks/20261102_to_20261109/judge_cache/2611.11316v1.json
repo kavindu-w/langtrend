@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.11316v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T22:44:52.639317+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7573,
+  "verdicts": {
+    "Mae": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets contain no reference to the Mae language, so the detection cannot be confirmed as a true mention; therefore it is treated as mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'non-Latin letters' (script) not the Latin language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show English used as a source language for analysis, translation, and evaluation, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

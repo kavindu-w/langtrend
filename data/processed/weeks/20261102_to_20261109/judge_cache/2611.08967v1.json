@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.08967v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T00:31:28.052674+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6062,
+  "verdicts": {
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Nepali as the target language of the NER task, dataset, models, and embeddings, indicating the paper studies Nepali.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to Latin script (writing system), not the Latin language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention English only as the language of guidelines and prior work, not as a target of study, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

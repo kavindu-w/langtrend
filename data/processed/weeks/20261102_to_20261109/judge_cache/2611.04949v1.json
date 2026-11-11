@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.04949v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T03:24:27.120779+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11750,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier appears as a common noun (e.g., water carrier) in translation examples, not as a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Korean is referenced throughout as the source language for translations, used as a pivot and for Korean pronunciations, indicating the paper studies Korean for Hanja‑to‑English translation.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only in the context of using Chinese LLMs and Chinese readings as baselines, without building resources for the Chinese language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target language of the translation pipeline, used in triples, examples, and evaluation, showing the paper studies English for Hanja‑to‑English translation.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

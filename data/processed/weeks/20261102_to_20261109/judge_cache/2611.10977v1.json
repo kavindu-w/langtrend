@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.10977v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-10T22:52:47.260736+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 1964,
+  "verdicts": {
+    "Italian": {
+      "verdict": "false_positive",
+      "reason": "Italian is used as an adjective describing restaurants, not referencing the Italian language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "Korean is used as an adjective describing a sweet rice drink, not referencing the Korean language, thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is used to indicate a question written in the Chinese language, referencing the language itself, thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.05984v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T02:46:44.195090+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5124,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to the Mean Absolute Error metric, not the language Mae, making this a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the human language Chinese, used in training data and evaluation, indicating the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the human language English, used in training data and evaluation, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

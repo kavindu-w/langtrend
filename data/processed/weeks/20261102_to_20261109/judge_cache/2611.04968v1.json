@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.04968v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T03:26:24.062863+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6977,
+  "verdicts": {
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake appears as part of the phrase \"for the sake of\", not referring to the Sake language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced throughout as the language of the data, expertise, and pronouns, indicating the paper studies English; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

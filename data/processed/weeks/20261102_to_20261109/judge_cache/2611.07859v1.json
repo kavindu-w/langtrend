@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.07859v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T01:31:30.486942+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3263,
+  "verdicts": {
+    "Kol": {
+      "verdict": "false_positive",
+      "reason": "Kol appears as part of the Arabic phrase “Kol Ma gol El tobah” and is not a language reference; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned as a descriptor for the rock band JadaL and related content, not as a language studied; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yale": {
+      "verdict": "false_positive",
+      "reason": "Yale refers to Yale University (a place) in the biographical snippet, not a language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used to denote the English Wikipedia corpus, which the paper evaluates on; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
