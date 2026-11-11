@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.03617v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T06:11:27.240366+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3142,
+  "verdicts": {
+    "Agi": {
+      "verdict": "false_positive",
+      "reason": "Agi appears as part of chemical formulas (AgBr, AgCl, AgI) in the snippet, not a language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mer": {
+      "verdict": "false_positive",
+      "reason": "Mer occurs only in template instructions and not as a language reference, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Miao": {
+      "verdict": "false_positive",
+      "reason": "Miao is used as an author name (Miao & Kearns) in the citation, not a language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

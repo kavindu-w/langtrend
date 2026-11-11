@@ -1,0 +1,64 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.06706v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T06:12:25.827378+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 5671,
+  "verdicts": {
+    "Kula": {
+      "verdict": "false_positive",
+      "reason": "Kula is a Swahili verb meaning 'to eat', not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kwa": {
+      "verdict": "false_positive",
+      "reason": "Kwa is a Swahili preposition meaning 'to', not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mama": {
+      "verdict": "false_positive",
+      "reason": "Mama is a Swahili word for 'mother', not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mum": {
+      "verdict": "false_positive",
+      "reason": "Mum is an English word for 'mother', not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Wa": {
+      "verdict": "false_positive",
+      "reason": "Wa is a Swahili plural prefix, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Amharic": {
+      "verdict": "mentioned_only",
+      "reason": "Amharic is mentioned as a language with existing datasets but not studied in this paper → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a high‑resource language in the discussion, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned as a resource language in the survey, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swahili": {
+      "verdict": "studied",
+      "reason": "Swahili is a target language of the ALTO corpus and experiments, thus studied → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic (including Levantine Arabic) is a target language of the ALTO corpus and experiments, thus studied → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French (including African French) is a target language of the ALTO corpus and experiments, thus studied → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
