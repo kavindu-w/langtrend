@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.02903v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T04:59:56.777691+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7902,
+  "verdicts": {
+    "Chinese Sign Language": {
+      "verdict": "false_positive",
+      "reason": "refers to a dataset name ('Chinese sign language dataset'), not the Chinese Sign Language itself; thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "South African Sign Language": {
+      "verdict": "studied",
+      "reason": "refers to the South African Sign Language (SASL) as the primary target of the dataset and experiments; thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Afrikaans": {
+      "verdict": "mentioned_only",
+      "reason": "refers to the Afrikaans language as a contextual example, not studied; thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Setswana": {
+      "verdict": "mentioned_only",
+      "reason": "refers to Setswana as a channel label in crawling, not studied; thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "refers to Chinese characters in ASR output and to a dataset name; overall a mention of the Chinese language, not studied; thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "refers to English as the primary language of experiments and processing; thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "refers to German sign language as an example, not studied; thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

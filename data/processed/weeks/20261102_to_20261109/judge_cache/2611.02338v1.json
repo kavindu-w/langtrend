@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.02338v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T06:04:15.546372+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2431,
+  "verdicts": {
+    "Ama": {
+      "verdict": "false_positive",
+      "reason": "Ama appears only as part of \"AMA-Bench\", a benchmark name, not the language Ama; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin appears as the word \"pin\" in a sentence about recording model revisions, not the language Pin; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

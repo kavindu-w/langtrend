@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.03196v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T04:46:47.774569+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2797,
+  "verdicts": {
+    "Boon": {
+      "verdict": "false_positive",
+      "reason": "Boon appears as a request/favor in the snippet, not a language reference.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sanskrit": {
+      "verdict": "studied",
+      "reason": "Sanskrit is referenced as the language of terminology and source expressions in the corpus.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of translations and as part of the analyzer, indicating the paper uses English language content and processing.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

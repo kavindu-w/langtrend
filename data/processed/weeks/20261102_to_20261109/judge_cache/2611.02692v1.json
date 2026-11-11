@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.02692v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T05:09:28.115408+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6076,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of a model identifier (openai/gpt-6-luna-decisions) and not as a reference to the human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the US dataset and is pre-processed for gender neutrality, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French is referenced as the language of the French dataset and is discussed for its gender-specific nature, indicating the paper studies French.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

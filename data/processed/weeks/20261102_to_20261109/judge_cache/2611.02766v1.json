@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.02766v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T05:25:19.004703+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9459,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to a document reranker model (e.g., Jina reranker) used in the framework, not the Jina language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish refers to the word “polish” in a prompt instruction, not the Polish language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the QA datasets used for training and evaluation.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

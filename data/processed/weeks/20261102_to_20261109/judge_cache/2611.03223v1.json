@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.03223v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T05:12:19.036572+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11687,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Refers to model names such as GPT-Luna and GPT-6-Luna-Pro, not the human language; thus false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "Refers to the English language used for test cases and prompts; the paper includes English cases as part of its benchmark, indicating it is studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

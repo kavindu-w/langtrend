@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.07940v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T04:26:50.971745+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11991,
+  "verdicts": {
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek is referenced as the source language of ELCardioCC data, not as a target language for models; thus it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin is mentioned as 'Latin-derived' medical terminology, not as a target language; thus it is mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "French is not mentioned in the snippet; the detection is a false positive; thus it is false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "studied",
+      "reason": "Czech is referenced as a target language in CardioCCC and model evaluations; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "Dutch is referenced as a target language in CardioCCC and model evaluations; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Italian is referenced as a target language in CardioCCC and model evaluations; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romanian": {
+      "verdict": "studied",
+      "reason": "Romanian is referenced as a target language in CardioCCC and model evaluations; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Swedish": {
+      "verdict": "studied",
+      "reason": "Swedish is referenced as a target language in CardioCCC and model evaluations; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as a target language in CardioCCC and model evaluations; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is referenced as a target language in CardioCCC and model evaluations; thus it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

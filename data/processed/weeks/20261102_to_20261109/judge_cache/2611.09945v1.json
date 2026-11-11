@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.09945v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T06:01:08.010247+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3211,
+  "verdicts": {
+    "Mango": {
+      "verdict": "false_positive",
+      "reason": "mango appears as a token in a word list, not referring to the Mango language, making it a false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "MO refers to model organism abbreviation, not the language Mo, making it a false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English denotes the language of the user prompts used in the WildChat dataset for experiments, indicating the paper studies English",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.03179v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T04:47:48.931966+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3545,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin appears as a verb ('pin model identifiers') and does not refer to a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippet refers to the Chinese language as one of the language options in the attribute list, and the paper evaluates performance on Chinese as part of the InfoSearch benchmark, indicating it is st",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet refers to the English language as one of the language options in the attribute list, and the paper evaluates performance on English as part of the InfoSearch benchmark, indicating it is st",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Spanish only as an example of a language in the introduction, with no evaluation or resource creation for Spanish, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

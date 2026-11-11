@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.05385v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T06:03:49.742297+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11400,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier appears as 'carrier of distinction' (a noun for something that carries), not the Carrier language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake is used in the phrase 'for the sake of table symmetry', an idiomatic expression, not the Sake language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel is used to describe a 'sentinel sample', a test set, not the Sentinel language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin is referenced as 'Latin script', denoting the writing system, not the Latin language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian is repeatedly referenced as the language of the corpus, models, and prose (e.g., Russian‑language corpus, Russian‑language model, Russian text), indicating the paper studies Russian → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is mentioned as the language of the manuscript version and as a comparative language, indicating the paper deals with English → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

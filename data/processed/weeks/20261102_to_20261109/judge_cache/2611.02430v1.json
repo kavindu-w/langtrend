@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.02430v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T05:29:17.148159+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3757,
+  "verdicts": {
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced as a language that Freeze-Omni tends to switch to when counting, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the benchmark language: system instructions, user speech, and evaluation are all in English, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears only as a descriptor of an accent in example stimuli, not as a language under study.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

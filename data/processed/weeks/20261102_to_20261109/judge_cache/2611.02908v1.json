@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.02908v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T05:16:19.755370+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3084,
+  "verdicts": {
+    "Dutch": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'the dutch' as a nationality referring to the Netherlands, not the Dutch language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet explicitly instructs the model to reply 'in English', indicating a reference to the English language, and the paper uses English for its prompts and data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

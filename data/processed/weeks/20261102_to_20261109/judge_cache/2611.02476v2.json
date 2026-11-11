@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.02476v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T05:28:42.151055+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11963,
+  "verdicts": {
+    "Dza": {
+      "verdict": "false_positive",
+      "reason": "Dza refers to the country code DZA for Algeria, not the language itself, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "mentioned_only",
+      "reason": "Thai is mentioned as a language in prior work (GigaSpeech 2) but not studied in this paper, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Indonesian": {
+      "verdict": "mentioned_only",
+      "reason": "Indonesian is mentioned as a language in prior work (GigaSpeech 2) but not studied in this paper, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "mentioned_only",
+      "reason": "Vietnamese is referenced as a language in a prior study (original Vietnamese study) but not studied in this paper, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic is the primary target language of the study, with experiments, data collection, and evaluation focused on it, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced only in prior work (GigaSpeech 2) and as a code‑switching language, not as a target of study, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "mentioned_only",
+      "reason": "French appears only as a code‑switching language in prior work, not as a target of study, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

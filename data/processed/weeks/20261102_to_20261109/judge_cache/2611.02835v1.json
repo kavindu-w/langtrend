@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.02835v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T05:22:24.821010+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7917,
+  "verdicts": {
+    "Mon": {
+      "verdict": "false_positive",
+      "reason": "Mon appears only as part of a dataset name 'mon alz find item controlled synthetic' and not as a language reference, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is used as reference content language for tasks and QA in the benchmark, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used as reference content language for tasks and QA in the benchmark, indicating the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

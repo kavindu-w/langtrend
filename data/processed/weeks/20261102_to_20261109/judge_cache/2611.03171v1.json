@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.03171v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T04:53:22.367931+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11592,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears only as part of model names (e.g., GPT-6-Luna) and not as a human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nai": {
+      "verdict": "false_positive",
+      "reason": "Nai is a substring of place names such as “Đồng Nai” and does not refer to a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "false_positive",
+      "reason": "Thai is part of author names (e.g., Nguyen Thai Anh) and not a reference to the Thai language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "Vietnamese is used throughout to denote the Vietnamese language, and the paper builds a Vietnamese language benchmark, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only for glosses and as a contrast (e.g., English temporal benchmark) but the paper does not build resources for English, so it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

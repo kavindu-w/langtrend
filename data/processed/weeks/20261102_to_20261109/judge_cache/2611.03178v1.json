@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.03178v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-11T05:03:30.162284+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3894,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to a page-reading backend tool, not the human language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese is referenced as a language of the benchmark tasks (split equally between English and Chinese), indicating the paper evaluates on Chinese language data, so studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kiong": {
+      "verdict": "false_positive",
+      "reason": "Kiong appears as part of the author name 'See-Kiong Ng', not a language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tat": {
+      "verdict": "false_positive",
+      "reason": "Tat appears as part of the author name 'Tat-Seng Chua', not a language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ong": {
+      "verdict": "false_positive",
+      "reason": "Ong appears as part of the author name 'Opsahl-Ong', not a language, so false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the English Lite dataset and as the language of evaluation benchmarks (e.g., English questions in WideSearch), indicating the paper evaluates on English langua",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
