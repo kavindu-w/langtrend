@@ -17,7 +17,7 @@ Live site: [kavindu-w.github.io/langtrend](https://kavindu-w.github.io/langtrend
 ## Latest Run Summary
 
 _Latest processed week: **2026-11-09 – 2026-11-16**._
-_Judged with:_ `cohere/north-mini-code:free` (1,582)
+_Judged with:_ `cohere/north-mini-code:free` (1,583)
 
 > ⚠️ **LLM judge in progress** — this week's papers are still being verified. The live site won't show this week's data until judging completes, and the *This week* counts below (and per-language/class breakdowns) may still change as more verdicts come in.
 
