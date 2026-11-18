@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.18613v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T06:52:17.971281+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5957,
+  "verdicts": {
+    "Mape": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to \"MAPE\" (Mean Absolute Percentage Error) metric, not the Mape language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yoy": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"YoY\" abbreviation for year‑over‑year, not the Yoy language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet notes that prose is translated from Chinese to English, indicating Chinese is only mentioned as source text, not studied or used as a target of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet shows English is used as the language of the prompt templates in experiments (prose translated to English), indicating the paper uses English language for its experimental prompts.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet references \"Fama and French\" as authors, not the French language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

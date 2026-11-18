@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.12906v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T06:00:18.444564+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8506,
+  "verdicts": {
+    "Pela": {
+      "verdict": "false_positive",
+      "reason": "Pela is a Portuguese word (meaning \"by the\") appearing in the text, not a language name.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tem": {
+      "verdict": "false_positive",
+      "reason": "Tem is a Portuguese verb (\"has\") used in the text, not a language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tucano": {
+      "verdict": "false_positive",
+      "reason": "Tucano is the name of a Portuguese‑specific language model, not the language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to \"Latin America\" in the introduction, not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese refers to Brazilian Portuguese, the language being evaluated and benchmarked in the study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as the language of instructions and example translations, not as a target of study.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

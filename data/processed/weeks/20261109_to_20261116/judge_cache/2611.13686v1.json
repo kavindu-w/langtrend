@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.13686v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T05:15:06.360496+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 4641,
+  "verdicts": {
+    "Chakali": {
+      "verdict": "false_positive",
+      "reason": "Chakali appears as a person's name (Mr. Chakali Surendra) in the acknowledgment, not as the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dia": {
+      "verdict": "false_positive",
+      "reason": "Dia is not present as a language; it appears as a substring of 'media' in the snippet, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Telugu": {
+      "verdict": "mentioned_only",
+      "reason": "Telugu is referenced as the language of newspapers and native speakers in prior work, not studied in this paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as the language of existing research outlets and Indian English newspapers, not studied in this paper.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi is the target language of the introduced dataset and experiments, indicating it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

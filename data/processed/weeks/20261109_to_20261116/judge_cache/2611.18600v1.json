@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.18600v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T06:47:50.217231+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5937,
+  "verdicts": {
+    "Tonga": {
+      "verdict": "false_positive",
+      "reason": "Tonga refers to a country (Pacific Islands) in dataset statistics, not the Tongan language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Czech": {
+      "verdict": "false_positive",
+      "reason": "Czech refers to Czech Republic (a country) in dataset statistics, not the Czech language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin America (a region) in dataset descriptions, not the Latin language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "Polish refers to 'writing polish' (polishing text) in ethical considerations, not the Polish language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese refers to Chinese dining etiquette (cultural context) in label definitions, not the Chinese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language used for prompts and evaluation (English-only evaluation) and annotator proficiency, indicating the paper studies English as the evaluation language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.18637v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T06:05:03.497382+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2761,
+  "verdicts": {
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to the language of the CSVQA benchmark’s 1,378 multimodal STEM questions, indicating the paper evaluates on Chinese‑language data → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used only to describe that Chinese examples are explained in English for readability, a mere mention of the language → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "Japanese appears only in the species name “Japanese rhinoceros beetle”, not as a language reference → false_positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

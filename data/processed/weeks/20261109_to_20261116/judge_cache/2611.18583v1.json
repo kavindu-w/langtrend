@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.18583v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T06:48:14.271469+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4772,
+  "verdicts": {
+    "Greek": {
+      "verdict": "false_positive",
+      "reason": "Greek appears only as 'Greek letters' in mathematical notation, not referring to the Greek language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is used throughout the prompts, dataset, and evaluation (e.g., English-only experiments), indicating the paper studies English as the language of its analysis.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

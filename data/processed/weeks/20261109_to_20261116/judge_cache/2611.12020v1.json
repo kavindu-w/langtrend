@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.12020v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T05:54:36.651459+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3675,
+  "verdicts": {
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the Chinese language via the Chinese Treebank dataset and a Chinese-specific pipeline (gsdsimp_charlm for Chinese), implying the paper studies Chinese.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets refer to the English language via an English-specific pipeline (combined_charlm for English) and evaluation on English data (PTB), implying the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

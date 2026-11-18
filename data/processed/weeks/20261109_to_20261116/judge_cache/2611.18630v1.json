@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.18630v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T06:35:47.027140+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2663,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo appears as abbreviation for month in the table, not referring to a human language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "Snippet describes Dread as an English-language darknet forum, indicating the language is part of the dataset and analysis; studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

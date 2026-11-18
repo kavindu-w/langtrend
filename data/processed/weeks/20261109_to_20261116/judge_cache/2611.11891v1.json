@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.11891v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T05:56:37.888121+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11647,
+  "verdicts": {
+    "Sari": {
+      "verdict": "false_positive",
+      "reason": "SARI refers to the SARI metric, not the language Sari, thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English language as target language in the dataset and experiments, thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the Japanese language as source/target language in the dataset and experiments, thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

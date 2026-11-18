@@ -1,0 +1,70 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.13843v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T05:25:36.474954+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 11687,
+  "verdicts": {
+    "Karo": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the word \"karo\" as a Hindi word meaning \"do\", not the Karo language; no evidence of Karo language usage.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pero": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains \"pero\" as a Spanish word meaning \"but\", not the Pero language; no evidence of Pero language usage.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Maya": {
+      "verdict": "studied",
+      "reason": "The snippet references a code artifact named 'tasks/maya', indicating the paper includes a dataset and code for the Maya language, not a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not contain any reference to the Uma language; the flagged term appears unrelated.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The snippet does not contain any reference to the Una language; the flagged term appears unrelated.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "studied",
+      "reason": "The snippet includes \"Bengali\" in the table header and discussion of per‑language data, indicating the paper studies the Bengali language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The snippet includes \"Hindi\" in the table header and discussion of per‑language data, indicating the paper studies the Hindi language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes \"Latin\" as a script designation for German, Portuguese, Spanish, Turkish entries, not referring to the Latin language itself.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tamil": {
+      "verdict": "studied",
+      "reason": "The snippet includes \"Tamil\" in the table header and discussion of per‑language data, indicating the paper studies the Tamil language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippet includes \"Korean\" in the table header and discussion of per‑language data, indicating the paper studies the Korean language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The snippet includes \"Portuguese\" in the table header and discussion of per‑language data, indicating the paper studies the Portuguese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The snippet includes \"Russian\" in the table header and discussion of per‑language data, indicating the paper studies the Russian language.",
+      "model": "cohere/north-mini-code:free"
+    }
+  },
+  "partial": true
+}
