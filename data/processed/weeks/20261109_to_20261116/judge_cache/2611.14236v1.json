@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.14236v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T03:06:00.945458+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10191,
+  "verdicts": {
+    "Berta": {
+      "verdict": "false_positive",
+      "reason": "Berta refers to a Sentence Transformer baseline model (BERTA) in the baseline descriptions, not the language Berta; thus it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the model name 'jina-embeddings-' in the table of Sentence Transformers, not the language Jina; thus it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "Russian refers to the target language of the study: the paper builds a Russian static sentence encoder, evaluates on Russian tasks, and uses Russian data; thus the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is only mentioned as a comparison language ('outside English') without any experiments or resources for English; thus it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

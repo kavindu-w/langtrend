@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.20126v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-17T23:05:06.065554+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11677,
+  "verdicts": {
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "Refers to the retroflex nasal character ڻ, not the Nasal language, thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sindhi": {
+      "verdict": "studied",
+      "reason": "Refers to the Sindhi language, which the paper builds and evaluates tokenizers for, thus studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Refers to Latin script, not the Latin language, thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Urdu": {
+      "verdict": "mentioned_only",
+      "reason": "Refers to the Urdu language, mentioned only as part of the cross‑lingual training slice, not studied, thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Refers to the Persian language, mentioned only as part of the cross‑lingual training slice, not studied, thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Refers to the Arabic language/script, mentioned only as part of training data and script context, not studied, thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Refers to the Chinese language, mentioned only as an example of deleted strings, not studied, thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Refers to the English language, mentioned only as incidental text in the corpus, not studied, thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

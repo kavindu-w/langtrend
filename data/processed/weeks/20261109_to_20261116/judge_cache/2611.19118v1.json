@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.19118v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-17T23:58:22.606922+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11930,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "Carrier refers to the trucking company (the simulated speaker) in the experiment, not a language, thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ese": {
+      "verdict": "false_positive",
+      "reason": "Ese is a Spanish pronoun used in the dialogue, not the language itself, thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "Una is a Spanish article appearing in the transcript, not the language, thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pero": {
+      "verdict": "false_positive",
+      "reason": "Pero is a Spanish conjunction used in the scenario description, not the language, thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tiene": {
+      "verdict": "false_positive",
+      "reason": "Tiene is a Spanish verb used in the scenario, not the language, thus false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned as a possible language for the agent but not studied in the experiments, thus mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is the language of negotiation and the primary language used for data collection and evaluation in the study, thus studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.18330v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T00:10:26.935789+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6900,
+  "verdicts": {
+    "Ami": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to the AMI meeting corpus dataset, not a human language; thus \"Ami\" is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "The paper evaluates voice‑activity and other tasks using held‑out Hindi prompts, indicating the language is part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The paper evaluates voice‑activity and other tasks using held‑out Korean prompts, indicating the language is part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The paper evaluates voice‑activity and other tasks using held‑out Russian prompts, indicating the language is part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The paper evaluates voice‑activity and other tasks using held‑out Arabic prompts, indicating the language is part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions \"non‑Latin letters kept\" referring to script, not the Latin language; thus \"Latin\" is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The paper uses private Brazilian Portuguese conversational data, synthetic Portuguese speech for PII detection, and evaluates on Portuguese prompts, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper evaluates term presence and other tasks on English (e.g., term presence in English and Portuguese), indicating the language is part of the experiments.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

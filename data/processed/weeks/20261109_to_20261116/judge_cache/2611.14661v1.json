@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.14661v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T03:21:58.081013+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11618,
+  "verdicts": {
+    "Col": {
+      "verdict": "false_positive",
+      "reason": "Col is used as an abbreviation for \"column\" in tables, not a human language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Ik": {
+      "verdict": "false_positive",
+      "reason": "Ik appears as part of the signal name P(IK) (knowledge probability), not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae is the abbreviation for mean absolute error (MAE) in the text, not a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "Tulu refers to the Tulu 3 model family, not a human language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

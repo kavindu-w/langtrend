@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.18397v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T00:41:09.554605+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 8498,
+  "verdicts": {
+    "Kuan": {
+      "verdict": "false_positive",
+      "reason": "Kuan refers to Kuan Zhang, an author name in the contributions, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as part of the model name GPT-5.6-Luna, a baseline model, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pela": {
+      "verdict": "false_positive",
+      "reason": "Pela is an NPC character name in the Honkai: Star Rail evaluation protocol, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pom": {
+      "verdict": "false_positive",
+      "reason": "Pom appears as part of the NPC name Pom-Pom in navigation tasks, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese appears only in institutional names like 'University of Chinese Academy of Sciences', not as the language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.20261v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-17T23:13:15.195189+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2992,
+  "verdicts": {
+    "Mam": {
+      "verdict": "false_positive",
+      "reason": "the word 'mam' appears as part of a query term 'mam xray', not referencing the Mam language, implying false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "the snippet states 'Output should be English language only.', which is a mention of the English language, implying mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mape": {
+      "verdict": "false_positive",
+      "reason": "MAPE is an acronym for Mean Absolute Percentage Error, not the language 'Mape', implying false positive",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

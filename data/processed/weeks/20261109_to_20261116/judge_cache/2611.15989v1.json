@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.15989v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T02:19:03.373671+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5468,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Latin script' used for French text, not the Latin language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions six benign occupational roles in English, indicating the language is studied, not just mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippet uses French as a language for control vectors and detection, indicating the language is studied, not just mentioned.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

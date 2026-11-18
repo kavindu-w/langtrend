@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.15961v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T01:43:09.472013+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7914,
+  "verdicts": {
+    "Moma": {
+      "verdict": "false_positive",
+      "reason": "Moma refers to the dataset MoMa (Hungarian in Moldova) and not a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Romanian": {
+      "verdict": "mentioned_only",
+      "reason": "Romanian is mentioned only as a language component of a dataset, not studied, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Estonian": {
+      "verdict": "mentioned_only",
+      "reason": "Estonian is mentioned as a related Uralic language, not studied, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin alphabet/script, not the language, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Finnish": {
+      "verdict": "mentioned_only",
+      "reason": "Finnish is mentioned as a related Uralic language, not studied, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "studied",
+      "reason": "Hungarian is the target language of the survey, studied, so studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced only as a benchmark for comparison, not studied, so mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

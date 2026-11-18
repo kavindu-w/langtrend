@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.12628v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T04:41:34.307259+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 12000,
+  "verdicts": {
+    "Assamese": {
+      "verdict": "mentioned_only",
+      "reason": "Assamese is referenced as a language in a citation about romanized Assamese usage, implying it is only mentioned, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sinhala": {
+      "verdict": "mentioned_only",
+      "reason": "Sinhala is referenced as a language in a benchmark study of romanized Sinhala text, implying it is only mentioned, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Marathi": {
+      "verdict": "mentioned_only",
+      "reason": "Marathi is referenced as a language in a citation about LoRA fine‑tuning for Marathi, implying it is only mentioned, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "Tibetan is referenced as a language in a citation about Tibetan‑LLaMA adaptation, implying it is only mentioned, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bengali": {
+      "verdict": "mentioned_only",
+      "reason": "Bengali is referenced as a language in a citation about Bengali hate‑speech classification, implying it is only mentioned, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "Nepali is the target language of adaptation, evaluation, and tokenizer analysis throughout the paper, implying it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to the Latin script, not the Latin language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "mentioned_only",
+      "reason": "Turkish is referenced as a language in a citation about Turkish tokenizer research, implying it is only mentioned, not studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a language in output‑audit checks and discussions of English‑like outputs, implying it is only mentioned, not studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

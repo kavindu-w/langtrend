@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.13811v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T03:37:08.433226+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11417,
+  "verdicts": {
+    "Kom": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows 'kom' as part of a domain name ('ornek.com'), not the Komi language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sherpa": {
+      "verdict": "false_positive",
+      "reason": "The snippet references 'sherpa-onnx', a speech processing tool, not the human language Sherpa.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Gan": {
+      "verdict": "false_positive",
+      "reason": "The snippet uses 'GAN' as an abbreviation for Generative Adversarial Network and 'HiFi-GAN', not the language Gan.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "The snippets contain Turkish text, Turkish orthography, the Turkish benchmark Freya-TR-Eval, and the model is described as a Turkish TTS system, indicating the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippets mention English only as a proxy (UTMOS) and for handling English words, but the paper does not build or evaluate an English TTS model, so English is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

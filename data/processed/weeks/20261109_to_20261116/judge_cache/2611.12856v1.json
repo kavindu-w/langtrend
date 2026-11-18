@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.12856v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T04:31:00.859868+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7414,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is a model name (GPT-6 Luna) used throughout the paper, not the human language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese refers to Chinese criminal-judgment materials, indicating the benchmark includes tasks in the Chinese language, implying the language is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

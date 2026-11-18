@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.18089v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T00:45:58.525826+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3210,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "carrier refers to a latent variable carrier, not the Carrier language; false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "sake is used idiomatically (for the sake of clarity), not the Sake language; false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the datasets (WikiText, The Pile) used in experiments; studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

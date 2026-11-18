@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.19286v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-17T23:52:36.144918+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4401,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain references to \"tulu-3-sft-personas-math\", \"tulu-3-sft-personas-code\", \"tulu-3-sft-olmo-2-mixture\", and \"tulú3\" dataset, which are model/dataset names, not the human language Tulu.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain English text discussing model behavior, not the English language itself. No reference to the English language as a subject.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.14704v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T03:16:53.636322+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3945,
+  "verdicts": {
+    "Kein": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'kein' as part of a regex pattern matching German negation words, not the language 'Kein'.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Thai": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'thai' as a nationality in a list of ethnic groups, not a reference to the Thai language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Indonesian": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'indonesian' as a nationality in a list of ethnic groups, not a reference to the Indonesian language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'russian' as a nationality in a list of ethnic groups, not a reference to the Russian language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'turkish' as a nationality in a list of ethnic groups, not a reference to the Turkish language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'vietnamese' as a nationality in a list of ethnic groups, not a reference to the Vietnamese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'chinese' as a nationality in a list of ethnic groups, not a reference to the Chinese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "false_positive",
+      "reason": "The snippet includes 'japanese' as a nationality in a list of ethnic groups, not a reference to the Japanese language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'English' as the target language for German‑to‑English translations in a task description, but the paper does not study or build resources for English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'German' as the source language for German‑to‑English translations in a task description, but the paper does not study or build resources for German.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

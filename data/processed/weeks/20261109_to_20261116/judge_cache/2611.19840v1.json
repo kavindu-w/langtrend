@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.19840v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-17T23:11:47.740364+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4381,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin is a romanization script for Chinese, not a human language; the snippet uses pinyin tokens as a training signal, indicating a script name rather than language study.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The snippets refer to Chinese language features (Chinese-specific library, Chinese short-essay genre, Chinese college-entrance-examination essays), indicating the paper studies Chinese as the target l",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets mention English leakage detection and English prompts, indicating the paper studies English as a reference language for evaluation.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.19030v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T00:06:25.899565+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5617,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a model name (ChatGPT 5.6 Luna) and not a language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hindi": {
+      "verdict": "studied",
+      "reason": "Hindi refers to the Hindi language used as a source for accent classifier training (L2-ARCTIC Hindi) and is part of the paper's methodology, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of prompts, the Emilia corpus subset, and evaluation, which the paper uses and evaluates, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

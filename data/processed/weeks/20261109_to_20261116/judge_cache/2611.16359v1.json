@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.16359v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T01:44:42.112662+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6489,
+  "verdicts": {
+    "American Sign Language": {
+      "verdict": "mentioned_only",
+      "reason": "American Sign Language is mentioned as a high‑resource sign language for comparison, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese Sign Language": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese Sign Language is mentioned as a high‑resource sign language for comparison, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German Sign Language": {
+      "verdict": "mentioned_only",
+      "reason": "German Sign Language is mentioned as a high‑resource sign language for comparison, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese is not referenced; only Chinese Sign Language appears, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean Sign Language": {
+      "verdict": "mentioned_only",
+      "reason": "Korean Sign Language is referenced as prior work using round‑trip paraphrases, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Korean": {
+      "verdict": "false_positive",
+      "reason": "Korean is not referenced; only Korean Sign Language appears, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae is not referenced; the snippet contains garbled metric text, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is used as an intermediate language for back‑translation and qualitative examples but not studied as a target language, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "German is not referenced; only German Sign Language (DGS) appears, so false_positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

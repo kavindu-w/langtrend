@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.15587v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T02:02:44.483705+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4217,
+  "verdicts": {
+    "Vai": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet does not contain 'Vai', so insufficient evidence; we treat it as a mention of the Vai language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'French' as a reference to the French (people/country), not the French language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The snippet refers to 'Latin script', not the Latin language; thus false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Vietnamese": {
+      "verdict": "studied",
+      "reason": "The snippet mentions a Vietnamese writing assistant and a Vietnamese rewriting model, indicating the paper studies Vietnamese; thus studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions English as the language of chat models and English glosses, indicating a mention only; thus mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

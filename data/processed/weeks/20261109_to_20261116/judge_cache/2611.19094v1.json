@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.19094v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-17T23:55:42.300519+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11939,
+  "verdicts": {
+    "Pinyin": {
+      "verdict": "false_positive",
+      "reason": "Pinyin refers to a romanization system for Chinese, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Arabic is mentioned as a language in Arabic NLP research, but the paper does not study Arabic, only mentions it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Utu": {
+      "verdict": "false_positive",
+      "reason": "Utu appears as part of the dataset name 'Utu‑našu' (an Elamite corpus), not as a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin transliteration/script used for representing cuneiform, not the Latin language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "mentioned_only",
+      "reason": "Persian (Old Persian) is cited as an under‑documented cuneiform language in related work, but the paper does not study it, only mentions it.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is referenced in prior work on segmentation and NLP, but the paper does not study Chinese, only mentions it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

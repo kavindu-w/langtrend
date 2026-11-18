@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.14935v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T02:50:23.467914+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5018,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin appears as part of \"precision pin\" in code, not a human language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Yuki": {
+      "verdict": "false_positive",
+      "reason": "Yuki occurs as a personal name (e.g., Yuki Tanaka) and as part of identity labels, not as a language reference, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language of the primary audit (\"the audit was English only\"), indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Spanish is mentioned only as a 48-response smoke test that was not analysed, so it is only mentioned, not studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

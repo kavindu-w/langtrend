@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.19512v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-17T23:20:20.378386+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9167,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin script (e.g., code-switched words in Latin script) – false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic language (targets, dialects, training data, evaluation) – studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English language (training data, evaluation, voice synthesis) – studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

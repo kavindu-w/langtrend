@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.17768v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T00:43:01.991630+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10690,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae is used as the abbreviation MAE (Mean Absolute Error) in metric descriptions, not the human language Mae, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Shan": {
+      "verdict": "false_positive",
+      "reason": "Shan appears only as part of the ship name Nan-Shan, not the Shan language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese refers to Chinese coolies/laborers/people in the story, not the Chinese language, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is mentioned only in a standard English word list used for filtering, not as a studied language, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

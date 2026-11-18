@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.13788v2",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T03:33:18.744061+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11731,
+  "verdicts": {
+    "Amis": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the French word \"amis\" (friends), not a reference to the Amis language, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The snippet references \"GPT-6 Luna\", a model name, not the Luna language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Zo": {
+      "verdict": "false_positive",
+      "reason": "The snippet is Dutch validation text with no mention of the Zo language, indicating a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dutch": {
+      "verdict": "studied",
+      "reason": "The snippet includes Dutch language prompts and a Dutch BLiMP-NL dataset, showing the paper studies Dutch.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Russian": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Russian as a language the method has spread to, but the paper does not evaluate or collect data for Russian, so it is only mentioned.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet contains English prompts and the BLiMP English dataset, indicating the paper studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippet includes French (Quebec French) prompts and the QFrBLiMP dataset, showing the paper studies French.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

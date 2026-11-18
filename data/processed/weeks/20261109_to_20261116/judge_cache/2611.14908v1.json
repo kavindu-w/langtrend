@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.14908v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T02:33:04.888978+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7494,
+  "verdicts": {
+    "Chong": {
+      "verdict": "false_positive",
+      "reason": "Chong refers to a contributor name (person) in the authors list, not the language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Southern Min": {
+      "verdict": "studied",
+      "reason": "Southern Min is mentioned as a dialect evaluated by the system, indicating the paper studies it, so verdict is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Chinese (Mandarin Chinese) is a target language for training and evaluation, indicating the paper studies it, so verdict is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is a target language for training and evaluation, indicating the paper studies it, so verdict is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

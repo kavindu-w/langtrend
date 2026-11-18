@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.14036v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T03:13:22.558753+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7878,
+  "verdicts": {
+    "Mina": {
+      "verdict": "false_positive",
+      "reason": "Mina appears as part of the dataset name MINA‑BR and as a magazine (AzMina), not as a language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "Pin is used as a verb meaning to fix or mark a revision, not a language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Pole": {
+      "verdict": "false_positive",
+      "reason": "Pole refers to one of two extremes in the discourse (short pole vs long pole), not a language; thus it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is the target language of the corpus and models; the paper studies it.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.18981v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T00:22:25.723928+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11985,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "Dass appears as a German conjunction (\"that\") in prompts, not as a language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina is the name of an embedding model (jina-embeddings-v5) used for retrieval, not the Jina language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "Sie is a German pronoun (\"you\") in prompts, not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Bavarian": {
+      "verdict": "false_positive",
+      "reason": "Bavarian describes the legal corpus (Bavarian state law), not the language → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek refers to the Greek bar examination benchmark (GreekBarBench) mentioned in related work, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is only used as translation of prompts for readers, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "German is the target language of the benchmark, used throughout prompts, dataset, and evaluation, thus studied → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

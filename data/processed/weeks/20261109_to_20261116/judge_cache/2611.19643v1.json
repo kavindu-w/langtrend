@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.19643v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-17T23:24:56.641808+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7878,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Jina refers to the Serper–Jina search-and-visit loop, a tool/library, not the human language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna is the name of the GPT-5.6 Luna model, a model name, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mand": {
+      "verdict": "false_positive",
+      "reason": "Mand is an abbreviation for \"Mandatory\" in the rubric, not a language, so it is a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the language of the source questions and the evaluation rubric, which is part of the dataset and experiments, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

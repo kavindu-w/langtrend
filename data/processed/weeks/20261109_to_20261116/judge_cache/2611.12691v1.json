@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.12691v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T04:36:20.600200+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11880,
+  "verdicts": {
+    "Bana": {
+      "verdict": "false_positive",
+      "reason": "Bana is a Turkish word (meaning 'to you') and not a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kam": {
+      "verdict": "false_positive",
+      "reason": "Kam is a word in the model (e.g., 'kam' and 'kām') and not a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kara": {
+      "verdict": "false_positive",
+      "reason": "Kara is a person name (Kurt Kara) and not a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script/letters, not the Latin language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "Persian refers to the Persian language, used in the model for Arabic/Persian word classification; the paper studies Persian words; studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Turkish": {
+      "verdict": "studied",
+      "reason": "Turkish is the target language of Ottoman Divan poetry and the modern spelling used; the paper studies Turkish; studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to the Arabic language/script and words used in the poetry; the paper studies Arabic; studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.20044v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-17T22:59:55.911683+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9401,
+  "verdicts": {
+    "Ale": {
+      "verdict": "false_positive",
+      "reason": "Ale appears as the Polish conjunction 'ale' (meaning 'but') in the snippet, not as a language name, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Dla": {
+      "verdict": "false_positive",
+      "reason": "Dla appears as the Polish preposition 'dla' (meaning 'for') in the snippet, not as a language name, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Polish": {
+      "verdict": "studied",
+      "reason": "Polish is consistently used to denote the Polish language throughout the snippets, and the paper introduces a dedicated Polish misogyny dataset and evaluates models on it, implying it is studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears only as a reference to the English language (e.g., translation, comparison) and not as a target of the study's experiments, implying it is mentioned only.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

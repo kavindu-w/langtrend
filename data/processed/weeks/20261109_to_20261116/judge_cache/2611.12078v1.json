@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.12078v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T04:45:24.686026+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3797,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin script/ligatures in English notes, not the Latin language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Persian": {
+      "verdict": "false_positive",
+      "reason": "Persian refers to Persian script equivalents of Arabic letters, not the Persian language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "Arabic refers to Arabic letters, standard Arabic text, and the parallel English-Arabic corpus, indicating the paper studies Arabic, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English refers to the English-Arabic corpus, English text, and bilingual drafts, indicating the paper studies English, so it's studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

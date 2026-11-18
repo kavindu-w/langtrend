@@ -1,0 +1,49 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.13216v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T03:58:14.199333+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 6439,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna appears as a surname (Juan Pablo Luna) in a citation, not a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sake": {
+      "verdict": "false_positive",
+      "reason": "Sake appears in the phrase 'for the sake of space', not a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "Una appears as part of the phrase 'Ni Una Menos', a movement, not a language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Hungarian appears as the journal title 'Hungarian Review', not the language; false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "Portuguese is mentioned as a language of abstracts that were translated, indicating the paper works with it; studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is referenced as the language used for translation and publication, indicating the paper studies it; studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "Spanish is referenced as a language of abstracts and publications, indicating the paper studies it; studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin appears only as part of 'Latin America' and not as the language Latin; false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

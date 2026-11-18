@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.15049v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T02:41:59.785326+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3466,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo refers to an author name in the author list, not the language; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kuan": {
+      "verdict": "false_positive",
+      "reason": "Kuan refers to an author name in the author list, not the language; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo refers to the chemical element symbol for molybdenum in a materials science sensor description, not the language; false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English refers to the language used for writing a report in the task example, a mention only; mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.18851v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T00:14:22.409741+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5061,
+  "verdicts": {
+    "Crow": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains the verb 'crow' (roosters crow) and not the language Crow, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Mbe": {
+      "verdict": "false_positive",
+      "reason": "MBE appears as an abbreviation for evaluation methods (e.g., 'simpler MBE methods') and not as the language Mbe, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper uses premise‑hypothesis pairs translated from Chinese Civil Service Examinations, indicating it studies Chinese language data.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper evaluates on the SmartyPat‑Bench benchmark which contains English sentences, showing it studies English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The snippet mentions 'French ships' (nationality) rather than the French language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

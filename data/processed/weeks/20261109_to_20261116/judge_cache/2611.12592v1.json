@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.12592v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T04:46:32.188099+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9611,
+  "verdicts": {
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The snippet refers to the Portuguese language as part of the dataset name and description, indicating the paper studies this language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippet mentions English as the language of generated narratives and sentiment lexicon, indicating the paper works with English.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "German": {
+      "verdict": "false_positive",
+      "reason": "The snippets contain 'German Credit' dataset name and other references, but no mention of the German language itself, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

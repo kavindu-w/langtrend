@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.19439v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-17T23:36:38.991515+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11960,
+  "verdicts": {
+    "Chin": {
+      "verdict": "false_positive",
+      "reason": "The snippets refer to 'chin' as a body part (e.g., 'His chin trembled'), not the language. This implies a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Kom": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'kom' as a language code used to request Komi‑Zyrian translation, referring to the Komi language. The paper only mentions it as a code, not as a studied language. This implies men",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Komi-Zyrian": {
+      "verdict": "studied",
+      "reason": "The paper evaluates translation from Komi‑Zyrian to English and includes it in experiments. This implies studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Erzya": {
+      "verdict": "studied",
+      "reason": "The paper evaluates translation from Erzya to English and includes it in experiments. This implies studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Komi-Permyak": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions 'Komi‑Permyak' as a language code used in tool calls, but the paper does not study translation for this language. This implies mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Moksha": {
+      "verdict": "studied",
+      "reason": "The paper evaluates translation from Moksha to English and includes it in experiments. This implies studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Udmurt": {
+      "verdict": "studied",
+      "reason": "The paper evaluates translation from Udmurt to English and includes it in experiments. This implies studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Finnish": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions Finnish as part of the dataset but the paper does not study translation for this language. This implies mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper evaluates translation into English as the target language and includes it in experiments. This implies studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

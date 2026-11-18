@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.15010v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T02:31:40.313787+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3046,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The snippet contains 'MAE' as an abbreviation for metric (Mean Absolute Error), not the language Mae.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The snippet mentions that the additional disagreement corpora are in English, but the paper does not study or build resources for English.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.16704v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T01:12:33.825861+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4842,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae in snippets refers to the metric MAE (Mean Absolute Error), not the language Mae → false positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English appears as a language name for translations, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Japanese refers to the language of the data, models, and reports, which is part of the experiments → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.14675v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T02:50:43.770489+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10831,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo appears only as part of the configuration label \"bo n\" (best-of-N) and not as the language Bo, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "Sentinel appears only as part of the term \"sentinel 0.0\", a sentinel value in code, not the language Sentinel, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tama": {
+      "verdict": "false_positive",
+      "reason": "Tama appears only as a word in a Sanskrit example ('tama') and not as the language Tama, implying a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned only as part of a tool description for Tibetan/Classical Chinese alignment, not as a target of study, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Sanskrit": {
+      "verdict": "studied",
+      "reason": "Sanskrit is the target language of the study, with dedicated agents and evaluation, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Tibetan": {
+      "verdict": "mentioned_only",
+      "reason": "Tibetan is mentioned only as a future extension and as part of a tool for alignment, not as a target of current study, implying mentioned_only.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is the target translation language, with dedicated evaluation and critique agents, implying studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

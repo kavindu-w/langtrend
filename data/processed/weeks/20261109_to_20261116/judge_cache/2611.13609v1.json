@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.13609v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T03:29:12.208206+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3563,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin in the snippets refers to the Latin script/alphabet, not the language Latin, making it a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Uzbek": {
+      "verdict": "studied",
+      "reason": "Uzbek in the snippets refers to the Uzbek language, and the paper conducts experiments on Uzbek text, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.19127v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T00:01:03.444472+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2466,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "Mo refers to a person name in the snippet, not the language.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "false_positive",
+      "reason": "Chinese is used as an adjective for companies (referring to China), not the language, in the snippet.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

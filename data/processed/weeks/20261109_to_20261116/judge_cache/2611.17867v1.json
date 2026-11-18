@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.17867v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T00:32:50.149426+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2158,
+  "verdicts": {
+    "Vale": {
+      "verdict": "false_positive",
+      "reason": "Vale appears as a person's name (Arun Vale) in the examples, not a language, so it's a false positive.",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "English is mentioned as part of the training mixture, indicating the paper uses English data, so it is studied.",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}

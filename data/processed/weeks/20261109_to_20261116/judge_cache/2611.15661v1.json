@@ -1,0 +1,54 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.15661v1",
+  "judge_model": "cohere/north-mini-code:free",
+  "judged_at": "2026-11-18T01:47:19.266024+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6943,
+  "verdicts": {
+    "Bavarian": {
+      "verdict": "false_positive",
+      "reason": "Bavarian refers to the Bavarian Academy of Sciences and Humanities (an institution), not the language Bavarian → false_positive",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Occitan": {
+      "verdict": "studied",
+      "reason": "Old Occitan is referenced as a language used in multilingual alignment tasks and parallel corpora within the ALMA project, indicating it is studied → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Greek": {
+      "verdict": "mentioned_only",
+      "reason": "Greek is mentioned as an ancient language in the introduction, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Hebrew": {
+      "verdict": "mentioned_only",
+      "reason": "Hebrew is mentioned as an ancient language in the introduction, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Latin": {
+      "verdict": "mentioned_only",
+      "reason": "Latin is referenced as an ancient language in the introduction, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Chinese": {
+      "verdict": "mentioned_only",
+      "reason": "Chinese is mentioned as a classical language in the introduction, not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "Old Italian is referenced as a language used in multilingual alignment tasks and parallel corpora within the ALMA project, indicating it is studied → studied",
+      "model": "cohere/north-mini-code:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "English is referenced as a language used for dictionary definitions and translation tasks, but not studied → mentioned_only",
+      "model": "cohere/north-mini-code:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "French (including Old, Middle, and Modern French) is the primary language of the ALMeD corpus and is the focus of the paper's experiments, resources, and model development → studied",
+      "model": "cohere/north-mini-code:free"
+    }
+  }
+}
