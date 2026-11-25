@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.24383v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-11-25T09:33:55.979890+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11810,
+  "verdicts": {
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The term 'una' refers to a mathematical notation for 'error rate on contested minus error rate' in a table, not a language, implying a false positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "moroccan Arabic": {
+      "verdict": "studied",
+      "reason": "The text refers to Moroccan Arabic as one of the dialects used to build the MuDAS dataset and evaluate models, implying it is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "egyptian arabic": {
+      "verdict": "studied",
+      "reason": "The text refers to Egyptian Arabic as one of the dialects used to build the MuDAS dataset and evaluate models, implying it is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The text refers to Arabic as the primary language of the dataset, the models being evaluated, and the content being analyzed, implying it is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to English as the language used for certain prompts and translations within the study, implying it is mentioned_only",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}
