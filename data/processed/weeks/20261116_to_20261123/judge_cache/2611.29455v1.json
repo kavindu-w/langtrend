@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.29455v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T17:58:15.922871+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10415,
+  "verdicts": {
+    "Nasal": {
+      "verdict": "false_positive",
+      "reason": "The term refers to phonemes (retroflex nasal, dental nasal) rather than a human language; false positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Nepali": {
+      "verdict": "studied",
+      "reason": "The paper develops a TTS system specifically for the Nepali language, using Nepali datasets and evaluating Nepali PER; studied",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions Hindi to contrast its phonology and biases with Nepali; mentioned_only",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The term refers to the Latin script/alphabet used in the text input, not the Latin language; false positive",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper develops a bilingual TTS system for English and Nepali, using English datasets and evaluating English PER; studied",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}
