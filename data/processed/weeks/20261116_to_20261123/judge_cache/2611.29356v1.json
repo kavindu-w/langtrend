@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.29356v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T12:15:05.795941+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5907,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The text refers to 'Latin digits' used in text normalization, which refers to the script/character set rather than the language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "false_positive",
+      "reason": "The text refers to 'Arabic ye and kaf' characters used in text normalization, which refers to the script/alphabet rather than the language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "The paper focuses on building a conversational product search dataset specifically for the Persian language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The paper mentions English in the context of existing datasets (Wizard of Shopping, MG-ShopDial) and provides English translations for examples.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

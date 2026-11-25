@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.27286v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T13:30:05.750686+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4335,
+  "verdicts": {
+    "Mo": {
+      "verdict": "false_positive",
+      "reason": "The term 'mo' appears as an abbreviation for 'month' in the context of financial forecasting (e.g., 'mo ago').",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Sar": {
+      "verdict": "false_positive",
+      "reason": "The term 'SaR' appears as part of a URL/random string in a news article snippet.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Yoy": {
+      "verdict": "false_positive",
+      "reason": "The term 'YoY' is used as a financial acronym for 'Year-over-Year' revenue decline.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "French": {
+      "verdict": "false_positive",
+      "reason": "The text mentions a 'French weather station', referring to the location/nationality rather than the language.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

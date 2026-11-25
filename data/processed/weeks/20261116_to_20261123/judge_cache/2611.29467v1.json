@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.29467v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-11-25T12:29:55.889687+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6162,
+  "verdicts": {
+    "Bo": {
+      "verdict": "false_positive",
+      "reason": "Bo refers to Bayesian Optimization (BO) in the context of experimental design baselines, not a human language, therefore it is a false positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Mae refers to Mean Absolute Error (MAE), a statistical metric used in the evaluation table, not a human language, therefore it is a false positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Latin refers to Latin hypercube sampling, a statistical method for generating experimental designs, not the Latin language, therefore it is a false positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

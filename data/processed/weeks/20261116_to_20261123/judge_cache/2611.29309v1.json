@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.29309v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T12:18:05.329538+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 3000,
+  "verdicts": {
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "The text refers to the 'Hungarian algorithm', a combinatorial optimization method, not the Hungarian language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The word 'polish' is used as a verb meaning to refine the language of the paper, not as a reference to the Polish language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English counting questions as part of its benchmark dataset.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

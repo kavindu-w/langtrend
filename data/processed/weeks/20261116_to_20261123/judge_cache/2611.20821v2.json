@@ -1,0 +1,59 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.20821v2",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T16:41:11.683868+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11611,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The term refers to the visual element or object that carries a harm vector in a prompt, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mok": {
+      "verdict": "false_positive",
+      "reason": "MOK is used as a code/label for the 'mockery' harm axis in the benchmark's taxonomy.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "POL is used as a code/label for the 'political' harm axis in the benchmark's taxonomy.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hindi": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as a language that users might use to prompt models, which the benchmark does not cover.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as a language that users might use to prompt models, which the benchmark does not cover.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "Refers to the 'Latin-American sphere' (region), not the Latin language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "Mentioned as a locale within the East Asia region used to build the benchmark.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "Mentioned as a locale within the East Asia region used to build the benchmark.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "Mentioned as a language used in digital discourse and as a locale for the benchmark's data collection.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The benchmark prompts are explicitly written in English and evaluated in this language.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

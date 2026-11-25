@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.24168v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T14:47:06.387717+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11998,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "The term 'gpt-5.6-luna' refers to a specific LLM model used as a judge and for data generation, not the Luna language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper constructs a Chinese counseling dataset (CounselTrajD), trains a model (CounselTrajLM) for Chinese response generation, and evaluates it against other Chinese models.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "The paper provides English translations of prompts and data analysis examples, but does not study or build resources for the English language itself.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Japanese": {
+      "verdict": "studied",
+      "reason": "The paper uses Japanese-language dialogues from KokoroChat as a source and translates/rewrites them into Chinese for its framework.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

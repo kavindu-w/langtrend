@@ -1,0 +1,39 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.28383v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T12:58:07.803205+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 9287,
+  "verdicts": {
+    "Ese": {
+      "verdict": "false_positive",
+      "reason": "The word 'ese' appears as a Spanish demonstrative pronoun ('en ese momento temporal') in a prompt template, not as a reference to the Ese language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Una": {
+      "verdict": "false_positive",
+      "reason": "The word 'una' appears as a Spanish indefinite article ('una decisión individual') in a prompt template, not as a reference to the Una language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Uma": {
+      "verdict": "false_positive",
+      "reason": "The word 'uma' appears as a Portuguese indefinite article ('uma decisão individual') in a prompt template, not as a reference to the Uma language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Portuguese": {
+      "verdict": "studied",
+      "reason": "The paper uses Brazilian Portuguese for prompts and evaluates model responses based on Brazilian human data.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The paper uses French for prompts and evaluates model responses based on French human data.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Spanish": {
+      "verdict": "studied",
+      "reason": "The paper uses Spanish for prompts and evaluates model responses based on Chilean human data.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

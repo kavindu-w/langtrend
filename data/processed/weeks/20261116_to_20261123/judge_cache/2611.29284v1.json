@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.29284v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T12:32:03.119590+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11766,
+  "verdicts": {
+    "Mina": {
+      "verdict": "false_positive",
+      "reason": "MINA refers to a multimodal intention-analysis dataset, not a human language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper requires the model to output intentions in the English language as part of its experimental setup.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

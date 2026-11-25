@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.20524v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T16:43:06.427295+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11935,
+  "verdicts": {
+    "Carrier": {
+      "verdict": "false_positive",
+      "reason": "The term 'carrier' refers to a low-rank latent representation component used for rotary key information in the GaugeRoPE architecture, not a human language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Fwe": {
+      "verdict": "false_positive",
+      "reason": "The term 'FWE' appears in a table as part of 'CWE–FWE', which refers to specific tasks in the RULER benchmark, not a human language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "The term 'MAE' refers to Mean Absolute Error, a common evaluation metric for scaled-logit discrepancy, not a human language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper evaluates the model on 'English LongBench tasks', indicating the language is part of the experimental dataset.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

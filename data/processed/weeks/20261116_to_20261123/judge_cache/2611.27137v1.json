@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.27137v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T13:28:03.882146+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5800,
+  "verdicts": {
+    "Pol": {
+      "verdict": "false_positive",
+      "reason": "The snippet shows \"pol.\" refers to a Reddit political cohort, not the Polish language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Russian": {
+      "verdict": "studied",
+      "reason": "The paper evaluates and compares Russian-language IRA accounts and the Russian Current Policy network.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper evaluates English-language IRA accounts and uses an English-heavy crawl for controls.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.29549v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T12:06:04.081240+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4627,
+  "verdicts": {
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "MAE refers to Mean Absolute Error, a statistical metric for measuring error in the provided table and text, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper uses 20 Chinese queries and tasks as part of its benchmark construction and evaluation.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses 20 English queries and tasks as part of its benchmark construction and evaluation.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

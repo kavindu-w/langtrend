@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.29658v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T12:02:05.762759+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11949,
+  "verdicts": {
+    "Sie": {
+      "verdict": "false_positive",
+      "reason": "The word 'Sie' appears as part of a German example sentence ('Sie betrachtet sich im Spiegel'), not as a language being studied or mentioned. It is a German pronoun.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Italian": {
+      "verdict": "studied",
+      "reason": "The paper evaluates AI-generated audio descriptions specifically for movies in Italian, using Italian annotators and datasets.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper evaluates AI-generated audio descriptions specifically for movies in German, using German annotators and datasets.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English for the first stage of its pipeline and analyzes 'English wording/phrasing' (interference) in the target languages.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

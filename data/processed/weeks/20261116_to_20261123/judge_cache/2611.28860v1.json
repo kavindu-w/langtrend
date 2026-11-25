@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.28860v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-25T12:30:04.920173+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5839,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Refers to a model named 'GPT-5.6 Luna', not a human language",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Hungarian": {
+      "verdict": "false_positive",
+      "reason": "Refers to the 'Hungarian algorithm' (a combinatorial optimization algorithm) used for assignment, not the human language",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The paper focuses on Arabic stance detection, using Arabic tweets and rubrics",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English descriptions for targets as part of its pipeline",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}
