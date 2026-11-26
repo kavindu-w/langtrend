@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.23229v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-26T17:29:08.126894+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2827,
+  "verdicts": {
+    "Tulu": {
+      "verdict": "false_positive",
+      "reason": "The term 'tulu' appears as part of a prompt/dataset identifier (e.g., 'minerva_math::tulu') in an evaluation harness table, referring to a specific prompt template or dataset version rather than the h",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English-language news articles for domain adaptation experiments and discusses models that have not seen English sentences; verdict is studied",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

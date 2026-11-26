@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.21422v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-26T18:03:00.876453+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 6478,
+  "verdicts": {
+    "Dass": {
+      "verdict": "false_positive",
+      "reason": "The word 'dass' appears as a common German conjunction within prompt templates, not as a reference to a language named Dass.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Kein": {
+      "verdict": "false_positive",
+      "reason": "The word 'kein' appears as a common German negation word within prompt templates, not as a reference to a language named Kein.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper mentions an 'English prompt' used as part of the experimental setup for the AES system.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "German": {
+      "verdict": "studied",
+      "reason": "The paper evaluates the automated scoring of German-language responses and uses prompts written in German.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}
