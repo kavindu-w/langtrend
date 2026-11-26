@@ -1,0 +1,19 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.28298v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-26T06:47:09.072793+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4352,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The word 'pin' is used as a verb meaning to locate or fix an answer in the context of a regex search, not as a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses English-language datasets (LongBench-Pro, CorpusQA) for training and evaluation of its models.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

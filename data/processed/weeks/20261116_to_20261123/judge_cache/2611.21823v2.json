@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.21823v2",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-26T08:56:45.405310+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 7910,
+  "verdicts": {
+    "Jina": {
+      "verdict": "false_positive",
+      "reason": "Refers to 'jina-embeddings-v3' and 'Jina-v3', which are embedding models used for retrieval, not the human language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Persian": {
+      "verdict": "studied",
+      "reason": "The paper develops TUSI-Bench, a legal benchmark specifically for the Persian language and legal domain.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Arabic": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned in the context of the 'Perso-Arabic script' and character forms to discuss orthographic variation in Persian.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as a high-resource language and in the context of existing English-language legal benchmarks used for comparison.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}
