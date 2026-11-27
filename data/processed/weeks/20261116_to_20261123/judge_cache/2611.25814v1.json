@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.25814v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-27T09:24:12.122254+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 2440,
+  "verdicts": {
+    "Sentinel": {
+      "verdict": "false_positive",
+      "reason": "SENTINEL refers to a public method/model released for LLaVA-1.5 and Qwen2.5-VL, not a human language",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper uses Chinese reference translations to assist human annotators in the evaluation process",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper evaluates English captions as part of its core vision-language model analysis",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

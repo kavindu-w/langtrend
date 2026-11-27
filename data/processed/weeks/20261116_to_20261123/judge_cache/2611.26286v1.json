@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.26286v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-27T09:13:11.488287+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 10957,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Luna refers to a specific LLM model (GPT-6 Luna) used for claim extraction and grouping in the methodology, not a human language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Polish": {
+      "verdict": "false_positive",
+      "reason": "The term 'polished reviews' refers to text that has been refined or edited by an LLM, not the Polish language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper explicitly states that all analyzed texts are in English, making it the language of the studied data.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}
