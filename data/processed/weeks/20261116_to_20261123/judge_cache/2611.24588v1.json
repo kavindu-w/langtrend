@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.24588v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-11-27T16:33:08.425334+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 3031,
+  "verdicts": {
+    "Latin": {
+      "verdict": "false_positive",
+      "reason": "The text refers to the Latin script used for numerical expressions, which is a writing system rather than the language itself, implying a false_positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Japanese": {
+      "verdict": "mentioned_only",
+      "reason": "The text refers to a study by Yamada regarding Japanese to English translation, implying the language is mentioned_only",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Arabic": {
+      "verdict": "studied",
+      "reason": "The text refers to the target language of the translation task and the dataset being built, implying the language is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The text refers to the source language of the translation task and the dataset being built, implying the language is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

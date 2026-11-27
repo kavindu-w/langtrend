@@ -1,0 +1,34 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.29062v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-27T18:40:40.616386+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 11776,
+  "verdicts": {
+    "Luna": {
+      "verdict": "false_positive",
+      "reason": "Refers to a specific LLM model named GPT-5.6-Luna used as an answering model in the experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Mae": {
+      "verdict": "false_positive",
+      "reason": "Refers to MAE (Mean Absolute Error), a common evaluation metric for rating prediction in the MemoryCD dataset.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Amharic": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as one of the interests (Amharic practice) in a user's history used for a case study example.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as the language of a machine-translated solution-selection subset in the Mem-PAL benchmark.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Spanish": {
+      "verdict": "mentioned_only",
+      "reason": "Mentioned as a preference (Spanish family comedy) in a user's history used for a case study example.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

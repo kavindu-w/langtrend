@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.28929v1",
+  "judge_model": "google/gemma-4-26b-a4b-it:free",
+  "judged_at": "2026-11-27T18:42:47.188393+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 5102,
+  "verdicts": {
+    "Pin": {
+      "verdict": "false_positive",
+      "reason": "The term refers to a Personal Identification Number used in banking transaction examples, not a language, therefore it is a false positive",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "Korean": {
+      "verdict": "studied",
+      "reason": "The snippets show Korean is one of the languages used in the MInDS-14 dataset for cross-lingual intent classification experiments, therefore it is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "French": {
+      "verdict": "studied",
+      "reason": "The snippets show French is one of the languages used in the MInDS-14 dataset for cross-lingual intent classification experiments, therefore it is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The snippets show English is used for the primary training data and as a base for cross-lingual transfer tasks, therefore it is studied",
+      "model": "google/gemma-4-26b-a4b-it:free"
+    }
+  }
+}

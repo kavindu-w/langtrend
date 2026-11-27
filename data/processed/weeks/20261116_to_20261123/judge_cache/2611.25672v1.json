@@ -1,0 +1,24 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.25672v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-27T19:42:03.946218+00:00",
+  "context_coverage": "abstract+html",
+  "context_chars": 4183,
+  "verdicts": {
+    "Moba": {
+      "verdict": "false_positive",
+      "reason": "MoBA refers to a baseline model used for comparison in the experimental results tables, not the Moba language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper evaluates models on the Chinese-English SarcNet test set, indicating the language is part of the experimental data.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper uses models trained on English data and evaluates on a bilingual test set, indicating the language is part of the experimental data.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}

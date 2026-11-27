@@ -1,0 +1,29 @@
+{
+  "paper_id": "http://arxiv.org/abs/2611.20579v1",
+  "judge_model": "google/gemma-4-31b-it:free",
+  "judged_at": "2026-11-27T17:43:11.353163+00:00",
+  "context_coverage": "abstract+pdf",
+  "context_chars": 7920,
+  "verdicts": {
+    "Deg": {
+      "verdict": "false_positive",
+      "reason": "The term 'deg' refers to degrees as a unit of measurement for spacing in vibration testing, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Yoke": {
+      "verdict": "false_positive",
+      "reason": "The term 'yoke' refers to a structural component of a solar array wing in a satellite, not a language.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "English": {
+      "verdict": "studied",
+      "reason": "The paper is written in English and mentions an 'English gloss' of the test records, indicating it is used for the study's presentation and analysis.",
+      "model": "google/gemma-4-31b-it:free"
+    },
+    "Chinese": {
+      "verdict": "studied",
+      "reason": "The paper explicitly states that LLMs are used to read 'Chinese test records' to extract configurations, making it a primary language studied/processed in the experiments.",
+      "model": "google/gemma-4-31b-it:free"
+    }
+  }
+}
