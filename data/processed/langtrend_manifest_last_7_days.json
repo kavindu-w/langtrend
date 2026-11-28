@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-11-28T03:42:29.457477+00:00",
+  "generated_at": "2026-11-28T09:35:25.223775+00:00",
   "window_days": 7,
   "week_start": "2026-11-16",
   "week_end": "2026-11-23",
   "query": "cat:cs.CL",
   "counts": {
     "papers": 573,
-    "flagged_papers": 293,
-    "unique_languages": 205,
+    "flagged_papers": 291,
+    "unique_languages": 204,
     "unique_languages_mentioned_only": 0,
     "pdf_failed_no_detection": 0,
     "late_announced": 29,
     "judge": {
-      "judged_papers": 219,
-      "judged_languages": 541,
-      "studied": 273,
+      "judged_papers": 226,
+      "judged_languages": 550,
+      "studied": 278,
       "mentioned_only": 46,
-      "false_positive": 222
+      "false_positive": 226
     }
   },
   "language_counts": [
@@ -64,8 +64,8 @@
     },
     {
       "language": "Luna",
-      "count": 23,
-      "studied": 23,
+      "count": 22,
+      "studied": 22,
       "mentioned_only": 0
     },
     {
@@ -165,12 +165,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Pin",
-      "count": 7,
-      "studied": 7,
-      "mentioned_only": 0
-    },
-    {
       "language": "Swahili",
       "count": 7,
       "studied": 7,
@@ -190,6 +184,12 @@
     },
     {
       "language": "Marathi",
+      "count": 6,
+      "studied": 6,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Pin",
       "count": 6,
       "studied": 6,
       "mentioned_only": 0
@@ -441,12 +441,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Cua",
-      "count": 2,
-      "studied": 2,
-      "mentioned_only": 0
-    },
-    {
       "language": "Estonian",
       "count": 2,
       "studied": 2,
@@ -652,6 +646,12 @@
     },
     {
       "language": "Croatian",
+      "count": 1,
+      "studied": 1,
+      "mentioned_only": 0
+    },
+    {
+      "language": "Cua",
       "count": 1,
       "studied": 1,
       "mentioned_only": 0
@@ -1107,12 +1107,6 @@
       "mentioned_only": 0
     },
     {
-      "language": "Sop",
-      "count": 1,
-      "studied": 1,
-      "mentioned_only": 0
-    },
-    {
       "language": "Sranan Tongo",
       "count": 1,
       "studied": 1,
@@ -1254,8 +1248,8 @@
   "class_counts": [
     {
       "class_id": 0,
-      "count": 163,
-      "studied": 163,
+      "count": 159,
+      "studied": 159,
       "mentioned_only": 0
     },
     {
@@ -1293,12 +1287,12 @@
     {
       "date": "2026-11-16",
       "papers": 109,
-      "flagged": 60
+      "flagged": 59
     },
     {
       "date": "2026-11-17",
       "papers": 89,
-      "flagged": 42
+      "flagged": 41
     },
     {
       "date": "2026-11-18",
@@ -18632,7 +18626,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The snippets state that all audio used in the study is in English, which implies the language is part of the experimental setup, therefore the verdict is studied",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-11-28T09:15:48.918067+00:00"
         }
       ],
       "sources_checked": [
@@ -18649,7 +18647,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The snippets state that all audio used in the study is in English, which implies the language is part of the experimental setup, therefore the verdict is studied",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T09:15:48.918067+00:00"
             }
           ]
         }
@@ -83532,14 +83534,22 @@
           "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term SOP refers to a benchmark (SOPBench) used for evaluation, not a human language",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-11-28T08:03:56.559354+00:00"
         },
         {
           "language": "English",
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text refers to English procedural documents used as source data for the study",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-11-28T08:03:56.559354+00:00"
         }
       ],
       "sources_checked": [
@@ -83563,13 +83573,21 @@
               "language": "Sop",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers"
+              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term SOP refers to a benchmark (SOPBench) used for evaluation, not a human language",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:03:56.559354+00:00"
             },
             {
               "language": "Sop",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers"
+              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term SOP refers to a benchmark (SOPBench) used for evaluation, not a human language",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:03:56.559354+00:00"
             }
           ]
         },
@@ -83581,13 +83599,21 @@
               "language": "Sop",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers"
+              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term SOP refers to a benchmark (SOPBench) used for evaluation, not a human language",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:03:56.559354+00:00"
             },
             {
               "language": "Sop",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers"
+              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term SOP refers to a benchmark (SOPBench) used for evaluation, not a human language",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:03:56.559354+00:00"
             }
           ]
         },
@@ -83597,7 +83623,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The text refers to English procedural documents used as source data for the study",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:03:56.559354+00:00"
             }
           ]
         },
@@ -83607,7 +83637,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The text refers to English procedural documents used as source data for the study",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:03:56.559354+00:00"
             }
           ]
         },
@@ -83619,13 +83653,21 @@
               "language": "Sop",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers"
+              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term SOP refers to a benchmark (SOPBench) used for evaluation, not a human language",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:03:56.559354+00:00"
             },
             {
               "language": "Sop",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers"
+              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term SOP refers to a benchmark (SOPBench) used for evaluation, not a human language",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:03:56.559354+00:00"
             }
           ]
         },
@@ -83637,13 +83679,21 @@
               "language": "Sop",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers"
+              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term SOP refers to a benchmark (SOPBench) used for evaluation, not a human language",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:03:56.559354+00:00"
             },
             {
               "language": "Sop",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers"
+              "flag_reason": "SOP = Standard Operating Procedure — very common acronym in agentic AI / agent-workflow papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term SOP refers to a benchmark (SOPBench) used for evaluation, not a human language",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:03:56.559354+00:00"
             }
           ]
         }
@@ -87607,7 +87657,11 @@
           "sources": [
             "abstract",
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The paper uses English training text from FineWeb as part of its experimental setup and training runs, meaning it is studied.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-11-28T08:06:04.936054+00:00"
         }
       ],
       "sources_checked": [
@@ -87629,7 +87683,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English training text from FineWeb as part of its experimental setup and training runs, meaning it is studied.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:06:04.936054+00:00"
             }
           ]
         },
@@ -87639,7 +87697,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English training text from FineWeb as part of its experimental setup and training runs, meaning it is studied.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:06:04.936054+00:00"
             }
           ]
         },
@@ -87649,7 +87711,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English training text from FineWeb as part of its experimental setup and training runs, meaning it is studied.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:06:04.936054+00:00"
             }
           ]
         },
@@ -87659,7 +87725,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English training text from FineWeb as part of its experimental setup and training runs, meaning it is studied.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:06:04.936054+00:00"
             }
           ]
         },
@@ -87669,7 +87739,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English training text from FineWeb as part of its experimental setup and training runs, meaning it is studied.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:06:04.936054+00:00"
             }
           ]
         },
@@ -87679,7 +87753,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The paper uses English training text from FineWeb as part of its experimental setup and training runs, meaning it is studied.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:06:04.936054+00:00"
             }
           ]
         }
@@ -89073,7 +89151,11 @@
           "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-11-28T08:09:05.064920+00:00"
         }
       ],
       "sources_checked": [
@@ -89102,19 +89184,31 @@
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             },
             {
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             },
             {
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             }
           ]
         },
@@ -89126,7 +89220,11 @@
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             }
           ]
         },
@@ -89138,7 +89236,11 @@
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             }
           ]
         },
@@ -89150,7 +89252,11 @@
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             }
           ]
         },
@@ -89162,7 +89268,11 @@
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             }
           ]
         },
@@ -89174,7 +89284,11 @@
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             }
           ]
         },
@@ -89186,13 +89300,21 @@
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             },
             {
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             }
           ]
         },
@@ -89204,7 +89326,11 @@
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             }
           ]
         },
@@ -89216,7 +89342,11 @@
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             }
           ]
         },
@@ -89228,7 +89358,11 @@
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             }
           ]
         },
@@ -89240,7 +89374,11 @@
               "language": "Cua",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers"
+              "flag_reason": "CUA = Computer Use Agent (Anthropic/Claude) — common in agentic AI papers",
+              "judge_verdict": "false_positive",
+              "judge_reason": "The term 'CUA' refers to 'Computer-Use Agents', a type of AI system, not a human language.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:09:05.064920+00:00"
             }
           ]
         }
@@ -98653,7 +98791,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text refers to the English language version of the OCRBench v2 benchmark used for evaluation, implying the model was tested on it.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-11-28T08:19:05.039457+00:00"
         }
       ],
       "sources_checked": [
@@ -98671,7 +98813,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The text refers to the English language version of the OCRBench v2 benchmark used for evaluation, implying the model was tested on it.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:19:05.039457+00:00"
             }
           ]
         },
@@ -98681,7 +98827,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The text refers to the English language version of the OCRBench v2 benchmark used for evaluation, implying the model was tested on it.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:19:05.039457+00:00"
             }
           ]
         }
@@ -104406,14 +104556,22 @@
           "flag_reason": "Too short/generic — matches many common words",
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Pin is used as a verb meaning to fix or identify something (to pin down the response) rather than referring to a human language, so the verdict is false_positive",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-11-28T08:31:57.404572+00:00"
         },
         {
           "language": "Luna",
           "class": 0,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "false_positive",
+          "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+          "judge_model": "google/gemma-4-26b-a4b-it:free",
+          "judged_at": "2026-11-28T08:31:57.404572+00:00"
         }
       ],
       "sources_checked": [
@@ -104440,7 +104598,11 @@
               "language": "Pin",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches many common words"
+              "flag_reason": "Too short/generic — matches many common words",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Pin is used as a verb meaning to fix or identify something (to pin down the response) rather than referring to a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             }
           ]
         },
@@ -104452,7 +104614,11 @@
               "language": "Pin",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches many common words"
+              "flag_reason": "Too short/generic — matches many common words",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Pin is used as a verb meaning to fix or identify something (to pin down the response) rather than referring to a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             }
           ]
         },
@@ -104464,7 +104630,11 @@
               "language": "Pin",
               "class": 0,
               "needs_review": true,
-              "flag_reason": "Too short/generic — matches many common words"
+              "flag_reason": "Too short/generic — matches many common words",
+              "judge_verdict": "false_positive",
+              "judge_reason": "Pin is used as a verb meaning to fix or identify something (to pin down the response) rather than referring to a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             }
           ]
         },
@@ -104474,19 +104644,35 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             }
           ]
         },
@@ -104496,11 +104682,19 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             }
           ]
         },
@@ -104510,7 +104704,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             }
           ]
         },
@@ -104520,7 +104718,11 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             }
           ]
         },
@@ -104530,11 +104732,19 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             }
           ]
         },
@@ -104544,11 +104754,19 @@
           "detected_languages": [
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             },
             {
               "language": "Luna",
-              "class": 0
+              "class": 0,
+              "judge_verdict": "false_positive",
+              "judge_reason": "Luna refers to a specific AI model (GPT-6 Luna) mentioned in the leaderboard and cost analysis, not a human language, so the verdict is false_positive",
+              "judge_model": "google/gemma-4-26b-a4b-it:free",
+              "judged_at": "2026-11-28T08:31:57.404572+00:00"
             }
           ]
         }
@@ -121986,7 +122204,11 @@
           "class": 5,
           "sources": [
             "html"
-          ]
+          ],
+          "judge_verdict": "studied",
+          "judge_reason": "The text refers to the use of English prompts in the experiments, indicating the language was used for the study's evaluation.",
+          "judge_model": "google/gemma-4-31b-it:free",
+          "judged_at": "2026-11-28T08:59:56.961488+00:00"
         }
       ],
       "sources_checked": [
@@ -122003,7 +122225,11 @@
           "detected_languages": [
             {
               "language": "English",
-              "class": 5
+              "class": 5,
+              "judge_verdict": "studied",
+              "judge_reason": "The text refers to the use of English prompts in the experiments, indicating the language was used for the study's evaluation.",
+              "judge_model": "google/gemma-4-31b-it:free",
+              "judged_at": "2026-11-28T08:59:56.961488+00:00"
             }
           ]
         }
