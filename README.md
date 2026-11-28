@@ -17,7 +17,7 @@ Live site: [kavindu-w.github.io/langtrend](https://kavindu-w.github.io/langtrend
 ## Latest Run Summary
 
 _Latest processed week: **2026-11-16 – 2026-11-23**._
-_Judged with (mixed — fallback used):_ `google/gemma-4-31b-it:free` (356), `google/gemma-4-26b-a4b-it:free` (183)
+_Judged with (mixed — fallback used):_ `google/gemma-4-31b-it:free` (358), `google/gemma-4-26b-a4b-it:free` (183)
 
 > ⚠️ **LLM judge in progress** — this week's papers are still being verified. The live site won't show this week's data until judging completes, and the *This week* counts below (and per-language/class breakdowns) may still change as more verdicts come in.
 
